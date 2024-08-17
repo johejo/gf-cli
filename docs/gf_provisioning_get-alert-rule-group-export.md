@@ -1,0 +1,33 @@
+## gf provisioning get-alert-rule-group-export
+
+
+
+```
+gf provisioning get-alert-rule-group-export [flags]
+```
+
+### Options
+
+```
+      --download            Download
+      --folder-uid string   FolderUID
+      --format string       Format
+      --group string        Group
+  -h, --help                help for get-alert-rule-group-export
+```
+
+### Options inherited from parent commands
+
+```
+      --api-key string               API Key to authenticate grafana server (env: GF_API_KEY)
+      --base-path string             Base path for server: useful when using sever behind reverse proxy (env: GF_BASE_PATH)
+      --basic-user-password string   Basic authentication password (env: GF_BASIC_AUTH_USERNAME)
+      --basic-user-username string   Basic authentication username (env: GF_BASIC_AUTH_PASSWORD)
+      --host string                  Grafana server host (env: GF_HOST) (default "localhost:3000")
+      --org-id string                Organization ID (env: GF_ORG_ID)
+```
+
+### SEE ALSO
+
+* [gf provisioning](gf_provisioning.md)	 - 
+
