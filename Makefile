@@ -1,3 +1,5 @@
+all:
+
 clean:
 	rm -rf ./dist
 
@@ -9,3 +11,6 @@ gendoc:
 
 install: gen
 	go install ./cmd/gf
+
+copygojq:
+	./copygojq.bash

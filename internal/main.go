@@ -9,6 +9,9 @@ import (
 
 	"github.com/grafana/grafana-openapi-client-go/client"
 	"github.com/grafana/grafana-openapi-client-go/models"
+	"github.com/itchyny/gojq"
+	"github.com/johejo/gf-cli/internal/cli"
+	"github.com/mattn/go-isatty"
 	"github.com/spf13/cobra"
 )
 
@@ -28,6 +31,9 @@ var (
 		OrgID             int64
 		Version           bool
 		Debug             bool
+		jq                string
+		noColor           bool
+		colors            string
 	}{}
 )
 
@@ -43,6 +49,8 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.BasicAuthPassword, "basic-user-password", "", "Basic authentication password (env: GF_BASIC_AUTH_USERNAME)")
 	rootCmd.PersistentFlags().Int64Var(&rootCmdFlag.OrgID, "org-id", 0, "Organization ID (env: GF_ORG_ID)")
 	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.Debug, "debug", false, "Enable debug logging (env: GF_DEBUG)")
+	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.jq, "jq", ".", "Filter JSON output using a jq `expression` (env: GF_JQ)")
+	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.noColor, "no-color", false, "Disable colored output (env: GF_NO_COLOR or NO_COLOR)")
 }
 
 func gfClient() *client.GrafanaHTTPAPI {
@@ -99,12 +107,33 @@ func applyEnvInt64[T any](t *T, key string, flg int64, f func(int64) *T) *T {
 }
 
 func printPayload(p any) error {
+	filter := rootCmdFlag.jq
+	if v, ok := os.LookupEnv("GF_JQ"); ok {
+		filter = v
+	}
+	if filter == "" {
+		filter = "."
+	}
 	b, err := json.MarshalIndent(p, "", "  ")
 	if err != nil {
 		return err
 	}
-	fmt.Println(string(b))
-	return nil
+	var v any
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	p, err = jq(rootCmdFlag.jq, v)
+	if err != nil {
+		return err
+	}
+	noColor := rootCmdFlag.noColor || os.Getenv("GF_NO_COLOR") != "" || os.Getenv("NO_COLOR") != ""
+	if !noColor && isatty.IsTerminal(os.Stdout.Fd()) {
+		m := cli.NewMarshaler(false, 2)
+		return m.Marshal(p, os.Stdout)
+	}
+	e := json.NewEncoder(os.Stdout)
+	e.SetIndent("", "  ")
+	return e.Encode(p)
 }
 
 func getBodyParam(flg string, dst any) error {
@@ -127,4 +156,26 @@ func getBodyParam(flg string, dst any) error {
 
 type getPayloadError interface {
 	GetPayload() *models.ErrorResponseBody
+}
+
+func jq(s string, payload any) (any, error) {
+	q, err := gojq.Parse(s)
+	if err != nil {
+		return nil, err
+	}
+	iter := q.Run(payload)
+	for {
+		v, ok := iter.Next()
+		if !ok {
+			break
+		}
+		if err, ok := v.(error); ok {
+			if err, ok := err.(*gojq.HaltError); ok && err.Value() == nil {
+				break
+			}
+			return v, err
+		}
+		return v, nil
+	}
+	return nil, fmt.Errorf("gf: jq filter error filter=%s, payload", s, payload)
 }
