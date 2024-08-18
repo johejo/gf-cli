@@ -78,7 +78,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -106,7 +109,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -133,7 +139,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -155,7 +164,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -173,7 +185,10 @@ var (
 				&access_control.GetAccessControlStatusParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -193,7 +208,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -214,7 +232,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -234,7 +255,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -254,7 +278,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -275,7 +302,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -295,7 +325,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -322,7 +355,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -342,7 +378,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -369,7 +408,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -390,7 +432,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -412,7 +457,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -441,7 +489,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -471,7 +522,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -501,7 +555,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -531,7 +588,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -559,7 +619,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -579,7 +642,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -607,7 +673,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -635,7 +704,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -749,7 +821,10 @@ var (
 				&access_control_provisioning.AdminProvisioningReloadAccessControlParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -771,7 +846,10 @@ var (
 				&admin.AdminGetSettingsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -789,7 +867,10 @@ var (
 				&admin.AdminGetStatsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -811,7 +892,10 @@ var (
 				&admin_ldap.GetLDAPStatusParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -831,7 +915,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -851,7 +938,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -869,7 +959,10 @@ var (
 				&admin_ldap.ReloadLDAPCfgParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -897,7 +990,10 @@ var (
 				&admin_provisioning.AdminProvisioningReloadDashboardsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -915,7 +1011,10 @@ var (
 				&admin_provisioning.AdminProvisioningReloadDatasourcesParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -933,7 +1032,10 @@ var (
 				&admin_provisioning.AdminProvisioningReloadPluginsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -964,7 +1066,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -984,7 +1089,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1004,7 +1112,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1024,7 +1135,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1044,7 +1158,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1064,7 +1181,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1092,7 +1212,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1120,7 +1243,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1148,7 +1274,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1168,7 +1297,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1197,7 +1329,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1260,7 +1395,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1290,7 +1428,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1317,7 +1458,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1345,7 +1489,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1372,7 +1519,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1399,7 +1549,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1427,7 +1580,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1492,7 +1648,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1512,7 +1671,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1532,7 +1694,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1573,7 +1738,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1594,7 +1762,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1615,7 +1786,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1637,7 +1811,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1657,7 +1834,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1686,7 +1866,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1735,7 +1918,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1763,7 +1949,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1802,7 +1991,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1823,7 +2015,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1843,7 +2038,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1863,7 +2061,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1881,7 +2082,10 @@ var (
 				&dashboard_public.ListPublicDashboardsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1902,7 +2106,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1931,7 +2138,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -1951,7 +2161,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2002,7 +2215,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2024,7 +2240,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2052,7 +2271,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2096,7 +2318,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2116,7 +2341,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2136,7 +2364,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2154,7 +2385,10 @@ var (
 				&dashboards.GetDashboardTagsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2172,7 +2406,10 @@ var (
 				&dashboards.GetHomeDashboardParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2192,7 +2429,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2219,7 +2459,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2246,7 +2489,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2274,7 +2520,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2327,7 +2576,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2348,7 +2600,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2368,7 +2623,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2388,7 +2646,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2408,7 +2669,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2428,7 +2692,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2448,7 +2715,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2468,7 +2738,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2486,7 +2759,10 @@ var (
 				&datasources.GetDataSourcesParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2514,7 +2790,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2565,7 +2844,10 @@ var (
 				&devices.ListDevicesParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2583,7 +2865,10 @@ var (
 				&devices.SearchDevicesParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2614,7 +2899,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2641,7 +2929,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2661,7 +2952,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2681,7 +2975,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2701,7 +2998,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2721,7 +3021,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2739,7 +3042,10 @@ var (
 				&enterprise.SearchResultParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2767,7 +3073,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2787,7 +3096,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2833,7 +3145,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2861,7 +3176,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2899,7 +3217,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2920,7 +3241,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2940,7 +3264,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2960,7 +3287,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -2983,7 +3313,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3011,7 +3344,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3039,7 +3375,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3088,7 +3427,10 @@ var (
 				&get_current_org.GetCurrentOrgQuotaParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3110,7 +3452,10 @@ var (
 				&health.GetHealthParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3132,7 +3477,10 @@ var (
 				&ldap_debug.GetSyncStatusParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3163,7 +3511,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3183,7 +3534,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3203,7 +3557,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3223,7 +3580,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3243,7 +3603,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3270,7 +3633,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3298,7 +3664,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3358,7 +3727,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3376,7 +3748,10 @@ var (
 				&licensing.GetCustomPermissionsCSVParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3395,7 +3770,10 @@ var (
 				&licensing.GetCustomPermissionsReportParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3414,7 +3792,10 @@ var (
 				&licensing.GetLicenseTokenParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3432,7 +3813,10 @@ var (
 				&licensing.GetStatusParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3460,7 +3844,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3487,7 +3874,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3506,7 +3896,10 @@ var (
 				&licensing.RefreshLicenseStatsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3540,7 +3933,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3559,7 +3955,10 @@ var (
 				&migrations.CreateCloudMigrationTokenParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3586,7 +3985,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3606,7 +4008,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3626,7 +4031,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3647,7 +4055,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3668,7 +4079,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3688,7 +4102,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3706,7 +4123,10 @@ var (
 				&migrations.GetCloudMigrationTokenParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3724,7 +4144,10 @@ var (
 				&migrations.GetSessionListParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3744,7 +4167,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3766,7 +4192,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3789,7 +4218,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3809,7 +4241,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3830,7 +4265,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3905,7 +4343,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3923,7 +4364,10 @@ var (
 				&org.GetCurrentOrgParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3944,7 +4388,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3962,7 +4409,10 @@ var (
 				&org.GetOrgUsersForCurrentOrgParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -3982,7 +4432,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4009,7 +4462,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4036,7 +4492,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4064,7 +4523,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4115,7 +4577,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4133,7 +4598,10 @@ var (
 				&org_invites.GetPendingOrgInvitesParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4153,7 +4621,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4181,7 +4652,10 @@ var (
 				&org_preferences.GetOrgPreferencesParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4208,7 +4682,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4235,7 +4712,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4273,7 +4753,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4300,7 +4783,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4320,7 +4806,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4340,7 +4829,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4360,7 +4852,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4381,7 +4876,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4401,7 +4899,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4424,7 +4925,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4452,7 +4956,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4481,7 +4988,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4510,7 +5020,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4538,7 +5051,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4616,7 +5132,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4636,7 +5155,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4656,7 +5178,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4676,7 +5201,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4697,7 +5225,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4725,7 +5256,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4770,7 +5304,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4792,7 +5329,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4813,7 +5353,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4836,7 +5379,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4857,7 +5403,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4880,7 +5429,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4901,7 +5453,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4923,7 +5478,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4946,7 +5504,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4967,7 +5528,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -4987,7 +5551,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5011,7 +5578,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5029,7 +5599,10 @@ var (
 				&provisioning.GetAlertRulesParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5049,7 +5622,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5072,7 +5648,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5092,7 +5671,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5110,7 +5692,10 @@ var (
 				&provisioning.GetMuteTimingsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5128,7 +5713,10 @@ var (
 				&provisioning.GetPolicyTreeExportParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5146,7 +5734,10 @@ var (
 				&provisioning.GetPolicyTreeParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5166,7 +5757,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5184,7 +5778,10 @@ var (
 				&provisioning.GetTemplatesParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5212,7 +5809,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5240,7 +5840,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5268,7 +5871,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5297,7 +5903,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5327,7 +5936,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5356,7 +5968,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5385,7 +6000,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5413,7 +6031,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5442,7 +6063,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5460,7 +6084,10 @@ var (
 				&provisioning.ResetPolicyTreeParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5601,7 +6228,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5621,7 +6251,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5649,7 +6282,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5676,7 +6312,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5696,7 +6335,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5716,7 +6358,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5773,7 +6418,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5800,7 +6448,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5820,7 +6471,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5838,7 +6492,10 @@ var (
 				&recording_rules.DeleteRecordingRuleWriteTargetParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5856,7 +6513,10 @@ var (
 				&recording_rules.GetRecordingRuleWriteTargetParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5874,7 +6534,10 @@ var (
 				&recording_rules.ListRecordingRulesParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5901,7 +6564,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5928,7 +6594,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5974,7 +6643,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -5994,7 +6666,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6012,7 +6687,10 @@ var (
 				&reports.GetReportSettingsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6032,7 +6710,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6050,7 +6731,10 @@ var (
 				&reports.GetReportsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6068,7 +6752,10 @@ var (
 				&reports.GetSettingsImageParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6089,7 +6776,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6114,7 +6804,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6141,7 +6834,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6168,7 +6864,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6195,7 +6894,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6223,7 +6925,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6279,7 +6984,10 @@ var (
 				&saml.GetMetadataParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6297,7 +7005,10 @@ var (
 				&saml.GetSAMLLogoutParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6316,7 +7027,10 @@ var (
 				&saml.GetSLOParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6337,7 +7051,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6359,7 +7076,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6389,7 +7109,10 @@ var (
 				&search.ListSortOptionsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6421,7 +7144,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6467,7 +7193,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6495,7 +7224,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6515,7 +7247,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6536,7 +7271,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6556,7 +7294,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6576,7 +7317,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6600,7 +7344,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6628,7 +7375,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6690,7 +7440,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6708,7 +7461,10 @@ var (
 				&signed_in_user.ClearHelpFlagsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6726,7 +7482,10 @@ var (
 				&signed_in_user.GetSignedInUserOrgListParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6744,7 +7503,10 @@ var (
 				&signed_in_user.GetSignedInUserTeamListParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6762,7 +7524,10 @@ var (
 				&signed_in_user.GetSignedInUserParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6780,7 +7545,10 @@ var (
 				&signed_in_user.GetUserAuthTokensParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6798,7 +7566,10 @@ var (
 				&signed_in_user.GetUserQuotasParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6825,7 +7596,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6845,7 +7619,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6865,7 +7642,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6885,7 +7665,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6905,7 +7688,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6925,7 +7711,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6952,7 +7741,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -6972,7 +7764,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7021,7 +7816,10 @@ var (
 				&signing_keys.RetrieveJWKSParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7052,7 +7850,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7072,7 +7873,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7092,7 +7896,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7112,7 +7919,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7131,7 +7941,10 @@ var (
 				&snapshots.GetSharingOptionsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7152,7 +7965,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7192,7 +8008,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7210,7 +8029,10 @@ var (
 				&sso_settings.ListAllProvidersSettingsParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7230,7 +8052,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7258,7 +8083,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7300,7 +8128,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7320,7 +8151,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7341,7 +8175,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7384,7 +8221,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7411,7 +8251,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7431,7 +8274,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7451,7 +8297,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7472,7 +8321,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7495,7 +8347,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7523,7 +8378,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7552,7 +8410,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7580,7 +8441,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7608,7 +8472,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7670,7 +8537,10 @@ var (
 				&user.UpdateUserEmailParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7693,7 +8563,10 @@ var (
 				&user_preferences.GetUserPreferencesParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7720,7 +8593,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7747,7 +8623,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7777,7 +8656,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7797,7 +8679,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7817,7 +8702,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7838,7 +8726,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7856,7 +8747,10 @@ var (
 				&users.SearchUsersWithPagingParams{},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err
@@ -7884,7 +8778,10 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
 					return err
 				}
 				return err

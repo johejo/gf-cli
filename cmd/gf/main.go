@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"os"
 	"runtime/debug"
 
 	"github.com/johejo/gf-cli/internal"
@@ -26,6 +26,6 @@ func main() {
 	cmd := internal.RootCmd()
 	cmd.Version = getVersion()
 	if err := cmd.Execute(); err != nil {
-		log.Fatal(err)
+		os.Exit(1)
 	}
 }

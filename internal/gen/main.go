@@ -389,7 +389,12 @@ var (
 				},
 			)
 			if err != nil {
-				if err := printPayload(err); err != nil {return err}
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
 				return err
 			}
 			{{- if .HasGetPayload }}
