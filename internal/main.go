@@ -7,7 +7,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/grafana/grafana-openapi-client-go/client"
+	gfclient "github.com/grafana/grafana-openapi-client-go/client"
 	"github.com/grafana/grafana-openapi-client-go/models"
 	"github.com/itchyny/gojq"
 	"github.com/johejo/gf-cli/internal/cli"
@@ -23,14 +23,14 @@ var (
 		DisableAutoGenTag: true,
 	}
 	rootCmdFlag = struct {
-		Host              string
-		BasePath          string
-		APIKey            string
-		BasicAuthUsername string
-		BasicAuthPassword string
-		OrgID             int64
-		Version           bool
-		Debug             bool
+		host              string
+		basePath          string
+		apiKey            string
+		basicAuthUsername string
+		basicAuthPassword string
+		orgID             int64
+		version           bool
+		debug             bool
 		jq                string
 		noColor           bool
 		colors            string
@@ -42,43 +42,55 @@ func RootCmd() *cobra.Command {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.Host, "host", "localhost:3000", "Grafana server host (env: GF_HOST)")
-	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.BasePath, "base-path", "/api", "Base path for server: useful when using sever behind reverse proxy (env: GF_BASE_PATH)")
-	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.APIKey, "api-key", "", "API Key to authenticate to grafana server (env: GF_API_KEY)")
-	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.BasicAuthUsername, "basic-user-username", "", "Basic authentication username (env: GF_BASIC_AUTH_PASSWORD)")
-	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.BasicAuthPassword, "basic-user-password", "", "Basic authentication password (env: GF_BASIC_AUTH_USERNAME)")
-	rootCmd.PersistentFlags().Int64Var(&rootCmdFlag.OrgID, "org-id", 0, "Organization ID (env: GF_ORG_ID)")
-	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.Debug, "debug", false, "Enable debug logging (env: GF_DEBUG)")
+	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.host, "host", "localhost:3000", "Grafana server host (env: GF_HOST)")
+	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.basePath, "base-path", "/api", "Base path for server: useful when using sever behind reverse proxy (env: GF_BASE_PATH)")
+	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.apiKey, "api-key", "", "API Key to authenticate to grafana server (env: GF_API_KEY)")
+	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.basicAuthUsername, "basic-user-username", "", "Basic authentication username (env: GF_BASIC_AUTH_PASSWORD)")
+	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.basicAuthPassword, "basic-user-password", "", "Basic authentication password (env: GF_BASIC_AUTH_USERNAME)")
+	rootCmd.PersistentFlags().Int64Var(&rootCmdFlag.orgID, "org-id", 0, "Organization ID (env: GF_ORG_ID)")
+	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.debug, "debug", false, "Enable debug logging (env: GF_DEBUG)")
 	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.jq, "jq", ".", "Filter JSON output using a jq `expression` (env: GF_JQ)")
 	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.noColor, "no-color", false, "Disable colored output (env: GF_NO_COLOR or NO_COLOR)")
 }
 
-func gfClient() *client.GrafanaHTTPAPI {
-	cfg := client.DefaultTransportConfig()
-	cfg = applyEnvString(cfg, "GF_HOST", rootCmdFlag.Host, cfg.WithHost)
-	cfg = applyEnvString(cfg, "GF_BASE_PATH", rootCmdFlag.BasePath, cfg.WithBasePath)
-	cfg = applyEnvBool(cfg, "GF_DEBUG", rootCmdFlag.Debug, func(b bool) *client.TransportConfig {
+func gfClient() (*gfclient.GrafanaHTTPAPI, error) {
+	cfg := gfclient.DefaultTransportConfig()
+	cfg = applyEnvString(cfg, "GF_HOST", rootCmdFlag.host, cfg.WithHost)
+	u, err := url.ParseRequestURI(cfg.Host)
+	if err != nil {
+		return nil, err
+	}
+	if !(u.Scheme == "http" || u.Scheme == "https") {
+		u.Scheme = "http"
+	}
+	if u.Scheme == "" || u.Scheme == "http" {
+		cfg = cfg.WithSchemes([]string{"http"})
+	} else {
+		cfg = cfg.WithSchemes(gfclient.DefaultSchemes)
+	}
+	cfg = applyEnvString(cfg, "GF_BASE_PATH", rootCmdFlag.basePath, cfg.WithBasePath)
+	cfg = applyEnvBool(cfg, "GF_DEBUG", rootCmdFlag.debug, func(b bool) *gfclient.TransportConfig {
 		cfg.Debug = b
 		return cfg
 	})
-	cfg = applyEnvString(cfg, "GF_API_KEY", rootCmdFlag.APIKey, func(v string) *client.TransportConfig {
+	cfg = applyEnvString(cfg, "GF_API_KEY", rootCmdFlag.apiKey, func(v string) *gfclient.TransportConfig {
 		cfg.APIKey = v
 		return cfg
 	})
-	u := os.Getenv("GF_BASIC_AUTH_USERNAME")
-	if u == "" {
-		u = rootCmdFlag.BasicAuthUsername
+	basicUser := os.Getenv("GF_BASIC_AUTH_USERNAME")
+	if basicUser == "" {
+		basicUser = rootCmdFlag.basicAuthUsername
 	}
-	p := os.Getenv("GF_BASIC_AUTH_PASSWORD")
-	if p == "" {
-		p = rootCmdFlag.BasicAuthPassword
+	basicPass := os.Getenv("GF_BASIC_AUTH_PASSWORD")
+	if basicPass == "" {
+		basicPass = rootCmdFlag.basicAuthPassword
 	}
-	if u != "" && p != "" {
-		cfg.BasicAuth = url.UserPassword(u, p)
+	if basicUser != "" && basicPass != "" {
+		cfg.BasicAuth = url.UserPassword(basicUser, basicPass)
 	}
-	api := client.NewHTTPClientWithConfig(nil, cfg)
-	api = applyEnvInt64(api, "GF_ORG_ID", rootCmdFlag.OrgID, api.WithOrgID)
-	return api
+	api := gfclient.NewHTTPClientWithConfig(nil, cfg)
+	api = applyEnvInt64(api, "GF_ORG_ID", rootCmdFlag.orgID, api.WithOrgID)
+	return api, nil
 }
 
 func applyEnvString[T any](t *T, key string, flg string, f func(string) *T) *T {
@@ -177,5 +189,5 @@ func jq(s string, payload any) (any, error) {
 		}
 		return v, nil
 	}
-	return nil, fmt.Errorf("gf: jq filter error filter=%s, payload", s, payload)
+	return nil, fmt.Errorf("gf: jq filter result is empty, filter=%s, payload=%v", s, payload)
 }

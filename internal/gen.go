@@ -63,7 +63,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AddTeamRoleCommand
 			if err := getBodyParam(
 				accessControlAddTeamRoleFlag.Body,
@@ -94,7 +97,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AddUserRoleCommand
 			if err := getBodyParam(
 				accessControlAddUserRoleFlag.Body,
@@ -125,7 +131,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateRoleForm
 			if err := getBodyParam(
 				accessControlCreateRoleFlag.Body,
@@ -155,7 +164,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.DeleteRole(
 				&access_control.DeleteRoleParams{
 					Force:   &accessControlDeleteRoleFlag.Force,
@@ -180,7 +192,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.GetAccessControlStatusWithParams(
 				&access_control.GetAccessControlStatusParams{},
 			)
@@ -201,7 +216,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.GetResourceDescriptionWithParams(
 				&access_control.GetResourceDescriptionParams{
 					Resource: accessControlGetResourceDescriptionFlag.Resource,
@@ -224,7 +242,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.GetResourcePermissionsWithParams(
 				&access_control.GetResourcePermissionsParams{
 					Resource:   accessControlGetResourcePermissionsFlag.Resource,
@@ -248,7 +269,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.GetRoleAssignmentsWithParams(
 				&access_control.GetRoleAssignmentsParams{
 					RoleUID: accessControlGetRoleAssignmentsFlag.RoleUID,
@@ -271,7 +295,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.GetRoleWithParams(
 				&access_control.GetRoleParams{
 					RoleUID: accessControlGetRoleFlag.RoleUID,
@@ -294,7 +321,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.ListRoles(
 				&access_control.ListRolesParams{
 					Delegatable:   &accessControlListRolesFlag.Delegatable,
@@ -318,7 +348,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.ListTeamRolesWithParams(
 				&access_control.ListTeamRolesParams{
 					TeamID: accessControlListTeamRolesFlag.TeamID,
@@ -341,7 +374,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.RolesSearchQuery
 			if err := getBodyParam(
 				accessControlListTeamsRolesFlag.Body,
@@ -371,7 +407,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.ListUserRolesWithParams(
 				&access_control.ListUserRolesParams{
 					UserID: accessControlListUserRolesFlag.UserID,
@@ -394,7 +433,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.RolesSearchQuery
 			if err := getBodyParam(
 				accessControlListUsersRolesFlag.Body,
@@ -424,7 +466,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.RemoveTeamRoleWithParams(
 				&access_control.RemoveTeamRoleParams{
 					RoleUID: accessControlRemoveTeamRoleFlag.RoleUID,
@@ -448,7 +493,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.RemoveUserRole(
 				&access_control.RemoveUserRoleParams{
 					Global:  &accessControlRemoveUserRoleFlag.Global,
@@ -473,7 +521,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.SetPermissionsCommand
 			if err := getBodyParam(
 				accessControlSetResourcePermissionsFlag.Body,
@@ -505,7 +556,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.SetPermissionCommand
 			if err := getBodyParam(
 				accessControlSetResourcePermissionsForBuiltInRoleFlag.Body,
@@ -538,7 +592,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.SetPermissionCommand
 			if err := getBodyParam(
 				accessControlSetResourcePermissionsForTeamFlag.Body,
@@ -571,7 +628,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.SetPermissionCommand
 			if err := getBodyParam(
 				accessControlSetResourcePermissionsForUserFlag.Body,
@@ -604,7 +664,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.SetRoleAssignmentsCommand
 			if err := getBodyParam(
 				accessControlSetRoleAssignmentsFlag.Body,
@@ -635,7 +698,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.SetTeamRolesWithParams(
 				&access_control.SetTeamRolesParams{
 					TeamID: accessControlSetTeamRolesFlag.TeamID,
@@ -658,7 +724,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.SetUserRolesCommand
 			if err := getBodyParam(
 				accessControlSetUserRolesFlag.Body,
@@ -689,7 +758,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateRoleCommand
 			if err := getBodyParam(
 				accessControlUpdateRoleFlag.Body,
@@ -816,7 +888,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AccessControlProvisioning.AdminProvisioningReloadAccessControlWithParams(
 				&access_control_provisioning.AdminProvisioningReloadAccessControlParams{},
 			)
@@ -841,7 +916,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Admin.AdminGetSettingsWithParams(
 				&admin.AdminGetSettingsParams{},
 			)
@@ -862,7 +940,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Admin.AdminGetStatsWithParams(
 				&admin.AdminGetStatsParams{},
 			)
@@ -887,7 +968,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminLDAP.GetLDAPStatusWithParams(
 				&admin_ldap.GetLDAPStatusParams{},
 			)
@@ -908,7 +992,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminLDAP.GetUserFromLDAPWithParams(
 				&admin_ldap.GetUserFromLDAPParams{
 					UserName: adminLdapGetUserFromLDAPFlag.UserName,
@@ -931,7 +1018,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminLDAP.PostSyncUserWithLDAPWithParams(
 				&admin_ldap.PostSyncUserWithLDAPParams{
 					UserID: adminLdapPostSyncUserWithLDAPFlag.UserID,
@@ -954,7 +1044,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminLDAP.ReloadLDAPCfgWithParams(
 				&admin_ldap.ReloadLDAPCfgParams{},
 			)
@@ -985,7 +1078,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminProvisioning.AdminProvisioningReloadDashboardsWithParams(
 				&admin_provisioning.AdminProvisioningReloadDashboardsParams{},
 			)
@@ -1006,7 +1102,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminProvisioning.AdminProvisioningReloadDatasourcesWithParams(
 				&admin_provisioning.AdminProvisioningReloadDatasourcesParams{},
 			)
@@ -1027,7 +1126,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminProvisioning.AdminProvisioningReloadPluginsWithParams(
 				&admin_provisioning.AdminProvisioningReloadPluginsParams{},
 			)
@@ -1052,7 +1154,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AdminCreateUserForm
 			if err := getBodyParam(
 				adminUsersAdminCreateUserFlag.Body,
@@ -1082,7 +1187,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminUsers.AdminDeleteUserWithParams(
 				&admin_users.AdminDeleteUserParams{
 					UserID: adminUsersAdminDeleteUserFlag.UserID,
@@ -1105,7 +1213,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminUsers.AdminDisableUserWithParams(
 				&admin_users.AdminDisableUserParams{
 					UserID: adminUsersAdminDisableUserFlag.UserID,
@@ -1128,7 +1239,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminUsers.AdminEnableUserWithParams(
 				&admin_users.AdminEnableUserParams{
 					UserID: adminUsersAdminEnableUserFlag.UserID,
@@ -1151,7 +1265,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminUsers.AdminGetUserAuthTokensWithParams(
 				&admin_users.AdminGetUserAuthTokensParams{
 					UserID: adminUsersAdminGetUserAuthTokensFlag.UserID,
@@ -1174,7 +1291,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminUsers.AdminLogoutUserWithParams(
 				&admin_users.AdminLogoutUserParams{
 					UserID: adminUsersAdminLogoutUserFlag.UserID,
@@ -1197,7 +1317,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.RevokeAuthTokenCmd
 			if err := getBodyParam(
 				adminUsersAdminRevokeUserAuthTokenFlag.Body,
@@ -1228,7 +1351,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AdminUpdateUserPasswordForm
 			if err := getBodyParam(
 				adminUsersAdminUpdateUserPasswordFlag.Body,
@@ -1259,7 +1385,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AdminUpdateUserPermissionsForm
 			if err := getBodyParam(
 				adminUsersAdminUpdateUserPermissionsFlag.Body,
@@ -1290,7 +1419,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.AdminUsers.GetUserQuotaWithParams(
 				&admin_users.GetUserQuotaParams{
 					UserID: adminUsersGetUserQuotaFlag.UserID,
@@ -1313,7 +1445,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateQuotaCmd
 			if err := getBodyParam(
 				adminUsersUpdateUserQuotaFlag.Body,
@@ -1387,7 +1522,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Annotations.GetAnnotationTags(
 				&annotations.GetAnnotationTagsParams{
 					Limit: &annotationsGetAnnotationTagsFlag.Limit,
@@ -1411,7 +1549,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Annotations.GetAnnotations(
 				&annotations.GetAnnotationsParams{
 					AlertID:      &annotationsGetAnnotationsFlag.AlertID,
@@ -1444,7 +1585,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.MassDeleteAnnotationsCmd
 			if err := getBodyParam(
 				annotationsMassDeleteAnnotationsFlag.Body,
@@ -1474,7 +1618,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.PatchAnnotationsCmd
 			if err := getBodyParam(
 				annotationsPatchAnnotationFlag.Body,
@@ -1505,7 +1652,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.PostAnnotationsCmd
 			if err := getBodyParam(
 				annotationsPostAnnotationFlag.Body,
@@ -1535,7 +1685,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.PostGraphiteAnnotationsCmd
 			if err := getBodyParam(
 				annotationsPostGraphiteAnnotationFlag.Body,
@@ -1565,7 +1718,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateAnnotationsCmd
 			if err := getBodyParam(
 				annotationsUpdateAnnotationFlag.Body,
@@ -1630,11 +1786,14 @@ var (
 		DisableAutoGenTag: true,
 	}
 	apiKeysAddAPIkeyCmd = &cobra.Command{
-		Use:               "add-ap-ikey",
+		Use:               "add-api-key",
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AddAPIKeyCommand
 			if err := getBodyParam(
 				apiKeysAddAPIkeyFlag.Body,
@@ -1660,11 +1819,14 @@ var (
 		},
 	}
 	apiKeysDeleteAPIkeyCmd = &cobra.Command{
-		Use:               "delete-ap-ikey",
+		Use:               "delete-api-key",
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.APIKeys.DeleteAPIkeyWithParams(
 				&api_keys.DeleteAPIkeyParams{
 					ID: apiKeysDeleteAPIkeyFlag.ID,
@@ -1683,11 +1845,14 @@ var (
 		},
 	}
 	apiKeysGetAPIkeysCmd = &cobra.Command{
-		Use:               "get-ap-ikeys",
+		Use:               "get-api-keys",
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.APIKeys.GetAPIkeys(
 				&api_keys.GetAPIkeysParams{
 					IncludeExpired: &apiKeysGetAPIkeysFlag.IncludeExpired,
@@ -1723,7 +1888,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateCorrelationCommand
 			if err := getBodyParam(
 				correlationsCreateCorrelationFlag.Body,
@@ -1754,7 +1922,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Correlations.DeleteCorrelationWithParams(
 				&correlations.DeleteCorrelationParams{
 					CorrelationUID: correlationsDeleteCorrelationFlag.CorrelationUID,
@@ -1778,7 +1949,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Correlations.GetCorrelationWithParams(
 				&correlations.GetCorrelationParams{
 					CorrelationUID: correlationsGetCorrelationFlag.CorrelationUID,
@@ -1802,7 +1976,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Correlations.GetCorrelations(
 				&correlations.GetCorrelationsParams{
 					Limit:     &correlationsGetCorrelationsFlag.Limit,
@@ -1827,7 +2004,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Correlations.GetCorrelationsBySourceUIDWithParams(
 				&correlations.GetCorrelationsBySourceUIDParams{
 					SourceUID: correlationsGetCorrelationsBySourceUIDFlag.SourceUID,
@@ -1850,7 +2030,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateCorrelationCommand
 			if err := getBodyParam(
 				correlationsUpdateCorrelationFlag.Body,
@@ -1911,7 +2094,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.DashboardPermissions.GetDashboardPermissionsListByUIDWithParams(
 				&dashboard_permissions.GetDashboardPermissionsListByUIDParams{
 					UID: dashboardPermissionsGetDashboardPermissionsListByUIDFlag.UID,
@@ -1934,7 +2120,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateDashboardACLCommand
 			if err := getBodyParam(
 				dashboardPermissionsUpdateDashboardPermissionsByUIDFlag.Body,
@@ -1976,7 +2165,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.PublicDashboardDTO
 			if err := getBodyParam(
 				dashboardPublicCreatePublicDashboardFlag.Body,
@@ -2007,7 +2199,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.DashboardPublic.DeletePublicDashboardWithParams(
 				&dashboard_public.DeletePublicDashboardParams{
 					DashboardUID: dashboardPublicDeletePublicDashboardFlag.DashboardUID,
@@ -2031,7 +2226,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.DashboardPublic.GetPublicAnnotationsWithParams(
 				&dashboard_public.GetPublicAnnotationsParams{
 					AccessToken: dashboardPublicGetPublicAnnotationsFlag.AccessToken,
@@ -2054,7 +2252,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.DashboardPublic.GetPublicDashboardWithParams(
 				&dashboard_public.GetPublicDashboardParams{
 					DashboardUID: dashboardPublicGetPublicDashboardFlag.DashboardUID,
@@ -2077,7 +2278,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.DashboardPublic.ListPublicDashboardsWithParams(
 				&dashboard_public.ListPublicDashboardsParams{},
 			)
@@ -2098,7 +2302,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.DashboardPublic.QueryPublicDashboardWithParams(
 				&dashboard_public.QueryPublicDashboardParams{
 					AccessToken: dashboardPublicQueryPublicDashboardFlag.AccessToken,
@@ -2122,7 +2329,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.PublicDashboardDTO
 			if err := getBodyParam(
 				dashboardPublicUpdatePublicDashboardFlag.Body,
@@ -2154,7 +2364,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.DashboardPublic.ViewPublicDashboardWithParams(
 				&dashboard_public.ViewPublicDashboardParams{
 					AccessToken: dashboardPublicViewPublicDashboardFlag.AccessToken,
@@ -2207,7 +2420,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.DashboardVersions.GetDashboardVersionByUIDWithParams(
 				&dashboard_versions.GetDashboardVersionByUIDParams{
 					DashboardVersionID: dashboardVersionsGetDashboardVersionByUIDFlag.DashboardVersionID,
@@ -2231,7 +2447,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.DashboardVersions.GetDashboardVersionsByUID(
 				&dashboard_versions.GetDashboardVersionsByUIDParams{
 					Limit: &dashboardVersionsGetDashboardVersionsByUIDFlag.Limit,
@@ -2256,7 +2475,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.RestoreDashboardVersionCommand
 			if err := getBodyParam(
 				dashboardVersionsRestoreDashboardVersionByUIDFlag.Body,
@@ -2304,7 +2526,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CalculateDashboardDiffParamsBody
 			if err := getBodyParam(
 				dashboardsCalculateDashboardDiffFlag.Body,
@@ -2334,7 +2559,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Dashboards.DeleteDashboardByUIDWithParams(
 				&dashboards.DeleteDashboardByUIDParams{
 					UID: dashboardsDeleteDashboardByUIDFlag.UID,
@@ -2357,7 +2585,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Dashboards.GetDashboardByUIDWithParams(
 				&dashboards.GetDashboardByUIDParams{
 					UID: dashboardsGetDashboardByUIDFlag.UID,
@@ -2380,7 +2611,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Dashboards.GetDashboardTagsWithParams(
 				&dashboards.GetDashboardTagsParams{},
 			)
@@ -2401,7 +2635,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Dashboards.GetHomeDashboardWithParams(
 				&dashboards.GetHomeDashboardParams{},
 			)
@@ -2422,7 +2659,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Dashboards.HardDeleteDashboardByUIDWithParams(
 				&dashboards.HardDeleteDashboardByUIDParams{
 					UID: dashboardsHardDeleteDashboardByUIDFlag.UID,
@@ -2445,7 +2685,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.ImportDashboardRequest
 			if err := getBodyParam(
 				dashboardsImportDashboardFlag.Body,
@@ -2475,7 +2718,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.SaveDashboardCommand
 			if err := getBodyParam(
 				dashboardsPostDashboardFlag.Body,
@@ -2505,7 +2751,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.RestoreDeletedDashboardCommand
 			if err := getBodyParam(
 				dashboardsRestoreDeletedDashboardByUIDFlag.Body,
@@ -2562,7 +2811,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AddDataSourceCommand
 			if err := getBodyParam(
 				datasourcesAddDatasourceFlag.Body,
@@ -2592,7 +2844,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Datasources.CallDatasourceResourceWithUIDWithParams(
 				&datasources.CallDatasourceResourceWithUIDParams{
 					DatasourceProxyRoute: datasourcesCallDatasourceResourceFlag.DatasourceProxyRoute,
@@ -2616,7 +2871,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Datasources.CheckDatasourceHealthWithUIDWithParams(
 				&datasources.CheckDatasourceHealthWithUIDParams{
 					UID: datasourcesCheckDatasourceHealthFlag.UID,
@@ -2639,7 +2897,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Datasources.DeleteDataSourceByNameWithParams(
 				&datasources.DeleteDataSourceByNameParams{
 					Name: datasourcesDeleteDatasourceByNameFlag.Name,
@@ -2662,7 +2923,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Datasources.DeleteDataSourceByUIDWithParams(
 				&datasources.DeleteDataSourceByUIDParams{
 					UID: datasourcesDeleteDatasourceByUIDFlag.UID,
@@ -2685,7 +2949,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Datasources.GetDataSourceByNameWithParams(
 				&datasources.GetDataSourceByNameParams{
 					Name: datasourcesGetDatasourceByNameFlag.Name,
@@ -2708,7 +2975,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Datasources.GetDataSourceByUIDWithParams(
 				&datasources.GetDataSourceByUIDParams{
 					UID: datasourcesGetDatasourceByUIDFlag.UID,
@@ -2731,7 +3001,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Datasources.GetDataSourceIDByNameWithParams(
 				&datasources.GetDataSourceIDByNameParams{
 					Name: datasourcesGetDatasourceIDByNameFlag.Name,
@@ -2754,7 +3027,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Datasources.GetDataSourcesWithParams(
 				&datasources.GetDataSourcesParams{},
 			)
@@ -2775,7 +3051,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateDataSourceCommand
 			if err := getBodyParam(
 				datasourcesUpdateDatasourceByUIDFlag.Body,
@@ -2839,7 +3118,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Devices.ListDevicesWithParams(
 				&devices.ListDevicesParams{},
 			)
@@ -2860,7 +3142,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Devices.SearchDevicesWithParams(
 				&devices.SearchDevicesParams{},
 			)
@@ -2885,7 +3170,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.MetricRequest
 			if err := getBodyParam(
 				dsQueryMetricsWithExpressionsFlag.Body,
@@ -2922,7 +3210,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Enterprise.CleanDataSourceCacheWithParams(
 				&enterprise.CleanDataSourceCacheParams{
 					DataSourceUID: enterpriseCleanDatasourceCacheFlag.DataSourceUID,
@@ -2945,7 +3236,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Enterprise.DisableDataSourceCacheWithParams(
 				&enterprise.DisableDataSourceCacheParams{
 					DataSourceUID: enterpriseDisableDatasourceCacheFlag.DataSourceUID,
@@ -2968,7 +3262,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Enterprise.EnableDataSourceCacheWithParams(
 				&enterprise.EnableDataSourceCacheParams{
 					DataSourceUID: enterpriseEnableDatasourceCacheFlag.DataSourceUID,
@@ -2991,7 +3288,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Enterprise.GetDataSourceCacheConfigWithParams(
 				&enterprise.GetDataSourceCacheConfigParams{
 					DataSourceUID: enterpriseGetDatasourceCacheConfigFlag.DataSourceUID,
@@ -3014,7 +3314,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Enterprise.GetTeamLBACRulesAPIWithParams(
 				&enterprise.GetTeamLBACRulesAPIParams{
 					UID: enterpriseGetTeamLBACRulesAPIFlag.UID,
@@ -3037,7 +3340,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Enterprise.SearchResultWithParams(
 				&enterprise.SearchResultParams{},
 			)
@@ -3058,7 +3364,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CacheConfigSetter
 			if err := getBodyParam(
 				enterpriseSetDatasourceCacheConfigFlag.Body,
@@ -3089,7 +3398,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Enterprise.UpdateTeamLBACRulesAPIWithParams(
 				&enterprise.UpdateTeamLBACRulesAPIParams{
 					UID: enterpriseUpdateTeamLBACRulesAPIFlag.UID,
@@ -3138,7 +3450,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.FolderPermissions.GetFolderPermissionListWithParams(
 				&folder_permissions.GetFolderPermissionListParams{
 					FolderUID: folderPermissionsGetFolderPermissionListFlag.FolderUID,
@@ -3161,7 +3476,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateDashboardACLCommand
 			if err := getBodyParam(
 				folderPermissionsUpdateFolderPermissionsFlag.Body,
@@ -3203,7 +3521,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateFolderCommand
 			if err := getBodyParam(
 				foldersCreateFolderFlag.Body,
@@ -3233,7 +3554,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Folders.DeleteFolder(
 				&folders.DeleteFolderParams{
 					FolderUID:        foldersDeleteFolderFlag.FolderUID,
@@ -3257,7 +3581,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Folders.GetFolderByUIDWithParams(
 				&folders.GetFolderByUIDParams{
 					FolderUID: foldersGetFolderByUIDFlag.FolderUID,
@@ -3280,7 +3607,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Folders.GetFolderDescendantCountsWithParams(
 				&folders.GetFolderDescendantCountsParams{
 					FolderUID: foldersGetFolderDescendantCountsFlag.FolderUID,
@@ -3303,7 +3633,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Folders.GetFolders(
 				&folders.GetFoldersParams{
 					Limit:      &foldersGetFoldersFlag.Limit,
@@ -3329,7 +3662,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.MoveFolderCommand
 			if err := getBodyParam(
 				foldersMoveFolderFlag.Body,
@@ -3360,7 +3696,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateFolderCommand
 			if err := getBodyParam(
 				foldersUpdateFolderFlag.Body,
@@ -3422,7 +3761,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.GetCurrentOrg.GetCurrentOrgQuotaWithParams(
 				&get_current_org.GetCurrentOrgQuotaParams{},
 			)
@@ -3447,7 +3789,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Health.GetHealthWithParams(
 				&health.GetHealthParams{},
 			)
@@ -3472,7 +3817,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.LDAPDebug.GetSyncStatusWithParams(
 				&ldap_debug.GetSyncStatusParams{},
 			)
@@ -3497,7 +3845,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateLibraryElementCommand
 			if err := getBodyParam(
 				libraryElementsCreateLibraryElementFlag.Body,
@@ -3527,7 +3878,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.LibraryElements.DeleteLibraryElementByUIDWithParams(
 				&library_elements.DeleteLibraryElementByUIDParams{
 					LibraryElementUID: libraryElementsDeleteLibraryElementByUIDFlag.LibraryElementUID,
@@ -3550,7 +3904,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.LibraryElements.GetLibraryElementByNameWithParams(
 				&library_elements.GetLibraryElementByNameParams{
 					LibraryElementName: libraryElementsGetLibraryElementByNameFlag.LibraryElementName,
@@ -3573,7 +3930,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.LibraryElements.GetLibraryElementByUIDWithParams(
 				&library_elements.GetLibraryElementByUIDParams{
 					LibraryElementUID: libraryElementsGetLibraryElementByUIDFlag.LibraryElementUID,
@@ -3596,7 +3956,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.LibraryElements.GetLibraryElementConnectionsWithParams(
 				&library_elements.GetLibraryElementConnectionsParams{
 					LibraryElementUID: libraryElementsGetLibraryElementConnectionsFlag.LibraryElementUID,
@@ -3619,7 +3982,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.LibraryElements.GetLibraryElements(
 				&library_elements.GetLibraryElementsParams{
 					ExcludeUID:    &libraryElementsGetLibraryElementsFlag.ExcludeUID,
@@ -3649,7 +4015,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.PatchLibraryElementCommand
 			if err := getBodyParam(
 				libraryElementsUpdateLibraryElementFlag.Body,
@@ -3713,7 +4082,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.DeleteTokenCommand
 			if err := getBodyParam(
 				licensingDeleteLicenseTokenFlag.Body,
@@ -3743,8 +4115,11 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
-			err := api.Licensing.GetCustomPermissionsCSVWithParams(
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			err = api.Licensing.GetCustomPermissionsCSVWithParams(
 				&licensing.GetCustomPermissionsCSVParams{},
 			)
 			if err != nil {
@@ -3765,8 +4140,11 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
-			err := api.Licensing.GetCustomPermissionsReportWithParams(
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			err = api.Licensing.GetCustomPermissionsReportWithParams(
 				&licensing.GetCustomPermissionsReportParams{},
 			)
 			if err != nil {
@@ -3787,7 +4165,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Licensing.GetLicenseTokenWithParams(
 				&licensing.GetLicenseTokenParams{},
 			)
@@ -3808,7 +4189,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Licensing.GetStatusWithParams(
 				&licensing.GetStatusParams{},
 			)
@@ -3830,7 +4214,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.DeleteTokenCommand
 			if err := getBodyParam(
 				licensingPostLicenseTokenFlag.Body,
@@ -3860,7 +4247,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body interface{}
 			if err := getBodyParam(
 				licensingPostRenewLicenseTokenFlag.Body,
@@ -3891,7 +4281,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Licensing.RefreshLicenseStatsWithParams(
 				&licensing.RefreshLicenseStatsParams{},
 			)
@@ -3925,7 +4318,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.CancelSnapshotWithParams(
 				&migrations.CancelSnapshotParams{
 					SnapshotUID: migrationsCancelSnapshotFlag.SnapshotUID,
@@ -3950,7 +4346,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.CreateCloudMigrationTokenWithParams(
 				&migrations.CreateCloudMigrationTokenParams{},
 			)
@@ -3971,7 +4370,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CloudMigrationSessionRequestDTO
 			if err := getBodyParam(
 				migrationsCreateSessionFlag.Body,
@@ -4001,7 +4403,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.CreateSnapshotWithParams(
 				&migrations.CreateSnapshotParams{
 					UID: migrationsCreateSnapshotFlag.UID,
@@ -4024,7 +4429,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.DeleteCloudMigrationTokenWithParams(
 				&migrations.DeleteCloudMigrationTokenParams{
 					UID: migrationsDeleteCloudMigrationTokenFlag.UID,
@@ -4048,8 +4456,11 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
-			err := api.Migrations.DeleteSessionWithParams(
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			err = api.Migrations.DeleteSessionWithParams(
 				&migrations.DeleteSessionParams{
 					UID: migrationsDeleteSessionFlag.UID,
 				},
@@ -4072,7 +4483,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.GetCloudMigrationRunListWithParams(
 				&migrations.GetCloudMigrationRunListParams{
 					UID: migrationsGetCloudMigrationRunListFlag.UID,
@@ -4095,7 +4509,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.GetCloudMigrationRunWithParams(
 				&migrations.GetCloudMigrationRunParams{
 					RunUID: migrationsGetCloudMigrationRunFlag.RunUID,
@@ -4118,7 +4535,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.GetCloudMigrationTokenWithParams(
 				&migrations.GetCloudMigrationTokenParams{},
 			)
@@ -4139,7 +4559,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.GetSessionListWithParams(
 				&migrations.GetSessionListParams{},
 			)
@@ -4160,7 +4583,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.GetSessionWithParams(
 				&migrations.GetSessionParams{
 					UID: migrationsGetSessionFlag.UID,
@@ -4183,7 +4609,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.GetShapshotList(
 				&migrations.GetShapshotListParams{
 					Limit: &migrationsGetShapshotListFlag.Limit,
@@ -4208,7 +4637,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.GetSnapshot(
 				&migrations.GetSnapshotParams{
 					ResultLimit: &migrationsGetSnapshotFlag.ResultLimit,
@@ -4234,7 +4666,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.RunCloudMigrationWithParams(
 				&migrations.RunCloudMigrationParams{
 					UID: migrationsRunCloudMigrationFlag.UID,
@@ -4257,7 +4692,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Migrations.UploadSnapshotWithParams(
 				&migrations.UploadSnapshotParams{
 					SnapshotUID: migrationsUploadSnapshotFlag.SnapshotUID,
@@ -4329,7 +4767,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AddOrgUserCommand
 			if err := getBodyParam(
 				orgAddOrgUserToCurrentOrgFlag.Body,
@@ -4359,7 +4800,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Org.GetCurrentOrgWithParams(
 				&org.GetCurrentOrgParams{},
 			)
@@ -4380,7 +4824,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Org.GetOrgUsersForCurrentOrgLookup(
 				&org.GetOrgUsersForCurrentOrgLookupParams{
 					Limit: &orgGetOrgUsersForCurrentOrgLookupFlag.Limit,
@@ -4404,7 +4851,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Org.GetOrgUsersForCurrentOrgWithParams(
 				&org.GetOrgUsersForCurrentOrgParams{},
 			)
@@ -4425,7 +4875,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Org.RemoveOrgUserForCurrentOrgWithParams(
 				&org.RemoveOrgUserForCurrentOrgParams{
 					UserID: orgRemoveOrgUserForCurrentOrgFlag.UserID,
@@ -4448,7 +4901,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateOrgAddressForm
 			if err := getBodyParam(
 				orgUpdateCurrentOrgAddressFlag.Body,
@@ -4478,7 +4934,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateOrgForm
 			if err := getBodyParam(
 				orgUpdateCurrentOrgFlag.Body,
@@ -4508,7 +4967,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateOrgUserCommand
 			if err := getBodyParam(
 				orgUpdateOrgUserForCurrentOrgFlag.Body,
@@ -4563,7 +5025,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AddInviteForm
 			if err := getBodyParam(
 				orgInvitesAddOrgInviteFlag.Body,
@@ -4593,7 +5058,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.OrgInvites.GetPendingOrgInvitesWithParams(
 				&org_invites.GetPendingOrgInvitesParams{},
 			)
@@ -4614,7 +5082,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.OrgInvites.RevokeInviteWithParams(
 				&org_invites.RevokeInviteParams{
 					InvitationCode: orgInvitesRevokeInviteFlag.InvitationCode,
@@ -4647,7 +5118,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.OrgPreferences.GetOrgPreferencesWithParams(
 				&org_preferences.GetOrgPreferencesParams{},
 			)
@@ -4668,7 +5142,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.PatchPrefsCmd
 			if err := getBodyParam(
 				orgPreferencesPatchOrgPreferencesFlag.Body,
@@ -4698,7 +5175,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdatePrefsCmd
 			if err := getBodyParam(
 				orgPreferencesUpdateOrgPreferencesFlag.Body,
@@ -4738,7 +5218,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AddOrgUserCommand
 			if err := getBodyParam(
 				orgsAddOrgUserFlag.Body,
@@ -4769,7 +5252,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateOrgCommand
 			if err := getBodyParam(
 				orgsCreateOrgFlag.Body,
@@ -4799,7 +5285,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Orgs.GetOrgByNameWithParams(
 				&orgs.GetOrgByNameParams{
 					OrgName: orgsGetOrgByNameFlag.OrgName,
@@ -4822,7 +5311,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Orgs.GetOrgQuotaWithParams(
 				&orgs.GetOrgQuotaParams{
 					OrgID: orgsGetOrgQuotaFlag.OrgID,
@@ -4845,7 +5337,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Orgs.GetOrgUsersWithParams(
 				&orgs.GetOrgUsersParams{
 					OrgID: orgsGetOrgUsersFlag.OrgID,
@@ -4868,7 +5363,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Orgs.RemoveOrgUserWithParams(
 				&orgs.RemoveOrgUserParams{
 					OrgID:  orgsRemoveOrgUserFlag.OrgID,
@@ -4892,7 +5390,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Orgs.SearchOrgUsersWithParams(
 				&orgs.SearchOrgUsersParams{
 					OrgID: orgsSearchOrgUsersFlag.OrgID,
@@ -4915,7 +5416,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Orgs.SearchOrgs(
 				&orgs.SearchOrgsParams{
 					Name:    &orgsSearchOrgsFlag.Name,
@@ -4941,7 +5445,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateOrgAddressForm
 			if err := getBodyParam(
 				orgsUpdateOrgAddressFlag.Body,
@@ -4972,7 +5479,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateQuotaCmd
 			if err := getBodyParam(
 				orgsUpdateOrgQuotaFlag.Body,
@@ -5004,7 +5514,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateOrgUserCommand
 			if err := getBodyParam(
 				orgsUpdateOrgUserFlag.Body,
@@ -5036,7 +5549,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateOrgForm
 			if err := getBodyParam(
 				orgsUpdateOrgFlag.Body,
@@ -5118,7 +5634,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreatePlaylistCommand
 			if err := getBodyParam(
 				playlistsCreatePlaylistFlag.Body,
@@ -5148,7 +5667,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Playlists.DeletePlaylistWithParams(
 				&playlists.DeletePlaylistParams{
 					UID: playlistsDeletePlaylistFlag.UID,
@@ -5171,7 +5693,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Playlists.GetPlaylistItemsWithParams(
 				&playlists.GetPlaylistItemsParams{
 					UID: playlistsGetPlaylistItemsFlag.UID,
@@ -5194,7 +5719,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Playlists.GetPlaylistWithParams(
 				&playlists.GetPlaylistParams{
 					UID: playlistsGetPlaylistFlag.UID,
@@ -5217,7 +5745,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Playlists.SearchPlaylists(
 				&playlists.SearchPlaylistsParams{
 					Limit: &playlistsSearchPlaylistsFlag.Limit,
@@ -5241,7 +5772,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdatePlaylistCommand
 			if err := getBodyParam(
 				playlistsUpdatePlaylistFlag.Body,
@@ -5296,7 +5830,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.DeleteAlertRule(
 				&provisioning.DeleteAlertRuleParams{
 					UID:                provisioningDeleteAlertRuleFlag.UID,
@@ -5321,7 +5858,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.DeleteAlertRuleGroupWithParams(
 				&provisioning.DeleteAlertRuleGroupParams{
 					FolderUID: provisioningDeleteAlertRuleGroupFlag.FolderUID,
@@ -5346,7 +5886,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.DeleteContactpointsWithParams(
 				&provisioning.DeleteContactpointsParams{
 					UID: provisioningDeleteContactpointsFlag.UID,
@@ -5370,7 +5913,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.DeleteMuteTiming(
 				&provisioning.DeleteMuteTimingParams{
 					XDisableProvenance: &provisioningDeleteMuteTimingFlag.XDisableProvenance,
@@ -5396,7 +5942,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.DeleteTemplateWithParams(
 				&provisioning.DeleteTemplateParams{
 					Name: provisioningDeleteTemplateFlag.Name,
@@ -5420,7 +5969,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.ExportMuteTiming(
 				&provisioning.ExportMuteTimingParams{
 					Download: &provisioningExportMuteTimingFlag.Download,
@@ -5445,7 +5997,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.ExportMuteTimings(
 				&provisioning.ExportMuteTimingsParams{
 					Download: &provisioningExportMuteTimingsFlag.Download,
@@ -5469,7 +6024,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetAlertRuleExport(
 				&provisioning.GetAlertRuleExportParams{
 					UID:      provisioningGetAlertRuleExportFlag.UID,
@@ -5494,7 +6052,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetAlertRuleGroupExport(
 				&provisioning.GetAlertRuleGroupExportParams{
 					FolderUID: provisioningGetAlertRuleGroupExportFlag.FolderUID,
@@ -5520,7 +6081,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetAlertRuleGroupWithParams(
 				&provisioning.GetAlertRuleGroupParams{
 					FolderUID: provisioningGetAlertRuleGroupFlag.FolderUID,
@@ -5544,7 +6108,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetAlertRuleWithParams(
 				&provisioning.GetAlertRuleParams{
 					UID: provisioningGetAlertRuleFlag.UID,
@@ -5567,7 +6134,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetAlertRulesExport(
 				&provisioning.GetAlertRulesExportParams{
 					Download:  &provisioningGetAlertRulesExportFlag.Download,
@@ -5594,7 +6164,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetAlertRulesWithParams(
 				&provisioning.GetAlertRulesParams{},
 			)
@@ -5615,7 +6188,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetContactpoints(
 				&provisioning.GetContactpointsParams{
 					Name: &provisioningGetContactpointsFlag.Name,
@@ -5638,7 +6214,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetContactpointsExport(
 				&provisioning.GetContactpointsExportParams{
 					Decrypt:  &provisioningGetContactpointsExportFlag.Decrypt,
@@ -5664,7 +6243,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetMuteTimingWithParams(
 				&provisioning.GetMuteTimingParams{
 					Name: provisioningGetMuteTimingFlag.Name,
@@ -5687,7 +6269,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetMuteTimingsWithParams(
 				&provisioning.GetMuteTimingsParams{},
 			)
@@ -5708,7 +6293,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetPolicyTreeExportWithParams(
 				&provisioning.GetPolicyTreeExportParams{},
 			)
@@ -5729,7 +6317,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetPolicyTreeWithParams(
 				&provisioning.GetPolicyTreeParams{},
 			)
@@ -5750,7 +6341,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetTemplateWithParams(
 				&provisioning.GetTemplateParams{
 					Name: provisioningGetTemplateFlag.Name,
@@ -5773,7 +6367,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.GetTemplatesWithParams(
 				&provisioning.GetTemplatesParams{},
 			)
@@ -5794,7 +6391,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.ProvisionedAlertRule
 			if err := getBodyParam(
 				provisioningPostAlertRuleFlag.Body,
@@ -5825,7 +6425,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.EmbeddedContactPoint
 			if err := getBodyParam(
 				provisioningPostContactpointsFlag.Body,
@@ -5856,7 +6459,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.MuteTimeInterval
 			if err := getBodyParam(
 				provisioningPostMuteTimingFlag.Body,
@@ -5887,7 +6493,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.ProvisionedAlertRule
 			if err := getBodyParam(
 				provisioningPutAlertRuleFlag.Body,
@@ -5919,7 +6528,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AlertRuleGroup
 			if err := getBodyParam(
 				provisioningPutAlertRuleGroupFlag.Body,
@@ -5952,7 +6564,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.EmbeddedContactPoint
 			if err := getBodyParam(
 				provisioningPutContactpointFlag.Body,
@@ -5984,7 +6599,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.MuteTimeInterval
 			if err := getBodyParam(
 				provisioningPutMuteTimingFlag.Body,
@@ -6016,7 +6634,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.Route
 			if err := getBodyParam(
 				provisioningPutPolicyTreeFlag.Body,
@@ -6047,7 +6668,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.NotificationTemplateContent
 			if err := getBodyParam(
 				provisioningPutTemplateFlag.Body,
@@ -6079,7 +6703,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Provisioning.ResetPolicyTreeWithParams(
 				&provisioning.ResetPolicyTreeParams{},
 			)
@@ -6214,7 +6841,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateQueryInQueryHistoryCommand
 			if err := getBodyParam(
 				queryHistoryCreateQueryFlag.Body,
@@ -6244,7 +6874,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.QueryHistory.DeleteQueryWithParams(
 				&query_history.DeleteQueryParams{
 					QueryHistoryUID: queryHistoryDeleteQueryFlag.QueryHistoryUID,
@@ -6267,7 +6900,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.PatchQueryCommentInQueryHistoryCommand
 			if err := getBodyParam(
 				queryHistoryPatchQueryCommentFlag.Body,
@@ -6298,7 +6934,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.QueryHistory.SearchQueries(
 				&query_history.SearchQueriesParams{
 					DatasourceUID: queryHistorySearchQueriesFlag.DatasourceUID,
@@ -6328,7 +6967,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.QueryHistory.StarQueryWithParams(
 				&query_history.StarQueryParams{
 					QueryHistoryUID: queryHistoryStarQueryFlag.QueryHistoryUID,
@@ -6351,7 +6993,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.QueryHistory.UnstarQueryWithParams(
 				&query_history.UnstarQueryParams{
 					QueryHistoryUID: queryHistoryUnstarQueryFlag.QueryHistoryUID,
@@ -6404,7 +7049,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.RecordingRuleJSON
 			if err := getBodyParam(
 				recordingRulesCreateRecordingRuleFlag.Body,
@@ -6434,7 +7082,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.PrometheusRemoteWriteTargetJSON
 			if err := getBodyParam(
 				recordingRulesCreateRecordingRuleWriteTargetFlag.Body,
@@ -6464,7 +7115,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.RecordingRules.DeleteRecordingRuleWithParams(
 				&recording_rules.DeleteRecordingRuleParams{
 					RecordingRuleID: recordingRulesDeleteRecordingRuleFlag.RecordingRuleID,
@@ -6487,7 +7141,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.RecordingRules.DeleteRecordingRuleWriteTargetWithParams(
 				&recording_rules.DeleteRecordingRuleWriteTargetParams{},
 			)
@@ -6508,7 +7165,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.RecordingRules.GetRecordingRuleWriteTargetWithParams(
 				&recording_rules.GetRecordingRuleWriteTargetParams{},
 			)
@@ -6529,7 +7189,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.RecordingRules.ListRecordingRulesWithParams(
 				&recording_rules.ListRecordingRulesParams{},
 			)
@@ -6550,7 +7213,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.RecordingRuleJSON
 			if err := getBodyParam(
 				recordingRulesTestCreateRecordingRuleFlag.Body,
@@ -6580,7 +7246,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.RecordingRuleJSON
 			if err := getBodyParam(
 				recordingRulesUpdateRecordingRuleFlag.Body,
@@ -6629,7 +7298,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateOrUpdateReport
 			if err := getBodyParam(
 				reportsCreateReportFlag.Body,
@@ -6659,7 +7331,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Reports.DeleteReportWithParams(
 				&reports.DeleteReportParams{
 					ID: reportsDeleteReportFlag.ID,
@@ -6682,7 +7357,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Reports.GetReportSettingsWithParams(
 				&reports.GetReportSettingsParams{},
 			)
@@ -6703,7 +7381,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Reports.GetReportWithParams(
 				&reports.GetReportParams{
 					ID: reportsGetReportFlag.ID,
@@ -6726,7 +7407,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Reports.GetReportsWithParams(
 				&reports.GetReportsParams{},
 			)
@@ -6747,7 +7431,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Reports.GetSettingsImageWithParams(
 				&reports.GetSettingsImageParams{},
 			)
@@ -6768,7 +7455,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, _, err := api.Reports.RenderReportCSVs(
 				&reports.RenderReportCSVsParams{
 					Dashboards: &reportsRenderReportCSVsFlag.Dashboards,
@@ -6792,7 +7482,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Reports.RenderReportPDFs(
 				&reports.RenderReportPDFsParams{
 					Dashboards:    &reportsRenderReportPDFsFlag.Dashboards,
@@ -6820,7 +7513,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.ReportSettings
 			if err := getBodyParam(
 				reportsSaveReportSettingsFlag.Body,
@@ -6850,7 +7546,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.ReportEmail
 			if err := getBodyParam(
 				reportsSendReportFlag.Body,
@@ -6880,7 +7579,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateOrUpdateReport
 			if err := getBodyParam(
 				reportsSendTestEmailFlag.Body,
@@ -6910,7 +7612,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateOrUpdateReport
 			if err := getBodyParam(
 				reportsUpdateReportFlag.Body,
@@ -6979,7 +7684,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Saml.GetMetadataWithParams(
 				&saml.GetMetadataParams{},
 			)
@@ -7000,8 +7708,11 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
-			err := api.Saml.GetSAMLLogoutWithParams(
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			err = api.Saml.GetSAMLLogoutWithParams(
 				&saml.GetSAMLLogoutParams{},
 			)
 			if err != nil {
@@ -7022,8 +7733,11 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
-			err := api.Saml.GetSLOWithParams(
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			err = api.Saml.GetSLOWithParams(
 				&saml.GetSLOParams{},
 			)
 			if err != nil {
@@ -7044,8 +7758,11 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
-			err := api.Saml.PostACS(
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			err = api.Saml.PostACS(
 				&saml.PostACSParams{
 					RelayState: &samlPostACSFlag.RelayState,
 				},
@@ -7068,8 +7785,11 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
-			err := api.Saml.PostSLO(
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			err = api.Saml.PostSLO(
 				&saml.PostSLOParams{
 					SAMLRequest:  &samlPostSLOFlag.SAMLRequest,
 					SAMLResponse: &samlPostSLOFlag.SAMLResponse,
@@ -7104,7 +7824,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Search.ListSortOptionsWithParams(
 				&search.ListSortOptionsParams{},
 			)
@@ -7125,7 +7848,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Search.Search(
 				&search.SearchParams{
 					DashboardIds:  searchSearchFlag.DashboardIds,
@@ -7179,7 +7905,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateServiceAccountForm
 			if err := getBodyParam(
 				serviceAccountsCreateServiceAccountFlag.Body,
@@ -7209,7 +7938,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AddServiceAccountTokenCommand
 			if err := getBodyParam(
 				serviceAccountsCreateTokenFlag.Body,
@@ -7240,7 +7972,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.ServiceAccounts.DeleteServiceAccountWithParams(
 				&service_accounts.DeleteServiceAccountParams{
 					ServiceAccountID: serviceAccountsDeleteServiceAccountFlag.ServiceAccountID,
@@ -7263,7 +7998,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.ServiceAccounts.DeleteTokenWithParams(
 				&service_accounts.DeleteTokenParams{
 					ServiceAccountID: serviceAccountsDeleteTokenFlag.ServiceAccountID,
@@ -7287,7 +8025,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.ServiceAccounts.ListTokensWithParams(
 				&service_accounts.ListTokensParams{
 					ServiceAccountID: serviceAccountsListTokensFlag.ServiceAccountID,
@@ -7310,7 +8051,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.ServiceAccounts.RetrieveServiceAccountWithParams(
 				&service_accounts.RetrieveServiceAccountParams{
 					ServiceAccountID: serviceAccountsRetrieveServiceAccountFlag.ServiceAccountID,
@@ -7333,7 +8077,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.ServiceAccounts.SearchOrgServiceAccountsWithPaging(
 				&service_accounts.SearchOrgServiceAccountsWithPagingParams{
 					Disabled:      &serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Disabled,
@@ -7360,7 +8107,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateServiceAccountForm
 			if err := getBodyParam(
 				serviceAccountsUpdateServiceAccountFlag.Body,
@@ -7426,7 +8176,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.ChangeUserPasswordCommand
 			if err := getBodyParam(
 				signedInUserChangeUserPasswordFlag.Body,
@@ -7456,7 +8209,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.ClearHelpFlagsWithParams(
 				&signed_in_user.ClearHelpFlagsParams{},
 			)
@@ -7477,7 +8233,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.GetSignedInUserOrgListWithParams(
 				&signed_in_user.GetSignedInUserOrgListParams{},
 			)
@@ -7498,7 +8257,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.GetSignedInUserTeamListWithParams(
 				&signed_in_user.GetSignedInUserTeamListParams{},
 			)
@@ -7519,7 +8281,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.GetSignedInUserWithParams(
 				&signed_in_user.GetSignedInUserParams{},
 			)
@@ -7540,7 +8305,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.GetUserAuthTokensWithParams(
 				&signed_in_user.GetUserAuthTokensParams{},
 			)
@@ -7561,7 +8329,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.GetUserQuotasWithParams(
 				&signed_in_user.GetUserQuotasParams{},
 			)
@@ -7582,7 +8353,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.RevokeAuthTokenCmd
 			if err := getBodyParam(
 				signedInUserRevokeUserAuthTokenFlag.Body,
@@ -7612,7 +8386,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.SetHelpFlagWithParams(
 				&signed_in_user.SetHelpFlagParams{
 					FlagID: signedInUserSetHelpFlagFlag.FlagID,
@@ -7635,7 +8412,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.StarDashboardByUIDWithParams(
 				&signed_in_user.StarDashboardByUIDParams{
 					DashboardUID: signedInUserStarDashboardByUIDFlag.DashboardUID,
@@ -7658,7 +8438,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.StarDashboardWithParams(
 				&signed_in_user.StarDashboardParams{
 					DashboardID: signedInUserStarDashboardFlag.DashboardID,
@@ -7681,7 +8464,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.UnstarDashboardByUIDWithParams(
 				&signed_in_user.UnstarDashboardByUIDParams{
 					DashboardUID: signedInUserUnstarDashboardByUIDFlag.DashboardUID,
@@ -7704,7 +8490,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.UnstarDashboardWithParams(
 				&signed_in_user.UnstarDashboardParams{
 					DashboardID: signedInUserUnstarDashboardFlag.DashboardID,
@@ -7727,7 +8516,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateUserCommand
 			if err := getBodyParam(
 				signedInUserUpdateSignedInUserFlag.Body,
@@ -7757,7 +8549,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SignedInUser.UserSetUsingOrgWithParams(
 				&signed_in_user.UserSetUsingOrgParams{
 					OrgID: signedInUserUserSetUsingOrgFlag.OrgID,
@@ -7811,7 +8606,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SigningKeys.RetrieveJWKSWithParams(
 				&signing_keys.RetrieveJWKSParams{},
 			)
@@ -7836,7 +8634,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateDashboardSnapshotCommand
 			if err := getBodyParam(
 				snapshotsCreateDashboardSnapshotFlag.Body,
@@ -7866,7 +8667,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Snapshots.DeleteDashboardSnapshotByDeleteKeyWithParams(
 				&snapshots.DeleteDashboardSnapshotByDeleteKeyParams{
 					DeleteKey: snapshotsDeleteDashboardSnapshotByDeleteKeyFlag.DeleteKey,
@@ -7889,7 +8693,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Snapshots.DeleteDashboardSnapshotWithParams(
 				&snapshots.DeleteDashboardSnapshotParams{
 					Key: snapshotsDeleteDashboardSnapshotFlag.Key,
@@ -7912,7 +8719,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Snapshots.GetDashboardSnapshotWithParams(
 				&snapshots.GetDashboardSnapshotParams{
 					Key: snapshotsGetDashboardSnapshotFlag.Key,
@@ -7936,7 +8746,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Snapshots.GetSharingOptionsWithParams(
 				&snapshots.GetSharingOptionsParams{},
 			)
@@ -7957,7 +8770,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Snapshots.SearchDashboardSnapshots(
 				&snapshots.SearchDashboardSnapshotsParams{
 					Limit: &snapshotsSearchDashboardSnapshotsFlag.Limit,
@@ -8001,7 +8817,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SsoSettings.GetProviderSettingsWithParams(
 				&sso_settings.GetProviderSettingsParams{
 					Key: ssoSettingsGetProviderSettingsFlag.Key,
@@ -8024,7 +8843,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SsoSettings.ListAllProvidersSettingsWithParams(
 				&sso_settings.ListAllProvidersSettingsParams{},
 			)
@@ -8045,7 +8867,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SsoSettings.RemoveProviderSettingsWithParams(
 				&sso_settings.RemoveProviderSettingsParams{
 					Key: ssoSettingsRemoveProviderSettingsFlag.Key,
@@ -8068,7 +8893,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateProviderSettingsParamsBody
 			if err := getBodyParam(
 				ssoSettingsUpdateProviderSettingsFlag.Body,
@@ -8113,7 +8941,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.TeamGroupMapping
 			if err := getBodyParam(
 				syncTeamGroupsAddTeamGroupAPIFlag.Body,
@@ -8144,7 +8975,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SyncTeamGroups.GetTeamGroupsAPIWithParams(
 				&sync_team_groups.GetTeamGroupsAPIParams{
 					TeamID: syncTeamGroupsGetTeamGroupsAPIFlag.TeamID,
@@ -8167,7 +9001,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.SyncTeamGroups.RemoveTeamGroupAPIQuery(
 				&sync_team_groups.RemoveTeamGroupAPIQueryParams{
 					GroupID: &syncTeamGroupsRemoveTeamGroupAPIQueryFlag.GroupID,
@@ -8206,7 +9043,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.AddTeamMemberCommand
 			if err := getBodyParam(
 				teamsAddTeamMemberFlag.Body,
@@ -8237,7 +9077,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.CreateTeamCommand
 			if err := getBodyParam(
 				teamsCreateTeamFlag.Body,
@@ -8267,7 +9110,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Teams.GetTeamMembersWithParams(
 				&teams.GetTeamMembersParams{
 					TeamID: teamsGetTeamMembersFlag.TeamID,
@@ -8290,7 +9136,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Teams.GetTeamPreferencesWithParams(
 				&teams.GetTeamPreferencesParams{
 					TeamID: teamsGetTeamPreferencesFlag.TeamID,
@@ -8313,7 +9162,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Teams.RemoveTeamMemberWithParams(
 				&teams.RemoveTeamMemberParams{
 					TeamID: teamsRemoveTeamMemberFlag.TeamID,
@@ -8337,7 +9189,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Teams.SearchTeams(
 				&teams.SearchTeamsParams{
 					Name:    &teamsSearchTeamsFlag.Name,
@@ -8363,7 +9218,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.SetTeamMembershipsCommand
 			if err := getBodyParam(
 				teamsSetTeamMembershipsFlag.Body,
@@ -8394,7 +9252,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateTeamMemberCommand
 			if err := getBodyParam(
 				teamsUpdateTeamMemberFlag.Body,
@@ -8426,7 +9287,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdatePrefsCmd
 			if err := getBodyParam(
 				teamsUpdateTeamPreferencesFlag.Body,
@@ -8457,7 +9321,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateTeamCommand
 			if err := getBodyParam(
 				teamsUpdateTeamFlag.Body,
@@ -8532,8 +9399,11 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
-			err := api.User.UpdateUserEmailWithParams(
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			err = api.User.UpdateUserEmailWithParams(
 				&user.UpdateUserEmailParams{},
 			)
 			if err != nil {
@@ -8558,7 +9428,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.UserPreferences.GetUserPreferencesWithParams(
 				&user_preferences.GetUserPreferencesParams{},
 			)
@@ -8579,7 +9452,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.PatchPrefsCmd
 			if err := getBodyParam(
 				userPreferencesPatchUserPreferencesFlag.Body,
@@ -8609,7 +9485,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdatePrefsCmd
 			if err := getBodyParam(
 				userPreferencesUpdateUserPreferencesFlag.Body,
@@ -8649,7 +9528,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Users.GetUserByLoginOrEmailWithParams(
 				&users.GetUserByLoginOrEmailParams{
 					LoginOrEmail: usersGetUserByLoginOrEmailFlag.LoginOrEmail,
@@ -8672,7 +9554,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Users.GetUserOrgListWithParams(
 				&users.GetUserOrgListParams{
 					UserID: usersGetUserOrgListFlag.UserID,
@@ -8695,7 +9580,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Users.GetUserTeamsWithParams(
 				&users.GetUserTeamsParams{
 					UserID: usersGetUserTeamsFlag.UserID,
@@ -8718,7 +9606,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Users.SearchUsers(
 				&users.SearchUsersParams{
 					Page:    &usersSearchUsersFlag.Page,
@@ -8742,7 +9633,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			resp, err := api.Users.SearchUsersWithPagingWithParams(
 				&users.SearchUsersWithPagingParams{},
 			)
@@ -8763,7 +9657,10 @@ var (
 		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			var body models.UpdateUserCommand
 			if err := getBodyParam(
 				usersUpdateUserFlag.Body,

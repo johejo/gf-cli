@@ -122,6 +122,7 @@ func toKebab(s string) string {
 	k := strcase.ToKebab(s)
 	// workaround
 	k = strings.ReplaceAll(k, "ui-ds", "uids")
+	k = strings.ReplaceAll(k, "ap-ikey", "api-key")
 	return k
 }
 
@@ -361,7 +362,10 @@ var (
 		SilenceUsage: true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			api := gfClient()
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
 			{{- if .BodyTypeName }}
 			var body {{ .BodyTypeName }}
 			if err := getBodyParam(
@@ -372,7 +376,7 @@ var (
 			}
 			{{- end }}
 			{{- if eq .NumOut 1 }}
-			err := api.{{ .GoParamName }}.{{ .GoMethodName }}(
+			err = api.{{ .GoParamName }}.{{ .GoMethodName }}(
 			{{- else if eq .NumOut 2 }}
 			resp, err := api.{{ .GoParamName }}.{{ .GoMethodName }}(
 			{{- else if eq .NumOut 3}}
