@@ -57,10 +57,11 @@ var (
 	accessControlCmd = &cobra.Command{
 		Use:               "access-control",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	accessControlAddTeamRoleCmd = &cobra.Command{
 		Use:               "add-team-role",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -94,7 +95,6 @@ var (
 	}
 	accessControlAddUserRoleCmd = &cobra.Command{
 		Use:               "add-user-role",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -128,7 +128,6 @@ var (
 	}
 	accessControlCreateRoleCmd = &cobra.Command{
 		Use:               "create-role",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -161,7 +160,6 @@ var (
 	}
 	accessControlDeleteRoleCmd = &cobra.Command{
 		Use:               "delete-role",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -189,7 +187,6 @@ var (
 	}
 	accessControlGetAccessControlStatusCmd = &cobra.Command{
 		Use:               "get-access-control-status",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -213,7 +210,6 @@ var (
 	}
 	accessControlGetResourceDescriptionCmd = &cobra.Command{
 		Use:               "get-resource-description",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -239,7 +235,6 @@ var (
 	}
 	accessControlGetResourcePermissionsCmd = &cobra.Command{
 		Use:               "get-resource-permissions",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -266,7 +261,6 @@ var (
 	}
 	accessControlGetRoleAssignmentsCmd = &cobra.Command{
 		Use:               "get-role-assignments",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -292,7 +286,6 @@ var (
 	}
 	accessControlGetRoleCmd = &cobra.Command{
 		Use:               "get-role",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -318,7 +311,6 @@ var (
 	}
 	accessControlListRolesCmd = &cobra.Command{
 		Use:               "list-roles",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -345,7 +337,6 @@ var (
 	}
 	accessControlListTeamRolesCmd = &cobra.Command{
 		Use:               "list-team-roles",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -371,7 +362,6 @@ var (
 	}
 	accessControlListTeamsRolesCmd = &cobra.Command{
 		Use:               "list-teams-roles",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -404,7 +394,6 @@ var (
 	}
 	accessControlListUserRolesCmd = &cobra.Command{
 		Use:               "list-user-roles",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -430,7 +419,6 @@ var (
 	}
 	accessControlListUsersRolesCmd = &cobra.Command{
 		Use:               "list-users-roles",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -463,7 +451,6 @@ var (
 	}
 	accessControlRemoveTeamRoleCmd = &cobra.Command{
 		Use:               "remove-team-role",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -490,7 +477,6 @@ var (
 	}
 	accessControlRemoveUserRoleCmd = &cobra.Command{
 		Use:               "remove-user-role",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -518,7 +504,6 @@ var (
 	}
 	accessControlSetResourcePermissionsCmd = &cobra.Command{
 		Use:               "set-resource-permissions",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -553,7 +538,6 @@ var (
 	}
 	accessControlSetResourcePermissionsForBuiltInRoleCmd = &cobra.Command{
 		Use:               "set-resource-permissions-for-built-in-role",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -589,7 +573,6 @@ var (
 	}
 	accessControlSetResourcePermissionsForTeamCmd = &cobra.Command{
 		Use:               "set-resource-permissions-for-team",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -625,7 +608,6 @@ var (
 	}
 	accessControlSetResourcePermissionsForUserCmd = &cobra.Command{
 		Use:               "set-resource-permissions-for-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -661,7 +643,6 @@ var (
 	}
 	accessControlSetRoleAssignmentsCmd = &cobra.Command{
 		Use:               "set-role-assignments",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -695,7 +676,6 @@ var (
 	}
 	accessControlSetTeamRolesCmd = &cobra.Command{
 		Use:               "set-team-roles",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -721,7 +701,6 @@ var (
 	}
 	accessControlSetUserRolesCmd = &cobra.Command{
 		Use:               "set-user-roles",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -755,7 +734,6 @@ var (
 	}
 	accessControlUpdateRoleCmd = &cobra.Command{
 		Use:               "update-role",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -882,10 +860,11 @@ var (
 	accessControlProvisioningCmd = &cobra.Command{
 		Use:               "access-control-provisioning",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	accessControlProvisioningAdminProvisioningReloadAccessControlCmd = &cobra.Command{
 		Use:               "admin-provisioning-reload-access-control",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -910,10 +889,11 @@ var (
 	adminCmd = &cobra.Command{
 		Use:               "admin",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	adminAdminGetSettingsCmd = &cobra.Command{
 		Use:               "admin-get-settings",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -937,7 +917,6 @@ var (
 	}
 	adminAdminGetStatsCmd = &cobra.Command{
 		Use:               "admin-get-stats",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -962,10 +941,11 @@ var (
 	adminLdapCmd = &cobra.Command{
 		Use:               "admin-ldap",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	adminLdapGetLDAPStatusCmd = &cobra.Command{
 		Use:               "get-ldap-status",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -989,7 +969,6 @@ var (
 	}
 	adminLdapGetUserFromLDAPCmd = &cobra.Command{
 		Use:               "get-user-from-ldap",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1015,7 +994,6 @@ var (
 	}
 	adminLdapPostSyncUserWithLDAPCmd = &cobra.Command{
 		Use:               "post-sync-user-with-ldap",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1041,7 +1019,6 @@ var (
 	}
 	adminLdapReloadLDAPCfgCmd = &cobra.Command{
 		Use:               "reload-ldap-cfg",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1072,10 +1049,11 @@ var (
 	adminProvisioningCmd = &cobra.Command{
 		Use:               "admin-provisioning",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	adminProvisioningAdminProvisioningReloadDashboardsCmd = &cobra.Command{
 		Use:               "admin-provisioning-reload-dashboards",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1099,7 +1077,6 @@ var (
 	}
 	adminProvisioningAdminProvisioningReloadDatasourcesCmd = &cobra.Command{
 		Use:               "admin-provisioning-reload-datasources",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1123,7 +1100,6 @@ var (
 	}
 	adminProvisioningAdminProvisioningReloadPluginsCmd = &cobra.Command{
 		Use:               "admin-provisioning-reload-plugins",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1148,10 +1124,11 @@ var (
 	adminUsersCmd = &cobra.Command{
 		Use:               "admin-users",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	adminUsersAdminCreateUserCmd = &cobra.Command{
 		Use:               "admin-create-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1184,7 +1161,6 @@ var (
 	}
 	adminUsersAdminDeleteUserCmd = &cobra.Command{
 		Use:               "admin-delete-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1210,7 +1186,6 @@ var (
 	}
 	adminUsersAdminDisableUserCmd = &cobra.Command{
 		Use:               "admin-disable-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1236,7 +1211,6 @@ var (
 	}
 	adminUsersAdminEnableUserCmd = &cobra.Command{
 		Use:               "admin-enable-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1262,7 +1236,6 @@ var (
 	}
 	adminUsersAdminGetUserAuthTokensCmd = &cobra.Command{
 		Use:               "admin-get-user-auth-tokens",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1288,7 +1261,6 @@ var (
 	}
 	adminUsersAdminLogoutUserCmd = &cobra.Command{
 		Use:               "admin-logout-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1314,7 +1286,6 @@ var (
 	}
 	adminUsersAdminRevokeUserAuthTokenCmd = &cobra.Command{
 		Use:               "admin-revoke-user-auth-token",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1348,7 +1319,6 @@ var (
 	}
 	adminUsersAdminUpdateUserPasswordCmd = &cobra.Command{
 		Use:               "admin-update-user-password",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1382,7 +1352,6 @@ var (
 	}
 	adminUsersAdminUpdateUserPermissionsCmd = &cobra.Command{
 		Use:               "admin-update-user-permissions",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1416,7 +1385,6 @@ var (
 	}
 	adminUsersGetUserQuotaCmd = &cobra.Command{
 		Use:               "get-user-quota",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1442,7 +1410,6 @@ var (
 	}
 	adminUsersUpdateUserQuotaCmd = &cobra.Command{
 		Use:               "update-user-quota",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1516,10 +1483,11 @@ var (
 	annotationsCmd = &cobra.Command{
 		Use:               "annotations",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	annotationsGetAnnotationTagsCmd = &cobra.Command{
 		Use:               "get-annotation-tags",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1546,7 +1514,6 @@ var (
 	}
 	annotationsGetAnnotationsCmd = &cobra.Command{
 		Use:               "get-annotations",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1582,7 +1549,6 @@ var (
 	}
 	annotationsMassDeleteAnnotationsCmd = &cobra.Command{
 		Use:               "mass-delete-annotations",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1615,7 +1581,6 @@ var (
 	}
 	annotationsPatchAnnotationCmd = &cobra.Command{
 		Use:               "patch-annotation",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1649,7 +1614,6 @@ var (
 	}
 	annotationsPostAnnotationCmd = &cobra.Command{
 		Use:               "post-annotation",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1682,7 +1646,6 @@ var (
 	}
 	annotationsPostGraphiteAnnotationCmd = &cobra.Command{
 		Use:               "post-graphite-annotation",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1715,7 +1678,6 @@ var (
 	}
 	annotationsUpdateAnnotationCmd = &cobra.Command{
 		Use:               "update-annotation",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1784,10 +1746,11 @@ var (
 	apiKeysCmd = &cobra.Command{
 		Use:               "api-keys",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	apiKeysAddAPIkeyCmd = &cobra.Command{
 		Use:               "add-api-key",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1820,7 +1783,6 @@ var (
 	}
 	apiKeysDeleteAPIkeyCmd = &cobra.Command{
 		Use:               "delete-api-key",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1846,7 +1808,6 @@ var (
 	}
 	apiKeysGetAPIkeysCmd = &cobra.Command{
 		Use:               "get-api-keys",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1882,10 +1843,11 @@ var (
 	correlationsCmd = &cobra.Command{
 		Use:               "correlations",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	correlationsCreateCorrelationCmd = &cobra.Command{
 		Use:               "create-correlation",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1919,7 +1881,6 @@ var (
 	}
 	correlationsDeleteCorrelationCmd = &cobra.Command{
 		Use:               "delete-correlation",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1946,7 +1907,6 @@ var (
 	}
 	correlationsGetCorrelationCmd = &cobra.Command{
 		Use:               "get-correlation",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1973,7 +1933,6 @@ var (
 	}
 	correlationsGetCorrelationsCmd = &cobra.Command{
 		Use:               "get-correlations",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2001,7 +1960,6 @@ var (
 	}
 	correlationsGetCorrelationsBySourceUIDCmd = &cobra.Command{
 		Use:               "get-correlations-by-source-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2027,7 +1985,6 @@ var (
 	}
 	correlationsUpdateCorrelationCmd = &cobra.Command{
 		Use:               "update-correlation",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2088,10 +2045,11 @@ var (
 	dashboardPermissionsCmd = &cobra.Command{
 		Use:               "dashboard-permissions",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	dashboardPermissionsGetDashboardPermissionsListByUIDCmd = &cobra.Command{
 		Use:               "get-dashboard-permissions-list-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2117,7 +2075,6 @@ var (
 	}
 	dashboardPermissionsUpdateDashboardPermissionsByUIDCmd = &cobra.Command{
 		Use:               "update-dashboard-permissions-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2159,10 +2116,11 @@ var (
 	dashboardPublicCmd = &cobra.Command{
 		Use:               "dashboard-public",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	dashboardPublicCreatePublicDashboardCmd = &cobra.Command{
 		Use:               "create-public-dashboard",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2196,7 +2154,6 @@ var (
 	}
 	dashboardPublicDeletePublicDashboardCmd = &cobra.Command{
 		Use:               "delete-public-dashboard",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2223,7 +2180,6 @@ var (
 	}
 	dashboardPublicGetPublicAnnotationsCmd = &cobra.Command{
 		Use:               "get-public-annotations",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2249,7 +2205,6 @@ var (
 	}
 	dashboardPublicGetPublicDashboardCmd = &cobra.Command{
 		Use:               "get-public-dashboard",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2275,7 +2230,6 @@ var (
 	}
 	dashboardPublicListPublicDashboardsCmd = &cobra.Command{
 		Use:               "list-public-dashboards",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2299,7 +2253,6 @@ var (
 	}
 	dashboardPublicQueryPublicDashboardCmd = &cobra.Command{
 		Use:               "query-public-dashboard",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2326,7 +2279,6 @@ var (
 	}
 	dashboardPublicUpdatePublicDashboardCmd = &cobra.Command{
 		Use:               "update-public-dashboard",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2361,7 +2313,6 @@ var (
 	}
 	dashboardPublicViewPublicDashboardCmd = &cobra.Command{
 		Use:               "view-public-dashboard",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2414,10 +2365,11 @@ var (
 	dashboardVersionsCmd = &cobra.Command{
 		Use:               "dashboard-versions",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	dashboardVersionsGetDashboardVersionByUIDCmd = &cobra.Command{
 		Use:               "get-dashboard-version-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2444,7 +2396,6 @@ var (
 	}
 	dashboardVersionsGetDashboardVersionsByUIDCmd = &cobra.Command{
 		Use:               "get-dashboard-versions-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2472,7 +2423,6 @@ var (
 	}
 	dashboardVersionsRestoreDashboardVersionByUIDCmd = &cobra.Command{
 		Use:               "restore-dashboard-version-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2520,10 +2470,11 @@ var (
 	dashboardsCmd = &cobra.Command{
 		Use:               "dashboards",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	dashboardsCalculateDashboardDiffCmd = &cobra.Command{
 		Use:               "calculate-dashboard-diff",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2556,7 +2507,6 @@ var (
 	}
 	dashboardsDeleteDashboardByUIDCmd = &cobra.Command{
 		Use:               "delete-dashboard-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2582,7 +2532,6 @@ var (
 	}
 	dashboardsGetDashboardByUIDCmd = &cobra.Command{
 		Use:               "get-dashboard-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2608,7 +2557,6 @@ var (
 	}
 	dashboardsGetDashboardTagsCmd = &cobra.Command{
 		Use:               "get-dashboard-tags",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2632,7 +2580,6 @@ var (
 	}
 	dashboardsGetHomeDashboardCmd = &cobra.Command{
 		Use:               "get-home-dashboard",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2656,7 +2603,6 @@ var (
 	}
 	dashboardsHardDeleteDashboardByUIDCmd = &cobra.Command{
 		Use:               "hard-delete-dashboard-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2682,7 +2628,6 @@ var (
 	}
 	dashboardsImportDashboardCmd = &cobra.Command{
 		Use:               "import-dashboard",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2715,7 +2660,6 @@ var (
 	}
 	dashboardsPostDashboardCmd = &cobra.Command{
 		Use:               "post-dashboard",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2748,7 +2692,6 @@ var (
 	}
 	dashboardsRestoreDeletedDashboardByUIDCmd = &cobra.Command{
 		Use:               "restore-deleted-dashboard-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2805,10 +2748,11 @@ var (
 	datasourcesCmd = &cobra.Command{
 		Use:               "datasources",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	datasourcesAddDatasourceCmd = &cobra.Command{
 		Use:               "add-datasource",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2841,7 +2785,6 @@ var (
 	}
 	datasourcesCallDatasourceResourceCmd = &cobra.Command{
 		Use:               "call-datasource-resource",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2868,7 +2811,6 @@ var (
 	}
 	datasourcesCheckDatasourceHealthCmd = &cobra.Command{
 		Use:               "check-datasource-health",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2894,7 +2836,6 @@ var (
 	}
 	datasourcesDeleteDatasourceByNameCmd = &cobra.Command{
 		Use:               "delete-datasource-by-name",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2920,7 +2861,6 @@ var (
 	}
 	datasourcesDeleteDatasourceByUIDCmd = &cobra.Command{
 		Use:               "delete-datasource-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2946,7 +2886,6 @@ var (
 	}
 	datasourcesGetDatasourceByNameCmd = &cobra.Command{
 		Use:               "get-datasource-by-name",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2972,7 +2911,6 @@ var (
 	}
 	datasourcesGetDatasourceByUIDCmd = &cobra.Command{
 		Use:               "get-datasource-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2998,7 +2936,6 @@ var (
 	}
 	datasourcesGetDatasourceIDByNameCmd = &cobra.Command{
 		Use:               "get-datasource-id-by-name",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3024,7 +2961,6 @@ var (
 	}
 	datasourcesGetDatasourcesCmd = &cobra.Command{
 		Use:               "get-datasources",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3048,7 +2984,6 @@ var (
 	}
 	datasourcesUpdateDatasourceByUIDCmd = &cobra.Command{
 		Use:               "update-datasource-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3112,10 +3047,11 @@ var (
 	devicesCmd = &cobra.Command{
 		Use:               "devices",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	devicesListDevicesCmd = &cobra.Command{
 		Use:               "list-devices",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3139,7 +3075,6 @@ var (
 	}
 	devicesSearchDevicesCmd = &cobra.Command{
 		Use:               "search-devices",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3164,10 +3099,11 @@ var (
 	dsCmd = &cobra.Command{
 		Use:               "ds",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	dsQueryMetricsWithExpressionsCmd = &cobra.Command{
 		Use:               "query-metrics-with-expressions",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3204,10 +3140,11 @@ var (
 	enterpriseCmd = &cobra.Command{
 		Use:               "enterprise",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	enterpriseCleanDatasourceCacheCmd = &cobra.Command{
 		Use:               "clean-datasource-cache",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3233,7 +3170,6 @@ var (
 	}
 	enterpriseDisableDatasourceCacheCmd = &cobra.Command{
 		Use:               "disable-datasource-cache",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3259,7 +3195,6 @@ var (
 	}
 	enterpriseEnableDatasourceCacheCmd = &cobra.Command{
 		Use:               "enable-datasource-cache",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3285,7 +3220,6 @@ var (
 	}
 	enterpriseGetDatasourceCacheConfigCmd = &cobra.Command{
 		Use:               "get-datasource-cache-config",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3311,7 +3245,6 @@ var (
 	}
 	enterpriseGetTeamLBACRulesAPICmd = &cobra.Command{
 		Use:               "get-team-lbac-rules-api",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3337,7 +3270,6 @@ var (
 	}
 	enterpriseSearchResultCmd = &cobra.Command{
 		Use:               "search-result",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3361,7 +3293,6 @@ var (
 	}
 	enterpriseSetDatasourceCacheConfigCmd = &cobra.Command{
 		Use:               "set-datasource-cache-config",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3395,7 +3326,6 @@ var (
 	}
 	enterpriseUpdateTeamLBACRulesAPICmd = &cobra.Command{
 		Use:               "update-team-lbac-rules-api",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3444,10 +3374,11 @@ var (
 	folderPermissionsCmd = &cobra.Command{
 		Use:               "folder-permissions",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	folderPermissionsGetFolderPermissionListCmd = &cobra.Command{
 		Use:               "get-folder-permission-list",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3473,7 +3404,6 @@ var (
 	}
 	folderPermissionsUpdateFolderPermissionsCmd = &cobra.Command{
 		Use:               "update-folder-permissions",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3515,10 +3445,11 @@ var (
 	foldersCmd = &cobra.Command{
 		Use:               "folders",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	foldersCreateFolderCmd = &cobra.Command{
 		Use:               "create-folder",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3551,7 +3482,6 @@ var (
 	}
 	foldersDeleteFolderCmd = &cobra.Command{
 		Use:               "delete-folder",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3578,7 +3508,6 @@ var (
 	}
 	foldersGetFolderByUIDCmd = &cobra.Command{
 		Use:               "get-folder-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3604,7 +3533,6 @@ var (
 	}
 	foldersGetFolderDescendantCountsCmd = &cobra.Command{
 		Use:               "get-folder-descendant-counts",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3630,7 +3558,6 @@ var (
 	}
 	foldersGetFoldersCmd = &cobra.Command{
 		Use:               "get-folders",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3659,7 +3586,6 @@ var (
 	}
 	foldersMoveFolderCmd = &cobra.Command{
 		Use:               "move-folder",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3693,7 +3619,6 @@ var (
 	}
 	foldersUpdateFolderCmd = &cobra.Command{
 		Use:               "update-folder",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3755,10 +3680,11 @@ var (
 	getCurrentOrgCmd = &cobra.Command{
 		Use:               "get-current-org",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	getCurrentOrgGetCurrentOrgQuotaCmd = &cobra.Command{
 		Use:               "get-current-org-quota",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3783,10 +3709,11 @@ var (
 	healthCmd = &cobra.Command{
 		Use:               "health",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	healthGetHealthCmd = &cobra.Command{
 		Use:               "get-health",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3811,10 +3738,11 @@ var (
 	ldapDebugCmd = &cobra.Command{
 		Use:               "ldap-debug",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	ldapDebugGetSyncStatusCmd = &cobra.Command{
 		Use:               "get-sync-status",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3839,10 +3767,11 @@ var (
 	libraryElementsCmd = &cobra.Command{
 		Use:               "library-elements",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	libraryElementsCreateLibraryElementCmd = &cobra.Command{
 		Use:               "create-library-element",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3875,7 +3804,6 @@ var (
 	}
 	libraryElementsDeleteLibraryElementByUIDCmd = &cobra.Command{
 		Use:               "delete-library-element-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3901,7 +3829,6 @@ var (
 	}
 	libraryElementsGetLibraryElementByNameCmd = &cobra.Command{
 		Use:               "get-library-element-by-name",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3927,7 +3854,6 @@ var (
 	}
 	libraryElementsGetLibraryElementByUIDCmd = &cobra.Command{
 		Use:               "get-library-element-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3953,7 +3879,6 @@ var (
 	}
 	libraryElementsGetLibraryElementConnectionsCmd = &cobra.Command{
 		Use:               "get-library-element-connections",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3979,7 +3904,6 @@ var (
 	}
 	libraryElementsGetLibraryElementsCmd = &cobra.Command{
 		Use:               "get-library-elements",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4012,7 +3936,6 @@ var (
 	}
 	libraryElementsUpdateLibraryElementCmd = &cobra.Command{
 		Use:               "update-library-element",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4076,10 +3999,11 @@ var (
 	licensingCmd = &cobra.Command{
 		Use:               "licensing",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	licensingDeleteLicenseTokenCmd = &cobra.Command{
 		Use:               "delete-license-token",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4112,7 +4036,6 @@ var (
 	}
 	licensingGetCustomPermissionsCSVCmd = &cobra.Command{
 		Use:               "get-custom-permissions-csv",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4137,7 +4060,6 @@ var (
 	}
 	licensingGetCustomPermissionsReportCmd = &cobra.Command{
 		Use:               "get-custom-permissions-report",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4162,7 +4084,6 @@ var (
 	}
 	licensingGetLicenseTokenCmd = &cobra.Command{
 		Use:               "get-license-token",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4186,7 +4107,6 @@ var (
 	}
 	licensingGetStatusCmd = &cobra.Command{
 		Use:               "get-status",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4211,7 +4131,6 @@ var (
 	}
 	licensingPostLicenseTokenCmd = &cobra.Command{
 		Use:               "post-license-token",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4244,7 +4163,6 @@ var (
 	}
 	licensingPostRenewLicenseTokenCmd = &cobra.Command{
 		Use:               "post-renew-license-token",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4278,7 +4196,6 @@ var (
 	}
 	licensingRefreshLicenseStatsCmd = &cobra.Command{
 		Use:               "refresh-license-stats",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4312,10 +4229,11 @@ var (
 	migrationsCmd = &cobra.Command{
 		Use:               "migrations",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	migrationsCancelSnapshotCmd = &cobra.Command{
 		Use:               "cancel-snapshot",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4343,7 +4261,6 @@ var (
 	}
 	migrationsCreateCloudMigrationTokenCmd = &cobra.Command{
 		Use:               "create-cloud-migration-token",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4367,7 +4284,6 @@ var (
 	}
 	migrationsCreateSessionCmd = &cobra.Command{
 		Use:               "create-session",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4400,7 +4316,6 @@ var (
 	}
 	migrationsCreateSnapshotCmd = &cobra.Command{
 		Use:               "create-snapshot",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4426,7 +4341,6 @@ var (
 	}
 	migrationsDeleteCloudMigrationTokenCmd = &cobra.Command{
 		Use:               "delete-cloud-migration-token",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4453,7 +4367,6 @@ var (
 	}
 	migrationsDeleteSessionCmd = &cobra.Command{
 		Use:               "delete-session",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4480,7 +4393,6 @@ var (
 	}
 	migrationsGetCloudMigrationRunListCmd = &cobra.Command{
 		Use:               "get-cloud-migration-run-list",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4506,7 +4418,6 @@ var (
 	}
 	migrationsGetCloudMigrationRunCmd = &cobra.Command{
 		Use:               "get-cloud-migration-run",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4532,7 +4443,6 @@ var (
 	}
 	migrationsGetCloudMigrationTokenCmd = &cobra.Command{
 		Use:               "get-cloud-migration-token",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4556,7 +4466,6 @@ var (
 	}
 	migrationsGetSessionListCmd = &cobra.Command{
 		Use:               "get-session-list",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4580,7 +4489,6 @@ var (
 	}
 	migrationsGetSessionCmd = &cobra.Command{
 		Use:               "get-session",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4606,7 +4514,6 @@ var (
 	}
 	migrationsGetShapshotListCmd = &cobra.Command{
 		Use:               "get-shapshot-list",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4634,7 +4541,6 @@ var (
 	}
 	migrationsGetSnapshotCmd = &cobra.Command{
 		Use:               "get-snapshot",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4663,7 +4569,6 @@ var (
 	}
 	migrationsRunCloudMigrationCmd = &cobra.Command{
 		Use:               "run-cloud-migration",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4689,7 +4594,6 @@ var (
 	}
 	migrationsUploadSnapshotCmd = &cobra.Command{
 		Use:               "upload-snapshot",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4761,10 +4665,11 @@ var (
 	orgCmd = &cobra.Command{
 		Use:               "org",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	orgAddOrgUserToCurrentOrgCmd = &cobra.Command{
 		Use:               "add-org-user-to-current-org",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4797,7 +4702,6 @@ var (
 	}
 	orgGetCurrentOrgCmd = &cobra.Command{
 		Use:               "get-current-org",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4821,7 +4725,6 @@ var (
 	}
 	orgGetOrgUsersForCurrentOrgLookupCmd = &cobra.Command{
 		Use:               "get-org-users-for-current-org-lookup",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4848,7 +4751,6 @@ var (
 	}
 	orgGetOrgUsersForCurrentOrgCmd = &cobra.Command{
 		Use:               "get-org-users-for-current-org",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4872,7 +4774,6 @@ var (
 	}
 	orgRemoveOrgUserForCurrentOrgCmd = &cobra.Command{
 		Use:               "remove-org-user-for-current-org",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4898,7 +4799,6 @@ var (
 	}
 	orgUpdateCurrentOrgAddressCmd = &cobra.Command{
 		Use:               "update-current-org-address",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4931,7 +4831,6 @@ var (
 	}
 	orgUpdateCurrentOrgCmd = &cobra.Command{
 		Use:               "update-current-org",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4964,7 +4863,6 @@ var (
 	}
 	orgUpdateOrgUserForCurrentOrgCmd = &cobra.Command{
 		Use:               "update-org-user-for-current-org",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5019,10 +4917,11 @@ var (
 	orgInvitesCmd = &cobra.Command{
 		Use:               "org-invites",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	orgInvitesAddOrgInviteCmd = &cobra.Command{
 		Use:               "add-org-invite",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5055,7 +4954,6 @@ var (
 	}
 	orgInvitesGetPendingOrgInvitesCmd = &cobra.Command{
 		Use:               "get-pending-org-invites",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5079,7 +4977,6 @@ var (
 	}
 	orgInvitesRevokeInviteCmd = &cobra.Command{
 		Use:               "revoke-invite",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5112,10 +5009,11 @@ var (
 	orgPreferencesCmd = &cobra.Command{
 		Use:               "org-preferences",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	orgPreferencesGetOrgPreferencesCmd = &cobra.Command{
 		Use:               "get-org-preferences",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5139,7 +5037,6 @@ var (
 	}
 	orgPreferencesPatchOrgPreferencesCmd = &cobra.Command{
 		Use:               "patch-org-preferences",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5172,7 +5069,6 @@ var (
 	}
 	orgPreferencesUpdateOrgPreferencesCmd = &cobra.Command{
 		Use:               "update-org-preferences",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5212,10 +5108,11 @@ var (
 	orgsCmd = &cobra.Command{
 		Use:               "orgs",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	orgsAddOrgUserCmd = &cobra.Command{
 		Use:               "add-org-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5249,7 +5146,6 @@ var (
 	}
 	orgsCreateOrgCmd = &cobra.Command{
 		Use:               "create-org",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5282,7 +5178,6 @@ var (
 	}
 	orgsGetOrgByNameCmd = &cobra.Command{
 		Use:               "get-org-by-name",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5308,7 +5203,6 @@ var (
 	}
 	orgsGetOrgQuotaCmd = &cobra.Command{
 		Use:               "get-org-quota",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5334,7 +5228,6 @@ var (
 	}
 	orgsGetOrgUsersCmd = &cobra.Command{
 		Use:               "get-org-users",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5360,7 +5253,6 @@ var (
 	}
 	orgsRemoveOrgUserCmd = &cobra.Command{
 		Use:               "remove-org-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5387,7 +5279,6 @@ var (
 	}
 	orgsSearchOrgUsersCmd = &cobra.Command{
 		Use:               "search-org-users",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5413,7 +5304,6 @@ var (
 	}
 	orgsSearchOrgsCmd = &cobra.Command{
 		Use:               "search-orgs",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5442,7 +5332,6 @@ var (
 	}
 	orgsUpdateOrgAddressCmd = &cobra.Command{
 		Use:               "update-org-address",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5476,7 +5365,6 @@ var (
 	}
 	orgsUpdateOrgQuotaCmd = &cobra.Command{
 		Use:               "update-org-quota",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5511,7 +5399,6 @@ var (
 	}
 	orgsUpdateOrgUserCmd = &cobra.Command{
 		Use:               "update-org-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5546,7 +5433,6 @@ var (
 	}
 	orgsUpdateOrgCmd = &cobra.Command{
 		Use:               "update-org",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5628,10 +5514,11 @@ var (
 	playlistsCmd = &cobra.Command{
 		Use:               "playlists",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	playlistsCreatePlaylistCmd = &cobra.Command{
 		Use:               "create-playlist",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5664,7 +5551,6 @@ var (
 	}
 	playlistsDeletePlaylistCmd = &cobra.Command{
 		Use:               "delete-playlist",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5690,7 +5576,6 @@ var (
 	}
 	playlistsGetPlaylistItemsCmd = &cobra.Command{
 		Use:               "get-playlist-items",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5716,7 +5601,6 @@ var (
 	}
 	playlistsGetPlaylistCmd = &cobra.Command{
 		Use:               "get-playlist",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5742,7 +5626,6 @@ var (
 	}
 	playlistsSearchPlaylistsCmd = &cobra.Command{
 		Use:               "search-playlists",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5769,7 +5652,6 @@ var (
 	}
 	playlistsUpdatePlaylistCmd = &cobra.Command{
 		Use:               "update-playlist",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5824,10 +5706,11 @@ var (
 	provisioningCmd = &cobra.Command{
 		Use:               "provisioning",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	provisioningDeleteAlertRuleCmd = &cobra.Command{
 		Use:               "delete-alert-rule",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5855,7 +5738,6 @@ var (
 	}
 	provisioningDeleteAlertRuleGroupCmd = &cobra.Command{
 		Use:               "delete-alert-rule-group",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5883,7 +5765,6 @@ var (
 	}
 	provisioningDeleteContactpointsCmd = &cobra.Command{
 		Use:               "delete-contactpoints",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5910,7 +5791,6 @@ var (
 	}
 	provisioningDeleteMuteTimingCmd = &cobra.Command{
 		Use:               "delete-mute-timing",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5939,7 +5819,6 @@ var (
 	}
 	provisioningDeleteTemplateCmd = &cobra.Command{
 		Use:               "delete-template",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5966,7 +5845,6 @@ var (
 	}
 	provisioningExportMuteTimingCmd = &cobra.Command{
 		Use:               "export-mute-timing",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5994,7 +5872,6 @@ var (
 	}
 	provisioningExportMuteTimingsCmd = &cobra.Command{
 		Use:               "export-mute-timings",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6021,7 +5898,6 @@ var (
 	}
 	provisioningGetAlertRuleExportCmd = &cobra.Command{
 		Use:               "get-alert-rule-export",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6049,7 +5925,6 @@ var (
 	}
 	provisioningGetAlertRuleGroupExportCmd = &cobra.Command{
 		Use:               "get-alert-rule-group-export",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6078,7 +5953,6 @@ var (
 	}
 	provisioningGetAlertRuleGroupCmd = &cobra.Command{
 		Use:               "get-alert-rule-group",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6105,7 +5979,6 @@ var (
 	}
 	provisioningGetAlertRuleCmd = &cobra.Command{
 		Use:               "get-alert-rule",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6131,7 +6004,6 @@ var (
 	}
 	provisioningGetAlertRulesExportCmd = &cobra.Command{
 		Use:               "get-alert-rules-export",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6161,7 +6033,6 @@ var (
 	}
 	provisioningGetAlertRulesCmd = &cobra.Command{
 		Use:               "get-alert-rules",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6185,7 +6056,6 @@ var (
 	}
 	provisioningGetContactpointsCmd = &cobra.Command{
 		Use:               "get-contactpoints",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6211,7 +6081,6 @@ var (
 	}
 	provisioningGetContactpointsExportCmd = &cobra.Command{
 		Use:               "get-contactpoints-export",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6240,7 +6109,6 @@ var (
 	}
 	provisioningGetMuteTimingCmd = &cobra.Command{
 		Use:               "get-mute-timing",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6266,7 +6134,6 @@ var (
 	}
 	provisioningGetMuteTimingsCmd = &cobra.Command{
 		Use:               "get-mute-timings",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6290,7 +6157,6 @@ var (
 	}
 	provisioningGetPolicyTreeExportCmd = &cobra.Command{
 		Use:               "get-policy-tree-export",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6314,7 +6180,6 @@ var (
 	}
 	provisioningGetPolicyTreeCmd = &cobra.Command{
 		Use:               "get-policy-tree",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6338,7 +6203,6 @@ var (
 	}
 	provisioningGetTemplateCmd = &cobra.Command{
 		Use:               "get-template",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6364,7 +6228,6 @@ var (
 	}
 	provisioningGetTemplatesCmd = &cobra.Command{
 		Use:               "get-templates",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6388,7 +6251,6 @@ var (
 	}
 	provisioningPostAlertRuleCmd = &cobra.Command{
 		Use:               "post-alert-rule",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6422,7 +6284,6 @@ var (
 	}
 	provisioningPostContactpointsCmd = &cobra.Command{
 		Use:               "post-contactpoints",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6456,7 +6317,6 @@ var (
 	}
 	provisioningPostMuteTimingCmd = &cobra.Command{
 		Use:               "post-mute-timing",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6490,7 +6350,6 @@ var (
 	}
 	provisioningPutAlertRuleCmd = &cobra.Command{
 		Use:               "put-alert-rule",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6525,7 +6384,6 @@ var (
 	}
 	provisioningPutAlertRuleGroupCmd = &cobra.Command{
 		Use:               "put-alert-rule-group",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6561,7 +6419,6 @@ var (
 	}
 	provisioningPutContactpointCmd = &cobra.Command{
 		Use:               "put-contactpoint",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6596,7 +6453,6 @@ var (
 	}
 	provisioningPutMuteTimingCmd = &cobra.Command{
 		Use:               "put-mute-timing",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6631,7 +6487,6 @@ var (
 	}
 	provisioningPutPolicyTreeCmd = &cobra.Command{
 		Use:               "put-policy-tree",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6665,7 +6520,6 @@ var (
 	}
 	provisioningPutTemplateCmd = &cobra.Command{
 		Use:               "put-template",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6700,7 +6554,6 @@ var (
 	}
 	provisioningResetPolicyTreeCmd = &cobra.Command{
 		Use:               "reset-policy-tree",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6835,10 +6688,11 @@ var (
 	queryHistoryCmd = &cobra.Command{
 		Use:               "query-history",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	queryHistoryCreateQueryCmd = &cobra.Command{
 		Use:               "create-query",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6871,7 +6725,6 @@ var (
 	}
 	queryHistoryDeleteQueryCmd = &cobra.Command{
 		Use:               "delete-query",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6897,7 +6750,6 @@ var (
 	}
 	queryHistoryPatchQueryCommentCmd = &cobra.Command{
 		Use:               "patch-query-comment",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6931,7 +6783,6 @@ var (
 	}
 	queryHistorySearchQueriesCmd = &cobra.Command{
 		Use:               "search-queries",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6964,7 +6815,6 @@ var (
 	}
 	queryHistoryStarQueryCmd = &cobra.Command{
 		Use:               "star-query",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -6990,7 +6840,6 @@ var (
 	}
 	queryHistoryUnstarQueryCmd = &cobra.Command{
 		Use:               "unstar-query",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7043,10 +6892,11 @@ var (
 	recordingRulesCmd = &cobra.Command{
 		Use:               "recording-rules",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	recordingRulesCreateRecordingRuleCmd = &cobra.Command{
 		Use:               "create-recording-rule",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7079,7 +6929,6 @@ var (
 	}
 	recordingRulesCreateRecordingRuleWriteTargetCmd = &cobra.Command{
 		Use:               "create-recording-rule-write-target",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7112,7 +6961,6 @@ var (
 	}
 	recordingRulesDeleteRecordingRuleCmd = &cobra.Command{
 		Use:               "delete-recording-rule",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7138,7 +6986,6 @@ var (
 	}
 	recordingRulesDeleteRecordingRuleWriteTargetCmd = &cobra.Command{
 		Use:               "delete-recording-rule-write-target",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7162,7 +7009,6 @@ var (
 	}
 	recordingRulesGetRecordingRuleWriteTargetCmd = &cobra.Command{
 		Use:               "get-recording-rule-write-target",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7186,7 +7032,6 @@ var (
 	}
 	recordingRulesListRecordingRulesCmd = &cobra.Command{
 		Use:               "list-recording-rules",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7210,7 +7055,6 @@ var (
 	}
 	recordingRulesTestCreateRecordingRuleCmd = &cobra.Command{
 		Use:               "test-create-recording-rule",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7243,7 +7087,6 @@ var (
 	}
 	recordingRulesUpdateRecordingRuleCmd = &cobra.Command{
 		Use:               "update-recording-rule",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7292,10 +7135,11 @@ var (
 	reportsCmd = &cobra.Command{
 		Use:               "reports",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	reportsCreateReportCmd = &cobra.Command{
 		Use:               "create-report",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7328,7 +7172,6 @@ var (
 	}
 	reportsDeleteReportCmd = &cobra.Command{
 		Use:               "delete-report",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7354,7 +7197,6 @@ var (
 	}
 	reportsGetReportSettingsCmd = &cobra.Command{
 		Use:               "get-report-settings",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7378,7 +7220,6 @@ var (
 	}
 	reportsGetReportCmd = &cobra.Command{
 		Use:               "get-report",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7404,7 +7245,6 @@ var (
 	}
 	reportsGetReportsCmd = &cobra.Command{
 		Use:               "get-reports",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7428,7 +7268,6 @@ var (
 	}
 	reportsGetSettingsImageCmd = &cobra.Command{
 		Use:               "get-settings-image",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7452,7 +7291,6 @@ var (
 	}
 	reportsRenderReportCSVsCmd = &cobra.Command{
 		Use:               "render-report-cs-vs",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7479,7 +7317,6 @@ var (
 	}
 	reportsRenderReportPDFsCmd = &cobra.Command{
 		Use:               "render-report-pd-fs",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7510,7 +7347,6 @@ var (
 	}
 	reportsSaveReportSettingsCmd = &cobra.Command{
 		Use:               "save-report-settings",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7543,7 +7379,6 @@ var (
 	}
 	reportsSendReportCmd = &cobra.Command{
 		Use:               "send-report",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7576,7 +7411,6 @@ var (
 	}
 	reportsSendTestEmailCmd = &cobra.Command{
 		Use:               "send-test-email",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7609,7 +7443,6 @@ var (
 	}
 	reportsUpdateReportCmd = &cobra.Command{
 		Use:               "update-report",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7678,10 +7511,11 @@ var (
 	samlCmd = &cobra.Command{
 		Use:               "saml",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	samlGetMetadataCmd = &cobra.Command{
 		Use:               "get-metadata",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7705,7 +7539,6 @@ var (
 	}
 	samlGetSAMLLogoutCmd = &cobra.Command{
 		Use:               "get-saml-logout",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7730,7 +7563,6 @@ var (
 	}
 	samlGetSLOCmd = &cobra.Command{
 		Use:               "get-slo",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7755,7 +7587,6 @@ var (
 	}
 	samlPostACSCmd = &cobra.Command{
 		Use:               "post-acs",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7782,7 +7613,6 @@ var (
 	}
 	samlPostSLOCmd = &cobra.Command{
 		Use:               "post-slo",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7818,10 +7648,11 @@ var (
 	searchCmd = &cobra.Command{
 		Use:               "search",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	searchListSortOptionsCmd = &cobra.Command{
 		Use:               "list-sort-options",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7845,7 +7676,6 @@ var (
 	}
 	searchSearchCmd = &cobra.Command{
 		Use:               "search",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7899,10 +7729,11 @@ var (
 	serviceAccountsCmd = &cobra.Command{
 		Use:               "service-accounts",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	serviceAccountsCreateServiceAccountCmd = &cobra.Command{
 		Use:               "create-service-account",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7935,7 +7766,6 @@ var (
 	}
 	serviceAccountsCreateTokenCmd = &cobra.Command{
 		Use:               "create-token",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7969,7 +7799,6 @@ var (
 	}
 	serviceAccountsDeleteServiceAccountCmd = &cobra.Command{
 		Use:               "delete-service-account",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7995,7 +7824,6 @@ var (
 	}
 	serviceAccountsDeleteTokenCmd = &cobra.Command{
 		Use:               "delete-token",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8022,7 +7850,6 @@ var (
 	}
 	serviceAccountsListTokensCmd = &cobra.Command{
 		Use:               "list-tokens",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8048,7 +7875,6 @@ var (
 	}
 	serviceAccountsRetrieveServiceAccountCmd = &cobra.Command{
 		Use:               "retrieve-service-account",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8074,7 +7900,6 @@ var (
 	}
 	serviceAccountsSearchOrgServiceAccountsWithPagingCmd = &cobra.Command{
 		Use:               "search-org-service-accounts-with-paging",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8104,7 +7929,6 @@ var (
 	}
 	serviceAccountsUpdateServiceAccountCmd = &cobra.Command{
 		Use:               "update-service-account",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8170,10 +7994,11 @@ var (
 	signedInUserCmd = &cobra.Command{
 		Use:               "signed-in-user",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	signedInUserChangeUserPasswordCmd = &cobra.Command{
 		Use:               "change-user-password",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8206,7 +8031,6 @@ var (
 	}
 	signedInUserClearHelpFlagsCmd = &cobra.Command{
 		Use:               "clear-help-flags",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8230,7 +8054,6 @@ var (
 	}
 	signedInUserGetSignedInUserOrgListCmd = &cobra.Command{
 		Use:               "get-signed-in-user-org-list",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8254,7 +8077,6 @@ var (
 	}
 	signedInUserGetSignedInUserTeamListCmd = &cobra.Command{
 		Use:               "get-signed-in-user-team-list",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8278,7 +8100,6 @@ var (
 	}
 	signedInUserGetSignedInUserCmd = &cobra.Command{
 		Use:               "get-signed-in-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8302,7 +8123,6 @@ var (
 	}
 	signedInUserGetUserAuthTokensCmd = &cobra.Command{
 		Use:               "get-user-auth-tokens",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8326,7 +8146,6 @@ var (
 	}
 	signedInUserGetUserQuotasCmd = &cobra.Command{
 		Use:               "get-user-quotas",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8350,7 +8169,6 @@ var (
 	}
 	signedInUserRevokeUserAuthTokenCmd = &cobra.Command{
 		Use:               "revoke-user-auth-token",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8383,7 +8201,6 @@ var (
 	}
 	signedInUserSetHelpFlagCmd = &cobra.Command{
 		Use:               "set-help-flag",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8409,7 +8226,6 @@ var (
 	}
 	signedInUserStarDashboardByUIDCmd = &cobra.Command{
 		Use:               "star-dashboard-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8435,7 +8251,6 @@ var (
 	}
 	signedInUserStarDashboardCmd = &cobra.Command{
 		Use:               "star-dashboard",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8461,7 +8276,6 @@ var (
 	}
 	signedInUserUnstarDashboardByUIDCmd = &cobra.Command{
 		Use:               "unstar-dashboard-by-uid",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8487,7 +8301,6 @@ var (
 	}
 	signedInUserUnstarDashboardCmd = &cobra.Command{
 		Use:               "unstar-dashboard",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8513,7 +8326,6 @@ var (
 	}
 	signedInUserUpdateSignedInUserCmd = &cobra.Command{
 		Use:               "update-signed-in-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8546,7 +8358,6 @@ var (
 	}
 	signedInUserUserSetUsingOrgCmd = &cobra.Command{
 		Use:               "user-set-using-org",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8600,10 +8411,11 @@ var (
 	signingKeysCmd = &cobra.Command{
 		Use:               "signing-keys",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	signingKeysRetrieveJWKSCmd = &cobra.Command{
 		Use:               "retrieve-jwks",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8628,10 +8440,11 @@ var (
 	snapshotsCmd = &cobra.Command{
 		Use:               "snapshots",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	snapshotsCreateDashboardSnapshotCmd = &cobra.Command{
 		Use:               "create-dashboard-snapshot",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8664,7 +8477,6 @@ var (
 	}
 	snapshotsDeleteDashboardSnapshotByDeleteKeyCmd = &cobra.Command{
 		Use:               "delete-dashboard-snapshot-by-delete-key",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8690,7 +8502,6 @@ var (
 	}
 	snapshotsDeleteDashboardSnapshotCmd = &cobra.Command{
 		Use:               "delete-dashboard-snapshot",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8716,7 +8527,6 @@ var (
 	}
 	snapshotsGetDashboardSnapshotCmd = &cobra.Command{
 		Use:               "get-dashboard-snapshot",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8743,7 +8553,6 @@ var (
 	}
 	snapshotsGetSharingOptionsCmd = &cobra.Command{
 		Use:               "get-sharing-options",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8767,7 +8576,6 @@ var (
 	}
 	snapshotsSearchDashboardSnapshotsCmd = &cobra.Command{
 		Use:               "search-dashboard-snapshots",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8811,10 +8619,11 @@ var (
 	ssoSettingsCmd = &cobra.Command{
 		Use:               "sso-settings",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	ssoSettingsGetProviderSettingsCmd = &cobra.Command{
 		Use:               "get-provider-settings",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8840,7 +8649,6 @@ var (
 	}
 	ssoSettingsListAllProvidersSettingsCmd = &cobra.Command{
 		Use:               "list-all-providers-settings",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8864,7 +8672,6 @@ var (
 	}
 	ssoSettingsRemoveProviderSettingsCmd = &cobra.Command{
 		Use:               "remove-provider-settings",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8890,7 +8697,6 @@ var (
 	}
 	ssoSettingsUpdateProviderSettingsCmd = &cobra.Command{
 		Use:               "update-provider-settings",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8935,10 +8741,11 @@ var (
 	syncTeamGroupsCmd = &cobra.Command{
 		Use:               "sync-team-groups",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	syncTeamGroupsAddTeamGroupAPICmd = &cobra.Command{
 		Use:               "add-team-group-api",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8972,7 +8779,6 @@ var (
 	}
 	syncTeamGroupsGetTeamGroupsAPICmd = &cobra.Command{
 		Use:               "get-team-groups-api",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8998,7 +8804,6 @@ var (
 	}
 	syncTeamGroupsRemoveTeamGroupAPIQueryCmd = &cobra.Command{
 		Use:               "remove-team-group-api-query",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9037,10 +8842,11 @@ var (
 	teamsCmd = &cobra.Command{
 		Use:               "teams",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	teamsAddTeamMemberCmd = &cobra.Command{
 		Use:               "add-team-member",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9074,7 +8880,6 @@ var (
 	}
 	teamsCreateTeamCmd = &cobra.Command{
 		Use:               "create-team",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9107,7 +8912,6 @@ var (
 	}
 	teamsGetTeamMembersCmd = &cobra.Command{
 		Use:               "get-team-members",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9133,7 +8937,6 @@ var (
 	}
 	teamsGetTeamPreferencesCmd = &cobra.Command{
 		Use:               "get-team-preferences",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9159,7 +8962,6 @@ var (
 	}
 	teamsRemoveTeamMemberCmd = &cobra.Command{
 		Use:               "remove-team-member",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9186,7 +8988,6 @@ var (
 	}
 	teamsSearchTeamsCmd = &cobra.Command{
 		Use:               "search-teams",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9215,7 +9016,6 @@ var (
 	}
 	teamsSetTeamMembershipsCmd = &cobra.Command{
 		Use:               "set-team-memberships",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9249,7 +9049,6 @@ var (
 	}
 	teamsUpdateTeamMemberCmd = &cobra.Command{
 		Use:               "update-team-member",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9284,7 +9083,6 @@ var (
 	}
 	teamsUpdateTeamPreferencesCmd = &cobra.Command{
 		Use:               "update-team-preferences",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9318,7 +9116,6 @@ var (
 	}
 	teamsUpdateTeamCmd = &cobra.Command{
 		Use:               "update-team",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9393,10 +9190,11 @@ var (
 	userCmd = &cobra.Command{
 		Use:               "user",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	userUpdateUserEmailCmd = &cobra.Command{
 		Use:               "update-user-email",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9422,10 +9220,11 @@ var (
 	userPreferencesCmd = &cobra.Command{
 		Use:               "user-preferences",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	userPreferencesGetUserPreferencesCmd = &cobra.Command{
 		Use:               "get-user-preferences",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9449,7 +9248,6 @@ var (
 	}
 	userPreferencesPatchUserPreferencesCmd = &cobra.Command{
 		Use:               "patch-user-preferences",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9482,7 +9280,6 @@ var (
 	}
 	userPreferencesUpdateUserPreferencesCmd = &cobra.Command{
 		Use:               "update-user-preferences",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9522,10 +9319,11 @@ var (
 	usersCmd = &cobra.Command{
 		Use:               "users",
 		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	usersGetUserByLoginOrEmailCmd = &cobra.Command{
 		Use:               "get-user-by-login-or-email",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9551,7 +9349,6 @@ var (
 	}
 	usersGetUserOrgListCmd = &cobra.Command{
 		Use:               "get-user-org-list",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9577,7 +9374,6 @@ var (
 	}
 	usersGetUserTeamsCmd = &cobra.Command{
 		Use:               "get-user-teams",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9603,7 +9399,6 @@ var (
 	}
 	usersSearchUsersCmd = &cobra.Command{
 		Use:               "search-users",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9630,7 +9425,6 @@ var (
 	}
 	usersSearchUsersWithPagingCmd = &cobra.Command{
 		Use:               "search-users-with-paging",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9654,7 +9448,6 @@ var (
 	}
 	usersUpdateUserCmd = &cobra.Command{
 		Use:               "update-user",
-		SilenceUsage:      true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -11895,7 +11688,7 @@ func init() {
 		Int64Var(
 			&orgsSearchOrgsFlag.Perpage,
 			"perpage",
-			0,
+			1000,
 			"Perpage",
 		)
 
@@ -13193,7 +12986,7 @@ func init() {
 		Int64Var(
 			&serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Perpage,
 			"perpage",
-			0,
+			1000,
 			"Perpage",
 		)
 
@@ -13561,7 +13354,7 @@ func init() {
 		Int64Var(
 			&teamsSearchTeamsFlag.Perpage,
 			"perpage",
-			0,
+			1000,
 			"Perpage",
 		)
 
@@ -13726,7 +13519,7 @@ func init() {
 		Int64Var(
 			&usersSearchUsersFlag.Perpage,
 			"perpage",
-			0,
+			1000,
 			"Perpage",
 		)
 

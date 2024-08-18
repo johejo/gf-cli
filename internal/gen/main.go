@@ -352,6 +352,8 @@ var (
 	{{ .Name }}Cmd = &cobra.Command{
 		Use: "{{ .CmdName }}",
 		DisableAutoGenTag: true,
+		Args: cobra.NoArgs,
+		Run:  failIfEmptyArgs,
 	}
 	{{- $serviceName := .Name }}
 	{{- $pkgName := .PkgName }}
@@ -359,7 +361,6 @@ var (
 	{{- $actionName := .ActionName }}
 	{{ $serviceName }}{{ .ActionName }}Cmd = &cobra.Command{
 		Use: "{{ .CmdName }}",
-		SilenceUsage: true,
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -448,6 +449,9 @@ func init() {
 			{{- if eq .Name "body" }}
 			"", 
 			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+			{{- else if eq .Name "Perpage"}}
+			1000,
+			"{{ .Name }}",
 			{{- else }}
 			{{ .Type | zeroValue }},
 			{{- if eq .Name "UID"}}

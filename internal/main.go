@@ -21,6 +21,9 @@ var (
 		Short:             "CLI for Grafana API",
 		Long:              "Grafana API Client for command line operations with shell completions",
 		DisableAutoGenTag: true,
+		SilenceUsage:      true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
 	}
 	rootCmdFlag = struct {
 		host              string
@@ -51,6 +54,14 @@ func init() {
 	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.debug, "debug", false, "Enable debug logging (env: GF_DEBUG)")
 	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.jq, "jq", ".", "Filter JSON output using a jq `expression` (env: GF_JQ)")
 	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.noColor, "no-color", false, "Disable colored output (env: GF_NO_COLOR or NO_COLOR)")
+}
+
+func failIfEmptyArgs(cmd *cobra.Command, args []string) {
+	if len(args) == 0 {
+		cmd.Println("No subcommand specified.")
+		cmd.Print(cmd.UsageString())
+		os.Exit(1)
+	}
 }
 
 func gfClient() (*gfclient.GrafanaHTTPAPI, error) {
