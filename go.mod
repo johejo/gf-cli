@@ -9,6 +9,7 @@ require (
 	github.com/itchyny/gojq v0.12.16
 	github.com/mattn/go-isatty v0.0.20
 	github.com/spf13/cobra v1.8.1
+	mvdan.cc/xurls/v2 v2.5.0
 )
 
 require (

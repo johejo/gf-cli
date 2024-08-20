@@ -3,9 +3,11 @@ package internal
 import (
 	"encoding/json"
 	"fmt"
+	"net/netip"
 	"net/url"
 	"os"
 	"strconv"
+	"strings"
 
 	gfclient "github.com/grafana/grafana-openapi-client-go/client"
 	"github.com/grafana/grafana-openapi-client-go/models"
@@ -13,6 +15,7 @@ import (
 	"github.com/johejo/gf-cli/internal/cli"
 	"github.com/mattn/go-isatty"
 	"github.com/spf13/cobra"
+	"mvdan.cc/xurls/v2"
 )
 
 var (
@@ -66,19 +69,18 @@ func failIfEmptyArgs(cmd *cobra.Command, args []string) {
 
 func gfClient() (*gfclient.GrafanaHTTPAPI, error) {
 	cfg := gfclient.DefaultTransportConfig()
-	cfg = applyEnvString(cfg, "GF_HOST", rootCmdFlag.host, cfg.WithHost)
-	u, err := url.ParseRequestURI(cfg.Host)
+
+	host := os.Getenv("GF_HOST")
+	if host == "" {
+		host = rootCmdFlag.host
+	}
+	scheme, host, err := parseSchemeAndHost(host)
 	if err != nil {
 		return nil, err
 	}
-	if !(u.Scheme == "http" || u.Scheme == "https") {
-		u.Scheme = "http"
-	}
-	if u.Scheme == "" || u.Scheme == "http" {
-		cfg = cfg.WithSchemes([]string{"http"})
-	} else {
-		cfg = cfg.WithSchemes(gfclient.DefaultSchemes)
-	}
+	cfg = cfg.WithSchemes([]string{scheme})
+	cfg = cfg.WithHost(host)
+
 	cfg = applyEnvString(cfg, "GF_BASE_PATH", rootCmdFlag.basePath, cfg.WithBasePath)
 	cfg = applyEnvBool(cfg, "GF_DEBUG", rootCmdFlag.debug, func(b bool) *gfclient.TransportConfig {
 		cfg.Debug = b
@@ -102,6 +104,27 @@ func gfClient() (*gfclient.GrafanaHTTPAPI, error) {
 	api := gfclient.NewHTTPClientWithConfig(nil, cfg)
 	api = applyEnvInt64(api, "GF_ORG_ID", rootCmdFlag.orgID, api.WithOrgID)
 	return api, nil
+}
+
+func parseSchemeAndHost(s string) (string, string, error) {
+	if strings.HasPrefix(s, "localhost") {
+		return "http", s, nil
+	}
+	host := xurls.Relaxed().FindString(s)
+	if host == "" {
+		return "", "", fmt.Errorf("gf: no valid host found in %s", s)
+	}
+	if strings.HasPrefix(host, "https://") || strings.HasPrefix(host, "http://") {
+		if scheme, host, ok := strings.Cut(host, "://"); ok {
+			return scheme, host, nil
+		}
+	}
+	if _, err := netip.ParseAddrPort(host); err == nil {
+		// use http for raw ip addr
+		return "http", host, nil
+	}
+	// default secure
+	return "https", host, nil
 }
 
 func applyEnvString[T any](t *T, key string, flg string, f func(string) *T) *T {
