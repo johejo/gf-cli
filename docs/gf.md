@@ -6,6 +6,10 @@ CLI for Grafana API
 
 Grafana API Client for command line operations with shell completions
 
+```
+gf [flags]
+```
+
 ### Options
 
 ```

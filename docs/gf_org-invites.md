@@ -2,6 +2,10 @@
 
 
 
+```
+gf org-invites [flags]
+```
+
 ### Options
 
 ```

@@ -2,6 +2,10 @@
 
 
 
+```
+gf dashboard-permissions [flags]
+```
+
 ### Options
 
 ```

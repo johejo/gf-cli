@@ -2,6 +2,10 @@
 
 
 
+```
+gf annotations [flags]
+```
+
 ### Options
 
 ```

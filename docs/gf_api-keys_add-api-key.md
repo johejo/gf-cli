@@ -1,16 +1,15 @@
-## gf api-keys get-ap-ikeys
+## gf api-keys add-api-key
 
 
 
 ```
-gf api-keys get-ap-ikeys [flags]
+gf api-keys add-api-key [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help              help for get-ap-ikeys
-      --include-expired   IncludeExpired
+  -h, --help   help for add-api-key
 ```
 
 ### Options inherited from parent commands

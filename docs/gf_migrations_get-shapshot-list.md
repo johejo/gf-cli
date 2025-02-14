@@ -9,10 +9,11 @@ gf migrations get-shapshot-list [flags]
 ### Options
 
 ```
-  -h, --help         help for get-shapshot-list
-      --limit int    Limit
-      --page int     Page
-      --uid string   Unique identifier (uid)
+  -h, --help          help for get-shapshot-list
+      --limit int     Limit
+      --page int      Page
+      --sort string   Sort
+      --uid string    Unique identifier (uid)
 ```
 
 ### Options inherited from parent commands

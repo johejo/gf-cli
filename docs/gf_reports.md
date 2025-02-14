@@ -2,6 +2,10 @@
 
 
 
+```
+gf reports [flags]
+```
+
 ### Options
 
 ```

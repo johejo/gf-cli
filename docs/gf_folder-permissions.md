@@ -2,6 +2,10 @@
 
 
 
+```
+gf folder-permissions [flags]
+```
+
 ### Options
 
 ```

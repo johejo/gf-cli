@@ -2,6 +2,10 @@
 
 
 
+```
+gf user-preferences [flags]
+```
+
 ### Options
 
 ```

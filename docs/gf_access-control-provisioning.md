@@ -2,6 +2,10 @@
 
 
 
+```
+gf access-control-provisioning [flags]
+```
+
 ### Options
 
 ```

@@ -1757,17 +1757,8 @@ var (
 			if err != nil {
 				return err
 			}
-			var body models.AddAPIKeyCommand
-			if err := getBodyParam(
-				apiKeysAddAPIkeyFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.APIKeys.AddAPIkeyWithParams(
-				&api_keys.AddAPIkeyParams{
-					Body: &body,
-				},
+			err = api.APIKeys.AddAPIkeyWithParams(
+				&api_keys.AddAPIkeyParams{},
 			)
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
@@ -1778,7 +1769,8 @@ var (
 				}
 				return err
 			}
-			return printPayload(resp.GetPayload())
+			fmt.Println("{}")
+			return nil
 		},
 	}
 	apiKeysDeleteAPIkeyCmd = &cobra.Command{
@@ -1831,9 +1823,6 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	apiKeysAddAPIkeyFlag = struct {
-		Body string
-	}{}
 	apiKeysDeleteAPIkeyFlag = struct {
 		ID int64
 	}{}
@@ -3332,9 +3321,17 @@ var (
 			if err != nil {
 				return err
 			}
-			resp, err := api.Enterprise.UpdateTeamLBACRulesAPIWithParams(
+			var body models.UpdateTeamLBACCommand
+			if err := getBodyParam(
+				enterpriseUpdateTeamLBACRulesAPIFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.Enterprise.UpdateTeamLBACRulesAPI(
 				&enterprise.UpdateTeamLBACRulesAPIParams{
-					UID: enterpriseUpdateTeamLBACRulesAPIFlag.UID,
+					Body: &body,
+					UID:  enterpriseUpdateTeamLBACRulesAPIFlag.UID,
 				},
 			)
 			if err != nil {
@@ -3369,7 +3366,8 @@ var (
 		DataSourceUID string
 	}{}
 	enterpriseUpdateTeamLBACRulesAPIFlag = struct {
-		UID string
+		Body string
+		UID  string
 	}{}
 	folderPermissionsCmd = &cobra.Command{
 		Use:               "folder-permissions",
@@ -4391,56 +4389,6 @@ var (
 			return nil
 		},
 	}
-	migrationsGetCloudMigrationRunListCmd = &cobra.Command{
-		Use:               "get-cloud-migration-run-list",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Migrations.GetCloudMigrationRunListWithParams(
-				&migrations.GetCloudMigrationRunListParams{
-					UID: migrationsGetCloudMigrationRunListFlag.UID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	migrationsGetCloudMigrationRunCmd = &cobra.Command{
-		Use:               "get-cloud-migration-run",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Migrations.GetCloudMigrationRunWithParams(
-				&migrations.GetCloudMigrationRunParams{
-					RunUID: migrationsGetCloudMigrationRunFlag.RunUID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
 	migrationsGetCloudMigrationTokenCmd = &cobra.Command{
 		Use:               "get-cloud-migration-token",
 		DisableAutoGenTag: true,
@@ -4524,6 +4472,7 @@ var (
 				&migrations.GetShapshotListParams{
 					Limit: &migrationsGetShapshotListFlag.Limit,
 					Page:  &migrationsGetShapshotListFlag.Page,
+					Sort:  &migrationsGetShapshotListFlag.Sort,
 					UID:   migrationsGetShapshotListFlag.UID,
 				},
 			)
@@ -4553,31 +4502,6 @@ var (
 					ResultPage:  &migrationsGetSnapshotFlag.ResultPage,
 					SnapshotUID: migrationsGetSnapshotFlag.SnapshotUID,
 					UID:         migrationsGetSnapshotFlag.UID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	migrationsRunCloudMigrationCmd = &cobra.Command{
-		Use:               "run-cloud-migration",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Migrations.RunCloudMigrationWithParams(
-				&migrations.RunCloudMigrationParams{
-					UID: migrationsRunCloudMigrationFlag.UID,
 				},
 			)
 			if err != nil {
@@ -4635,18 +4559,13 @@ var (
 	migrationsDeleteSessionFlag = struct {
 		UID string
 	}{}
-	migrationsGetCloudMigrationRunListFlag = struct {
-		UID string
-	}{}
-	migrationsGetCloudMigrationRunFlag = struct {
-		RunUID string
-	}{}
 	migrationsGetSessionFlag = struct {
 		UID string
 	}{}
 	migrationsGetShapshotListFlag = struct {
 		Limit int64
 		Page  int64
+		Sort  string
 		UID   string
 	}{}
 	migrationsGetSnapshotFlag = struct {
@@ -4654,9 +4573,6 @@ var (
 		ResultPage  int64
 		SnapshotUID string
 		UID         string
-	}{}
-	migrationsRunCloudMigrationFlag = struct {
-		UID string
 	}{}
 	migrationsUploadSnapshotFlag = struct {
 		SnapshotUID string
@@ -5825,9 +5741,10 @@ var (
 			if err != nil {
 				return err
 			}
-			resp, err := api.Provisioning.DeleteTemplateWithParams(
+			resp, err := api.Provisioning.DeleteTemplate(
 				&provisioning.DeleteTemplateParams{
-					Name: provisioningDeleteTemplateFlag.Name,
+					Name:    provisioningDeleteTemplateFlag.Name,
+					Version: &provisioningDeleteTemplateFlag.Version,
 				},
 			)
 			if err != nil {
@@ -6592,7 +6509,8 @@ var (
 		Version            string
 	}{}
 	provisioningDeleteTemplateFlag = struct {
-		Name string
+		Name    string
+		Version string
 	}{}
 	provisioningExportMuteTimingFlag = struct {
 		Download bool
@@ -10297,15 +10215,6 @@ func init() {
 	annotationsUpdateAnnotationCmd.MarkFlagRequired("body")
 	annotationsCmd.AddCommand(annotationsUpdateAnnotationCmd)
 	rootCmd.AddCommand(apiKeysCmd)
-	apiKeysAddAPIkeyCmd.Flags().
-		StringVar(
-			&apiKeysAddAPIkeyFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	apiKeysAddAPIkeyCmd.MarkFlagRequired("body")
 	apiKeysCmd.AddCommand(apiKeysAddAPIkeyCmd)
 	apiKeysDeleteAPIkeyCmd.Flags().
 		Int64Var(
@@ -10938,6 +10847,15 @@ func init() {
 	enterpriseCmd.AddCommand(enterpriseSetDatasourceCacheConfigCmd)
 	enterpriseUpdateTeamLBACRulesAPICmd.Flags().
 		StringVar(
+			&enterpriseUpdateTeamLBACRulesAPIFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	enterpriseUpdateTeamLBACRulesAPICmd.MarkFlagRequired("body")
+	enterpriseUpdateTeamLBACRulesAPICmd.Flags().
+		StringVar(
 			&enterpriseUpdateTeamLBACRulesAPIFlag.UID,
 			"uid",
 			"",
@@ -11334,26 +11252,6 @@ func init() {
 
 	migrationsDeleteSessionCmd.MarkFlagRequired("uid")
 	migrationsCmd.AddCommand(migrationsDeleteSessionCmd)
-	migrationsGetCloudMigrationRunListCmd.Flags().
-		StringVar(
-			&migrationsGetCloudMigrationRunListFlag.UID,
-			"uid",
-			"",
-			"Unique identifier (uid)",
-		)
-
-	migrationsGetCloudMigrationRunListCmd.MarkFlagRequired("uid")
-	migrationsCmd.AddCommand(migrationsGetCloudMigrationRunListCmd)
-	migrationsGetCloudMigrationRunCmd.Flags().
-		StringVar(
-			&migrationsGetCloudMigrationRunFlag.RunUID,
-			"run-uid",
-			"",
-			"RunUID",
-		)
-
-	migrationsGetCloudMigrationRunCmd.MarkFlagRequired("run-uid")
-	migrationsCmd.AddCommand(migrationsGetCloudMigrationRunCmd)
 	migrationsCmd.AddCommand(migrationsGetCloudMigrationTokenCmd)
 	migrationsCmd.AddCommand(migrationsGetSessionListCmd)
 	migrationsGetSessionCmd.Flags().
@@ -11380,6 +11278,14 @@ func init() {
 			"page",
 			0,
 			"Page",
+		)
+
+	migrationsGetShapshotListCmd.Flags().
+		StringVar(
+			&migrationsGetShapshotListFlag.Sort,
+			"sort",
+			"",
+			"Sort",
 		)
 
 	migrationsGetShapshotListCmd.Flags().
@@ -11427,16 +11333,6 @@ func init() {
 
 	migrationsGetSnapshotCmd.MarkFlagRequired("uid")
 	migrationsCmd.AddCommand(migrationsGetSnapshotCmd)
-	migrationsRunCloudMigrationCmd.Flags().
-		StringVar(
-			&migrationsRunCloudMigrationFlag.UID,
-			"uid",
-			"",
-			"Unique identifier (uid)",
-		)
-
-	migrationsRunCloudMigrationCmd.MarkFlagRequired("uid")
-	migrationsCmd.AddCommand(migrationsRunCloudMigrationCmd)
 	migrationsUploadSnapshotCmd.Flags().
 		StringVar(
 			&migrationsUploadSnapshotFlag.SnapshotUID,
@@ -11955,6 +11851,14 @@ func init() {
 		)
 
 	provisioningDeleteTemplateCmd.MarkFlagRequired("name")
+	provisioningDeleteTemplateCmd.Flags().
+		StringVar(
+			&provisioningDeleteTemplateFlag.Version,
+			"version",
+			"",
+			"Version",
+		)
+
 	provisioningCmd.AddCommand(provisioningDeleteTemplateCmd)
 	provisioningExportMuteTimingCmd.Flags().
 		BoolVar(

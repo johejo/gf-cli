@@ -2,6 +2,10 @@
 
 
 
+```
+gf admin-provisioning [flags]
+```
+
 ### Options
 
 ```

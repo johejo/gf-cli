@@ -2,6 +2,10 @@
 
 
 
+```
+gf signing-keys [flags]
+```
+
 ### Options
 
 ```

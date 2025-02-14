@@ -2,6 +2,10 @@
 
 
 
+```
+gf enterprise [flags]
+```
+
 ### Options
 
 ```

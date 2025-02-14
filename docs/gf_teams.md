@@ -2,6 +2,10 @@
 
 
 
+```
+gf teams [flags]
+```
+
 ### Options
 
 ```

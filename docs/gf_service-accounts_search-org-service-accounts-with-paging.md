@@ -13,7 +13,7 @@ gf service-accounts search-org-service-accounts-with-paging [flags]
       --expired-tokens   ExpiredTokens
   -h, --help             help for search-org-service-accounts-with-paging
       --page int         Page
-      --perpage int      Perpage
+      --perpage int      Perpage (default 1000)
       --query string     Query
 ```
 

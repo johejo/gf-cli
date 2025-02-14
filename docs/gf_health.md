@@ -2,6 +2,10 @@
 
 
 
+```
+gf health [flags]
+```
+
 ### Options
 
 ```

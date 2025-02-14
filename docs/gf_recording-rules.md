@@ -2,6 +2,10 @@
 
 
 
+```
+gf recording-rules [flags]
+```
+
 ### Options
 
 ```

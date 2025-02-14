@@ -2,6 +2,10 @@
 
 
 
+```
+gf signed-in-user [flags]
+```
+
 ### Options
 
 ```

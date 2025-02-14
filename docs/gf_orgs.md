@@ -2,6 +2,10 @@
 
 
 
+```
+gf orgs [flags]
+```
+
 ### Options
 
 ```

@@ -2,6 +2,10 @@
 
 
 
+```
+gf correlations [flags]
+```
+
 ### Options
 
 ```

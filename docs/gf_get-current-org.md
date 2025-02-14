@@ -2,6 +2,10 @@
 
 
 
+```
+gf get-current-org [flags]
+```
+
 ### Options
 
 ```

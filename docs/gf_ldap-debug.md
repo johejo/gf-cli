@@ -2,6 +2,10 @@
 
 
 
+```
+gf ldap-debug [flags]
+```
+
 ### Options
 
 ```

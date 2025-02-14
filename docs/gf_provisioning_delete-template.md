@@ -9,8 +9,9 @@ gf provisioning delete-template [flags]
 ### Options
 
 ```
-  -h, --help          help for delete-template
-      --name string   Name of the provisioning
+  -h, --help             help for delete-template
+      --name string      Name of the provisioning
+      --version string   Version
 ```
 
 ### Options inherited from parent commands

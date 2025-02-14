@@ -2,6 +2,10 @@
 
 
 
+```
+gf access-control [flags]
+```
+
 ### Options
 
 ```

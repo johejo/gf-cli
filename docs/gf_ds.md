@@ -2,6 +2,10 @@
 
 
 
+```
+gf ds [flags]
+```
+
 ### Options
 
 ```

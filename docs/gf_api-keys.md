@@ -2,6 +2,10 @@
 
 
 
+```
+gf api-keys [flags]
+```
+
 ### Options
 
 ```
@@ -25,7 +29,7 @@
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf api-keys add-ap-ikey](gf_api-keys_add-ap-ikey.md)	 - 
-* [gf api-keys delete-ap-ikey](gf_api-keys_delete-ap-ikey.md)	 - 
-* [gf api-keys get-ap-ikeys](gf_api-keys_get-ap-ikeys.md)	 - 
+* [gf api-keys add-api-key](gf_api-keys_add-api-key.md)	 - 
+* [gf api-keys delete-api-key](gf_api-keys_delete-api-key.md)	 - 
+* [gf api-keys get-api-keys](gf_api-keys_get-api-keys.md)	 - 
 

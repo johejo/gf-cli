@@ -2,6 +2,10 @@
 
 
 
+```
+gf library-elements [flags]
+```
+
 ### Options
 
 ```

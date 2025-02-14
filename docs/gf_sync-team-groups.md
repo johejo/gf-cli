@@ -2,6 +2,10 @@
 
 
 
+```
+gf sync-team-groups [flags]
+```
+
 ### Options
 
 ```

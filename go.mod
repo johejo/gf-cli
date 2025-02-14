@@ -4,7 +4,7 @@ go 1.24
 
 require (
 	github.com/gertd/go-pluralize v0.2.1
-	github.com/grafana/grafana-openapi-client-go v0.0.0-20240723170622-ae2c94b7c9a3
+	github.com/grafana/grafana-openapi-client-go v0.0.0-20250108132429-8d7e1f158f65
 	github.com/iancoleman/strcase v0.3.0
 	github.com/itchyny/gojq v0.12.17
 	github.com/mattn/go-isatty v0.0.20

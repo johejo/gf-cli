@@ -2,6 +2,10 @@
 
 
 
+```
+gf search [flags]
+```
+
 ### Options
 
 ```

@@ -11,7 +11,7 @@ gf users search-users [flags]
 ```
   -h, --help          help for search-users
       --page int      Page
-      --perpage int   Perpage
+      --perpage int   Perpage (default 1000)
 ```
 
 ### Options inherited from parent commands

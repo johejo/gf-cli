@@ -1,16 +1,16 @@
-## gf migrations get-cloud-migration-run-list
+## gf api-keys delete-api-key
 
 
 
 ```
-gf migrations get-cloud-migration-run-list [flags]
+gf api-keys delete-api-key [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help         help for get-cloud-migration-run-list
-      --uid string   Unique identifier (uid)
+  -h, --help     help for delete-api-key
+      --id int   ID
 ```
 
 ### Options inherited from parent commands
@@ -29,5 +29,5 @@ gf migrations get-cloud-migration-run-list [flags]
 
 ### SEE ALSO
 
-* [gf migrations](gf_migrations.md)	 - 
+* [gf api-keys](gf_api-keys.md)	 - 
 

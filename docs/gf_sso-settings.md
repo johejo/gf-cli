@@ -2,6 +2,10 @@
 
 
 
+```
+gf sso-settings [flags]
+```
+
 ### Options
 
 ```

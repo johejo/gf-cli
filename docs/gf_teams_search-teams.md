@@ -12,7 +12,7 @@ gf teams search-teams [flags]
   -h, --help           help for search-teams
       --name string    Name of the team
       --page int       Page
-      --perpage int    Perpage
+      --perpage int    Perpage (default 1000)
       --query string   Query
 ```
 

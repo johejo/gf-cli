@@ -2,6 +2,10 @@
 
 
 
+```
+gf admin [flags]
+```
+
 ### Options
 
 ```

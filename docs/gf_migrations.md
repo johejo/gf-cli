@@ -2,6 +2,10 @@
 
 
 
+```
+gf migrations [flags]
+```
+
 ### Options
 
 ```
@@ -31,13 +35,10 @@
 * [gf migrations create-snapshot](gf_migrations_create-snapshot.md)	 - 
 * [gf migrations delete-cloud-migration-token](gf_migrations_delete-cloud-migration-token.md)	 - 
 * [gf migrations delete-session](gf_migrations_delete-session.md)	 - 
-* [gf migrations get-cloud-migration-run](gf_migrations_get-cloud-migration-run.md)	 - 
-* [gf migrations get-cloud-migration-run-list](gf_migrations_get-cloud-migration-run-list.md)	 - 
 * [gf migrations get-cloud-migration-token](gf_migrations_get-cloud-migration-token.md)	 - 
 * [gf migrations get-session](gf_migrations_get-session.md)	 - 
 * [gf migrations get-session-list](gf_migrations_get-session-list.md)	 - 
 * [gf migrations get-shapshot-list](gf_migrations_get-shapshot-list.md)	 - 
 * [gf migrations get-snapshot](gf_migrations_get-snapshot.md)	 - 
-* [gf migrations run-cloud-migration](gf_migrations_run-cloud-migration.md)	 - 
 * [gf migrations upload-snapshot](gf_migrations_upload-snapshot.md)	 - 
 

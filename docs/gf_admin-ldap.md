@@ -2,6 +2,10 @@
 
 
 
+```
+gf admin-ldap [flags]
+```
+
 ### Options
 
 ```

@@ -2,6 +2,10 @@
 
 
 
+```
+gf dashboard-public [flags]
+```
+
 ### Options
 
 ```

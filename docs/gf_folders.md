@@ -2,6 +2,10 @@
 
 
 
+```
+gf folders [flags]
+```
+
 ### Options
 
 ```

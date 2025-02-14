@@ -2,6 +2,10 @@
 
 
 
+```
+gf org-preferences [flags]
+```
+
 ### Options
 
 ```

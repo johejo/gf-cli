@@ -2,6 +2,10 @@
 
 
 
+```
+gf playlists [flags]
+```
+
 ### Options
 
 ```

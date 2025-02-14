@@ -2,6 +2,10 @@
 
 
 
+```
+gf snapshots [flags]
+```
+
 ### Options
 
 ```

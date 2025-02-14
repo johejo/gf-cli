@@ -2,6 +2,10 @@
 
 
 
+```
+gf licensing [flags]
+```
+
 ### Options
 
 ```

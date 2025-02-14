@@ -12,7 +12,7 @@ gf orgs search-orgs [flags]
   -h, --help           help for search-orgs
       --name string    Name of the org
       --page int       Page
-      --perpage int    Perpage
+      --perpage int    Perpage (default 1000)
       --query string   Query
 ```
 

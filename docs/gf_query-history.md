@@ -2,6 +2,10 @@
 
 
 
+```
+gf query-history [flags]
+```
+
 ### Options
 
 ```
