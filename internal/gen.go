@@ -10,11 +10,13 @@ import (
 	"github.com/grafana/grafana-openapi-client-go/client/admin_provisioning"
 	"github.com/grafana/grafana-openapi-client-go/client/admin_users"
 	"github.com/grafana/grafana-openapi-client-go/client/annotations"
+	"github.com/grafana/grafana-openapi-client-go/client/convert_prometheus"
 	"github.com/grafana/grafana-openapi-client-go/client/dashboards"
 	"github.com/grafana/grafana-openapi-client-go/client/datasources"
 	"github.com/grafana/grafana-openapi-client-go/client/devices"
 	"github.com/grafana/grafana-openapi-client-go/client/enterprise"
 	"github.com/grafana/grafana-openapi-client-go/client/folders"
+	"github.com/grafana/grafana-openapi-client-go/client/group_attribute_sync"
 	"github.com/grafana/grafana-openapi-client-go/client/health"
 	"github.com/grafana/grafana-openapi-client-go/client/ldap_debug"
 	"github.com/grafana/grafana-openapi-client-go/client/library_elements"
@@ -1675,6 +1677,434 @@ var (
 	annotationsUpdateAnnotationFlag = struct {
 		AnnotationID string
 		Body         string
+	}{}
+	convertPrometheusCmd = &cobra.Command{
+		Use:               "convert-prometheus",
+		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
+	}
+	convertPrometheusConvertPrometheusCortexDeleteNamespaceCmd = &cobra.Command{
+		Use:               "convert-prometheus-cortex-delete-namespace",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusCortexDeleteNamespaceWithParams(
+				&convert_prometheus.ConvertPrometheusCortexDeleteNamespaceParams{
+					NamespaceTitle: convertPrometheusConvertPrometheusCortexDeleteNamespaceFlag.NamespaceTitle,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd = &cobra.Command{
+		Use:               "convert-prometheus-cortex-delete-rule-group",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusCortexDeleteRuleGroupWithParams(
+				&convert_prometheus.ConvertPrometheusCortexDeleteRuleGroupParams{
+					Group:          convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag.Group,
+					NamespaceTitle: convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag.NamespaceTitle,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusCortexGetNamespaceCmd = &cobra.Command{
+		Use:               "convert-prometheus-cortex-get-namespace",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusCortexGetNamespaceWithParams(
+				&convert_prometheus.ConvertPrometheusCortexGetNamespaceParams{
+					NamespaceTitle: convertPrometheusConvertPrometheusCortexGetNamespaceFlag.NamespaceTitle,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusCortexGetRuleGroupCmd = &cobra.Command{
+		Use:               "convert-prometheus-cortex-get-rule-group",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusCortexGetRuleGroupWithParams(
+				&convert_prometheus.ConvertPrometheusCortexGetRuleGroupParams{
+					Group:          convertPrometheusConvertPrometheusCortexGetRuleGroupFlag.Group,
+					NamespaceTitle: convertPrometheusConvertPrometheusCortexGetRuleGroupFlag.NamespaceTitle,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusCortexGetRulesCmd = &cobra.Command{
+		Use:               "convert-prometheus-cortex-get-rules",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusCortexGetRulesWithParams(
+				&convert_prometheus.ConvertPrometheusCortexGetRulesParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd = &cobra.Command{
+		Use:               "convert-prometheus-cortex-post-rule-group",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.PrometheusRuleGroup
+			if err := getBodyParam(
+				convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusCortexPostRuleGroup(
+				&convert_prometheus.ConvertPrometheusCortexPostRuleGroupParams{
+					Body:                                 &body,
+					NamespaceTitle:                       convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.NamespaceTitle,
+					XGrafanaAlertingAlertRulesPaused:     &convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingAlertRulesPaused,
+					XGrafanaAlertingDatasourceUID:        &convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingDatasourceUID,
+					XGrafanaAlertingFolderUID:            &convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingFolderUID,
+					XGrafanaAlertingNotificationSettings: &convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingNotificationSettings,
+					XGrafanaAlertingRecordingRulesPaused: &convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingRecordingRulesPaused,
+					XGrafanaAlertingTargetDatasourceUID:  &convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingTargetDatasourceUID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusCortexPostRuleGroupsCmd = &cobra.Command{
+		Use:               "convert-prometheus-cortex-post-rule-groups",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusCortexPostRuleGroupsWithParams(
+				&convert_prometheus.ConvertPrometheusCortexPostRuleGroupsParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusDeleteNamespaceCmd = &cobra.Command{
+		Use:               "convert-prometheus-delete-namespace",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusDeleteNamespaceWithParams(
+				&convert_prometheus.ConvertPrometheusDeleteNamespaceParams{
+					NamespaceTitle: convertPrometheusConvertPrometheusDeleteNamespaceFlag.NamespaceTitle,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusDeleteRuleGroupCmd = &cobra.Command{
+		Use:               "convert-prometheus-delete-rule-group",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusDeleteRuleGroupWithParams(
+				&convert_prometheus.ConvertPrometheusDeleteRuleGroupParams{
+					Group:          convertPrometheusConvertPrometheusDeleteRuleGroupFlag.Group,
+					NamespaceTitle: convertPrometheusConvertPrometheusDeleteRuleGroupFlag.NamespaceTitle,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusGetNamespaceCmd = &cobra.Command{
+		Use:               "convert-prometheus-get-namespace",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusGetNamespaceWithParams(
+				&convert_prometheus.ConvertPrometheusGetNamespaceParams{
+					NamespaceTitle: convertPrometheusConvertPrometheusGetNamespaceFlag.NamespaceTitle,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusGetRuleGroupCmd = &cobra.Command{
+		Use:               "convert-prometheus-get-rule-group",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusGetRuleGroupWithParams(
+				&convert_prometheus.ConvertPrometheusGetRuleGroupParams{
+					Group:          convertPrometheusConvertPrometheusGetRuleGroupFlag.Group,
+					NamespaceTitle: convertPrometheusConvertPrometheusGetRuleGroupFlag.NamespaceTitle,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusGetRulesCmd = &cobra.Command{
+		Use:               "convert-prometheus-get-rules",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusGetRulesWithParams(
+				&convert_prometheus.ConvertPrometheusGetRulesParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusPostRuleGroupCmd = &cobra.Command{
+		Use:               "convert-prometheus-post-rule-group",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.PrometheusRuleGroup
+			if err := getBodyParam(
+				convertPrometheusConvertPrometheusPostRuleGroupFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusPostRuleGroup(
+				&convert_prometheus.ConvertPrometheusPostRuleGroupParams{
+					Body:                                 &body,
+					NamespaceTitle:                       convertPrometheusConvertPrometheusPostRuleGroupFlag.NamespaceTitle,
+					XGrafanaAlertingAlertRulesPaused:     &convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingAlertRulesPaused,
+					XGrafanaAlertingDatasourceUID:        &convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingDatasourceUID,
+					XGrafanaAlertingFolderUID:            &convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingFolderUID,
+					XGrafanaAlertingNotificationSettings: &convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingNotificationSettings,
+					XGrafanaAlertingRecordingRulesPaused: &convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingRecordingRulesPaused,
+					XGrafanaAlertingTargetDatasourceUID:  &convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingTargetDatasourceUID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusPostRuleGroupsCmd = &cobra.Command{
+		Use:               "convert-prometheus-post-rule-groups",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.ConvertPrometheus.ConvertPrometheusPostRuleGroupsWithParams(
+				&convert_prometheus.ConvertPrometheusPostRuleGroupsParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	convertPrometheusConvertPrometheusCortexDeleteNamespaceFlag = struct {
+		NamespaceTitle string
+	}{}
+	convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag = struct {
+		Group          string
+		NamespaceTitle string
+	}{}
+	convertPrometheusConvertPrometheusCortexGetNamespaceFlag = struct {
+		NamespaceTitle string
+	}{}
+	convertPrometheusConvertPrometheusCortexGetRuleGroupFlag = struct {
+		Group          string
+		NamespaceTitle string
+	}{}
+	convertPrometheusConvertPrometheusCortexPostRuleGroupFlag = struct {
+		Body                                 string
+		NamespaceTitle                       string
+		XGrafanaAlertingAlertRulesPaused     bool
+		XGrafanaAlertingDatasourceUID        string
+		XGrafanaAlertingFolderUID            string
+		XGrafanaAlertingNotificationSettings string
+		XGrafanaAlertingRecordingRulesPaused bool
+		XGrafanaAlertingTargetDatasourceUID  string
+	}{}
+	convertPrometheusConvertPrometheusDeleteNamespaceFlag = struct {
+		NamespaceTitle string
+	}{}
+	convertPrometheusConvertPrometheusDeleteRuleGroupFlag = struct {
+		Group          string
+		NamespaceTitle string
+	}{}
+	convertPrometheusConvertPrometheusGetNamespaceFlag = struct {
+		NamespaceTitle string
+	}{}
+	convertPrometheusConvertPrometheusGetRuleGroupFlag = struct {
+		Group          string
+		NamespaceTitle string
+	}{}
+	convertPrometheusConvertPrometheusPostRuleGroupFlag = struct {
+		Body                                 string
+		NamespaceTitle                       string
+		XGrafanaAlertingAlertRulesPaused     bool
+		XGrafanaAlertingDatasourceUID        string
+		XGrafanaAlertingFolderUID            string
+		XGrafanaAlertingNotificationSettings string
+		XGrafanaAlertingRecordingRulesPaused bool
+		XGrafanaAlertingTargetDatasourceUID  string
 	}{}
 	dashboardsCmd = &cobra.Command{
 		Use:               "dashboards",
@@ -3558,6 +3988,165 @@ var (
 	foldersUpdateFolderFlag = struct {
 		Body      string
 		FolderUID string
+	}{}
+	groupAttributeSyncCmd = &cobra.Command{
+		Use:               "group-attribute-sync",
+		DisableAutoGenTag: true,
+		Args:              cobra.NoArgs,
+		Run:               failIfEmptyArgs,
+	}
+	groupAttributeSyncCreateGroupMappingsCmd = &cobra.Command{
+		Use:               "create-group-mappings",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.GroupAttributes
+			if err := getBodyParam(
+				groupAttributeSyncCreateGroupMappingsFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.GroupAttributeSync.CreateGroupMappingsWithParams(
+				&group_attribute_sync.CreateGroupMappingsParams{
+					Body:    &body,
+					GroupID: groupAttributeSyncCreateGroupMappingsFlag.GroupID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	groupAttributeSyncDeleteGroupMappingsCmd = &cobra.Command{
+		Use:               "delete-group-mappings",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.GroupAttributeSync.DeleteGroupMappingsWithParams(
+				&group_attribute_sync.DeleteGroupMappingsParams{
+					GroupID: groupAttributeSyncDeleteGroupMappingsFlag.GroupID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	groupAttributeSyncGetGroupRolesCmd = &cobra.Command{
+		Use:               "get-group-roles",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.GroupAttributeSync.GetGroupRolesWithParams(
+				&group_attribute_sync.GetGroupRolesParams{
+					GroupID: groupAttributeSyncGetGroupRolesFlag.GroupID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	groupAttributeSyncGetMappedGroupsCmd = &cobra.Command{
+		Use:               "get-mapped-groups",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.GroupAttributeSync.GetMappedGroupsWithParams(
+				&group_attribute_sync.GetMappedGroupsParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	groupAttributeSyncUpdateGroupMappingsCmd = &cobra.Command{
+		Use:               "update-group-mappings",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.GroupAttributes
+			if err := getBodyParam(
+				groupAttributeSyncUpdateGroupMappingsFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.GroupAttributeSync.UpdateGroupMappingsWithParams(
+				&group_attribute_sync.UpdateGroupMappingsParams{
+					Body:    &body,
+					GroupID: groupAttributeSyncUpdateGroupMappingsFlag.GroupID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	groupAttributeSyncCreateGroupMappingsFlag = struct {
+		Body    string
+		GroupID string
+	}{}
+	groupAttributeSyncDeleteGroupMappingsFlag = struct {
+		GroupID string
+	}{}
+	groupAttributeSyncGetGroupRolesFlag = struct {
+		GroupID string
+	}{}
+	groupAttributeSyncUpdateGroupMappingsFlag = struct {
+		Body    string
+		GroupID string
 	}{}
 	healthCmd = &cobra.Command{
 		Use:               "health",
@@ -9847,6 +10436,261 @@ func init() {
 
 	annotationsUpdateAnnotationCmd.MarkFlagRequired("body")
 	annotationsCmd.AddCommand(annotationsUpdateAnnotationCmd)
+	rootCmd.AddCommand(convertPrometheusCmd)
+	convertPrometheusConvertPrometheusCortexDeleteNamespaceCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexDeleteNamespaceFlag.NamespaceTitle,
+			"namespace-title",
+			"",
+			"NamespaceTitle",
+		)
+
+	convertPrometheusConvertPrometheusCortexDeleteNamespaceCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexDeleteNamespaceCmd)
+	convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag.Group,
+			"group",
+			"",
+			"Group",
+		)
+
+	convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd.MarkFlagRequired("group")
+	convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag.NamespaceTitle,
+			"namespace-title",
+			"",
+			"NamespaceTitle",
+		)
+
+	convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd)
+	convertPrometheusConvertPrometheusCortexGetNamespaceCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexGetNamespaceFlag.NamespaceTitle,
+			"namespace-title",
+			"",
+			"NamespaceTitle",
+		)
+
+	convertPrometheusConvertPrometheusCortexGetNamespaceCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexGetNamespaceCmd)
+	convertPrometheusConvertPrometheusCortexGetRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexGetRuleGroupFlag.Group,
+			"group",
+			"",
+			"Group",
+		)
+
+	convertPrometheusConvertPrometheusCortexGetRuleGroupCmd.MarkFlagRequired("group")
+	convertPrometheusConvertPrometheusCortexGetRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexGetRuleGroupFlag.NamespaceTitle,
+			"namespace-title",
+			"",
+			"NamespaceTitle",
+		)
+
+	convertPrometheusConvertPrometheusCortexGetRuleGroupCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexGetRuleGroupCmd)
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexGetRulesCmd)
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.MarkFlagRequired("body")
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.NamespaceTitle,
+			"namespace-title",
+			"",
+			"NamespaceTitle",
+		)
+
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().
+		BoolVar(
+			&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingAlertRulesPaused,
+			"x-grafana-alerting-alert-rules-paused",
+			false,
+			"XGrafanaAlertingAlertRulesPaused",
+		)
+
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingDatasourceUID,
+			"x-grafana-alerting-datasource-uid",
+			"",
+			"XGrafanaAlertingDatasourceUID",
+		)
+
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingFolderUID,
+			"x-grafana-alerting-folder-uid",
+			"",
+			"XGrafanaAlertingFolderUID",
+		)
+
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingNotificationSettings,
+			"x-grafana-alerting-notification-settings",
+			"",
+			"XGrafanaAlertingNotificationSettings",
+		)
+
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().
+		BoolVar(
+			&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingRecordingRulesPaused,
+			"x-grafana-alerting-recording-rules-paused",
+			false,
+			"XGrafanaAlertingRecordingRulesPaused",
+		)
+
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingTargetDatasourceUID,
+			"x-grafana-alerting-target-datasource-uid",
+			"",
+			"XGrafanaAlertingTargetDatasourceUID",
+		)
+
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexPostRuleGroupCmd)
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexPostRuleGroupsCmd)
+	convertPrometheusConvertPrometheusDeleteNamespaceCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusDeleteNamespaceFlag.NamespaceTitle,
+			"namespace-title",
+			"",
+			"NamespaceTitle",
+		)
+
+	convertPrometheusConvertPrometheusDeleteNamespaceCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusDeleteNamespaceCmd)
+	convertPrometheusConvertPrometheusDeleteRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusDeleteRuleGroupFlag.Group,
+			"group",
+			"",
+			"Group",
+		)
+
+	convertPrometheusConvertPrometheusDeleteRuleGroupCmd.MarkFlagRequired("group")
+	convertPrometheusConvertPrometheusDeleteRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusDeleteRuleGroupFlag.NamespaceTitle,
+			"namespace-title",
+			"",
+			"NamespaceTitle",
+		)
+
+	convertPrometheusConvertPrometheusDeleteRuleGroupCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusDeleteRuleGroupCmd)
+	convertPrometheusConvertPrometheusGetNamespaceCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusGetNamespaceFlag.NamespaceTitle,
+			"namespace-title",
+			"",
+			"NamespaceTitle",
+		)
+
+	convertPrometheusConvertPrometheusGetNamespaceCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusGetNamespaceCmd)
+	convertPrometheusConvertPrometheusGetRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusGetRuleGroupFlag.Group,
+			"group",
+			"",
+			"Group",
+		)
+
+	convertPrometheusConvertPrometheusGetRuleGroupCmd.MarkFlagRequired("group")
+	convertPrometheusConvertPrometheusGetRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusGetRuleGroupFlag.NamespaceTitle,
+			"namespace-title",
+			"",
+			"NamespaceTitle",
+		)
+
+	convertPrometheusConvertPrometheusGetRuleGroupCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusGetRuleGroupCmd)
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusGetRulesCmd)
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusPostRuleGroupFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.MarkFlagRequired("body")
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusPostRuleGroupFlag.NamespaceTitle,
+			"namespace-title",
+			"",
+			"NamespaceTitle",
+		)
+
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().
+		BoolVar(
+			&convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingAlertRulesPaused,
+			"x-grafana-alerting-alert-rules-paused",
+			false,
+			"XGrafanaAlertingAlertRulesPaused",
+		)
+
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingDatasourceUID,
+			"x-grafana-alerting-datasource-uid",
+			"",
+			"XGrafanaAlertingDatasourceUID",
+		)
+
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingFolderUID,
+			"x-grafana-alerting-folder-uid",
+			"",
+			"XGrafanaAlertingFolderUID",
+		)
+
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingNotificationSettings,
+			"x-grafana-alerting-notification-settings",
+			"",
+			"XGrafanaAlertingNotificationSettings",
+		)
+
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().
+		BoolVar(
+			&convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingRecordingRulesPaused,
+			"x-grafana-alerting-recording-rules-paused",
+			false,
+			"XGrafanaAlertingRecordingRulesPaused",
+		)
+
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().
+		StringVar(
+			&convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingTargetDatasourceUID,
+			"x-grafana-alerting-target-datasource-uid",
+			"",
+			"XGrafanaAlertingTargetDatasourceUID",
+		)
+
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusPostRuleGroupCmd)
+	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusPostRuleGroupsCmd)
 	rootCmd.AddCommand(dashboardsCmd)
 	dashboardsCreateDashboardSnapshotCmd.Flags().
 		StringVar(
@@ -10639,6 +11483,66 @@ func init() {
 
 	foldersUpdateFolderCmd.MarkFlagRequired("folder-uid")
 	foldersCmd.AddCommand(foldersUpdateFolderCmd)
+	rootCmd.AddCommand(groupAttributeSyncCmd)
+	groupAttributeSyncCreateGroupMappingsCmd.Flags().
+		StringVar(
+			&groupAttributeSyncCreateGroupMappingsFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	groupAttributeSyncCreateGroupMappingsCmd.MarkFlagRequired("body")
+	groupAttributeSyncCreateGroupMappingsCmd.Flags().
+		StringVar(
+			&groupAttributeSyncCreateGroupMappingsFlag.GroupID,
+			"group-id",
+			"",
+			"GroupID",
+		)
+
+	groupAttributeSyncCreateGroupMappingsCmd.MarkFlagRequired("group-id")
+	groupAttributeSyncCmd.AddCommand(groupAttributeSyncCreateGroupMappingsCmd)
+	groupAttributeSyncDeleteGroupMappingsCmd.Flags().
+		StringVar(
+			&groupAttributeSyncDeleteGroupMappingsFlag.GroupID,
+			"group-id",
+			"",
+			"GroupID",
+		)
+
+	groupAttributeSyncDeleteGroupMappingsCmd.MarkFlagRequired("group-id")
+	groupAttributeSyncCmd.AddCommand(groupAttributeSyncDeleteGroupMappingsCmd)
+	groupAttributeSyncGetGroupRolesCmd.Flags().
+		StringVar(
+			&groupAttributeSyncGetGroupRolesFlag.GroupID,
+			"group-id",
+			"",
+			"GroupID",
+		)
+
+	groupAttributeSyncGetGroupRolesCmd.MarkFlagRequired("group-id")
+	groupAttributeSyncCmd.AddCommand(groupAttributeSyncGetGroupRolesCmd)
+	groupAttributeSyncCmd.AddCommand(groupAttributeSyncGetMappedGroupsCmd)
+	groupAttributeSyncUpdateGroupMappingsCmd.Flags().
+		StringVar(
+			&groupAttributeSyncUpdateGroupMappingsFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	groupAttributeSyncUpdateGroupMappingsCmd.MarkFlagRequired("body")
+	groupAttributeSyncUpdateGroupMappingsCmd.Flags().
+		StringVar(
+			&groupAttributeSyncUpdateGroupMappingsFlag.GroupID,
+			"group-id",
+			"",
+			"GroupID",
+		)
+
+	groupAttributeSyncUpdateGroupMappingsCmd.MarkFlagRequired("group-id")
+	groupAttributeSyncCmd.AddCommand(groupAttributeSyncUpdateGroupMappingsCmd)
 	rootCmd.AddCommand(healthCmd)
 	healthCmd.AddCommand(healthGetHealthCmd)
 	rootCmd.AddCommand(ldapDebugCmd)

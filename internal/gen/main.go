@@ -22,11 +22,13 @@ import (
 	"github.com/grafana/grafana-openapi-client-go/client/admin_provisioning"
 	"github.com/grafana/grafana-openapi-client-go/client/admin_users"
 	"github.com/grafana/grafana-openapi-client-go/client/annotations"
+	"github.com/grafana/grafana-openapi-client-go/client/convert_prometheus"
 	"github.com/grafana/grafana-openapi-client-go/client/dashboards"
 	"github.com/grafana/grafana-openapi-client-go/client/datasources"
 	"github.com/grafana/grafana-openapi-client-go/client/devices"
 	"github.com/grafana/grafana-openapi-client-go/client/enterprise"
 	"github.com/grafana/grafana-openapi-client-go/client/folders"
+	"github.com/grafana/grafana-openapi-client-go/client/group_attribute_sync"
 	"github.com/grafana/grafana-openapi-client-go/client/health"
 	"github.com/grafana/grafana-openapi-client-go/client/ldap_debug"
 	"github.com/grafana/grafana-openapi-client-go/client/library_elements"
@@ -62,11 +64,13 @@ var (
 		getType[admin_provisioning.ClientService](),
 		getType[admin_users.ClientService](),
 		getType[annotations.ClientService](),
+		getType[convert_prometheus.ClientService](),
 		getType[dashboards.ClientService](),
 		getType[datasources.ClientService](),
 		getType[devices.ClientService](),
 		getType[enterprise.ClientService](),
 		getType[folders.ClientService](),
+		getType[group_attribute_sync.ClientService](),
 		getType[health.ClientService](),
 		getType[ldap_debug.ClientService](),
 		getType[library_elements.ClientService](),

@@ -32,11 +32,13 @@ gf [flags]
 * [gf admin-provisioning](gf_admin-provisioning.md)	 - 
 * [gf admin-users](gf_admin-users.md)	 - 
 * [gf annotations](gf_annotations.md)	 - 
+* [gf convert-prometheus](gf_convert-prometheus.md)	 - 
 * [gf dashboards](gf_dashboards.md)	 - 
 * [gf datasources](gf_datasources.md)	 - 
 * [gf devices](gf_devices.md)	 - 
 * [gf enterprise](gf_enterprise.md)	 - 
 * [gf folders](gf_folders.md)	 - 
+* [gf group-attribute-sync](gf_group-attribute-sync.md)	 - 
 * [gf health](gf_health.md)	 - 
 * [gf ldap-debug](gf_ldap-debug.md)	 - 
 * [gf library-elements](gf_library-elements.md)	 - 
