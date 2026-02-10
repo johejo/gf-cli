@@ -1,7 +1,7 @@
 services:
   grafana:
-    image: grafana/grafana:${GRAFANA_VERSION}
+    image: grafana/grafana:${GRAFANA_VERSION:-latest}
     ports:
-      - 3001:3000
+      - 3000
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=asdf1234

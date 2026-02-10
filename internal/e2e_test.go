@@ -8,6 +8,13 @@ import (
 )
 
 func Test(t *testing.T) {
+	if testing.Short() {
+		t.Skip()
+	}
+
+	t.Setenv("GF_BASIC_AUTH_USERNAME", "admin")
+	t.Setenv("GF_BASIC_AUTH_PASSWORD", "asdf1234")
+
 	cmd := internal.RootCmd()
 	setArgs := func(t *testing.T) {
 		name := t.Name()
@@ -26,8 +33,6 @@ func Test(t *testing.T) {
 	})
 
 	t.Run("dashboards get-home-dashboard", func(t *testing.T) {
-		t.Setenv("GF_BASIC_AUTH_USERNAME", "admin")
-		t.Setenv("GF_BASIC_AUTH_PASSWORD", "asdf1234")
 		setArgs(t)
 		if err := cmd.Execute(); err != nil {
 			t.Fatal(err)
@@ -35,8 +40,6 @@ func Test(t *testing.T) {
 	})
 
 	t.Run("users search-users", func(t *testing.T) {
-		t.Setenv("GF_BASIC_AUTH_USERNAME", "admin")
-		t.Setenv("GF_BASIC_AUTH_PASSWORD", "asdf1234")
 		setArgs(t)
 		if err := cmd.Execute(); err != nil {
 			t.Fatal(err)
@@ -44,8 +47,6 @@ func Test(t *testing.T) {
 	})
 
 	t.Run("admin admin-get-settings", func(t *testing.T) {
-		t.Setenv("GF_BASIC_AUTH_USERNAME", "admin")
-		t.Setenv("GF_BASIC_AUTH_PASSWORD", "asdf1234")
 		setArgs(t)
 		if err := cmd.Execute(); err != nil {
 			t.Fatal(err)
@@ -53,17 +54,13 @@ func Test(t *testing.T) {
 	})
 
 	t.Run("admin admin-get-stats", func(t *testing.T) {
-		t.Setenv("GF_BASIC_AUTH_USERNAME", "admin")
-		t.Setenv("GF_BASIC_AUTH_PASSWORD", "asdf1234")
 		setArgs(t)
 		if err := cmd.Execute(); err != nil {
 			t.Fatal(err)
 		}
 	})
 
-	t.Run("org-preferences get-org-preferences", func(t *testing.T) {
-		t.Setenv("GF_BASIC_AUTH_USERNAME", "admin")
-		t.Setenv("GF_BASIC_AUTH_PASSWORD", "asdf1234")
+	t.Run("org get-org-preferences", func(t *testing.T) {
 		setArgs(t)
 		if err := cmd.Execute(); err != nil {
 			t.Fatal(err)
