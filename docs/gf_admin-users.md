@@ -36,6 +36,4 @@ gf admin-users [flags]
 * [gf admin-users admin-revoke-user-auth-token](gf_admin-users_admin-revoke-user-auth-token.md)	 - 
 * [gf admin-users admin-update-user-password](gf_admin-users_admin-update-user-password.md)	 - 
 * [gf admin-users admin-update-user-permissions](gf_admin-users_admin-update-user-permissions.md)	 - 
-* [gf admin-users get-user-quota](gf_admin-users_get-user-quota.md)	 - 
-* [gf admin-users update-user-quota](gf_admin-users_update-user-quota.md)	 - 
 

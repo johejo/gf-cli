@@ -9,11 +9,14 @@ gf migrations get-snapshot [flags]
 ### Options
 
 ```
-  -h, --help                  help for get-snapshot
-      --result-limit int      ResultLimit
-      --result-page int       ResultPage
-      --snapshot-uid string   SnapshotUID
-      --uid string            Unique identifier (uid)
+      --errors-only                 ErrorsOnly
+  -h, --help                        help for get-snapshot
+      --result-limit int            ResultLimit
+      --result-page int             ResultPage
+      --result-sort-column string   ResultSortColumn
+      --result-sort-order string    ResultSortOrder
+      --snapshot-uid string         SnapshotUID
+      --uid string                  Unique identifier (uid)
 ```
 
 ### Options inherited from parent commands

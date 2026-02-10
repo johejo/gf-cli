@@ -31,7 +31,9 @@ gf folders [flags]
 * [gf folders delete-folder](gf_folders_delete-folder.md)	 - 
 * [gf folders get-folder-by-uid](gf_folders_get-folder-by-uid.md)	 - 
 * [gf folders get-folder-descendant-counts](gf_folders_get-folder-descendant-counts.md)	 - 
+* [gf folders get-folder-permission-list](gf_folders_get-folder-permission-list.md)	 - 
 * [gf folders get-folders](gf_folders_get-folders.md)	 - 
 * [gf folders move-folder](gf_folders_move-folder.md)	 - 
 * [gf folders update-folder](gf_folders_update-folder.md)	 - 
+* [gf folders update-folder-permissions](gf_folders_update-folder-permissions.md)	 - 
 

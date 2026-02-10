@@ -1,27 +1,15 @@
-## gf annotations get-annotations
+## gf signed-in-user get-user-preferences
 
 
 
 ```
-gf annotations get-annotations [flags]
+gf signed-in-user get-user-preferences [flags]
 ```
 
 ### Options
 
 ```
-      --alert-id int           AlertID
-      --alert-uid string       AlertUID
-      --dashboard-id int       DashboardID
-      --dashboard-uid string   DashboardUID
-      --from int               From
-  -h, --help                   help for get-annotations
-      --limit int              Limit
-      --match-any              MatchAny
-      --panel-id int           PanelID
-      --tags strings           Tags
-      --to int                 To
-      --type string            Type
-      --user-id int            UserID
+  -h, --help   help for get-user-preferences
 ```
 
 ### Options inherited from parent commands
@@ -38,5 +26,5 @@ gf annotations get-annotations [flags]
 
 ### SEE ALSO
 
-* [gf annotations](gf_annotations.md)	 - 
+* [gf signed-in-user](gf_signed-in-user.md)	 - 
 

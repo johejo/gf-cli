@@ -1,27 +1,15 @@
-## gf annotations get-annotations
+## gf dashboards interpolate-dashboard
 
 
 
 ```
-gf annotations get-annotations [flags]
+gf dashboards interpolate-dashboard [flags]
 ```
 
 ### Options
 
 ```
-      --alert-id int           AlertID
-      --alert-uid string       AlertUID
-      --dashboard-id int       DashboardID
-      --dashboard-uid string   DashboardUID
-      --from int               From
-  -h, --help                   help for get-annotations
-      --limit int              Limit
-      --match-any              MatchAny
-      --panel-id int           PanelID
-      --tags strings           Tags
-      --to int                 To
-      --type string            Type
-      --user-id int            UserID
+  -h, --help   help for interpolate-dashboard
 ```
 
 ### Options inherited from parent commands
@@ -38,5 +26,5 @@ gf annotations get-annotations [flags]
 
 ### SEE ALSO
 
-* [gf annotations](gf_annotations.md)	 - 
+* [gf dashboards](gf_dashboards.md)	 - 
 

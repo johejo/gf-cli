@@ -27,10 +27,5 @@ gf snapshots [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf snapshots create-dashboard-snapshot](gf_snapshots_create-dashboard-snapshot.md)	 - 
-* [gf snapshots delete-dashboard-snapshot](gf_snapshots_delete-dashboard-snapshot.md)	 - 
-* [gf snapshots delete-dashboard-snapshot-by-delete-key](gf_snapshots_delete-dashboard-snapshot-by-delete-key.md)	 - 
-* [gf snapshots get-dashboard-snapshot](gf_snapshots_get-dashboard-snapshot.md)	 - 
 * [gf snapshots get-sharing-options](gf_snapshots_get-sharing-options.md)	 - 
-* [gf snapshots search-dashboard-snapshots](gf_snapshots_search-dashboard-snapshots.md)	 - 
 

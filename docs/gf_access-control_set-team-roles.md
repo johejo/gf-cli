@@ -9,6 +9,7 @@ gf access-control set-team-roles [flags]
 ### Options
 
 ```
+      --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
   -h, --help          help for set-team-roles
       --team-id int   TeamID
 ```

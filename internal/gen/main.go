@@ -22,27 +22,17 @@ import (
 	"github.com/grafana/grafana-openapi-client-go/client/admin_provisioning"
 	"github.com/grafana/grafana-openapi-client-go/client/admin_users"
 	"github.com/grafana/grafana-openapi-client-go/client/annotations"
-	"github.com/grafana/grafana-openapi-client-go/client/api_keys"
-	"github.com/grafana/grafana-openapi-client-go/client/correlations"
-	"github.com/grafana/grafana-openapi-client-go/client/dashboard_permissions"
-	"github.com/grafana/grafana-openapi-client-go/client/dashboard_public"
-	"github.com/grafana/grafana-openapi-client-go/client/dashboard_versions"
 	"github.com/grafana/grafana-openapi-client-go/client/dashboards"
 	"github.com/grafana/grafana-openapi-client-go/client/datasources"
 	"github.com/grafana/grafana-openapi-client-go/client/devices"
-	"github.com/grafana/grafana-openapi-client-go/client/ds"
 	"github.com/grafana/grafana-openapi-client-go/client/enterprise"
-	"github.com/grafana/grafana-openapi-client-go/client/folder_permissions"
 	"github.com/grafana/grafana-openapi-client-go/client/folders"
-	"github.com/grafana/grafana-openapi-client-go/client/get_current_org"
 	"github.com/grafana/grafana-openapi-client-go/client/health"
 	"github.com/grafana/grafana-openapi-client-go/client/ldap_debug"
 	"github.com/grafana/grafana-openapi-client-go/client/library_elements"
 	"github.com/grafana/grafana-openapi-client-go/client/licensing"
 	"github.com/grafana/grafana-openapi-client-go/client/migrations"
 	"github.com/grafana/grafana-openapi-client-go/client/org"
-	"github.com/grafana/grafana-openapi-client-go/client/org_invites"
-	"github.com/grafana/grafana-openapi-client-go/client/org_preferences"
 	"github.com/grafana/grafana-openapi-client-go/client/orgs"
 	"github.com/grafana/grafana-openapi-client-go/client/playlists"
 	"github.com/grafana/grafana-openapi-client-go/client/provisioning"
@@ -59,7 +49,6 @@ import (
 	"github.com/grafana/grafana-openapi-client-go/client/sync_team_groups"
 	"github.com/grafana/grafana-openapi-client-go/client/teams"
 	"github.com/grafana/grafana-openapi-client-go/client/user"
-	"github.com/grafana/grafana-openapi-client-go/client/user_preferences"
 	"github.com/grafana/grafana-openapi-client-go/client/users"
 	"github.com/iancoleman/strcase"
 )
@@ -73,27 +62,17 @@ var (
 		getType[admin_provisioning.ClientService](),
 		getType[admin_users.ClientService](),
 		getType[annotations.ClientService](),
-		getType[api_keys.ClientService](),
-		getType[correlations.ClientService](),
-		getType[dashboard_permissions.ClientService](),
-		getType[dashboard_public.ClientService](),
-		getType[dashboard_versions.ClientService](),
 		getType[dashboards.ClientService](),
 		getType[datasources.ClientService](),
 		getType[devices.ClientService](),
-		getType[ds.ClientService](),
 		getType[enterprise.ClientService](),
-		getType[folder_permissions.ClientService](),
 		getType[folders.ClientService](),
-		getType[get_current_org.ClientService](),
 		getType[health.ClientService](),
 		getType[ldap_debug.ClientService](),
 		getType[library_elements.ClientService](),
 		getType[licensing.ClientService](),
 		getType[migrations.ClientService](),
 		getType[org.ClientService](),
-		getType[org_invites.ClientService](),
-		getType[org_preferences.ClientService](),
 		getType[orgs.ClientService](),
 		getType[playlists.ClientService](),
 		getType[provisioning.ClientService](),
@@ -110,7 +89,6 @@ var (
 		getType[sync_team_groups.ClientService](),
 		getType[teams.ClientService](),
 		getType[user.ClientService](),
-		getType[user_preferences.ClientService](),
 		getType[users.ClientService](),
 	}
 )

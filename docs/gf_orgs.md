@@ -30,13 +30,11 @@ gf orgs [flags]
 * [gf orgs add-org-user](gf_orgs_add-org-user.md)	 - 
 * [gf orgs create-org](gf_orgs_create-org.md)	 - 
 * [gf orgs get-org-by-name](gf_orgs_get-org-by-name.md)	 - 
-* [gf orgs get-org-quota](gf_orgs_get-org-quota.md)	 - 
 * [gf orgs get-org-users](gf_orgs_get-org-users.md)	 - 
 * [gf orgs remove-org-user](gf_orgs_remove-org-user.md)	 - 
 * [gf orgs search-org-users](gf_orgs_search-org-users.md)	 - 
 * [gf orgs search-orgs](gf_orgs_search-orgs.md)	 - 
 * [gf orgs update-org](gf_orgs_update-org.md)	 - 
 * [gf orgs update-org-address](gf_orgs_update-org-address.md)	 - 
-* [gf orgs update-org-quota](gf_orgs_update-org-quota.md)	 - 
 * [gf orgs update-org-user](gf_orgs_update-org-user.md)	 - 
 

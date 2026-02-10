@@ -1,27 +1,16 @@
-## gf annotations get-annotations
+## gf org update-org-preferences
 
 
 
 ```
-gf annotations get-annotations [flags]
+gf org update-org-preferences [flags]
 ```
 
 ### Options
 
 ```
-      --alert-id int           AlertID
-      --alert-uid string       AlertUID
-      --dashboard-id int       DashboardID
-      --dashboard-uid string   DashboardUID
-      --from int               From
-  -h, --help                   help for get-annotations
-      --limit int              Limit
-      --match-any              MatchAny
-      --panel-id int           PanelID
-      --tags strings           Tags
-      --to int                 To
-      --type string            Type
-      --user-id int            UserID
+      --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+  -h, --help          help for update-org-preferences
 ```
 
 ### Options inherited from parent commands
@@ -38,5 +27,5 @@ gf annotations get-annotations [flags]
 
 ### SEE ALSO
 
-* [gf annotations](gf_annotations.md)	 - 
+* [gf org](gf_org.md)	 - 
 

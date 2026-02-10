@@ -9,7 +9,9 @@ gf org get-org-users-for-current-org [flags]
 ### Options
 
 ```
-  -h, --help   help for get-org-users-for-current-org
+  -h, --help           help for get-org-users-for-current-org
+      --limit int      Limit
+      --query string   Query
 ```
 
 ### Options inherited from parent commands

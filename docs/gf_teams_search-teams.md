@@ -9,11 +9,13 @@ gf teams search-teams [flags]
 ### Options
 
 ```
-  -h, --help           help for search-teams
-      --name string    Name of the team
-      --page int       Page
-      --perpage int    Perpage (default 1000)
-      --query string   Query
+      --accesscontrol   Accesscontrol
+  -h, --help            help for search-teams
+      --name string     Name of the team
+      --page int        Page
+      --perpage int     Perpage (default 1000)
+      --query string    Query
+      --sort string     Sort
 ```
 
 ### Options inherited from parent commands

@@ -30,11 +30,18 @@ gf datasources [flags]
 * [gf datasources add-datasource](gf_datasources_add-datasource.md)	 - 
 * [gf datasources call-datasource-resource](gf_datasources_call-datasource-resource.md)	 - 
 * [gf datasources check-datasource-health](gf_datasources_check-datasource-health.md)	 - 
+* [gf datasources create-correlation](gf_datasources_create-correlation.md)	 - 
+* [gf datasources delete-correlation](gf_datasources_delete-correlation.md)	 - 
 * [gf datasources delete-datasource-by-name](gf_datasources_delete-datasource-by-name.md)	 - 
 * [gf datasources delete-datasource-by-uid](gf_datasources_delete-datasource-by-uid.md)	 - 
+* [gf datasources get-correlation](gf_datasources_get-correlation.md)	 - 
+* [gf datasources get-correlations](gf_datasources_get-correlations.md)	 - 
+* [gf datasources get-correlations-by-source-uid](gf_datasources_get-correlations-by-source-uid.md)	 - 
 * [gf datasources get-datasource-by-name](gf_datasources_get-datasource-by-name.md)	 - 
 * [gf datasources get-datasource-by-uid](gf_datasources_get-datasource-by-uid.md)	 - 
 * [gf datasources get-datasource-id-by-name](gf_datasources_get-datasource-id-by-name.md)	 - 
 * [gf datasources get-datasources](gf_datasources_get-datasources.md)	 - 
+* [gf datasources query-metrics-with-expressions](gf_datasources_query-metrics-with-expressions.md)	 - 
+* [gf datasources update-correlation](gf_datasources_update-correlation.md)	 - 
 * [gf datasources update-datasource-by-uid](gf_datasources_update-datasource-by-uid.md)	 - 
 

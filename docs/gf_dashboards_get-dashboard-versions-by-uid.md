@@ -1,27 +1,18 @@
-## gf annotations get-annotations
+## gf dashboards get-dashboard-versions-by-uid
 
 
 
 ```
-gf annotations get-annotations [flags]
+gf dashboards get-dashboard-versions-by-uid [flags]
 ```
 
 ### Options
 
 ```
-      --alert-id int           AlertID
-      --alert-uid string       AlertUID
-      --dashboard-id int       DashboardID
-      --dashboard-uid string   DashboardUID
-      --from int               From
-  -h, --help                   help for get-annotations
-      --limit int              Limit
-      --match-any              MatchAny
-      --panel-id int           PanelID
-      --tags strings           Tags
-      --to int                 To
-      --type string            Type
-      --user-id int            UserID
+  -h, --help         help for get-dashboard-versions-by-uid
+      --limit int    Limit
+      --start int    Start
+      --uid string   Unique identifier (uid)
 ```
 
 ### Options inherited from parent commands
@@ -38,5 +29,5 @@ gf annotations get-annotations [flags]
 
 ### SEE ALSO
 
-* [gf annotations](gf_annotations.md)	 - 
+* [gf dashboards](gf_dashboards.md)	 - 
 

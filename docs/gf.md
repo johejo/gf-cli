@@ -32,27 +32,17 @@ gf [flags]
 * [gf admin-provisioning](gf_admin-provisioning.md)	 - 
 * [gf admin-users](gf_admin-users.md)	 - 
 * [gf annotations](gf_annotations.md)	 - 
-* [gf api-keys](gf_api-keys.md)	 - 
-* [gf correlations](gf_correlations.md)	 - 
-* [gf dashboard-permissions](gf_dashboard-permissions.md)	 - 
-* [gf dashboard-public](gf_dashboard-public.md)	 - 
-* [gf dashboard-versions](gf_dashboard-versions.md)	 - 
 * [gf dashboards](gf_dashboards.md)	 - 
 * [gf datasources](gf_datasources.md)	 - 
 * [gf devices](gf_devices.md)	 - 
-* [gf ds](gf_ds.md)	 - 
 * [gf enterprise](gf_enterprise.md)	 - 
-* [gf folder-permissions](gf_folder-permissions.md)	 - 
 * [gf folders](gf_folders.md)	 - 
-* [gf get-current-org](gf_get-current-org.md)	 - 
 * [gf health](gf_health.md)	 - 
 * [gf ldap-debug](gf_ldap-debug.md)	 - 
 * [gf library-elements](gf_library-elements.md)	 - 
 * [gf licensing](gf_licensing.md)	 - 
 * [gf migrations](gf_migrations.md)	 - 
 * [gf org](gf_org.md)	 - 
-* [gf org-invites](gf_org-invites.md)	 - 
-* [gf org-preferences](gf_org-preferences.md)	 - 
 * [gf orgs](gf_orgs.md)	 - 
 * [gf playlists](gf_playlists.md)	 - 
 * [gf provisioning](gf_provisioning.md)	 - 
@@ -69,6 +59,5 @@ gf [flags]
 * [gf sync-team-groups](gf_sync-team-groups.md)	 - 
 * [gf teams](gf_teams.md)	 - 
 * [gf user](gf_user.md)	 - 
-* [gf user-preferences](gf_user-preferences.md)	 - 
 * [gf users](gf_users.md)	 - 
 

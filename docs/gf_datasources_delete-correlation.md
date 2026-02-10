@@ -1,27 +1,17 @@
-## gf annotations get-annotations
+## gf datasources delete-correlation
 
 
 
 ```
-gf annotations get-annotations [flags]
+gf datasources delete-correlation [flags]
 ```
 
 ### Options
 
 ```
-      --alert-id int           AlertID
-      --alert-uid string       AlertUID
-      --dashboard-id int       DashboardID
-      --dashboard-uid string   DashboardUID
-      --from int               From
-  -h, --help                   help for get-annotations
-      --limit int              Limit
-      --match-any              MatchAny
-      --panel-id int           PanelID
-      --tags strings           Tags
-      --to int                 To
-      --type string            Type
-      --user-id int            UserID
+      --correlation-uid string   CorrelationUID
+  -h, --help                     help for delete-correlation
+      --uid string               Unique identifier (uid)
 ```
 
 ### Options inherited from parent commands
@@ -38,5 +28,5 @@ gf annotations get-annotations [flags]
 
 ### SEE ALSO
 
-* [gf annotations](gf_annotations.md)	 - 
+* [gf datasources](gf_datasources.md)	 - 
 

@@ -1,27 +1,20 @@
-## gf annotations get-annotations
+## gf sync-team-groups search-team-groups
 
 
 
 ```
-gf annotations get-annotations [flags]
+gf sync-team-groups search-team-groups [flags]
 ```
 
 ### Options
 
 ```
-      --alert-id int           AlertID
-      --alert-uid string       AlertUID
-      --dashboard-id int       DashboardID
-      --dashboard-uid string   DashboardUID
-      --from int               From
-  -h, --help                   help for get-annotations
-      --limit int              Limit
-      --match-any              MatchAny
-      --panel-id int           PanelID
-      --tags strings           Tags
-      --to int                 To
-      --type string            Type
-      --user-id int            UserID
+  -h, --help           help for search-team-groups
+      --name string    Name of the syncTeamGroup
+      --page int       Page
+      --perpage int    Perpage (default 1000)
+      --query string   Query
+      --team-id int    TeamID
 ```
 
 ### Options inherited from parent commands
@@ -38,5 +31,5 @@ gf annotations get-annotations [flags]
 
 ### SEE ALSO
 
-* [gf annotations](gf_annotations.md)	 - 
+* [gf sync-team-groups](gf_sync-team-groups.md)	 - 
 

@@ -32,6 +32,7 @@ gf reports [flags]
 * [gf reports get-report](gf_reports_get-report.md)	 - 
 * [gf reports get-report-settings](gf_reports_get-report-settings.md)	 - 
 * [gf reports get-reports](gf_reports_get-reports.md)	 - 
+* [gf reports get-reports-by-dashboard-uid](gf_reports_get-reports-by-dashboard-uid.md)	 - 
 * [gf reports get-settings-image](gf_reports_get-settings-image.md)	 - 
 * [gf reports render-report-cs-vs](gf_reports_render-report-cs-vs.md)	 - 
 * [gf reports render-report-pd-fs](gf_reports_render-report-pd-fs.md)	 - 

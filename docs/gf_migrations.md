@@ -34,6 +34,7 @@ gf migrations [flags]
 * [gf migrations delete-cloud-migration-token](gf_migrations_delete-cloud-migration-token.md)	 - 
 * [gf migrations delete-session](gf_migrations_delete-session.md)	 - 
 * [gf migrations get-cloud-migration-token](gf_migrations_get-cloud-migration-token.md)	 - 
+* [gf migrations get-resource-dependencies](gf_migrations_get-resource-dependencies.md)	 - 
 * [gf migrations get-session](gf_migrations_get-session.md)	 - 
 * [gf migrations get-session-list](gf_migrations_get-session-list.md)	 - 
 * [gf migrations get-shapshot-list](gf_migrations_get-shapshot-list.md)	 - 

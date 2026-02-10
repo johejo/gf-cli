@@ -10,27 +10,17 @@ import (
 	"github.com/grafana/grafana-openapi-client-go/client/admin_provisioning"
 	"github.com/grafana/grafana-openapi-client-go/client/admin_users"
 	"github.com/grafana/grafana-openapi-client-go/client/annotations"
-	"github.com/grafana/grafana-openapi-client-go/client/api_keys"
-	"github.com/grafana/grafana-openapi-client-go/client/correlations"
-	"github.com/grafana/grafana-openapi-client-go/client/dashboard_permissions"
-	"github.com/grafana/grafana-openapi-client-go/client/dashboard_public"
-	"github.com/grafana/grafana-openapi-client-go/client/dashboard_versions"
 	"github.com/grafana/grafana-openapi-client-go/client/dashboards"
 	"github.com/grafana/grafana-openapi-client-go/client/datasources"
 	"github.com/grafana/grafana-openapi-client-go/client/devices"
-	"github.com/grafana/grafana-openapi-client-go/client/ds"
 	"github.com/grafana/grafana-openapi-client-go/client/enterprise"
-	"github.com/grafana/grafana-openapi-client-go/client/folder_permissions"
 	"github.com/grafana/grafana-openapi-client-go/client/folders"
-	"github.com/grafana/grafana-openapi-client-go/client/get_current_org"
 	"github.com/grafana/grafana-openapi-client-go/client/health"
 	"github.com/grafana/grafana-openapi-client-go/client/ldap_debug"
 	"github.com/grafana/grafana-openapi-client-go/client/library_elements"
 	"github.com/grafana/grafana-openapi-client-go/client/licensing"
 	"github.com/grafana/grafana-openapi-client-go/client/migrations"
 	"github.com/grafana/grafana-openapi-client-go/client/org"
-	"github.com/grafana/grafana-openapi-client-go/client/org_invites"
-	"github.com/grafana/grafana-openapi-client-go/client/org_preferences"
 	"github.com/grafana/grafana-openapi-client-go/client/orgs"
 	"github.com/grafana/grafana-openapi-client-go/client/playlists"
 	"github.com/grafana/grafana-openapi-client-go/client/provisioning"
@@ -47,7 +37,6 @@ import (
 	"github.com/grafana/grafana-openapi-client-go/client/sync_team_groups"
 	"github.com/grafana/grafana-openapi-client-go/client/teams"
 	"github.com/grafana/grafana-openapi-client-go/client/user"
-	"github.com/grafana/grafana-openapi-client-go/client/user_preferences"
 	"github.com/grafana/grafana-openapi-client-go/client/users"
 	"github.com/grafana/grafana-openapi-client-go/models"
 	"github.com/spf13/cobra"
@@ -682,8 +671,16 @@ var (
 			if err != nil {
 				return err
 			}
+			var body models.SetTeamRolesCommand
+			if err := getBodyParam(
+				accessControlSetTeamRolesFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
 			resp, err := api.AccessControl.SetTeamRolesWithParams(
 				&access_control.SetTeamRolesParams{
+					Body:   &body,
 					TeamID: accessControlSetTeamRolesFlag.TeamID,
 				},
 			)
@@ -847,6 +844,7 @@ var (
 		RoleUID string
 	}{}
 	accessControlSetTeamRolesFlag = struct {
+		Body   string
 		TeamID int64
 	}{}
 	accessControlSetUserRolesFlag = struct {
@@ -1383,65 +1381,6 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	adminUsersGetUserQuotaCmd = &cobra.Command{
-		Use:               "get-user-quota",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.AdminUsers.GetUserQuotaWithParams(
-				&admin_users.GetUserQuotaParams{
-					UserID: adminUsersGetUserQuotaFlag.UserID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	adminUsersUpdateUserQuotaCmd = &cobra.Command{
-		Use:               "update-user-quota",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.UpdateQuotaCmd
-			if err := getBodyParam(
-				adminUsersUpdateUserQuotaFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.AdminUsers.UpdateUserQuota(
-				&admin_users.UpdateUserQuotaParams{
-					Body:        &body,
-					QuotaTarget: adminUsersUpdateUserQuotaFlag.QuotaTarget,
-					UserID:      adminUsersUpdateUserQuotaFlag.UserID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
 	adminUsersAdminCreateUserFlag = struct {
 		Body string
 	}{}
@@ -1471,14 +1410,6 @@ var (
 	adminUsersAdminUpdateUserPermissionsFlag = struct {
 		Body   string
 		UserID int64
-	}{}
-	adminUsersGetUserQuotaFlag = struct {
-		UserID int64
-	}{}
-	adminUsersUpdateUserQuotaFlag = struct {
-		Body        string
-		QuotaTarget string
-		UserID      int64
 	}{}
 	annotationsCmd = &cobra.Command{
 		Use:               "annotations",
@@ -1523,6 +1454,7 @@ var (
 			resp, err := api.Annotations.GetAnnotations(
 				&annotations.GetAnnotationsParams{
 					AlertID:      &annotationsGetAnnotationsFlag.AlertID,
+					AlertUID:     &annotationsGetAnnotationsFlag.AlertUID,
 					DashboardID:  &annotationsGetAnnotationsFlag.DashboardID,
 					DashboardUID: &annotationsGetAnnotationsFlag.DashboardUID,
 					From:         &annotationsGetAnnotationsFlag.From,
@@ -1715,6 +1647,7 @@ var (
 	}{}
 	annotationsGetAnnotationsFlag = struct {
 		AlertID      int64
+		AlertUID     string
 		DashboardID  int64
 		DashboardUID string
 		From         int64
@@ -1743,344 +1676,30 @@ var (
 		AnnotationID string
 		Body         string
 	}{}
-	apiKeysCmd = &cobra.Command{
-		Use:               "api-keys",
+	dashboardsCmd = &cobra.Command{
+		Use:               "dashboards",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
-	apiKeysAddAPIkeyCmd = &cobra.Command{
-		Use:               "add-api-key",
+	dashboardsCreateDashboardSnapshotCmd = &cobra.Command{
+		Use:               "create-dashboard-snapshot",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
 				return err
 			}
-			err = api.APIKeys.AddAPIkeyWithParams(
-				&api_keys.AddAPIkeyParams{},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			fmt.Println("{}")
-			return nil
-		},
-	}
-	apiKeysDeleteAPIkeyCmd = &cobra.Command{
-		Use:               "delete-api-key",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.APIKeys.DeleteAPIkeyWithParams(
-				&api_keys.DeleteAPIkeyParams{
-					ID: apiKeysDeleteAPIkeyFlag.ID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	apiKeysGetAPIkeysCmd = &cobra.Command{
-		Use:               "get-api-keys",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.APIKeys.GetAPIkeys(
-				&api_keys.GetAPIkeysParams{
-					IncludeExpired: &apiKeysGetAPIkeysFlag.IncludeExpired,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	apiKeysDeleteAPIkeyFlag = struct {
-		ID int64
-	}{}
-	apiKeysGetAPIkeysFlag = struct {
-		IncludeExpired bool
-	}{}
-	correlationsCmd = &cobra.Command{
-		Use:               "correlations",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	correlationsCreateCorrelationCmd = &cobra.Command{
-		Use:               "create-correlation",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.CreateCorrelationCommand
+			var body models.CreateDashboardSnapshotCommand
 			if err := getBodyParam(
-				correlationsCreateCorrelationFlag.Body,
+				dashboardsCreateDashboardSnapshotFlag.Body,
 				&body,
 			); err != nil {
 				return err
 			}
-			resp, err := api.Correlations.CreateCorrelationWithParams(
-				&correlations.CreateCorrelationParams{
-					Body:      &body,
-					SourceUID: correlationsCreateCorrelationFlag.SourceUID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	correlationsDeleteCorrelationCmd = &cobra.Command{
-		Use:               "delete-correlation",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Correlations.DeleteCorrelationWithParams(
-				&correlations.DeleteCorrelationParams{
-					CorrelationUID: correlationsDeleteCorrelationFlag.CorrelationUID,
-					UID:            correlationsDeleteCorrelationFlag.UID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	correlationsGetCorrelationCmd = &cobra.Command{
-		Use:               "get-correlation",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Correlations.GetCorrelationWithParams(
-				&correlations.GetCorrelationParams{
-					CorrelationUID: correlationsGetCorrelationFlag.CorrelationUID,
-					SourceUID:      correlationsGetCorrelationFlag.SourceUID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	correlationsGetCorrelationsCmd = &cobra.Command{
-		Use:               "get-correlations",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Correlations.GetCorrelations(
-				&correlations.GetCorrelationsParams{
-					Limit:     &correlationsGetCorrelationsFlag.Limit,
-					Page:      &correlationsGetCorrelationsFlag.Page,
-					SourceUID: correlationsGetCorrelationsFlag.SourceUID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	correlationsGetCorrelationsBySourceUIDCmd = &cobra.Command{
-		Use:               "get-correlations-by-source-uid",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Correlations.GetCorrelationsBySourceUIDWithParams(
-				&correlations.GetCorrelationsBySourceUIDParams{
-					SourceUID: correlationsGetCorrelationsBySourceUIDFlag.SourceUID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	correlationsUpdateCorrelationCmd = &cobra.Command{
-		Use:               "update-correlation",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.UpdateCorrelationCommand
-			if err := getBodyParam(
-				correlationsUpdateCorrelationFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.Correlations.UpdateCorrelation(
-				&correlations.UpdateCorrelationParams{
-					Body:           &body,
-					CorrelationUID: correlationsUpdateCorrelationFlag.CorrelationUID,
-					SourceUID:      correlationsUpdateCorrelationFlag.SourceUID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	correlationsCreateCorrelationFlag = struct {
-		Body      string
-		SourceUID string
-	}{}
-	correlationsDeleteCorrelationFlag = struct {
-		CorrelationUID string
-		UID            string
-	}{}
-	correlationsGetCorrelationFlag = struct {
-		CorrelationUID string
-		SourceUID      string
-	}{}
-	correlationsGetCorrelationsFlag = struct {
-		Limit     int64
-		Page      int64
-		SourceUID []string
-	}{}
-	correlationsGetCorrelationsBySourceUIDFlag = struct {
-		SourceUID string
-	}{}
-	correlationsUpdateCorrelationFlag = struct {
-		Body           string
-		CorrelationUID string
-		SourceUID      string
-	}{}
-	dashboardPermissionsCmd = &cobra.Command{
-		Use:               "dashboard-permissions",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	dashboardPermissionsGetDashboardPermissionsListByUIDCmd = &cobra.Command{
-		Use:               "get-dashboard-permissions-list-by-uid",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.DashboardPermissions.GetDashboardPermissionsListByUIDWithParams(
-				&dashboard_permissions.GetDashboardPermissionsListByUIDParams{
-					UID: dashboardPermissionsGetDashboardPermissionsListByUIDFlag.UID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardPermissionsUpdateDashboardPermissionsByUIDCmd = &cobra.Command{
-		Use:               "update-dashboard-permissions-by-uid",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.UpdateDashboardACLCommand
-			if err := getBodyParam(
-				dashboardPermissionsUpdateDashboardPermissionsByUIDFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.DashboardPermissions.UpdateDashboardPermissionsByUIDWithParams(
-				&dashboard_permissions.UpdateDashboardPermissionsByUIDParams{
+			resp, err := api.Dashboards.CreateDashboardSnapshotWithParams(
+				&dashboards.CreateDashboardSnapshotParams{
 					Body: &body,
-					UID:  dashboardPermissionsUpdateDashboardPermissionsByUIDFlag.UID,
 				},
 			)
 			if err != nil {
@@ -2095,20 +1714,7 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	dashboardPermissionsGetDashboardPermissionsListByUIDFlag = struct {
-		UID string
-	}{}
-	dashboardPermissionsUpdateDashboardPermissionsByUIDFlag = struct {
-		Body string
-		UID  string
-	}{}
-	dashboardPublicCmd = &cobra.Command{
-		Use:               "dashboard-public",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	dashboardPublicCreatePublicDashboardCmd = &cobra.Command{
+	dashboardsCreatePublicDashboardCmd = &cobra.Command{
 		Use:               "create-public-dashboard",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -2118,368 +1724,15 @@ var (
 			}
 			var body models.PublicDashboardDTO
 			if err := getBodyParam(
-				dashboardPublicCreatePublicDashboardFlag.Body,
+				dashboardsCreatePublicDashboardFlag.Body,
 				&body,
 			); err != nil {
 				return err
 			}
-			resp, err := api.DashboardPublic.CreatePublicDashboardWithParams(
-				&dashboard_public.CreatePublicDashboardParams{
+			resp, err := api.Dashboards.CreatePublicDashboardWithParams(
+				&dashboards.CreatePublicDashboardParams{
 					Body:         &body,
-					DashboardUID: dashboardPublicCreatePublicDashboardFlag.DashboardUID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardPublicDeletePublicDashboardCmd = &cobra.Command{
-		Use:               "delete-public-dashboard",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.DashboardPublic.DeletePublicDashboardWithParams(
-				&dashboard_public.DeletePublicDashboardParams{
-					DashboardUID: dashboardPublicDeletePublicDashboardFlag.DashboardUID,
-					UID:          dashboardPublicDeletePublicDashboardFlag.UID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardPublicGetPublicAnnotationsCmd = &cobra.Command{
-		Use:               "get-public-annotations",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.DashboardPublic.GetPublicAnnotationsWithParams(
-				&dashboard_public.GetPublicAnnotationsParams{
-					AccessToken: dashboardPublicGetPublicAnnotationsFlag.AccessToken,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardPublicGetPublicDashboardCmd = &cobra.Command{
-		Use:               "get-public-dashboard",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.DashboardPublic.GetPublicDashboardWithParams(
-				&dashboard_public.GetPublicDashboardParams{
-					DashboardUID: dashboardPublicGetPublicDashboardFlag.DashboardUID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardPublicListPublicDashboardsCmd = &cobra.Command{
-		Use:               "list-public-dashboards",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.DashboardPublic.ListPublicDashboardsWithParams(
-				&dashboard_public.ListPublicDashboardsParams{},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardPublicQueryPublicDashboardCmd = &cobra.Command{
-		Use:               "query-public-dashboard",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.DashboardPublic.QueryPublicDashboardWithParams(
-				&dashboard_public.QueryPublicDashboardParams{
-					AccessToken: dashboardPublicQueryPublicDashboardFlag.AccessToken,
-					PanelID:     dashboardPublicQueryPublicDashboardFlag.PanelID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardPublicUpdatePublicDashboardCmd = &cobra.Command{
-		Use:               "update-public-dashboard",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.PublicDashboardDTO
-			if err := getBodyParam(
-				dashboardPublicUpdatePublicDashboardFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.DashboardPublic.UpdatePublicDashboard(
-				&dashboard_public.UpdatePublicDashboardParams{
-					Body:         &body,
-					DashboardUID: dashboardPublicUpdatePublicDashboardFlag.DashboardUID,
-					UID:          dashboardPublicUpdatePublicDashboardFlag.UID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardPublicViewPublicDashboardCmd = &cobra.Command{
-		Use:               "view-public-dashboard",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.DashboardPublic.ViewPublicDashboardWithParams(
-				&dashboard_public.ViewPublicDashboardParams{
-					AccessToken: dashboardPublicViewPublicDashboardFlag.AccessToken,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardPublicCreatePublicDashboardFlag = struct {
-		Body         string
-		DashboardUID string
-	}{}
-	dashboardPublicDeletePublicDashboardFlag = struct {
-		DashboardUID string
-		UID          string
-	}{}
-	dashboardPublicGetPublicAnnotationsFlag = struct {
-		AccessToken string
-	}{}
-	dashboardPublicGetPublicDashboardFlag = struct {
-		DashboardUID string
-	}{}
-	dashboardPublicQueryPublicDashboardFlag = struct {
-		AccessToken string
-		PanelID     int64
-	}{}
-	dashboardPublicUpdatePublicDashboardFlag = struct {
-		Body         string
-		DashboardUID string
-		UID          string
-	}{}
-	dashboardPublicViewPublicDashboardFlag = struct {
-		AccessToken string
-	}{}
-	dashboardVersionsCmd = &cobra.Command{
-		Use:               "dashboard-versions",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	dashboardVersionsGetDashboardVersionByUIDCmd = &cobra.Command{
-		Use:               "get-dashboard-version-by-uid",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.DashboardVersions.GetDashboardVersionByUIDWithParams(
-				&dashboard_versions.GetDashboardVersionByUIDParams{
-					DashboardVersionID: dashboardVersionsGetDashboardVersionByUIDFlag.DashboardVersionID,
-					UID:                dashboardVersionsGetDashboardVersionByUIDFlag.UID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardVersionsGetDashboardVersionsByUIDCmd = &cobra.Command{
-		Use:               "get-dashboard-versions-by-uid",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.DashboardVersions.GetDashboardVersionsByUID(
-				&dashboard_versions.GetDashboardVersionsByUIDParams{
-					Limit: &dashboardVersionsGetDashboardVersionsByUIDFlag.Limit,
-					Start: &dashboardVersionsGetDashboardVersionsByUIDFlag.Start,
-					UID:   dashboardVersionsGetDashboardVersionsByUIDFlag.UID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardVersionsRestoreDashboardVersionByUIDCmd = &cobra.Command{
-		Use:               "restore-dashboard-version-by-uid",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.RestoreDashboardVersionCommand
-			if err := getBodyParam(
-				dashboardVersionsRestoreDashboardVersionByUIDFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.DashboardVersions.RestoreDashboardVersionByUIDWithParams(
-				&dashboard_versions.RestoreDashboardVersionByUIDParams{
-					Body: &body,
-					UID:  dashboardVersionsRestoreDashboardVersionByUIDFlag.UID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dashboardVersionsGetDashboardVersionByUIDFlag = struct {
-		DashboardVersionID int64
-		UID                string
-	}{}
-	dashboardVersionsGetDashboardVersionsByUIDFlag = struct {
-		Limit int64
-		Start int64
-		UID   string
-	}{}
-	dashboardVersionsRestoreDashboardVersionByUIDFlag = struct {
-		Body string
-		UID  string
-	}{}
-	dashboardsCmd = &cobra.Command{
-		Use:               "dashboards",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	dashboardsCalculateDashboardDiffCmd = &cobra.Command{
-		Use:               "calculate-dashboard-diff",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.CalculateDashboardDiffParamsBody
-			if err := getBodyParam(
-				dashboardsCalculateDashboardDiffFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.Dashboards.CalculateDashboardDiffWithParams(
-				&dashboards.CalculateDashboardDiffParams{
-					Body: &body,
+					DashboardUID: dashboardsCreatePublicDashboardFlag.DashboardUID,
 				},
 			)
 			if err != nil {
@@ -2519,6 +1772,82 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	dashboardsDeleteDashboardSnapshotByDeleteKeyCmd = &cobra.Command{
+		Use:               "delete-dashboard-snapshot-by-delete-key",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.DeleteDashboardSnapshotByDeleteKeyWithParams(
+				&dashboards.DeleteDashboardSnapshotByDeleteKeyParams{
+					DeleteKey: dashboardsDeleteDashboardSnapshotByDeleteKeyFlag.DeleteKey,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsDeleteDashboardSnapshotCmd = &cobra.Command{
+		Use:               "delete-dashboard-snapshot",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.DeleteDashboardSnapshotWithParams(
+				&dashboards.DeleteDashboardSnapshotParams{
+					Key: dashboardsDeleteDashboardSnapshotFlag.Key,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsDeletePublicDashboardCmd = &cobra.Command{
+		Use:               "delete-public-dashboard",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.DeletePublicDashboardWithParams(
+				&dashboards.DeletePublicDashboardParams{
+					DashboardUID: dashboardsDeletePublicDashboardFlag.DashboardUID,
+					UID:          dashboardsDeletePublicDashboardFlag.UID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	dashboardsGetDashboardByUIDCmd = &cobra.Command{
 		Use:               "get-dashboard-by-uid",
 		DisableAutoGenTag: true,
@@ -2544,6 +1873,57 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	dashboardsGetDashboardPermissionsListByUIDCmd = &cobra.Command{
+		Use:               "get-dashboard-permissions-list-by-uid",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.GetDashboardPermissionsListByUIDWithParams(
+				&dashboards.GetDashboardPermissionsListByUIDParams{
+					UID: dashboardsGetDashboardPermissionsListByUIDFlag.UID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsGetDashboardSnapshotCmd = &cobra.Command{
+		Use:               "get-dashboard-snapshot",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.GetDashboardSnapshotWithParams(
+				&dashboards.GetDashboardSnapshotParams{
+					Key: dashboardsGetDashboardSnapshotFlag.Key,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			fmt.Println(resp.String())
+			return nil
+		},
+	}
 	dashboardsGetDashboardTagsCmd = &cobra.Command{
 		Use:               "get-dashboard-tags",
 		DisableAutoGenTag: true,
@@ -2554,6 +1934,59 @@ var (
 			}
 			resp, err := api.Dashboards.GetDashboardTagsWithParams(
 				&dashboards.GetDashboardTagsParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsGetDashboardVersionByUIDCmd = &cobra.Command{
+		Use:               "get-dashboard-version-by-uid",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.GetDashboardVersionByUIDWithParams(
+				&dashboards.GetDashboardVersionByUIDParams{
+					DashboardVersionID: dashboardsGetDashboardVersionByUIDFlag.DashboardVersionID,
+					UID:                dashboardsGetDashboardVersionByUIDFlag.UID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsGetDashboardVersionsByUIDCmd = &cobra.Command{
+		Use:               "get-dashboard-versions-by-uid",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.GetDashboardVersionsByUID(
+				&dashboards.GetDashboardVersionsByUIDParams{
+					Limit: &dashboardsGetDashboardVersionsByUIDFlag.Limit,
+					Start: &dashboardsGetDashboardVersionsByUIDFlag.Start,
+					UID:   dashboardsGetDashboardVersionsByUIDFlag.UID,
+				},
 			)
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
@@ -2590,17 +2023,42 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	dashboardsHardDeleteDashboardByUIDCmd = &cobra.Command{
-		Use:               "hard-delete-dashboard-by-uid",
+	dashboardsGetPublicAnnotationsCmd = &cobra.Command{
+		Use:               "get-public-annotations",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
 				return err
 			}
-			resp, err := api.Dashboards.HardDeleteDashboardByUIDWithParams(
-				&dashboards.HardDeleteDashboardByUIDParams{
-					UID: dashboardsHardDeleteDashboardByUIDFlag.UID,
+			resp, err := api.Dashboards.GetPublicAnnotationsWithParams(
+				&dashboards.GetPublicAnnotationsParams{
+					AccessToken: dashboardsGetPublicAnnotationsFlag.AccessToken,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsGetPublicDashboardCmd = &cobra.Command{
+		Use:               "get-public-dashboard",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.GetPublicDashboardWithParams(
+				&dashboards.GetPublicDashboardParams{
+					DashboardUID: dashboardsGetPublicDashboardFlag.DashboardUID,
 				},
 			)
 			if err != nil {
@@ -2647,6 +2105,52 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	dashboardsInterpolateDashboardCmd = &cobra.Command{
+		Use:               "interpolate-dashboard",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.InterpolateDashboardWithParams(
+				&dashboards.InterpolateDashboardParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsListPublicDashboardsCmd = &cobra.Command{
+		Use:               "list-public-dashboards",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.ListPublicDashboardsWithParams(
+				&dashboards.ListPublicDashboardsParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	dashboardsPostDashboardCmd = &cobra.Command{
 		Use:               "post-dashboard",
 		DisableAutoGenTag: true,
@@ -2679,25 +2183,18 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	dashboardsRestoreDeletedDashboardByUIDCmd = &cobra.Command{
-		Use:               "restore-deleted-dashboard-by-uid",
+	dashboardsQueryPublicDashboardCmd = &cobra.Command{
+		Use:               "query-public-dashboard",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
 				return err
 			}
-			var body models.RestoreDeletedDashboardCommand
-			if err := getBodyParam(
-				dashboardsRestoreDeletedDashboardByUIDFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.Dashboards.RestoreDeletedDashboardByUIDWithParams(
-				&dashboards.RestoreDeletedDashboardByUIDParams{
-					Body: &body,
-					UID:  dashboardsRestoreDeletedDashboardByUIDFlag.UID,
+			resp, err := api.Dashboards.QueryPublicDashboardWithParams(
+				&dashboards.QueryPublicDashboardParams{
+					AccessToken: dashboardsQueryPublicDashboardFlag.AccessToken,
+					PanelID:     dashboardsQueryPublicDashboardFlag.PanelID,
 				},
 			)
 			if err != nil {
@@ -2712,17 +2209,200 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	dashboardsCalculateDashboardDiffFlag = struct {
+	dashboardsRestoreDashboardVersionByUIDCmd = &cobra.Command{
+		Use:               "restore-dashboard-version-by-uid",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.RestoreDashboardVersionCommand
+			if err := getBodyParam(
+				dashboardsRestoreDashboardVersionByUIDFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.RestoreDashboardVersionByUIDWithParams(
+				&dashboards.RestoreDashboardVersionByUIDParams{
+					Body: &body,
+					UID:  dashboardsRestoreDashboardVersionByUIDFlag.UID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsSearchDashboardSnapshotsCmd = &cobra.Command{
+		Use:               "search-dashboard-snapshots",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.SearchDashboardSnapshots(
+				&dashboards.SearchDashboardSnapshotsParams{
+					Limit: &dashboardsSearchDashboardSnapshotsFlag.Limit,
+					Query: &dashboardsSearchDashboardSnapshotsFlag.Query,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsUpdateDashboardPermissionsByUIDCmd = &cobra.Command{
+		Use:               "update-dashboard-permissions-by-uid",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.UpdateDashboardACLCommand
+			if err := getBodyParam(
+				dashboardsUpdateDashboardPermissionsByUIDFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.UpdateDashboardPermissionsByUIDWithParams(
+				&dashboards.UpdateDashboardPermissionsByUIDParams{
+					Body: &body,
+					UID:  dashboardsUpdateDashboardPermissionsByUIDFlag.UID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsUpdatePublicDashboardCmd = &cobra.Command{
+		Use:               "update-public-dashboard",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.PublicDashboardDTO
+			if err := getBodyParam(
+				dashboardsUpdatePublicDashboardFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.UpdatePublicDashboard(
+				&dashboards.UpdatePublicDashboardParams{
+					Body:         &body,
+					DashboardUID: dashboardsUpdatePublicDashboardFlag.DashboardUID,
+					UID:          dashboardsUpdatePublicDashboardFlag.UID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsViewPublicDashboardCmd = &cobra.Command{
+		Use:               "view-public-dashboard",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Dashboards.ViewPublicDashboardWithParams(
+				&dashboards.ViewPublicDashboardParams{
+					AccessToken: dashboardsViewPublicDashboardFlag.AccessToken,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	dashboardsCreateDashboardSnapshotFlag = struct {
 		Body string
+	}{}
+	dashboardsCreatePublicDashboardFlag = struct {
+		Body         string
+		DashboardUID string
 	}{}
 	dashboardsDeleteDashboardByUIDFlag = struct {
 		UID string
 	}{}
+	dashboardsDeleteDashboardSnapshotByDeleteKeyFlag = struct {
+		DeleteKey string
+	}{}
+	dashboardsDeleteDashboardSnapshotFlag = struct {
+		Key string
+	}{}
+	dashboardsDeletePublicDashboardFlag = struct {
+		DashboardUID string
+		UID          string
+	}{}
 	dashboardsGetDashboardByUIDFlag = struct {
 		UID string
 	}{}
-	dashboardsHardDeleteDashboardByUIDFlag = struct {
+	dashboardsGetDashboardPermissionsListByUIDFlag = struct {
 		UID string
+	}{}
+	dashboardsGetDashboardSnapshotFlag = struct {
+		Key string
+	}{}
+	dashboardsGetDashboardVersionByUIDFlag = struct {
+		DashboardVersionID int64
+		UID                string
+	}{}
+	dashboardsGetDashboardVersionsByUIDFlag = struct {
+		Limit int64
+		Start int64
+		UID   string
+	}{}
+	dashboardsGetPublicAnnotationsFlag = struct {
+		AccessToken string
+	}{}
+	dashboardsGetPublicDashboardFlag = struct {
+		DashboardUID string
 	}{}
 	dashboardsImportDashboardFlag = struct {
 		Body string
@@ -2730,9 +2410,29 @@ var (
 	dashboardsPostDashboardFlag = struct {
 		Body string
 	}{}
-	dashboardsRestoreDeletedDashboardByUIDFlag = struct {
+	dashboardsQueryPublicDashboardFlag = struct {
+		AccessToken string
+		PanelID     int64
+	}{}
+	dashboardsRestoreDashboardVersionByUIDFlag = struct {
 		Body string
 		UID  string
+	}{}
+	dashboardsSearchDashboardSnapshotsFlag = struct {
+		Limit int64
+		Query string
+	}{}
+	dashboardsUpdateDashboardPermissionsByUIDFlag = struct {
+		Body string
+		UID  string
+	}{}
+	dashboardsUpdatePublicDashboardFlag = struct {
+		Body         string
+		DashboardUID string
+		UID          string
+	}{}
+	dashboardsViewPublicDashboardFlag = struct {
+		AccessToken string
 	}{}
 	datasourcesCmd = &cobra.Command{
 		Use:               "datasources",
@@ -2823,6 +2523,65 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	datasourcesCreateCorrelationCmd = &cobra.Command{
+		Use:               "create-correlation",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.CreateCorrelationCommand
+			if err := getBodyParam(
+				datasourcesCreateCorrelationFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.Datasources.CreateCorrelationWithParams(
+				&datasources.CreateCorrelationParams{
+					Body:      &body,
+					SourceUID: datasourcesCreateCorrelationFlag.SourceUID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	datasourcesDeleteCorrelationCmd = &cobra.Command{
+		Use:               "delete-correlation",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Datasources.DeleteCorrelationWithParams(
+				&datasources.DeleteCorrelationParams{
+					CorrelationUID: datasourcesDeleteCorrelationFlag.CorrelationUID,
+					UID:            datasourcesDeleteCorrelationFlag.UID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	datasourcesDeleteDatasourceByNameCmd = &cobra.Command{
 		Use:               "delete-datasource-by-name",
 		DisableAutoGenTag: true,
@@ -2859,6 +2618,84 @@ var (
 			resp, err := api.Datasources.DeleteDataSourceByUIDWithParams(
 				&datasources.DeleteDataSourceByUIDParams{
 					UID: datasourcesDeleteDatasourceByUIDFlag.UID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	datasourcesGetCorrelationCmd = &cobra.Command{
+		Use:               "get-correlation",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Datasources.GetCorrelationWithParams(
+				&datasources.GetCorrelationParams{
+					CorrelationUID: datasourcesGetCorrelationFlag.CorrelationUID,
+					SourceUID:      datasourcesGetCorrelationFlag.SourceUID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	datasourcesGetCorrelationsCmd = &cobra.Command{
+		Use:               "get-correlations",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Datasources.GetCorrelations(
+				&datasources.GetCorrelationsParams{
+					Limit:     &datasourcesGetCorrelationsFlag.Limit,
+					Page:      &datasourcesGetCorrelationsFlag.Page,
+					SourceUID: datasourcesGetCorrelationsFlag.SourceUID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	datasourcesGetCorrelationsBySourceUIDCmd = &cobra.Command{
+		Use:               "get-correlations-by-source-uid",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Datasources.GetCorrelationsBySourceUIDWithParams(
+				&datasources.GetCorrelationsBySourceUIDParams{
+					SourceUID: datasourcesGetCorrelationsBySourceUIDFlag.SourceUID,
 				},
 			)
 			if err != nil {
@@ -2971,6 +2808,72 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	datasourcesQueryMetricsWithExpressionsCmd = &cobra.Command{
+		Use:               "query-metrics-with-expressions",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.MetricRequest
+			if err := getBodyParam(
+				datasourcesQueryMetricsWithExpressionsFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, _, err := api.Datasources.QueryMetricsWithExpressionsWithParams(
+				&datasources.QueryMetricsWithExpressionsParams{
+					Body: &body,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	datasourcesUpdateCorrelationCmd = &cobra.Command{
+		Use:               "update-correlation",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.UpdateCorrelationCommand
+			if err := getBodyParam(
+				datasourcesUpdateCorrelationFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.Datasources.UpdateCorrelation(
+				&datasources.UpdateCorrelationParams{
+					Body:           &body,
+					CorrelationUID: datasourcesUpdateCorrelationFlag.CorrelationUID,
+					SourceUID:      datasourcesUpdateCorrelationFlag.SourceUID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	datasourcesUpdateDatasourceByUIDCmd = &cobra.Command{
 		Use:               "update-datasource-by-uid",
 		DisableAutoGenTag: true,
@@ -3014,11 +2917,31 @@ var (
 	datasourcesCheckDatasourceHealthFlag = struct {
 		UID string
 	}{}
+	datasourcesCreateCorrelationFlag = struct {
+		Body      string
+		SourceUID string
+	}{}
+	datasourcesDeleteCorrelationFlag = struct {
+		CorrelationUID string
+		UID            string
+	}{}
 	datasourcesDeleteDatasourceByNameFlag = struct {
 		Name string
 	}{}
 	datasourcesDeleteDatasourceByUIDFlag = struct {
 		UID string
+	}{}
+	datasourcesGetCorrelationFlag = struct {
+		CorrelationUID string
+		SourceUID      string
+	}{}
+	datasourcesGetCorrelationsFlag = struct {
+		Limit     int64
+		Page      int64
+		SourceUID []string
+	}{}
+	datasourcesGetCorrelationsBySourceUIDFlag = struct {
+		SourceUID string
 	}{}
 	datasourcesGetDatasourceByNameFlag = struct {
 		Name string
@@ -3028,6 +2951,14 @@ var (
 	}{}
 	datasourcesGetDatasourceIDByNameFlag = struct {
 		Name string
+	}{}
+	datasourcesQueryMetricsWithExpressionsFlag = struct {
+		Body string
+	}{}
+	datasourcesUpdateCorrelationFlag = struct {
+		Body           string
+		CorrelationUID string
+		SourceUID      string
 	}{}
 	datasourcesUpdateDatasourceByUIDFlag = struct {
 		Body string
@@ -3085,47 +3016,6 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	dsCmd = &cobra.Command{
-		Use:               "ds",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	dsQueryMetricsWithExpressionsCmd = &cobra.Command{
-		Use:               "query-metrics-with-expressions",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.MetricRequest
-			if err := getBodyParam(
-				dsQueryMetricsWithExpressionsFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, _, err := api.Ds.QueryMetricsWithExpressionsWithParams(
-				&ds.QueryMetricsWithExpressionsParams{
-					Body: &body,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	dsQueryMetricsWithExpressionsFlag = struct {
-		Body string
-	}{}
 	enterpriseCmd = &cobra.Command{
 		Use:               "enterprise",
 		DisableAutoGenTag: true,
@@ -3369,77 +3259,6 @@ var (
 		Body string
 		UID  string
 	}{}
-	folderPermissionsCmd = &cobra.Command{
-		Use:               "folder-permissions",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	folderPermissionsGetFolderPermissionListCmd = &cobra.Command{
-		Use:               "get-folder-permission-list",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.FolderPermissions.GetFolderPermissionListWithParams(
-				&folder_permissions.GetFolderPermissionListParams{
-					FolderUID: folderPermissionsGetFolderPermissionListFlag.FolderUID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	folderPermissionsUpdateFolderPermissionsCmd = &cobra.Command{
-		Use:               "update-folder-permissions",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.UpdateDashboardACLCommand
-			if err := getBodyParam(
-				folderPermissionsUpdateFolderPermissionsFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.FolderPermissions.UpdateFolderPermissionsWithParams(
-				&folder_permissions.UpdateFolderPermissionsParams{
-					Body:      &body,
-					FolderUID: folderPermissionsUpdateFolderPermissionsFlag.FolderUID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	folderPermissionsGetFolderPermissionListFlag = struct {
-		FolderUID string
-	}{}
-	folderPermissionsUpdateFolderPermissionsFlag = struct {
-		Body      string
-		FolderUID string
-	}{}
 	foldersCmd = &cobra.Command{
 		Use:               "folders",
 		DisableAutoGenTag: true,
@@ -3554,6 +3373,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	foldersGetFolderPermissionListCmd = &cobra.Command{
+		Use:               "get-folder-permission-list",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Folders.GetFolderPermissionListWithParams(
+				&folders.GetFolderPermissionListParams{
+					FolderUID: foldersGetFolderPermissionListFlag.FolderUID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	foldersGetFoldersCmd = &cobra.Command{
 		Use:               "get-folders",
 		DisableAutoGenTag: true,
@@ -3615,6 +3459,39 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	foldersUpdateFolderPermissionsCmd = &cobra.Command{
+		Use:               "update-folder-permissions",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.UpdateDashboardACLCommand
+			if err := getBodyParam(
+				foldersUpdateFolderPermissionsFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.Folders.UpdateFolderPermissionsWithParams(
+				&folders.UpdateFolderPermissionsParams{
+					Body:      &body,
+					FolderUID: foldersUpdateFolderPermissionsFlag.FolderUID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	foldersUpdateFolderCmd = &cobra.Command{
 		Use:               "update-folder",
 		DisableAutoGenTag: true,
@@ -3661,6 +3538,9 @@ var (
 	foldersGetFolderDescendantCountsFlag = struct {
 		FolderUID string
 	}{}
+	foldersGetFolderPermissionListFlag = struct {
+		FolderUID string
+	}{}
 	foldersGetFoldersFlag = struct {
 		Limit      int64
 		Page       int64
@@ -3671,39 +3551,14 @@ var (
 		Body      string
 		FolderUID string
 	}{}
+	foldersUpdateFolderPermissionsFlag = struct {
+		Body      string
+		FolderUID string
+	}{}
 	foldersUpdateFolderFlag = struct {
 		Body      string
 		FolderUID string
 	}{}
-	getCurrentOrgCmd = &cobra.Command{
-		Use:               "get-current-org",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	getCurrentOrgGetCurrentOrgQuotaCmd = &cobra.Command{
-		Use:               "get-current-org-quota",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.GetCurrentOrg.GetCurrentOrgQuotaWithParams(
-				&get_current_org.GetCurrentOrgQuotaParams{},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
 	healthCmd = &cobra.Command{
 		Use:               "health",
 		DisableAutoGenTag: true,
@@ -4320,9 +4175,17 @@ var (
 			if err != nil {
 				return err
 			}
+			var body models.CreateSnapshotRequestDTO
+			if err := getBodyParam(
+				migrationsCreateSnapshotFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
 			resp, err := api.Migrations.CreateSnapshotWithParams(
 				&migrations.CreateSnapshotParams{
-					UID: migrationsCreateSnapshotFlag.UID,
+					Body: &body,
+					UID:  migrationsCreateSnapshotFlag.UID,
 				},
 			)
 			if err != nil {
@@ -4399,6 +4262,29 @@ var (
 			}
 			resp, err := api.Migrations.GetCloudMigrationTokenWithParams(
 				&migrations.GetCloudMigrationTokenParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	migrationsGetResourceDependenciesCmd = &cobra.Command{
+		Use:               "get-resource-dependencies",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Migrations.GetResourceDependenciesWithParams(
+				&migrations.GetResourceDependenciesParams{},
 			)
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
@@ -4498,10 +4384,13 @@ var (
 			}
 			resp, err := api.Migrations.GetSnapshot(
 				&migrations.GetSnapshotParams{
-					ResultLimit: &migrationsGetSnapshotFlag.ResultLimit,
-					ResultPage:  &migrationsGetSnapshotFlag.ResultPage,
-					SnapshotUID: migrationsGetSnapshotFlag.SnapshotUID,
-					UID:         migrationsGetSnapshotFlag.UID,
+					ErrorsOnly:       &migrationsGetSnapshotFlag.ErrorsOnly,
+					ResultLimit:      &migrationsGetSnapshotFlag.ResultLimit,
+					ResultPage:       &migrationsGetSnapshotFlag.ResultPage,
+					ResultSortColumn: &migrationsGetSnapshotFlag.ResultSortColumn,
+					ResultSortOrder:  &migrationsGetSnapshotFlag.ResultSortOrder,
+					SnapshotUID:      migrationsGetSnapshotFlag.SnapshotUID,
+					UID:              migrationsGetSnapshotFlag.UID,
 				},
 			)
 			if err != nil {
@@ -4551,7 +4440,8 @@ var (
 		Body string
 	}{}
 	migrationsCreateSnapshotFlag = struct {
-		UID string
+		Body string
+		UID  string
 	}{}
 	migrationsDeleteCloudMigrationTokenFlag = struct {
 		UID string
@@ -4569,10 +4459,13 @@ var (
 		UID   string
 	}{}
 	migrationsGetSnapshotFlag = struct {
-		ResultLimit int64
-		ResultPage  int64
-		SnapshotUID string
-		UID         string
+		ErrorsOnly       bool
+		ResultLimit      int64
+		ResultPage       int64
+		ResultSortColumn string
+		ResultSortOrder  string
+		SnapshotUID      string
+		UID              string
 	}{}
 	migrationsUploadSnapshotFlag = struct {
 		SnapshotUID string
@@ -4583,6 +4476,38 @@ var (
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
+	}
+	orgAddOrgInviteCmd = &cobra.Command{
+		Use:               "add-org-invite",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.AddInviteForm
+			if err := getBodyParam(
+				orgAddOrgInviteFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.Org.AddOrgInviteWithParams(
+				&org.AddOrgInviteParams{
+					Body: &body,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
 	}
 	orgAddOrgUserToCurrentOrgCmd = &cobra.Command{
 		Use:               "add-org-user-to-current-org",
@@ -4639,6 +4564,55 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgGetOrgPreferencesCmd = &cobra.Command{
+		Use:               "get-org-preferences",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Org.GetOrgPreferencesWithParams(
+				&org.GetOrgPreferencesParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	orgGetOrgUsersForCurrentOrgCmd = &cobra.Command{
+		Use:               "get-org-users-for-current-org",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Org.GetOrgUsersForCurrentOrg(
+				&org.GetOrgUsersForCurrentOrgParams{
+					Limit: &orgGetOrgUsersForCurrentOrgFlag.Limit,
+					Query: &orgGetOrgUsersForCurrentOrgFlag.Query,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	orgGetOrgUsersForCurrentOrgLookupCmd = &cobra.Command{
 		Use:               "get-org-users-for-current-org-lookup",
 		DisableAutoGenTag: true,
@@ -4665,16 +4639,48 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	orgGetOrgUsersForCurrentOrgCmd = &cobra.Command{
-		Use:               "get-org-users-for-current-org",
+	orgGetPendingOrgInvitesCmd = &cobra.Command{
+		Use:               "get-pending-org-invites",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
 				return err
 			}
-			resp, err := api.Org.GetOrgUsersForCurrentOrgWithParams(
-				&org.GetOrgUsersForCurrentOrgParams{},
+			resp, err := api.Org.GetPendingOrgInvitesWithParams(
+				&org.GetPendingOrgInvitesParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	orgPatchOrgPreferencesCmd = &cobra.Command{
+		Use:               "patch-org-preferences",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.PatchPrefsCmd
+			if err := getBodyParam(
+				orgPatchOrgPreferencesFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.Org.PatchOrgPreferencesWithParams(
+				&org.PatchOrgPreferencesParams{
+					Body: &body,
+				},
 			)
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
@@ -4699,6 +4705,31 @@ var (
 			resp, err := api.Org.RemoveOrgUserForCurrentOrgWithParams(
 				&org.RemoveOrgUserForCurrentOrgParams{
 					UserID: orgRemoveOrgUserForCurrentOrgFlag.UserID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	orgRevokeInviteCmd = &cobra.Command{
+		Use:               "revoke-invite",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Org.RevokeInviteWithParams(
+				&org.RevokeInviteParams{
+					InvitationCode: orgRevokeInviteFlag.InvitationCode,
 				},
 			)
 			if err != nil {
@@ -4777,6 +4808,38 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgUpdateOrgPreferencesCmd = &cobra.Command{
+		Use:               "update-org-preferences",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.UpdatePrefsCmd
+			if err := getBodyParam(
+				orgUpdateOrgPreferencesFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.Org.UpdateOrgPreferencesWithParams(
+				&org.UpdateOrgPreferencesParams{
+					Body: &body,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	orgUpdateOrgUserForCurrentOrgCmd = &cobra.Command{
 		Use:               "update-org-user-for-current-org",
 		DisableAutoGenTag: true,
@@ -4810,15 +4873,28 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgAddOrgInviteFlag = struct {
+		Body string
+	}{}
 	orgAddOrgUserToCurrentOrgFlag = struct {
 		Body string
+	}{}
+	orgGetOrgUsersForCurrentOrgFlag = struct {
+		Limit int64
+		Query string
 	}{}
 	orgGetOrgUsersForCurrentOrgLookupFlag = struct {
 		Limit int64
 		Query string
 	}{}
+	orgPatchOrgPreferencesFlag = struct {
+		Body string
+	}{}
 	orgRemoveOrgUserForCurrentOrgFlag = struct {
 		UserID int64
+	}{}
+	orgRevokeInviteFlag = struct {
+		InvitationCode string
 	}{}
 	orgUpdateCurrentOrgAddressFlag = struct {
 		Body string
@@ -4826,200 +4902,12 @@ var (
 	orgUpdateCurrentOrgFlag = struct {
 		Body string
 	}{}
+	orgUpdateOrgPreferencesFlag = struct {
+		Body string
+	}{}
 	orgUpdateOrgUserForCurrentOrgFlag = struct {
 		Body   string
 		UserID int64
-	}{}
-	orgInvitesCmd = &cobra.Command{
-		Use:               "org-invites",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	orgInvitesAddOrgInviteCmd = &cobra.Command{
-		Use:               "add-org-invite",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.AddInviteForm
-			if err := getBodyParam(
-				orgInvitesAddOrgInviteFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.OrgInvites.AddOrgInviteWithParams(
-				&org_invites.AddOrgInviteParams{
-					Body: &body,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	orgInvitesGetPendingOrgInvitesCmd = &cobra.Command{
-		Use:               "get-pending-org-invites",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.OrgInvites.GetPendingOrgInvitesWithParams(
-				&org_invites.GetPendingOrgInvitesParams{},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	orgInvitesRevokeInviteCmd = &cobra.Command{
-		Use:               "revoke-invite",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.OrgInvites.RevokeInviteWithParams(
-				&org_invites.RevokeInviteParams{
-					InvitationCode: orgInvitesRevokeInviteFlag.InvitationCode,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	orgInvitesAddOrgInviteFlag = struct {
-		Body string
-	}{}
-	orgInvitesRevokeInviteFlag = struct {
-		InvitationCode string
-	}{}
-	orgPreferencesCmd = &cobra.Command{
-		Use:               "org-preferences",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	orgPreferencesGetOrgPreferencesCmd = &cobra.Command{
-		Use:               "get-org-preferences",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.OrgPreferences.GetOrgPreferencesWithParams(
-				&org_preferences.GetOrgPreferencesParams{},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	orgPreferencesPatchOrgPreferencesCmd = &cobra.Command{
-		Use:               "patch-org-preferences",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.PatchPrefsCmd
-			if err := getBodyParam(
-				orgPreferencesPatchOrgPreferencesFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.OrgPreferences.PatchOrgPreferencesWithParams(
-				&org_preferences.PatchOrgPreferencesParams{
-					Body: &body,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	orgPreferencesUpdateOrgPreferencesCmd = &cobra.Command{
-		Use:               "update-org-preferences",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.UpdatePrefsCmd
-			if err := getBodyParam(
-				orgPreferencesUpdateOrgPreferencesFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.OrgPreferences.UpdateOrgPreferencesWithParams(
-				&org_preferences.UpdateOrgPreferencesParams{
-					Body: &body,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	orgPreferencesPatchOrgPreferencesFlag = struct {
-		Body string
-	}{}
-	orgPreferencesUpdateOrgPreferencesFlag = struct {
-		Body string
 	}{}
 	orgsCmd = &cobra.Command{
 		Use:               "orgs",
@@ -5103,31 +4991,6 @@ var (
 			resp, err := api.Orgs.GetOrgByNameWithParams(
 				&orgs.GetOrgByNameParams{
 					OrgName: orgsGetOrgByNameFlag.OrgName,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	orgsGetOrgQuotaCmd = &cobra.Command{
-		Use:               "get-org-quota",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Orgs.GetOrgQuotaWithParams(
-				&orgs.GetOrgQuotaParams{
-					OrgID: orgsGetOrgQuotaFlag.OrgID,
 				},
 			)
 			if err != nil {
@@ -5279,40 +5142,6 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	orgsUpdateOrgQuotaCmd = &cobra.Command{
-		Use:               "update-org-quota",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.UpdateQuotaCmd
-			if err := getBodyParam(
-				orgsUpdateOrgQuotaFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.Orgs.UpdateOrgQuota(
-				&orgs.UpdateOrgQuotaParams{
-					Body:        &body,
-					OrgID:       orgsUpdateOrgQuotaFlag.OrgID,
-					QuotaTarget: orgsUpdateOrgQuotaFlag.QuotaTarget,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
 	orgsUpdateOrgUserCmd = &cobra.Command{
 		Use:               "update-org-user",
 		DisableAutoGenTag: true,
@@ -5390,9 +5219,6 @@ var (
 	orgsGetOrgByNameFlag = struct {
 		OrgName string
 	}{}
-	orgsGetOrgQuotaFlag = struct {
-		OrgID int64
-	}{}
 	orgsGetOrgUsersFlag = struct {
 		OrgID int64
 	}{}
@@ -5412,11 +5238,6 @@ var (
 	orgsUpdateOrgAddressFlag = struct {
 		Body  string
 		OrgID int64
-	}{}
-	orgsUpdateOrgQuotaFlag = struct {
-		Body        string
-		OrgID       int64
-		QuotaTarget string
 	}{}
 	orgsUpdateOrgUserFlag = struct {
 		Body   string
@@ -7161,6 +6982,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	reportsGetReportsByDashboardUIDCmd = &cobra.Command{
+		Use:               "get-reports-by-dashboard-uid",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.Reports.GetReportsByDashboardUIDWithParams(
+				&reports.GetReportsByDashboardUIDParams{
+					UID: reportsGetReportsByDashboardUIDFlag.UID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	reportsGetReportsCmd = &cobra.Command{
 		Use:               "get-reports",
 		DisableAutoGenTag: true,
@@ -7400,6 +7246,9 @@ var (
 	}{}
 	reportsGetReportFlag = struct {
 		ID int64
+	}{}
+	reportsGetReportsByDashboardUIDFlag = struct {
+		UID string
 	}{}
 	reportsRenderReportCSVsFlag = struct {
 		Dashboards string
@@ -8062,16 +7911,48 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	signedInUserGetUserQuotasCmd = &cobra.Command{
-		Use:               "get-user-quotas",
+	signedInUserGetUserPreferencesCmd = &cobra.Command{
+		Use:               "get-user-preferences",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
 				return err
 			}
-			resp, err := api.SignedInUser.GetUserQuotasWithParams(
-				&signed_in_user.GetUserQuotasParams{},
+			resp, err := api.SignedInUser.GetUserPreferencesWithParams(
+				&signed_in_user.GetUserPreferencesParams{},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	signedInUserPatchUserPreferencesCmd = &cobra.Command{
+		Use:               "patch-user-preferences",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.PatchPrefsCmd
+			if err := getBodyParam(
+				signedInUserPatchUserPreferencesFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.SignedInUser.PatchUserPreferencesWithParams(
+				&signed_in_user.PatchUserPreferencesParams{
+					Body: &body,
+				},
 			)
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
@@ -8167,31 +8048,6 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	signedInUserStarDashboardCmd = &cobra.Command{
-		Use:               "star-dashboard",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.SignedInUser.StarDashboardWithParams(
-				&signed_in_user.StarDashboardParams{
-					DashboardID: signedInUserStarDashboardFlag.DashboardID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
 	signedInUserUnstarDashboardByUIDCmd = &cobra.Command{
 		Use:               "unstar-dashboard-by-uid",
 		DisableAutoGenTag: true,
@@ -8203,31 +8059,6 @@ var (
 			resp, err := api.SignedInUser.UnstarDashboardByUIDWithParams(
 				&signed_in_user.UnstarDashboardByUIDParams{
 					DashboardUID: signedInUserUnstarDashboardByUIDFlag.DashboardUID,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	signedInUserUnstarDashboardCmd = &cobra.Command{
-		Use:               "unstar-dashboard",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.SignedInUser.UnstarDashboardWithParams(
-				&signed_in_user.UnstarDashboardParams{
-					DashboardID: signedInUserUnstarDashboardFlag.DashboardID,
 				},
 			)
 			if err != nil {
@@ -8274,6 +8105,38 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	signedInUserUpdateUserPreferencesCmd = &cobra.Command{
+		Use:               "update-user-preferences",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.UpdatePrefsCmd
+			if err := getBodyParam(
+				signedInUserUpdateUserPreferencesFlag.Body,
+				&body,
+			); err != nil {
+				return err
+			}
+			resp, err := api.SignedInUser.UpdateUserPreferencesWithParams(
+				&signed_in_user.UpdateUserPreferencesParams{
+					Body: &body,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	signedInUserUserSetUsingOrgCmd = &cobra.Command{
 		Use:               "user-set-using-org",
 		DisableAutoGenTag: true,
@@ -8302,6 +8165,9 @@ var (
 	signedInUserChangeUserPasswordFlag = struct {
 		Body string
 	}{}
+	signedInUserPatchUserPreferencesFlag = struct {
+		Body string
+	}{}
 	signedInUserRevokeUserAuthTokenFlag = struct {
 		Body string
 	}{}
@@ -8311,16 +8177,13 @@ var (
 	signedInUserStarDashboardByUIDFlag = struct {
 		DashboardUID string
 	}{}
-	signedInUserStarDashboardFlag = struct {
-		DashboardID string
-	}{}
 	signedInUserUnstarDashboardByUIDFlag = struct {
 		DashboardUID string
 	}{}
-	signedInUserUnstarDashboardFlag = struct {
-		DashboardID string
-	}{}
 	signedInUserUpdateSignedInUserFlag = struct {
+		Body string
+	}{}
+	signedInUserUpdateUserPreferencesFlag = struct {
 		Body string
 	}{}
 	signedInUserUserSetUsingOrgFlag = struct {
@@ -8361,114 +8224,6 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
-	snapshotsCreateDashboardSnapshotCmd = &cobra.Command{
-		Use:               "create-dashboard-snapshot",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.CreateDashboardSnapshotCommand
-			if err := getBodyParam(
-				snapshotsCreateDashboardSnapshotFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.Snapshots.CreateDashboardSnapshotWithParams(
-				&snapshots.CreateDashboardSnapshotParams{
-					Body: &body,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	snapshotsDeleteDashboardSnapshotByDeleteKeyCmd = &cobra.Command{
-		Use:               "delete-dashboard-snapshot-by-delete-key",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Snapshots.DeleteDashboardSnapshotByDeleteKeyWithParams(
-				&snapshots.DeleteDashboardSnapshotByDeleteKeyParams{
-					DeleteKey: snapshotsDeleteDashboardSnapshotByDeleteKeyFlag.DeleteKey,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	snapshotsDeleteDashboardSnapshotCmd = &cobra.Command{
-		Use:               "delete-dashboard-snapshot",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Snapshots.DeleteDashboardSnapshotWithParams(
-				&snapshots.DeleteDashboardSnapshotParams{
-					Key: snapshotsDeleteDashboardSnapshotFlag.Key,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	snapshotsGetDashboardSnapshotCmd = &cobra.Command{
-		Use:               "get-dashboard-snapshot",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Snapshots.GetDashboardSnapshotWithParams(
-				&snapshots.GetDashboardSnapshotParams{
-					Key: snapshotsGetDashboardSnapshotFlag.Key,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			fmt.Println(resp.String())
-			return nil
-		},
-	}
 	snapshotsGetSharingOptionsCmd = &cobra.Command{
 		Use:               "get-sharing-options",
 		DisableAutoGenTag: true,
@@ -8492,48 +8247,6 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	snapshotsSearchDashboardSnapshotsCmd = &cobra.Command{
-		Use:               "search-dashboard-snapshots",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Snapshots.SearchDashboardSnapshots(
-				&snapshots.SearchDashboardSnapshotsParams{
-					Limit: &snapshotsSearchDashboardSnapshotsFlag.Limit,
-					Query: &snapshotsSearchDashboardSnapshotsFlag.Query,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	snapshotsCreateDashboardSnapshotFlag = struct {
-		Body string
-	}{}
-	snapshotsDeleteDashboardSnapshotByDeleteKeyFlag = struct {
-		DeleteKey string
-	}{}
-	snapshotsDeleteDashboardSnapshotFlag = struct {
-		Key string
-	}{}
-	snapshotsGetDashboardSnapshotFlag = struct {
-		Key string
-	}{}
-	snapshotsSearchDashboardSnapshotsFlag = struct {
-		Limit int64
-		Query string
-	}{}
 	ssoSettingsCmd = &cobra.Command{
 		Use:               "sso-settings",
 		DisableAutoGenTag: true,
@@ -8746,6 +8459,35 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	syncTeamGroupsSearchTeamGroupsCmd = &cobra.Command{
+		Use:               "search-team-groups",
+		DisableAutoGenTag: true,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.SyncTeamGroups.SearchTeamGroups(
+				&sync_team_groups.SearchTeamGroupsParams{
+					Name:    &syncTeamGroupsSearchTeamGroupsFlag.Name,
+					Page:    &syncTeamGroupsSearchTeamGroupsFlag.Page,
+					Perpage: &syncTeamGroupsSearchTeamGroupsFlag.Perpage,
+					Query:   &syncTeamGroupsSearchTeamGroupsFlag.Query,
+					TeamID:  syncTeamGroupsSearchTeamGroupsFlag.TeamID,
+				},
+			)
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	syncTeamGroupsAddTeamGroupAPIFlag = struct {
 		Body   string
 		TeamID int64
@@ -8755,6 +8497,13 @@ var (
 	}{}
 	syncTeamGroupsRemoveTeamGroupAPIQueryFlag = struct {
 		GroupID string
+		TeamID  int64
+	}{}
+	syncTeamGroupsSearchTeamGroupsFlag = struct {
+		Name    string
+		Page    int64
+		Perpage int64
+		Query   string
 		TeamID  int64
 	}{}
 	teamsCmd = &cobra.Command{
@@ -8914,10 +8663,12 @@ var (
 			}
 			resp, err := api.Teams.SearchTeams(
 				&teams.SearchTeamsParams{
-					Name:    &teamsSearchTeamsFlag.Name,
-					Page:    &teamsSearchTeamsFlag.Page,
-					Perpage: &teamsSearchTeamsFlag.Perpage,
-					Query:   &teamsSearchTeamsFlag.Query,
+					Accesscontrol: &teamsSearchTeamsFlag.Accesscontrol,
+					Name:          &teamsSearchTeamsFlag.Name,
+					Page:          &teamsSearchTeamsFlag.Page,
+					Perpage:       &teamsSearchTeamsFlag.Perpage,
+					Query:         &teamsSearchTeamsFlag.Query,
+					Sort:          &teamsSearchTeamsFlag.Sort,
 				},
 			)
 			if err != nil {
@@ -9083,10 +8834,12 @@ var (
 		UserID int64
 	}{}
 	teamsSearchTeamsFlag = struct {
-		Name    string
-		Page    int64
-		Perpage int64
-		Query   string
+		Accesscontrol bool
+		Name          string
+		Page          int64
+		Perpage       int64
+		Query         string
+		Sort          string
 	}{}
 	teamsSetTeamMembershipsFlag = struct {
 		Body   string
@@ -9135,105 +8888,6 @@ var (
 			return nil
 		},
 	}
-	userPreferencesCmd = &cobra.Command{
-		Use:               "user-preferences",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	userPreferencesGetUserPreferencesCmd = &cobra.Command{
-		Use:               "get-user-preferences",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.UserPreferences.GetUserPreferencesWithParams(
-				&user_preferences.GetUserPreferencesParams{},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	userPreferencesPatchUserPreferencesCmd = &cobra.Command{
-		Use:               "patch-user-preferences",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.PatchPrefsCmd
-			if err := getBodyParam(
-				userPreferencesPatchUserPreferencesFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.UserPreferences.PatchUserPreferencesWithParams(
-				&user_preferences.PatchUserPreferencesParams{
-					Body: &body,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	userPreferencesUpdateUserPreferencesCmd = &cobra.Command{
-		Use:               "update-user-preferences",
-		DisableAutoGenTag: true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			var body models.UpdatePrefsCmd
-			if err := getBodyParam(
-				userPreferencesUpdateUserPreferencesFlag.Body,
-				&body,
-			); err != nil {
-				return err
-			}
-			resp, err := api.UserPreferences.UpdateUserPreferencesWithParams(
-				&user_preferences.UpdateUserPreferencesParams{
-					Body: &body,
-				},
-			)
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	userPreferencesPatchUserPreferencesFlag = struct {
-		Body string
-	}{}
-	userPreferencesUpdateUserPreferencesFlag = struct {
-		Body string
-	}{}
 	usersCmd = &cobra.Command{
 		Use:               "users",
 		DisableAutoGenTag: true,
@@ -9804,6 +9458,15 @@ func init() {
 	accessControlSetRoleAssignmentsCmd.MarkFlagRequired("role-uid")
 	accessControlCmd.AddCommand(accessControlSetRoleAssignmentsCmd)
 	accessControlSetTeamRolesCmd.Flags().
+		StringVar(
+			&accessControlSetTeamRolesFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	accessControlSetTeamRolesCmd.MarkFlagRequired("body")
+	accessControlSetTeamRolesCmd.Flags().
 		Int64Var(
 			&accessControlSetTeamRolesFlag.TeamID,
 			"team-id",
@@ -10001,44 +9664,6 @@ func init() {
 
 	adminUsersAdminUpdateUserPermissionsCmd.MarkFlagRequired("user-id")
 	adminUsersCmd.AddCommand(adminUsersAdminUpdateUserPermissionsCmd)
-	adminUsersGetUserQuotaCmd.Flags().
-		Int64Var(
-			&adminUsersGetUserQuotaFlag.UserID,
-			"user-id",
-			0,
-			"UserID",
-		)
-
-	adminUsersGetUserQuotaCmd.MarkFlagRequired("user-id")
-	adminUsersCmd.AddCommand(adminUsersGetUserQuotaCmd)
-	adminUsersUpdateUserQuotaCmd.Flags().
-		StringVar(
-			&adminUsersUpdateUserQuotaFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	adminUsersUpdateUserQuotaCmd.MarkFlagRequired("body")
-	adminUsersUpdateUserQuotaCmd.Flags().
-		StringVar(
-			&adminUsersUpdateUserQuotaFlag.QuotaTarget,
-			"quota-target",
-			"",
-			"QuotaTarget",
-		)
-
-	adminUsersUpdateUserQuotaCmd.MarkFlagRequired("quota-target")
-	adminUsersUpdateUserQuotaCmd.Flags().
-		Int64Var(
-			&adminUsersUpdateUserQuotaFlag.UserID,
-			"user-id",
-			0,
-			"UserID",
-		)
-
-	adminUsersUpdateUserQuotaCmd.MarkFlagRequired("user-id")
-	adminUsersCmd.AddCommand(adminUsersUpdateUserQuotaCmd)
 	rootCmd.AddCommand(annotationsCmd)
 	annotationsGetAnnotationTagsCmd.Flags().
 		StringVar(
@@ -10063,6 +9688,14 @@ func init() {
 			"alert-id",
 			0,
 			"AlertID",
+		)
+
+	annotationsGetAnnotationsCmd.Flags().
+		StringVar(
+			&annotationsGetAnnotationsFlag.AlertUID,
+			"alert-uid",
+			"",
+			"AlertUID",
 		)
 
 	annotationsGetAnnotationsCmd.Flags().
@@ -10214,371 +9847,36 @@ func init() {
 
 	annotationsUpdateAnnotationCmd.MarkFlagRequired("body")
 	annotationsCmd.AddCommand(annotationsUpdateAnnotationCmd)
-	rootCmd.AddCommand(apiKeysCmd)
-	apiKeysCmd.AddCommand(apiKeysAddAPIkeyCmd)
-	apiKeysDeleteAPIkeyCmd.Flags().
-		Int64Var(
-			&apiKeysDeleteAPIkeyFlag.ID,
-			"id",
-			0,
-			"ID",
-		)
-
-	apiKeysDeleteAPIkeyCmd.MarkFlagRequired("id")
-	apiKeysCmd.AddCommand(apiKeysDeleteAPIkeyCmd)
-	apiKeysGetAPIkeysCmd.Flags().
-		BoolVar(
-			&apiKeysGetAPIkeysFlag.IncludeExpired,
-			"include-expired",
-			false,
-			"IncludeExpired",
-		)
-
-	apiKeysCmd.AddCommand(apiKeysGetAPIkeysCmd)
-	rootCmd.AddCommand(correlationsCmd)
-	correlationsCreateCorrelationCmd.Flags().
-		StringVar(
-			&correlationsCreateCorrelationFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	correlationsCreateCorrelationCmd.MarkFlagRequired("body")
-	correlationsCreateCorrelationCmd.Flags().
-		StringVar(
-			&correlationsCreateCorrelationFlag.SourceUID,
-			"source-uid",
-			"",
-			"SourceUID",
-		)
-
-	correlationsCreateCorrelationCmd.MarkFlagRequired("source-uid")
-	correlationsCmd.AddCommand(correlationsCreateCorrelationCmd)
-	correlationsDeleteCorrelationCmd.Flags().
-		StringVar(
-			&correlationsDeleteCorrelationFlag.CorrelationUID,
-			"correlation-uid",
-			"",
-			"CorrelationUID",
-		)
-
-	correlationsDeleteCorrelationCmd.MarkFlagRequired("correlation-uid")
-	correlationsDeleteCorrelationCmd.Flags().
-		StringVar(
-			&correlationsDeleteCorrelationFlag.UID,
-			"uid",
-			"",
-			"Unique identifier (uid)",
-		)
-
-	correlationsDeleteCorrelationCmd.MarkFlagRequired("uid")
-	correlationsCmd.AddCommand(correlationsDeleteCorrelationCmd)
-	correlationsGetCorrelationCmd.Flags().
-		StringVar(
-			&correlationsGetCorrelationFlag.CorrelationUID,
-			"correlation-uid",
-			"",
-			"CorrelationUID",
-		)
-
-	correlationsGetCorrelationCmd.MarkFlagRequired("correlation-uid")
-	correlationsGetCorrelationCmd.Flags().
-		StringVar(
-			&correlationsGetCorrelationFlag.SourceUID,
-			"source-uid",
-			"",
-			"SourceUID",
-		)
-
-	correlationsGetCorrelationCmd.MarkFlagRequired("source-uid")
-	correlationsCmd.AddCommand(correlationsGetCorrelationCmd)
-	correlationsGetCorrelationsCmd.Flags().
-		Int64Var(
-			&correlationsGetCorrelationsFlag.Limit,
-			"limit",
-			0,
-			"Limit",
-		)
-
-	correlationsGetCorrelationsCmd.Flags().
-		Int64Var(
-			&correlationsGetCorrelationsFlag.Page,
-			"page",
-			0,
-			"Page",
-		)
-
-	correlationsGetCorrelationsCmd.Flags().
-		StringSliceVar(
-			&correlationsGetCorrelationsFlag.SourceUID,
-			"source-uid",
-			[]string{},
-			"SourceUID",
-		)
-
-	correlationsCmd.AddCommand(correlationsGetCorrelationsCmd)
-	correlationsGetCorrelationsBySourceUIDCmd.Flags().
-		StringVar(
-			&correlationsGetCorrelationsBySourceUIDFlag.SourceUID,
-			"source-uid",
-			"",
-			"SourceUID",
-		)
-
-	correlationsGetCorrelationsBySourceUIDCmd.MarkFlagRequired("source-uid")
-	correlationsCmd.AddCommand(correlationsGetCorrelationsBySourceUIDCmd)
-	correlationsUpdateCorrelationCmd.Flags().
-		StringVar(
-			&correlationsUpdateCorrelationFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	correlationsUpdateCorrelationCmd.MarkFlagRequired("body")
-	correlationsUpdateCorrelationCmd.Flags().
-		StringVar(
-			&correlationsUpdateCorrelationFlag.CorrelationUID,
-			"correlation-uid",
-			"",
-			"CorrelationUID",
-		)
-
-	correlationsUpdateCorrelationCmd.MarkFlagRequired("correlation-uid")
-	correlationsUpdateCorrelationCmd.Flags().
-		StringVar(
-			&correlationsUpdateCorrelationFlag.SourceUID,
-			"source-uid",
-			"",
-			"SourceUID",
-		)
-
-	correlationsUpdateCorrelationCmd.MarkFlagRequired("source-uid")
-	correlationsCmd.AddCommand(correlationsUpdateCorrelationCmd)
-	rootCmd.AddCommand(dashboardPermissionsCmd)
-	dashboardPermissionsGetDashboardPermissionsListByUIDCmd.Flags().
-		StringVar(
-			&dashboardPermissionsGetDashboardPermissionsListByUIDFlag.UID,
-			"uid",
-			"",
-			"Unique identifier (uid)",
-		)
-
-	dashboardPermissionsGetDashboardPermissionsListByUIDCmd.MarkFlagRequired("uid")
-	dashboardPermissionsCmd.AddCommand(dashboardPermissionsGetDashboardPermissionsListByUIDCmd)
-	dashboardPermissionsUpdateDashboardPermissionsByUIDCmd.Flags().
-		StringVar(
-			&dashboardPermissionsUpdateDashboardPermissionsByUIDFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	dashboardPermissionsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("body")
-	dashboardPermissionsUpdateDashboardPermissionsByUIDCmd.Flags().
-		StringVar(
-			&dashboardPermissionsUpdateDashboardPermissionsByUIDFlag.UID,
-			"uid",
-			"",
-			"Unique identifier (uid)",
-		)
-
-	dashboardPermissionsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("uid")
-	dashboardPermissionsCmd.AddCommand(dashboardPermissionsUpdateDashboardPermissionsByUIDCmd)
-	rootCmd.AddCommand(dashboardPublicCmd)
-	dashboardPublicCreatePublicDashboardCmd.Flags().
-		StringVar(
-			&dashboardPublicCreatePublicDashboardFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	dashboardPublicCreatePublicDashboardCmd.MarkFlagRequired("body")
-	dashboardPublicCreatePublicDashboardCmd.Flags().
-		StringVar(
-			&dashboardPublicCreatePublicDashboardFlag.DashboardUID,
-			"dashboard-uid",
-			"",
-			"DashboardUID",
-		)
-
-	dashboardPublicCreatePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
-	dashboardPublicCmd.AddCommand(dashboardPublicCreatePublicDashboardCmd)
-	dashboardPublicDeletePublicDashboardCmd.Flags().
-		StringVar(
-			&dashboardPublicDeletePublicDashboardFlag.DashboardUID,
-			"dashboard-uid",
-			"",
-			"DashboardUID",
-		)
-
-	dashboardPublicDeletePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
-	dashboardPublicDeletePublicDashboardCmd.Flags().
-		StringVar(
-			&dashboardPublicDeletePublicDashboardFlag.UID,
-			"uid",
-			"",
-			"Unique identifier (uid)",
-		)
-
-	dashboardPublicDeletePublicDashboardCmd.MarkFlagRequired("uid")
-	dashboardPublicCmd.AddCommand(dashboardPublicDeletePublicDashboardCmd)
-	dashboardPublicGetPublicAnnotationsCmd.Flags().
-		StringVar(
-			&dashboardPublicGetPublicAnnotationsFlag.AccessToken,
-			"access-token",
-			"",
-			"AccessToken",
-		)
-
-	dashboardPublicGetPublicAnnotationsCmd.MarkFlagRequired("access-token")
-	dashboardPublicCmd.AddCommand(dashboardPublicGetPublicAnnotationsCmd)
-	dashboardPublicGetPublicDashboardCmd.Flags().
-		StringVar(
-			&dashboardPublicGetPublicDashboardFlag.DashboardUID,
-			"dashboard-uid",
-			"",
-			"DashboardUID",
-		)
-
-	dashboardPublicGetPublicDashboardCmd.MarkFlagRequired("dashboard-uid")
-	dashboardPublicCmd.AddCommand(dashboardPublicGetPublicDashboardCmd)
-	dashboardPublicCmd.AddCommand(dashboardPublicListPublicDashboardsCmd)
-	dashboardPublicQueryPublicDashboardCmd.Flags().
-		StringVar(
-			&dashboardPublicQueryPublicDashboardFlag.AccessToken,
-			"access-token",
-			"",
-			"AccessToken",
-		)
-
-	dashboardPublicQueryPublicDashboardCmd.MarkFlagRequired("access-token")
-	dashboardPublicQueryPublicDashboardCmd.Flags().
-		Int64Var(
-			&dashboardPublicQueryPublicDashboardFlag.PanelID,
-			"panel-id",
-			0,
-			"PanelID",
-		)
-
-	dashboardPublicQueryPublicDashboardCmd.MarkFlagRequired("panel-id")
-	dashboardPublicCmd.AddCommand(dashboardPublicQueryPublicDashboardCmd)
-	dashboardPublicUpdatePublicDashboardCmd.Flags().
-		StringVar(
-			&dashboardPublicUpdatePublicDashboardFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	dashboardPublicUpdatePublicDashboardCmd.MarkFlagRequired("body")
-	dashboardPublicUpdatePublicDashboardCmd.Flags().
-		StringVar(
-			&dashboardPublicUpdatePublicDashboardFlag.DashboardUID,
-			"dashboard-uid",
-			"",
-			"DashboardUID",
-		)
-
-	dashboardPublicUpdatePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
-	dashboardPublicUpdatePublicDashboardCmd.Flags().
-		StringVar(
-			&dashboardPublicUpdatePublicDashboardFlag.UID,
-			"uid",
-			"",
-			"Unique identifier (uid)",
-		)
-
-	dashboardPublicUpdatePublicDashboardCmd.MarkFlagRequired("uid")
-	dashboardPublicCmd.AddCommand(dashboardPublicUpdatePublicDashboardCmd)
-	dashboardPublicViewPublicDashboardCmd.Flags().
-		StringVar(
-			&dashboardPublicViewPublicDashboardFlag.AccessToken,
-			"access-token",
-			"",
-			"AccessToken",
-		)
-
-	dashboardPublicViewPublicDashboardCmd.MarkFlagRequired("access-token")
-	dashboardPublicCmd.AddCommand(dashboardPublicViewPublicDashboardCmd)
-	rootCmd.AddCommand(dashboardVersionsCmd)
-	dashboardVersionsGetDashboardVersionByUIDCmd.Flags().
-		Int64Var(
-			&dashboardVersionsGetDashboardVersionByUIDFlag.DashboardVersionID,
-			"dashboard-version-id",
-			0,
-			"DashboardVersionID",
-		)
-
-	dashboardVersionsGetDashboardVersionByUIDCmd.MarkFlagRequired("dashboard-version-id")
-	dashboardVersionsGetDashboardVersionByUIDCmd.Flags().
-		StringVar(
-			&dashboardVersionsGetDashboardVersionByUIDFlag.UID,
-			"uid",
-			"",
-			"Unique identifier (uid)",
-		)
-
-	dashboardVersionsGetDashboardVersionByUIDCmd.MarkFlagRequired("uid")
-	dashboardVersionsCmd.AddCommand(dashboardVersionsGetDashboardVersionByUIDCmd)
-	dashboardVersionsGetDashboardVersionsByUIDCmd.Flags().
-		Int64Var(
-			&dashboardVersionsGetDashboardVersionsByUIDFlag.Limit,
-			"limit",
-			0,
-			"Limit",
-		)
-
-	dashboardVersionsGetDashboardVersionsByUIDCmd.Flags().
-		Int64Var(
-			&dashboardVersionsGetDashboardVersionsByUIDFlag.Start,
-			"start",
-			0,
-			"Start",
-		)
-
-	dashboardVersionsGetDashboardVersionsByUIDCmd.Flags().
-		StringVar(
-			&dashboardVersionsGetDashboardVersionsByUIDFlag.UID,
-			"uid",
-			"",
-			"Unique identifier (uid)",
-		)
-
-	dashboardVersionsGetDashboardVersionsByUIDCmd.MarkFlagRequired("uid")
-	dashboardVersionsCmd.AddCommand(dashboardVersionsGetDashboardVersionsByUIDCmd)
-	dashboardVersionsRestoreDashboardVersionByUIDCmd.Flags().
-		StringVar(
-			&dashboardVersionsRestoreDashboardVersionByUIDFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	dashboardVersionsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("body")
-	dashboardVersionsRestoreDashboardVersionByUIDCmd.Flags().
-		StringVar(
-			&dashboardVersionsRestoreDashboardVersionByUIDFlag.UID,
-			"uid",
-			"",
-			"Unique identifier (uid)",
-		)
-
-	dashboardVersionsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("uid")
-	dashboardVersionsCmd.AddCommand(dashboardVersionsRestoreDashboardVersionByUIDCmd)
 	rootCmd.AddCommand(dashboardsCmd)
-	dashboardsCalculateDashboardDiffCmd.Flags().
+	dashboardsCreateDashboardSnapshotCmd.Flags().
 		StringVar(
-			&dashboardsCalculateDashboardDiffFlag.Body,
+			&dashboardsCreateDashboardSnapshotFlag.Body,
 			"body",
 			"",
 			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
 		)
 
-	dashboardsCalculateDashboardDiffCmd.MarkFlagRequired("body")
-	dashboardsCmd.AddCommand(dashboardsCalculateDashboardDiffCmd)
+	dashboardsCreateDashboardSnapshotCmd.MarkFlagRequired("body")
+	dashboardsCmd.AddCommand(dashboardsCreateDashboardSnapshotCmd)
+	dashboardsCreatePublicDashboardCmd.Flags().
+		StringVar(
+			&dashboardsCreatePublicDashboardFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	dashboardsCreatePublicDashboardCmd.MarkFlagRequired("body")
+	dashboardsCreatePublicDashboardCmd.Flags().
+		StringVar(
+			&dashboardsCreatePublicDashboardFlag.DashboardUID,
+			"dashboard-uid",
+			"",
+			"DashboardUID",
+		)
+
+	dashboardsCreatePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
+	dashboardsCmd.AddCommand(dashboardsCreatePublicDashboardCmd)
 	dashboardsDeleteDashboardByUIDCmd.Flags().
 		StringVar(
 			&dashboardsDeleteDashboardByUIDFlag.UID,
@@ -10589,6 +9887,45 @@ func init() {
 
 	dashboardsDeleteDashboardByUIDCmd.MarkFlagRequired("uid")
 	dashboardsCmd.AddCommand(dashboardsDeleteDashboardByUIDCmd)
+	dashboardsDeleteDashboardSnapshotByDeleteKeyCmd.Flags().
+		StringVar(
+			&dashboardsDeleteDashboardSnapshotByDeleteKeyFlag.DeleteKey,
+			"delete-key",
+			"",
+			"DeleteKey",
+		)
+
+	dashboardsDeleteDashboardSnapshotByDeleteKeyCmd.MarkFlagRequired("delete-key")
+	dashboardsCmd.AddCommand(dashboardsDeleteDashboardSnapshotByDeleteKeyCmd)
+	dashboardsDeleteDashboardSnapshotCmd.Flags().
+		StringVar(
+			&dashboardsDeleteDashboardSnapshotFlag.Key,
+			"key",
+			"",
+			"Key",
+		)
+
+	dashboardsDeleteDashboardSnapshotCmd.MarkFlagRequired("key")
+	dashboardsCmd.AddCommand(dashboardsDeleteDashboardSnapshotCmd)
+	dashboardsDeletePublicDashboardCmd.Flags().
+		StringVar(
+			&dashboardsDeletePublicDashboardFlag.DashboardUID,
+			"dashboard-uid",
+			"",
+			"DashboardUID",
+		)
+
+	dashboardsDeletePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
+	dashboardsDeletePublicDashboardCmd.Flags().
+		StringVar(
+			&dashboardsDeletePublicDashboardFlag.UID,
+			"uid",
+			"",
+			"Unique identifier (uid)",
+		)
+
+	dashboardsDeletePublicDashboardCmd.MarkFlagRequired("uid")
+	dashboardsCmd.AddCommand(dashboardsDeletePublicDashboardCmd)
 	dashboardsGetDashboardByUIDCmd.Flags().
 		StringVar(
 			&dashboardsGetDashboardByUIDFlag.UID,
@@ -10599,18 +9936,93 @@ func init() {
 
 	dashboardsGetDashboardByUIDCmd.MarkFlagRequired("uid")
 	dashboardsCmd.AddCommand(dashboardsGetDashboardByUIDCmd)
-	dashboardsCmd.AddCommand(dashboardsGetDashboardTagsCmd)
-	dashboardsCmd.AddCommand(dashboardsGetHomeDashboardCmd)
-	dashboardsHardDeleteDashboardByUIDCmd.Flags().
+	dashboardsGetDashboardPermissionsListByUIDCmd.Flags().
 		StringVar(
-			&dashboardsHardDeleteDashboardByUIDFlag.UID,
+			&dashboardsGetDashboardPermissionsListByUIDFlag.UID,
 			"uid",
 			"",
 			"Unique identifier (uid)",
 		)
 
-	dashboardsHardDeleteDashboardByUIDCmd.MarkFlagRequired("uid")
-	dashboardsCmd.AddCommand(dashboardsHardDeleteDashboardByUIDCmd)
+	dashboardsGetDashboardPermissionsListByUIDCmd.MarkFlagRequired("uid")
+	dashboardsCmd.AddCommand(dashboardsGetDashboardPermissionsListByUIDCmd)
+	dashboardsGetDashboardSnapshotCmd.Flags().
+		StringVar(
+			&dashboardsGetDashboardSnapshotFlag.Key,
+			"key",
+			"",
+			"Key",
+		)
+
+	dashboardsGetDashboardSnapshotCmd.MarkFlagRequired("key")
+	dashboardsCmd.AddCommand(dashboardsGetDashboardSnapshotCmd)
+	dashboardsCmd.AddCommand(dashboardsGetDashboardTagsCmd)
+	dashboardsGetDashboardVersionByUIDCmd.Flags().
+		Int64Var(
+			&dashboardsGetDashboardVersionByUIDFlag.DashboardVersionID,
+			"dashboard-version-id",
+			0,
+			"DashboardVersionID",
+		)
+
+	dashboardsGetDashboardVersionByUIDCmd.MarkFlagRequired("dashboard-version-id")
+	dashboardsGetDashboardVersionByUIDCmd.Flags().
+		StringVar(
+			&dashboardsGetDashboardVersionByUIDFlag.UID,
+			"uid",
+			"",
+			"Unique identifier (uid)",
+		)
+
+	dashboardsGetDashboardVersionByUIDCmd.MarkFlagRequired("uid")
+	dashboardsCmd.AddCommand(dashboardsGetDashboardVersionByUIDCmd)
+	dashboardsGetDashboardVersionsByUIDCmd.Flags().
+		Int64Var(
+			&dashboardsGetDashboardVersionsByUIDFlag.Limit,
+			"limit",
+			0,
+			"Limit",
+		)
+
+	dashboardsGetDashboardVersionsByUIDCmd.Flags().
+		Int64Var(
+			&dashboardsGetDashboardVersionsByUIDFlag.Start,
+			"start",
+			0,
+			"Start",
+		)
+
+	dashboardsGetDashboardVersionsByUIDCmd.Flags().
+		StringVar(
+			&dashboardsGetDashboardVersionsByUIDFlag.UID,
+			"uid",
+			"",
+			"Unique identifier (uid)",
+		)
+
+	dashboardsGetDashboardVersionsByUIDCmd.MarkFlagRequired("uid")
+	dashboardsCmd.AddCommand(dashboardsGetDashboardVersionsByUIDCmd)
+	dashboardsCmd.AddCommand(dashboardsGetHomeDashboardCmd)
+	dashboardsGetPublicAnnotationsCmd.Flags().
+		StringVar(
+			&dashboardsGetPublicAnnotationsFlag.AccessToken,
+			"access-token",
+			"",
+			"AccessToken",
+		)
+
+	dashboardsGetPublicAnnotationsCmd.MarkFlagRequired("access-token")
+	dashboardsCmd.AddCommand(dashboardsGetPublicAnnotationsCmd)
+	dashboardsGetPublicDashboardCmd.Flags().
+		StringVar(
+			&dashboardsGetPublicDashboardFlag.DashboardUID,
+			"dashboard-uid",
+			"",
+			"DashboardUID",
+		)
+
+	dashboardsGetPublicDashboardCmd.MarkFlagRequired("dashboard-uid")
+	dashboardsCmd.AddCommand(dashboardsGetPublicDashboardCmd)
 	dashboardsImportDashboardCmd.Flags().
 		StringVar(
 			&dashboardsImportDashboardFlag.Body,
@@ -10621,6 +10033,8 @@ func init() {
 
 	dashboardsImportDashboardCmd.MarkFlagRequired("body")
 	dashboardsCmd.AddCommand(dashboardsImportDashboardCmd)
+	dashboardsCmd.AddCommand(dashboardsInterpolateDashboardCmd)
+	dashboardsCmd.AddCommand(dashboardsListPublicDashboardsCmd)
 	dashboardsPostDashboardCmd.Flags().
 		StringVar(
 			&dashboardsPostDashboardFlag.Body,
@@ -10631,25 +10045,118 @@ func init() {
 
 	dashboardsPostDashboardCmd.MarkFlagRequired("body")
 	dashboardsCmd.AddCommand(dashboardsPostDashboardCmd)
-	dashboardsRestoreDeletedDashboardByUIDCmd.Flags().
+	dashboardsQueryPublicDashboardCmd.Flags().
 		StringVar(
-			&dashboardsRestoreDeletedDashboardByUIDFlag.Body,
+			&dashboardsQueryPublicDashboardFlag.AccessToken,
+			"access-token",
+			"",
+			"AccessToken",
+		)
+
+	dashboardsQueryPublicDashboardCmd.MarkFlagRequired("access-token")
+	dashboardsQueryPublicDashboardCmd.Flags().
+		Int64Var(
+			&dashboardsQueryPublicDashboardFlag.PanelID,
+			"panel-id",
+			0,
+			"PanelID",
+		)
+
+	dashboardsQueryPublicDashboardCmd.MarkFlagRequired("panel-id")
+	dashboardsCmd.AddCommand(dashboardsQueryPublicDashboardCmd)
+	dashboardsRestoreDashboardVersionByUIDCmd.Flags().
+		StringVar(
+			&dashboardsRestoreDashboardVersionByUIDFlag.Body,
 			"body",
 			"",
 			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
 		)
 
-	dashboardsRestoreDeletedDashboardByUIDCmd.MarkFlagRequired("body")
-	dashboardsRestoreDeletedDashboardByUIDCmd.Flags().
+	dashboardsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("body")
+	dashboardsRestoreDashboardVersionByUIDCmd.Flags().
 		StringVar(
-			&dashboardsRestoreDeletedDashboardByUIDFlag.UID,
+			&dashboardsRestoreDashboardVersionByUIDFlag.UID,
 			"uid",
 			"",
 			"Unique identifier (uid)",
 		)
 
-	dashboardsRestoreDeletedDashboardByUIDCmd.MarkFlagRequired("uid")
-	dashboardsCmd.AddCommand(dashboardsRestoreDeletedDashboardByUIDCmd)
+	dashboardsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("uid")
+	dashboardsCmd.AddCommand(dashboardsRestoreDashboardVersionByUIDCmd)
+	dashboardsSearchDashboardSnapshotsCmd.Flags().
+		Int64Var(
+			&dashboardsSearchDashboardSnapshotsFlag.Limit,
+			"limit",
+			0,
+			"Limit",
+		)
+
+	dashboardsSearchDashboardSnapshotsCmd.Flags().
+		StringVar(
+			&dashboardsSearchDashboardSnapshotsFlag.Query,
+			"query",
+			"",
+			"Query",
+		)
+
+	dashboardsCmd.AddCommand(dashboardsSearchDashboardSnapshotsCmd)
+	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().
+		StringVar(
+			&dashboardsUpdateDashboardPermissionsByUIDFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	dashboardsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("body")
+	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().
+		StringVar(
+			&dashboardsUpdateDashboardPermissionsByUIDFlag.UID,
+			"uid",
+			"",
+			"Unique identifier (uid)",
+		)
+
+	dashboardsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("uid")
+	dashboardsCmd.AddCommand(dashboardsUpdateDashboardPermissionsByUIDCmd)
+	dashboardsUpdatePublicDashboardCmd.Flags().
+		StringVar(
+			&dashboardsUpdatePublicDashboardFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("body")
+	dashboardsUpdatePublicDashboardCmd.Flags().
+		StringVar(
+			&dashboardsUpdatePublicDashboardFlag.DashboardUID,
+			"dashboard-uid",
+			"",
+			"DashboardUID",
+		)
+
+	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
+	dashboardsUpdatePublicDashboardCmd.Flags().
+		StringVar(
+			&dashboardsUpdatePublicDashboardFlag.UID,
+			"uid",
+			"",
+			"Unique identifier (uid)",
+		)
+
+	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("uid")
+	dashboardsCmd.AddCommand(dashboardsUpdatePublicDashboardCmd)
+	dashboardsViewPublicDashboardCmd.Flags().
+		StringVar(
+			&dashboardsViewPublicDashboardFlag.AccessToken,
+			"access-token",
+			"",
+			"AccessToken",
+		)
+
+	dashboardsViewPublicDashboardCmd.MarkFlagRequired("access-token")
+	dashboardsCmd.AddCommand(dashboardsViewPublicDashboardCmd)
 	rootCmd.AddCommand(datasourcesCmd)
 	datasourcesAddDatasourceCmd.Flags().
 		StringVar(
@@ -10690,6 +10197,44 @@ func init() {
 
 	datasourcesCheckDatasourceHealthCmd.MarkFlagRequired("uid")
 	datasourcesCmd.AddCommand(datasourcesCheckDatasourceHealthCmd)
+	datasourcesCreateCorrelationCmd.Flags().
+		StringVar(
+			&datasourcesCreateCorrelationFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	datasourcesCreateCorrelationCmd.MarkFlagRequired("body")
+	datasourcesCreateCorrelationCmd.Flags().
+		StringVar(
+			&datasourcesCreateCorrelationFlag.SourceUID,
+			"source-uid",
+			"",
+			"SourceUID",
+		)
+
+	datasourcesCreateCorrelationCmd.MarkFlagRequired("source-uid")
+	datasourcesCmd.AddCommand(datasourcesCreateCorrelationCmd)
+	datasourcesDeleteCorrelationCmd.Flags().
+		StringVar(
+			&datasourcesDeleteCorrelationFlag.CorrelationUID,
+			"correlation-uid",
+			"",
+			"CorrelationUID",
+		)
+
+	datasourcesDeleteCorrelationCmd.MarkFlagRequired("correlation-uid")
+	datasourcesDeleteCorrelationCmd.Flags().
+		StringVar(
+			&datasourcesDeleteCorrelationFlag.UID,
+			"uid",
+			"",
+			"Unique identifier (uid)",
+		)
+
+	datasourcesDeleteCorrelationCmd.MarkFlagRequired("uid")
+	datasourcesCmd.AddCommand(datasourcesDeleteCorrelationCmd)
 	datasourcesDeleteDatasourceByNameCmd.Flags().
 		StringVar(
 			&datasourcesDeleteDatasourceByNameFlag.Name,
@@ -10710,6 +10255,60 @@ func init() {
 
 	datasourcesDeleteDatasourceByUIDCmd.MarkFlagRequired("uid")
 	datasourcesCmd.AddCommand(datasourcesDeleteDatasourceByUIDCmd)
+	datasourcesGetCorrelationCmd.Flags().
+		StringVar(
+			&datasourcesGetCorrelationFlag.CorrelationUID,
+			"correlation-uid",
+			"",
+			"CorrelationUID",
+		)
+
+	datasourcesGetCorrelationCmd.MarkFlagRequired("correlation-uid")
+	datasourcesGetCorrelationCmd.Flags().
+		StringVar(
+			&datasourcesGetCorrelationFlag.SourceUID,
+			"source-uid",
+			"",
+			"SourceUID",
+		)
+
+	datasourcesGetCorrelationCmd.MarkFlagRequired("source-uid")
+	datasourcesCmd.AddCommand(datasourcesGetCorrelationCmd)
+	datasourcesGetCorrelationsCmd.Flags().
+		Int64Var(
+			&datasourcesGetCorrelationsFlag.Limit,
+			"limit",
+			0,
+			"Limit",
+		)
+
+	datasourcesGetCorrelationsCmd.Flags().
+		Int64Var(
+			&datasourcesGetCorrelationsFlag.Page,
+			"page",
+			0,
+			"Page",
+		)
+
+	datasourcesGetCorrelationsCmd.Flags().
+		StringSliceVar(
+			&datasourcesGetCorrelationsFlag.SourceUID,
+			"source-uid",
+			[]string{},
+			"SourceUID",
+		)
+
+	datasourcesCmd.AddCommand(datasourcesGetCorrelationsCmd)
+	datasourcesGetCorrelationsBySourceUIDCmd.Flags().
+		StringVar(
+			&datasourcesGetCorrelationsBySourceUIDFlag.SourceUID,
+			"source-uid",
+			"",
+			"SourceUID",
+		)
+
+	datasourcesGetCorrelationsBySourceUIDCmd.MarkFlagRequired("source-uid")
+	datasourcesCmd.AddCommand(datasourcesGetCorrelationsBySourceUIDCmd)
 	datasourcesGetDatasourceByNameCmd.Flags().
 		StringVar(
 			&datasourcesGetDatasourceByNameFlag.Name,
@@ -10741,6 +10340,44 @@ func init() {
 	datasourcesGetDatasourceIDByNameCmd.MarkFlagRequired("name")
 	datasourcesCmd.AddCommand(datasourcesGetDatasourceIDByNameCmd)
 	datasourcesCmd.AddCommand(datasourcesGetDatasourcesCmd)
+	datasourcesQueryMetricsWithExpressionsCmd.Flags().
+		StringVar(
+			&datasourcesQueryMetricsWithExpressionsFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	datasourcesQueryMetricsWithExpressionsCmd.MarkFlagRequired("body")
+	datasourcesCmd.AddCommand(datasourcesQueryMetricsWithExpressionsCmd)
+	datasourcesUpdateCorrelationCmd.Flags().
+		StringVar(
+			&datasourcesUpdateCorrelationFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	datasourcesUpdateCorrelationCmd.MarkFlagRequired("body")
+	datasourcesUpdateCorrelationCmd.Flags().
+		StringVar(
+			&datasourcesUpdateCorrelationFlag.CorrelationUID,
+			"correlation-uid",
+			"",
+			"CorrelationUID",
+		)
+
+	datasourcesUpdateCorrelationCmd.MarkFlagRequired("correlation-uid")
+	datasourcesUpdateCorrelationCmd.Flags().
+		StringVar(
+			&datasourcesUpdateCorrelationFlag.SourceUID,
+			"source-uid",
+			"",
+			"SourceUID",
+		)
+
+	datasourcesUpdateCorrelationCmd.MarkFlagRequired("source-uid")
+	datasourcesCmd.AddCommand(datasourcesUpdateCorrelationCmd)
 	datasourcesUpdateDatasourceByUIDCmd.Flags().
 		StringVar(
 			&datasourcesUpdateDatasourceByUIDFlag.Body,
@@ -10763,17 +10400,6 @@ func init() {
 	rootCmd.AddCommand(devicesCmd)
 	devicesCmd.AddCommand(devicesListDevicesCmd)
 	devicesCmd.AddCommand(devicesSearchDevicesCmd)
-	rootCmd.AddCommand(dsCmd)
-	dsQueryMetricsWithExpressionsCmd.Flags().
-		StringVar(
-			&dsQueryMetricsWithExpressionsFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	dsQueryMetricsWithExpressionsCmd.MarkFlagRequired("body")
-	dsCmd.AddCommand(dsQueryMetricsWithExpressionsCmd)
 	rootCmd.AddCommand(enterpriseCmd)
 	enterpriseCleanDatasourceCacheCmd.Flags().
 		StringVar(
@@ -10864,36 +10490,6 @@ func init() {
 
 	enterpriseUpdateTeamLBACRulesAPICmd.MarkFlagRequired("uid")
 	enterpriseCmd.AddCommand(enterpriseUpdateTeamLBACRulesAPICmd)
-	rootCmd.AddCommand(folderPermissionsCmd)
-	folderPermissionsGetFolderPermissionListCmd.Flags().
-		StringVar(
-			&folderPermissionsGetFolderPermissionListFlag.FolderUID,
-			"folder-uid",
-			"",
-			"FolderUID",
-		)
-
-	folderPermissionsGetFolderPermissionListCmd.MarkFlagRequired("folder-uid")
-	folderPermissionsCmd.AddCommand(folderPermissionsGetFolderPermissionListCmd)
-	folderPermissionsUpdateFolderPermissionsCmd.Flags().
-		StringVar(
-			&folderPermissionsUpdateFolderPermissionsFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	folderPermissionsUpdateFolderPermissionsCmd.MarkFlagRequired("body")
-	folderPermissionsUpdateFolderPermissionsCmd.Flags().
-		StringVar(
-			&folderPermissionsUpdateFolderPermissionsFlag.FolderUID,
-			"folder-uid",
-			"",
-			"FolderUID",
-		)
-
-	folderPermissionsUpdateFolderPermissionsCmd.MarkFlagRequired("folder-uid")
-	folderPermissionsCmd.AddCommand(folderPermissionsUpdateFolderPermissionsCmd)
 	rootCmd.AddCommand(foldersCmd)
 	foldersCreateFolderCmd.Flags().
 		StringVar(
@@ -10943,6 +10539,16 @@ func init() {
 
 	foldersGetFolderDescendantCountsCmd.MarkFlagRequired("folder-uid")
 	foldersCmd.AddCommand(foldersGetFolderDescendantCountsCmd)
+	foldersGetFolderPermissionListCmd.Flags().
+		StringVar(
+			&foldersGetFolderPermissionListFlag.FolderUID,
+			"folder-uid",
+			"",
+			"FolderUID",
+		)
+
+	foldersGetFolderPermissionListCmd.MarkFlagRequired("folder-uid")
+	foldersCmd.AddCommand(foldersGetFolderPermissionListCmd)
 	foldersGetFoldersCmd.Flags().
 		Int64Var(
 			&foldersGetFoldersFlag.Limit,
@@ -10995,6 +10601,25 @@ func init() {
 
 	foldersMoveFolderCmd.MarkFlagRequired("folder-uid")
 	foldersCmd.AddCommand(foldersMoveFolderCmd)
+	foldersUpdateFolderPermissionsCmd.Flags().
+		StringVar(
+			&foldersUpdateFolderPermissionsFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	foldersUpdateFolderPermissionsCmd.MarkFlagRequired("body")
+	foldersUpdateFolderPermissionsCmd.Flags().
+		StringVar(
+			&foldersUpdateFolderPermissionsFlag.FolderUID,
+			"folder-uid",
+			"",
+			"FolderUID",
+		)
+
+	foldersUpdateFolderPermissionsCmd.MarkFlagRequired("folder-uid")
+	foldersCmd.AddCommand(foldersUpdateFolderPermissionsCmd)
 	foldersUpdateFolderCmd.Flags().
 		StringVar(
 			&foldersUpdateFolderFlag.Body,
@@ -11014,8 +10639,6 @@ func init() {
 
 	foldersUpdateFolderCmd.MarkFlagRequired("folder-uid")
 	foldersCmd.AddCommand(foldersUpdateFolderCmd)
-	rootCmd.AddCommand(getCurrentOrgCmd)
-	getCurrentOrgCmd.AddCommand(getCurrentOrgGetCurrentOrgQuotaCmd)
 	rootCmd.AddCommand(healthCmd)
 	healthCmd.AddCommand(healthGetHealthCmd)
 	rootCmd.AddCommand(ldapDebugCmd)
@@ -11224,6 +10847,15 @@ func init() {
 	migrationsCmd.AddCommand(migrationsCreateSessionCmd)
 	migrationsCreateSnapshotCmd.Flags().
 		StringVar(
+			&migrationsCreateSnapshotFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	migrationsCreateSnapshotCmd.MarkFlagRequired("body")
+	migrationsCreateSnapshotCmd.Flags().
+		StringVar(
 			&migrationsCreateSnapshotFlag.UID,
 			"uid",
 			"",
@@ -11253,6 +10885,7 @@ func init() {
 	migrationsDeleteSessionCmd.MarkFlagRequired("uid")
 	migrationsCmd.AddCommand(migrationsDeleteSessionCmd)
 	migrationsCmd.AddCommand(migrationsGetCloudMigrationTokenCmd)
+	migrationsCmd.AddCommand(migrationsGetResourceDependenciesCmd)
 	migrationsCmd.AddCommand(migrationsGetSessionListCmd)
 	migrationsGetSessionCmd.Flags().
 		StringVar(
@@ -11299,6 +10932,14 @@ func init() {
 	migrationsGetShapshotListCmd.MarkFlagRequired("uid")
 	migrationsCmd.AddCommand(migrationsGetShapshotListCmd)
 	migrationsGetSnapshotCmd.Flags().
+		BoolVar(
+			&migrationsGetSnapshotFlag.ErrorsOnly,
+			"errors-only",
+			false,
+			"ErrorsOnly",
+		)
+
+	migrationsGetSnapshotCmd.Flags().
 		Int64Var(
 			&migrationsGetSnapshotFlag.ResultLimit,
 			"result-limit",
@@ -11312,6 +10953,22 @@ func init() {
 			"result-page",
 			0,
 			"ResultPage",
+		)
+
+	migrationsGetSnapshotCmd.Flags().
+		StringVar(
+			&migrationsGetSnapshotFlag.ResultSortColumn,
+			"result-sort-column",
+			"",
+			"ResultSortColumn",
+		)
+
+	migrationsGetSnapshotCmd.Flags().
+		StringVar(
+			&migrationsGetSnapshotFlag.ResultSortOrder,
+			"result-sort-order",
+			"",
+			"ResultSortOrder",
 		)
 
 	migrationsGetSnapshotCmd.Flags().
@@ -11353,6 +11010,16 @@ func init() {
 	migrationsUploadSnapshotCmd.MarkFlagRequired("uid")
 	migrationsCmd.AddCommand(migrationsUploadSnapshotCmd)
 	rootCmd.AddCommand(orgCmd)
+	orgAddOrgInviteCmd.Flags().
+		StringVar(
+			&orgAddOrgInviteFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	orgAddOrgInviteCmd.MarkFlagRequired("body")
+	orgCmd.AddCommand(orgAddOrgInviteCmd)
 	orgAddOrgUserToCurrentOrgCmd.Flags().
 		StringVar(
 			&orgAddOrgUserToCurrentOrgFlag.Body,
@@ -11364,6 +11031,24 @@ func init() {
 	orgAddOrgUserToCurrentOrgCmd.MarkFlagRequired("body")
 	orgCmd.AddCommand(orgAddOrgUserToCurrentOrgCmd)
 	orgCmd.AddCommand(orgGetCurrentOrgCmd)
+	orgCmd.AddCommand(orgGetOrgPreferencesCmd)
+	orgGetOrgUsersForCurrentOrgCmd.Flags().
+		Int64Var(
+			&orgGetOrgUsersForCurrentOrgFlag.Limit,
+			"limit",
+			0,
+			"Limit",
+		)
+
+	orgGetOrgUsersForCurrentOrgCmd.Flags().
+		StringVar(
+			&orgGetOrgUsersForCurrentOrgFlag.Query,
+			"query",
+			"",
+			"Query",
+		)
+
+	orgCmd.AddCommand(orgGetOrgUsersForCurrentOrgCmd)
 	orgGetOrgUsersForCurrentOrgLookupCmd.Flags().
 		Int64Var(
 			&orgGetOrgUsersForCurrentOrgLookupFlag.Limit,
@@ -11381,7 +11066,17 @@ func init() {
 		)
 
 	orgCmd.AddCommand(orgGetOrgUsersForCurrentOrgLookupCmd)
-	orgCmd.AddCommand(orgGetOrgUsersForCurrentOrgCmd)
+	orgCmd.AddCommand(orgGetPendingOrgInvitesCmd)
+	orgPatchOrgPreferencesCmd.Flags().
+		StringVar(
+			&orgPatchOrgPreferencesFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	orgPatchOrgPreferencesCmd.MarkFlagRequired("body")
+	orgCmd.AddCommand(orgPatchOrgPreferencesCmd)
 	orgRemoveOrgUserForCurrentOrgCmd.Flags().
 		Int64Var(
 			&orgRemoveOrgUserForCurrentOrgFlag.UserID,
@@ -11392,6 +11087,16 @@ func init() {
 
 	orgRemoveOrgUserForCurrentOrgCmd.MarkFlagRequired("user-id")
 	orgCmd.AddCommand(orgRemoveOrgUserForCurrentOrgCmd)
+	orgRevokeInviteCmd.Flags().
+		StringVar(
+			&orgRevokeInviteFlag.InvitationCode,
+			"invitation-code",
+			"",
+			"InvitationCode",
+		)
+
+	orgRevokeInviteCmd.MarkFlagRequired("invitation-code")
+	orgCmd.AddCommand(orgRevokeInviteCmd)
 	orgUpdateCurrentOrgAddressCmd.Flags().
 		StringVar(
 			&orgUpdateCurrentOrgAddressFlag.Body,
@@ -11412,6 +11117,16 @@ func init() {
 
 	orgUpdateCurrentOrgCmd.MarkFlagRequired("body")
 	orgCmd.AddCommand(orgUpdateCurrentOrgCmd)
+	orgUpdateOrgPreferencesCmd.Flags().
+		StringVar(
+			&orgUpdateOrgPreferencesFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	orgUpdateOrgPreferencesCmd.MarkFlagRequired("body")
+	orgCmd.AddCommand(orgUpdateOrgPreferencesCmd)
 	orgUpdateOrgUserForCurrentOrgCmd.Flags().
 		StringVar(
 			&orgUpdateOrgUserForCurrentOrgFlag.Body,
@@ -11431,50 +11146,6 @@ func init() {
 
 	orgUpdateOrgUserForCurrentOrgCmd.MarkFlagRequired("user-id")
 	orgCmd.AddCommand(orgUpdateOrgUserForCurrentOrgCmd)
-	rootCmd.AddCommand(orgInvitesCmd)
-	orgInvitesAddOrgInviteCmd.Flags().
-		StringVar(
-			&orgInvitesAddOrgInviteFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	orgInvitesAddOrgInviteCmd.MarkFlagRequired("body")
-	orgInvitesCmd.AddCommand(orgInvitesAddOrgInviteCmd)
-	orgInvitesCmd.AddCommand(orgInvitesGetPendingOrgInvitesCmd)
-	orgInvitesRevokeInviteCmd.Flags().
-		StringVar(
-			&orgInvitesRevokeInviteFlag.InvitationCode,
-			"invitation-code",
-			"",
-			"InvitationCode",
-		)
-
-	orgInvitesRevokeInviteCmd.MarkFlagRequired("invitation-code")
-	orgInvitesCmd.AddCommand(orgInvitesRevokeInviteCmd)
-	rootCmd.AddCommand(orgPreferencesCmd)
-	orgPreferencesCmd.AddCommand(orgPreferencesGetOrgPreferencesCmd)
-	orgPreferencesPatchOrgPreferencesCmd.Flags().
-		StringVar(
-			&orgPreferencesPatchOrgPreferencesFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	orgPreferencesPatchOrgPreferencesCmd.MarkFlagRequired("body")
-	orgPreferencesCmd.AddCommand(orgPreferencesPatchOrgPreferencesCmd)
-	orgPreferencesUpdateOrgPreferencesCmd.Flags().
-		StringVar(
-			&orgPreferencesUpdateOrgPreferencesFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	orgPreferencesUpdateOrgPreferencesCmd.MarkFlagRequired("body")
-	orgPreferencesCmd.AddCommand(orgPreferencesUpdateOrgPreferencesCmd)
 	rootCmd.AddCommand(orgsCmd)
 	orgsAddOrgUserCmd.Flags().
 		StringVar(
@@ -11515,16 +11186,6 @@ func init() {
 
 	orgsGetOrgByNameCmd.MarkFlagRequired("org-name")
 	orgsCmd.AddCommand(orgsGetOrgByNameCmd)
-	orgsGetOrgQuotaCmd.Flags().
-		Int64Var(
-			&orgsGetOrgQuotaFlag.OrgID,
-			"org-id",
-			0,
-			"OrgID",
-		)
-
-	orgsGetOrgQuotaCmd.MarkFlagRequired("org-id")
-	orgsCmd.AddCommand(orgsGetOrgQuotaCmd)
 	orgsGetOrgUsersCmd.Flags().
 		Int64Var(
 			&orgsGetOrgUsersFlag.OrgID,
@@ -11616,34 +11277,6 @@ func init() {
 
 	orgsUpdateOrgAddressCmd.MarkFlagRequired("org-id")
 	orgsCmd.AddCommand(orgsUpdateOrgAddressCmd)
-	orgsUpdateOrgQuotaCmd.Flags().
-		StringVar(
-			&orgsUpdateOrgQuotaFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	orgsUpdateOrgQuotaCmd.MarkFlagRequired("body")
-	orgsUpdateOrgQuotaCmd.Flags().
-		Int64Var(
-			&orgsUpdateOrgQuotaFlag.OrgID,
-			"org-id",
-			0,
-			"OrgID",
-		)
-
-	orgsUpdateOrgQuotaCmd.MarkFlagRequired("org-id")
-	orgsUpdateOrgQuotaCmd.Flags().
-		StringVar(
-			&orgsUpdateOrgQuotaFlag.QuotaTarget,
-			"quota-target",
-			"",
-			"QuotaTarget",
-		)
-
-	orgsUpdateOrgQuotaCmd.MarkFlagRequired("quota-target")
-	orgsCmd.AddCommand(orgsUpdateOrgQuotaCmd)
 	orgsUpdateOrgUserCmd.Flags().
 		StringVar(
 			&orgsUpdateOrgUserFlag.Body,
@@ -12529,6 +12162,16 @@ func init() {
 
 	reportsGetReportCmd.MarkFlagRequired("id")
 	reportsCmd.AddCommand(reportsGetReportCmd)
+	reportsGetReportsByDashboardUIDCmd.Flags().
+		StringVar(
+			&reportsGetReportsByDashboardUIDFlag.UID,
+			"uid",
+			"",
+			"Unique identifier (uid)",
+		)
+
+	reportsGetReportsByDashboardUIDCmd.MarkFlagRequired("uid")
+	reportsCmd.AddCommand(reportsGetReportsByDashboardUIDCmd)
 	reportsCmd.AddCommand(reportsGetReportsCmd)
 	reportsCmd.AddCommand(reportsGetSettingsImageCmd)
 	reportsRenderReportCSVsCmd.Flags().
@@ -12938,7 +12581,17 @@ func init() {
 	signedInUserCmd.AddCommand(signedInUserGetSignedInUserTeamListCmd)
 	signedInUserCmd.AddCommand(signedInUserGetSignedInUserCmd)
 	signedInUserCmd.AddCommand(signedInUserGetUserAuthTokensCmd)
-	signedInUserCmd.AddCommand(signedInUserGetUserQuotasCmd)
+	signedInUserCmd.AddCommand(signedInUserGetUserPreferencesCmd)
+	signedInUserPatchUserPreferencesCmd.Flags().
+		StringVar(
+			&signedInUserPatchUserPreferencesFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	signedInUserPatchUserPreferencesCmd.MarkFlagRequired("body")
+	signedInUserCmd.AddCommand(signedInUserPatchUserPreferencesCmd)
 	signedInUserRevokeUserAuthTokenCmd.Flags().
 		StringVar(
 			&signedInUserRevokeUserAuthTokenFlag.Body,
@@ -12969,16 +12622,6 @@ func init() {
 
 	signedInUserStarDashboardByUIDCmd.MarkFlagRequired("dashboard-uid")
 	signedInUserCmd.AddCommand(signedInUserStarDashboardByUIDCmd)
-	signedInUserStarDashboardCmd.Flags().
-		StringVar(
-			&signedInUserStarDashboardFlag.DashboardID,
-			"dashboard-id",
-			"",
-			"DashboardID",
-		)
-
-	signedInUserStarDashboardCmd.MarkFlagRequired("dashboard-id")
-	signedInUserCmd.AddCommand(signedInUserStarDashboardCmd)
 	signedInUserUnstarDashboardByUIDCmd.Flags().
 		StringVar(
 			&signedInUserUnstarDashboardByUIDFlag.DashboardUID,
@@ -12989,16 +12632,6 @@ func init() {
 
 	signedInUserUnstarDashboardByUIDCmd.MarkFlagRequired("dashboard-uid")
 	signedInUserCmd.AddCommand(signedInUserUnstarDashboardByUIDCmd)
-	signedInUserUnstarDashboardCmd.Flags().
-		StringVar(
-			&signedInUserUnstarDashboardFlag.DashboardID,
-			"dashboard-id",
-			"",
-			"DashboardID",
-		)
-
-	signedInUserUnstarDashboardCmd.MarkFlagRequired("dashboard-id")
-	signedInUserCmd.AddCommand(signedInUserUnstarDashboardCmd)
 	signedInUserUpdateSignedInUserCmd.Flags().
 		StringVar(
 			&signedInUserUpdateSignedInUserFlag.Body,
@@ -13009,6 +12642,16 @@ func init() {
 
 	signedInUserUpdateSignedInUserCmd.MarkFlagRequired("body")
 	signedInUserCmd.AddCommand(signedInUserUpdateSignedInUserCmd)
+	signedInUserUpdateUserPreferencesCmd.Flags().
+		StringVar(
+			&signedInUserUpdateUserPreferencesFlag.Body,
+			"body",
+			"",
+			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
+		)
+
+	signedInUserUpdateUserPreferencesCmd.MarkFlagRequired("body")
+	signedInUserCmd.AddCommand(signedInUserUpdateUserPreferencesCmd)
 	signedInUserUserSetUsingOrgCmd.Flags().
 		Int64Var(
 			&signedInUserUserSetUsingOrgFlag.OrgID,
@@ -13022,64 +12665,7 @@ func init() {
 	rootCmd.AddCommand(signingKeysCmd)
 	signingKeysCmd.AddCommand(signingKeysRetrieveJWKSCmd)
 	rootCmd.AddCommand(snapshotsCmd)
-	snapshotsCreateDashboardSnapshotCmd.Flags().
-		StringVar(
-			&snapshotsCreateDashboardSnapshotFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	snapshotsCreateDashboardSnapshotCmd.MarkFlagRequired("body")
-	snapshotsCmd.AddCommand(snapshotsCreateDashboardSnapshotCmd)
-	snapshotsDeleteDashboardSnapshotByDeleteKeyCmd.Flags().
-		StringVar(
-			&snapshotsDeleteDashboardSnapshotByDeleteKeyFlag.DeleteKey,
-			"delete-key",
-			"",
-			"DeleteKey",
-		)
-
-	snapshotsDeleteDashboardSnapshotByDeleteKeyCmd.MarkFlagRequired("delete-key")
-	snapshotsCmd.AddCommand(snapshotsDeleteDashboardSnapshotByDeleteKeyCmd)
-	snapshotsDeleteDashboardSnapshotCmd.Flags().
-		StringVar(
-			&snapshotsDeleteDashboardSnapshotFlag.Key,
-			"key",
-			"",
-			"Key",
-		)
-
-	snapshotsDeleteDashboardSnapshotCmd.MarkFlagRequired("key")
-	snapshotsCmd.AddCommand(snapshotsDeleteDashboardSnapshotCmd)
-	snapshotsGetDashboardSnapshotCmd.Flags().
-		StringVar(
-			&snapshotsGetDashboardSnapshotFlag.Key,
-			"key",
-			"",
-			"Key",
-		)
-
-	snapshotsGetDashboardSnapshotCmd.MarkFlagRequired("key")
-	snapshotsCmd.AddCommand(snapshotsGetDashboardSnapshotCmd)
 	snapshotsCmd.AddCommand(snapshotsGetSharingOptionsCmd)
-	snapshotsSearchDashboardSnapshotsCmd.Flags().
-		Int64Var(
-			&snapshotsSearchDashboardSnapshotsFlag.Limit,
-			"limit",
-			0,
-			"Limit",
-		)
-
-	snapshotsSearchDashboardSnapshotsCmd.Flags().
-		StringVar(
-			&snapshotsSearchDashboardSnapshotsFlag.Query,
-			"query",
-			"",
-			"Query",
-		)
-
-	snapshotsCmd.AddCommand(snapshotsSearchDashboardSnapshotsCmd)
 	rootCmd.AddCommand(ssoSettingsCmd)
 	ssoSettingsGetProviderSettingsCmd.Flags().
 		StringVar(
@@ -13169,6 +12755,48 @@ func init() {
 
 	syncTeamGroupsRemoveTeamGroupAPIQueryCmd.MarkFlagRequired("team-id")
 	syncTeamGroupsCmd.AddCommand(syncTeamGroupsRemoveTeamGroupAPIQueryCmd)
+	syncTeamGroupsSearchTeamGroupsCmd.Flags().
+		StringVar(
+			&syncTeamGroupsSearchTeamGroupsFlag.Name,
+			"name",
+			"",
+			"Name of the syncTeamGroup",
+		)
+
+	syncTeamGroupsSearchTeamGroupsCmd.Flags().
+		Int64Var(
+			&syncTeamGroupsSearchTeamGroupsFlag.Page,
+			"page",
+			0,
+			"Page",
+		)
+
+	syncTeamGroupsSearchTeamGroupsCmd.Flags().
+		Int64Var(
+			&syncTeamGroupsSearchTeamGroupsFlag.Perpage,
+			"perpage",
+			1000,
+			"Perpage",
+		)
+
+	syncTeamGroupsSearchTeamGroupsCmd.Flags().
+		StringVar(
+			&syncTeamGroupsSearchTeamGroupsFlag.Query,
+			"query",
+			"",
+			"Query",
+		)
+
+	syncTeamGroupsSearchTeamGroupsCmd.Flags().
+		Int64Var(
+			&syncTeamGroupsSearchTeamGroupsFlag.TeamID,
+			"team-id",
+			0,
+			"TeamID",
+		)
+
+	syncTeamGroupsSearchTeamGroupsCmd.MarkFlagRequired("team-id")
+	syncTeamGroupsCmd.AddCommand(syncTeamGroupsSearchTeamGroupsCmd)
 	rootCmd.AddCommand(teamsCmd)
 	teamsAddTeamMemberCmd.Flags().
 		StringVar(
@@ -13239,6 +12867,14 @@ func init() {
 	teamsRemoveTeamMemberCmd.MarkFlagRequired("user-id")
 	teamsCmd.AddCommand(teamsRemoveTeamMemberCmd)
 	teamsSearchTeamsCmd.Flags().
+		BoolVar(
+			&teamsSearchTeamsFlag.Accesscontrol,
+			"accesscontrol",
+			false,
+			"Accesscontrol",
+		)
+
+	teamsSearchTeamsCmd.Flags().
 		StringVar(
 			&teamsSearchTeamsFlag.Name,
 			"name",
@@ -13268,6 +12904,14 @@ func init() {
 			"query",
 			"",
 			"Query",
+		)
+
+	teamsSearchTeamsCmd.Flags().
+		StringVar(
+			&teamsSearchTeamsFlag.Sort,
+			"sort",
+			"",
+			"Sort",
 		)
 
 	teamsCmd.AddCommand(teamsSearchTeamsCmd)
@@ -13358,28 +13002,6 @@ func init() {
 	teamsCmd.AddCommand(teamsUpdateTeamCmd)
 	rootCmd.AddCommand(userCmd)
 	userCmd.AddCommand(userUpdateUserEmailCmd)
-	rootCmd.AddCommand(userPreferencesCmd)
-	userPreferencesCmd.AddCommand(userPreferencesGetUserPreferencesCmd)
-	userPreferencesPatchUserPreferencesCmd.Flags().
-		StringVar(
-			&userPreferencesPatchUserPreferencesFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	userPreferencesPatchUserPreferencesCmd.MarkFlagRequired("body")
-	userPreferencesCmd.AddCommand(userPreferencesPatchUserPreferencesCmd)
-	userPreferencesUpdateUserPreferencesCmd.Flags().
-		StringVar(
-			&userPreferencesUpdateUserPreferencesFlag.Body,
-			"body",
-			"",
-			"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'",
-		)
-
-	userPreferencesUpdateUserPreferencesCmd.MarkFlagRequired("body")
-	userPreferencesCmd.AddCommand(userPreferencesUpdateUserPreferencesCmd)
 	rootCmd.AddCommand(usersCmd)
 	usersGetUserByLoginOrEmailCmd.Flags().
 		StringVar(
