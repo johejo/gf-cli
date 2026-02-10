@@ -13,6 +13,3 @@ gendoc:
 
 install: gen
 	go install ./cmd/gf
-
-copygojq:
-	./copygojq.bash
