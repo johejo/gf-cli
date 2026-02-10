@@ -12,8 +12,6 @@ import (
 	gfclient "github.com/grafana/grafana-openapi-client-go/client"
 	"github.com/grafana/grafana-openapi-client-go/models"
 	"github.com/itchyny/gojq"
-	"github.com/johejo/gf-cli/internal/cli"
-	"github.com/mattn/go-isatty"
 	"github.com/spf13/cobra"
 	"mvdan.cc/xurls/v2"
 )
@@ -56,7 +54,6 @@ func init() {
 	rootCmd.PersistentFlags().Int64Var(&rootCmdFlag.orgID, "org-id", 0, "Organization ID (env: GF_ORG_ID)")
 	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.debug, "debug", false, "Enable debug logging (env: GF_DEBUG)")
 	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.jq, "jq", ".", "Filter JSON output using a jq `expression` (env: GF_JQ)")
-	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.noColor, "no-color", false, "Disable colored output (env: GF_NO_COLOR or NO_COLOR)")
 }
 
 func failIfEmptyArgs(cmd *cobra.Command, args []string) {
@@ -171,11 +168,6 @@ func printPayload(p any) error {
 	p, err = jq(rootCmdFlag.jq, v)
 	if err != nil {
 		return err
-	}
-	noColor := rootCmdFlag.noColor || os.Getenv("GF_NO_COLOR") != "" || os.Getenv("NO_COLOR") != ""
-	if !noColor && isatty.IsTerminal(os.Stdout.Fd()) {
-		m := cli.NewMarshaler(false, 2)
-		return m.Marshal(p, os.Stdout)
 	}
 	e := json.NewEncoder(os.Stdout)
 	e.SetIndent("", "  ")

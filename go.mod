@@ -7,7 +7,6 @@ require (
 	github.com/grafana/grafana-openapi-client-go v0.0.0-20250108132429-8d7e1f158f65
 	github.com/iancoleman/strcase v0.3.0
 	github.com/itchyny/gojq v0.12.17
-	github.com/mattn/go-isatty v0.0.20
 	github.com/spf13/cobra v1.8.1
 	mvdan.cc/xurls/v2 v2.6.0
 )
@@ -42,6 +41,5 @@ require (
 	go.opentelemetry.io/otel/metric v1.24.0 // indirect
 	go.opentelemetry.io/otel/trace v1.24.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
