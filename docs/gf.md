@@ -20,7 +20,6 @@ gf [flags]
       --debug                        Enable debug logging (env: GF_DEBUG)
   -h, --help                         help for gf
       --host string                  Grafana server host (env: GF_HOST) (default "localhost:3000")
-      --jq expression                Filter JSON output using a jq expression (env: GF_JQ) (default ".")
       --org-id int                   Organization ID (env: GF_ORG_ID)
 ```
 

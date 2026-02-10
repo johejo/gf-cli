@@ -6,7 +6,6 @@ require (
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/grafana/grafana-openapi-client-go v0.0.0-20250108132429-8d7e1f158f65
 	github.com/iancoleman/strcase v0.3.0
-	github.com/itchyny/gojq v0.12.17
 	github.com/spf13/cobra v1.8.1
 	mvdan.cc/xurls/v2 v2.6.0
 )
@@ -28,7 +27,6 @@ require (
 	github.com/go-openapi/validate v0.24.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
-	github.com/itchyny/timefmt-go v0.1.6 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect

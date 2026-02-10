@@ -26,7 +26,6 @@ gf service-accounts search-org-service-accounts-with-paging [flags]
       --basic-user-username string   Basic authentication username (env: GF_BASIC_AUTH_PASSWORD)
       --debug                        Enable debug logging (env: GF_DEBUG)
       --host string                  Grafana server host (env: GF_HOST) (default "localhost:3000")
-      --jq expression                Filter JSON output using a jq expression (env: GF_JQ) (default ".")
       --org-id int                   Organization ID (env: GF_ORG_ID)
 ```
 
