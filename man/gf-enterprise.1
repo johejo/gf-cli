@@ -1,0 +1,49 @@
+.nh
+.TH "GF-ENTERPRISE" "1" "Feb 2026" "" ""
+
+.SH NAME
+gf-enterprise -
+
+
+.SH SYNOPSIS
+\fBgf enterprise [flags]\fP
+
+
+.SH DESCRIPTION
+
+.SH OPTIONS
+\fB-h\fP, \fB--help\fP[=false]
+	help for enterprise
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+\fB--api-key\fP=""
+	API Key to authenticate to grafana server (env: GF_API_KEY)
+
+.PP
+\fB--base-path\fP="/api"
+	Base path for server: useful when using sever behind reverse proxy (env: GF_BASE_PATH)
+
+.PP
+\fB--basic-user-password\fP=""
+	Basic authentication password (env: GF_BASIC_AUTH_USERNAME)
+
+.PP
+\fB--basic-user-username\fP=""
+	Basic authentication username (env: GF_BASIC_AUTH_PASSWORD)
+
+.PP
+\fB--debug\fP[=false]
+	Enable debug logging (env: GF_DEBUG)
+
+.PP
+\fB--host\fP="localhost:3000"
+	Grafana server host (env: GF_HOST)
+
+.PP
+\fB--org-id\fP=0
+	Organization ID (env: GF_ORG_ID)
+
+
+.SH SEE ALSO
+\fBgf(1)\fP, \fBgf-enterprise-clean-datasource-cache(1)\fP, \fBgf-enterprise-disable-datasource-cache(1)\fP, \fBgf-enterprise-enable-datasource-cache(1)\fP, \fBgf-enterprise-get-datasource-cache-config(1)\fP, \fBgf-enterprise-get-team-lbac-rules-api(1)\fP, \fBgf-enterprise-search-result(1)\fP, \fBgf-enterprise-set-datasource-cache-config(1)\fP, \fBgf-enterprise-update-team-lbac-rules-api(1)\fP

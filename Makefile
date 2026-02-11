@@ -1,15 +1,9 @@
 all:
 
-clean:
-	rm -rf ./dist
-
 gen:
 	go run ./internal/gen > ./internal/gen.go
 
 gendoc:
-	rm -rf docs
-	mkdir -p docs
+	rm -rf docs man
+	mkdir -p docs man
 	go run ./internal/gendoc
-
-install: gen
-	go install ./cmd/gf

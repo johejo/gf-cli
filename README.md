@@ -1,6 +1,6 @@
 # gf-cli
 
-Grafana API Client for command line operations with shell completions
+Grafana API Client for command line operations
 
 ## Install
 

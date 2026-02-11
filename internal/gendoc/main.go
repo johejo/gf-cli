@@ -12,4 +12,7 @@ func main() {
 	if err := doc.GenMarkdownTree(cmd, "./docs"); err != nil {
 		log.Fatal(err)
 	}
+	if err := doc.GenManTree(cmd, nil, "./man"); err != nil {
+		log.Fatal(err)
+	}
 }
