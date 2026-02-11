@@ -30,7 +30,7 @@
             ldflags = [
               "-s"
               "-w"
-              "-X github.com/johejo/gf-cli/cmd/gf.version=${version}"
+              "-X main.version=${version}"
             ];
             postInstall = ''
               installManPage man/gf*
