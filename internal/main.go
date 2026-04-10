@@ -19,7 +19,7 @@ var (
 	rootCmd = &cobra.Command{
 		Use:               "gf",
 		Short:             "CLI for Grafana API",
-		Long:              "Grafana API Client for command line operations with shell completions",
+		Long:              "Grafana API Client for command line operations",
 		DisableAutoGenTag: true,
 		SilenceUsage:      true,
 		Args:              cobra.NoArgs,
