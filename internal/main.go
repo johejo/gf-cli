@@ -75,12 +75,12 @@ func gfClient() (*gfclient.GrafanaHTTPAPI, error) {
 	cfg = cfg.WithSchemes([]string{scheme})
 	cfg = cfg.WithHost(host)
 
-	cfg = applyEnvString(cfg, "GF_BASE_PATH", rootCmdFlag.basePath, cfg.WithBasePath)
-	cfg = applyEnvBool(cfg, "GF_DEBUG", rootCmdFlag.debug, func(b bool) *gfclient.TransportConfig {
+	cfg = applyEnvString("GF_BASE_PATH", rootCmdFlag.basePath, cfg.WithBasePath)
+	cfg = applyEnvBool("GF_DEBUG", rootCmdFlag.debug, func(b bool) *gfclient.TransportConfig {
 		cfg.Debug = b
 		return cfg
 	})
-	cfg = applyEnvString(cfg, "GF_API_KEY", rootCmdFlag.apiKey, func(v string) *gfclient.TransportConfig {
+	cfg = applyEnvString("GF_API_KEY", rootCmdFlag.apiKey, func(v string) *gfclient.TransportConfig {
 		cfg.APIKey = v
 		return cfg
 	})
@@ -96,7 +96,7 @@ func gfClient() (*gfclient.GrafanaHTTPAPI, error) {
 		cfg.BasicAuth = url.UserPassword(basicUser, basicPass)
 	}
 	api := gfclient.NewHTTPClientWithConfig(nil, cfg)
-	api = applyEnvInt64(api, "GF_ORG_ID", rootCmdFlag.orgID, api.WithOrgID)
+	api = applyEnvInt64("GF_ORG_ID", rootCmdFlag.orgID, api.WithOrgID)
 	return api, nil
 }
 
@@ -121,29 +121,28 @@ func parseSchemeAndHost(s string) (string, string, error) {
 	return "https", host, nil
 }
 
-func applyEnvString[T any](t *T, key string, flg string, f func(string) *T) *T {
-	return applyEnv(t, key, flg, func(s string) (string, error) { return s, nil }, f)
+func applyEnvString[T any](key string, flg string, f func(string) *T) *T {
+	return applyEnv(key, flg, func(s string) (string, error) { return s, nil }, f)
 }
 
-func applyEnv[T any, V any](_ *T, key string, flg V, parseFn func(string) (V, error), applyFn func(V) *T) *T {
+func applyEnv[T any, V any](key string, flg V, parseFn func(string) (V, error), applyFn func(V) *T) *T {
 	t := applyFn(flg)
 	if v, ok := os.LookupEnv(key); ok {
 		vv, err := parseFn(v)
 		if err != nil {
 			return t
 		}
-		t = applyFn(vv)
-		return t
+		return applyFn(vv)
 	}
 	return t
 }
 
-func applyEnvBool[T any](t *T, key string, flg bool, f func(bool) *T) *T {
-	return applyEnv(t, key, flg, strconv.ParseBool, f)
+func applyEnvBool[T any](key string, flg bool, f func(bool) *T) *T {
+	return applyEnv(key, flg, strconv.ParseBool, f)
 }
 
-func applyEnvInt64[T any](t *T, key string, flg int64, f func(int64) *T) *T {
-	return applyEnv(t, key, flg, func(s string) (int64, error) { return strconv.ParseInt(s, 10, 64) }, f)
+func applyEnvInt64[T any](key string, flg int64, f func(int64) *T) *T {
+	return applyEnv(key, flg, func(s string) (int64, error) { return strconv.ParseInt(s, 10, 64) }, f)
 }
 
 func printPayload(p any) error {
