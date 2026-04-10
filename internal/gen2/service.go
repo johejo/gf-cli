@@ -31,20 +31,7 @@ func ParseService(baseDir string, pkgName string) ([]*MethodInfo, error) {
 	docMap := buildMethodDocMap(f)
 
 	// Find ClientService interface
-	var iface *ast.InterfaceType
-	for _, decl := range f.Decls {
-		gd, ok := decl.(*ast.GenDecl)
-		if !ok || gd.Tok != token.TYPE {
-			continue
-		}
-		for _, spec := range gd.Specs {
-			ts, ok := spec.(*ast.TypeSpec)
-			if !ok || ts.Name.Name != "ClientService" {
-				continue
-			}
-			iface, _ = ts.Type.(*ast.InterfaceType)
-		}
-	}
+	iface := findClientServiceInterface(f)
 	if iface == nil {
 		return nil, fmt.Errorf("ClientService interface not found in %s", clientFile)
 	}
@@ -105,6 +92,26 @@ func ParseService(baseDir string, pkgName string) ([]*MethodInfo, error) {
 		})
 	}
 	return methods, nil
+}
+
+func findClientServiceInterface(f *ast.File) *ast.InterfaceType {
+	for _, decl := range f.Decls {
+		gd, ok := decl.(*ast.GenDecl)
+		if !ok || gd.Tok != token.TYPE {
+			continue
+		}
+		for _, spec := range gd.Specs {
+			ts, ok := spec.(*ast.TypeSpec)
+			if !ok || ts.Name.Name != "ClientService" {
+				continue
+			}
+			iface, ok := ts.Type.(*ast.InterfaceType)
+			if ok {
+				return iface
+			}
+		}
+	}
+	return nil
 }
 
 // buildMethodDocMap extracts doc comments from method implementations
