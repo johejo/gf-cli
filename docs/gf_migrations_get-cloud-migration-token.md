@@ -1,6 +1,6 @@
 ## gf migrations get-cloud-migration-token
 
-
+Fetches the cloud migration token if it exists
 
 ```
 gf migrations get-cloud-migration-token [flags]

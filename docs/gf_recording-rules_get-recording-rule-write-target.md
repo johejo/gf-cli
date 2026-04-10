@@ -1,6 +1,6 @@
 ## gf recording-rules get-recording-rule-write-target
 
-
+Returns the prometheus remote write target
 
 ```
 gf recording-rules get-recording-rule-write-target [flags]

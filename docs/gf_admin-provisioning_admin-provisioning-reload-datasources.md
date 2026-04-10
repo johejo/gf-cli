@@ -1,6 +1,6 @@
 ## gf admin-provisioning admin-provisioning-reload-datasources
 
-
+Reloads datasource provisioning configurations
 
 ```
 gf admin-provisioning admin-provisioning-reload-datasources [flags]

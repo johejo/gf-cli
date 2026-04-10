@@ -1,6 +1,6 @@
 ## gf query-history unstar-query
 
-
+Removes star to query in query history
 
 ```
 gf query-history unstar-query [flags]

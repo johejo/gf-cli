@@ -1,6 +1,6 @@
 ## gf signed-in-user get-user-preferences
 
-
+Gets user preferences
 
 ```
 gf signed-in-user get-user-preferences [flags]

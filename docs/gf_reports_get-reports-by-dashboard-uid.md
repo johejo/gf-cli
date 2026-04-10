@@ -1,6 +1,6 @@
 ## gf reports get-reports-by-dashboard-uid
 
-
+Lists reports by dashboard uid
 
 ```
 gf reports get-reports-by-dashboard-uid [flags]
@@ -10,7 +10,7 @@ gf reports get-reports-by-dashboard-uid [flags]
 
 ```
   -h, --help         help for get-reports-by-dashboard-uid
-      --uid string   Unique identifier (uid)
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

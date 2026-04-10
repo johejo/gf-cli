@@ -1,6 +1,6 @@
 ## gf signed-in-user star-dashboard-by-uid
 
-
+Stars a dashboard
 
 ```
 gf signed-in-user star-dashboard-by-uid [flags]

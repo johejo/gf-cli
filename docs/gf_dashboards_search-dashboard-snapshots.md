@@ -10,8 +10,8 @@ gf dashboards search-dashboard-snapshots [flags]
 
 ```
   -h, --help           help for search-dashboard-snapshots
-      --limit int      Limit
-      --query string   Query
+      --limit int      Limit the number of returned results Default: 1000
+      --query string   Search Query
 ```
 
 ### Options inherited from parent commands

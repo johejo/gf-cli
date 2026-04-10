@@ -1,6 +1,6 @@
 ## gf snapshots get-sharing-options
 
-
+Gets snapshot sharing settings
 
 ```
 gf snapshots get-sharing-options [flags]

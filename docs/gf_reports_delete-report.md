@@ -1,6 +1,6 @@
 ## gf reports delete-report
 
-
+Deletes a report
 
 ```
 gf reports delete-report [flags]

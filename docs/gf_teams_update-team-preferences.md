@@ -1,6 +1,6 @@
 ## gf teams update-team-preferences
 
-
+Updates team preferences
 
 ```
 gf teams update-team-preferences [flags]

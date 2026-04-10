@@ -1,6 +1,6 @@
 ## gf provisioning get-alert-rules
 
-
+Gets all the alert rules
 
 ```
 gf provisioning get-alert-rules [flags]

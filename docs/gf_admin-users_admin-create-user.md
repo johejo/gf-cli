@@ -1,6 +1,6 @@
 ## gf admin-users admin-create-user
 
-
+Creates new user
 
 ```
 gf admin-users admin-create-user [flags]

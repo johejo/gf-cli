@@ -1,6 +1,6 @@
 ## gf sso-settings remove-provider-settings
 
-
+Removes s s o settings
 
 ```
 gf sso-settings remove-provider-settings [flags]

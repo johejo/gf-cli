@@ -1,6 +1,6 @@
 ## gf orgs add-org-user
 
-
+Adds a new user to the current organization
 
 ```
 gf orgs add-org-user [flags]

@@ -1,6 +1,6 @@
 ## gf access-control set-team-roles
 
-
+Updates team role
 
 ```
 gf access-control set-team-roles [flags]

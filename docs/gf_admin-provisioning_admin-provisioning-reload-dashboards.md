@@ -1,6 +1,6 @@
 ## gf admin-provisioning admin-provisioning-reload-dashboards
 
-
+Reloads dashboard provisioning configurations
 
 ```
 gf admin-provisioning admin-provisioning-reload-dashboards [flags]

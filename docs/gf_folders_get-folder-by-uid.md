@@ -1,6 +1,6 @@
 ## gf folders get-folder-by-uid
 
-
+Gets folder by uid
 
 ```
 gf folders get-folder-by-uid [flags]

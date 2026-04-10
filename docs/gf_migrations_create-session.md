@@ -1,6 +1,6 @@
 ## gf migrations create-session
 
-
+Creates a migration session
 
 ```
 gf migrations create-session [flags]

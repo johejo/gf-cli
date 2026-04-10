@@ -1,6 +1,6 @@
 ## gf dashboards get-dashboard-version-by-uid
 
-
+Gets a specific dashboard version using UID
 
 ```
 gf dashboards get-dashboard-version-by-uid [flags]
@@ -11,7 +11,7 @@ gf dashboards get-dashboard-version-by-uid [flags]
 ```
       --dashboard-version-id int   DashboardVersionID
   -h, --help                       help for get-dashboard-version-by-uid
-      --uid string                 Unique identifier (uid)
+      --uid string                 UID
 ```
 
 ### Options inherited from parent commands

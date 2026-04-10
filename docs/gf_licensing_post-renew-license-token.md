@@ -1,6 +1,6 @@
 ## gf licensing post-renew-license-token
 
-
+Manuallies force license refresh
 
 ```
 gf licensing post-renew-license-token [flags]

@@ -1,6 +1,6 @@
 ## gf migrations get-session
 
-
+Gets a cloud migration session by its uid
 
 ```
 gf migrations get-session [flags]
@@ -10,7 +10,7 @@ gf migrations get-session [flags]
 
 ```
   -h, --help         help for get-session
-      --uid string   Unique identifier (uid)
+      --uid string   UID of a migration session
 ```
 
 ### Options inherited from parent commands

@@ -27,6 +27,6 @@ gf admin [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf admin admin-get-settings](gf_admin_admin-get-settings.md)	 - 
-* [gf admin admin-get-stats](gf_admin_admin-get-stats.md)	 - 
+* [gf admin admin-get-settings](gf_admin_admin-get-settings.md)	 - Fetches settings
+* [gf admin admin-get-stats](gf_admin_admin-get-stats.md)	 - Fetches grafana stats
 

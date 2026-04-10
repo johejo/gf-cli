@@ -27,17 +27,17 @@ gf reports [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf reports create-report](gf_reports_create-report.md)	 - 
-* [gf reports delete-report](gf_reports_delete-report.md)	 - 
-* [gf reports get-report](gf_reports_get-report.md)	 - 
-* [gf reports get-report-settings](gf_reports_get-report-settings.md)	 - 
-* [gf reports get-reports](gf_reports_get-reports.md)	 - 
-* [gf reports get-reports-by-dashboard-uid](gf_reports_get-reports-by-dashboard-uid.md)	 - 
-* [gf reports get-settings-image](gf_reports_get-settings-image.md)	 - 
+* [gf reports create-report](gf_reports_create-report.md)	 - Creates a report
+* [gf reports delete-report](gf_reports_delete-report.md)	 - Deletes a report
+* [gf reports get-report](gf_reports_get-report.md)	 - Gets a report
+* [gf reports get-report-settings](gf_reports_get-report-settings.md)	 - Gets report settings
+* [gf reports get-reports](gf_reports_get-reports.md)	 - Lists reports
+* [gf reports get-reports-by-dashboard-uid](gf_reports_get-reports-by-dashboard-uid.md)	 - Lists reports by dashboard uid
+* [gf reports get-settings-image](gf_reports_get-settings-image.md)	 - Gets custom branding report image
 * [gf reports render-report-cs-vs](gf_reports_render-report-cs-vs.md)	 - 
 * [gf reports render-report-pd-fs](gf_reports_render-report-pd-fs.md)	 - 
-* [gf reports save-report-settings](gf_reports_save-report-settings.md)	 - 
-* [gf reports send-report](gf_reports_send-report.md)	 - 
-* [gf reports send-test-email](gf_reports_send-test-email.md)	 - 
-* [gf reports update-report](gf_reports_update-report.md)	 - 
+* [gf reports save-report-settings](gf_reports_save-report-settings.md)	 - Saves settings
+* [gf reports send-report](gf_reports_send-report.md)	 - Sends a report
+* [gf reports send-test-email](gf_reports_send-test-email.md)	 - Sends test report via email
+* [gf reports update-report](gf_reports_update-report.md)	 - Updates a report
 

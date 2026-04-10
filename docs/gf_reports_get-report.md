@@ -1,6 +1,6 @@
 ## gf reports get-report
 
-
+Gets a report
 
 ```
 gf reports get-report [flags]

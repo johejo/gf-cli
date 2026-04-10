@@ -27,7 +27,7 @@ gf admin-provisioning [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf admin-provisioning admin-provisioning-reload-dashboards](gf_admin-provisioning_admin-provisioning-reload-dashboards.md)	 - 
-* [gf admin-provisioning admin-provisioning-reload-datasources](gf_admin-provisioning_admin-provisioning-reload-datasources.md)	 - 
-* [gf admin-provisioning admin-provisioning-reload-plugins](gf_admin-provisioning_admin-provisioning-reload-plugins.md)	 - 
+* [gf admin-provisioning admin-provisioning-reload-dashboards](gf_admin-provisioning_admin-provisioning-reload-dashboards.md)	 - Reloads dashboard provisioning configurations
+* [gf admin-provisioning admin-provisioning-reload-datasources](gf_admin-provisioning_admin-provisioning-reload-datasources.md)	 - Reloads datasource provisioning configurations
+* [gf admin-provisioning admin-provisioning-reload-plugins](gf_admin-provisioning_admin-provisioning-reload-plugins.md)	 - Reloads plugin provisioning configurations
 

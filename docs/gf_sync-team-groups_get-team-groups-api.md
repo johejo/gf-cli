@@ -1,6 +1,6 @@
 ## gf sync-team-groups get-team-groups-api
 
-
+Gets external groups
 
 ```
 gf sync-team-groups get-team-groups-api [flags]

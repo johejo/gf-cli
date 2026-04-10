@@ -1,6 +1,6 @@
 ## gf folders get-folder-permission-list
 
-
+Gets all existing permissions for the folder with the given uid
 
 ```
 gf folders get-folder-permission-list [flags]

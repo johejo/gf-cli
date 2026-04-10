@@ -1,6 +1,6 @@
 ## gf datasources delete-datasource-by-uid
 
-
+Deletes an existing data source by UID
 
 ```
 gf datasources delete-datasource-by-uid [flags]
@@ -10,7 +10,7 @@ gf datasources delete-datasource-by-uid [flags]
 
 ```
   -h, --help         help for delete-datasource-by-uid
-      --uid string   Unique identifier (uid)
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

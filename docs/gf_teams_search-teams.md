@@ -11,10 +11,10 @@ gf teams search-teams [flags]
 ```
       --accesscontrol   Accesscontrol
   -h, --help            help for search-teams
-      --name string     Name of the team
-      --page int        Page
-      --perpage int     Perpage (default 1000)
-      --query string    Query
+      --name string     Name
+      --page int        Default: 1
+      --perpage int     Number of items per page The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams. Default: 1000 (default 1000)
+      --query string    If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded.
       --sort string     Sort
 ```
 

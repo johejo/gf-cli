@@ -1,6 +1,6 @@
 ## gf annotations mass-delete-annotations
 
-
+Deletes multiple annotations
 
 ```
 gf annotations mass-delete-annotations [flags]

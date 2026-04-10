@@ -10,10 +10,10 @@ gf migrations get-shapshot-list [flags]
 
 ```
   -h, --help          help for get-shapshot-list
-      --limit int     Limit
-      --page int      Page
-      --sort string   Sort
-      --uid string    Unique identifier (uid)
+      --limit int     Max limit for results returned. Default: 100
+      --page int      Page is used for pagination with limit Default: 1
+      --sort string   Sort with value latest to return results sorted in descending order.
+      --uid string    Session UID of a session
 ```
 
 ### Options inherited from parent commands

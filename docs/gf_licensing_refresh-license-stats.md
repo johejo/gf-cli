@@ -1,6 +1,6 @@
 ## gf licensing refresh-license-stats
 
-
+Refreshes license stats
 
 ```
 gf licensing refresh-license-stats [flags]

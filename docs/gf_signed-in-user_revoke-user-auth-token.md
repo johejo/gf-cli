@@ -1,6 +1,6 @@
 ## gf signed-in-user revoke-user-auth-token
 
-
+Revokes an auth token of the actual user
 
 ```
 gf signed-in-user revoke-user-auth-token [flags]

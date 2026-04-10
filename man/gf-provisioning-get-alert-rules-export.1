@@ -1,5 +1,5 @@
 .nh
-.TH "GF-PROVISIONING-GET-ALERT-RULES-EXPORT" "1" "Feb 2026" "" ""
+.TH "GF-PROVISIONING-GET-ALERT-RULES-EXPORT" "1" "Apr 2026" "" ""
 
 .SH NAME
 gf-provisioning-get-alert-rules-export -
@@ -13,19 +13,19 @@ gf-provisioning-get-alert-rules-export -
 
 .SH OPTIONS
 \fB--download\fP[=false]
-	Download
+	Whether to initiate a download of the file or not.
 
 .PP
 \fB--folder-uid\fP=[]
-	FolderUID
+	UIDs of folders from which to export rules
 
 .PP
 \fB--format\fP=""
-	Format
+	Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: "yaml"
 
 .PP
 \fB--group\fP=""
-	Group
+	Name of group of rules to export. Must be specified only together with a single folder UID
 
 .PP
 \fB-h\fP, \fB--help\fP[=false]
@@ -33,7 +33,7 @@ gf-provisioning-get-alert-rules-export -
 
 .PP
 \fB--rule-uid\fP=""
-	RuleUID
+	UID of alert rule to export. If specified, parameters folderUid and group must be empty.
 
 
 .SH OPTIONS INHERITED FROM PARENT COMMANDS

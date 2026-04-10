@@ -1,6 +1,6 @@
 ## gf access-control list-users-roles
 
-
+Lists roles assigned to multiple users
 
 ```
 gf access-control list-users-roles [flags]

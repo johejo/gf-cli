@@ -1,6 +1,6 @@
 ## gf signed-in-user get-signed-in-user
 
-
+Get (current authenticated user)
 
 ```
 gf signed-in-user get-signed-in-user [flags]

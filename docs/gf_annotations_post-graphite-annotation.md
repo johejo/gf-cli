@@ -1,6 +1,6 @@
 ## gf annotations post-graphite-annotation
 
-
+Creates annotation in graphite format
 
 ```
 gf annotations post-graphite-annotation [flags]

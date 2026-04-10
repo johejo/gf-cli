@@ -1,6 +1,6 @@
 ## gf org get-pending-org-invites
 
-
+Gets pending invites
 
 ```
 gf org get-pending-org-invites [flags]

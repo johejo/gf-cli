@@ -1,6 +1,6 @@
 ## gf signed-in-user change-user-password
 
-
+Changes password
 
 ```
 gf signed-in-user change-user-password [flags]

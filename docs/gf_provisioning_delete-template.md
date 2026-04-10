@@ -10,8 +10,8 @@ gf provisioning delete-template [flags]
 
 ```
   -h, --help             help for delete-template
-      --name string      Name of the provisioning
-      --version string   Version
+      --name string      Template group name
+      --version string   Version of template to use for optimistic concurrency. Leave empty to disable validation
 ```
 
 ### Options inherited from parent commands

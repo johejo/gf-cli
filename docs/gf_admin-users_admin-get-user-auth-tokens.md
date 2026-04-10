@@ -1,6 +1,6 @@
 ## gf admin-users admin-get-user-auth-tokens
 
-
+Returns a list of all auth tokens devices that the user currently have logged in from
 
 ```
 gf admin-users admin-get-user-auth-tokens [flags]

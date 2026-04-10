@@ -1,6 +1,6 @@
 ## gf licensing get-custom-permissions-csv
 
-
+Gets custom permissions report in CSV format
 
 ```
 gf licensing get-custom-permissions-csv [flags]

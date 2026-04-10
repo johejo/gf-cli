@@ -1,6 +1,6 @@
 ## gf orgs create-org
 
-
+Creates organization
 
 ```
 gf orgs create-org [flags]

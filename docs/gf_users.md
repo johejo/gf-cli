@@ -27,10 +27,10 @@ gf users [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf users get-user-by-login-or-email](gf_users_get-user-by-login-or-email.md)	 - 
-* [gf users get-user-org-list](gf_users_get-user-org-list.md)	 - 
-* [gf users get-user-teams](gf_users_get-user-teams.md)	 - 
+* [gf users get-user-by-login-or-email](gf_users_get-user-by-login-or-email.md)	 - Gets user by login or email
+* [gf users get-user-org-list](gf_users_get-user-org-list.md)	 - Gets organizations for user
+* [gf users get-user-teams](gf_users_get-user-teams.md)	 - Gets teams for user
 * [gf users search-users](gf_users_search-users.md)	 - 
-* [gf users search-users-with-paging](gf_users_search-users-with-paging.md)	 - 
-* [gf users update-user](gf_users_update-user.md)	 - 
+* [gf users search-users-with-paging](gf_users_search-users-with-paging.md)	 - Gets users with paging
+* [gf users update-user](gf_users_update-user.md)	 - Updates user
 

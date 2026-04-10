@@ -1,6 +1,6 @@
 ## gf admin-users admin-update-user-password
 
-
+Sets password for user
 
 ```
 gf admin-users admin-update-user-password [flags]

@@ -1,6 +1,6 @@
 ## gf dashboards create-public-dashboard
 
-
+Create public dashboard for a dashboard
 
 ```
 gf dashboards create-public-dashboard [flags]

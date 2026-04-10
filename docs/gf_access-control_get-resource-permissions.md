@@ -1,6 +1,6 @@
 ## gf access-control get-resource-permissions
 
-
+Gets permissions for a resource
 
 ```
 gf access-control get-resource-permissions [flags]

@@ -1,6 +1,6 @@
 ## gf orgs get-org-by-name
 
-
+Gets organization by name
 
 ```
 gf orgs get-org-by-name [flags]

@@ -1,6 +1,6 @@
 ## gf org get-current-org
 
-
+Gets current organization
 
 ```
 gf org get-current-org [flags]

@@ -1,6 +1,6 @@
 ## gf admin admin-get-settings
 
-
+Fetches settings
 
 ```
 gf admin admin-get-settings [flags]

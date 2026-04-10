@@ -1,6 +1,6 @@
 ## gf signed-in-user get-user-auth-tokens
 
-
+Auths tokens of the actual user
 
 ```
 gf signed-in-user get-user-auth-tokens [flags]

@@ -1,6 +1,6 @@
 ## gf provisioning get-mute-timings
 
-
+Gets all the mute timings
 
 ```
 gf provisioning get-mute-timings [flags]

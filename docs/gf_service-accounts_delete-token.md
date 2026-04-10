@@ -1,6 +1,6 @@
 ## gf service-accounts delete-token
 
-
+Deletes token deletes service account tokens
 
 ```
 gf service-accounts delete-token [flags]

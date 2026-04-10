@@ -1,6 +1,6 @@
 ## gf dashboards list-public-dashboards
 
-
+Get list of public dashboards
 
 ```
 gf dashboards list-public-dashboards [flags]

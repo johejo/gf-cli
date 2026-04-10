@@ -1,6 +1,6 @@
 ## gf ldap-debug get-sync-status
 
-
+Returns the current state of the LDAP background sync integration
 
 ```
 gf ldap-debug get-sync-status [flags]

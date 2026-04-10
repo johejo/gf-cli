@@ -1,6 +1,6 @@
 ## gf admin-users admin-disable-user
 
-
+Disables user
 
 ```
 gf admin-users admin-disable-user [flags]

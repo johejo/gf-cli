@@ -1,6 +1,6 @@
 ## gf service-accounts list-tokens
 
-
+Gets service account tokens
 
 ```
 gf service-accounts list-tokens [flags]

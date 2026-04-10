@@ -1,6 +1,6 @@
 ## gf enterprise set-datasource-cache-config
 
-
+Set cache config for a single data source
 
 ```
 gf enterprise set-datasource-cache-config [flags]

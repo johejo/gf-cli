@@ -1,6 +1,6 @@
 ## gf reports create-report
 
-
+Creates a report
 
 ```
 gf reports create-report [flags]

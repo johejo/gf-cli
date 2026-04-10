@@ -27,11 +27,11 @@ gf library-elements [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf library-elements create-library-element](gf_library-elements_create-library-element.md)	 - 
-* [gf library-elements delete-library-element-by-uid](gf_library-elements_delete-library-element-by-uid.md)	 - 
-* [gf library-elements get-library-element-by-name](gf_library-elements_get-library-element-by-name.md)	 - 
-* [gf library-elements get-library-element-by-uid](gf_library-elements_get-library-element-by-uid.md)	 - 
-* [gf library-elements get-library-element-connections](gf_library-elements_get-library-element-connections.md)	 - 
+* [gf library-elements create-library-element](gf_library-elements_create-library-element.md)	 - Creates library element
+* [gf library-elements delete-library-element-by-uid](gf_library-elements_delete-library-element-by-uid.md)	 - Deletes library element
+* [gf library-elements get-library-element-by-name](gf_library-elements_get-library-element-by-name.md)	 - Gets library element by name
+* [gf library-elements get-library-element-by-uid](gf_library-elements_get-library-element-by-uid.md)	 - Gets library element by UID
+* [gf library-elements get-library-element-connections](gf_library-elements_get-library-element-connections.md)	 - Gets library element connections
 * [gf library-elements get-library-elements](gf_library-elements_get-library-elements.md)	 - 
-* [gf library-elements update-library-element](gf_library-elements_update-library-element.md)	 - 
+* [gf library-elements update-library-element](gf_library-elements_update-library-element.md)	 - Updates library element
 

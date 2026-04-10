@@ -1,6 +1,6 @@
 ## gf convert-prometheus convert-prometheus-get-rule-group
 
-
+Gets a single rule group in prometheus compatible format if it was imported from a prometheus compatible source
 
 ```
 gf convert-prometheus convert-prometheus-get-rule-group [flags]

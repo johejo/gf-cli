@@ -1,6 +1,6 @@
 ## gf migrations create-snapshot
 
-
+Triggers the creation of an instance snapshot associated with the provided session
 
 ```
 gf migrations create-snapshot [flags]
@@ -11,7 +11,7 @@ gf migrations create-snapshot [flags]
 ```
       --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
   -h, --help          help for create-snapshot
-      --uid string    Unique identifier (uid)
+      --uid string    UID of a session
 ```
 
 ### Options inherited from parent commands

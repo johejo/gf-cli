@@ -1,6 +1,6 @@
 ## gf datasources get-datasources
 
-
+Gets all data sources
 
 ```
 gf datasources get-datasources [flags]

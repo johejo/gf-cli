@@ -1,6 +1,6 @@
 ## gf datasources delete-correlation
 
-
+Deletes a correlation
 
 ```
 gf datasources delete-correlation [flags]
@@ -11,7 +11,7 @@ gf datasources delete-correlation [flags]
 ```
       --correlation-uid string   CorrelationUID
   -h, --help                     help for delete-correlation
-      --uid string               Unique identifier (uid)
+      --uid string               UID
 ```
 
 ### Options inherited from parent commands

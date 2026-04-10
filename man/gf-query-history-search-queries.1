@@ -1,5 +1,5 @@
 .nh
-.TH "GF-QUERY-HISTORY-SEARCH-QUERIES" "1" "Feb 2026" "" ""
+.TH "GF-QUERY-HISTORY-SEARCH-QUERIES" "1" "Apr 2026" "" ""
 
 .SH NAME
 gf-query-history-search-queries -
@@ -13,11 +13,11 @@ gf-query-history-search-queries -
 
 .SH OPTIONS
 \fB--datasource-uid\fP=[]
-	DatasourceUID
+	List of data source UIDs to search for
 
 .PP
 \fB--from\fP=0
-	From
+	From range for the query history search
 
 .PP
 \fB-h\fP, \fB--help\fP[=false]
@@ -25,27 +25,27 @@ gf-query-history-search-queries -
 
 .PP
 \fB--limit\fP=0
-	Limit
+	Limit the number of returned results
 
 .PP
 \fB--only-starred\fP[=false]
-	OnlyStarred
+	Flag indicating if only starred queries should be returned
 
 .PP
 \fB--page\fP=0
-	Page
+	Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size.
 
 .PP
 \fB--search-string\fP=""
-	SearchString
+	Text inside query or comments that is searched for
 
 .PP
 \fB--sort\fP=""
-	Sort
+	Sort method Default: "time-desc"
 
 .PP
 \fB--to\fP=0
-	To
+	To range for the query history search
 
 
 .SH OPTIONS INHERITED FROM PARENT COMMANDS

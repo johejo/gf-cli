@@ -1,6 +1,6 @@
 ## gf dashboards delete-dashboard-by-uid
 
-
+Deletes dashboard by uid
 
 ```
 gf dashboards delete-dashboard-by-uid [flags]
@@ -10,7 +10,7 @@ gf dashboards delete-dashboard-by-uid [flags]
 
 ```
   -h, --help         help for delete-dashboard-by-uid
-      --uid string   Unique identifier (uid)
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

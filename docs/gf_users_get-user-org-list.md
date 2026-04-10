@@ -1,6 +1,6 @@
 ## gf users get-user-org-list
 
-
+Gets organizations for user
 
 ```
 gf users get-user-org-list [flags]

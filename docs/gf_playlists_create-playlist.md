@@ -1,6 +1,6 @@
 ## gf playlists create-playlist
 
-
+Creates playlist
 
 ```
 gf playlists create-playlist [flags]

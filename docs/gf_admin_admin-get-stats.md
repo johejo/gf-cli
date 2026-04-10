@@ -1,6 +1,6 @@
 ## gf admin admin-get-stats
 
-
+Fetches grafana stats
 
 ```
 gf admin admin-get-stats [flags]

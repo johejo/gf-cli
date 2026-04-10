@@ -1,6 +1,6 @@
 ## gf migrations create-cloud-migration-token
 
-
+Creates gcom access token
 
 ```
 gf migrations create-cloud-migration-token [flags]

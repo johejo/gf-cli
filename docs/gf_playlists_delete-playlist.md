@@ -1,6 +1,6 @@
 ## gf playlists delete-playlist
 
-
+Deletes playlist
 
 ```
 gf playlists delete-playlist [flags]
@@ -10,7 +10,7 @@ gf playlists delete-playlist [flags]
 
 ```
   -h, --help         help for delete-playlist
-      --uid string   Unique identifier (uid)
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

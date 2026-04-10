@@ -1,6 +1,6 @@
 ## gf datasources add-datasource
 
-
+Creates a data source
 
 ```
 gf datasources add-datasource [flags]

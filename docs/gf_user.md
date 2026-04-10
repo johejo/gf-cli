@@ -27,5 +27,5 @@ gf user [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf user update-user-email](gf_user_update-user-email.md)	 - 
+* [gf user update-user-email](gf_user_update-user-email.md)	 - Updates user email
 

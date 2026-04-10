@@ -1,6 +1,6 @@
 ## gf teams create-team
 
-
+Adds team
 
 ```
 gf teams create-team [flags]

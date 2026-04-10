@@ -1,6 +1,6 @@
 ## gf library-elements update-library-element
 
-
+Updates library element
 
 ```
 gf library-elements update-library-element [flags]

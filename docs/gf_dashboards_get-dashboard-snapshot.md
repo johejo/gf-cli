@@ -1,6 +1,6 @@
 ## gf dashboards get-dashboard-snapshot
 
-
+Gets snapshot by key
 
 ```
 gf dashboards get-dashboard-snapshot [flags]

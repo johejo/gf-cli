@@ -27,5 +27,5 @@ gf snapshots [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf snapshots get-sharing-options](gf_snapshots_get-sharing-options.md)	 - 
+* [gf snapshots get-sharing-options](gf_snapshots_get-sharing-options.md)	 - Gets snapshot sharing settings
 

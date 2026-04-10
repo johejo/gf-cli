@@ -1,6 +1,6 @@
 ## gf teams get-team-members
 
-
+Gets team members
 
 ```
 gf teams get-team-members [flags]

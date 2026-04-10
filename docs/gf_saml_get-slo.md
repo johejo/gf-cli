@@ -1,6 +1,6 @@
 ## gf saml get-slo
 
-
+Its performs single logout s l o callback
 
 ```
 gf saml get-slo [flags]

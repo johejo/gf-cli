@@ -27,14 +27,14 @@ gf orgs [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf orgs add-org-user](gf_orgs_add-org-user.md)	 - 
-* [gf orgs create-org](gf_orgs_create-org.md)	 - 
-* [gf orgs get-org-by-name](gf_orgs_get-org-by-name.md)	 - 
-* [gf orgs get-org-users](gf_orgs_get-org-users.md)	 - 
-* [gf orgs remove-org-user](gf_orgs_remove-org-user.md)	 - 
-* [gf orgs search-org-users](gf_orgs_search-org-users.md)	 - 
+* [gf orgs add-org-user](gf_orgs_add-org-user.md)	 - Adds a new user to the current organization
+* [gf orgs create-org](gf_orgs_create-org.md)	 - Creates organization
+* [gf orgs get-org-by-name](gf_orgs_get-org-by-name.md)	 - Gets organization by name
+* [gf orgs get-org-users](gf_orgs_get-org-users.md)	 - Gets users in organization
+* [gf orgs remove-org-user](gf_orgs_remove-org-user.md)	 - Deletes user in current organization
+* [gf orgs search-org-users](gf_orgs_search-org-users.md)	 - Searches users in organization
 * [gf orgs search-orgs](gf_orgs_search-orgs.md)	 - 
-* [gf orgs update-org](gf_orgs_update-org.md)	 - 
-* [gf orgs update-org-address](gf_orgs_update-org-address.md)	 - 
+* [gf orgs update-org](gf_orgs_update-org.md)	 - Updates organization
+* [gf orgs update-org-address](gf_orgs_update-org-address.md)	 - Updates organization s address
 * [gf orgs update-org-user](gf_orgs_update-org-user.md)	 - 
 

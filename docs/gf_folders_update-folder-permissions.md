@@ -1,6 +1,6 @@
 ## gf folders update-folder-permissions
 
-
+Updates permissions for a folder this operation will remove existing permissions if they re not included in the request
 
 ```
 gf folders update-folder-permissions [flags]

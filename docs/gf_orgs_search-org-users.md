@@ -1,6 +1,6 @@
 ## gf orgs search-org-users
 
-
+Searches users in organization
 
 ```
 gf orgs search-org-users [flags]

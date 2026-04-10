@@ -1,6 +1,6 @@
 ## gf access-control list-teams-roles
 
-
+Lists roles assigned to multiple teams
 
 ```
 gf access-control list-teams-roles [flags]

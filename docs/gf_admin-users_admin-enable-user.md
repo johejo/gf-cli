@@ -1,6 +1,6 @@
 ## gf admin-users admin-enable-user
 
-
+Enables user
 
 ```
 gf admin-users admin-enable-user [flags]

@@ -1,6 +1,6 @@
 ## gf provisioning get-alert-rule-group
 
-
+Gets a rule group
 
 ```
 gf provisioning get-alert-rule-group [flags]

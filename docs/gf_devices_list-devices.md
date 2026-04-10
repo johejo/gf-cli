@@ -1,6 +1,6 @@
 ## gf devices list-devices
 
-
+Lists all devices within the last 30 days
 
 ```
 gf devices list-devices [flags]

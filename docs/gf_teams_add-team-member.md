@@ -1,6 +1,6 @@
 ## gf teams add-team-member
 
-
+Adds team member
 
 ```
 gf teams add-team-member [flags]

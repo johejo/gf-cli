@@ -1,6 +1,6 @@
 ## gf provisioning get-policy-tree
 
-
+Gets the notification policy tree
 
 ```
 gf provisioning get-policy-tree [flags]

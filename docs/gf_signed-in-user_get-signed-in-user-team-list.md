@@ -1,6 +1,6 @@
 ## gf signed-in-user get-signed-in-user-team-list
 
-
+Teams that the actual user is member of
 
 ```
 gf signed-in-user get-signed-in-user-team-list [flags]

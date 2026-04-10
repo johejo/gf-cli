@@ -1,6 +1,6 @@
 ## gf datasources get-correlations-by-source-uid
 
-
+Gets all correlations originating from the given data source
 
 ```
 gf datasources get-correlations-by-source-uid [flags]

@@ -1,6 +1,6 @@
 ## gf sso-settings get-provider-settings
 
-
+Gets an s s o settings entry by key
 
 ```
 gf sso-settings get-provider-settings [flags]

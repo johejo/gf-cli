@@ -9,8 +9,8 @@ gf provisioning export-mute-timings [flags]
 ### Options
 
 ```
-      --download        Download
-      --format string   Format
+      --download        Whether to initiate a download of the file or not.
+      --format string   Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: "yaml"
   -h, --help            help for export-mute-timings
 ```
 

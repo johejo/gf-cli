@@ -1,6 +1,6 @@
 ## gf access-control remove-team-role
 
-
+Removes team role
 
 ```
 gf access-control remove-team-role [flags]

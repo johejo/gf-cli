@@ -1,6 +1,6 @@
 ## gf convert-prometheus convert-prometheus-cortex-post-rule-groups
 
-
+Converts the submitted rule groups into grafana managed rules
 
 ```
 gf convert-prometheus convert-prometheus-cortex-post-rule-groups [flags]

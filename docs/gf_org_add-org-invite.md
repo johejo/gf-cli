@@ -1,6 +1,6 @@
 ## gf org add-org-invite
 
-
+Adds invite
 
 ```
 gf org add-org-invite [flags]

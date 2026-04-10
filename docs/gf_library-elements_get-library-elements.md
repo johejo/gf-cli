@@ -9,15 +9,15 @@ gf library-elements get-library-elements [flags]
 ### Options
 
 ```
-      --exclude-uid string      ExcludeUID
-      --folder-filter string    FolderFilter
+      --exclude-uid string      Element UID to exclude from search results.
+      --folder-filter string    A comma separated list of folder ID(s) to filter the elements by.
   -h, --help                    help for get-library-elements
-      --kind int                Kind
-      --page int                Page
-      --per-page int            PerPage
-      --search-string string    SearchString
-      --sort-direction string   SortDirection
-      --type-filter string      TypeFilter
+      --kind int                Kind of element to search for.
+      --page int                The page for a set of records, given that only perPage records are returned at a time. Numbering starts at 1. Default: 1
+      --per-page int            The number of results per page. Default: 100
+      --search-string string    Part of the name or description searched for.
+      --sort-direction string   Sort order of elements.
+      --type-filter string      A comma separated list of types to filter the elements by
 ```
 
 ### Options inherited from parent commands

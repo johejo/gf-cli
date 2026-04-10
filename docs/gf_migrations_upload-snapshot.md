@@ -1,6 +1,6 @@
 ## gf migrations upload-snapshot
 
-
+Uploads a snapshot to the grafana migration service for processing
 
 ```
 gf migrations upload-snapshot [flags]
@@ -10,8 +10,8 @@ gf migrations upload-snapshot [flags]
 
 ```
   -h, --help                  help for upload-snapshot
-      --snapshot-uid string   SnapshotUID
-      --uid string            Unique identifier (uid)
+      --snapshot-uid string   UID of a snapshot
+      --uid string            Session UID of a session
 ```
 
 ### Options inherited from parent commands

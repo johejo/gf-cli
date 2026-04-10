@@ -1,6 +1,6 @@
 ## gf provisioning get-mute-timing
 
-
+Gets a mute timing
 
 ```
 gf provisioning get-mute-timing [flags]
@@ -10,7 +10,7 @@ gf provisioning get-mute-timing [flags]
 
 ```
   -h, --help          help for get-mute-timing
-      --name string   Name of the provisioning
+      --name string   Mute timing name
 ```
 
 ### Options inherited from parent commands

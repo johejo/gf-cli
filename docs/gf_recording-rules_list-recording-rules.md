@@ -1,6 +1,6 @@
 ## gf recording-rules list-recording-rules
 
-
+Lists all rules in the database active or deleted
 
 ```
 gf recording-rules list-recording-rules [flags]

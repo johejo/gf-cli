@@ -10,10 +10,10 @@ gf sync-team-groups search-team-groups [flags]
 
 ```
   -h, --help           help for search-team-groups
-      --name string    Name of the syncTeamGroup
-      --page int       Page
-      --perpage int    Perpage (default 1000)
-      --query string   Query
+      --name string    Filter by exact name match
+      --page int       Default: 1
+      --perpage int    Number of items per page Default: 1000 (default 1000)
+      --query string   If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded.
       --team-id int    TeamID
 ```
 

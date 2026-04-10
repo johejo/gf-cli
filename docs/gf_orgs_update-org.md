@@ -1,6 +1,6 @@
 ## gf orgs update-org
 
-
+Updates organization
 
 ```
 gf orgs update-org [flags]

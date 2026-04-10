@@ -1,6 +1,6 @@
 ## gf dashboards import-dashboard
 
-
+Imports dashboard
 
 ```
 gf dashboards import-dashboard [flags]

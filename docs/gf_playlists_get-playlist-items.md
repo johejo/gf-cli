@@ -1,6 +1,6 @@
 ## gf playlists get-playlist-items
 
-
+Gets playlist items
 
 ```
 gf playlists get-playlist-items [flags]
@@ -10,7 +10,7 @@ gf playlists get-playlist-items [flags]
 
 ```
   -h, --help         help for get-playlist-items
-      --uid string   Unique identifier (uid)
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

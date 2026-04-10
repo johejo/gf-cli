@@ -1,6 +1,6 @@
 ## gf admin-ldap get-user-from-ldap
 
-
+Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when synced
 
 ```
 gf admin-ldap get-user-from-ldap [flags]

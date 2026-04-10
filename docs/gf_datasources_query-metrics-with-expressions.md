@@ -1,6 +1,6 @@
 ## gf datasources query-metrics-with-expressions
 
-
+Data source query metrics with expressions
 
 ```
 gf datasources query-metrics-with-expressions [flags]

@@ -1,5 +1,5 @@
 .nh
-.TH "GF-LIBRARY-ELEMENTS-GET-LIBRARY-ELEMENTS" "1" "Feb 2026" "" ""
+.TH "GF-LIBRARY-ELEMENTS-GET-LIBRARY-ELEMENTS" "1" "Apr 2026" "" ""
 
 .SH NAME
 gf-library-elements-get-library-elements -
@@ -13,11 +13,11 @@ gf-library-elements-get-library-elements -
 
 .SH OPTIONS
 \fB--exclude-uid\fP=""
-	ExcludeUID
+	Element UID to exclude from search results.
 
 .PP
 \fB--folder-filter\fP=""
-	FolderFilter
+	A comma separated list of folder ID(s) to filter the elements by.
 
 .PP
 \fB-h\fP, \fB--help\fP[=false]
@@ -25,27 +25,27 @@ gf-library-elements-get-library-elements -
 
 .PP
 \fB--kind\fP=0
-	Kind
+	Kind of element to search for.
 
 .PP
 \fB--page\fP=0
-	Page
+	The page for a set of records, given that only perPage records are returned at a time. Numbering starts at 1. Default: 1
 
 .PP
 \fB--per-page\fP=0
-	PerPage
+	The number of results per page. Default: 100
 
 .PP
 \fB--search-string\fP=""
-	SearchString
+	Part of the name or description searched for.
 
 .PP
 \fB--sort-direction\fP=""
-	SortDirection
+	Sort order of elements.
 
 .PP
 \fB--type-filter\fP=""
-	TypeFilter
+	A comma separated list of types to filter the elements by
 
 
 .SH OPTIONS INHERITED FROM PARENT COMMANDS

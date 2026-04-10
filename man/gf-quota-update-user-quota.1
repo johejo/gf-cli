@@ -1,0 +1,61 @@
+.nh
+.TH "GF-QUOTA-UPDATE-USER-QUOTA" "1" "Apr 2026" "" ""
+
+.SH NAME
+gf-quota-update-user-quota -
+
+
+.SH SYNOPSIS
+\fBgf quota update-user-quota [flags]\fP
+
+
+.SH DESCRIPTION
+
+.SH OPTIONS
+\fB--body\fP=""
+	The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+
+.PP
+\fB-h\fP, \fB--help\fP[=false]
+	help for update-user-quota
+
+.PP
+\fB--quota-target\fP=""
+	QuotaTarget
+
+.PP
+\fB--user-id\fP=0
+	UserID
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+\fB--api-key\fP=""
+	API Key to authenticate to grafana server (env: GF_API_KEY)
+
+.PP
+\fB--base-path\fP="/api"
+	Base path for server: useful when using sever behind reverse proxy (env: GF_BASE_PATH)
+
+.PP
+\fB--basic-user-password\fP=""
+	Basic authentication password (env: GF_BASIC_AUTH_USERNAME)
+
+.PP
+\fB--basic-user-username\fP=""
+	Basic authentication username (env: GF_BASIC_AUTH_PASSWORD)
+
+.PP
+\fB--debug\fP[=false]
+	Enable debug logging (env: GF_DEBUG)
+
+.PP
+\fB--host\fP="localhost:3000"
+	Grafana server host (env: GF_HOST)
+
+.PP
+\fB--org-id\fP=0
+	Organization ID (env: GF_ORG_ID)
+
+
+.SH SEE ALSO
+\fBgf-quota(1)\fP

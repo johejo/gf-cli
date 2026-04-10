@@ -1,6 +1,6 @@
 ## gf access-control-provisioning admin-provisioning-reload-access-control
 
-
+Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol
 
 ```
 gf access-control-provisioning admin-provisioning-reload-access-control [flags]

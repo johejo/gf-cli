@@ -1,6 +1,6 @@
 ## gf dashboards delete-dashboard-snapshot
 
-
+Deletes snapshot by key
 
 ```
 gf dashboards delete-dashboard-snapshot [flags]

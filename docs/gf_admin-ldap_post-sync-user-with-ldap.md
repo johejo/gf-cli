@@ -1,6 +1,6 @@
 ## gf admin-ldap post-sync-user-with-ldap
 
-
+Enables a single grafana user to be synchronized against LDAP
 
 ```
 gf admin-ldap post-sync-user-with-ldap [flags]

@@ -1,6 +1,6 @@
 ## gf provisioning reset-policy-tree
 
-
+Clears the notification policy tree
 
 ```
 gf provisioning reset-policy-tree [flags]

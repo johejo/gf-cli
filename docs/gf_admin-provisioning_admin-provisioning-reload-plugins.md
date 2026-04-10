@@ -1,6 +1,6 @@
 ## gf admin-provisioning admin-provisioning-reload-plugins
 
-
+Reloads plugin provisioning configurations
 
 ```
 gf admin-provisioning admin-provisioning-reload-plugins [flags]

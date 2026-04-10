@@ -1,6 +1,6 @@
 ## gf access-control update-role
 
-
+Updates a custom role
 
 ```
 gf access-control update-role [flags]

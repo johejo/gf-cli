@@ -1,6 +1,6 @@
 ## gf datasources create-correlation
 
-
+Adds correlation
 
 ```
 gf datasources create-correlation [flags]

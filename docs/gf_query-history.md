@@ -27,10 +27,10 @@ gf query-history [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf query-history create-query](gf_query-history_create-query.md)	 - 
-* [gf query-history delete-query](gf_query-history_delete-query.md)	 - 
-* [gf query-history patch-query-comment](gf_query-history_patch-query-comment.md)	 - 
+* [gf query-history create-query](gf_query-history_create-query.md)	 - Adds query to query history
+* [gf query-history delete-query](gf_query-history_delete-query.md)	 - Deletes query in query history
+* [gf query-history patch-query-comment](gf_query-history_patch-query-comment.md)	 - Updates comment for query in query history
 * [gf query-history search-queries](gf_query-history_search-queries.md)	 - 
-* [gf query-history star-query](gf_query-history_star-query.md)	 - 
-* [gf query-history unstar-query](gf_query-history_unstar-query.md)	 - 
+* [gf query-history star-query](gf_query-history_star-query.md)	 - Adds star to query in query history
+* [gf query-history unstar-query](gf_query-history_unstar-query.md)	 - Removes star to query in query history
 

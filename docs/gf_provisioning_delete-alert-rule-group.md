@@ -1,6 +1,6 @@
 ## gf provisioning delete-alert-rule-group
 
-
+Delete rule group
 
 ```
 gf provisioning delete-alert-rule-group [flags]

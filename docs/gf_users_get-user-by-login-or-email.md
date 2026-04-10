@@ -1,6 +1,6 @@
 ## gf users get-user-by-login-or-email
 
-
+Gets user by login or email
 
 ```
 gf users get-user-by-login-or-email [flags]
@@ -10,7 +10,7 @@ gf users get-user-by-login-or-email [flags]
 
 ```
   -h, --help                    help for get-user-by-login-or-email
-      --login-or-email string   LoginOrEmail
+      --login-or-email string   loginOrEmail of the user
 ```
 
 ### Options inherited from parent commands

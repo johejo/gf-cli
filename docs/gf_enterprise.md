@@ -27,12 +27,12 @@ gf enterprise [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf enterprise clean-datasource-cache](gf_enterprise_clean-datasource-cache.md)	 - 
-* [gf enterprise disable-datasource-cache](gf_enterprise_disable-datasource-cache.md)	 - 
-* [gf enterprise enable-datasource-cache](gf_enterprise_enable-datasource-cache.md)	 - 
-* [gf enterprise get-datasource-cache-config](gf_enterprise_get-datasource-cache-config.md)	 - 
-* [gf enterprise get-team-lbac-rules-api](gf_enterprise_get-team-lbac-rules-api.md)	 - 
-* [gf enterprise search-result](gf_enterprise_search-result.md)	 - 
-* [gf enterprise set-datasource-cache-config](gf_enterprise_set-datasource-cache-config.md)	 - 
+* [gf enterprise clean-datasource-cache](gf_enterprise_clean-datasource-cache.md)	 - Clean cache for a single data source
+* [gf enterprise disable-datasource-cache](gf_enterprise_disable-datasource-cache.md)	 - Disable cache for a single data source
+* [gf enterprise enable-datasource-cache](gf_enterprise_enable-datasource-cache.md)	 - Enable cache for a single data source
+* [gf enterprise get-datasource-cache-config](gf_enterprise_get-datasource-cache-config.md)	 - Get cache config for a single data source
+* [gf enterprise get-team-lbac-rules-api](gf_enterprise_get-team-lbac-rules-api.md)	 - Retrieves l b a c rules for a team
+* [gf enterprise search-result](gf_enterprise_search-result.md)	 - Debugs permissions
+* [gf enterprise set-datasource-cache-config](gf_enterprise_set-datasource-cache-config.md)	 - Set cache config for a single data source
 * [gf enterprise update-team-lbac-rules-api](gf_enterprise_update-team-lbac-rules-api.md)	 - 
 

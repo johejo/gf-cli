@@ -1,6 +1,6 @@
 ## gf health get-health
 
-
+ApiHealthHandler will return ok if Grafana's web server is running and it
 
 ```
 gf health get-health [flags]

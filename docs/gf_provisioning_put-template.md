@@ -11,7 +11,7 @@ gf provisioning put-template [flags]
 ```
       --body string                   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
   -h, --help                          help for put-template
-      --name string                   Name of the provisioning
+      --name string                   Template group name
       --x-disable-provenance string   XDisableProvenance
 ```
 

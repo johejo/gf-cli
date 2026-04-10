@@ -1,6 +1,6 @@
 ## gf reports save-report-settings
 
-
+Saves settings
 
 ```
 gf reports save-report-settings [flags]

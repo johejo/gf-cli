@@ -9,11 +9,11 @@ gf provisioning get-contactpoints-export [flags]
 ### Options
 
 ```
-      --decrypt         Decrypt
-      --download        Download
-      --format string   Format
+      --decrypt         Whether any contained secure settings should be decrypted or left redacted. Redacted settings will contain RedactedValue instead. Currently, only org admin can view decrypted secure settings.
+      --download        Whether to initiate a download of the file or not.
+      --format string   Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: "yaml"
   -h, --help            help for get-contactpoints-export
-      --name string     Name of the provisioning
+      --name string     Filter by name
 ```
 
 ### Options inherited from parent commands

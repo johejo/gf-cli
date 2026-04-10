@@ -1,6 +1,6 @@
 ## gf access-control add-team-role
 
-
+Adds team role
 
 ```
 gf access-control add-team-role [flags]

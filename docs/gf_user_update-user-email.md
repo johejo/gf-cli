@@ -1,6 +1,6 @@
 ## gf user update-user-email
 
-
+Updates user email
 
 ```
 gf user update-user-email [flags]

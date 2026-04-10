@@ -1,6 +1,6 @@
 ## gf admin-users admin-update-user-permissions
 
-
+Sets permissions for user
 
 ```
 gf admin-users admin-update-user-permissions [flags]

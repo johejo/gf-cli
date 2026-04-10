@@ -1,6 +1,6 @@
 ## gf dashboards get-home-dashboard
 
-
+Gets home dashboard
 
 ```
 gf dashboards get-home-dashboard [flags]

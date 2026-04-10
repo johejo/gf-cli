@@ -1,6 +1,6 @@
 ## gf admin-ldap reload-ldap-cfg
 
-
+Reloads the LDAP configuration
 
 ```
 gf admin-ldap reload-ldap-cfg [flags]

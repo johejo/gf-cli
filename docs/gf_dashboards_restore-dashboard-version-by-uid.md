@@ -1,6 +1,6 @@
 ## gf dashboards restore-dashboard-version-by-uid
 
-
+Restores a dashboard to a given dashboard version using UID
 
 ```
 gf dashboards restore-dashboard-version-by-uid [flags]
@@ -11,7 +11,7 @@ gf dashboards restore-dashboard-version-by-uid [flags]
 ```
       --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
   -h, --help          help for restore-dashboard-version-by-uid
-      --uid string    Unique identifier (uid)
+      --uid string    UID
 ```
 
 ### Options inherited from parent commands

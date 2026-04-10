@@ -1,6 +1,6 @@
 ## gf teams set-team-memberships
 
-
+Sets team memberships
 
 ```
 gf teams set-team-memberships [flags]

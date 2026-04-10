@@ -1,6 +1,6 @@
 ## gf saml get-saml-logout
 
-
+Gets logout initiates single logout process
 
 ```
 gf saml get-saml-logout [flags]

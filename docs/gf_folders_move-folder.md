@@ -1,6 +1,6 @@
 ## gf folders move-folder
 
-
+Moves folder
 
 ```
 gf folders move-folder [flags]

@@ -1,6 +1,6 @@
 ## gf signed-in-user set-help-flag
 
-
+Sets user help flag
 
 ```
 gf signed-in-user set-help-flag [flags]

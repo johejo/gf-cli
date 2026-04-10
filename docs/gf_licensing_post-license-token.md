@@ -1,6 +1,6 @@
 ## gf licensing post-license-token
 
-
+Creates license token
 
 ```
 gf licensing post-license-token [flags]

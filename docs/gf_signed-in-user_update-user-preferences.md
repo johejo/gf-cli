@@ -1,6 +1,6 @@
 ## gf signed-in-user update-user-preferences
 
-
+Updates user preferences
 
 ```
 gf signed-in-user update-user-preferences [flags]

@@ -1,6 +1,6 @@
 ## gf annotations patch-annotation
 
-
+Patches annotation
 
 ```
 gf annotations patch-annotation [flags]

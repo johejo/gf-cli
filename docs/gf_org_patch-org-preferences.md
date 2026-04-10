@@ -1,6 +1,6 @@
 ## gf org patch-org-preferences
 
-
+Patches current org prefs
 
 ```
 gf org patch-org-preferences [flags]

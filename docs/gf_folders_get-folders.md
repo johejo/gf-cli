@@ -10,10 +10,10 @@ gf folders get-folders [flags]
 
 ```
   -h, --help                help for get-folders
-      --limit int           Limit
-      --page int            Page
-      --parent-uid string   ParentUID
-      --permission string   Permission
+      --limit int           Limit the maximum number of folders to return Default: 1000
+      --page int            Page index for starting fetching folders Default: 1
+      --parent-uid string   The parent folder UID
+      --permission Edit     Set to Edit to return folders that the user can edit Default: "View"
 ```
 
 ### Options inherited from parent commands

@@ -1,6 +1,6 @@
 ## gf signed-in-user user-set-using-org
 
-
+Switches user context for signed in user
 
 ```
 gf signed-in-user user-set-using-org [flags]

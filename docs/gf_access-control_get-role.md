@@ -1,6 +1,6 @@
 ## gf access-control get-role
 
-
+Gets a role
 
 ```
 gf access-control get-role [flags]

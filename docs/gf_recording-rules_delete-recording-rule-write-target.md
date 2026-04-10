@@ -1,6 +1,6 @@
 ## gf recording-rules delete-recording-rule-write-target
 
-
+Deletes the remote write target
 
 ```
 gf recording-rules delete-recording-rule-write-target [flags]

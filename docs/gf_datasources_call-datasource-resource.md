@@ -1,6 +1,6 @@
 ## gf datasources call-datasource-resource
 
-
+Fetches data source resources
 
 ```
 gf datasources call-datasource-resource [flags]
@@ -11,7 +11,7 @@ gf datasources call-datasource-resource [flags]
 ```
       --datasource-proxy-route string   DatasourceProxyRoute
   -h, --help                            help for call-datasource-resource
-      --uid string                      Unique identifier (uid)
+      --uid string                      UID
 ```
 
 ### Options inherited from parent commands

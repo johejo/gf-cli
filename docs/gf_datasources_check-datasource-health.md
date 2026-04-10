@@ -1,6 +1,6 @@
 ## gf datasources check-datasource-health
 
-
+Sends a health check request to the plugin datasource identified by the UID
 
 ```
 gf datasources check-datasource-health [flags]
@@ -10,7 +10,7 @@ gf datasources check-datasource-health [flags]
 
 ```
   -h, --help         help for check-datasource-health
-      --uid string   Unique identifier (uid)
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

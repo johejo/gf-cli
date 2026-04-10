@@ -1,6 +1,6 @@
 ## gf reports send-test-email
 
-
+Sends test report via email
 
 ```
 gf reports send-test-email [flags]

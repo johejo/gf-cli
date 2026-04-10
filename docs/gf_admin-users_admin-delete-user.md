@@ -1,6 +1,6 @@
 ## gf admin-users admin-delete-user
 
-
+Deletes global user
 
 ```
 gf admin-users admin-delete-user [flags]

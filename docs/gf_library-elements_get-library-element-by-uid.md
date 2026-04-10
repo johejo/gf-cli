@@ -1,6 +1,6 @@
 ## gf library-elements get-library-element-by-uid
 
-
+Gets library element by UID
 
 ```
 gf library-elements get-library-element-by-uid [flags]

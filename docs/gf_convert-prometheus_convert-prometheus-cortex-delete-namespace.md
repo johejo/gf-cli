@@ -1,6 +1,6 @@
 ## gf convert-prometheus convert-prometheus-cortex-delete-namespace
 
-
+Deletes all rule groups that were imported from prometheus compatible sources within the specified namespace
 
 ```
 gf convert-prometheus convert-prometheus-cortex-delete-namespace [flags]

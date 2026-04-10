@@ -1,6 +1,6 @@
 ## gf org remove-org-user-for-current-org
 
-
+Deletes user in current organization
 
 ```
 gf org remove-org-user-for-current-org [flags]

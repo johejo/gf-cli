@@ -1,6 +1,6 @@
 ## gf dashboards create-dashboard-snapshot
 
-
+Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI
 
 ```
 gf dashboards create-dashboard-snapshot [flags]

@@ -1,6 +1,6 @@
 ## gf users get-user-teams
 
-
+Gets teams for user
 
 ```
 gf users get-user-teams [flags]

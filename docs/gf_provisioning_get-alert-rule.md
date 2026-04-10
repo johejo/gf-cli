@@ -1,6 +1,6 @@
 ## gf provisioning get-alert-rule
 
-
+Gets a specific alert rule by UID
 
 ```
 gf provisioning get-alert-rule [flags]
@@ -10,7 +10,7 @@ gf provisioning get-alert-rule [flags]
 
 ```
   -h, --help         help for get-alert-rule
-      --uid string   Unique identifier (uid)
+      --uid string   Alert rule UID
 ```
 
 ### Options inherited from parent commands

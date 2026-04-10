@@ -1,6 +1,6 @@
 ## gf migrations get-resource-dependencies
 
-
+Gets the resource dependencies graph for the current set of migratable resources
 
 ```
 gf migrations get-resource-dependencies [flags]

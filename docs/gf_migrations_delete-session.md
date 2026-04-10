@@ -1,6 +1,6 @@
 ## gf migrations delete-session
 
-
+Deletes a migration session by its uid
 
 ```
 gf migrations delete-session [flags]
@@ -10,7 +10,7 @@ gf migrations delete-session [flags]
 
 ```
   -h, --help         help for delete-session
-      --uid string   Unique identifier (uid)
+      --uid string   UID of a migration session
 ```
 
 ### Options inherited from parent commands

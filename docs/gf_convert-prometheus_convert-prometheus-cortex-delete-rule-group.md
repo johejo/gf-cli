@@ -1,6 +1,6 @@
 ## gf convert-prometheus convert-prometheus-cortex-delete-rule-group
 
-
+Deletes a specific rule group if it was imported from a prometheus compatible source
 
 ```
 gf convert-prometheus convert-prometheus-cortex-delete-rule-group [flags]

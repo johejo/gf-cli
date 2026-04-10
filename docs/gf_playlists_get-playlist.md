@@ -1,6 +1,6 @@
 ## gf playlists get-playlist
 
-
+Gets playlist
 
 ```
 gf playlists get-playlist [flags]
@@ -10,7 +10,7 @@ gf playlists get-playlist [flags]
 
 ```
   -h, --help         help for get-playlist
-      --uid string   Unique identifier (uid)
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

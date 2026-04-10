@@ -1,6 +1,6 @@
 ## gf admin-ldap get-ldap-status
 
-
+Attempts to connect to all the configured LDAP servers and returns information on whenever they re available or not
 
 ```
 gf admin-ldap get-ldap-status [flags]

@@ -1,6 +1,6 @@
 ## gf dashboards view-public-dashboard
 
-
+Get public dashboard for view
 
 ```
 gf dashboards view-public-dashboard [flags]

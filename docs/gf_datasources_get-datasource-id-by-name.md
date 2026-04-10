@@ -1,6 +1,6 @@
 ## gf datasources get-datasource-id-by-name
 
-
+Gets data source Id by name
 
 ```
 gf datasources get-datasource-id-by-name [flags]
@@ -10,7 +10,7 @@ gf datasources get-datasource-id-by-name [flags]
 
 ```
   -h, --help          help for get-datasource-id-by-name
-      --name string   Name of the datasource
+      --name string   Name
 ```
 
 ### Options inherited from parent commands

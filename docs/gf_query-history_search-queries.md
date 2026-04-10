@@ -9,15 +9,15 @@ gf query-history search-queries [flags]
 ### Options
 
 ```
-      --datasource-uid strings   DatasourceUID
-      --from int                 From
+      --datasource-uid strings   List of data source UIDs to search for
+      --from int                 From range for the query history search
   -h, --help                     help for search-queries
-      --limit int                Limit
-      --only-starred             OnlyStarred
-      --page int                 Page
-      --search-string string     SearchString
-      --sort string              Sort
-      --to int                   To
+      --limit int                Limit the number of returned results
+      --only-starred             Flag indicating if only starred queries should be returned
+      --page int                 Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size.
+      --search-string string     Text inside query or comments that is searched for
+      --sort string              Sort method Default: "time-desc"
+      --to int                   To range for the query history search
 ```
 
 ### Options inherited from parent commands

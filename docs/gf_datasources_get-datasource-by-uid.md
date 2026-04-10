@@ -1,6 +1,6 @@
 ## gf datasources get-datasource-by-uid
 
-
+Gets a single data source by UID
 
 ```
 gf datasources get-datasource-by-uid [flags]
@@ -10,7 +10,7 @@ gf datasources get-datasource-by-uid [flags]
 
 ```
   -h, --help         help for get-datasource-by-uid
-      --uid string   Unique identifier (uid)
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

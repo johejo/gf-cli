@@ -1,6 +1,6 @@
 ## gf admin-users admin-revoke-user-auth-token
 
-
+Revokes auth token for user
 
 ```
 gf admin-users admin-revoke-user-auth-token [flags]

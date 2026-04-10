@@ -1,6 +1,6 @@
 ## gf licensing get-license-token
 
-
+Gets license token
 
 ```
 gf licensing get-license-token [flags]

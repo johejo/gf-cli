@@ -1,6 +1,6 @@
 ## gf access-control list-team-roles
 
-
+Gets team roles
 
 ```
 gf access-control list-team-roles [flags]

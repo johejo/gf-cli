@@ -1,6 +1,6 @@
 ## gf dashboards update-dashboard-permissions-by-uid
 
-
+Updates permissions for a dashboard
 
 ```
 gf dashboards update-dashboard-permissions-by-uid [flags]
@@ -11,7 +11,7 @@ gf dashboards update-dashboard-permissions-by-uid [flags]
 ```
       --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
   -h, --help          help for update-dashboard-permissions-by-uid
-      --uid string    Unique identifier (uid)
+      --uid string    UID
 ```
 
 ### Options inherited from parent commands

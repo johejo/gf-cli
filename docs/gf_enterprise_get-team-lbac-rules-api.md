@@ -1,6 +1,6 @@
 ## gf enterprise get-team-lbac-rules-api
 
-
+Retrieves l b a c rules for a team
 
 ```
 gf enterprise get-team-lbac-rules-api [flags]
@@ -10,7 +10,7 @@ gf enterprise get-team-lbac-rules-api [flags]
 
 ```
   -h, --help         help for get-team-lbac-rules-api
-      --uid string   Unique identifier (uid)
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

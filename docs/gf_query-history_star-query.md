@@ -1,6 +1,6 @@
 ## gf query-history star-query
 
-
+Adds star to query in query history
 
 ```
 gf query-history star-query [flags]

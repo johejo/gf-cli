@@ -1,6 +1,6 @@
 ## gf signed-in-user unstar-dashboard-by-uid
 
-
+Unstars a dashboard
 
 ```
 gf signed-in-user unstar-dashboard-by-uid [flags]

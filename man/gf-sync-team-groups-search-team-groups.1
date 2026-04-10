@@ -1,5 +1,5 @@
 .nh
-.TH "GF-SYNC-TEAM-GROUPS-SEARCH-TEAM-GROUPS" "1" "Feb 2026" "" ""
+.TH "GF-SYNC-TEAM-GROUPS-SEARCH-TEAM-GROUPS" "1" "Apr 2026" "" ""
 
 .SH NAME
 gf-sync-team-groups-search-team-groups -
@@ -17,19 +17,19 @@ gf-sync-team-groups-search-team-groups -
 
 .PP
 \fB--name\fP=""
-	Name of the syncTeamGroup
+	Filter by exact name match
 
 .PP
 \fB--page\fP=0
-	Page
+	Default: 1
 
 .PP
 \fB--perpage\fP=1000
-	Perpage
+	Number of items per page Default: 1000
 
 .PP
 \fB--query\fP=""
-	Query
+	If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded.
 
 .PP
 \fB--team-id\fP=0

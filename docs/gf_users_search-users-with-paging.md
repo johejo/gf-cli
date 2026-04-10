@@ -1,6 +1,6 @@
 ## gf users search-users-with-paging
 
-
+Gets users with paging
 
 ```
 gf users search-users-with-paging [flags]

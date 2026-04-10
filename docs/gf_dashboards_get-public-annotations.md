@@ -1,6 +1,6 @@
 ## gf dashboards get-public-annotations
 
-
+Get annotations for a public dashboard
 
 ```
 gf dashboards get-public-annotations [flags]

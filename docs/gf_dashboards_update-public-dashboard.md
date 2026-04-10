@@ -12,7 +12,7 @@ gf dashboards update-public-dashboard [flags]
       --body string            The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
       --dashboard-uid string   DashboardUID
   -h, --help                   help for update-public-dashboard
-      --uid string             Unique identifier (uid)
+      --uid string             UID
 ```
 
 ### Options inherited from parent commands

@@ -1,6 +1,6 @@
 ## gf reports update-report
 
-
+Updates a report
 
 ```
 gf reports update-report [flags]

@@ -1,6 +1,6 @@
 ## gf convert-prometheus convert-prometheus-get-namespace
 
-
+Gets grafana managed alert rules that were imported from prometheus compatible sources for a specified namespace folder
 
 ```
 gf convert-prometheus convert-prometheus-get-namespace [flags]

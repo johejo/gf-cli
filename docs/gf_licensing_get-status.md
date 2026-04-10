@@ -1,6 +1,6 @@
 ## gf licensing get-status
 
-
+Checks license availability
 
 ```
 gf licensing get-status [flags]

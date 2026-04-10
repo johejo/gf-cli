@@ -1,6 +1,6 @@
 ## gf library-elements get-library-element-by-name
 
-
+Gets library element by name
 
 ```
 gf library-elements get-library-element-by-name [flags]

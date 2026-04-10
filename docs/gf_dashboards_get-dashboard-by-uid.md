@@ -1,6 +1,6 @@
 ## gf dashboards get-dashboard-by-uid
 
-
+Gets dashboard by uid
 
 ```
 gf dashboards get-dashboard-by-uid [flags]
@@ -10,7 +10,7 @@ gf dashboards get-dashboard-by-uid [flags]
 
 ```
   -h, --help         help for get-dashboard-by-uid
-      --uid string   Unique identifier (uid)
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

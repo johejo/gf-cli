@@ -1,6 +1,6 @@
 ## gf licensing get-custom-permissions-report
 
-
+Gets custom permissions report
 
 ```
 gf licensing get-custom-permissions-report [flags]

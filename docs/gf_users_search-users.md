@@ -10,8 +10,8 @@ gf users search-users [flags]
 
 ```
   -h, --help          help for search-users
-      --page int      Page
-      --perpage int   Perpage (default 1000)
+      --page int      Page index for starting fetching users Default: 1
+      --perpage int   Limit the maximum number of users to return per page Default: 1000 (default 1000)
 ```
 
 ### Options inherited from parent commands

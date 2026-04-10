@@ -1,6 +1,6 @@
 ## gf sso-settings update-provider-settings
 
-
+Updates s s o settings
 
 ```
 gf sso-settings update-provider-settings [flags]

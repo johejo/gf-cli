@@ -1,6 +1,6 @@
 ## gf query-history delete-query
 
-
+Deletes query in query history
 
 ```
 gf query-history delete-query [flags]

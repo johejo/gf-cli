@@ -1,6 +1,6 @@
 ## gf dashboards delete-public-dashboard
 
-
+Delete public dashboard for a dashboard
 
 ```
 gf dashboards delete-public-dashboard [flags]
@@ -11,7 +11,7 @@ gf dashboards delete-public-dashboard [flags]
 ```
       --dashboard-uid string   DashboardUID
   -h, --help                   help for delete-public-dashboard
-      --uid string             Unique identifier (uid)
+      --uid string             UID
 ```
 
 ### Options inherited from parent commands

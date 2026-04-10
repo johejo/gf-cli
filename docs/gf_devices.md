@@ -27,6 +27,6 @@ gf devices [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf devices list-devices](gf_devices_list-devices.md)	 - 
-* [gf devices search-devices](gf_devices_search-devices.md)	 - 
+* [gf devices list-devices](gf_devices_list-devices.md)	 - Lists all devices within the last 30 days
+* [gf devices search-devices](gf_devices_search-devices.md)	 - Lists all devices within the last 30 days
 

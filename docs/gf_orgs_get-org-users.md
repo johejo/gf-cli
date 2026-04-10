@@ -1,6 +1,6 @@
 ## gf orgs get-org-users
 
-
+Gets users in organization
 
 ```
 gf orgs get-org-users [flags]

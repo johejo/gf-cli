@@ -10,7 +10,7 @@ gf playlists search-playlists [flags]
 
 ```
   -h, --help           help for search-playlists
-      --limit int      Limit
+      --limit int      in:limit
       --query string   Query
 ```
 

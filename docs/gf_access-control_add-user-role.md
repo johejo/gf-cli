@@ -1,6 +1,6 @@
 ## gf access-control add-user-role
 
-
+Adds a user role assignment
 
 ```
 gf access-control add-user-role [flags]

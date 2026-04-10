@@ -1,6 +1,6 @@
 ## gf recording-rules delete-recording-rule
 
-
+Deletes removes the rule from the registry and stops it
 
 ```
 gf recording-rules delete-recording-rule [flags]

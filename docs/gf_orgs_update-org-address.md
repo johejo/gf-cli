@@ -1,6 +1,6 @@
 ## gf orgs update-org-address
 
-
+Updates organization s address
 
 ```
 gf orgs update-org-address [flags]

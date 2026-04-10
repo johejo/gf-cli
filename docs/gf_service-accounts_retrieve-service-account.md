@@ -1,6 +1,6 @@
 ## gf service-accounts retrieve-service-account
 
-
+Gets single serviceaccount by Id
 
 ```
 gf service-accounts retrieve-service-account [flags]

@@ -1,6 +1,6 @@
 ## gf convert-prometheus convert-prometheus-get-rules
 
-
+Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace
 
 ```
 gf convert-prometheus convert-prometheus-get-rules [flags]

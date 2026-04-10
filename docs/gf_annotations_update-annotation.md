@@ -1,6 +1,6 @@
 ## gf annotations update-annotation
 
-
+Updates annotation
 
 ```
 gf annotations update-annotation [flags]

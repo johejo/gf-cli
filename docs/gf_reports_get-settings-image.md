@@ -1,6 +1,6 @@
 ## gf reports get-settings-image
 
-
+Gets custom branding report image
 
 ```
 gf reports get-settings-image [flags]

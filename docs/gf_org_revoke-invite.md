@@ -1,6 +1,6 @@
 ## gf org revoke-invite
 
-
+Revokes invite
 
 ```
 gf org revoke-invite [flags]

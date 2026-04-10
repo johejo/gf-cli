@@ -1,6 +1,6 @@
 ## gf signed-in-user clear-help-flags
 
-
+Clears user help flag
 
 ```
 gf signed-in-user clear-help-flags [flags]

@@ -1,6 +1,6 @@
 ## gf dashboards query-public-dashboard
 
-
+Get results for a given panel on a public dashboard
 
 ```
 gf dashboards query-public-dashboard [flags]

@@ -27,18 +27,18 @@ gf convert-prometheus [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf convert-prometheus convert-prometheus-cortex-delete-namespace](gf_convert-prometheus_convert-prometheus-cortex-delete-namespace.md)	 - 
-* [gf convert-prometheus convert-prometheus-cortex-delete-rule-group](gf_convert-prometheus_convert-prometheus-cortex-delete-rule-group.md)	 - 
-* [gf convert-prometheus convert-prometheus-cortex-get-namespace](gf_convert-prometheus_convert-prometheus-cortex-get-namespace.md)	 - 
-* [gf convert-prometheus convert-prometheus-cortex-get-rule-group](gf_convert-prometheus_convert-prometheus-cortex-get-rule-group.md)	 - 
-* [gf convert-prometheus convert-prometheus-cortex-get-rules](gf_convert-prometheus_convert-prometheus-cortex-get-rules.md)	 - 
+* [gf convert-prometheus convert-prometheus-cortex-delete-namespace](gf_convert-prometheus_convert-prometheus-cortex-delete-namespace.md)	 - Deletes all rule groups that were imported from prometheus compatible sources within the specified namespace
+* [gf convert-prometheus convert-prometheus-cortex-delete-rule-group](gf_convert-prometheus_convert-prometheus-cortex-delete-rule-group.md)	 - Deletes a specific rule group if it was imported from a prometheus compatible source
+* [gf convert-prometheus convert-prometheus-cortex-get-namespace](gf_convert-prometheus_convert-prometheus-cortex-get-namespace.md)	 - Gets grafana managed alert rules that were imported from prometheus compatible sources for a specified namespace folder
+* [gf convert-prometheus convert-prometheus-cortex-get-rule-group](gf_convert-prometheus_convert-prometheus-cortex-get-rule-group.md)	 - Gets a single rule group in prometheus compatible format if it was imported from a prometheus compatible source
+* [gf convert-prometheus convert-prometheus-cortex-get-rules](gf_convert-prometheus_convert-prometheus-cortex-get-rules.md)	 - Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace
 * [gf convert-prometheus convert-prometheus-cortex-post-rule-group](gf_convert-prometheus_convert-prometheus-cortex-post-rule-group.md)	 - 
-* [gf convert-prometheus convert-prometheus-cortex-post-rule-groups](gf_convert-prometheus_convert-prometheus-cortex-post-rule-groups.md)	 - 
-* [gf convert-prometheus convert-prometheus-delete-namespace](gf_convert-prometheus_convert-prometheus-delete-namespace.md)	 - 
-* [gf convert-prometheus convert-prometheus-delete-rule-group](gf_convert-prometheus_convert-prometheus-delete-rule-group.md)	 - 
-* [gf convert-prometheus convert-prometheus-get-namespace](gf_convert-prometheus_convert-prometheus-get-namespace.md)	 - 
-* [gf convert-prometheus convert-prometheus-get-rule-group](gf_convert-prometheus_convert-prometheus-get-rule-group.md)	 - 
-* [gf convert-prometheus convert-prometheus-get-rules](gf_convert-prometheus_convert-prometheus-get-rules.md)	 - 
+* [gf convert-prometheus convert-prometheus-cortex-post-rule-groups](gf_convert-prometheus_convert-prometheus-cortex-post-rule-groups.md)	 - Converts the submitted rule groups into grafana managed rules
+* [gf convert-prometheus convert-prometheus-delete-namespace](gf_convert-prometheus_convert-prometheus-delete-namespace.md)	 - Deletes all rule groups that were imported from prometheus compatible sources within the specified namespace
+* [gf convert-prometheus convert-prometheus-delete-rule-group](gf_convert-prometheus_convert-prometheus-delete-rule-group.md)	 - Deletes a specific rule group if it was imported from a prometheus compatible source
+* [gf convert-prometheus convert-prometheus-get-namespace](gf_convert-prometheus_convert-prometheus-get-namespace.md)	 - Gets grafana managed alert rules that were imported from prometheus compatible sources for a specified namespace folder
+* [gf convert-prometheus convert-prometheus-get-rule-group](gf_convert-prometheus_convert-prometheus-get-rule-group.md)	 - Gets a single rule group in prometheus compatible format if it was imported from a prometheus compatible source
+* [gf convert-prometheus convert-prometheus-get-rules](gf_convert-prometheus_convert-prometheus-get-rules.md)	 - Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace
 * [gf convert-prometheus convert-prometheus-post-rule-group](gf_convert-prometheus_convert-prometheus-post-rule-group.md)	 - 
-* [gf convert-prometheus convert-prometheus-post-rule-groups](gf_convert-prometheus_convert-prometheus-post-rule-groups.md)	 - 
+* [gf convert-prometheus convert-prometheus-post-rule-groups](gf_convert-prometheus_convert-prometheus-post-rule-groups.md)	 - Converts the submitted rule groups into grafana managed rules
 

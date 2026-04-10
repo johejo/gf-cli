@@ -1,6 +1,6 @@
 ## gf saml get-metadata
 
-
+Its exposes the s p grafana s metadata for the Id p s consumption
 
 ```
 gf saml get-metadata [flags]

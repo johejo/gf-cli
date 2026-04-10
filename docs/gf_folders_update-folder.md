@@ -1,6 +1,6 @@
 ## gf folders update-folder
 
-
+Updates folder
 
 ```
 gf folders update-folder [flags]

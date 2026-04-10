@@ -27,5 +27,5 @@ gf ldap-debug [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf ldap-debug get-sync-status](gf_ldap-debug_get-sync-status.md)	 - 
+* [gf ldap-debug get-sync-status](gf_ldap-debug_get-sync-status.md)	 - Returns the current state of the LDAP background sync integration
 

@@ -1,6 +1,6 @@
 ## gf search list-sort-options
 
-
+Lists search sorting options
 
 ```
 gf search list-sort-options [flags]

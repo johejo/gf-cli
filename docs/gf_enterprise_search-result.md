@@ -1,6 +1,6 @@
 ## gf enterprise search-result
 
-
+Debugs permissions
 
 ```
 gf enterprise search-result [flags]

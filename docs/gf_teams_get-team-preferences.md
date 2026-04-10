@@ -1,6 +1,6 @@
 ## gf teams get-team-preferences
 
-
+Gets team preferences
 
 ```
 gf teams get-team-preferences [flags]

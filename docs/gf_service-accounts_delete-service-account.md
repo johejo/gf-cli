@@ -1,6 +1,6 @@
 ## gf service-accounts delete-service-account
 
-
+Deletes service account
 
 ```
 gf service-accounts delete-service-account [flags]

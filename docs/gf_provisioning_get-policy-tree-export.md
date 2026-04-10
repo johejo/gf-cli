@@ -1,6 +1,6 @@
 ## gf provisioning get-policy-tree-export
 
-
+Exports the notification policy tree in provisioning file format
 
 ```
 gf provisioning get-policy-tree-export [flags]

@@ -1,6 +1,6 @@
 ## gf org update-org-user-for-current-org
 
-
+Updates the given user
 
 ```
 gf org update-org-user-for-current-org [flags]

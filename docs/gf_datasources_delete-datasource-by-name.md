@@ -1,6 +1,6 @@
 ## gf datasources delete-datasource-by-name
 
-
+Deletes an existing data source by name
 
 ```
 gf datasources delete-datasource-by-name [flags]
@@ -10,7 +10,7 @@ gf datasources delete-datasource-by-name [flags]
 
 ```
   -h, --help          help for delete-datasource-by-name
-      --name string   Name of the datasource
+      --name string   Name
 ```
 
 ### Options inherited from parent commands

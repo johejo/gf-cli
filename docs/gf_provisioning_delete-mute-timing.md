@@ -10,8 +10,8 @@ gf provisioning delete-mute-timing [flags]
 
 ```
   -h, --help                          help for delete-mute-timing
-      --name string                   Name of the provisioning
-      --version string                Version
+      --name string                   Mute timing name
+      --version string                Version of mute timing to use for optimistic concurrency. Leave empty to disable validation
       --x-disable-provenance string   XDisableProvenance
 ```
 

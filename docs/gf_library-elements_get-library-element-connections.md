@@ -1,6 +1,6 @@
 ## gf library-elements get-library-element-connections
 
-
+Gets library element connections
 
 ```
 gf library-elements get-library-element-connections [flags]

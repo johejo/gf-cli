@@ -1,6 +1,6 @@
 ## gf users update-user
 
-
+Updates user
 
 ```
 gf users update-user [flags]

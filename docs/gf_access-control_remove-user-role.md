@@ -9,7 +9,7 @@ gf access-control remove-user-role [flags]
 ### Options
 
 ```
-      --global            Global
+      --global            A flag indicating if the assignment is global or not. If set to false, the default org ID of the authenticated user will be used from the request to remove assignment.
   -h, --help              help for remove-user-role
       --role-uid string   RoleUID
       --user-id int       UserID

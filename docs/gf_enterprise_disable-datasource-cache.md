@@ -1,6 +1,6 @@
 ## gf enterprise disable-datasource-cache
 
-
+Disable cache for a single data source
 
 ```
 gf enterprise disable-datasource-cache [flags]

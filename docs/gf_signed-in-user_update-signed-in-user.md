@@ -1,6 +1,6 @@
 ## gf signed-in-user update-signed-in-user
 
-
+Updates signed in user
 
 ```
 gf signed-in-user update-signed-in-user [flags]

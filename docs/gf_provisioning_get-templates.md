@@ -1,6 +1,6 @@
 ## gf provisioning get-templates
 
-
+Gets all notification template groups
 
 ```
 gf provisioning get-templates [flags]

@@ -1,6 +1,6 @@
 ## gf access-control get-resource-description
 
-
+Gets a description of a resource s access control properties
 
 ```
 gf access-control get-resource-description [flags]

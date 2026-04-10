@@ -1,6 +1,6 @@
 ## gf recording-rules update-recording-rule
 
-
+Updates the active status of a rule
 
 ```
 gf recording-rules update-recording-rule [flags]

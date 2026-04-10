@@ -1,6 +1,6 @@
 ## gf recording-rules create-recording-rule-write-target
 
-
+Creates a remote write target
 
 ```
 gf recording-rules create-recording-rule-write-target [flags]

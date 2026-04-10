@@ -27,5 +27,5 @@ gf signing-keys [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf signing-keys retrieve-jwks](gf_signing-keys_retrieve-jwks.md)	 - 
+* [gf signing-keys retrieve-jwks](gf_signing-keys_retrieve-jwks.md)	 - Gets JSON web key set j w k s with all the keys that can be used to verify tokens public keys
 

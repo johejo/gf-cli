@@ -1,6 +1,6 @@
 ## gf sync-team-groups add-team-group-api
 
-
+Adds external group
 
 ```
 gf sync-team-groups add-team-group-api [flags]

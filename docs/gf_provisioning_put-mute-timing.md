@@ -11,7 +11,7 @@ gf provisioning put-mute-timing [flags]
 ```
       --body string                   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
   -h, --help                          help for put-mute-timing
-      --name string                   Name of the provisioning
+      --name string                   Mute timing name
       --x-disable-provenance string   XDisableProvenance
 ```
 

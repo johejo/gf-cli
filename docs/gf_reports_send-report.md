@@ -1,6 +1,6 @@
 ## gf reports send-report
 
-
+Sends a report
 
 ```
 gf reports send-report [flags]

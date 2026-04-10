@@ -1,6 +1,6 @@
 ## gf provisioning delete-contactpoints
 
-
+Deletes a contact point
 
 ```
 gf provisioning delete-contactpoints [flags]
@@ -10,7 +10,7 @@ gf provisioning delete-contactpoints [flags]
 
 ```
   -h, --help         help for delete-contactpoints
-      --uid string   Unique identifier (uid)
+      --uid string   UID is the contact point unique identifier
 ```
 
 ### Options inherited from parent commands

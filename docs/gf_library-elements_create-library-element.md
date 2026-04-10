@@ -1,6 +1,6 @@
 ## gf library-elements create-library-element
 
-
+Creates library element
 
 ```
 gf library-elements create-library-element [flags]

@@ -1,6 +1,6 @@
 ## gf access-control get-access-control-status
 
-
+Gets status
 
 ```
 gf access-control get-access-control-status [flags]

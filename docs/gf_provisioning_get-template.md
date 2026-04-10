@@ -1,6 +1,6 @@
 ## gf provisioning get-template
 
-
+Gets a notification template group
 
 ```
 gf provisioning get-template [flags]
@@ -10,7 +10,7 @@ gf provisioning get-template [flags]
 
 ```
   -h, --help          help for get-template
-      --name string   Name of the provisioning
+      --name string   Template group name
 ```
 
 ### Options inherited from parent commands

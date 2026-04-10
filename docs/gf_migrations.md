@@ -27,17 +27,17 @@ gf migrations [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf migrations cancel-snapshot](gf_migrations_cancel-snapshot.md)	 - 
-* [gf migrations create-cloud-migration-token](gf_migrations_create-cloud-migration-token.md)	 - 
-* [gf migrations create-session](gf_migrations_create-session.md)	 - 
-* [gf migrations create-snapshot](gf_migrations_create-snapshot.md)	 - 
-* [gf migrations delete-cloud-migration-token](gf_migrations_delete-cloud-migration-token.md)	 - 
-* [gf migrations delete-session](gf_migrations_delete-session.md)	 - 
-* [gf migrations get-cloud-migration-token](gf_migrations_get-cloud-migration-token.md)	 - 
-* [gf migrations get-resource-dependencies](gf_migrations_get-resource-dependencies.md)	 - 
-* [gf migrations get-session](gf_migrations_get-session.md)	 - 
-* [gf migrations get-session-list](gf_migrations_get-session-list.md)	 - 
+* [gf migrations cancel-snapshot](gf_migrations_cancel-snapshot.md)	 - Cancels a snapshot wherever it is in its processing chain
+* [gf migrations create-cloud-migration-token](gf_migrations_create-cloud-migration-token.md)	 - Creates gcom access token
+* [gf migrations create-session](gf_migrations_create-session.md)	 - Creates a migration session
+* [gf migrations create-snapshot](gf_migrations_create-snapshot.md)	 - Triggers the creation of an instance snapshot associated with the provided session
+* [gf migrations delete-cloud-migration-token](gf_migrations_delete-cloud-migration-token.md)	 - Deletes a cloud migration token
+* [gf migrations delete-session](gf_migrations_delete-session.md)	 - Deletes a migration session by its uid
+* [gf migrations get-cloud-migration-token](gf_migrations_get-cloud-migration-token.md)	 - Fetches the cloud migration token if it exists
+* [gf migrations get-resource-dependencies](gf_migrations_get-resource-dependencies.md)	 - Gets the resource dependencies graph for the current set of migratable resources
+* [gf migrations get-session](gf_migrations_get-session.md)	 - Gets a cloud migration session by its uid
+* [gf migrations get-session-list](gf_migrations_get-session-list.md)	 - Gets a list of all cloud migration sessions that have been created
 * [gf migrations get-shapshot-list](gf_migrations_get-shapshot-list.md)	 - 
 * [gf migrations get-snapshot](gf_migrations_get-snapshot.md)	 - 
-* [gf migrations upload-snapshot](gf_migrations_upload-snapshot.md)	 - 
+* [gf migrations upload-snapshot](gf_migrations_upload-snapshot.md)	 - Uploads a snapshot to the grafana migration service for processing
 

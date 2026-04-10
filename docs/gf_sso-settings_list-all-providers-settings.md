@@ -1,6 +1,6 @@
 ## gf sso-settings list-all-providers-settings
 
-
+Lists all s s o settings entries
 
 ```
 gf sso-settings list-all-providers-settings [flags]

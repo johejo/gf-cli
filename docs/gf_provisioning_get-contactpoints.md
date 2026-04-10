@@ -10,7 +10,7 @@ gf provisioning get-contactpoints [flags]
 
 ```
   -h, --help          help for get-contactpoints
-      --name string   Name of the provisioning
+      --name string   Filter by name
 ```
 
 ### Options inherited from parent commands

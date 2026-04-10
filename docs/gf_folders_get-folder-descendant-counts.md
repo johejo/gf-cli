@@ -1,6 +1,6 @@
 ## gf folders get-folder-descendant-counts
 
-
+Gets the count of each descendant of a folder by kind the folder is identified by UID
 
 ```
 gf folders get-folder-descendant-counts [flags]

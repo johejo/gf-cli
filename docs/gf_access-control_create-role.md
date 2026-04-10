@@ -1,6 +1,6 @@
 ## gf access-control create-role
 
-
+Creates a new custom role
 
 ```
 gf access-control create-role [flags]

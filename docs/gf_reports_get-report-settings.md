@@ -1,6 +1,6 @@
 ## gf reports get-report-settings
 
-
+Gets report settings
 
 ```
 gf reports get-report-settings [flags]

@@ -1,5 +1,5 @@
 .nh
-.TH "GF-SEARCH-SEARCH" "1" "Feb 2026" "" ""
+.TH "GF-SEARCH-SEARCH" "1" "Apr 2026" "" ""
 
 .SH NAME
 gf-search-search -
@@ -13,23 +13,23 @@ gf-search-search -
 
 .SH OPTIONS
 \fB--dashboard-ids\fP=[]
-	DashboardIds
+	List of dashboard id’s to search for This is deprecated: users should use the \fBdashboardUIDs\fR query parameter instead
 
 .PP
 \fB--dashboard-uids\fP=[]
-	DashboardUIDs
+	List of dashboard uid’s to search for
 
 .PP
 \fB--deleted\fP[=false]
-	Deleted
+	Flag indicating if only soft deleted Dashboards should be returned
 
 .PP
 \fB--folder-ids\fP=[]
-	FolderIds
+	List of folder id’s to search in for dashboards If it's \fB0\fR then it will query for the top level folders This is deprecated: users should use the \fBfolderUIDs\fR query parameter instead
 
 .PP
 \fB--folder-uids\fP=[]
-	FolderUIDs
+	List of folder UID’s to search in for dashboards If it's an empty string then it will query for the top level folders
 
 .PP
 \fB-h\fP, \fB--help\fP[=false]
@@ -37,35 +37,35 @@ gf-search-search -
 
 .PP
 \fB--limit\fP=0
-	Limit
+	Limit the number of returned results (max 5000)
 
 .PP
 \fB--page\fP=0
-	Page
+	Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size. Only available in Grafana v6.2+.
 
 .PP
 \fB--permission\fP=""
-	Permission
+	Set to \fBEdit\fR to return dashboards/folders that the user can edit Default: "View"
 
 .PP
 \fB--query\fP=""
-	Query
+	Search Query
 
 .PP
 \fB--sort\fP=""
-	Sort
+	Sort method; for listing all the possible sort methods use the search sorting endpoint. Default: "alpha-asc"
 
 .PP
 \fB--starred\fP[=false]
-	Starred
+	Flag indicating if only starred Dashboards should be returned
 
 .PP
 \fB--tag\fP=[]
-	Tag
+	List of tags to search for
 
 .PP
 \fB--type\fP=""
-	Type
+	Type to search for, dash-folder or dash-db
 
 
 .SH OPTIONS INHERITED FROM PARENT COMMANDS

@@ -1,6 +1,6 @@
 ## gf query-history create-query
 
-
+Adds query to query history
 
 ```
 gf query-history create-query [flags]

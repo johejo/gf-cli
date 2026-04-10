@@ -27,10 +27,10 @@ gf playlists [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf playlists create-playlist](gf_playlists_create-playlist.md)	 - 
-* [gf playlists delete-playlist](gf_playlists_delete-playlist.md)	 - 
-* [gf playlists get-playlist](gf_playlists_get-playlist.md)	 - 
-* [gf playlists get-playlist-items](gf_playlists_get-playlist-items.md)	 - 
+* [gf playlists create-playlist](gf_playlists_create-playlist.md)	 - Creates playlist
+* [gf playlists delete-playlist](gf_playlists_delete-playlist.md)	 - Deletes playlist
+* [gf playlists get-playlist](gf_playlists_get-playlist.md)	 - Gets playlist
+* [gf playlists get-playlist-items](gf_playlists_get-playlist-items.md)	 - Gets playlist items
 * [gf playlists search-playlists](gf_playlists_search-playlists.md)	 - 
-* [gf playlists update-playlist](gf_playlists_update-playlist.md)	 - 
+* [gf playlists update-playlist](gf_playlists_update-playlist.md)	 - Updates playlist
 

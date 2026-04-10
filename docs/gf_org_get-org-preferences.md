@@ -1,6 +1,6 @@
 ## gf org get-org-preferences
 
-
+Gets current org prefs
 
 ```
 gf org get-org-preferences [flags]

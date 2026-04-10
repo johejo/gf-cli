@@ -10,8 +10,8 @@ gf annotations get-annotation-tags [flags]
 
 ```
   -h, --help           help for get-annotation-tags
-      --limit string   Limit
-      --tag string     Tag
+      --limit string   Max limit for results returned. Default: "100"
+      --tag string     Tag is a string that you can use to filter tags.
 ```
 
 ### Options inherited from parent commands

@@ -1,6 +1,6 @@
 ## gf signing-keys retrieve-jwks
 
-
+Gets JSON web key set j w k s with all the keys that can be used to verify tokens public keys
 
 ```
 gf signing-keys retrieve-jwks [flags]

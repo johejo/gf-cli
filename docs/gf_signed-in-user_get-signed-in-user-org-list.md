@@ -1,6 +1,6 @@
 ## gf signed-in-user get-signed-in-user-org-list
 
-
+Organizations of the actual user
 
 ```
 gf signed-in-user get-signed-in-user-org-list [flags]

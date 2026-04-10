@@ -1,6 +1,6 @@
 ## gf folders create-folder
 
-
+Creates folder
 
 ```
 gf folders create-folder [flags]

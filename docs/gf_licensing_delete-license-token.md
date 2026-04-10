@@ -1,6 +1,6 @@
 ## gf licensing delete-license-token
 
-
+Removes license from database
 
 ```
 gf licensing delete-license-token [flags]

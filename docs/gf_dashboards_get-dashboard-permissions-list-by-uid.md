@@ -1,6 +1,6 @@
 ## gf dashboards get-dashboard-permissions-list-by-uid
 
-
+Gets all existing permissions for the given dashboard
 
 ```
 gf dashboards get-dashboard-permissions-list-by-uid [flags]
@@ -10,7 +10,7 @@ gf dashboards get-dashboard-permissions-list-by-uid [flags]
 
 ```
   -h, --help         help for get-dashboard-permissions-list-by-uid
-      --uid string   Unique identifier (uid)
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

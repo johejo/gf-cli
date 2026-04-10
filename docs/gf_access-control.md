@@ -27,28 +27,28 @@ gf access-control [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf access-control add-team-role](gf_access-control_add-team-role.md)	 - 
-* [gf access-control add-user-role](gf_access-control_add-user-role.md)	 - 
-* [gf access-control create-role](gf_access-control_create-role.md)	 - 
+* [gf access-control add-team-role](gf_access-control_add-team-role.md)	 - Adds team role
+* [gf access-control add-user-role](gf_access-control_add-user-role.md)	 - Adds a user role assignment
+* [gf access-control create-role](gf_access-control_create-role.md)	 - Creates a new custom role
 * [gf access-control delete-role](gf_access-control_delete-role.md)	 - 
-* [gf access-control get-access-control-status](gf_access-control_get-access-control-status.md)	 - 
-* [gf access-control get-resource-description](gf_access-control_get-resource-description.md)	 - 
-* [gf access-control get-resource-permissions](gf_access-control_get-resource-permissions.md)	 - 
-* [gf access-control get-role](gf_access-control_get-role.md)	 - 
-* [gf access-control get-role-assignments](gf_access-control_get-role-assignments.md)	 - 
+* [gf access-control get-access-control-status](gf_access-control_get-access-control-status.md)	 - Gets status
+* [gf access-control get-resource-description](gf_access-control_get-resource-description.md)	 - Gets a description of a resource s access control properties
+* [gf access-control get-resource-permissions](gf_access-control_get-resource-permissions.md)	 - Gets permissions for a resource
+* [gf access-control get-role](gf_access-control_get-role.md)	 - Gets a role
+* [gf access-control get-role-assignments](gf_access-control_get-role-assignments.md)	 - Gets role assignments
 * [gf access-control list-roles](gf_access-control_list-roles.md)	 - 
-* [gf access-control list-team-roles](gf_access-control_list-team-roles.md)	 - 
-* [gf access-control list-teams-roles](gf_access-control_list-teams-roles.md)	 - 
-* [gf access-control list-user-roles](gf_access-control_list-user-roles.md)	 - 
-* [gf access-control list-users-roles](gf_access-control_list-users-roles.md)	 - 
-* [gf access-control remove-team-role](gf_access-control_remove-team-role.md)	 - 
+* [gf access-control list-team-roles](gf_access-control_list-team-roles.md)	 - Gets team roles
+* [gf access-control list-teams-roles](gf_access-control_list-teams-roles.md)	 - Lists roles assigned to multiple teams
+* [gf access-control list-user-roles](gf_access-control_list-user-roles.md)	 - Lists roles assigned to a user
+* [gf access-control list-users-roles](gf_access-control_list-users-roles.md)	 - Lists roles assigned to multiple users
+* [gf access-control remove-team-role](gf_access-control_remove-team-role.md)	 - Removes team role
 * [gf access-control remove-user-role](gf_access-control_remove-user-role.md)	 - 
 * [gf access-control set-resource-permissions](gf_access-control_set-resource-permissions.md)	 - 
 * [gf access-control set-resource-permissions-for-built-in-role](gf_access-control_set-resource-permissions-for-built-in-role.md)	 - 
 * [gf access-control set-resource-permissions-for-team](gf_access-control_set-resource-permissions-for-team.md)	 - 
 * [gf access-control set-resource-permissions-for-user](gf_access-control_set-resource-permissions-for-user.md)	 - 
-* [gf access-control set-role-assignments](gf_access-control_set-role-assignments.md)	 - 
-* [gf access-control set-team-roles](gf_access-control_set-team-roles.md)	 - 
-* [gf access-control set-user-roles](gf_access-control_set-user-roles.md)	 - 
-* [gf access-control update-role](gf_access-control_update-role.md)	 - 
+* [gf access-control set-role-assignments](gf_access-control_set-role-assignments.md)	 - Sets role assignments
+* [gf access-control set-team-roles](gf_access-control_set-team-roles.md)	 - Updates team role
+* [gf access-control set-user-roles](gf_access-control_set-user-roles.md)	 - Sets user role assignments
+* [gf access-control update-role](gf_access-control_update-role.md)	 - Updates a custom role
 

@@ -27,5 +27,5 @@ gf access-control-provisioning [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf access-control-provisioning admin-provisioning-reload-access-control](gf_access-control-provisioning_admin-provisioning-reload-access-control.md)	 - 
+* [gf access-control-provisioning admin-provisioning-reload-access-control](gf_access-control-provisioning_admin-provisioning-reload-access-control.md)	 - Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol
 

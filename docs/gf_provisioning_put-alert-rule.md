@@ -11,7 +11,7 @@ gf provisioning put-alert-rule [flags]
 ```
       --body string                   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
   -h, --help                          help for put-alert-rule
-      --uid string                    Unique identifier (uid)
+      --uid string                    Alert rule UID
       --x-disable-provenance string   XDisableProvenance
 ```
 

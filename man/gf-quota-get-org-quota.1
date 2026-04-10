@@ -1,0 +1,51 @@
+.nh
+.TH "GF-QUOTA-GET-ORG-QUOTA" "1" "Apr 2026" "" ""
+
+.SH NAME
+gf-quota-get-org-quota - Fetches organization quota
+
+
+.SH SYNOPSIS
+\fBgf quota get-org-quota [flags]\fP
+
+
+.SH DESCRIPTION
+Fetches organization quota
+
+
+.SH OPTIONS
+\fB-h\fP, \fB--help\fP[=false]
+	help for get-org-quota
+
+.PP
+\fB--org-id\fP=0
+	OrgID
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+\fB--api-key\fP=""
+	API Key to authenticate to grafana server (env: GF_API_KEY)
+
+.PP
+\fB--base-path\fP="/api"
+	Base path for server: useful when using sever behind reverse proxy (env: GF_BASE_PATH)
+
+.PP
+\fB--basic-user-password\fP=""
+	Basic authentication password (env: GF_BASIC_AUTH_USERNAME)
+
+.PP
+\fB--basic-user-username\fP=""
+	Basic authentication username (env: GF_BASIC_AUTH_PASSWORD)
+
+.PP
+\fB--debug\fP[=false]
+	Enable debug logging (env: GF_DEBUG)
+
+.PP
+\fB--host\fP="localhost:3000"
+	Grafana server host (env: GF_HOST)
+
+
+.SH SEE ALSO
+\fBgf-quota(1)\fP

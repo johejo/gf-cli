@@ -1,6 +1,6 @@
 ## gf migrations cancel-snapshot
 
-
+Cancels a snapshot wherever it is in its processing chain
 
 ```
 gf migrations cancel-snapshot [flags]
@@ -10,8 +10,8 @@ gf migrations cancel-snapshot [flags]
 
 ```
   -h, --help                  help for cancel-snapshot
-      --snapshot-uid string   SnapshotUID
-      --uid string            Unique identifier (uid)
+      --snapshot-uid string   UID of a snapshot
+      --uid string            Session UID of a session
 ```
 
 ### Options inherited from parent commands

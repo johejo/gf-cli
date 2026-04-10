@@ -1,6 +1,6 @@
 ## gf migrations delete-cloud-migration-token
 
-
+Deletes a cloud migration token
 
 ```
 gf migrations delete-cloud-migration-token [flags]
@@ -10,7 +10,7 @@ gf migrations delete-cloud-migration-token [flags]
 
 ```
   -h, --help         help for delete-cloud-migration-token
-      --uid string   Unique identifier (uid)
+      --uid string   UID of a cloud migration token
 ```
 
 ### Options inherited from parent commands

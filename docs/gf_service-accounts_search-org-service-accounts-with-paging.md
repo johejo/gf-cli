@@ -12,9 +12,9 @@ gf service-accounts search-org-service-accounts-with-paging [flags]
       --disabled         Disabled
       --expired-tokens   ExpiredTokens
   -h, --help             help for search-org-service-accounts-with-paging
-      --page int         Page
-      --perpage int      Perpage (default 1000)
-      --query string     Query
+      --page int         The default value is 1.
+      --perpage int      The default value is 1000. (default 1000)
+      --query string     It will return results where the query value is contained in one of the name. Query values with spaces need to be URL encoded.
 ```
 
 ### Options inherited from parent commands

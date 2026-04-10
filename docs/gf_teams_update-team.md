@@ -1,6 +1,6 @@
 ## gf teams update-team
 
-
+Updates team
 
 ```
 gf teams update-team [flags]

@@ -1,6 +1,6 @@
 ## gf query-history patch-query-comment
 
-
+Updates comment for query in query history
 
 ```
 gf query-history patch-query-comment [flags]

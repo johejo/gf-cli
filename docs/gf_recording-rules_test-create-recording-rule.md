@@ -1,6 +1,6 @@
 ## gf recording-rules test-create-recording-rule
 
-
+Tests a recording rule
 
 ```
 gf recording-rules test-create-recording-rule [flags]

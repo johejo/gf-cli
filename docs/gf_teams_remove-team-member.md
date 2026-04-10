@@ -1,6 +1,6 @@
 ## gf teams remove-team-member
 
-
+Removes member from team
 
 ```
 gf teams remove-team-member [flags]

@@ -1,6 +1,6 @@
 ## gf group-attribute-sync create-group-mappings
 
-
+Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental
 
 ```
 gf group-attribute-sync create-group-mappings [flags]

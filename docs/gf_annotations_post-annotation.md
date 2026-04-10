@@ -1,6 +1,6 @@
 ## gf annotations post-annotation
 
-
+Creates annotation
 
 ```
 gf annotations post-annotation [flags]

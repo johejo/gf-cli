@@ -1,6 +1,6 @@
 ## gf dashboards get-dashboard-tags
 
-
+Gets all dashboards tags of an organisation
 
 ```
 gf dashboards get-dashboard-tags [flags]

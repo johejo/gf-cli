@@ -1,6 +1,6 @@
 ## gf dashboards post-dashboard
 
-
+Creates update dashboard
 
 ```
 gf dashboards post-dashboard [flags]

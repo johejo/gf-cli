@@ -1,6 +1,6 @@
 ## gf library-elements delete-library-element-by-uid
 
-
+Deletes library element
 
 ```
 gf library-elements delete-library-element-by-uid [flags]

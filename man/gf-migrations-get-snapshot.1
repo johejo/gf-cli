@@ -1,5 +1,5 @@
 .nh
-.TH "GF-MIGRATIONS-GET-SNAPSHOT" "1" "Feb 2026" "" ""
+.TH "GF-MIGRATIONS-GET-SNAPSHOT" "1" "Apr 2026" "" ""
 
 .SH NAME
 gf-migrations-get-snapshot -
@@ -13,7 +13,7 @@ gf-migrations-get-snapshot -
 
 .SH OPTIONS
 \fB--errors-only\fP[=false]
-	ErrorsOnly
+	ErrorsOnly is used to only return resources with error statuses
 
 .PP
 \fB-h\fP, \fB--help\fP[=false]
@@ -21,27 +21,27 @@ gf-migrations-get-snapshot -
 
 .PP
 \fB--result-limit\fP=0
-	ResultLimit
+	Max limit for snapshot results returned. Default: 100
 
 .PP
 \fB--result-page\fP=0
-	ResultPage
+	ResultPage is used for pagination with ResultLimit Default: 1
 
 .PP
 \fB--result-sort-column\fP=""
-	ResultSortColumn
+	ResultSortColumn can be used to override the default system sort. Valid values are "name", "resource_type", and "status". Default: "default"
 
 .PP
 \fB--result-sort-order\fP=""
-	ResultSortOrder
+	ResultSortOrder is used with ResultSortColumn. Valid values are ASC and DESC. Default: "ASC"
 
 .PP
 \fB--snapshot-uid\fP=""
-	SnapshotUID
+	UID of a snapshot
 
 .PP
 \fB--uid\fP=""
-	Unique identifier (uid)
+	Session UID of a session
 
 
 .SH OPTIONS INHERITED FROM PARENT COMMANDS

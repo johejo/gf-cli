@@ -1,6 +1,6 @@
 ## gf datasources update-datasource-by-uid
 
-
+Updates an existing data source
 
 ```
 gf datasources update-datasource-by-uid [flags]
@@ -11,7 +11,7 @@ gf datasources update-datasource-by-uid [flags]
 ```
       --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
   -h, --help          help for update-datasource-by-uid
-      --uid string    Unique identifier (uid)
+      --uid string    UID
 ```
 
 ### Options inherited from parent commands

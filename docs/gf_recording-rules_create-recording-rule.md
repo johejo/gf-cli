@@ -1,6 +1,6 @@
 ## gf recording-rules create-recording-rule
 
-
+Creates a recording rule that is then registered and started
 
 ```
 gf recording-rules create-recording-rule [flags]

@@ -1,6 +1,6 @@
 ## gf enterprise clean-datasource-cache
 
-
+Clean cache for a single data source
 
 ```
 gf enterprise clean-datasource-cache [flags]

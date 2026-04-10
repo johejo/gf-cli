@@ -10,9 +10,9 @@ gf dashboards get-dashboard-versions-by-uid [flags]
 
 ```
   -h, --help         help for get-dashboard-versions-by-uid
-      --limit int    Limit
-      --start int    Start
-      --uid string   Unique identifier (uid)
+      --limit int    Maximum number of results to return
+      --start int    Version to start from when returning queries
+      --uid string   UID
 ```
 
 ### Options inherited from parent commands

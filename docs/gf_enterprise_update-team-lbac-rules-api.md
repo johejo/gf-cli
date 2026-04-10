@@ -11,7 +11,7 @@ gf enterprise update-team-lbac-rules-api [flags]
 ```
       --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
   -h, --help          help for update-team-lbac-rules-api
-      --uid string    Unique identifier (uid)
+      --uid string    UID
 ```
 
 ### Options inherited from parent commands

@@ -1,6 +1,6 @@
 ## gf migrations get-session-list
 
-
+Gets a list of all cloud migration sessions that have been created
 
 ```
 gf migrations get-session-list [flags]

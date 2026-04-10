@@ -1,6 +1,6 @@
 ## gf org update-org-preferences
 
-
+Updates current org prefs
 
 ```
 gf org update-org-preferences [flags]

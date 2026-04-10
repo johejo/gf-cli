@@ -49,6 +49,7 @@ gf [flags]
 * [gf playlists](gf_playlists.md)	 - 
 * [gf provisioning](gf_provisioning.md)	 - 
 * [gf query-history](gf_query-history.md)	 - 
+* [gf quota](gf_quota.md)	 - 
 * [gf recording-rules](gf_recording-rules.md)	 - 
 * [gf reports](gf_reports.md)	 - 
 * [gf saml](gf_saml.md)	 - 

@@ -27,12 +27,12 @@ gf licensing [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf licensing delete-license-token](gf_licensing_delete-license-token.md)	 - 
-* [gf licensing get-custom-permissions-csv](gf_licensing_get-custom-permissions-csv.md)	 - 
-* [gf licensing get-custom-permissions-report](gf_licensing_get-custom-permissions-report.md)	 - 
-* [gf licensing get-license-token](gf_licensing_get-license-token.md)	 - 
-* [gf licensing get-status](gf_licensing_get-status.md)	 - 
-* [gf licensing post-license-token](gf_licensing_post-license-token.md)	 - 
-* [gf licensing post-renew-license-token](gf_licensing_post-renew-license-token.md)	 - 
-* [gf licensing refresh-license-stats](gf_licensing_refresh-license-stats.md)	 - 
+* [gf licensing delete-license-token](gf_licensing_delete-license-token.md)	 - Removes license from database
+* [gf licensing get-custom-permissions-csv](gf_licensing_get-custom-permissions-csv.md)	 - Gets custom permissions report in CSV format
+* [gf licensing get-custom-permissions-report](gf_licensing_get-custom-permissions-report.md)	 - Gets custom permissions report
+* [gf licensing get-license-token](gf_licensing_get-license-token.md)	 - Gets license token
+* [gf licensing get-status](gf_licensing_get-status.md)	 - Checks license availability
+* [gf licensing post-license-token](gf_licensing_post-license-token.md)	 - Creates license token
+* [gf licensing post-renew-license-token](gf_licensing_post-renew-license-token.md)	 - Manuallies force license refresh
+* [gf licensing refresh-license-stats](gf_licensing_refresh-license-stats.md)	 - Refreshes license stats
 
