@@ -3,7 +3,6 @@ module github.com/johejo/gf-cli
 go 1.25
 
 require (
-	github.com/gertd/go-pluralize v0.2.1
 	github.com/grafana/grafana-openapi-client-go v0.0.0-20251202103709-7ef691d4df1d
 	github.com/iancoleman/strcase v0.3.0
 	github.com/spf13/cobra v1.10.2
