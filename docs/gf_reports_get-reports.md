@@ -2,6 +2,12 @@
 
 Lists reports
 
+### Synopsis
+
+Available to org admins only and with a valid or expired license.
+
+You need to have a permission with action `reports:read` with scope `reports:*`.
+
 ```
 gf reports get-reports [flags]
 ```

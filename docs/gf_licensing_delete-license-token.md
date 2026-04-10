@@ -2,6 +2,12 @@
 
 Removes license from database
 
+### Synopsis
+
+Removes the license stored in the Grafana database. Available in Grafana Enterprise v7.4+.
+
+You need to have a permission with action `licensing:delete`.
+
 ```
 gf licensing delete-license-token [flags]
 ```

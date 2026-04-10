@@ -2,6 +2,12 @@
 
 Debugs permissions
 
+### Synopsis
+
+Returns the result of the search through access-control role assignments.
+
+You need to have a permission with action `teams.roles:read` on scope `teams:*` and a permission with action `users.roles:read` on scope `users:*`.
+
 ```
 gf enterprise search-result [flags]
 ```

@@ -2,6 +2,10 @@
 
 Deletes dashboard by uid
 
+### Synopsis
+
+Will delete the dashboard given the specified unique identifier (uid).
+
 ```
 gf dashboards delete-dashboard-by-uid [flags]
 ```

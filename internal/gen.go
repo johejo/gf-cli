@@ -67,6 +67,7 @@ var (
 	accessControlAddTeamRoleCmd = &cobra.Command{
 		Use:               "add-team-role",
 		Short:             "Adds team role",
+		Long:              "You need to have a permission with action `teams.roles:add` and scope `permissions:type:delegate`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -101,6 +102,7 @@ var (
 	accessControlAddUserRoleCmd = &cobra.Command{
 		Use:               "add-user-role",
 		Short:             "Adds a user role assignment",
+		Long:              "Assign a role to a specific user. For bulk updates consider Set user role assignments.\n\nYou need to have a permission with action `users.roles:add` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only assign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign a role which will allow to do that. This is done to prevent escalation of privileges.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -135,6 +137,7 @@ var (
 	accessControlCreateRoleCmd = &cobra.Command{
 		Use:               "create-role",
 		Short:             "Creates a new custom role",
+		Long:              "Creates a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed Roles can’t be created.\n\nYou need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to create a custom role which allows to do that. This is done to prevent escalation of privileges.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -195,6 +198,7 @@ var (
 	accessControlGetAccessControlStatusCmd = &cobra.Command{
 		Use:               "get-access-control-status",
 		Short:             "Gets status",
+		Long:              "Returns an indicator to check if fine-grained access control is enabled or not.\n\nYou need to have a permission with action `status:accesscontrol` and scope `services:accesscontrol`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -272,6 +276,7 @@ var (
 	accessControlGetRoleCmd = &cobra.Command{
 		Use:               "get-role",
 		Short:             "Gets a role",
+		Long:              "Get a role for the given UID.\n\nYou need to have a permission with action `roles:read` and scope `roles:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -298,6 +303,7 @@ var (
 	accessControlGetRoleAssignmentsCmd = &cobra.Command{
 		Use:               "get-role-assignments",
 		Short:             "Gets role assignments",
+		Long:              "Get role assignments for the role with the given UID. Does not include role assignments mapped through group attribute sync.\n\nYou need to have a permission with action `teams.roles:list` and scope `teams:id:*` and `users.roles:list` and scope `users:id:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -350,6 +356,7 @@ var (
 	accessControlListTeamRolesCmd = &cobra.Command{
 		Use:               "list-team-roles",
 		Short:             "Gets team roles",
+		Long:              "You need to have a permission with action `teams.roles:read` and scope `teams:id:<team ID>`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -376,6 +383,7 @@ var (
 	accessControlListTeamsRolesCmd = &cobra.Command{
 		Use:               "list-teams-roles",
 		Short:             "Lists roles assigned to multiple teams",
+		Long:              "Lists the roles that have been directly assigned to the given teams.\n\nYou need to have a permission with action `teams.roles:read` and scope `teams:id:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -409,6 +417,7 @@ var (
 	accessControlListUserRolesCmd = &cobra.Command{
 		Use:               "list-user-roles",
 		Short:             "Lists roles assigned to a user",
+		Long:              "Lists the roles that have been directly assigned to a given user. The list does not include built-in roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.\n\nYou need to have a permission with action `users.roles:read` and scope `users:id:<user ID>`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -435,6 +444,7 @@ var (
 	accessControlListUsersRolesCmd = &cobra.Command{
 		Use:               "list-users-roles",
 		Short:             "Lists roles assigned to multiple users",
+		Long:              "Lists the roles that have been directly assigned to the given users. The list does not include built-in roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.\n\nYou need to have a permission with action `users.roles:read` and scope `users:id:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -468,6 +478,7 @@ var (
 	accessControlRemoveTeamRoleCmd = &cobra.Command{
 		Use:               "remove-team-role",
 		Short:             "Removes team role",
+		Long:              "You need to have a permission with action `teams.roles:remove` and scope `permissions:type:delegate`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -661,6 +672,7 @@ var (
 	accessControlSetRoleAssignmentsCmd = &cobra.Command{
 		Use:               "set-role-assignments",
 		Short:             "Sets role assignments",
+		Long:              "Set role assignments for the role with the given UID.\n\nYou need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate`, and `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -695,6 +707,7 @@ var (
 	accessControlSetTeamRolesCmd = &cobra.Command{
 		Use:               "set-team-roles",
 		Short:             "Updates team role",
+		Long:              "You need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate` for each.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -729,6 +742,7 @@ var (
 	accessControlSetUserRolesCmd = &cobra.Command{
 		Use:               "set-user-roles",
 		Short:             "Sets user role assignments",
+		Long:              "Update the user’s role assignments to match the provided set of UIDs. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user. Roles mapped through group attribute sync are not impacted. If you want to add or remove a single role, consider using Add a user role assignment or Remove a user role assignment instead.\n\nYou need to have a permission with action `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate` for each. `permissions:type:delegate`  scope ensures that users can only assign or unassign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign or unassign a role which will allow to do that. This is done to prevent escalation of privileges.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -763,6 +777,7 @@ var (
 	accessControlUpdateRoleCmd = &cobra.Command{
 		Use:               "update-role",
 		Short:             "Updates a custom role",
+		Long:              "You need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -926,6 +941,7 @@ var (
 	adminAdminGetSettingsCmd = &cobra.Command{
 		Use:               "admin-get-settings",
 		Short:             "Fetches settings",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `settings:read` and scopes: `settings:*`, `settings:auth.saml:` and `settings:auth.saml:enabled` (property level).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -950,6 +966,7 @@ var (
 	adminAdminGetStatsCmd = &cobra.Command{
 		Use:               "admin-get-stats",
 		Short:             "Fetches grafana stats",
+		Long:              "Only works with Basic Authentication (username and password). See introduction for an explanation. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `server:stats:read`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -980,6 +997,7 @@ var (
 	adminLdapGetLDAPStatusCmd = &cobra.Command{
 		Use:               "get-ldap-status",
 		Short:             "Attempts to connect to all the configured LDAP servers and returns information on whenever they re available or not",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.status:read`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1004,6 +1022,7 @@ var (
 	adminLdapGetUserFromLDAPCmd = &cobra.Command{
 		Use:               "get-user-from-ldap",
 		Short:             "Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when synced",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:read`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1030,6 +1049,7 @@ var (
 	adminLdapPostSyncUserWithLDAPCmd = &cobra.Command{
 		Use:               "post-sync-user-with-ldap",
 		Short:             "Enables a single grafana user to be synchronized against LDAP",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:sync`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1056,6 +1076,7 @@ var (
 	adminLdapReloadLDAPCfgCmd = &cobra.Command{
 		Use:               "reload-ldap-cfg",
 		Short:             "Reloads the LDAP configuration",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.config:reload`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1092,6 +1113,7 @@ var (
 	adminProvisioningAdminProvisioningReloadDashboardsCmd = &cobra.Command{
 		Use:               "admin-provisioning-reload-dashboards",
 		Short:             "Reloads dashboard provisioning configurations",
+		Long:              "Reloads the provisioning config files for dashboards again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:dashboards`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1116,6 +1138,7 @@ var (
 	adminProvisioningAdminProvisioningReloadDatasourcesCmd = &cobra.Command{
 		Use:               "admin-provisioning-reload-datasources",
 		Short:             "Reloads datasource provisioning configurations",
+		Long:              "Reloads the provisioning config files for datasources again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:datasources`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1140,6 +1163,7 @@ var (
 	adminProvisioningAdminProvisioningReloadPluginsCmd = &cobra.Command{
 		Use:               "admin-provisioning-reload-plugins",
 		Short:             "Reloads plugin provisioning configurations",
+		Long:              "Reloads the provisioning config files for plugins again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:plugin`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1170,6 +1194,7 @@ var (
 	adminUsersAdminCreateUserCmd = &cobra.Command{
 		Use:               "admin-create-user",
 		Short:             "Creates new user",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:create`. Note that OrgId is an optional parameter that can be used to assign a new user to a different organization when `auto_assign_org` is set to `true`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1203,6 +1228,7 @@ var (
 	adminUsersAdminDeleteUserCmd = &cobra.Command{
 		Use:               "admin-delete-user",
 		Short:             "Deletes global user",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:delete` and scope `global.users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1229,6 +1255,7 @@ var (
 	adminUsersAdminDisableUserCmd = &cobra.Command{
 		Use:               "admin-disable-user",
 		Short:             "Disables user",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:disable` and scope `global.users:1` (userIDScope).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1255,6 +1282,7 @@ var (
 	adminUsersAdminEnableUserCmd = &cobra.Command{
 		Use:               "admin-enable-user",
 		Short:             "Enables user",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:enable` and scope `global.users:1` (userIDScope).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1281,6 +1309,7 @@ var (
 	adminUsersAdminGetUserAuthTokensCmd = &cobra.Command{
 		Use:               "admin-get-user-auth-tokens",
 		Short:             "Returns a list of all auth tokens devices that the user currently have logged in from",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.authtoken:list` and scope `global.users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1307,6 +1336,7 @@ var (
 	adminUsersAdminLogoutUserCmd = &cobra.Command{
 		Use:               "admin-logout-user",
 		Short:             "Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged in and will be required to authenticate again upon next activity",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.logout` and scope `global.users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1333,6 +1363,7 @@ var (
 	adminUsersAdminRevokeUserAuthTokenCmd = &cobra.Command{
 		Use:               "admin-revoke-user-auth-token",
 		Short:             "Revokes auth token for user",
+		Long:              "Revokes the given auth token (device) for the user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.authtoken:update` and scope `global.users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1367,6 +1398,7 @@ var (
 	adminUsersAdminUpdateUserPasswordCmd = &cobra.Command{
 		Use:               "admin-update-user-password",
 		Short:             "Sets password for user",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.password:update` and scope `global.users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1401,6 +1433,7 @@ var (
 	adminUsersAdminUpdateUserPermissionsCmd = &cobra.Command{
 		Use:               "admin-update-user-permissions",
 		Short:             "Sets permissions for user",
+		Long:              "Only works with Basic Authentication (username and password). See introduction for an explanation. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.permissions:update` and scope `global.users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1566,6 +1599,7 @@ var (
 	annotationsPatchAnnotationCmd = &cobra.Command{
 		Use:               "patch-annotation",
 		Short:             "Patches annotation",
+		Long:              "Updates one or more properties of an annotation that matches the specified ID. This operation currently supports updating of the `text`, `tags`, `time` and `timeEnd` properties. This is available in Grafana 6.0.0-beta2 and above.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1600,6 +1634,7 @@ var (
 	annotationsPostAnnotationCmd = &cobra.Command{
 		Use:               "post-annotation",
 		Short:             "Creates annotation",
+		Long:              "Creates an annotation in the Grafana database. The dashboardId and panelId fields are optional. If they are not specified then an organization annotation is created and can be queried in any dashboard that adds the Grafana annotations data source. When creating a region annotation include the timeEnd property. The format for `time` and `timeEnd` should be epoch numbers in millisecond resolution. The response for this HTTP request is slightly different in versions prior to v6.4. In prior versions you would also get an endId if you where creating a region. But in 6.4 regions are represented using a single event with time and timeEnd properties.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1633,6 +1668,7 @@ var (
 	annotationsPostGraphiteAnnotationCmd = &cobra.Command{
 		Use:               "post-graphite-annotation",
 		Short:             "Creates annotation in graphite format",
+		Long:              "Creates an annotation by using Graphite-compatible event format. The `when` and `data` fields are optional. If `when` is not specified then the current time will be used as annotation’s timestamp. The `tags` field can also be in prior to Graphite `0.10.0` format (string with multiple tags being separated by a space).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -1666,6 +1702,7 @@ var (
 	annotationsUpdateAnnotationCmd = &cobra.Command{
 		Use:               "update-annotation",
 		Short:             "Updates annotation",
+		Long:              "Updates all properties of an annotation that matches the specified id. To only update certain property, consider using the Patch Annotation operation.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2181,6 +2218,7 @@ var (
 	dashboardsCreateDashboardSnapshotCmd = &cobra.Command{
 		Use:               "create-dashboard-snapshot",
 		Short:             "Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI",
+		Long:              "Snapshot public mode should be enabled or authentication is required.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2248,6 +2286,7 @@ var (
 	dashboardsDeleteDashboardByUIDCmd = &cobra.Command{
 		Use:               "delete-dashboard-by-uid",
 		Short:             "Deletes dashboard by uid",
+		Long:              "Will delete the dashboard given the specified unique identifier (uid).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2300,6 +2339,7 @@ var (
 	dashboardsDeleteDashboardSnapshotByDeleteKeyCmd = &cobra.Command{
 		Use:               "delete-dashboard-snapshot-by-delete-key",
 		Short:             "Deletes snapshot by delete key",
+		Long:              "Snapshot public mode should be enabled or authentication is required.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2353,6 +2393,7 @@ var (
 	dashboardsGetDashboardByUIDCmd = &cobra.Command{
 		Use:               "get-dashboard-by-uid",
 		Short:             "Gets dashboard by uid",
+		Long:              "Will return the dashboard given the dashboard unique identifier (uid).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2667,6 +2708,7 @@ var (
 	dashboardsPostDashboardCmd = &cobra.Command{
 		Use:               "post-dashboard",
 		Short:             "Creates update dashboard",
+		Long:              "Creates a new dashboard or updates an existing dashboard. Note: This endpoint is not intended for creating folders, use `POST /api/folders` for that.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2787,6 +2829,7 @@ var (
 	dashboardsUpdateDashboardPermissionsByUIDCmd = &cobra.Command{
 		Use:               "update-dashboard-permissions-by-uid",
 		Short:             "Updates permissions for a dashboard",
+		Long:              "This operation will remove existing permissions if they’re not included in the request.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -2961,6 +3004,7 @@ var (
 	datasourcesAddDatasourceCmd = &cobra.Command{
 		Use:               "add-datasource",
 		Short:             "Creates a data source",
+		Long:              "By defining `password` and `basicAuthPassword` under secureJsonData property Grafana encrypts them securely as an encrypted blob in the database. The response then lists the encrypted fields under secureJsonFields.\n\nIf you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:create`",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3108,6 +3152,7 @@ var (
 	datasourcesDeleteDatasourceByNameCmd = &cobra.Command{
 		Use:               "delete-datasource-by-name",
 		Short:             "Deletes an existing data source by name",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:delete` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3134,6 +3179,7 @@ var (
 	datasourcesDeleteDatasourceByUIDCmd = &cobra.Command{
 		Use:               "delete-datasource-by-uid",
 		Short:             "Deletes an existing data source by UID",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:delete` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:kLtEtcRGk` (single data source).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3240,6 +3286,7 @@ var (
 	datasourcesGetDatasourceByNameCmd = &cobra.Command{
 		Use:               "get-datasource-by-name",
 		Short:             "Gets a single data source by name",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3266,6 +3313,7 @@ var (
 	datasourcesGetDatasourceByUIDCmd = &cobra.Command{
 		Use:               "get-datasource-by-uid",
 		Short:             "Gets a single data source by UID",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:kLtEtcRGk` (single data source).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3292,6 +3340,7 @@ var (
 	datasourcesGetDatasourceIDByNameCmd = &cobra.Command{
 		Use:               "get-datasource-id-by-name",
 		Short:             "Gets data source Id by name",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3318,6 +3367,7 @@ var (
 	datasourcesGetDatasourcesCmd = &cobra.Command{
 		Use:               "get-datasources",
 		Short:             "Gets all data sources",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scope: `datasources:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3342,6 +3392,7 @@ var (
 	datasourcesQueryMetricsWithExpressionsCmd = &cobra.Command{
 		Use:               "query-metrics-with-expressions",
 		Short:             "Data source query metrics with expressions",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:query`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3409,6 +3460,7 @@ var (
 	datasourcesUpdateDatasourceByUIDCmd = &cobra.Command{
 		Use:               "update-datasource-by-uid",
 		Short:             "Updates an existing data source",
+		Long:              "Similar to creating a data source, `password` and `basicAuthPassword` should be defined under secureJsonData in order to be stored securely as an encrypted blob in the database. Then, the encrypted fields are listed under secureJsonFields section in the response.\n\nIf you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:write` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:1` (single data source).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3690,6 +3742,7 @@ var (
 	enterpriseSearchResultCmd = &cobra.Command{
 		Use:               "search-result",
 		Short:             "Debugs permissions",
+		Long:              "Returns the result of the search through access-control role assignments.\n\nYou need to have a permission with action `teams.roles:read` on scope `teams:*` and a permission with action `users.roles:read` on scope `users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -3810,6 +3863,7 @@ var (
 	foldersCreateFolderCmd = &cobra.Command{
 		Use:               "create-folder",
 		Short:             "Creates folder",
+		Long:              "If nested folders are enabled then it additionally expects the parent folder UID.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4280,7 +4334,7 @@ var (
 	}
 	healthGetHealthCmd = &cobra.Command{
 		Use:               "get-health",
-		Short:             "ApiHealthHandler will return ok if Grafana's web server is running and it",
+		Short:             "ApiHealthHandler will return ok if Grafana's web server is running and it can access the database. If the database cannot be accessed it will return http status code 503.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4311,6 +4365,7 @@ var (
 	ldapDebugGetSyncStatusCmd = &cobra.Command{
 		Use:               "get-sync-status",
 		Short:             "Returns the current state of the LDAP background sync integration",
+		Long:              "You need to have a permission with action `ldap.status:read`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4341,6 +4396,7 @@ var (
 	libraryElementsCreateLibraryElementCmd = &cobra.Command{
 		Use:               "create-library-element",
 		Short:             "Creates library element",
+		Long:              "Creates a new library element.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4374,6 +4430,7 @@ var (
 	libraryElementsDeleteLibraryElementByUIDCmd = &cobra.Command{
 		Use:               "delete-library-element-by-uid",
 		Short:             "Deletes library element",
+		Long:              "Deletes an existing library element as specified by the UID. This operation cannot be reverted. You cannot delete a library element that is connected. This operation cannot be reverted.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4400,6 +4457,7 @@ var (
 	libraryElementsGetLibraryElementByNameCmd = &cobra.Command{
 		Use:               "get-library-element-by-name",
 		Short:             "Gets library element by name",
+		Long:              "Returns a library element with the given name.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4426,6 +4484,7 @@ var (
 	libraryElementsGetLibraryElementByUIDCmd = &cobra.Command{
 		Use:               "get-library-element-by-uid",
 		Short:             "Gets library element by UID",
+		Long:              "Returns a library element with the given UID.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4452,6 +4511,7 @@ var (
 	libraryElementsGetLibraryElementConnectionsCmd = &cobra.Command{
 		Use:               "get-library-element-connections",
 		Short:             "Gets library element connections",
+		Long:              "Returns a list of connections for a library element based on the UID specified.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4510,6 +4570,7 @@ var (
 	libraryElementsUpdateLibraryElementCmd = &cobra.Command{
 		Use:               "update-library-element",
 		Short:             "Updates library element",
+		Long:              "Updates an existing library element identified by uid.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4579,6 +4640,7 @@ var (
 	licensingDeleteLicenseTokenCmd = &cobra.Command{
 		Use:               "delete-license-token",
 		Short:             "Removes license from database",
+		Long:              "Removes the license stored in the Grafana database. Available in Grafana Enterprise v7.4+.\n\nYou need to have a permission with action `licensing:delete`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4612,6 +4674,7 @@ var (
 	licensingGetCustomPermissionsCSVCmd = &cobra.Command{
 		Use:               "get-custom-permissions-csv",
 		Short:             "Gets custom permissions report in CSV format",
+		Long:              "You need to have a permission with action `licensing.reports:read`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4637,6 +4700,7 @@ var (
 	licensingGetCustomPermissionsReportCmd = &cobra.Command{
 		Use:               "get-custom-permissions-report",
 		Short:             "Gets custom permissions report",
+		Long:              "You need to have a permission with action `licensing.reports:read`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4662,6 +4726,7 @@ var (
 	licensingGetLicenseTokenCmd = &cobra.Command{
 		Use:               "get-license-token",
 		Short:             "Gets license token",
+		Long:              "You need to have a permission with action `licensing:read`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4711,6 +4776,7 @@ var (
 	licensingPostLicenseTokenCmd = &cobra.Command{
 		Use:               "post-license-token",
 		Short:             "Creates license token",
+		Long:              "You need to have a permission with action `licensing:write`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4744,6 +4810,7 @@ var (
 	licensingPostRenewLicenseTokenCmd = &cobra.Command{
 		Use:               "post-renew-license-token",
 		Short:             "Manuallies force license refresh",
+		Long:              "Manually ask license issuer for a new token. Available in Grafana Enterprise v7.4+.\n\nYou need to have a permission with action `licensing:write`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4775,6 +4842,7 @@ var (
 	licensingRefreshLicenseStatsCmd = &cobra.Command{
 		Use:               "refresh-license-stats",
 		Short:             "Refreshes license stats",
+		Long:              "You need to have a permission with action `licensing:read`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4814,6 +4882,7 @@ var (
 	migrationsCancelSnapshotCmd = &cobra.Command{
 		Use:               "cancel-snapshot",
 		Short:             "Cancels a snapshot wherever it is in its processing chain",
+		Long:              "TODO: Implement",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -4899,6 +4968,7 @@ var (
 	migrationsCreateSnapshotCmd = &cobra.Command{
 		Use:               "create-snapshot",
 		Short:             "Triggers the creation of an instance snapshot associated with the provided session",
+		Long:              "If the snapshot initialization is successful, the snapshot uid is returned.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5250,6 +5320,7 @@ var (
 	orgAddOrgUserToCurrentOrgCmd = &cobra.Command{
 		Use:               "add-org-user-to-current-org",
 		Short:             "Adds a new user to the current organization",
+		Long:              "Adds a global user to the current organization.\n\nIf you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5440,6 +5511,7 @@ var (
 	orgRemoveOrgUserForCurrentOrgCmd = &cobra.Command{
 		Use:               "remove-org-user-for-current-org",
 		Short:             "Deletes user in current organization",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:remove` with scope `users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5591,6 +5663,7 @@ var (
 	orgUpdateOrgUserForCurrentOrgCmd = &cobra.Command{
 		Use:               "update-org-user-for-current-org",
 		Short:             "Updates the given user",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users.role:update` with scope `users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5667,6 +5740,7 @@ var (
 	orgsAddOrgUserCmd = &cobra.Command{
 		Use:               "add-org-user",
 		Short:             "Adds a new user to the current organization",
+		Long:              "Adds a global user to the current organization.\n\nIf you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5701,6 +5775,7 @@ var (
 	orgsCreateOrgCmd = &cobra.Command{
 		Use:               "create-org",
 		Short:             "Creates organization",
+		Long:              "Only works if [users.allow_org_create](https://grafana.com/docs/grafana/latest/administration/configuration/#allow_org_create) is set.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5760,6 +5835,7 @@ var (
 	orgsGetOrgUsersCmd = &cobra.Command{
 		Use:               "get-org-users",
 		Short:             "Gets users in organization",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:read` with scope `users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5786,6 +5862,7 @@ var (
 	orgsRemoveOrgUserCmd = &cobra.Command{
 		Use:               "remove-org-user",
 		Short:             "Deletes user in current organization",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:remove` with scope `users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -5813,6 +5890,7 @@ var (
 	orgsSearchOrgUsersCmd = &cobra.Command{
 		Use:               "search-org-users",
 		Short:             "Searches users in organization",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:read` with scope `users:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7207,6 +7285,7 @@ var (
 	queryHistoryCreateQueryCmd = &cobra.Command{
 		Use:               "create-query",
 		Short:             "Adds query to query history",
+		Long:              "Adds new query to query history.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7240,6 +7319,7 @@ var (
 	queryHistoryDeleteQueryCmd = &cobra.Command{
 		Use:               "delete-query",
 		Short:             "Deletes query in query history",
+		Long:              "Deletes an existing query in query history as specified by the UID. This operation cannot be reverted.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7266,6 +7346,7 @@ var (
 	queryHistoryPatchQueryCommentCmd = &cobra.Command{
 		Use:               "patch-query-comment",
 		Short:             "Updates comment for query in query history",
+		Long:              "Updates comment for query in query history as specified by the UID.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7332,6 +7413,7 @@ var (
 	queryHistoryStarQueryCmd = &cobra.Command{
 		Use:               "star-query",
 		Short:             "Adds star to query in query history",
+		Long:              "Adds star to query in query history as specified by the UID.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7358,6 +7440,7 @@ var (
 	queryHistoryUnstarQueryCmd = &cobra.Command{
 		Use:               "unstar-query",
 		Short:             "Removes star to query in query history",
+		Long:              "Removes star from query in query history as specified by the UID.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7416,6 +7499,7 @@ var (
 	quotaGetCurrentOrgQuotaCmd = &cobra.Command{
 		Use:               "get-current-org-quota",
 		Short:             "Fetches organization quota",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `orgs.quotas:read` and scope `org:id:1` (orgIDScope).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7440,6 +7524,7 @@ var (
 	quotaGetOrgQuotaCmd = &cobra.Command{
 		Use:               "get-org-quota",
 		Short:             "Fetches organization quota",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `orgs.quotas:read` and scope `org:id:1` (orgIDScope).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7466,6 +7551,7 @@ var (
 	quotaGetUserQuotaCmd = &cobra.Command{
 		Use:               "get-user-quota",
 		Short:             "Fetches user quota",
+		Long:              "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.quotas:list` and scope `global.users:1` (userIDScope).",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7639,6 +7725,7 @@ var (
 	recordingRulesCreateRecordingRuleWriteTargetCmd = &cobra.Command{
 		Use:               "create-recording-rule-write-target",
 		Short:             "Creates a remote write target",
+		Long:              "It returns a 422 if there is not an existing prometheus data source configured.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7857,6 +7944,7 @@ var (
 	reportsCreateReportCmd = &cobra.Command{
 		Use:               "create-report",
 		Short:             "Creates a report",
+		Long:              "Available to org admins only and with a valid license.\n\nYou need to have a permission with action `reports.admin:create`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7890,6 +7978,7 @@ var (
 	reportsDeleteReportCmd = &cobra.Command{
 		Use:               "delete-report",
 		Short:             "Deletes a report",
+		Long:              "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports.delete` with scope `reports:id:<report ID>`.\n\nRequesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7916,6 +8005,7 @@ var (
 	reportsGetReportCmd = &cobra.Command{
 		Use:               "get-report",
 		Short:             "Gets a report",
+		Long:              "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports:read` with scope `reports:id:<report ID>`.\n\nRequesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7942,6 +8032,7 @@ var (
 	reportsGetReportSettingsCmd = &cobra.Command{
 		Use:               "get-report-settings",
 		Short:             "Gets report settings",
+		Long:              "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports.settings:read`x.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7966,6 +8057,7 @@ var (
 	reportsGetReportsCmd = &cobra.Command{
 		Use:               "get-reports",
 		Short:             "Lists reports",
+		Long:              "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports:read` with scope `reports:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -7990,6 +8082,7 @@ var (
 	reportsGetReportsByDashboardUIDCmd = &cobra.Command{
 		Use:               "get-reports-by-dashboard-uid",
 		Short:             "Lists reports by dashboard uid",
+		Long:              "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports:read` with scope `reports:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8016,6 +8109,7 @@ var (
 	reportsGetSettingsImageCmd = &cobra.Command{
 		Use:               "get-settings-image",
 		Short:             "Gets custom branding report image",
+		Long:              "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports.settings:read`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8096,6 +8190,7 @@ var (
 	reportsSaveReportSettingsCmd = &cobra.Command{
 		Use:               "save-report-settings",
 		Short:             "Saves settings",
+		Long:              "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports.settings:write`xx.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8129,6 +8224,7 @@ var (
 	reportsSendReportCmd = &cobra.Command{
 		Use:               "send-report",
 		Short:             "Sends a report",
+		Long:              "Generate and send a report. This API waits for the report to be generated before returning. We recommend that you set the client’s timeout to at least 60 seconds. Available to org admins only and with a valid license.\n\nOnly available in Grafana Enterprise v7.0+. This API endpoint is experimental and may be deprecated in a future release. On deprecation, a migration strategy will be provided and the endpoint will remain functional until the next major release of Grafana.\n\nYou need to have a permission with action `reports:send`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8162,6 +8258,7 @@ var (
 	reportsSendTestEmailCmd = &cobra.Command{
 		Use:               "send-test-email",
 		Short:             "Sends test report via email",
+		Long:              "Available to org admins only and with a valid license.\n\nYou need to have a permission with action `reports:send`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8195,6 +8292,7 @@ var (
 	reportsUpdateReportCmd = &cobra.Command{
 		Use:               "update-report",
 		Short:             "Updates a report",
+		Long:              "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports.admin:write` with scope `reports:id:<report ID>`.\n\nRequesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8321,6 +8419,7 @@ var (
 	samlGetSLOCmd = &cobra.Command{
 		Use:               "get-slo",
 		Short:             "Its performs single logout s l o callback",
+		Long:              "There might be two possible requests: 1. Logout response (callback) when Grafana initiates single logout and IdP returns response to logout request. 2. Logout request when another SP initiates single logout and IdP sends logout request to the Grafana, or in case of IdP-initiated logout.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8559,6 +8658,7 @@ var (
 	serviceAccountsDeleteServiceAccountCmd = &cobra.Command{
 		Use:               "delete-service-account",
 		Short:             "Deletes service account",
+		Long:              "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:delete` scope: `serviceaccounts:id:1` (single service account)",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8585,6 +8685,7 @@ var (
 	serviceAccountsDeleteTokenCmd = &cobra.Command{
 		Use:               "delete-token",
 		Short:             "Deletes token deletes service account tokens",
+		Long:              "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:write` scope: `serviceaccounts:id:1` (single service account)\n\nRequires basic authentication and that the authenticated user is a Grafana Admin.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8612,6 +8713,7 @@ var (
 	serviceAccountsListTokensCmd = &cobra.Command{
 		Use:               "list-tokens",
 		Short:             "Gets service account tokens",
+		Long:              "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:read` scope: `global:serviceaccounts:id:1` (single service account)\n\nRequires basic authentication and that the authenticated user is a Grafana Admin.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8638,6 +8740,7 @@ var (
 	serviceAccountsRetrieveServiceAccountCmd = &cobra.Command{
 		Use:               "retrieve-service-account",
 		Short:             "Gets single serviceaccount by Id",
+		Long:              "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:read` scope: `serviceaccounts:id:1` (single service account)",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8763,6 +8866,7 @@ var (
 	signedInUserChangeUserPasswordCmd = &cobra.Command{
 		Use:               "change-user-password",
 		Short:             "Changes password",
+		Long:              "Changes the password for the user.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8844,6 +8948,7 @@ var (
 	signedInUserGetSignedInUserOrgListCmd = &cobra.Command{
 		Use:               "get-signed-in-user-org-list",
 		Short:             "Organizations of the actual user",
+		Long:              "Return a list of all organizations of the current user.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8868,6 +8973,7 @@ var (
 	signedInUserGetSignedInUserTeamListCmd = &cobra.Command{
 		Use:               "get-signed-in-user-team-list",
 		Short:             "Teams that the actual user is member of",
+		Long:              "Return a list of all teams that the current user is member of.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8892,6 +8998,7 @@ var (
 	signedInUserGetUserAuthTokensCmd = &cobra.Command{
 		Use:               "get-user-auth-tokens",
 		Short:             "Auths tokens of the actual user",
+		Long:              "Return a list of all auth tokens (devices) that the actual user currently have logged in from.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -8973,6 +9080,7 @@ var (
 	signedInUserRevokeUserAuthTokenCmd = &cobra.Command{
 		Use:               "revoke-user-auth-token",
 		Short:             "Revokes an auth token of the actual user",
+		Long:              "Revokes the given auth token (device) for the actual user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9032,6 +9140,7 @@ var (
 	signedInUserStarDashboardByUIDCmd = &cobra.Command{
 		Use:               "star-dashboard-by-uid",
 		Short:             "Stars a dashboard",
+		Long:              "Stars the given Dashboard for the actual user.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9058,6 +9167,7 @@ var (
 	signedInUserUnstarDashboardByUIDCmd = &cobra.Command{
 		Use:               "unstar-dashboard-by-uid",
 		Short:             "Unstars a dashboard",
+		Long:              "Deletes the starring of the given Dashboard for the actual user.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9117,6 +9227,7 @@ var (
 	signedInUserUpdateUserPreferencesCmd = &cobra.Command{
 		Use:               "update-user-preferences",
 		Short:             "Updates user preferences",
+		Long:              "Omitting a key (`theme`, `homeDashboardUID`, `timezone`) will cause the current value to be replaced with the system default value.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9150,6 +9261,7 @@ var (
 	signedInUserUserSetUsingOrgCmd = &cobra.Command{
 		Use:               "user-set-using-org",
 		Short:             "Switches user context for signed in user",
+		Long:              "Switch user context to the given organization.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9209,6 +9321,7 @@ var (
 	signingKeysRetrieveJWKSCmd = &cobra.Command{
 		Use:               "retrieve-jwks",
 		Short:             "Gets JSON web key set j w k s with all the keys that can be used to verify tokens public keys",
+		Long:              "Required permissions None",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9269,6 +9382,7 @@ var (
 	ssoSettingsGetProviderSettingsCmd = &cobra.Command{
 		Use:               "get-provider-settings",
 		Short:             "Gets an s s o settings entry by key",
+		Long:              "You need to have a permission with action `settings:read` with scope `settings:auth.<provider>:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9295,6 +9409,7 @@ var (
 	ssoSettingsListAllProvidersSettingsCmd = &cobra.Command{
 		Use:               "list-all-providers-settings",
 		Short:             "Lists all s s o settings entries",
+		Long:              "You need to have a permission with action `settings:read` with scope `settings:auth.<provider>:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9319,6 +9434,7 @@ var (
 	ssoSettingsRemoveProviderSettingsCmd = &cobra.Command{
 		Use:               "remove-provider-settings",
 		Short:             "Removes s s o settings",
+		Long:              "Removes the SSO Settings for a provider.\n\nYou need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9345,6 +9461,7 @@ var (
 	ssoSettingsUpdateProviderSettingsCmd = &cobra.Command{
 		Use:               "update-provider-settings",
 		Short:             "Updates s s o settings",
+		Long:              "Inserts or updates the SSO Settings for a provider.\n\nYou need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9710,6 +9827,7 @@ var (
 	teamsSetTeamMembershipsCmd = &cobra.Command{
 		Use:               "set-team-memberships",
 		Short:             "Sets team memberships",
+		Long:              "Takes user emails, and updates team members and admins to the provided lists of users. Any current team members and admins not in the provided lists will be removed.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9894,6 +10012,7 @@ var (
 	userUpdateUserEmailCmd = &cobra.Command{
 		Use:               "update-user-email",
 		Short:             "Updates user email",
+		Long:              "Update the email of user given a verification code.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9951,6 +10070,7 @@ var (
 	usersGetUserOrgListCmd = &cobra.Command{
 		Use:               "get-user-org-list",
 		Short:             "Gets organizations for user",
+		Long:              "Get organizations for user identified by id.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -9977,6 +10097,7 @@ var (
 	usersGetUserTeamsCmd = &cobra.Command{
 		Use:               "get-user-teams",
 		Short:             "Gets teams for user",
+		Long:              "Get teams for user identified by id.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
@@ -10053,6 +10174,7 @@ var (
 	usersUpdateUserCmd = &cobra.Command{
 		Use:               "update-user",
 		Short:             "Updates user",
+		Long:              "Update the user identified by id.",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()

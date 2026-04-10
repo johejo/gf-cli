@@ -2,6 +2,10 @@
 
 Creates folder
 
+### Synopsis
+
+If nested folders are enabled then it additionally expects the parent folder UID.
+
 ```
 gf folders create-folder [flags]
 ```

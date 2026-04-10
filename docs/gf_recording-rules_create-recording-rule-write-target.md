@@ -2,6 +2,10 @@
 
 Creates a remote write target
 
+### Synopsis
+
+It returns a 422 if there is not an existing prometheus data source configured.
+
 ```
 gf recording-rules create-recording-rule-write-target [flags]
 ```

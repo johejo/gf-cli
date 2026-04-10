@@ -2,6 +2,12 @@
 
 Gets status
 
+### Synopsis
+
+Returns an indicator to check if fine-grained access control is enabled or not.
+
+You need to have a permission with action `status:accesscontrol` and scope `services:accesscontrol`.
+
 ```
 gf access-control get-access-control-status [flags]
 ```

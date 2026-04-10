@@ -2,6 +2,10 @@
 
 Deletes query in query history
 
+### Synopsis
+
+Deletes an existing query in query history as specified by the UID. This operation cannot be reverted.
+
 ```
 gf query-history delete-query [flags]
 ```

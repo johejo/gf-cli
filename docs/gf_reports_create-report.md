@@ -2,6 +2,12 @@
 
 Creates a report
 
+### Synopsis
+
+Available to org admins only and with a valid license.
+
+You need to have a permission with action `reports.admin:create`.
+
 ```
 gf reports create-report [flags]
 ```

@@ -2,6 +2,10 @@
 
 Updates comment for query in query history
 
+### Synopsis
+
+Updates comment for query in query history as specified by the UID.
+
 ```
 gf query-history patch-query-comment [flags]
 ```

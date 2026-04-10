@@ -2,6 +2,10 @@
 
 Lists all s s o settings entries
 
+### Synopsis
+
+You need to have a permission with action `settings:read` with scope `settings:auth.<provider>:*`.
+
 ```
 gf sso-settings list-all-providers-settings [flags]
 ```

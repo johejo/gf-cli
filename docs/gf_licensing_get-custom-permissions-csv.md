@@ -2,6 +2,10 @@
 
 Gets custom permissions report in CSV format
 
+### Synopsis
+
+You need to have a permission with action `licensing.reports:read`.
+
 ```
 gf licensing get-custom-permissions-csv [flags]
 ```

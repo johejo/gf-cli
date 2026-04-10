@@ -2,6 +2,10 @@
 
 Updates permissions for a dashboard
 
+### Synopsis
+
+This operation will remove existing permissions if they’re not included in the request.
+
 ```
 gf dashboards update-dashboard-permissions-by-uid [flags]
 ```

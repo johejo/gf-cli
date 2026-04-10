@@ -2,6 +2,10 @@
 
 Returns a list of all auth tokens devices that the user currently have logged in from
 
+### Synopsis
+
+If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.authtoken:list` and scope `global.users:*`.
+
 ```
 gf admin-users admin-get-user-auth-tokens [flags]
 ```

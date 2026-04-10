@@ -2,6 +2,10 @@
 
 Gets users in organization
 
+### Synopsis
+
+If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:read` with scope `users:*`.
+
 ```
 gf orgs get-org-users [flags]
 ```

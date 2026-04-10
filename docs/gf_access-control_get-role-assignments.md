@@ -2,6 +2,12 @@
 
 Gets role assignments
 
+### Synopsis
+
+Get role assignments for the role with the given UID. Does not include role assignments mapped through group attribute sync.
+
+You need to have a permission with action `teams.roles:list` and scope `teams:id:*` and `users.roles:list` and scope `users:id:*`.
+
 ```
 gf access-control get-role-assignments [flags]
 ```

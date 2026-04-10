@@ -2,6 +2,10 @@
 
 Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI
 
+### Synopsis
+
+Snapshot public mode should be enabled or authentication is required.
+
 ```
 gf dashboards create-dashboard-snapshot [flags]
 ```

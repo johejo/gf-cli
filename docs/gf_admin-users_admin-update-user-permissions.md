@@ -2,6 +2,10 @@
 
 Sets permissions for user
 
+### Synopsis
+
+Only works with Basic Authentication (username and password). See introduction for an explanation. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.permissions:update` and scope `global.users:*`.
+
 ```
 gf admin-users admin-update-user-permissions [flags]
 ```

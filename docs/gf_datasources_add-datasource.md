@@ -2,6 +2,12 @@
 
 Creates a data source
 
+### Synopsis
+
+By defining `password` and `basicAuthPassword` under secureJsonData property Grafana encrypts them securely as an encrypted blob in the database. The response then lists the encrypted fields under secureJsonFields.
+
+If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:create`
+
 ```
 gf datasources add-datasource [flags]
 ```

@@ -2,6 +2,12 @@
 
 Saves settings
 
+### Synopsis
+
+Available to org admins only and with a valid or expired license.
+
+You need to have a permission with action `reports.settings:write`xx.
+
 ```
 gf reports save-report-settings [flags]
 ```

@@ -10,7 +10,7 @@ gf-datasources-delete-datasource-by-name - Deletes an existing data source by na
 
 
 .SH DESCRIPTION
-Deletes an existing data source by name
+If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: \fBdatasources:delete\fR and scopes: \fBdatasources:*\fR, \fBdatasources:name:*\fR and \fBdatasources:name:test_datasource\fR (single data source).
 
 
 .SH OPTIONS

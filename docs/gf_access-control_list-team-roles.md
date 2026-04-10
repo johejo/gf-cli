@@ -2,6 +2,10 @@
 
 Gets team roles
 
+### Synopsis
+
+You need to have a permission with action `teams.roles:read` and scope `teams:id:<team ID>`.
+
 ```
 gf access-control list-team-roles [flags]
 ```

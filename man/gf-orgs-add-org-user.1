@@ -10,7 +10,10 @@ gf-orgs-add-org-user - Adds a new user to the current organization
 
 
 .SH DESCRIPTION
-Adds a new user to the current organization
+Adds a global user to the current organization.
+
+.PP
+If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: \fBorg.users:add\fR with scope \fBusers:*\fR\&.
 
 
 .SH OPTIONS

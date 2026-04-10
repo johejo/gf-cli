@@ -13,7 +13,8 @@ type Action struct {
 	VarName        string        // "AddTeamRole" (variable name suffix)
 	GoMethodName   string        // "AddTeamRoleWithParams"
 	ParamsTypeName string        // "AddTeamRoleParams"
-	Short          string        // short help text from source doc comment
+	Short          string        // single-line summary from source doc comment
+	Long           string        // detailed help text from source doc comment
 	Response       *ResponseInfo // nil if method returns only error
 	BodyField      *BodyFieldInfo
 	Flags          []*Flag

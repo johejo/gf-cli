@@ -10,7 +10,13 @@ gf-reports-delete-report - Deletes a report
 
 
 .SH DESCRIPTION
-Deletes a report
+Available to org admins only and with a valid or expired license.
+
+.PP
+You need to have a permission with action \fBreports.delete\fR with scope \fBreports:id:<report ID>\fR\&.
+
+.PP
+Requesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/
 
 
 .SH OPTIONS

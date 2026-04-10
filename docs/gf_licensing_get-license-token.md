@@ -2,6 +2,10 @@
 
 Gets license token
 
+### Synopsis
+
+You need to have a permission with action `licensing:read`.
+
 ```
 gf licensing get-license-token [flags]
 ```

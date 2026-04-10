@@ -10,7 +10,10 @@ gf-access-control-get-role-assignments - Gets role assignments
 
 
 .SH DESCRIPTION
-Gets role assignments
+Get role assignments for the role with the given UID. Does not include role assignments mapped through group attribute sync.
+
+.PP
+You need to have a permission with action \fBteams.roles:list\fR and scope \fBteams:id:*\fR and \fBusers.roles:list\fR and scope \fBusers:id:*\fR\&.
 
 
 .SH OPTIONS

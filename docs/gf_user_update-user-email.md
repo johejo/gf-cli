@@ -2,6 +2,10 @@
 
 Updates user email
 
+### Synopsis
+
+Update the email of user given a verification code.
+
 ```
 gf user update-user-email [flags]
 ```

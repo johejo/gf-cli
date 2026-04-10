@@ -4,7 +4,7 @@ CLI for Grafana API
 
 ### Synopsis
 
-Grafana API Client for command line operations with shell completions
+Grafana API Client for command line operations
 
 ```
 gf [flags]

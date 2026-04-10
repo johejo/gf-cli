@@ -38,6 +38,9 @@ var (
 {{- if .Short }}
 		Short:             {{ printf "%q" .Short }},
 {{- end }}
+{{- if .Long }}
+		Long:              {{ printf "%q" .Long }},
+{{- end }}
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()

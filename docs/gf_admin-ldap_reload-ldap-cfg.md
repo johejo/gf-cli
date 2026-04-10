@@ -2,6 +2,10 @@
 
 Reloads the LDAP configuration
 
+### Synopsis
+
+If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.config:reload`.
+
 ```
 gf admin-ldap reload-ldap-cfg [flags]
 ```

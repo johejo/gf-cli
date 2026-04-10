@@ -2,6 +2,10 @@
 
 Triggers the creation of an instance snapshot associated with the provided session
 
+### Synopsis
+
+If the snapshot initialization is successful, the snapshot uid is returned.
+
 ```
 gf migrations create-snapshot [flags]
 ```

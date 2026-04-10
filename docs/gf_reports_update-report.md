@@ -2,6 +2,14 @@
 
 Updates a report
 
+### Synopsis
+
+Available to org admins only and with a valid or expired license.
+
+You need to have a permission with action `reports.admin:write` with scope `reports:id:<report ID>`.
+
+Requesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/
+
 ```
 gf reports update-report [flags]
 ```

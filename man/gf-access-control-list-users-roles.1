@@ -10,7 +10,10 @@ gf-access-control-list-users-roles - Lists roles assigned to multiple users
 
 
 .SH DESCRIPTION
-Lists roles assigned to multiple users
+Lists the roles that have been directly assigned to the given users. The list does not include built-in roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.
+
+.PP
+You need to have a permission with action \fBusers.roles:read\fR and scope \fBusers:id:*\fR\&.
 
 
 .SH OPTIONS

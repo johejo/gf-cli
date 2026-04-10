@@ -2,6 +2,10 @@
 
 Returns the current state of the LDAP background sync integration
 
+### Synopsis
+
+You need to have a permission with action `ldap.status:read`.
+
 ```
 gf ldap-debug get-sync-status [flags]
 ```

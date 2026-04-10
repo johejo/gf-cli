@@ -10,7 +10,10 @@ gf-datasources-add-datasource - Creates a data source
 
 
 .SH DESCRIPTION
-Creates a data source
+By defining \fBpassword\fR and \fBbasicAuthPassword\fR under secureJsonData property Grafana encrypts them securely as an encrypted blob in the database. The response then lists the encrypted fields under secureJsonFields.
+
+.PP
+If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: \fBdatasources:create\fR
 
 
 .SH OPTIONS

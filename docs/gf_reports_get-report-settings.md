@@ -2,6 +2,12 @@
 
 Gets report settings
 
+### Synopsis
+
+Available to org admins only and with a valid or expired license.
+
+You need to have a permission with action `reports.settings:read`x.
+
 ```
 gf reports get-report-settings [flags]
 ```

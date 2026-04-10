@@ -2,6 +2,10 @@
 
 Gets all data sources
 
+### Synopsis
+
+If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scope: `datasources:*`.
+
 ```
 gf datasources get-datasources [flags]
 ```

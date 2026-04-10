@@ -14,7 +14,8 @@ type MethodInfo struct {
 	ParamsTypeName string // "AddTeamRoleParams"
 	ReturnTypeName string // "AddTeamRoleOK" (first return type, empty if error-only)
 	NumReturns     int    // number of return values
-	Doc            string // doc comment extracted from the non-WithParams implementation
+	Short          string // single-line summary extracted from the non-WithParams implementation
+	Long           string // detailed help extracted from the non-WithParams implementation
 }
 
 // ParseService parses a ClientService interface from <baseDir>/client/<pkgName>/<pkgName>_client.go
@@ -78,8 +79,8 @@ func ParseService(baseDir string, pkgName string) ([]*MethodInfo, error) {
 
 		// Look up doc comment from the non-WithParams sibling method
 		baseName := strings.TrimSuffix(name, "WithParams")
-		doc := docMap[baseName]
-		if doc == "" {
+		doc, ok := docMap[baseName]
+		if !ok {
 			doc = docMap[name]
 		}
 
@@ -88,10 +89,16 @@ func ParseService(baseDir string, pkgName string) ([]*MethodInfo, error) {
 			ParamsTypeName: paramsTypeName,
 			ReturnTypeName: returnTypeName,
 			NumReturns:     numReturns,
-			Doc:            doc,
+			Short:          doc.Short,
+			Long:           doc.Long,
 		})
 	}
 	return methods, nil
+}
+
+type MethodDoc struct {
+	Short string
+	Long  string
 }
 
 func findClientServiceInterface(f *ast.File) *ast.InterfaceType {
@@ -115,46 +122,96 @@ func findClientServiceInterface(f *ast.File) *ast.InterfaceType {
 }
 
 // buildMethodDocMap extracts doc comments from method implementations
-// (func (a *Client) MethodName(...)) and returns a map of method name -> cleaned doc string.
-func buildMethodDocMap(f *ast.File) map[string]string {
-	m := make(map[string]string)
+// (func (a *Client) MethodName(...)) and returns a map of method name -> parsed doc parts.
+func buildMethodDocMap(f *ast.File) map[string]MethodDoc {
+	m := make(map[string]MethodDoc)
 	for _, decl := range f.Decls {
 		fd, ok := decl.(*ast.FuncDecl)
 		if !ok || fd.Doc == nil || fd.Recv == nil {
 			continue
 		}
-		m[fd.Name.Name] = cleanDoc(fd.Doc.Text())
+		m[fd.Name.Name] = splitDoc(fd.Doc.Text())
 	}
 	return m
 }
 
-// cleanDoc cleans a go-swagger doc comment.
+// splitDoc cleans a go-swagger doc comment and returns short and long help text.
 // Input example:
 //
 //	"CreateDashboardSnapshot whens creating a snapshot using the API...\n\nSnapshot public mode should be enabled..."
 //
-// The first word is typically the method name repeated; we strip it and capitalize the rest.
-func cleanDoc(s string) string {
+// The first word is typically the method name repeated; we strip it and split on paragraph boundaries.
+func splitDoc(s string) MethodDoc {
 	s = strings.TrimSpace(s)
 	if s == "" {
-		return ""
+		return MethodDoc{}
 	}
-	// go-swagger comments start with "MethodName description...", strip the method name prefix
-	// by finding the first space and taking the rest.
-	if idx := strings.IndexByte(s, ' '); idx >= 0 {
-		s = s[idx+1:]
+
+	paragraphs := normalizeDocParagraphs(s)
+	if len(paragraphs) == 0 {
+		return MethodDoc{}
 	}
+
+	short := firstLine(paragraphs[0])
+	longParagraphs := make([]string, 0, len(paragraphs))
+	if paragraphs[0] != short {
+		longParagraphs = append(longParagraphs, paragraphs[0])
+	}
+	if len(paragraphs) > 1 {
+		longParagraphs = append(longParagraphs, paragraphs[1:]...)
+	}
+
+	return MethodDoc{
+		Short: capitalizeFirst(short),
+		Long:  strings.Join(longParagraphs, "\n\n"),
+	}
+}
+
+func normalizeDocParagraphs(s string) []string {
+	s = strings.ReplaceAll(s, "\r\n", "\n")
+	lines := strings.Split(strings.TrimSpace(s), "\n")
+	if len(lines) == 0 {
+		return nil
+	}
+
+	if idx := strings.IndexByte(lines[0], ' '); idx >= 0 {
+		lines[0] = strings.TrimSpace(lines[0][idx+1:])
+	} else {
+		lines[0] = ""
+	}
+
+	var paragraphs []string
+	var current []string
+	for _, line := range lines {
+		line = strings.TrimSpace(line)
+		if line == "" {
+			if len(current) > 0 {
+				paragraphs = append(paragraphs, strings.Join(current, " "))
+				current = nil
+			}
+			continue
+		}
+		current = append(current, line)
+	}
+	if len(current) > 0 {
+		paragraphs = append(paragraphs, strings.Join(current, " "))
+	}
+	return paragraphs
+}
+
+func firstLine(s string) string {
 	s = strings.TrimSpace(s)
-	// Take only the first sentence/line for Short help
 	if idx := strings.IndexByte(s, '\n'); idx >= 0 {
 		s = s[:idx]
 	}
-	s = strings.TrimSpace(s)
-	// Capitalize first letter
-	if len(s) > 0 {
-		s = strings.ToUpper(s[:1]) + s[1:]
+	return strings.TrimSpace(s)
+}
+
+func capitalizeFirst(s string) string {
+	if s == "" {
+		return ""
 	}
-	return s
+	return strings.ToUpper(s[:1]) + s[1:]
 }
 
 // extractTypeName extracts the type name from an AST expression.

@@ -2,6 +2,10 @@
 
 Gets dashboard by uid
 
+### Synopsis
+
+Will return the dashboard given the dashboard unique identifier (uid).
+
 ```
 gf dashboards get-dashboard-by-uid [flags]
 ```

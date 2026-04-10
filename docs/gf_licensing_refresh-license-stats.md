@@ -2,6 +2,10 @@
 
 Refreshes license stats
 
+### Synopsis
+
+You need to have a permission with action `licensing:read`.
+
 ```
 gf licensing refresh-license-stats [flags]
 ```

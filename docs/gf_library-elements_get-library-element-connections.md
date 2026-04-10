@@ -2,6 +2,10 @@
 
 Gets library element connections
 
+### Synopsis
+
+Returns a list of connections for a library element based on the UID specified.
+
 ```
 gf library-elements get-library-element-connections [flags]
 ```

@@ -2,6 +2,10 @@
 
 Attempts to connect to all the configured LDAP servers and returns information on whenever they re available or not
 
+### Synopsis
+
+If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.status:read`.
+
 ```
 gf admin-ldap get-ldap-status [flags]
 ```

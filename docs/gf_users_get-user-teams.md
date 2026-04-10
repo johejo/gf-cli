@@ -2,6 +2,10 @@
 
 Gets teams for user
 
+### Synopsis
+
+Get teams for user identified by id.
+
 ```
 gf users get-user-teams [flags]
 ```

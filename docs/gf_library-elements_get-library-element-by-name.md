@@ -2,6 +2,10 @@
 
 Gets library element by name
 
+### Synopsis
+
+Returns a library element with the given name.
+
 ```
 gf library-elements get-library-element-by-name [flags]
 ```

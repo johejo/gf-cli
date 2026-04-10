@@ -2,6 +2,10 @@
 
 Gets organizations for user
 
+### Synopsis
+
+Get organizations for user identified by id.
+
 ```
 gf users get-user-org-list [flags]
 ```

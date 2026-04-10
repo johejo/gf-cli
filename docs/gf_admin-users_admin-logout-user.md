@@ -2,6 +2,10 @@
 
 Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged in and will be required to authenticate again upon next activity
 
+### Synopsis
+
+If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.logout` and scope `global.users:*`.
+
 ```
 gf admin-users admin-logout-user [flags]
 ```

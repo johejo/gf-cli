@@ -2,6 +2,10 @@
 
 Gets JSON web key set j w k s with all the keys that can be used to verify tokens public keys
 
+### Synopsis
+
+Required permissions None
+
 ```
 gf signing-keys retrieve-jwks [flags]
 ```

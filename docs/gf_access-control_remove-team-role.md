@@ -2,6 +2,10 @@
 
 Removes team role
 
+### Synopsis
+
+You need to have a permission with action `teams.roles:remove` and scope `permissions:type:delegate`.
+
 ```
 gf access-control remove-team-role [flags]
 ```

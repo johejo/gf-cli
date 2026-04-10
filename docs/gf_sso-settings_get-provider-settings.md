@@ -2,6 +2,10 @@
 
 Gets an s s o settings entry by key
 
+### Synopsis
+
+You need to have a permission with action `settings:read` with scope `settings:auth.<provider>:*`.
+
 ```
 gf sso-settings get-provider-settings [flags]
 ```

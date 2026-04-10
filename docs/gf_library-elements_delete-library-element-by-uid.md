@@ -2,6 +2,10 @@
 
 Deletes library element
 
+### Synopsis
+
+Deletes an existing library element as specified by the UID. This operation cannot be reverted. You cannot delete a library element that is connected. This operation cannot be reverted.
+
 ```
 gf library-elements delete-library-element-by-uid [flags]
 ```

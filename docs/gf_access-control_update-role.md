@@ -2,6 +2,10 @@
 
 Updates a custom role
 
+### Synopsis
+
+You need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has.
+
 ```
 gf access-control update-role [flags]
 ```

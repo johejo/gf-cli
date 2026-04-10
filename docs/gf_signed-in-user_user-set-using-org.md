@@ -2,6 +2,10 @@
 
 Switches user context for signed in user
 
+### Synopsis
+
+Switch user context to the given organization.
+
 ```
 gf signed-in-user user-set-using-org [flags]
 ```

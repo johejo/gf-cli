@@ -2,6 +2,10 @@
 
 Patches annotation
 
+### Synopsis
+
+Updates one or more properties of an annotation that matches the specified ID. This operation currently supports updating of the `text`, `tags`, `time` and `timeEnd` properties. This is available in Grafana 6.0.0-beta2 and above.
+
 ```
 gf annotations patch-annotation [flags]
 ```

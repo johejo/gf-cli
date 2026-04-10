@@ -2,6 +2,10 @@
 
 Cancels a snapshot wherever it is in its processing chain
 
+### Synopsis
+
+TODO: Implement
+
 ```
 gf migrations cancel-snapshot [flags]
 ```

@@ -2,6 +2,10 @@
 
 Updates library element
 
+### Synopsis
+
+Updates an existing library element identified by uid.
+
 ```
 gf library-elements update-library-element [flags]
 ```

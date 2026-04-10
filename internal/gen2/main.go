@@ -53,7 +53,8 @@ func main() {
 				VarName:        methodToVarName(m.Name),
 				GoMethodName:   m.Name,
 				ParamsTypeName: m.ParamsTypeName,
-				Short:          m.Doc,
+				Short:          m.Short,
+				Long:           m.Long,
 				Response: &ResponseInfo{
 					NumReturns: m.NumReturns,
 				},
@@ -200,4 +201,3 @@ func flagHelp(fieldName string, doc string) string {
 	}
 	return fmt.Sprintf(`%q`, fieldName)
 }
-

@@ -10,7 +10,10 @@ gf-datasources-update-datasource-by-uid - Updates an existing data source
 
 
 .SH DESCRIPTION
-Updates an existing data source
+Similar to creating a data source, \fBpassword\fR and \fBbasicAuthPassword\fR should be defined under secureJsonData in order to be stored securely as an encrypted blob in the database. Then, the encrypted fields are listed under secureJsonFields section in the response.
+
+.PP
+If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: \fBdatasources:write\fR and scopes: \fBdatasources:*\fR, \fBdatasources:uid:*\fR and \fBdatasources:uid:1\fR (single data source).
 
 
 .SH OPTIONS

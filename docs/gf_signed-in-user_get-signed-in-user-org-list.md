@@ -2,6 +2,10 @@
 
 Organizations of the actual user
 
+### Synopsis
+
+Return a list of all organizations of the current user.
+
 ```
 gf signed-in-user get-signed-in-user-org-list [flags]
 ```

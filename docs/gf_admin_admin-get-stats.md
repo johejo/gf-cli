@@ -2,6 +2,10 @@
 
 Fetches grafana stats
 
+### Synopsis
+
+Only works with Basic Authentication (username and password). See introduction for an explanation. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `server:stats:read`.
+
 ```
 gf admin admin-get-stats [flags]
 ```

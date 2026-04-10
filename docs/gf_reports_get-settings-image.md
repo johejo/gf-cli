@@ -2,6 +2,12 @@
 
 Gets custom branding report image
 
+### Synopsis
+
+Available to org admins only and with a valid or expired license.
+
+You need to have a permission with action `reports.settings:read`.
+
 ```
 gf reports get-settings-image [flags]
 ```

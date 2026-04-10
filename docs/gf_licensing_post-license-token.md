@@ -2,6 +2,10 @@
 
 Creates license token
 
+### Synopsis
+
+You need to have a permission with action `licensing:write`.
+
 ```
 gf licensing post-license-token [flags]
 ```

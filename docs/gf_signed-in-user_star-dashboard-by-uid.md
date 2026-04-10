@@ -2,6 +2,10 @@
 
 Stars a dashboard
 
+### Synopsis
+
+Stars the given Dashboard for the actual user.
+
 ```
 gf signed-in-user star-dashboard-by-uid [flags]
 ```

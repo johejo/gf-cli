@@ -2,6 +2,10 @@
 
 Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when synced
 
+### Synopsis
+
+If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:read`.
+
 ```
 gf admin-ldap get-user-from-ldap [flags]
 ```

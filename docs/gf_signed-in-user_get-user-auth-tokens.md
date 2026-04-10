@@ -2,6 +2,10 @@
 
 Auths tokens of the actual user
 
+### Synopsis
+
+Return a list of all auth tokens (devices) that the actual user currently have logged in from.
+
 ```
 gf signed-in-user get-user-auth-tokens [flags]
 ```

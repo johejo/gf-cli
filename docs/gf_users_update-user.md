@@ -2,6 +2,10 @@
 
 Updates user
 
+### Synopsis
+
+Update the user identified by id.
+
 ```
 gf users update-user [flags]
 ```

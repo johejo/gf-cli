@@ -2,6 +2,10 @@
 
 Updates annotation
 
+### Synopsis
+
+Updates all properties of an annotation that matches the specified id. To only update certain property, consider using the Patch Annotation operation.
+
 ```
 gf annotations update-annotation [flags]
 ```

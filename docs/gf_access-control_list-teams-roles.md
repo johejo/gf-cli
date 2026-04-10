@@ -2,6 +2,12 @@
 
 Lists roles assigned to multiple teams
 
+### Synopsis
+
+Lists the roles that have been directly assigned to the given teams.
+
+You need to have a permission with action `teams.roles:read` and scope `teams:id:*`.
+
 ```
 gf access-control list-teams-roles [flags]
 ```

@@ -2,6 +2,10 @@
 
 Deletes snapshot by delete key
 
+### Synopsis
+
+Snapshot public mode should be enabled or authentication is required.
+
 ```
 gf dashboards delete-dashboard-snapshot-by-delete-key [flags]
 ```

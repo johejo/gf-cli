@@ -2,6 +2,12 @@
 
 Updates s s o settings
 
+### Synopsis
+
+Inserts or updates the SSO Settings for a provider.
+
+You need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.
+
 ```
 gf sso-settings update-provider-settings [flags]
 ```

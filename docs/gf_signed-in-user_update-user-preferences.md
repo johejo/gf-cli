@@ -2,6 +2,10 @@
 
 Updates user preferences
 
+### Synopsis
+
+Omitting a key (`theme`, `homeDashboardUID`, `timezone`) will cause the current value to be replaced with the system default value.
+
 ```
 gf signed-in-user update-user-preferences [flags]
 ```

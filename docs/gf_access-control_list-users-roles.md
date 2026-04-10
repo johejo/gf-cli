@@ -2,6 +2,12 @@
 
 Lists roles assigned to multiple users
 
+### Synopsis
+
+Lists the roles that have been directly assigned to the given users. The list does not include built-in roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.
+
+You need to have a permission with action `users.roles:read` and scope `users:id:*`.
+
 ```
 gf access-control list-users-roles [flags]
 ```

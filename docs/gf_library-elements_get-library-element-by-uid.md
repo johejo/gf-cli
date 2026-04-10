@@ -2,6 +2,10 @@
 
 Gets library element by UID
 
+### Synopsis
+
+Returns a library element with the given UID.
+
 ```
 gf library-elements get-library-element-by-uid [flags]
 ```

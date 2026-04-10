@@ -2,6 +2,10 @@
 
 Fetches organization quota
 
+### Synopsis
+
+If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `orgs.quotas:read` and scope `org:id:1` (orgIDScope).
+
 ```
 gf quota get-org-quota [flags]
 ```

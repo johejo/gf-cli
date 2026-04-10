@@ -10,7 +10,10 @@ gf-access-control-add-user-role - Adds a user role assignment
 
 
 .SH DESCRIPTION
-Adds a user role assignment
+Assign a role to a specific user. For bulk updates consider Set user role assignments.
+
+.PP
+You need to have a permission with action \fBusers.roles:add\fR and scope \fBpermissions:type:delegate\fR\&. \fBpermissions:type:delegate\fR scope ensures that users can only assign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign a role which will allow to do that. This is done to prevent escalation of privileges.
 
 
 .SH OPTIONS

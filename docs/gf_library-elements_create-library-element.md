@@ -2,6 +2,10 @@
 
 Creates library element
 
+### Synopsis
+
+Creates a new library element.
+
 ```
 gf library-elements create-library-element [flags]
 ```

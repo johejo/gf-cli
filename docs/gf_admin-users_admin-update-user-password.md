@@ -2,6 +2,10 @@
 
 Sets password for user
 
+### Synopsis
+
+If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.password:update` and scope `global.users:*`.
+
 ```
 gf admin-users admin-update-user-password [flags]
 ```

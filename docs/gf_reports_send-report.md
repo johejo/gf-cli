@@ -2,6 +2,14 @@
 
 Sends a report
 
+### Synopsis
+
+Generate and send a report. This API waits for the report to be generated before returning. We recommend that you set the client’s timeout to at least 60 seconds. Available to org admins only and with a valid license.
+
+Only available in Grafana Enterprise v7.0+. This API endpoint is experimental and may be deprecated in a future release. On deprecation, a migration strategy will be provided and the endpoint will remain functional until the next major release of Grafana.
+
+You need to have a permission with action `reports:send`.
+
 ```
 gf reports send-report [flags]
 ```

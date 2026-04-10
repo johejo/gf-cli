@@ -2,6 +2,10 @@
 
 Unstars a dashboard
 
+### Synopsis
+
+Deletes the starring of the given Dashboard for the actual user.
+
 ```
 gf signed-in-user unstar-dashboard-by-uid [flags]
 ```

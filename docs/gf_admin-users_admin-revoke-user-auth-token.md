@@ -2,6 +2,10 @@
 
 Revokes auth token for user
 
+### Synopsis
+
+Revokes the given auth token (device) for the user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.authtoken:update` and scope `global.users:*`.
+
 ```
 gf admin-users admin-revoke-user-auth-token [flags]
 ```

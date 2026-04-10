@@ -2,6 +2,12 @@
 
 Gets a role
 
+### Synopsis
+
+Get a role for the given UID.
+
+You need to have a permission with action `roles:read` and scope `roles:*`.
+
 ```
 gf access-control get-role [flags]
 ```

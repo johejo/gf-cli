@@ -2,6 +2,10 @@
 
 Sets team memberships
 
+### Synopsis
+
+Takes user emails, and updates team members and admins to the provided lists of users. Any current team members and admins not in the provided lists will be removed.
+
 ```
 gf teams set-team-memberships [flags]
 ```

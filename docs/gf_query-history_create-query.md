@@ -2,6 +2,10 @@
 
 Adds query to query history
 
+### Synopsis
+
+Adds new query to query history.
+
 ```
 gf query-history create-query [flags]
 ```

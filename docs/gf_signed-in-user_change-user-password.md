@@ -2,6 +2,10 @@
 
 Changes password
 
+### Synopsis
+
+Changes the password for the user.
+
 ```
 gf signed-in-user change-user-password [flags]
 ```

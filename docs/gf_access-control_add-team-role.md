@@ -2,6 +2,10 @@
 
 Adds team role
 
+### Synopsis
+
+You need to have a permission with action `teams.roles:add` and scope `permissions:type:delegate`.
+
 ```
 gf access-control add-team-role [flags]
 ```
