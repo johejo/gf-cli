@@ -5,23 +5,36 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
+	"os"
 	"path/filepath"
+	"strings"
 )
 
-// pkgCache caches parsed AST packages to avoid re-parsing the same directory.
-var pkgCache = make(map[string]map[string]*ast.Package)
+// pkgCache caches parsed AST files to avoid re-parsing the same directory.
+var pkgCache = make(map[string][]*ast.File)
 
-func getParsedPkg(baseDir string, pkgName string, mode parser.Mode) (map[string]*ast.Package, error) {
+func getParsedFiles(baseDir string, pkgName string, mode parser.Mode) ([]*ast.File, error) {
 	key := pkgName + "|" + fmt.Sprint(mode)
 	if cached, ok := pkgCache[key]; ok {
 		return cached, nil
 	}
 	pkgDir := filepath.Join(baseDir, "client", pkgName)
-	fset := token.NewFileSet()
-	pkgs, err := parser.ParseDir(fset, pkgDir, nil, mode)
+	entries, err := os.ReadDir(pkgDir)
 	if err != nil {
-		return nil, fmt.Errorf("parsing package dir %s: %w", pkgDir, err)
+		return nil, fmt.Errorf("reading package dir %s: %w", pkgDir, err)
 	}
-	pkgCache[key] = pkgs
-	return pkgs, nil
+	fset := token.NewFileSet()
+	var files []*ast.File
+	for _, e := range entries {
+		if e.IsDir() || !strings.HasSuffix(e.Name(), ".go") {
+			continue
+		}
+		f, err := parser.ParseFile(fset, filepath.Join(pkgDir, e.Name()), nil, mode)
+		if err != nil {
+			return nil, fmt.Errorf("parsing %s: %w", e.Name(), err)
+		}
+		files = append(files, f)
+	}
+	pkgCache[key] = files
+	return files, nil
 }

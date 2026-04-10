@@ -125,8 +125,8 @@ func applyEnvString[T any](t *T, key string, flg string, f func(string) *T) *T {
 	return applyEnv(t, key, flg, func(s string) (string, error) { return s, nil }, f)
 }
 
-func applyEnv[T any, V any](t *T, key string, flg V, parseFn func(string) (V, error), applyFn func(V) *T) *T {
-	t = applyFn(flg)
+func applyEnv[T any, V any](_ *T, key string, flg V, parseFn func(string) (V, error), applyFn func(V) *T) *T {
+	t := applyFn(flg)
 	if v, ok := os.LookupEnv(key); ok {
 		vv, err := parseFn(v)
 		if err != nil {

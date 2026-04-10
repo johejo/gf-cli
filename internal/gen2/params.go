@@ -21,19 +21,17 @@ type ParamField struct {
 // ParseParams finds the *Params struct by type name within the package directory
 // and extracts its exported fields.
 func ParseParams(baseDir string, pkgName string, paramsTypeName string) ([]*ParamField, error) {
-	pkgs, err := getParsedPkg(baseDir, pkgName, parser.ParseComments)
+	files, err := getParsedFiles(baseDir, pkgName, parser.ParseComments)
 	if err != nil {
 		return nil, err
 	}
 
-	for _, pkg := range pkgs {
-		for _, f := range pkg.Files {
-			st := findStructType(f, paramsTypeName)
-			if st == nil {
-				continue
-			}
-			return extractParamFields(st)
+	for _, f := range files {
+		st := findStructType(f, paramsTypeName)
+		if st == nil {
+			continue
 		}
+		return extractParamFields(st)
 	}
 	return nil, fmt.Errorf("struct %s not found in package %s", paramsTypeName, pkgName)
 }

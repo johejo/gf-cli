@@ -42,7 +42,7 @@ func ParseService(baseDir string, pkgName string) ([]*MethodInfo, error) {
 			if !ok || ts.Name.Name != "ClientService" {
 				continue
 			}
-			iface, ok = ts.Type.(*ast.InterfaceType)
+			iface, _ = ts.Type.(*ast.InterfaceType)
 			if !ok {
 				continue
 			}
