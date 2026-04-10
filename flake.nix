@@ -24,7 +24,7 @@
             version = "${self.rev or "(devel)"}";
             subPackages = [ "cmd/gf" ];
             src = ./.;
-            vendorHash = "sha256-xOoujvNhBYLgTkpdML6bxQhNsRVOINbpNXIAEAqLsl0=";
+            vendorHash = "sha256-wWjWSsusm8zHyHxq4yPfoFEdOdLKsea4K/5s9lUIBbY=";
 
             nativeBuildInputs = [ pkgs.installShellFiles ];
             ldflags = [
@@ -65,6 +65,7 @@
               podman
               podman-compose
               nixfmt
+              go-tools
             ];
           };
         }
