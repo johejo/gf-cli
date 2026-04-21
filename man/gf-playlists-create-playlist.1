@@ -10,7 +10,21 @@ gf-playlists-create-playlist - Creates playlist
 
 
 .SH DESCRIPTION
-Creates playlist
+Body schema (CreatePlaylistCommand):
+{
+  "interval": string,
+  "items": [
+    {
+      "Id": number,
+      "PlaylistId": number,
+      "order": number,
+      "title": string,
+      "type": string,
+      "value": string
+    }
+  ],
+  "name": string
+}
 
 
 .SH OPTIONS

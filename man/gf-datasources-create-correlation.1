@@ -10,7 +10,22 @@ gf-datasources-create-correlation - Adds correlation
 
 
 .SH DESCRIPTION
-Adds correlation
+Body schema (CreateCorrelationCommand):
+{
+  "config": {
+    "field": string,
+    "target": any,
+    "transformations": [object],
+    "type": string
+  },
+  "description": string,
+  "label": string,
+  "provisioned": boolean,
+  "targetUID": string,
+  "type": string
+}
+  config.field             required
+  config.target            required
 
 
 .SH OPTIONS

@@ -10,7 +10,15 @@ gf-enterprise-set-datasource-cache-config - Set cache config for a single data s
 
 
 .SH DESCRIPTION
-Set cache config for a single data source
+Body schema (CacheConfigSetter):
+{
+  "dataSourceID": number,
+  "dataSourceUID": string,
+  "enabled": boolean,
+  "ttlQueriesMs": number,
+  "ttlResourcesMs": number,
+  "useDefaultTTL": boolean
+}
 
 
 .SH OPTIONS

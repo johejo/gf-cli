@@ -2,6 +2,16 @@
 
 
 
+### Synopsis
+
+Body schema (CreateServiceAccountForm):
+{
+  "isDisabled": boolean,
+  "name": string,
+  "role": string
+}
+  role                     enum: None | Viewer | Editor | Admin
+
 ```
 gf service-accounts create-service-account [flags]
 ```

@@ -6,6 +6,12 @@ Updates the given user
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users.role:update` with scope `users:*`.
 
+Body schema (UpdateOrgUserCommand):
+{
+  "role": string
+}
+  role                     enum: None | Viewer | Editor | Admin
+
 ```
 gf org update-org-user-for-current-org [flags]
 ```

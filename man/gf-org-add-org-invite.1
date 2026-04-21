@@ -10,7 +10,14 @@ gf-org-add-org-invite - Adds invite
 
 
 .SH DESCRIPTION
-Adds invite
+Body schema (AddInviteForm):
+{
+  "loginOrEmail": string,
+  "name": string,
+  "role": string,
+  "sendEmail": boolean
+}
+  role                     enum: None | Viewer | Editor | Admin
 
 
 .SH OPTIONS

@@ -6,6 +6,13 @@ Adds query to query history
 
 Adds new query to query history.
 
+Body schema (CreateQueryInQueryHistoryCommand):
+{
+  "datasourceUid": string,
+  "queries": any
+}
+  queries                  required
+
 ```
 gf query-history create-query [flags]
 ```

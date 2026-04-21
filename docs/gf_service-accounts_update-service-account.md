@@ -2,6 +2,17 @@
 
 
 
+### Synopsis
+
+Body schema (UpdateServiceAccountForm):
+{
+  "isDisabled": boolean,
+  "name": string,
+  "role": string,
+  "serviceAccountId": number
+}
+  role                     enum: None | Viewer | Editor | Admin
+
 ```
 gf service-accounts update-service-account [flags]
 ```

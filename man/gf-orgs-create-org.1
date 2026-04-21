@@ -13,6 +13,12 @@ gf-orgs-create-org - Creates organization
 Only works if users.allow_org_create
 \[la]https://grafana.com/docs/grafana/latest/administration/configuration/#allow_org_create\[ra] is set.
 
+.PP
+Body schema (CreateOrgCommand):
+{
+  "name": string
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

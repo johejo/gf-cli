@@ -2,6 +2,15 @@
 
 Adds team
 
+### Synopsis
+
+Body schema (CreateTeamCommand):
+{
+  "email": string,
+  "name": string
+}
+  name                     required
+
 ```
 gf teams create-team [flags]
 ```

@@ -10,6 +10,44 @@ You need to have a permission with action `reports.admin:write` with scope `repo
 
 Requesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/
 
+Body schema (CreateOrUpdateReport):
+{
+  "dashboards": [
+    {
+      "dashboard": object,
+      "reportVariables": any,
+      "timeRange": object
+    }
+  ],
+  "enableCsv": boolean,
+  "enableDashboardUrl": boolean,
+  "formats": [string],
+  "message": string,
+  "name": string,
+  "options": {
+    "layout": string,
+    "orientation": string,
+    "pdfCombineOneFile": boolean,
+    "pdfShowTemplateVariables": boolean,
+    "timeRange": object
+  },
+  "recipients": string,
+  "replyTo": string,
+  "scaleFactor": number,
+  "schedule": {
+    "dayOfMonth": string,
+    "endDate": string,
+    "frequency": string,
+    "intervalAmount": number,
+    "intervalFrequency": string,
+    "startDate": string,
+    "timeZone": string,
+    "workdaysOnly": boolean
+  },
+  "state": string,
+  "subject": string
+}
+
 ```
 gf reports update-report [flags]
 ```

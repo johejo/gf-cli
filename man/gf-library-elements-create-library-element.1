@@ -12,6 +12,18 @@ gf-library-elements-create-library-element - Creates library element
 .SH DESCRIPTION
 Creates a new library element.
 
+.PP
+Body schema (CreateLibraryElementCommand):
+{
+  "folderId": number,
+  "folderUid": string,
+  "kind": number,
+  "model": any,
+  "name": string,
+  "uid": string
+}
+  kind                     enum: 1
+
 
 .SH OPTIONS
 \fB--body\fP=""

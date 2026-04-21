@@ -2,6 +2,18 @@
 
 Updates current organization s address
 
+### Synopsis
+
+Body schema (UpdateOrgAddressForm):
+{
+  "address1": string,
+  "address2": string,
+  "city": string,
+  "country": string,
+  "state": string,
+  "zipcode": string
+}
+
 ```
 gf org update-current-org-address [flags]
 ```

@@ -2,6 +2,13 @@
 
 Restores a dashboard to a given dashboard version using UID
 
+### Synopsis
+
+Body schema (RestoreDashboardVersionCommand):
+{
+  "version": number
+}
+
 ```
 gf dashboards restore-dashboard-version-by-uid [flags]
 ```

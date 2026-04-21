@@ -2,6 +2,21 @@
 
 Updates permissions for a folder this operation will remove existing permissions if they re not included in the request
 
+### Synopsis
+
+Body schema (UpdateDashboardACLCommand):
+{
+  "items": [
+    {
+      "permission": number,
+      "role": string,
+      "teamId": number,
+      "userId": number
+    }
+  ]
+}
+  items[].role             enum: None | Viewer | Editor | Admin
+
 ```
 gf folders update-folder-permissions [flags]
 ```

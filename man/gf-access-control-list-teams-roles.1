@@ -15,6 +15,15 @@ Lists the roles that have been directly assigned to the given teams.
 .PP
 You need to have a permission with action \fBteams.roles:read\fR and scope \fBteams:id:*\fR\&.
 
+.PP
+Body schema (RolesSearchQuery):
+{
+  "includeHidden": boolean,
+  "orgId": number,
+  "teamIds": [number],
+  "userIds": [number]
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

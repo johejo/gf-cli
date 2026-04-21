@@ -2,6 +2,14 @@
 
 Adds team member
 
+### Synopsis
+
+Body schema (AddTeamMemberCommand):
+{
+  "userId": number
+}
+  userId                   required
+
 ```
 gf teams add-team-member [flags]
 ```

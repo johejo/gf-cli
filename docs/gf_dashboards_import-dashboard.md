@@ -2,6 +2,26 @@
 
 Imports dashboard
 
+### Synopsis
+
+Body schema (ImportDashboardRequest):
+{
+  "dashboard": any,
+  "folderId": number,
+  "folderUid": string,
+  "inputs": [
+    {
+      "name": string,
+      "pluginId": string,
+      "type": string,
+      "value": string
+    }
+  ],
+  "overwrite": boolean,
+  "path": string,
+  "pluginId": string
+}
+
 ```
 gf dashboards import-dashboard [flags]
 ```

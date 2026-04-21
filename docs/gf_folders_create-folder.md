@@ -6,6 +6,14 @@ Creates folder
 
 If nested folders are enabled then it additionally expects the parent folder UID.
 
+Body schema (CreateFolderCommand):
+{
+  "description": string,
+  "parentUid": string,
+  "title": string,
+  "uid": string
+}
+
 ```
 gf folders create-folder [flags]
 ```

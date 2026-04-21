@@ -6,6 +6,13 @@ Creates a remote write target
 
 It returns a 422 if there is not an existing prometheus data source configured.
 
+Body schema (PrometheusRemoteWriteTargetJSON):
+{
+  "data_source_uid": string,
+  "id": string,
+  "remote_write_path": string
+}
+
 ```
 gf recording-rules create-recording-rule-write-target [flags]
 ```

@@ -2,6 +2,18 @@
 
 Set cache config for a single data source
 
+### Synopsis
+
+Body schema (CacheConfigSetter):
+{
+  "dataSourceID": number,
+  "dataSourceUID": string,
+  "enabled": boolean,
+  "ttlQueriesMs": number,
+  "ttlResourcesMs": number,
+  "useDefaultTTL": boolean
+}
+
 ```
 gf enterprise set-datasource-cache-config [flags]
 ```

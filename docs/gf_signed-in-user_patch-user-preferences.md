@@ -2,6 +2,28 @@
 
 Patches user preferences
 
+### Synopsis
+
+Body schema (PatchPrefsCmd):
+{
+  "cookies": [string],
+  "homeDashboardId": number,
+  "homeDashboardUID": string,
+  "language": string,
+  "navbar": {
+    "bookmarkUrls": [string]
+  },
+  "queryHistory": {
+    "homeTab": string
+  },
+  "regionalFormat": string,
+  "theme": string,
+  "timezone": string,
+  "weekStart": string
+}
+  theme                    enum: light | dark
+  timezone                 enum: utc | browser
+
 ```
 gf signed-in-user patch-user-preferences [flags]
 ```

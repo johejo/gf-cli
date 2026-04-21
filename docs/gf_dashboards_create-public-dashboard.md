@@ -2,6 +2,18 @@
 
 Create public dashboard for a dashboard
 
+### Synopsis
+
+Body schema (PublicDashboardDTO):
+{
+  "accessToken": string,
+  "annotationsEnabled": boolean,
+  "isEnabled": boolean,
+  "share": string,
+  "timeSelectionEnabled": boolean,
+  "uid": string
+}
+
 ```
 gf dashboards create-public-dashboard [flags]
 ```

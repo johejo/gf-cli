@@ -15,6 +15,12 @@ Removes the license stored in the Grafana database. Available in Grafana Enterpr
 .PP
 You need to have a permission with action \fBlicensing:delete\fR\&.
 
+.PP
+Body schema (DeleteTokenCommand):
+{
+  "instance": string
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

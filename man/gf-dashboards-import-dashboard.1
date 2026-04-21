@@ -10,7 +10,23 @@ gf-dashboards-import-dashboard - Imports dashboard
 
 
 .SH DESCRIPTION
-Imports dashboard
+Body schema (ImportDashboardRequest):
+{
+  "dashboard": any,
+  "folderId": number,
+  "folderUid": string,
+  "inputs": [
+    {
+      "name": string,
+      "pluginId": string,
+      "type": string,
+      "value": string
+    }
+  ],
+  "overwrite": boolean,
+  "path": string,
+  "pluginId": string
+}
 
 
 .SH OPTIONS

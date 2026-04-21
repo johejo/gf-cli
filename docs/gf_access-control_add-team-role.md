@@ -6,6 +6,11 @@ Adds team role
 
 You need to have a permission with action `teams.roles:add` and scope `permissions:type:delegate`.
 
+Body schema (AddTeamRoleCommand):
+{
+  "roleUid": string
+}
+
 ```
 gf access-control add-team-role [flags]
 ```

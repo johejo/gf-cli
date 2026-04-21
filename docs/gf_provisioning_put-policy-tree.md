@@ -2,6 +2,43 @@
 
 
 
+### Synopsis
+
+Body schema (Route):
+{
+  "active_time_intervals": [string],
+  "continue": boolean,
+  "group_by": [string],
+  "group_interval": string,
+  "group_wait": string,
+  "match": {"key": string},
+  "match_re": object,
+  "matchers": [object],
+  "mute_time_intervals": [string],
+  "object_matchers": [string],
+  "provenance": string,
+  "receiver": string,
+  "repeat_interval": string,
+  "routes": [
+    {
+      "active_time_intervals": [string],
+      "continue": boolean,
+      "group_by": [string],
+      "group_interval": string,
+      "group_wait": string,
+      "match": {"key": string},
+      "match_re": object,
+      "matchers": [object],
+      "mute_time_intervals": [string],
+      "object_matchers": [string],
+      "provenance": string,
+      "receiver": string,
+      "repeat_interval": string,
+      "routes": [object]
+    }
+  ]
+}
+
 ```
 gf provisioning put-policy-tree [flags]
 ```

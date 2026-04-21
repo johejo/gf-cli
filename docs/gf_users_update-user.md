@@ -6,6 +6,14 @@ Updates user
 
 Update the user identified by id.
 
+Body schema (UpdateUserCommand):
+{
+  "email": string,
+  "login": string,
+  "name": string,
+  "theme": string
+}
+
 ```
 gf users update-user [flags]
 ```

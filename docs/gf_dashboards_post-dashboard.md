@@ -6,6 +6,18 @@ Creates update dashboard
 
 Creates a new dashboard or updates an existing dashboard. Note: This endpoint is not intended for creating folders, use `POST /api/folders` for that.
 
+Body schema (SaveDashboardCommand):
+{
+  "UpdatedAt": string,
+  "dashboard": any,
+  "folderId": number,
+  "folderUid": string,
+  "isFolder": boolean,
+  "message": string,
+  "overwrite": boolean,
+  "userId": number
+}
+
 ```
 gf dashboards post-dashboard [flags]
 ```

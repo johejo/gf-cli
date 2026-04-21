@@ -6,6 +6,19 @@ Updates permissions for a dashboard
 
 This operation will remove existing permissions if they’re not included in the request.
 
+Body schema (UpdateDashboardACLCommand):
+{
+  "items": [
+    {
+      "permission": number,
+      "role": string,
+      "teamId": number,
+      "userId": number
+    }
+  ]
+}
+  items[].role             enum: None | Viewer | Editor | Admin
+
 ```
 gf dashboards update-dashboard-permissions-by-uid [flags]
 ```

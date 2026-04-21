@@ -12,6 +12,12 @@ gf-access-control-add-team-role - Adds team role
 .SH DESCRIPTION
 You need to have a permission with action \fBteams.roles:add\fR and scope \fBpermissions:type:delegate\fR\&.
 
+.PP
+Body schema (AddTeamRoleCommand):
+{
+  "roleUid": string
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

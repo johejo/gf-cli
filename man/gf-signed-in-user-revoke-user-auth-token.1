@@ -12,6 +12,12 @@ gf-signed-in-user-revoke-user-auth-token - Revokes an auth token of the actual u
 .SH DESCRIPTION
 Revokes the given auth token (device) for the actual user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity.
 
+.PP
+Body schema (RevokeAuthTokenCmd):
+{
+  "authTokenId": number
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

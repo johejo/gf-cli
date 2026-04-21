@@ -12,6 +12,13 @@ gf-org-update-org-user-for-current-org - Updates the given user
 .SH DESCRIPTION
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: \fBorg.users.role:update\fR with scope \fBusers:*\fR\&.
 
+.PP
+Body schema (UpdateOrgUserCommand):
+{
+  "role": string
+}
+  role                     enum: None | Viewer | Editor | Admin
+
 
 .SH OPTIONS
 \fB--body\fP=""

@@ -2,6 +2,13 @@
 
 Creates a migration session
 
+### Synopsis
+
+Body schema (CloudMigrationSessionRequestDTO):
+{
+  "authToken": string
+}
+
 ```
 gf migrations create-session [flags]
 ```

@@ -2,6 +2,14 @@
 
 
 
+### Synopsis
+
+Body schema (UpdateOrgUserCommand):
+{
+  "role": string
+}
+  role                     enum: None | Viewer | Editor | Admin
+
 ```
 gf orgs update-org-user [flags]
 ```

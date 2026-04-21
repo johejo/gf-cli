@@ -12,6 +12,13 @@ gf-access-control-set-team-roles - Updates team role
 .SH DESCRIPTION
 You need to have a permission with action \fBteams.roles:add\fR and \fBteams.roles:remove\fR and scope \fBpermissions:type:delegate\fR for each.
 
+.PP
+Body schema (SetTeamRolesCommand):
+{
+  "includeHidden": boolean,
+  "roleUids": [string]
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

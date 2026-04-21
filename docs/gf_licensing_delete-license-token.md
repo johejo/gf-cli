@@ -8,6 +8,11 @@ Removes the license stored in the Grafana database. Available in Grafana Enterpr
 
 You need to have a permission with action `licensing:delete`.
 
+Body schema (DeleteTokenCommand):
+{
+  "instance": string
+}
+
 ```
 gf licensing delete-license-token [flags]
 ```

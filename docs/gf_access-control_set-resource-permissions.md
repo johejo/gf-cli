@@ -2,6 +2,20 @@
 
 
 
+### Synopsis
+
+Body schema (SetPermissionsCommand):
+{
+  "permissions": [
+    {
+      "builtInRole": string,
+      "permission": string,
+      "teamId": number,
+      "userId": number
+    }
+  ]
+}
+
 ```
 gf access-control set-resource-permissions [flags]
 ```

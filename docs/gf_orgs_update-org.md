@@ -2,6 +2,13 @@
 
 Updates organization
 
+### Synopsis
+
+Body schema (UpdateOrgForm):
+{
+  "name": string
+}
+
 ```
 gf orgs update-org [flags]
 ```

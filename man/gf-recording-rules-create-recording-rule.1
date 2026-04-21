@@ -10,7 +10,20 @@ gf-recording-rules-create-recording-rule - Creates a recording rule that is then
 
 
 .SH DESCRIPTION
-Creates a recording rule that is then registered and started
+Body schema (RecordingRuleJSON):
+{
+  "active": boolean,
+  "count": boolean,
+  "description": string,
+  "dest_data_source_uid": string,
+  "id": string,
+  "interval": number,
+  "name": string,
+  "prom_name": string,
+  "queries": [any],
+  "range": number,
+  "target_ref_id": string
+}
 
 
 .SH OPTIONS

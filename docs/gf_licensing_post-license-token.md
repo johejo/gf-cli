@@ -6,6 +6,11 @@ Creates license token
 
 You need to have a permission with action `licensing:write`.
 
+Body schema (DeleteTokenCommand):
+{
+  "instance": string
+}
+
 ```
 gf licensing post-license-token [flags]
 ```

@@ -8,6 +8,13 @@ Set role assignments for the role with the given UID.
 
 You need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate`, and `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate`.
 
+Body schema (SetRoleAssignmentsCommand):
+{
+  "service_accounts": [number],
+  "teams": [number],
+  "users": [number]
+}
+
 ```
 gf access-control set-role-assignments [flags]
 ```

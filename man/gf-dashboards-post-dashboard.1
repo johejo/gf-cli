@@ -12,6 +12,19 @@ gf-dashboards-post-dashboard - Creates update dashboard
 .SH DESCRIPTION
 Creates a new dashboard or updates an existing dashboard. Note: This endpoint is not intended for creating folders, use \fBPOST /api/folders\fR for that.
 
+.PP
+Body schema (SaveDashboardCommand):
+{
+  "UpdatedAt": string,
+  "dashboard": any,
+  "folderId": number,
+  "folderUid": string,
+  "isFolder": boolean,
+  "message": string,
+  "overwrite": boolean,
+  "userId": number
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

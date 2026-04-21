@@ -8,6 +8,14 @@ Lists the roles that have been directly assigned to the given users. The list do
 
 You need to have a permission with action `users.roles:read` and scope `users:id:*`.
 
+Body schema (RolesSearchQuery):
+{
+  "includeHidden": boolean,
+  "orgId": number,
+  "teamIds": [number],
+  "userIds": [number]
+}
+
 ```
 gf access-control list-users-roles [flags]
 ```

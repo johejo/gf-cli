@@ -2,6 +2,20 @@
 
 
 
+### Synopsis
+
+Body schema (EmbeddedContactPoint):
+{
+  "disableResolveMessage": boolean,
+  "name": string,
+  "provenance": string,
+  "settings": any,
+  "type": string,
+  "uid": string
+}
+  settings                 required
+  type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
+
 ```
 gf provisioning put-contactpoint [flags]
 ```

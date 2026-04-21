@@ -2,6 +2,13 @@
 
 
 
+### Synopsis
+
+Body schema (UpdateTeamMemberCommand):
+{
+  "permission": number
+}
+
 ```
 gf teams update-team-member [flags]
 ```

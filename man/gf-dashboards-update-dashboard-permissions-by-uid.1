@@ -12,6 +12,20 @@ gf-dashboards-update-dashboard-permissions-by-uid - Updates permissions for a da
 .SH DESCRIPTION
 This operation will remove existing permissions if they’re not included in the request.
 
+.PP
+Body schema (UpdateDashboardACLCommand):
+{
+  "items": [
+    {
+      "permission": number,
+      "role": string,
+      "teamId": number,
+      "userId": number
+    }
+  ]
+}
+  items[].role             enum: None | Viewer | Editor | Admin
+
 
 .SH OPTIONS
 \fB--body\fP=""

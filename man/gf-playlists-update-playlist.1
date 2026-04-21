@@ -10,7 +10,22 @@ gf-playlists-update-playlist - Updates playlist
 
 
 .SH DESCRIPTION
-Updates playlist
+Body schema (UpdatePlaylistCommand):
+{
+  "interval": string,
+  "items": [
+    {
+      "Id": number,
+      "PlaylistId": number,
+      "order": number,
+      "title": string,
+      "type": string,
+      "value": string
+    }
+  ],
+  "name": string,
+  "uid": string
+}
 
 
 .SH OPTIONS

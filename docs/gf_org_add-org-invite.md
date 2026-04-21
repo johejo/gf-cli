@@ -2,6 +2,17 @@
 
 Adds invite
 
+### Synopsis
+
+Body schema (AddInviteForm):
+{
+  "loginOrEmail": string,
+  "name": string,
+  "role": string,
+  "sendEmail": boolean
+}
+  role                     enum: None | Viewer | Editor | Admin
+
 ```
 gf org add-org-invite [flags]
 ```

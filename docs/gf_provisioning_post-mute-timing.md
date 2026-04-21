@@ -2,6 +2,23 @@
 
 
 
+### Synopsis
+
+Body schema (MuteTimeInterval):
+{
+  "name": string,
+  "time_intervals": [
+    {
+      "days_of_month": [string],
+      "location": string,
+      "months": [string],
+      "times": [object],
+      "weekdays": [string],
+      "years": [string]
+    }
+  ]
+}
+
 ```
 gf provisioning post-mute-timing [flags]
 ```

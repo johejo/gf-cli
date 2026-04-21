@@ -2,6 +2,24 @@
 
 Creates playlist
 
+### Synopsis
+
+Body schema (CreatePlaylistCommand):
+{
+  "interval": string,
+  "items": [
+    {
+      "Id": number,
+      "PlaylistId": number,
+      "order": number,
+      "title": string,
+      "type": string,
+      "value": string
+    }
+  ],
+  "name": string
+}
+
 ```
 gf playlists create-playlist [flags]
 ```

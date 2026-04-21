@@ -2,6 +2,25 @@
 
 Adds correlation
 
+### Synopsis
+
+Body schema (CreateCorrelationCommand):
+{
+  "config": {
+    "field": string,
+    "target": any,
+    "transformations": [object],
+    "type": string
+  },
+  "description": string,
+  "label": string,
+  "provisioned": boolean,
+  "targetUID": string,
+  "type": string
+}
+  config.field             required
+  config.target            required
+
 ```
 gf datasources create-correlation [flags]
 ```

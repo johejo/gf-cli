@@ -2,6 +2,14 @@
 
 
 
+### Synopsis
+
+Body schema (AddServiceAccountTokenCommand):
+{
+  "name": string,
+  "secondsToLive": number
+}
+
 ```
 gf service-accounts create-token [flags]
 ```

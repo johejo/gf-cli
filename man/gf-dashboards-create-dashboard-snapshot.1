@@ -12,6 +12,20 @@ gf-dashboards-create-dashboard-snapshot - Whens creating a snapshot using the AP
 .SH DESCRIPTION
 Snapshot public mode should be enabled or authentication is required.
 
+.PP
+Body schema (CreateDashboardSnapshotCommand):
+{
+  "apiVersion": string,
+  "dashboard": any,
+  "deleteKey": string,
+  "expires": number,
+  "external": boolean,
+  "key": string,
+  "kind": string,
+  "name": string
+}
+  dashboard                required
+
 
 .SH OPTIONS
 \fB--body\fP=""

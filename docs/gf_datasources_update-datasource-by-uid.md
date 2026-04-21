@@ -8,6 +8,24 @@ Similar to creating a data source, `password` and `basicAuthPassword` should be 
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:write` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:1` (single data source).
 
+Body schema (UpdateDataSourceCommand):
+{
+  "access": string,
+  "basicAuth": boolean,
+  "basicAuthUser": string,
+  "database": string,
+  "isDefault": boolean,
+  "jsonData": any,
+  "name": string,
+  "secureJsonData": {"key": string},
+  "type": string,
+  "uid": string,
+  "url": string,
+  "user": string,
+  "version": number,
+  "withCredentials": boolean
+}
+
 ```
 gf datasources update-datasource-by-uid [flags]
 ```

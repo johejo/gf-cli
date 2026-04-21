@@ -10,7 +10,13 @@ gf-folders-update-folder - Updates folder
 
 
 .SH DESCRIPTION
-Updates folder
+Body schema (UpdateFolderCommand):
+{
+  "description": string,
+  "overwrite": boolean,
+  "title": string,
+  "version": number
+}
 
 
 .SH OPTIONS

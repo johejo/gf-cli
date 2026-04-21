@@ -8,6 +8,44 @@ Available to org admins only and with a valid license.
 
 You need to have a permission with action `reports:send`.
 
+Body schema (CreateOrUpdateReport):
+{
+  "dashboards": [
+    {
+      "dashboard": object,
+      "reportVariables": any,
+      "timeRange": object
+    }
+  ],
+  "enableCsv": boolean,
+  "enableDashboardUrl": boolean,
+  "formats": [string],
+  "message": string,
+  "name": string,
+  "options": {
+    "layout": string,
+    "orientation": string,
+    "pdfCombineOneFile": boolean,
+    "pdfShowTemplateVariables": boolean,
+    "timeRange": object
+  },
+  "recipients": string,
+  "replyTo": string,
+  "scaleFactor": number,
+  "schedule": {
+    "dayOfMonth": string,
+    "endDate": string,
+    "frequency": string,
+    "intervalAmount": number,
+    "intervalFrequency": string,
+    "startDate": string,
+    "timeZone": string,
+    "workdaysOnly": boolean
+  },
+  "state": string,
+  "subject": string
+}
+
 ```
 gf reports send-test-email [flags]
 ```

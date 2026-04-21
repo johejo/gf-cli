@@ -6,6 +6,28 @@ Updates a custom role
 
 You need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has.
 
+Body schema (UpdateRoleCommand):
+{
+  "description": string,
+  "displayName": string,
+  "global": boolean,
+  "group": string,
+  "hidden": boolean,
+  "name": string,
+  "permissions": [
+    {
+      "action": string,
+      "created": string,
+      "scope": string,
+      "updated": string
+    }
+  ],
+  "version": number
+}
+  description              required
+  displayName              required
+  group                    required
+
 ```
 gf access-control update-role [flags]
 ```

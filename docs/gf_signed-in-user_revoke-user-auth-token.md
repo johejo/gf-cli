@@ -6,6 +6,11 @@ Revokes an auth token of the actual user
 
 Revokes the given auth token (device) for the actual user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity.
 
+Body schema (RevokeAuthTokenCmd):
+{
+  "authTokenId": number
+}
+
 ```
 gf signed-in-user revoke-user-auth-token [flags]
 ```

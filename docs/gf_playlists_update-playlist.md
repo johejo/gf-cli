@@ -2,6 +2,25 @@
 
 Updates playlist
 
+### Synopsis
+
+Body schema (UpdatePlaylistCommand):
+{
+  "interval": string,
+  "items": [
+    {
+      "Id": number,
+      "PlaylistId": number,
+      "order": number,
+      "title": string,
+      "type": string,
+      "value": string
+    }
+  ],
+  "name": string,
+  "uid": string
+}
+
 ```
 gf playlists update-playlist [flags]
 ```

@@ -6,6 +6,11 @@ Sets password for user
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.password:update` and scope `global.users:*`.
 
+Body schema (AdminUpdateUserPasswordForm):
+{
+  "password": string
+}
+
 ```
 gf admin-users admin-update-user-password [flags]
 ```

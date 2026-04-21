@@ -2,6 +2,16 @@
 
 Deletes multiple annotations
 
+### Synopsis
+
+Body schema (MassDeleteAnnotationsCmd):
+{
+  "annotationId": number,
+  "dashboardId": number,
+  "dashboardUID": string,
+  "panelId": number
+}
+
 ```
 gf annotations mass-delete-annotations [flags]
 ```

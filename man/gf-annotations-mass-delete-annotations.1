@@ -10,7 +10,13 @@ gf-annotations-mass-delete-annotations - Deletes multiple annotations
 
 
 .SH DESCRIPTION
-Deletes multiple annotations
+Body schema (MassDeleteAnnotationsCmd):
+{
+  "annotationId": number,
+  "dashboardId": number,
+  "dashboardUID": string,
+  "panelId": number
+}
 
 
 .SH OPTIONS

@@ -6,6 +6,11 @@ Updates comment for query in query history
 
 Updates comment for query in query history as specified by the UID.
 
+Body schema (PatchQueryCommentInQueryHistoryCommand):
+{
+  "comment": string
+}
+
 ```
 gf query-history patch-query-comment [flags]
 ```

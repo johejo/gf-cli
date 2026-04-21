@@ -6,6 +6,14 @@ Creates annotation in graphite format
 
 Creates an annotation by using Graphite-compatible event format. The `when` and `data` fields are optional. If `when` is not specified then the current time will be used as annotation’s timestamp. The `tags` field can also be in prior to Graphite `0.10.0` format (string with multiple tags being separated by a space).
 
+Body schema (PostGraphiteAnnotationsCmd):
+{
+  "data": string,
+  "tags": any,
+  "what": string,
+  "when": number
+}
+
 ```
 gf annotations post-graphite-annotation [flags]
 ```

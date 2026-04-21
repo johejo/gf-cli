@@ -2,6 +2,16 @@
 
 Updates signed in user
 
+### Synopsis
+
+Body schema (UpdateUserCommand):
+{
+  "email": string,
+  "login": string,
+  "name": string,
+  "theme": string
+}
+
 ```
 gf signed-in-user update-signed-in-user [flags]
 ```

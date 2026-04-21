@@ -10,6 +10,13 @@ Only available in Grafana Enterprise v7.0+. This API endpoint is experimental an
 
 You need to have a permission with action `reports:send`.
 
+Body schema (ReportEmail):
+{
+  "emails": string,
+  "id": string,
+  "useEmailsFromReport": boolean
+}
+
 ```
 gf reports send-report [flags]
 ```

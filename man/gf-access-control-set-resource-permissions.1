@@ -10,6 +10,18 @@ gf-access-control-set-resource-permissions -
 
 
 .SH DESCRIPTION
+Body schema (SetPermissionsCommand):
+{
+  "permissions": [
+    {
+      "builtInRole": string,
+      "permission": string,
+      "teamId": number,
+      "userId": number
+    }
+  ]
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

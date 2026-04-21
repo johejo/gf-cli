@@ -2,6 +2,18 @@
 
 
 
+### Synopsis
+
+Body schema (PublicDashboardDTO):
+{
+  "accessToken": string,
+  "annotationsEnabled": boolean,
+  "isEnabled": boolean,
+  "share": string,
+  "timeSelectionEnabled": boolean,
+  "uid": string
+}
+
 ```
 gf dashboards update-public-dashboard [flags]
 ```

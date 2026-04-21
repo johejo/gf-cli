@@ -8,6 +8,13 @@ Update the user’s role assignments to match the provided set of UIDs. This wil
 
 You need to have a permission with action `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate` for each. `permissions:type:delegate`  scope ensures that users can only assign or unassign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign or unassign a role which will allow to do that. This is done to prevent escalation of privileges.
 
+Body schema (SetUserRolesCommand):
+{
+  "global": boolean,
+  "includeHidden": boolean,
+  "roleUids": [string]
+}
+
 ```
 gf access-control set-user-roles [flags]
 ```

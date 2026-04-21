@@ -12,6 +12,18 @@ gf-datasources-query-metrics-with-expressions - Data source query metrics with e
 .SH DESCRIPTION
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: \fBdatasources:query\fR\&.
 
+.PP
+Body schema (MetricRequest):
+{
+  "debug": boolean,
+  "from": string,
+  "queries": [any],
+  "to": string
+}
+  from                     required
+  queries                  required
+  to                       required
+
 
 .SH OPTIONS
 \fB--body\fP=""

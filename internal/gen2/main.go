@@ -8,6 +8,7 @@ import (
 	"go/format"
 	"log"
 	"os"
+	"strings"
 	"text/template"
 )
 
@@ -84,10 +85,19 @@ func main() {
 
 			for _, pf := range paramFields {
 				if pf.IsBody {
-					act.BodyField = &BodyFieldInfo{
+					bfi := &BodyFieldInfo{
 						ModelType:   pf.ModelType,
 						IsInterface: pf.ModelType == "interface{}",
 					}
+					if !bfi.IsInterface && strings.HasPrefix(pf.ModelType, "models.") {
+						schema, err := ParseModelSchema(baseDir, pf.ModelType)
+						if err != nil {
+							log.Printf("warning: could not parse body schema for %s: %v", pf.ModelType, err)
+						} else {
+							bfi.Schema = schema
+						}
+					}
+					act.BodyField = bfi
 					act.Flags = append(act.Flags, &Flag{
 						Name:       "body",
 						FieldName:  "Body",
@@ -116,9 +126,22 @@ func main() {
 
 	// Phase 6: Execute template
 	funcMap := template.FuncMap{
-		"flagFunc":     flagFunc,
-		"defaultValue": defaultValue,
-		"flagHelp":     flagHelp,
+		"flagFunc":      flagFunc,
+		"defaultValue":  defaultValue,
+		"flagHelp":      flagHelp,
+		"stringLiteral": stringLiteral,
+		"actionLongParts": func(act *Action) []string {
+			var parts []string
+			if act.Long != "" {
+				parts = append(parts, strings.Split(act.Long, "\n\n")...)
+			}
+			if act.BodyField != nil && act.BodyField.Schema != nil {
+				if s := formatBodySchema(act.BodyField.Schema); s != "" {
+					parts = append(parts, s)
+				}
+			}
+			return parts
+		},
 	}
 
 	t, err := template.New("gen").Funcs(funcMap).Parse(tmpl)
@@ -200,4 +223,12 @@ func flagHelp(fieldName string, doc string) string {
 		return fmt.Sprintf(`%q`, doc)
 	}
 	return fmt.Sprintf(`%q`, fieldName)
+}
+
+// stringLiteral returns a readable Go string literal for generated help text.
+func stringLiteral(s string) string {
+	if strings.Contains(s, "\n") && !strings.Contains(s, "`") {
+		return "`" + s + "`"
+	}
+	return fmt.Sprintf("%q", s)
 }

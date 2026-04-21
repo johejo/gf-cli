@@ -2,6 +2,16 @@
 
 Updates folder
 
+### Synopsis
+
+Body schema (UpdateFolderCommand):
+{
+  "description": string,
+  "overwrite": boolean,
+  "title": string,
+  "version": number
+}
+
 ```
 gf folders update-folder [flags]
 ```

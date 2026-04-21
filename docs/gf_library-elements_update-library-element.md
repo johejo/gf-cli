@@ -6,6 +6,18 @@ Updates library element
 
 Updates an existing library element identified by uid.
 
+Body schema (PatchLibraryElementCommand):
+{
+  "folderId": number,
+  "folderUid": string,
+  "kind": number,
+  "model": any,
+  "name": string,
+  "uid": string,
+  "version": number
+}
+  kind                     enum: 1
+
 ```
 gf library-elements update-library-element [flags]
 ```

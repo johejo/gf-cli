@@ -6,6 +6,11 @@ Triggers the creation of an instance snapshot associated with the provided sessi
 
 If the snapshot initialization is successful, the snapshot uid is returned.
 
+Body schema (CreateSnapshotRequestDTO):
+{
+  "resourceTypes": [string]
+}
+
 ```
 gf migrations create-snapshot [flags]
 ```

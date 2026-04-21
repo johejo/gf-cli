@@ -38,8 +38,13 @@ var (
 {{- if .Short }}
 		Short:             {{ printf "%q" .Short }},
 {{- end }}
-{{- if .Long }}
-		Long:              {{ printf "%q" .Long }},
+{{- $longParts := actionLongParts . }}
+{{- if $longParts }}
+		Long: longHelp(
+{{- range $longParts }}
+			{{ stringLiteral . }},
+{{- end }}
+		),
 {{- end }}
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -122,6 +127,10 @@ var (
 {{- end }}
 {{- end }}
 )
+
+func longHelp(parts ...string) string {
+	return strings.Join(parts, "\n\n")
+}
 
 func init() {
 {{- range . }}

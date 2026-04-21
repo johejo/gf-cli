@@ -15,6 +15,14 @@ Adds a global user to the current organization.
 .PP
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: \fBorg.users:add\fR with scope \fBusers:*\fR\&.
 
+.PP
+Body schema (AddOrgUserCommand):
+{
+  "loginOrEmail": string,
+  "role": string
+}
+  role                     enum: None | Viewer | Editor | Admin
+
 
 .SH OPTIONS
 \fB--body\fP=""

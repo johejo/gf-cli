@@ -15,6 +15,25 @@ Similar to creating a data source, \fBpassword\fR and \fBbasicAuthPassword\fR sh
 .PP
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: \fBdatasources:write\fR and scopes: \fBdatasources:*\fR, \fBdatasources:uid:*\fR and \fBdatasources:uid:1\fR (single data source).
 
+.PP
+Body schema (UpdateDataSourceCommand):
+{
+  "access": string,
+  "basicAuth": boolean,
+  "basicAuthUser": string,
+  "database": string,
+  "isDefault": boolean,
+  "jsonData": any,
+  "name": string,
+  "secureJsonData": {"key": string},
+  "type": string,
+  "uid": string,
+  "url": string,
+  "user": string,
+  "version": number,
+  "withCredentials": boolean
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

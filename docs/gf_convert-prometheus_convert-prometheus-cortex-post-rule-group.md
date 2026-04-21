@@ -2,6 +2,28 @@
 
 
 
+### Synopsis
+
+Body schema (PrometheusRuleGroup):
+{
+  "interval": number,
+  "labels": {"key": string},
+  "limit": number,
+  "name": string,
+  "query_offset": string,
+  "rules": [
+    {
+      "alert": string,
+      "annotations": {"key": string},
+      "expr": string,
+      "for": string,
+      "keep_firing_for": string,
+      "labels": {"key": string},
+      "record": string
+    }
+  ]
+}
+
 ```
 gf convert-prometheus convert-prometheus-cortex-post-rule-group [flags]
 ```

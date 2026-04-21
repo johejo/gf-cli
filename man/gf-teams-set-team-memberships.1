@@ -12,6 +12,13 @@ gf-teams-set-team-memberships - Sets team memberships
 .SH DESCRIPTION
 Takes user emails, and updates team members and admins to the provided lists of users. Any current team members and admins not in the provided lists will be removed.
 
+.PP
+Body schema (SetTeamMembershipsCommand):
+{
+  "admins": [string],
+  "members": [string]
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

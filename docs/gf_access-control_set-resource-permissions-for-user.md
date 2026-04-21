@@ -2,6 +2,13 @@
 
 
 
+### Synopsis
+
+Body schema (SetPermissionCommand):
+{
+  "permission": string
+}
+
 ```
 gf access-control set-resource-permissions-for-user [flags]
 ```

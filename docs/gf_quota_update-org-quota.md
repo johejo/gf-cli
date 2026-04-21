@@ -2,6 +2,14 @@
 
 
 
+### Synopsis
+
+Body schema (UpdateQuotaCmd):
+{
+  "limit": number,
+  "target": string
+}
+
 ```
 gf quota update-org-quota [flags]
 ```

@@ -2,6 +2,14 @@
 
 Updates team
 
+### Synopsis
+
+Body schema (UpdateTeamCommand):
+{
+  "email": string,
+  "name": string
+}
+
 ```
 gf teams update-team [flags]
 ```

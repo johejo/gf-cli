@@ -2,6 +2,14 @@
 
 
 
+### Synopsis
+
+Body schema (NotificationTemplateContent):
+{
+  "template": string,
+  "version": string
+}
+
 ```
 gf provisioning put-template [flags]
 ```

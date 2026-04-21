@@ -6,6 +6,19 @@ Whens creating a snapshot using the API you have to provide the full dashboard p
 
 Snapshot public mode should be enabled or authentication is required.
 
+Body schema (CreateDashboardSnapshotCommand):
+{
+  "apiVersion": string,
+  "dashboard": any,
+  "deleteKey": string,
+  "expires": number,
+  "external": boolean,
+  "key": string,
+  "kind": string,
+  "name": string
+}
+  dashboard                required
+
 ```
 gf dashboards create-dashboard-snapshot [flags]
 ```

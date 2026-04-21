@@ -2,6 +2,64 @@
 
 
 
+### Synopsis
+
+Body schema (ProvisionedAlertRule):
+{
+  "annotations": {"key": string},
+  "condition": string,
+  "data": [
+    {
+      "datasourceUid": string,
+      "model": any,
+      "queryType": string,
+      "refId": string,
+      "relativeTimeRange": object
+    }
+  ],
+  "execErrState": string,
+  "folderUID": string,
+  "for": string,
+  "id": number,
+  "isPaused": boolean,
+  "keep_firing_for": string,
+  "labels": {"key": string},
+  "missingSeriesEvalsToResolve": number,
+  "noDataState": string,
+  "notification_settings": {
+    "active_time_intervals": [string],
+    "group_by": [string],
+    "group_interval": string,
+    "group_wait": string,
+    "mute_time_intervals": [string],
+    "receiver": string,
+    "repeat_interval": string
+  },
+  "orgID": number,
+  "provenance": string,
+  "record": {
+    "from": string,
+    "metric": string,
+    "target_datasource_uid": string
+  },
+  "ruleGroup": string,
+  "title": string,
+  "uid": string,
+  "updated": string
+}
+  condition                required
+  data                     required
+  execErrState             required, enum: OK | Alerting | Error
+  folderUID                required
+  for                      required
+  noDataState              required, enum: Alerting | NoData | OK
+  notification_settings.receiver required
+  orgID                    required
+  record.from              required
+  record.metric            required
+  ruleGroup                required
+  title                    required
+
 ```
 gf provisioning put-alert-rule [flags]
 ```

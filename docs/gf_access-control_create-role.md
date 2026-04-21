@@ -8,6 +8,26 @@ Creates a new custom role and maps given permissions to that role. Note that rol
 
 You need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to create a custom role which allows to do that. This is done to prevent escalation of privileges.
 
+Body schema (CreateRoleForm):
+{
+  "description": string,
+  "displayName": string,
+  "global": boolean,
+  "group": string,
+  "hidden": boolean,
+  "name": string,
+  "permissions": [
+    {
+      "action": string,
+      "created": string,
+      "scope": string,
+      "updated": string
+    }
+  ],
+  "uid": string,
+  "version": number
+}
+
 ```
 gf access-control create-role [flags]
 ```

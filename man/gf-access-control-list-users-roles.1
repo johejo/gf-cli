@@ -15,6 +15,15 @@ Lists the roles that have been directly assigned to the given users. The list do
 .PP
 You need to have a permission with action \fBusers.roles:read\fR and scope \fBusers:id:*\fR\&.
 
+.PP
+Body schema (RolesSearchQuery):
+{
+  "includeHidden": boolean,
+  "orgId": number,
+  "teamIds": [number],
+  "userIds": [number]
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

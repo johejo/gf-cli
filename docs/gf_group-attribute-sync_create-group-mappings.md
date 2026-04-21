@@ -2,6 +2,13 @@
 
 Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental
 
+### Synopsis
+
+Body schema (GroupAttributes):
+{
+  "roles": [string]
+}
+
 ```
 gf group-attribute-sync create-group-mappings [flags]
 ```

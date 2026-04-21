@@ -12,6 +12,14 @@ gf-query-history-create-query - Adds query to query history
 .SH DESCRIPTION
 Adds new query to query history.
 
+.PP
+Body schema (CreateQueryInQueryHistoryCommand):
+{
+  "datasourceUid": string,
+  "queries": any
+}
+  queries                  required
+
 
 .SH OPTIONS
 \fB--body\fP=""

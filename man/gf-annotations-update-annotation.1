@@ -12,6 +12,17 @@ gf-annotations-update-annotation - Updates annotation
 .SH DESCRIPTION
 Updates all properties of an annotation that matches the specified id. To only update certain property, consider using the Patch Annotation operation.
 
+.PP
+Body schema (UpdateAnnotationsCmd):
+{
+  "data": any,
+  "id": number,
+  "tags": [string],
+  "text": string,
+  "time": number,
+  "timeEnd": number
+}
+
 
 .SH OPTIONS
 \fB--annotation-id\fP=""

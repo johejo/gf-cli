@@ -2,6 +2,28 @@
 
 Updates current org prefs
 
+### Synopsis
+
+Body schema (UpdatePrefsCmd):
+{
+  "cookies": [string],
+  "homeDashboardId": number,
+  "homeDashboardUID": string,
+  "language": string,
+  "navbar": {
+    "bookmarkUrls": [string]
+  },
+  "queryHistory": {
+    "homeTab": string
+  },
+  "regionalFormat": string,
+  "theme": string,
+  "timezone": string,
+  "weekStart": string
+}
+  theme                    enum: light | dark | system
+  timezone                 enum: utc | browser
+
 ```
 gf org update-org-preferences [flags]
 ```

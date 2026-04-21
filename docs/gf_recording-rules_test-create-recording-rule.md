@@ -2,6 +2,23 @@
 
 Tests a recording rule
 
+### Synopsis
+
+Body schema (RecordingRuleJSON):
+{
+  "active": boolean,
+  "count": boolean,
+  "description": string,
+  "dest_data_source_uid": string,
+  "id": string,
+  "interval": number,
+  "name": string,
+  "prom_name": string,
+  "queries": [any],
+  "range": number,
+  "target_ref_id": string
+}
+
 ```
 gf recording-rules test-create-recording-rule [flags]
 ```

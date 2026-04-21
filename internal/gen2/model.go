@@ -27,8 +27,26 @@ type ResponseInfo struct {
 }
 
 type BodyFieldInfo struct {
-	ModelType   string // "models.AddTeamRoleCommand"
-	IsInterface bool   // true if ModelType is "interface{}"
+	ModelType   string          // "models.AddTeamRoleCommand"
+	IsInterface bool            // true if ModelType is "interface{}"
+	Schema      *BodySchemaInfo // nil for interface{} bodies
+}
+
+type BodySchemaInfo struct {
+	TypeName string        // e.g. "CreateTeamCommand"
+	Fields   []*ModelField
+}
+
+type ModelField struct {
+	JSONName     string        // from json tag, e.g. "email"
+	GoType       string        // display type, e.g. "string", "[]Permission"
+	JSONType     string        // resolved JSON type: "string", "number", "boolean", "any", "object"
+	IsRequired   bool          // from "// Required: true" comment
+	IsArray      bool          // true if field is a slice/array
+	IsMap        bool          // true if field is map[K]V
+	MapValueType string        // resolved JSON type for map values
+	EnumValues   []string      // from "// Enum: [val1 val2]" comment
+	NestedFields []*ModelField // 1-level expansion for struct types
 }
 
 type Flag struct {

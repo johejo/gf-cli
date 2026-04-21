@@ -8,6 +8,23 @@ By defining `password` and `basicAuthPassword` under secureJsonData property Gra
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:create`
 
+Body schema (AddDataSourceCommand):
+{
+  "access": string,
+  "basicAuth": boolean,
+  "basicAuthUser": string,
+  "database": string,
+  "isDefault": boolean,
+  "jsonData": any,
+  "name": string,
+  "secureJsonData": {"key": string},
+  "type": string,
+  "uid": string,
+  "url": string,
+  "user": string,
+  "withCredentials": boolean
+}
+
 ```
 gf datasources add-datasource [flags]
 ```

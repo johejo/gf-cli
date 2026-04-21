@@ -12,6 +12,14 @@ gf-recording-rules-create-recording-rule-write-target - Creates a remote write t
 .SH DESCRIPTION
 It returns a 422 if there is not an existing prometheus data source configured.
 
+.PP
+Body schema (PrometheusRemoteWriteTargetJSON):
+{
+  "data_source_uid": string,
+  "id": string,
+  "remote_write_path": string
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

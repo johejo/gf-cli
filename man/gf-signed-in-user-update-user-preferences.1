@@ -12,6 +12,27 @@ gf-signed-in-user-update-user-preferences - Updates user preferences
 .SH DESCRIPTION
 Omitting a key (\fBtheme\fR, \fBhomeDashboardUID\fR, \fBtimezone\fR) will cause the current value to be replaced with the system default value.
 
+.PP
+Body schema (UpdatePrefsCmd):
+{
+  "cookies": [string],
+  "homeDashboardId": number,
+  "homeDashboardUID": string,
+  "language": string,
+  "navbar": {
+    "bookmarkUrls": [string]
+  },
+  "queryHistory": {
+    "homeTab": string
+  },
+  "regionalFormat": string,
+  "theme": string,
+  "timezone": string,
+  "weekStart": string
+}
+  theme                    enum: light | dark | system
+  timezone                 enum: utc | browser
+
 
 .SH OPTIONS
 \fB--body\fP=""

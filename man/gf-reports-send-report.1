@@ -18,6 +18,14 @@ Only available in Grafana Enterprise v7.0+. This API endpoint is experimental an
 .PP
 You need to have a permission with action \fBreports:send\fR\&.
 
+.PP
+Body schema (ReportEmail):
+{
+  "emails": string,
+  "id": string,
+  "useEmailsFromReport": boolean
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

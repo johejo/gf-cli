@@ -6,6 +6,12 @@ Changes password
 
 Changes the password for the user.
 
+Body schema (ChangeUserPasswordCommand):
+{
+  "newPassword": string,
+  "oldPassword": string
+}
+
 ```
 gf signed-in-user change-user-password [flags]
 ```

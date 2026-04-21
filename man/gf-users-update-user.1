@@ -12,6 +12,15 @@ gf-users-update-user - Updates user
 .SH DESCRIPTION
 Update the user identified by id.
 
+.PP
+Body schema (UpdateUserCommand):
+{
+  "email": string,
+  "login": string,
+  "name": string,
+  "theme": string
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

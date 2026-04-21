@@ -12,6 +12,16 @@ gf-admin-users-admin-create-user - Creates new user
 .SH DESCRIPTION
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action \fBusers:create\fR\&. Note that OrgId is an optional parameter that can be used to assign a new user to a different organization when \fBauto_assign_org\fR is set to \fBtrue\fR\&.
 
+.PP
+Body schema (AdminCreateUserForm):
+{
+  "email": string,
+  "login": string,
+  "name": string,
+  "orgId": number,
+  "password": string
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

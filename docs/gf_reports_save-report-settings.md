@@ -8,6 +8,22 @@ Available to org admins only and with a valid or expired license.
 
 You need to have a permission with action `reports.settings:write`xx.
 
+Body schema (ReportSettings):
+{
+  "branding": {
+    "emailFooterLink": string,
+    "emailFooterMode": string,
+    "emailFooterText": string,
+    "emailLogoUrl": string,
+    "reportLogoUrl": string
+  },
+  "embeddedImageTheme": string,
+  "id": number,
+  "orgId": number,
+  "pdfTheme": string,
+  "userId": number
+}
+
 ```
 gf reports save-report-settings [flags]
 ```

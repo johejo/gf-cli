@@ -6,6 +6,26 @@ Updates user preferences
 
 Omitting a key (`theme`, `homeDashboardUID`, `timezone`) will cause the current value to be replaced with the system default value.
 
+Body schema (UpdatePrefsCmd):
+{
+  "cookies": [string],
+  "homeDashboardId": number,
+  "homeDashboardUID": string,
+  "language": string,
+  "navbar": {
+    "bookmarkUrls": [string]
+  },
+  "queryHistory": {
+    "homeTab": string
+  },
+  "regionalFormat": string,
+  "theme": string,
+  "timezone": string,
+  "weekStart": string
+}
+  theme                    enum: light | dark | system
+  timezone                 enum: utc | browser
+
 ```
 gf signed-in-user update-user-preferences [flags]
 ```

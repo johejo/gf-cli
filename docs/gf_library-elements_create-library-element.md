@@ -6,6 +6,17 @@ Creates library element
 
 Creates a new library element.
 
+Body schema (CreateLibraryElementCommand):
+{
+  "folderId": number,
+  "folderUid": string,
+  "kind": number,
+  "model": any,
+  "name": string,
+  "uid": string
+}
+  kind                     enum: 1
+
 ```
 gf library-elements create-library-element [flags]
 ```

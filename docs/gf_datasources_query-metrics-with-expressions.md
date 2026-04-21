@@ -6,6 +6,17 @@ Data source query metrics with expressions
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:query`.
 
+Body schema (MetricRequest):
+{
+  "debug": boolean,
+  "from": string,
+  "queries": [any],
+  "to": string
+}
+  from                     required
+  queries                  required
+  to                       required
+
 ```
 gf datasources query-metrics-with-expressions [flags]
 ```

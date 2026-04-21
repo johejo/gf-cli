@@ -2,6 +2,20 @@
 
 
 
+### Synopsis
+
+Body schema (UpdateCorrelationCommand):
+{
+  "config": {
+    "field": string,
+    "target": any,
+    "transformations": [object]
+  },
+  "description": string,
+  "label": string,
+  "type": string
+}
+
 ```
 gf datasources update-correlation [flags]
 ```

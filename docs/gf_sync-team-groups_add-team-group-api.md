@@ -2,6 +2,13 @@
 
 Adds external group
 
+### Synopsis
+
+Body schema (TeamGroupMapping):
+{
+  "groupId": string
+}
+
 ```
 gf sync-team-groups add-team-group-api [flags]
 ```

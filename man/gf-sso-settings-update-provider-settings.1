@@ -15,6 +15,14 @@ Inserts or updates the SSO Settings for a provider.
 .PP
 You need to have a permission with action \fBsettings:write\fR and scope \fBsettings:auth.<provider>:*\fR\&.
 
+.PP
+Body schema (UpdateProviderSettingsParamsBody):
+{
+  "id": string,
+  "provider": string,
+  "settings": any
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

@@ -2,6 +2,13 @@
 
 Moves folder
 
+### Synopsis
+
+Body schema (MoveFolderCommand):
+{
+  "parentUid": string
+}
+
 ```
 gf folders move-folder [flags]
 ```

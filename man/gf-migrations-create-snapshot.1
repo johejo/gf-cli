@@ -12,6 +12,12 @@ gf-migrations-create-snapshot - Triggers the creation of an instance snapshot as
 .SH DESCRIPTION
 If the snapshot initialization is successful, the snapshot uid is returned.
 
+.PP
+Body schema (CreateSnapshotRequestDTO):
+{
+  "resourceTypes": [string]
+}
+
 
 .SH OPTIONS
 \fB--body\fP=""

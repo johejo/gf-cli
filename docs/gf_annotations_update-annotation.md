@@ -6,6 +6,16 @@ Updates annotation
 
 Updates all properties of an annotation that matches the specified id. To only update certain property, consider using the Patch Annotation operation.
 
+Body schema (UpdateAnnotationsCmd):
+{
+  "data": any,
+  "id": number,
+  "tags": [string],
+  "text": string,
+  "time": number,
+  "timeEnd": number
+}
+
 ```
 gf annotations update-annotation [flags]
 ```

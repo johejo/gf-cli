@@ -10,7 +10,13 @@ gf-signed-in-user-update-signed-in-user - Updates signed in user
 
 
 .SH DESCRIPTION
-Updates signed in user
+Body schema (UpdateUserCommand):
+{
+  "email": string,
+  "login": string,
+  "name": string,
+  "theme": string
+}
 
 
 .SH OPTIONS

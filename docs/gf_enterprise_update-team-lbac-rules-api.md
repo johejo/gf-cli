@@ -2,6 +2,19 @@
 
 
 
+### Synopsis
+
+Body schema (UpdateTeamLBACCommand):
+{
+  "rules": [
+    {
+      "rules": [string],
+      "teamId": string,
+      "teamUid": string
+    }
+  ]
+}
+
 ```
 gf enterprise update-team-lbac-rules-api [flags]
 ```

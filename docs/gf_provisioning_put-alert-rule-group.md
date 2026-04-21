@@ -2,6 +2,48 @@
 
 
 
+### Synopsis
+
+Body schema (AlertRuleGroup):
+{
+  "folderUid": string,
+  "interval": number,
+  "rules": [
+    {
+      "annotations": {"key": string},
+      "condition": string,
+      "data": [object],
+      "execErrState": string,
+      "folderUID": string,
+      "for": string,
+      "id": number,
+      "isPaused": boolean,
+      "keep_firing_for": string,
+      "labels": {"key": string},
+      "missingSeriesEvalsToResolve": number,
+      "noDataState": string,
+      "notification_settings": object,
+      "orgID": number,
+      "provenance": string,
+      "record": object,
+      "ruleGroup": string,
+      "title": string,
+      "uid": string,
+      "updated": string
+    }
+  ],
+  "title": string
+}
+  rules[].condition        required
+  rules[].data             required
+  rules[].execErrState     required, enum: OK | Alerting | Error
+  rules[].folderUID        required
+  rules[].for              required
+  rules[].noDataState      required, enum: Alerting | NoData | OK
+  rules[].orgID            required
+  rules[].ruleGroup        required
+  rules[].title            required
+
 ```
 gf provisioning put-alert-rule-group [flags]
 ```
