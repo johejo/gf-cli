@@ -4,6 +4,8 @@ Returns the current state of the LDAP background sync integration
 
 ### Synopsis
 
+Returns the current state of the LDAP background sync integration
+
 You need to have a permission with action `ldap.status:read`.
 
 ```

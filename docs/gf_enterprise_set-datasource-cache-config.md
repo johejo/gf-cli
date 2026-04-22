@@ -4,6 +4,8 @@ Set cache config for a single data source
 
 ### Synopsis
 
+Set cache config for a single data source
+
 Body schema (CacheConfigSetter):
 {
   "dataSourceID": number,

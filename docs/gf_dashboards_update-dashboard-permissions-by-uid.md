@@ -4,6 +4,8 @@ Updates permissions for a dashboard
 
 ### Synopsis
 
+Updates permissions for a dashboard
+
 This operation will remove existing permissions if they’re not included in the request.
 
 Body schema (UpdateDashboardACLCommand):

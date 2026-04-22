@@ -4,6 +4,8 @@ Manuallies force license refresh
 
 ### Synopsis
 
+Manuallies force license refresh
+
 Manually ask license issuer for a new token. Available in Grafana Enterprise v7.4+.
 
 You need to have a permission with action `licensing:write`.

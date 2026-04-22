@@ -4,6 +4,8 @@ Gets dashboard by uid
 
 ### Synopsis
 
+Gets dashboard by uid
+
 Will return the dashboard given the dashboard unique identifier (uid).
 
 ```

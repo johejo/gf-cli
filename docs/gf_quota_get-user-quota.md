@@ -4,6 +4,8 @@ Fetches user quota
 
 ### Synopsis
 
+Fetches user quota
+
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.quotas:list` and scope `global.users:1` (userIDScope).
 
 ```

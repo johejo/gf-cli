@@ -4,6 +4,8 @@ Lists all s s o settings entries
 
 ### Synopsis
 
+Lists all s s o settings entries
+
 You need to have a permission with action `settings:read` with scope `settings:auth.<provider>:*`.
 
 ```

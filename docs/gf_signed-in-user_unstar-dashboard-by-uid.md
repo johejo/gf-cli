@@ -4,6 +4,8 @@ Unstars a dashboard
 
 ### Synopsis
 
+Unstars a dashboard
+
 Deletes the starring of the given Dashboard for the actual user.
 
 ```

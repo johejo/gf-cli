@@ -4,6 +4,8 @@ Moves folder
 
 ### Synopsis
 
+Moves folder
+
 Body schema (MoveFolderCommand):
 {
   "parentUid": string

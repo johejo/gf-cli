@@ -4,6 +4,8 @@ Reloads plugin provisioning configurations
 
 ### Synopsis
 
+Reloads plugin provisioning configurations
+
 Reloads the provisioning config files for plugins again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:plugin`.
 
 ```

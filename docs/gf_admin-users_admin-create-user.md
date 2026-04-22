@@ -4,6 +4,8 @@ Creates new user
 
 ### Synopsis
 
+Creates new user
+
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:create`. Note that OrgId is an optional parameter that can be used to assign a new user to a different organization when `auto_assign_org` is set to `true`.
 
 Body schema (AdminCreateUserForm):

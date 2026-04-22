@@ -4,6 +4,8 @@ Deletes snapshot by delete key
 
 ### Synopsis
 
+Deletes snapshot by delete key
+
 Snapshot public mode should be enabled or authentication is required.
 
 ```

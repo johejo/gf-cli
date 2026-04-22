@@ -4,6 +4,8 @@ Creates organization
 
 ### Synopsis
 
+Creates organization
+
 Only works if [users.allow_org_create](https://grafana.com/docs/grafana/latest/administration/configuration/#allow_org_create) is set.
 
 Body schema (CreateOrgCommand):

@@ -4,6 +4,8 @@ Updates team
 
 ### Synopsis
 
+Updates team
+
 Body schema (UpdateTeamCommand):
 {
   "email": string,

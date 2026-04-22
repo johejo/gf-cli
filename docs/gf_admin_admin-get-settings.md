@@ -4,6 +4,8 @@ Fetches settings
 
 ### Synopsis
 
+Fetches settings
+
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `settings:read` and scopes: `settings:*`, `settings:auth.saml:` and `settings:auth.saml:enabled` (property level).
 
 ```

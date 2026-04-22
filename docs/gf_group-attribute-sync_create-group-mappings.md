@@ -4,6 +4,8 @@ Creates mappings for a group this endpoint is behind the feature flag group attr
 
 ### Synopsis
 
+Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental
+
 Body schema (GroupAttributes):
 {
   "roles": [string]

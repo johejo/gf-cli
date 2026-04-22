@@ -4,6 +4,8 @@ Adds team member
 
 ### Synopsis
 
+Adds team member
+
 Body schema (AddTeamMemberCommand):
 {
   "userId": number

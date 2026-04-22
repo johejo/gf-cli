@@ -4,6 +4,8 @@ Stars a dashboard
 
 ### Synopsis
 
+Stars a dashboard
+
 Stars the given Dashboard for the actual user.
 
 ```

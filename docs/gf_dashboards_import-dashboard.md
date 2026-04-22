@@ -4,6 +4,8 @@ Imports dashboard
 
 ### Synopsis
 
+Imports dashboard
+
 Body schema (ImportDashboardRequest):
 {
   "dashboard": any,

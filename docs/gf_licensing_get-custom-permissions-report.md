@@ -4,6 +4,8 @@ Gets custom permissions report
 
 ### Synopsis
 
+Gets custom permissions report
+
 You need to have a permission with action `licensing.reports:read`.
 
 ```

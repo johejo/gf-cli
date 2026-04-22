@@ -126,22 +126,11 @@ func main() {
 
 	// Phase 6: Execute template
 	funcMap := template.FuncMap{
-		"flagFunc":      flagFunc,
-		"defaultValue":  defaultValue,
-		"flagHelp":      flagHelp,
-		"stringLiteral": stringLiteral,
-		"actionLongParts": func(act *Action) []string {
-			var parts []string
-			if act.Long != "" {
-				parts = append(parts, strings.Split(act.Long, "\n\n")...)
-			}
-			if act.BodyField != nil && act.BodyField.Schema != nil {
-				if s := formatBodySchema(act.BodyField.Schema); s != "" {
-					parts = append(parts, s)
-				}
-			}
-			return parts
-		},
+		"flagFunc":        flagFunc,
+		"defaultValue":    defaultValue,
+		"flagHelp":        flagHelp,
+		"stringLiteral":   stringLiteral,
+		"actionLongParts": actionLongParts,
 	}
 
 	t, err := template.New("gen").Funcs(funcMap).Parse(tmpl)
@@ -231,4 +220,23 @@ func stringLiteral(s string) string {
 		return "`" + s + "`"
 	}
 	return fmt.Sprintf("%q", s)
+}
+
+func actionLongParts(act *Action) []string {
+	var longParts []string
+	if act.Long != "" {
+		longParts = append(longParts, strings.Split(act.Long, "\n\n")...)
+	}
+	if act.BodyField != nil && act.BodyField.Schema != nil {
+		if s := formatBodySchema(act.BodyField.Schema); s != "" {
+			longParts = append(longParts, s)
+		}
+	}
+	if len(longParts) == 0 {
+		return nil
+	}
+	if act.Short == "" {
+		return longParts
+	}
+	return append([]string{act.Short}, longParts...)
 }

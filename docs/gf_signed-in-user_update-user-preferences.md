@@ -4,6 +4,8 @@ Updates user preferences
 
 ### Synopsis
 
+Updates user preferences
+
 Omitting a key (`theme`, `homeDashboardUID`, `timezone`) will cause the current value to be replaced with the system default value.
 
 Body schema (UpdatePrefsCmd):

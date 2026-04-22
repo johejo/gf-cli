@@ -4,6 +4,8 @@ Patches current org prefs
 
 ### Synopsis
 
+Patches current org prefs
+
 Body schema (PatchPrefsCmd):
 {
   "cookies": [string],

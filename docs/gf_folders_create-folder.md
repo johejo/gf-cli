@@ -4,6 +4,8 @@ Creates folder
 
 ### Synopsis
 
+Creates folder
+
 If nested folders are enabled then it additionally expects the parent folder UID.
 
 Body schema (CreateFolderCommand):

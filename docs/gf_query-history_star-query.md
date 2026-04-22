@@ -4,6 +4,8 @@ Adds star to query in query history
 
 ### Synopsis
 
+Adds star to query in query history
+
 Adds star to query in query history as specified by the UID.
 
 ```

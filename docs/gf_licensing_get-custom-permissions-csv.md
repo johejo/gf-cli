@@ -4,6 +4,8 @@ Gets custom permissions report in CSV format
 
 ### Synopsis
 
+Gets custom permissions report in CSV format
+
 You need to have a permission with action `licensing.reports:read`.
 
 ```

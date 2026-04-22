@@ -4,6 +4,8 @@ Gets JSON web key set j w k s with all the keys that can be used to verify token
 
 ### Synopsis
 
+Gets JSON web key set j w k s with all the keys that can be used to verify tokens public keys
+
 Required permissions None
 
 ```

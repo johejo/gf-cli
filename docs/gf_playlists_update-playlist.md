@@ -4,6 +4,8 @@ Updates playlist
 
 ### Synopsis
 
+Updates playlist
+
 Body schema (UpdatePlaylistCommand):
 {
   "interval": string,

@@ -4,6 +4,8 @@ Updates organization
 
 ### Synopsis
 
+Updates organization
+
 Body schema (UpdateOrgForm):
 {
   "name": string

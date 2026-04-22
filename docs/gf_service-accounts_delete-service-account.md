@@ -4,6 +4,8 @@ Deletes service account
 
 ### Synopsis
 
+Deletes service account
+
 Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:delete` scope: `serviceaccounts:id:1` (single service account)
 
 ```

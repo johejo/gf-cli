@@ -4,6 +4,8 @@ Deletes dashboard by uid
 
 ### Synopsis
 
+Deletes dashboard by uid
+
 Will delete the dashboard given the specified unique identifier (uid).
 
 ```

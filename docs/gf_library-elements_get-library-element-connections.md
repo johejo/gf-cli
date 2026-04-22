@@ -4,6 +4,8 @@ Gets library element connections
 
 ### Synopsis
 
+Gets library element connections
+
 Returns a list of connections for a library element based on the UID specified.
 
 ```

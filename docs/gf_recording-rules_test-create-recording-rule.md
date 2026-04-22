@@ -4,6 +4,8 @@ Tests a recording rule
 
 ### Synopsis
 
+Tests a recording rule
+
 Body schema (RecordingRuleJSON):
 {
   "active": boolean,

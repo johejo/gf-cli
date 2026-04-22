@@ -4,6 +4,8 @@ Auths tokens of the actual user
 
 ### Synopsis
 
+Auths tokens of the actual user
+
 Return a list of all auth tokens (devices) that the actual user currently have logged in from.
 
 ```

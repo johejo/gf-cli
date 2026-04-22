@@ -4,6 +4,8 @@ Gets role assignments
 
 ### Synopsis
 
+Gets role assignments
+
 Get role assignments for the role with the given UID. Does not include role assignments mapped through group attribute sync.
 
 You need to have a permission with action `teams.roles:list` and scope `teams:id:*` and `users.roles:list` and scope `users:id:*`.

@@ -4,6 +4,8 @@ Adds a new user to the current organization
 
 ### Synopsis
 
+Adds a new user to the current organization
+
 Adds a global user to the current organization.
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.

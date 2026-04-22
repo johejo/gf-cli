@@ -4,6 +4,8 @@ Creates a remote write target
 
 ### Synopsis
 
+Creates a remote write target
+
 It returns a 422 if there is not an existing prometheus data source configured.
 
 Body schema (PrometheusRemoteWriteTargetJSON):

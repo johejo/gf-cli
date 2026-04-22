@@ -4,6 +4,8 @@ Adds team
 
 ### Synopsis
 
+Adds team
+
 Body schema (CreateTeamCommand):
 {
   "email": string,

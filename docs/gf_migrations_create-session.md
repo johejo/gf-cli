@@ -4,6 +4,8 @@ Creates a migration session
 
 ### Synopsis
 
+Creates a migration session
+
 Body schema (CloudMigrationSessionRequestDTO):
 {
   "authToken": string

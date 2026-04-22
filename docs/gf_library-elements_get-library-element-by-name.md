@@ -4,6 +4,8 @@ Gets library element by name
 
 ### Synopsis
 
+Gets library element by name
+
 Returns a library element with the given name.
 
 ```

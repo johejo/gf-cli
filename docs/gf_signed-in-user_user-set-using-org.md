@@ -4,6 +4,8 @@ Switches user context for signed in user
 
 ### Synopsis
 
+Switches user context for signed in user
+
 Switch user context to the given organization.
 
 ```

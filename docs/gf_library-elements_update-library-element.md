@@ -4,6 +4,8 @@ Updates library element
 
 ### Synopsis
 
+Updates library element
+
 Updates an existing library element identified by uid.
 
 Body schema (PatchLibraryElementCommand):

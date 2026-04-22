@@ -4,6 +4,8 @@ Creates playlist
 
 ### Synopsis
 
+Creates playlist
+
 Body schema (CreatePlaylistCommand):
 {
   "interval": string,

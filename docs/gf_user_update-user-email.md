@@ -4,6 +4,8 @@ Updates user email
 
 ### Synopsis
 
+Updates user email
+
 Update the email of user given a verification code.
 
 ```

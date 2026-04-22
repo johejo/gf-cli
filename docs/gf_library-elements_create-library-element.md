@@ -4,6 +4,8 @@ Creates library element
 
 ### Synopsis
 
+Creates library element
+
 Creates a new library element.
 
 Body schema (CreateLibraryElementCommand):

@@ -4,6 +4,8 @@ Updates organization s address
 
 ### Synopsis
 
+Updates organization s address
+
 Body schema (UpdateOrgAddressForm):
 {
   "address1": string,

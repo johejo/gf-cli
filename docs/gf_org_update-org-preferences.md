@@ -4,6 +4,8 @@ Updates current org prefs
 
 ### Synopsis
 
+Updates current org prefs
+
 Body schema (UpdatePrefsCmd):
 {
   "cookies": [string],

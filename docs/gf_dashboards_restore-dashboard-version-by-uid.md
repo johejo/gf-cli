@@ -4,6 +4,8 @@ Restores a dashboard to a given dashboard version using UID
 
 ### Synopsis
 
+Restores a dashboard to a given dashboard version using UID
+
 Body schema (RestoreDashboardVersionCommand):
 {
   "version": number

@@ -4,6 +4,8 @@ Removes team role
 
 ### Synopsis
 
+Removes team role
+
 You need to have a permission with action `teams.roles:remove` and scope `permissions:type:delegate`.
 
 ```

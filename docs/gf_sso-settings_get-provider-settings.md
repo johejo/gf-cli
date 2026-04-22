@@ -4,6 +4,8 @@ Gets an s s o settings entry by key
 
 ### Synopsis
 
+Gets an s s o settings entry by key
+
 You need to have a permission with action `settings:read` with scope `settings:auth.<provider>:*`.
 
 ```

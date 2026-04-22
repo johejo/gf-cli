@@ -4,6 +4,8 @@ Updates user
 
 ### Synopsis
 
+Updates user
+
 Update the user identified by id.
 
 Body schema (UpdateUserCommand):

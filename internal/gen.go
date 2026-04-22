@@ -68,6 +68,7 @@ var (
 		Use:   "add-team-role",
 		Short: "Adds team role",
 		Long: longHelp(
+			"Adds team role",
 			"You need to have a permission with action `teams.roles:add` and scope `permissions:type:delegate`.",
 			`Body schema (AddTeamRoleCommand):
 {
@@ -109,6 +110,7 @@ var (
 		Use:   "add-user-role",
 		Short: "Adds a user role assignment",
 		Long: longHelp(
+			"Adds a user role assignment",
 			"Assign a role to a specific user. For bulk updates consider Set user role assignments.",
 			"You need to have a permission with action `users.roles:add` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only assign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign a role which will allow to do that. This is done to prevent escalation of privileges.",
 			`Body schema (AddUserRoleCommand):
@@ -152,6 +154,7 @@ var (
 		Use:   "create-role",
 		Short: "Creates a new custom role",
 		Long: longHelp(
+			"Creates a new custom role",
 			"Creates a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed Roles can’t be created.",
 			"You need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to create a custom role which allows to do that. This is done to prevent escalation of privileges.",
 			`Body schema (CreateRoleForm):
@@ -235,6 +238,7 @@ var (
 		Use:   "get-access-control-status",
 		Short: "Gets status",
 		Long: longHelp(
+			"Gets status",
 			"Returns an indicator to check if fine-grained access control is enabled or not.",
 			"You need to have a permission with action `status:accesscontrol` and scope `services:accesscontrol`.",
 		),
@@ -316,6 +320,7 @@ var (
 		Use:   "get-role",
 		Short: "Gets a role",
 		Long: longHelp(
+			"Gets a role",
 			"Get a role for the given UID.",
 			"You need to have a permission with action `roles:read` and scope `roles:*`.",
 		),
@@ -346,6 +351,7 @@ var (
 		Use:   "get-role-assignments",
 		Short: "Gets role assignments",
 		Long: longHelp(
+			"Gets role assignments",
 			"Get role assignments for the role with the given UID. Does not include role assignments mapped through group attribute sync.",
 			"You need to have a permission with action `teams.roles:list` and scope `teams:id:*` and `users.roles:list` and scope `users:id:*`.",
 		),
@@ -402,6 +408,7 @@ var (
 		Use:   "list-team-roles",
 		Short: "Gets team roles",
 		Long: longHelp(
+			"Gets team roles",
 			"You need to have a permission with action `teams.roles:read` and scope `teams:id:<team ID>`.",
 		),
 		DisableAutoGenTag: true,
@@ -431,6 +438,7 @@ var (
 		Use:   "list-teams-roles",
 		Short: "Lists roles assigned to multiple teams",
 		Long: longHelp(
+			"Lists roles assigned to multiple teams",
 			"Lists the roles that have been directly assigned to the given teams.",
 			"You need to have a permission with action `teams.roles:read` and scope `teams:id:*`.",
 			`Body schema (RolesSearchQuery):
@@ -475,6 +483,7 @@ var (
 		Use:   "list-user-roles",
 		Short: "Lists roles assigned to a user",
 		Long: longHelp(
+			"Lists roles assigned to a user",
 			"Lists the roles that have been directly assigned to a given user. The list does not include built-in roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.",
 			"You need to have a permission with action `users.roles:read` and scope `users:id:<user ID>`.",
 		),
@@ -505,6 +514,7 @@ var (
 		Use:   "list-users-roles",
 		Short: "Lists roles assigned to multiple users",
 		Long: longHelp(
+			"Lists roles assigned to multiple users",
 			"Lists the roles that have been directly assigned to the given users. The list does not include built-in roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.",
 			"You need to have a permission with action `users.roles:read` and scope `users:id:*`.",
 			`Body schema (RolesSearchQuery):
@@ -549,6 +559,7 @@ var (
 		Use:   "remove-team-role",
 		Short: "Removes team role",
 		Long: longHelp(
+			"Removes team role",
 			"You need to have a permission with action `teams.roles:remove` and scope `permissions:type:delegate`.",
 		),
 		DisableAutoGenTag: true,
@@ -776,6 +787,7 @@ var (
 		Use:   "set-role-assignments",
 		Short: "Sets role assignments",
 		Long: longHelp(
+			"Sets role assignments",
 			"Set role assignments for the role with the given UID.",
 			"You need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate`, and `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate`.",
 			`Body schema (SetRoleAssignmentsCommand):
@@ -820,6 +832,7 @@ var (
 		Use:   "set-team-roles",
 		Short: "Updates team role",
 		Long: longHelp(
+			"Updates team role",
 			"You need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate` for each.",
 			`Body schema (SetTeamRolesCommand):
 {
@@ -862,6 +875,7 @@ var (
 		Use:   "set-user-roles",
 		Short: "Sets user role assignments",
 		Long: longHelp(
+			"Sets user role assignments",
 			"Update the user’s role assignments to match the provided set of UIDs. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user. Roles mapped through group attribute sync are not impacted. If you want to add or remove a single role, consider using Add a user role assignment or Remove a user role assignment instead.",
 			"You need to have a permission with action `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate` for each. `permissions:type:delegate`  scope ensures that users can only assign or unassign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign or unassign a role which will allow to do that. This is done to prevent escalation of privileges.",
 			`Body schema (SetUserRolesCommand):
@@ -906,6 +920,7 @@ var (
 		Use:   "update-role",
 		Short: "Updates a custom role",
 		Long: longHelp(
+			"Updates a custom role",
 			"You need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has.",
 			`Body schema (UpdateRoleCommand):
 {
@@ -1093,6 +1108,7 @@ var (
 		Use:   "admin-get-settings",
 		Short: "Fetches settings",
 		Long: longHelp(
+			"Fetches settings",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `settings:read` and scopes: `settings:*`, `settings:auth.saml:` and `settings:auth.saml:enabled` (property level).",
 		),
 		DisableAutoGenTag: true,
@@ -1120,6 +1136,7 @@ var (
 		Use:   "admin-get-stats",
 		Short: "Fetches grafana stats",
 		Long: longHelp(
+			"Fetches grafana stats",
 			"Only works with Basic Authentication (username and password). See introduction for an explanation. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `server:stats:read`.",
 		),
 		DisableAutoGenTag: true,
@@ -1153,6 +1170,7 @@ var (
 		Use:   "get-ldap-status",
 		Short: "Attempts to connect to all the configured LDAP servers and returns information on whenever they re available or not",
 		Long: longHelp(
+			"Attempts to connect to all the configured LDAP servers and returns information on whenever they re available or not",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.status:read`.",
 		),
 		DisableAutoGenTag: true,
@@ -1180,6 +1198,7 @@ var (
 		Use:   "get-user-from-ldap",
 		Short: "Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when synced",
 		Long: longHelp(
+			"Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when synced",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:read`.",
 		),
 		DisableAutoGenTag: true,
@@ -1209,6 +1228,7 @@ var (
 		Use:   "post-sync-user-with-ldap",
 		Short: "Enables a single grafana user to be synchronized against LDAP",
 		Long: longHelp(
+			"Enables a single grafana user to be synchronized against LDAP",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:sync`.",
 		),
 		DisableAutoGenTag: true,
@@ -1238,6 +1258,7 @@ var (
 		Use:   "reload-ldap-cfg",
 		Short: "Reloads the LDAP configuration",
 		Long: longHelp(
+			"Reloads the LDAP configuration",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.config:reload`.",
 		),
 		DisableAutoGenTag: true,
@@ -1277,6 +1298,7 @@ var (
 		Use:   "admin-provisioning-reload-dashboards",
 		Short: "Reloads dashboard provisioning configurations",
 		Long: longHelp(
+			"Reloads dashboard provisioning configurations",
 			"Reloads the provisioning config files for dashboards again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:dashboards`.",
 		),
 		DisableAutoGenTag: true,
@@ -1304,6 +1326,7 @@ var (
 		Use:   "admin-provisioning-reload-datasources",
 		Short: "Reloads datasource provisioning configurations",
 		Long: longHelp(
+			"Reloads datasource provisioning configurations",
 			"Reloads the provisioning config files for datasources again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:datasources`.",
 		),
 		DisableAutoGenTag: true,
@@ -1331,6 +1354,7 @@ var (
 		Use:   "admin-provisioning-reload-plugins",
 		Short: "Reloads plugin provisioning configurations",
 		Long: longHelp(
+			"Reloads plugin provisioning configurations",
 			"Reloads the provisioning config files for plugins again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:plugin`.",
 		),
 		DisableAutoGenTag: true,
@@ -1364,6 +1388,7 @@ var (
 		Use:   "admin-create-user",
 		Short: "Creates new user",
 		Long: longHelp(
+			"Creates new user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:create`. Note that OrgId is an optional parameter that can be used to assign a new user to a different organization when `auto_assign_org` is set to `true`.",
 			`Body schema (AdminCreateUserForm):
 {
@@ -1408,6 +1433,7 @@ var (
 		Use:   "admin-delete-user",
 		Short: "Deletes global user",
 		Long: longHelp(
+			"Deletes global user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:delete` and scope `global.users:*`.",
 		),
 		DisableAutoGenTag: true,
@@ -1437,6 +1463,7 @@ var (
 		Use:   "admin-disable-user",
 		Short: "Disables user",
 		Long: longHelp(
+			"Disables user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:disable` and scope `global.users:1` (userIDScope).",
 		),
 		DisableAutoGenTag: true,
@@ -1466,6 +1493,7 @@ var (
 		Use:   "admin-enable-user",
 		Short: "Enables user",
 		Long: longHelp(
+			"Enables user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:enable` and scope `global.users:1` (userIDScope).",
 		),
 		DisableAutoGenTag: true,
@@ -1495,6 +1523,7 @@ var (
 		Use:   "admin-get-user-auth-tokens",
 		Short: "Returns a list of all auth tokens devices that the user currently have logged in from",
 		Long: longHelp(
+			"Returns a list of all auth tokens devices that the user currently have logged in from",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.authtoken:list` and scope `global.users:*`.",
 		),
 		DisableAutoGenTag: true,
@@ -1524,6 +1553,7 @@ var (
 		Use:   "admin-logout-user",
 		Short: "Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged in and will be required to authenticate again upon next activity",
 		Long: longHelp(
+			"Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged in and will be required to authenticate again upon next activity",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.logout` and scope `global.users:*`.",
 		),
 		DisableAutoGenTag: true,
@@ -1553,6 +1583,7 @@ var (
 		Use:   "admin-revoke-user-auth-token",
 		Short: "Revokes auth token for user",
 		Long: longHelp(
+			"Revokes auth token for user",
 			"Revokes the given auth token (device) for the user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.authtoken:update` and scope `global.users:*`.",
 			`Body schema (RevokeAuthTokenCmd):
 {
@@ -1594,6 +1625,7 @@ var (
 		Use:   "admin-update-user-password",
 		Short: "Sets password for user",
 		Long: longHelp(
+			"Sets password for user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.password:update` and scope `global.users:*`.",
 			`Body schema (AdminUpdateUserPasswordForm):
 {
@@ -1635,6 +1667,7 @@ var (
 		Use:   "admin-update-user-permissions",
 		Short: "Sets permissions for user",
 		Long: longHelp(
+			"Sets permissions for user",
 			"Only works with Basic Authentication (username and password). See introduction for an explanation. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.permissions:update` and scope `global.users:*`.",
 			`Body schema (AdminUpdateUserPermissionsForm):
 {
@@ -1774,6 +1807,7 @@ var (
 		Use:   "mass-delete-annotations",
 		Short: "Deletes multiple annotations",
 		Long: longHelp(
+			"Deletes multiple annotations",
 			`Body schema (MassDeleteAnnotationsCmd):
 {
   "annotationId": number,
@@ -1816,6 +1850,7 @@ var (
 		Use:   "patch-annotation",
 		Short: "Patches annotation",
 		Long: longHelp(
+			"Patches annotation",
 			"Updates one or more properties of an annotation that matches the specified ID. This operation currently supports updating of the `text`, `tags`, `time` and `timeEnd` properties. This is available in Grafana 6.0.0-beta2 and above.",
 			`Body schema (PatchAnnotationsCmd):
 {
@@ -1862,6 +1897,7 @@ var (
 		Use:   "post-annotation",
 		Short: "Creates annotation",
 		Long: longHelp(
+			"Creates annotation",
 			"Creates an annotation in the Grafana database. The dashboardId and panelId fields are optional. If they are not specified then an organization annotation is created and can be queried in any dashboard that adds the Grafana annotations data source. When creating a region annotation include the timeEnd property. The format for `time` and `timeEnd` should be epoch numbers in millisecond resolution. The response for this HTTP request is slightly different in versions prior to v6.4. In prior versions you would also get an endId if you where creating a region. But in 6.4 regions are represented using a single event with time and timeEnd properties.",
 			`Body schema (PostAnnotationsCmd):
 {
@@ -1910,6 +1946,7 @@ var (
 		Use:   "post-graphite-annotation",
 		Short: "Creates annotation in graphite format",
 		Long: longHelp(
+			"Creates annotation in graphite format",
 			"Creates an annotation by using Graphite-compatible event format. The `when` and `data` fields are optional. If `when` is not specified then the current time will be used as annotation’s timestamp. The `tags` field can also be in prior to Graphite `0.10.0` format (string with multiple tags being separated by a space).",
 			`Body schema (PostGraphiteAnnotationsCmd):
 {
@@ -1953,6 +1990,7 @@ var (
 		Use:   "update-annotation",
 		Short: "Updates annotation",
 		Long: longHelp(
+			"Updates annotation",
 			"Updates all properties of an annotation that matches the specified id. To only update certain property, consider using the Patch Annotation operation.",
 			`Body schema (UpdateAnnotationsCmd):
 {
@@ -2522,6 +2560,7 @@ var (
 		Use:   "create-dashboard-snapshot",
 		Short: "Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI",
 		Long: longHelp(
+			"Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI",
 			"Snapshot public mode should be enabled or authentication is required.",
 			`Body schema (CreateDashboardSnapshotCommand):
 {
@@ -2570,6 +2609,7 @@ var (
 		Use:   "create-public-dashboard",
 		Short: "Create public dashboard for a dashboard",
 		Long: longHelp(
+			"Create public dashboard for a dashboard",
 			`Body schema (PublicDashboardDTO):
 {
   "accessToken": string,
@@ -2615,6 +2655,7 @@ var (
 		Use:   "delete-dashboard-by-uid",
 		Short: "Deletes dashboard by uid",
 		Long: longHelp(
+			"Deletes dashboard by uid",
 			"Will delete the dashboard given the specified unique identifier (uid).",
 		),
 		DisableAutoGenTag: true,
@@ -2670,6 +2711,7 @@ var (
 		Use:   "delete-dashboard-snapshot-by-delete-key",
 		Short: "Deletes snapshot by delete key",
 		Long: longHelp(
+			"Deletes snapshot by delete key",
 			"Snapshot public mode should be enabled or authentication is required.",
 		),
 		DisableAutoGenTag: true,
@@ -2726,6 +2768,7 @@ var (
 		Use:   "get-dashboard-by-uid",
 		Short: "Gets dashboard by uid",
 		Long: longHelp(
+			"Gets dashboard by uid",
 			"Will return the dashboard given the dashboard unique identifier (uid).",
 		),
 		DisableAutoGenTag: true,
@@ -2962,6 +3005,7 @@ var (
 		Use:   "import-dashboard",
 		Short: "Imports dashboard",
 		Long: longHelp(
+			"Imports dashboard",
 			`Body schema (ImportDashboardRequest):
 {
   "dashboard": any,
@@ -3062,6 +3106,7 @@ var (
 		Use:   "post-dashboard",
 		Short: "Creates update dashboard",
 		Long: longHelp(
+			"Creates update dashboard",
 			"Creates a new dashboard or updates an existing dashboard. Note: This endpoint is not intended for creating folders, use `POST /api/folders` for that.",
 			`Body schema (SaveDashboardCommand):
 {
@@ -3136,6 +3181,7 @@ var (
 		Use:   "restore-dashboard-version-by-uid",
 		Short: "Restores a dashboard to a given dashboard version using UID",
 		Long: longHelp(
+			"Restores a dashboard to a given dashboard version using UID",
 			`Body schema (RestoreDashboardVersionCommand):
 {
   "version": number
@@ -3202,6 +3248,7 @@ var (
 		Use:   "update-dashboard-permissions-by-uid",
 		Short: "Updates permissions for a dashboard",
 		Long: longHelp(
+			"Updates permissions for a dashboard",
 			"This operation will remove existing permissions if they’re not included in the request.",
 			`Body schema (UpdateDashboardACLCommand):
 {
@@ -3402,6 +3449,7 @@ var (
 		Use:   "add-datasource",
 		Short: "Creates a data source",
 		Long: longHelp(
+			"Creates a data source",
 			"By defining `password` and `basicAuthPassword` under secureJsonData property Grafana encrypts them securely as an encrypted blob in the database. The response then lists the encrypted fields under secureJsonFields.",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:create`",
 			`Body schema (AddDataSourceCommand):
@@ -3508,6 +3556,7 @@ var (
 		Use:   "create-correlation",
 		Short: "Adds correlation",
 		Long: longHelp(
+			"Adds correlation",
 			`Body schema (CreateCorrelationCommand):
 {
   "config": {
@@ -3587,6 +3636,7 @@ var (
 		Use:   "delete-datasource-by-name",
 		Short: "Deletes an existing data source by name",
 		Long: longHelp(
+			"Deletes an existing data source by name",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:delete` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		),
 		DisableAutoGenTag: true,
@@ -3616,6 +3666,7 @@ var (
 		Use:   "delete-datasource-by-uid",
 		Short: "Deletes an existing data source by UID",
 		Long: longHelp(
+			"Deletes an existing data source by UID",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:delete` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:kLtEtcRGk` (single data source).",
 		),
 		DisableAutoGenTag: true,
@@ -3725,6 +3776,7 @@ var (
 		Use:   "get-datasource-by-name",
 		Short: "Gets a single data source by name",
 		Long: longHelp(
+			"Gets a single data source by name",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		),
 		DisableAutoGenTag: true,
@@ -3754,6 +3806,7 @@ var (
 		Use:   "get-datasource-by-uid",
 		Short: "Gets a single data source by UID",
 		Long: longHelp(
+			"Gets a single data source by UID",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:kLtEtcRGk` (single data source).",
 		),
 		DisableAutoGenTag: true,
@@ -3783,6 +3836,7 @@ var (
 		Use:   "get-datasource-id-by-name",
 		Short: "Gets data source Id by name",
 		Long: longHelp(
+			"Gets data source Id by name",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		),
 		DisableAutoGenTag: true,
@@ -3812,6 +3866,7 @@ var (
 		Use:   "get-datasources",
 		Short: "Gets all data sources",
 		Long: longHelp(
+			"Gets all data sources",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scope: `datasources:*`.",
 		),
 		DisableAutoGenTag: true,
@@ -3839,6 +3894,7 @@ var (
 		Use:   "query-metrics-with-expressions",
 		Short: "Data source query metrics with expressions",
 		Long: longHelp(
+			"Data source query metrics with expressions",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:query`.",
 			`Body schema (MetricRequest):
 {
@@ -3932,6 +3988,7 @@ var (
 		Use:   "update-datasource-by-uid",
 		Short: "Updates an existing data source",
 		Long: longHelp(
+			"Updates an existing data source",
 			"Similar to creating a data source, `password` and `basicAuthPassword` should be defined under secureJsonData in order to be stored securely as an encrypted blob in the database. Then, the encrypted fields are listed under secureJsonFields section in the response.",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:write` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:1` (single data source).",
 			`Body schema (UpdateDataSourceCommand):
@@ -4234,6 +4291,7 @@ var (
 		Use:   "search-result",
 		Short: "Debugs permissions",
 		Long: longHelp(
+			"Debugs permissions",
 			"Returns the result of the search through access-control role assignments.",
 			"You need to have a permission with action `teams.roles:read` on scope `teams:*` and a permission with action `users.roles:read` on scope `users:*`.",
 		),
@@ -4262,6 +4320,7 @@ var (
 		Use:   "set-datasource-cache-config",
 		Short: "Set cache config for a single data source",
 		Long: longHelp(
+			"Set cache config for a single data source",
 			`Body schema (CacheConfigSetter):
 {
   "dataSourceID": number,
@@ -4381,6 +4440,7 @@ var (
 		Use:   "create-folder",
 		Short: "Creates folder",
 		Long: longHelp(
+			"Creates folder",
 			"If nested folders are enabled then it additionally expects the parent folder UID.",
 			`Body schema (CreateFolderCommand):
 {
@@ -4556,6 +4616,7 @@ var (
 		Use:   "move-folder",
 		Short: "Moves folder",
 		Long: longHelp(
+			"Moves folder",
 			`Body schema (MoveFolderCommand):
 {
   "parentUid": string
@@ -4596,6 +4657,7 @@ var (
 		Use:   "update-folder",
 		Short: "Updates folder",
 		Long: longHelp(
+			"Updates folder",
 			`Body schema (UpdateFolderCommand):
 {
   "description": string,
@@ -4639,6 +4701,7 @@ var (
 		Use:   "update-folder-permissions",
 		Short: "Updates permissions for a folder this operation will remove existing permissions if they re not included in the request",
 		Long: longHelp(
+			"Updates permissions for a folder this operation will remove existing permissions if they re not included in the request",
 			`Body schema (UpdateDashboardACLCommand):
 {
   "items": [
@@ -4727,6 +4790,7 @@ var (
 		Use:   "create-group-mappings",
 		Short: "Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		Long: longHelp(
+			"Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 			`Body schema (GroupAttributes):
 {
   "roles": [string]
@@ -4843,6 +4907,7 @@ var (
 		Use:   "update-group-mappings",
 		Short: "Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		Long: longHelp(
+			"Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 			`Body schema (GroupAttributes):
 {
   "roles": [string]
@@ -4933,6 +4998,7 @@ var (
 		Use:   "get-sync-status",
 		Short: "Returns the current state of the LDAP background sync integration",
 		Long: longHelp(
+			"Returns the current state of the LDAP background sync integration",
 			"You need to have a permission with action `ldap.status:read`.",
 		),
 		DisableAutoGenTag: true,
@@ -4966,6 +5032,7 @@ var (
 		Use:   "create-library-element",
 		Short: "Creates library element",
 		Long: longHelp(
+			"Creates library element",
 			"Creates a new library element.",
 			`Body schema (CreateLibraryElementCommand):
 {
@@ -5012,6 +5079,7 @@ var (
 		Use:   "delete-library-element-by-uid",
 		Short: "Deletes library element",
 		Long: longHelp(
+			"Deletes library element",
 			"Deletes an existing library element as specified by the UID. This operation cannot be reverted. You cannot delete a library element that is connected. This operation cannot be reverted.",
 		),
 		DisableAutoGenTag: true,
@@ -5041,6 +5109,7 @@ var (
 		Use:   "get-library-element-by-name",
 		Short: "Gets library element by name",
 		Long: longHelp(
+			"Gets library element by name",
 			"Returns a library element with the given name.",
 		),
 		DisableAutoGenTag: true,
@@ -5070,6 +5139,7 @@ var (
 		Use:   "get-library-element-by-uid",
 		Short: "Gets library element by UID",
 		Long: longHelp(
+			"Gets library element by UID",
 			"Returns a library element with the given UID.",
 		),
 		DisableAutoGenTag: true,
@@ -5099,6 +5169,7 @@ var (
 		Use:   "get-library-element-connections",
 		Short: "Gets library element connections",
 		Long: longHelp(
+			"Gets library element connections",
 			"Returns a list of connections for a library element based on the UID specified.",
 		),
 		DisableAutoGenTag: true,
@@ -5160,6 +5231,7 @@ var (
 		Use:   "update-library-element",
 		Short: "Updates library element",
 		Long: longHelp(
+			"Updates library element",
 			"Updates an existing library element identified by uid.",
 			`Body schema (PatchLibraryElementCommand):
 {
@@ -5243,6 +5315,7 @@ var (
 		Use:   "delete-license-token",
 		Short: "Removes license from database",
 		Long: longHelp(
+			"Removes license from database",
 			"Removes the license stored in the Grafana database. Available in Grafana Enterprise v7.4+.",
 			"You need to have a permission with action `licensing:delete`.",
 			`Body schema (DeleteTokenCommand):
@@ -5284,6 +5357,7 @@ var (
 		Use:   "get-custom-permissions-csv",
 		Short: "Gets custom permissions report in CSV format",
 		Long: longHelp(
+			"Gets custom permissions report in CSV format",
 			"You need to have a permission with action `licensing.reports:read`.",
 		),
 		DisableAutoGenTag: true,
@@ -5312,6 +5386,7 @@ var (
 		Use:   "get-custom-permissions-report",
 		Short: "Gets custom permissions report",
 		Long: longHelp(
+			"Gets custom permissions report",
 			"You need to have a permission with action `licensing.reports:read`.",
 		),
 		DisableAutoGenTag: true,
@@ -5340,6 +5415,7 @@ var (
 		Use:   "get-license-token",
 		Short: "Gets license token",
 		Long: longHelp(
+			"Gets license token",
 			"You need to have a permission with action `licensing:read`.",
 		),
 		DisableAutoGenTag: true,
@@ -5392,6 +5468,7 @@ var (
 		Use:   "post-license-token",
 		Short: "Creates license token",
 		Long: longHelp(
+			"Creates license token",
 			"You need to have a permission with action `licensing:write`.",
 			`Body schema (DeleteTokenCommand):
 {
@@ -5432,6 +5509,7 @@ var (
 		Use:   "post-renew-license-token",
 		Short: "Manuallies force license refresh",
 		Long: longHelp(
+			"Manuallies force license refresh",
 			"Manually ask license issuer for a new token. Available in Grafana Enterprise v7.4+.",
 			"You need to have a permission with action `licensing:write`.",
 		),
@@ -5467,6 +5545,7 @@ var (
 		Use:   "refresh-license-stats",
 		Short: "Refreshes license stats",
 		Long: longHelp(
+			"Refreshes license stats",
 			"You need to have a permission with action `licensing:read`.",
 		),
 		DisableAutoGenTag: true,
@@ -5509,6 +5588,7 @@ var (
 		Use:   "cancel-snapshot",
 		Short: "Cancels a snapshot wherever it is in its processing chain",
 		Long: longHelp(
+			"Cancels a snapshot wherever it is in its processing chain",
 			"TODO: Implement",
 		),
 		DisableAutoGenTag: true,
@@ -5564,6 +5644,7 @@ var (
 		Use:   "create-session",
 		Short: "Creates a migration session",
 		Long: longHelp(
+			"Creates a migration session",
 			`Body schema (CloudMigrationSessionRequestDTO):
 {
   "authToken": string
@@ -5603,6 +5684,7 @@ var (
 		Use:   "create-snapshot",
 		Short: "Triggers the creation of an instance snapshot associated with the provided session",
 		Long: longHelp(
+			"Triggers the creation of an instance snapshot associated with the provided session",
 			"If the snapshot initialization is successful, the snapshot uid is returned.",
 			`Body schema (CreateSnapshotRequestDTO):
 {
@@ -5928,6 +6010,7 @@ var (
 		Use:   "add-org-invite",
 		Short: "Adds invite",
 		Long: longHelp(
+			"Adds invite",
 			`Body schema (AddInviteForm):
 {
   "loginOrEmail": string,
@@ -5971,6 +6054,7 @@ var (
 		Use:   "add-org-user-to-current-org",
 		Short: "Adds a new user to the current organization",
 		Long: longHelp(
+			"Adds a new user to the current organization",
 			"Adds a global user to the current organization.",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.",
 			`Body schema (AddOrgUserCommand):
@@ -6138,6 +6222,7 @@ var (
 		Use:   "patch-org-preferences",
 		Short: "Patches current org prefs",
 		Long: longHelp(
+			"Patches current org prefs",
 			`Body schema (PatchPrefsCmd):
 {
   "cookies": [string],
@@ -6192,6 +6277,7 @@ var (
 		Use:   "remove-org-user-for-current-org",
 		Short: "Deletes user in current organization",
 		Long: longHelp(
+			"Deletes user in current organization",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:remove` with scope `users:*`.",
 		),
 		DisableAutoGenTag: true,
@@ -6247,6 +6333,7 @@ var (
 		Use:   "update-current-org",
 		Short: "Updates current organization",
 		Long: longHelp(
+			"Updates current organization",
 			`Body schema (UpdateOrgForm):
 {
   "name": string
@@ -6286,6 +6373,7 @@ var (
 		Use:   "update-current-org-address",
 		Short: "Updates current organization s address",
 		Long: longHelp(
+			"Updates current organization s address",
 			`Body schema (UpdateOrgAddressForm):
 {
   "address1": string,
@@ -6330,6 +6418,7 @@ var (
 		Use:   "update-org-preferences",
 		Short: "Updates current org prefs",
 		Long: longHelp(
+			"Updates current org prefs",
 			`Body schema (UpdatePrefsCmd):
 {
   "cookies": [string],
@@ -6384,6 +6473,7 @@ var (
 		Use:   "update-org-user-for-current-org",
 		Short: "Updates the given user",
 		Long: longHelp(
+			"Updates the given user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users.role:update` with scope `users:*`.",
 			`Body schema (UpdateOrgUserCommand):
 {
@@ -6468,6 +6558,7 @@ var (
 		Use:   "add-org-user",
 		Short: "Adds a new user to the current organization",
 		Long: longHelp(
+			"Adds a new user to the current organization",
 			"Adds a global user to the current organization.",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.",
 			`Body schema (AddOrgUserCommand):
@@ -6512,6 +6603,7 @@ var (
 		Use:   "create-org",
 		Short: "Creates organization",
 		Long: longHelp(
+			"Creates organization",
 			"Only works if [users.allow_org_create](https://grafana.com/docs/grafana/latest/administration/configuration/#allow_org_create) is set.",
 			`Body schema (CreateOrgCommand):
 {
@@ -6578,6 +6670,7 @@ var (
 		Use:   "get-org-users",
 		Short: "Gets users in organization",
 		Long: longHelp(
+			"Gets users in organization",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:read` with scope `users:*`.",
 		),
 		DisableAutoGenTag: true,
@@ -6607,6 +6700,7 @@ var (
 		Use:   "remove-org-user",
 		Short: "Deletes user in current organization",
 		Long: longHelp(
+			"Deletes user in current organization",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:remove` with scope `users:*`.",
 		),
 		DisableAutoGenTag: true,
@@ -6637,6 +6731,7 @@ var (
 		Use:   "search-org-users",
 		Short: "Searches users in organization",
 		Long: longHelp(
+			"Searches users in organization",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:read` with scope `users:*`.",
 		),
 		DisableAutoGenTag: true,
@@ -6694,6 +6789,7 @@ var (
 		Use:   "update-org",
 		Short: "Updates organization",
 		Long: longHelp(
+			"Updates organization",
 			`Body schema (UpdateOrgForm):
 {
   "name": string
@@ -6734,6 +6830,7 @@ var (
 		Use:   "update-org-address",
 		Short: "Updates organization s address",
 		Long: longHelp(
+			"Updates organization s address",
 			`Body schema (UpdateOrgAddressForm):
 {
   "address1": string,
@@ -6865,6 +6962,7 @@ var (
 		Use:   "create-playlist",
 		Short: "Creates playlist",
 		Long: longHelp(
+			"Creates playlist",
 			`Body schema (CreatePlaylistCommand):
 {
   "interval": string,
@@ -7019,6 +7117,7 @@ var (
 		Use:   "update-playlist",
 		Short: "Updates playlist",
 		Long: longHelp(
+			"Updates playlist",
 			`Body schema (UpdatePlaylistCommand):
 {
   "interval": string,
@@ -8349,6 +8448,7 @@ var (
 		Use:   "create-query",
 		Short: "Adds query to query history",
 		Long: longHelp(
+			"Adds query to query history",
 			"Adds new query to query history.",
 			`Body schema (CreateQueryInQueryHistoryCommand):
 {
@@ -8391,6 +8491,7 @@ var (
 		Use:   "delete-query",
 		Short: "Deletes query in query history",
 		Long: longHelp(
+			"Deletes query in query history",
 			"Deletes an existing query in query history as specified by the UID. This operation cannot be reverted.",
 		),
 		DisableAutoGenTag: true,
@@ -8420,6 +8521,7 @@ var (
 		Use:   "patch-query-comment",
 		Short: "Updates comment for query in query history",
 		Long: longHelp(
+			"Updates comment for query in query history",
 			"Updates comment for query in query history as specified by the UID.",
 			`Body schema (PatchQueryCommentInQueryHistoryCommand):
 {
@@ -8493,6 +8595,7 @@ var (
 		Use:   "star-query",
 		Short: "Adds star to query in query history",
 		Long: longHelp(
+			"Adds star to query in query history",
 			"Adds star to query in query history as specified by the UID.",
 		),
 		DisableAutoGenTag: true,
@@ -8522,6 +8625,7 @@ var (
 		Use:   "unstar-query",
 		Short: "Removes star to query in query history",
 		Long: longHelp(
+			"Removes star to query in query history",
 			"Removes star from query in query history as specified by the UID.",
 		),
 		DisableAutoGenTag: true,
@@ -8583,6 +8687,7 @@ var (
 		Use:   "get-current-org-quota",
 		Short: "Fetches organization quota",
 		Long: longHelp(
+			"Fetches organization quota",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `orgs.quotas:read` and scope `org:id:1` (orgIDScope).",
 		),
 		DisableAutoGenTag: true,
@@ -8610,6 +8715,7 @@ var (
 		Use:   "get-org-quota",
 		Short: "Fetches organization quota",
 		Long: longHelp(
+			"Fetches organization quota",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `orgs.quotas:read` and scope `org:id:1` (orgIDScope).",
 		),
 		DisableAutoGenTag: true,
@@ -8639,6 +8745,7 @@ var (
 		Use:   "get-user-quota",
 		Short: "Fetches user quota",
 		Long: longHelp(
+			"Fetches user quota",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.quotas:list` and scope `global.users:1` (userIDScope).",
 		),
 		DisableAutoGenTag: true,
@@ -8796,6 +8903,7 @@ var (
 		Use:   "create-recording-rule",
 		Short: "Creates a recording rule that is then registered and started",
 		Long: longHelp(
+			"Creates a recording rule that is then registered and started",
 			`Body schema (RecordingRuleJSON):
 {
   "active": boolean,
@@ -8845,6 +8953,7 @@ var (
 		Use:   "create-recording-rule-write-target",
 		Short: "Creates a remote write target",
 		Long: longHelp(
+			"Creates a remote write target",
 			"It returns a 422 if there is not an existing prometheus data source configured.",
 			`Body schema (PrometheusRemoteWriteTargetJSON):
 {
@@ -8985,6 +9094,7 @@ var (
 		Use:   "test-create-recording-rule",
 		Short: "Tests a recording rule",
 		Long: longHelp(
+			"Tests a recording rule",
 			`Body schema (RecordingRuleJSON):
 {
   "active": boolean,
@@ -9034,6 +9144,7 @@ var (
 		Use:   "update-recording-rule",
 		Short: "Updates the active status of a rule",
 		Long: longHelp(
+			"Updates the active status of a rule",
 			`Body schema (RecordingRuleJSON):
 {
   "active": boolean,
@@ -9104,6 +9215,7 @@ var (
 		Use:   "create-report",
 		Short: "Creates a report",
 		Long: longHelp(
+			"Creates a report",
 			"Available to org admins only and with a valid license.",
 			"You need to have a permission with action `reports.admin:create`.",
 			`Body schema (CreateOrUpdateReport):
@@ -9178,6 +9290,7 @@ var (
 		Use:   "delete-report",
 		Short: "Deletes a report",
 		Long: longHelp(
+			"Deletes a report",
 			"Available to org admins only and with a valid or expired license.",
 			"You need to have a permission with action `reports.delete` with scope `reports:id:<report ID>`.",
 			"Requesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
@@ -9209,6 +9322,7 @@ var (
 		Use:   "get-report",
 		Short: "Gets a report",
 		Long: longHelp(
+			"Gets a report",
 			"Available to org admins only and with a valid or expired license.",
 			"You need to have a permission with action `reports:read` with scope `reports:id:<report ID>`.",
 			"Requesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
@@ -9240,6 +9354,7 @@ var (
 		Use:   "get-report-settings",
 		Short: "Gets report settings",
 		Long: longHelp(
+			"Gets report settings",
 			"Available to org admins only and with a valid or expired license.",
 			"You need to have a permission with action `reports.settings:read`x.",
 		),
@@ -9268,6 +9383,7 @@ var (
 		Use:   "get-reports",
 		Short: "Lists reports",
 		Long: longHelp(
+			"Lists reports",
 			"Available to org admins only and with a valid or expired license.",
 			"You need to have a permission with action `reports:read` with scope `reports:*`.",
 		),
@@ -9296,6 +9412,7 @@ var (
 		Use:   "get-reports-by-dashboard-uid",
 		Short: "Lists reports by dashboard uid",
 		Long: longHelp(
+			"Lists reports by dashboard uid",
 			"Available to org admins only and with a valid or expired license.",
 			"You need to have a permission with action `reports:read` with scope `reports:*`.",
 		),
@@ -9326,6 +9443,7 @@ var (
 		Use:   "get-settings-image",
 		Short: "Gets custom branding report image",
 		Long: longHelp(
+			"Gets custom branding report image",
 			"Available to org admins only and with a valid or expired license.",
 			"You need to have a permission with action `reports.settings:read`.",
 		),
@@ -9410,6 +9528,7 @@ var (
 		Use:   "save-report-settings",
 		Short: "Saves settings",
 		Long: longHelp(
+			"Saves settings",
 			"Available to org admins only and with a valid or expired license.",
 			"You need to have a permission with action `reports.settings:write`xx.",
 			`Body schema (ReportSettings):
@@ -9462,6 +9581,7 @@ var (
 		Use:   "send-report",
 		Short: "Sends a report",
 		Long: longHelp(
+			"Sends a report",
 			"Generate and send a report. This API waits for the report to be generated before returning. We recommend that you set the client’s timeout to at least 60 seconds. Available to org admins only and with a valid license.",
 			"Only available in Grafana Enterprise v7.0+. This API endpoint is experimental and may be deprecated in a future release. On deprecation, a migration strategy will be provided and the endpoint will remain functional until the next major release of Grafana.",
 			"You need to have a permission with action `reports:send`.",
@@ -9506,6 +9626,7 @@ var (
 		Use:   "send-test-email",
 		Short: "Sends test report via email",
 		Long: longHelp(
+			"Sends test report via email",
 			"Available to org admins only and with a valid license.",
 			"You need to have a permission with action `reports:send`.",
 			`Body schema (CreateOrUpdateReport):
@@ -9580,6 +9701,7 @@ var (
 		Use:   "update-report",
 		Short: "Updates a report",
 		Long: longHelp(
+			"Updates a report",
 			"Available to org admins only and with a valid or expired license.",
 			"You need to have a permission with action `reports.admin:write` with scope `reports:id:<report ID>`.",
 			"Requesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
@@ -9748,6 +9870,7 @@ var (
 		Use:   "get-slo",
 		Short: "Its performs single logout s l o callback",
 		Long: longHelp(
+			"Its performs single logout s l o callback",
 			"There might be two possible requests: 1. Logout response (callback) when Grafana initiates single logout and IdP returns response to logout request. 2. Logout request when another SP initiates single logout and IdP sends logout request to the Grafana, or in case of IdP-initiated logout.",
 		),
 		DisableAutoGenTag: true,
@@ -10005,6 +10128,7 @@ var (
 		Use:   "delete-service-account",
 		Short: "Deletes service account",
 		Long: longHelp(
+			"Deletes service account",
 			"Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:delete` scope: `serviceaccounts:id:1` (single service account)",
 		),
 		DisableAutoGenTag: true,
@@ -10034,6 +10158,7 @@ var (
 		Use:   "delete-token",
 		Short: "Deletes token deletes service account tokens",
 		Long: longHelp(
+			"Deletes token deletes service account tokens",
 			"Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:write` scope: `serviceaccounts:id:1` (single service account)",
 			"Requires basic authentication and that the authenticated user is a Grafana Admin.",
 		),
@@ -10065,6 +10190,7 @@ var (
 		Use:   "list-tokens",
 		Short: "Gets service account tokens",
 		Long: longHelp(
+			"Gets service account tokens",
 			"Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:read` scope: `global:serviceaccounts:id:1` (single service account)",
 			"Requires basic authentication and that the authenticated user is a Grafana Admin.",
 		),
@@ -10095,6 +10221,7 @@ var (
 		Use:   "retrieve-service-account",
 		Short: "Gets single serviceaccount by Id",
 		Long: longHelp(
+			"Gets single serviceaccount by Id",
 			"Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:read` scope: `serviceaccounts:id:1` (single service account)",
 		),
 		DisableAutoGenTag: true,
@@ -10233,6 +10360,7 @@ var (
 		Use:   "change-user-password",
 		Short: "Changes password",
 		Long: longHelp(
+			"Changes password",
 			"Changes the password for the user.",
 			`Body schema (ChangeUserPasswordCommand):
 {
@@ -10322,6 +10450,7 @@ var (
 		Use:   "get-signed-in-user-org-list",
 		Short: "Organizations of the actual user",
 		Long: longHelp(
+			"Organizations of the actual user",
 			"Return a list of all organizations of the current user.",
 		),
 		DisableAutoGenTag: true,
@@ -10349,6 +10478,7 @@ var (
 		Use:   "get-signed-in-user-team-list",
 		Short: "Teams that the actual user is member of",
 		Long: longHelp(
+			"Teams that the actual user is member of",
 			"Return a list of all teams that the current user is member of.",
 		),
 		DisableAutoGenTag: true,
@@ -10376,6 +10506,7 @@ var (
 		Use:   "get-user-auth-tokens",
 		Short: "Auths tokens of the actual user",
 		Long: longHelp(
+			"Auths tokens of the actual user",
 			"Return a list of all auth tokens (devices) that the actual user currently have logged in from.",
 		),
 		DisableAutoGenTag: true,
@@ -10427,6 +10558,7 @@ var (
 		Use:   "patch-user-preferences",
 		Short: "Patches user preferences",
 		Long: longHelp(
+			"Patches user preferences",
 			`Body schema (PatchPrefsCmd):
 {
   "cookies": [string],
@@ -10481,6 +10613,7 @@ var (
 		Use:   "revoke-user-auth-token",
 		Short: "Revokes an auth token of the actual user",
 		Long: longHelp(
+			"Revokes an auth token of the actual user",
 			"Revokes the given auth token (device) for the actual user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity.",
 			`Body schema (RevokeAuthTokenCmd):
 {
@@ -10547,6 +10680,7 @@ var (
 		Use:   "star-dashboard-by-uid",
 		Short: "Stars a dashboard",
 		Long: longHelp(
+			"Stars a dashboard",
 			"Stars the given Dashboard for the actual user.",
 		),
 		DisableAutoGenTag: true,
@@ -10576,6 +10710,7 @@ var (
 		Use:   "unstar-dashboard-by-uid",
 		Short: "Unstars a dashboard",
 		Long: longHelp(
+			"Unstars a dashboard",
 			"Deletes the starring of the given Dashboard for the actual user.",
 		),
 		DisableAutoGenTag: true,
@@ -10605,6 +10740,7 @@ var (
 		Use:   "update-signed-in-user",
 		Short: "Updates signed in user",
 		Long: longHelp(
+			"Updates signed in user",
 			`Body schema (UpdateUserCommand):
 {
   "email": string,
@@ -10647,6 +10783,7 @@ var (
 		Use:   "update-user-preferences",
 		Short: "Updates user preferences",
 		Long: longHelp(
+			"Updates user preferences",
 			"Omitting a key (`theme`, `homeDashboardUID`, `timezone`) will cause the current value to be replaced with the system default value.",
 			`Body schema (UpdatePrefsCmd):
 {
@@ -10702,6 +10839,7 @@ var (
 		Use:   "user-set-using-org",
 		Short: "Switches user context for signed in user",
 		Long: longHelp(
+			"Switches user context for signed in user",
 			"Switch user context to the given organization.",
 		),
 		DisableAutoGenTag: true,
@@ -10764,6 +10902,7 @@ var (
 		Use:   "retrieve-jwks",
 		Short: "Gets JSON web key set j w k s with all the keys that can be used to verify tokens public keys",
 		Long: longHelp(
+			"Gets JSON web key set j w k s with all the keys that can be used to verify tokens public keys",
 			"Required permissions None",
 		),
 		DisableAutoGenTag: true,
@@ -10827,6 +10966,7 @@ var (
 		Use:   "get-provider-settings",
 		Short: "Gets an s s o settings entry by key",
 		Long: longHelp(
+			"Gets an s s o settings entry by key",
 			"You need to have a permission with action `settings:read` with scope `settings:auth.<provider>:*`.",
 		),
 		DisableAutoGenTag: true,
@@ -10856,6 +10996,7 @@ var (
 		Use:   "list-all-providers-settings",
 		Short: "Lists all s s o settings entries",
 		Long: longHelp(
+			"Lists all s s o settings entries",
 			"You need to have a permission with action `settings:read` with scope `settings:auth.<provider>:*`.",
 		),
 		DisableAutoGenTag: true,
@@ -10883,6 +11024,7 @@ var (
 		Use:   "remove-provider-settings",
 		Short: "Removes s s o settings",
 		Long: longHelp(
+			"Removes s s o settings",
 			"Removes the SSO Settings for a provider.",
 			"You need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.",
 		),
@@ -10913,6 +11055,7 @@ var (
 		Use:   "update-provider-settings",
 		Short: "Updates s s o settings",
 		Long: longHelp(
+			"Updates s s o settings",
 			"Inserts or updates the SSO Settings for a provider.",
 			"You need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.",
 			`Body schema (UpdateProviderSettingsParamsBody):
@@ -10973,6 +11116,7 @@ var (
 		Use:   "add-team-group-api",
 		Short: "Adds external group",
 		Long: longHelp(
+			"Adds external group",
 			`Body schema (TeamGroupMapping):
 {
   "groupId": string
@@ -11118,6 +11262,7 @@ var (
 		Use:   "add-team-member",
 		Short: "Adds team member",
 		Long: longHelp(
+			"Adds team member",
 			`Body schema (AddTeamMemberCommand):
 {
   "userId": number
@@ -11159,6 +11304,7 @@ var (
 		Use:   "create-team",
 		Short: "Adds team",
 		Long: longHelp(
+			"Adds team",
 			`Body schema (CreateTeamCommand):
 {
   "email": string,
@@ -11309,6 +11455,7 @@ var (
 		Use:   "set-team-memberships",
 		Short: "Sets team memberships",
 		Long: longHelp(
+			"Sets team memberships",
 			"Takes user emails, and updates team members and admins to the provided lists of users. Any current team members and admins not in the provided lists will be removed.",
 			`Body schema (SetTeamMembershipsCommand):
 {
@@ -11351,6 +11498,7 @@ var (
 		Use:   "update-team",
 		Short: "Updates team",
 		Long: longHelp(
+			"Updates team",
 			`Body schema (UpdateTeamCommand):
 {
   "email": string,
@@ -11432,6 +11580,7 @@ var (
 		Use:   "update-team-preferences",
 		Short: "Updates team preferences",
 		Long: longHelp(
+			"Updates team preferences",
 			`Body schema (UpdatePrefsCmd):
 {
   "cookies": [string],
@@ -11535,6 +11684,7 @@ var (
 		Use:   "update-user-email",
 		Short: "Updates user email",
 		Long: longHelp(
+			"Updates user email",
 			"Update the email of user given a verification code.",
 		),
 		DisableAutoGenTag: true,
@@ -11595,6 +11745,7 @@ var (
 		Use:   "get-user-org-list",
 		Short: "Gets organizations for user",
 		Long: longHelp(
+			"Gets organizations for user",
 			"Get organizations for user identified by id.",
 		),
 		DisableAutoGenTag: true,
@@ -11624,6 +11775,7 @@ var (
 		Use:   "get-user-teams",
 		Short: "Gets teams for user",
 		Long: longHelp(
+			"Gets teams for user",
 			"Get teams for user identified by id.",
 		),
 		DisableAutoGenTag: true,
@@ -11703,6 +11855,7 @@ var (
 		Use:   "update-user",
 		Short: "Updates user",
 		Long: longHelp(
+			"Updates user",
 			"Update the user identified by id.",
 			`Body schema (UpdateUserCommand):
 {

@@ -4,6 +4,8 @@ Creates update dashboard
 
 ### Synopsis
 
+Creates update dashboard
+
 Creates a new dashboard or updates an existing dashboard. Note: This endpoint is not intended for creating folders, use `POST /api/folders` for that.
 
 Body schema (SaveDashboardCommand):

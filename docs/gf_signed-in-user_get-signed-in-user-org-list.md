@@ -4,6 +4,8 @@ Organizations of the actual user
 
 ### Synopsis
 
+Organizations of the actual user
+
 Return a list of all organizations of the current user.
 
 ```

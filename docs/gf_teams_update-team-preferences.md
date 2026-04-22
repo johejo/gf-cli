@@ -4,6 +4,8 @@ Updates team preferences
 
 ### Synopsis
 
+Updates team preferences
+
 Body schema (UpdatePrefsCmd):
 {
   "cookies": [string],

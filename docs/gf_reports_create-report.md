@@ -4,6 +4,8 @@ Creates a report
 
 ### Synopsis
 
+Creates a report
+
 Available to org admins only and with a valid license.
 
 You need to have a permission with action `reports.admin:create`.

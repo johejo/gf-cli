@@ -4,6 +4,8 @@ Refreshes license stats
 
 ### Synopsis
 
+Refreshes license stats
+
 You need to have a permission with action `licensing:read`.
 
 ```

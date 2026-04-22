@@ -4,6 +4,8 @@ Gets library element by UID
 
 ### Synopsis
 
+Gets library element by UID
+
 Returns a library element with the given UID.
 
 ```

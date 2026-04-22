@@ -4,6 +4,8 @@ Updates s s o settings
 
 ### Synopsis
 
+Updates s s o settings
+
 Inserts or updates the SSO Settings for a provider.
 
 You need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.

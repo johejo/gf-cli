@@ -4,6 +4,8 @@ Adds team role
 
 ### Synopsis
 
+Adds team role
+
 You need to have a permission with action `teams.roles:add` and scope `permissions:type:delegate`.
 
 Body schema (AddTeamRoleCommand):

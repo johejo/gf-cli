@@ -4,6 +4,8 @@ Removes star to query in query history
 
 ### Synopsis
 
+Removes star to query in query history
+
 Removes star from query in query history as specified by the UID.
 
 ```

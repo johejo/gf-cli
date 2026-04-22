@@ -4,6 +4,8 @@ Enables a single grafana user to be synchronized against LDAP
 
 ### Synopsis
 
+Enables a single grafana user to be synchronized against LDAP
+
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:sync`.
 
 ```

@@ -4,6 +4,8 @@ Adds external group
 
 ### Synopsis
 
+Adds external group
+
 Body schema (TeamGroupMapping):
 {
   "groupId": string

@@ -4,6 +4,8 @@ Updates the active status of a rule
 
 ### Synopsis
 
+Updates the active status of a rule
+
 Body schema (RecordingRuleJSON):
 {
   "active": boolean,

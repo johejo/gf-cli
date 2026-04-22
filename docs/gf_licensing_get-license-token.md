@@ -4,6 +4,8 @@ Gets license token
 
 ### Synopsis
 
+Gets license token
+
 You need to have a permission with action `licensing:read`.
 
 ```

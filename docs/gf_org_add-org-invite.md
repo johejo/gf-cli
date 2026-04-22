@@ -4,6 +4,8 @@ Adds invite
 
 ### Synopsis
 
+Adds invite
+
 Body schema (AddInviteForm):
 {
   "loginOrEmail": string,

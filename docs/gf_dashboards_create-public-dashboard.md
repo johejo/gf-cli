@@ -4,6 +4,8 @@ Create public dashboard for a dashboard
 
 ### Synopsis
 
+Create public dashboard for a dashboard
+
 Body schema (PublicDashboardDTO):
 {
   "accessToken": string,

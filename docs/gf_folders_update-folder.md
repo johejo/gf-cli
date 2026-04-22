@@ -4,6 +4,8 @@ Updates folder
 
 ### Synopsis
 
+Updates folder
+
 Body schema (UpdateFolderCommand):
 {
   "description": string,

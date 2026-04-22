@@ -4,6 +4,8 @@ Updates signed in user
 
 ### Synopsis
 
+Updates signed in user
+
 Body schema (UpdateUserCommand):
 {
   "email": string,

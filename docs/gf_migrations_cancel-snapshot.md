@@ -4,6 +4,8 @@ Cancels a snapshot wherever it is in its processing chain
 
 ### Synopsis
 
+Cancels a snapshot wherever it is in its processing chain
+
 TODO: Implement
 
 ```

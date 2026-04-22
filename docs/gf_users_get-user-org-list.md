@@ -4,6 +4,8 @@ Gets organizations for user
 
 ### Synopsis
 
+Gets organizations for user
+
 Get organizations for user identified by id.
 
 ```

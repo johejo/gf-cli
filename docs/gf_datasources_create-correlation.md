@@ -4,6 +4,8 @@ Adds correlation
 
 ### Synopsis
 
+Adds correlation
+
 Body schema (CreateCorrelationCommand):
 {
   "config": {

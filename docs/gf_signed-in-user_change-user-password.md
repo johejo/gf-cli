@@ -4,6 +4,8 @@ Changes password
 
 ### Synopsis
 
+Changes password
+
 Changes the password for the user.
 
 Body schema (ChangeUserPasswordCommand):

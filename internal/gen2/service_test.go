@@ -57,3 +57,61 @@ func TestSplitDoc(t *testing.T) {
 		})
 	}
 }
+
+func TestActionLongParts(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		act  *Action
+		want []string
+	}{
+		{
+			name: "short only does not force long help",
+			act: &Action{
+				Short: "Gets a single data source by name",
+			},
+			want: nil,
+		},
+		{
+			name: "long help starts with short summary",
+			act: &Action{
+				Short: "Gets a single data source by name",
+				Long:  "If you are running Grafana Enterprise and have Fine-grained access control enabled.",
+			},
+			want: []string{
+				"Gets a single data source by name",
+				"If you are running Grafana Enterprise and have Fine-grained access control enabled.",
+			},
+		},
+		{
+			name: "long help preserves multiple long paragraphs",
+			act: &Action{
+				Short: "Creates a data source",
+				Long:  "First long paragraph.\n\nSecond long paragraph.",
+			},
+			want: []string{
+				"Creates a data source",
+				"First long paragraph.",
+				"Second long paragraph.",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := actionLongParts(tt.act)
+			if len(got) != len(tt.want) {
+				t.Fatalf("len(actionLongParts) = %d, want %d: %#v", len(got), len(tt.want), got)
+			}
+			for i := range got {
+				if got[i] != tt.want[i] {
+					t.Fatalf("actionLongParts[%d] = %q, want %q", i, got[i], tt.want[i])
+				}
+			}
+		})
+	}
+}

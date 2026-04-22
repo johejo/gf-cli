@@ -4,6 +4,8 @@ Creates a recording rule that is then registered and started
 
 ### Synopsis
 
+Creates a recording rule that is then registered and started
+
 Body schema (RecordingRuleJSON):
 {
   "active": boolean,

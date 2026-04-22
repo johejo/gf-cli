@@ -4,6 +4,8 @@ Patches user preferences
 
 ### Synopsis
 
+Patches user preferences
+
 Body schema (PatchPrefsCmd):
 {
   "cookies": [string],

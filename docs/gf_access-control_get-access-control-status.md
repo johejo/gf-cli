@@ -4,6 +4,8 @@ Gets status
 
 ### Synopsis
 
+Gets status
+
 Returns an indicator to check if fine-grained access control is enabled or not.
 
 You need to have a permission with action `status:accesscontrol` and scope `services:accesscontrol`.

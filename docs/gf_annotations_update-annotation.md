@@ -4,6 +4,8 @@ Updates annotation
 
 ### Synopsis
 
+Updates annotation
+
 Updates all properties of an annotation that matches the specified id. To only update certain property, consider using the Patch Annotation operation.
 
 Body schema (UpdateAnnotationsCmd):

@@ -4,6 +4,8 @@ Gets a role
 
 ### Synopsis
 
+Gets a role
+
 Get a role for the given UID.
 
 You need to have a permission with action `roles:read` and scope `roles:*`.

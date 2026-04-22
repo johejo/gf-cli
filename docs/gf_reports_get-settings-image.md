@@ -4,6 +4,8 @@ Gets custom branding report image
 
 ### Synopsis
 
+Gets custom branding report image
+
 Available to org admins only and with a valid or expired license.
 
 You need to have a permission with action `reports.settings:read`.

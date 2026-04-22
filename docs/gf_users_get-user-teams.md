@@ -4,6 +4,8 @@ Gets teams for user
 
 ### Synopsis
 
+Gets teams for user
+
 Get teams for user identified by id.
 
 ```

@@ -4,6 +4,8 @@ Removes s s o settings
 
 ### Synopsis
 
+Removes s s o settings
+
 Removes the SSO Settings for a provider.
 
 You need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.

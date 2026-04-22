@@ -4,6 +4,8 @@ Teams that the actual user is member of
 
 ### Synopsis
 
+Teams that the actual user is member of
+
 Return a list of all teams that the current user is member of.
 
 ```

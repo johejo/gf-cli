@@ -4,6 +4,8 @@ Updates team role
 
 ### Synopsis
 
+Updates team role
+
 You need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate` for each.
 
 Body schema (SetTeamRolesCommand):

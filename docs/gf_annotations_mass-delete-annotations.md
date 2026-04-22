@@ -4,6 +4,8 @@ Deletes multiple annotations
 
 ### Synopsis
 
+Deletes multiple annotations
+
 Body schema (MassDeleteAnnotationsCmd):
 {
   "annotationId": number,

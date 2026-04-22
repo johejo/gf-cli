@@ -4,6 +4,8 @@ Sets team memberships
 
 ### Synopsis
 
+Sets team memberships
+
 Takes user emails, and updates team members and admins to the provided lists of users. Any current team members and admins not in the provided lists will be removed.
 
 Body schema (SetTeamMembershipsCommand):
