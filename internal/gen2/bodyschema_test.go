@@ -1,6 +1,10 @@
 package main
 
 import (
+	"encoding/json"
+	"go/ast"
+	"go/parser"
+	"go/token"
 	"os"
 	"testing"
 )
@@ -78,5 +82,244 @@ func TestFormatBodySchemaNestedFields(t *testing.T) {
 }`
 	if got != want {
 		t.Fatalf("formatBodySchema() =\n%s\nwant:\n%s", got, want)
+	}
+}
+
+func TestBuildBodyJSONSchema(t *testing.T) {
+	src := `package models
+
+import "github.com/go-openapi/strfmt"
+
+// CreateThing create thing
+type CreateThing struct {
+	// Required: true
+	Name string ` + "`json:\"name\"`" + `
+
+	// Email
+	Email *string ` + "`json:\"email,omitempty\"`" + `
+
+	// Enum: [active pending expired]
+	Status string ` + "`json:\"status\"`" + `
+
+	// Tags
+	Tags []string ` + "`json:\"tags,omitempty\"`" + `
+
+	// Meta
+	Meta map[string]string ` + "`json:\"meta,omitempty\"`" + `
+
+	// Options
+	Options *ThingOptions ` + "`json:\"options,omitempty\"`" + `
+
+	// Permissions
+	Permissions []*Permission ` + "`json:\"permissions,omitempty\"`" + `
+
+	// Created at
+	CreatedAt strfmt.DateTime ` + "`json:\"createdAt,omitempty\"`" + `
+
+	// Extra arbitrary blob
+	Extra interface{} ` + "`json:\"extra,omitempty\"`" + `
+
+	// Skipped
+	Skipped string ` + "`json:\"-\"`" + `
+}
+
+type ThingOptions struct {
+	Layout string ` + "`json:\"layout,omitempty\"`" + `
+}
+
+type Permission struct {
+	// Required: true
+	Action string ` + "`json:\"action\"`" + `
+	Scope  string ` + "`json:\"scope,omitempty\"`" + `
+}
+`
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, "models.go", src, parser.ParseComments)
+	if err != nil {
+		t.Fatalf("parse: %v", err)
+	}
+	b := &jsonSchemaBuilder{files: []*ast.File{f}, visited: map[string]bool{}}
+	inner := b.structSchema("CreateThing")
+	if inner == nil {
+		t.Fatal("structSchema returned nil")
+	}
+	top := newOrderedObj()
+	top.set("$schema", "https://json-schema.org/draft/2020-12/schema")
+	top.set("title", "CreateThing")
+	for _, k := range inner.keys {
+		top.set(k, inner.values[k])
+	}
+	out, err := jsonIndent(top)
+	if err != nil {
+		t.Fatalf("marshal: %v", err)
+	}
+	got := string(out)
+	want := `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateThing",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "pending",
+        "expired"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "string"
+        }
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "extra": {}
+  },
+  "required": [
+    "name"
+  ]
+}`
+	if got != want {
+		t.Fatalf("schema mismatch\n got: %s\nwant: %s", got, want)
+	}
+}
+
+func TestBuildBodyJSONSchemaCycle(t *testing.T) {
+	src := `package models
+
+type Node struct {
+	Name     string  ` + "`json:\"name\"`" + `
+	Parent   *Node   ` + "`json:\"parent,omitempty\"`" + `
+	Children []*Node ` + "`json:\"children,omitempty\"`" + `
+}
+`
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, "models.go", src, parser.ParseComments)
+	if err != nil {
+		t.Fatalf("parse: %v", err)
+	}
+	b := &jsonSchemaBuilder{files: []*ast.File{f}, visited: map[string]bool{}}
+	inner := b.structSchema("Node")
+	if inner == nil {
+		t.Fatal("structSchema returned nil")
+	}
+	out, err := jsonIndent(inner)
+	if err != nil {
+		t.Fatalf("marshal: %v", err)
+	}
+	got := string(out)
+	want := `{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "parent": {
+      "type": "object"
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}`
+	if got != want {
+		t.Fatalf("cycle schema mismatch\n got: %s\nwant: %s", got, want)
+	}
+}
+
+func jsonIndent(v any) ([]byte, error) {
+	return json.MarshalIndent(v, "", "  ")
+}
+
+func TestBuildBodyJSONSchemaNamedAliases(t *testing.T) {
+	src := `package models
+
+// Status is a string alias used as an enum-carrying type.
+type Status string
+
+// Counts is a map alias.
+type Counts map[string]int
+
+type Config struct {
+	Status Status ` + "`json:\"status,omitempty\"`" + `
+	Counts Counts ` + "`json:\"counts,omitempty\"`" + `
+}
+`
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, "models.go", src, parser.ParseComments)
+	if err != nil {
+		t.Fatalf("parse: %v", err)
+	}
+	b := &jsonSchemaBuilder{files: []*ast.File{f}, visited: map[string]bool{}}
+	out, err := jsonIndent(b.structSchema("Config"))
+	if err != nil {
+		t.Fatalf("marshal: %v", err)
+	}
+	got := string(out)
+	want := `{
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    }
+  }
+}`
+	if got != want {
+		t.Fatalf("schema mismatch\n got: %s\nwant: %s", got, want)
+	}
+}
+
+func TestBuildBodyJSONSchemaInvalidModelType(t *testing.T) {
+	if _, err := BuildBodyJSONSchema("/does/not/matter", "NotAModel"); err == nil {
+		t.Fatal("expected error for non-models.* modelType")
 	}
 }

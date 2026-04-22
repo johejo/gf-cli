@@ -52,6 +52,7 @@ gf provisioning put-alert-rule-group [flags]
 
 ```
       --body string                   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+      --describe-body-jsonschema      Print the JSON Schema of the request body and exit without calling the API
       --folder-uid string             FolderUID
       --group string                  Group
   -h, --help                          help for put-alert-rule-group

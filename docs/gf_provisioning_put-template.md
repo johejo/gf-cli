@@ -18,6 +18,7 @@ gf provisioning put-template [flags]
 
 ```
       --body string                   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+      --describe-body-jsonschema      Print the JSON Schema of the request body and exit without calling the API
   -h, --help                          help for put-template
       --name string                   Template group name
       --x-disable-provenance string   XDisableProvenance

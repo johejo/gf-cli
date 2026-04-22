@@ -31,6 +31,7 @@ type BodyFieldInfo struct {
 	ModelType   string          // "models.AddTeamRoleCommand"
 	IsInterface bool            // true if ModelType is "interface{}"
 	Schema      *BodySchemaInfo // nil for interface{} bodies
+	JSONSchema  string          // pretty-printed JSON Schema (draft 2020-12); empty when unavailable
 }
 
 type BodySchemaInfo struct {

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"go/ast"
 	"reflect"
@@ -227,16 +229,16 @@ func extractEnumValues(doc *ast.CommentGroup) []string {
 	}
 	for _, c := range doc.List {
 		text := c.Text
-		idx := strings.Index(text, "Enum: [")
-		if idx < 0 {
+		_, after, ok := strings.Cut(text, "Enum: [")
+		if !ok {
 			continue
 		}
-		rest := text[idx+len("Enum: ["):]
-		end := strings.Index(rest, "]")
-		if end < 0 {
+		rest := after
+		before, _, ok := strings.Cut(rest, "]")
+		if !ok {
 			continue
 		}
-		inner := strings.TrimSpace(rest[:end])
+		inner := strings.TrimSpace(before)
 		// Handle nested brackets like [[expired active pending]]
 		inner = strings.Trim(inner, "[]")
 		if inner == "" {
@@ -344,4 +346,233 @@ func formatAnnotations(fields []*ModelField, prefix string) string {
 		return ""
 	}
 	return strings.Join(lines, "\n")
+}
+
+// BuildBodyJSONSchema returns a pretty-printed JSON Schema (draft 2020-12)
+// document describing the body struct referenced by modelType (e.g. "models.CreateTeamCommand").
+// The schema is derived by walking the Go AST of the models package with full-depth
+// recursion; self-referencing types are broken off with an opaque {"type": "object"}.
+func BuildBodyJSONSchema(baseDir string, modelType string) (string, error) {
+	typeName := strings.TrimPrefix(modelType, "models.")
+	if typeName == modelType {
+		return "", fmt.Errorf("unsupported model type: %s", modelType)
+	}
+	files, err := getModelParsedFiles(baseDir)
+	if err != nil {
+		return "", err
+	}
+	b := &jsonSchemaBuilder{files: files, visited: map[string]bool{}}
+	inner := b.structSchema(typeName)
+	if inner == nil {
+		return "", fmt.Errorf("struct %s not found in models package", typeName)
+	}
+	top := newOrderedObj()
+	top.set("$schema", "https://json-schema.org/draft/2020-12/schema")
+	top.set("title", typeName)
+	for _, k := range inner.keys {
+		top.set(k, inner.values[k])
+	}
+	out, err := json.MarshalIndent(top, "", "  ")
+	if err != nil {
+		return "", err
+	}
+	return string(out), nil
+}
+
+type jsonSchemaBuilder struct {
+	files   []*ast.File
+	visited map[string]bool
+}
+
+func (b *jsonSchemaBuilder) structSchema(typeName string) *orderedObj {
+	st := b.findStruct(typeName)
+	if st == nil {
+		return nil
+	}
+	if b.visited[typeName] {
+		obj := newOrderedObj()
+		obj.set("type", "object")
+		return obj
+	}
+	b.visited[typeName] = true
+	defer delete(b.visited, typeName)
+
+	props := newOrderedObj()
+	var required []string
+	for _, field := range st.Fields.List {
+		if len(field.Names) == 0 {
+			continue
+		}
+		name := field.Names[0].Name
+		if !ast.IsExported(name) {
+			continue
+		}
+		jsonName := extractJSONName(field)
+		if jsonName == "" || jsonName == "-" {
+			continue
+		}
+		prop := b.fieldSchema(field.Type)
+		if enums := extractEnumValues(field.Doc); len(enums) > 0 {
+			prop.set("enum", stringsToAny(enums))
+		}
+		props.set(jsonName, prop)
+		if hasRequiredAnnotation(field.Doc) {
+			required = append(required, jsonName)
+		}
+	}
+	out := newOrderedObj()
+	out.set("type", "object")
+	out.set("properties", props)
+	if len(required) > 0 {
+		out.set("required", stringsToAny(required))
+	}
+	return out
+}
+
+func (b *jsonSchemaBuilder) fieldSchema(expr ast.Expr) *orderedObj {
+	expr = unwrapPointer(expr)
+	switch t := expr.(type) {
+	case *ast.Ident:
+		if jt, ok := basicTypeToJSON(t.Name); ok {
+			obj := newOrderedObj()
+			obj.set("type", jt)
+			return obj
+		}
+		return b.namedTypeSchema(t.Name)
+	case *ast.SelectorExpr:
+		if pkg, ok := t.X.(*ast.Ident); ok && pkg.Name == "strfmt" {
+			obj := newOrderedObj()
+			obj.set("type", "string")
+			return obj
+		}
+		return b.namedTypeSchema(t.Sel.Name)
+	case *ast.ArrayType:
+		obj := newOrderedObj()
+		obj.set("type", "array")
+		obj.set("items", b.fieldSchema(t.Elt))
+		return obj
+	case *ast.MapType:
+		obj := newOrderedObj()
+		obj.set("type", "object")
+		obj.set("additionalProperties", b.fieldSchema(t.Value))
+		return obj
+	case *ast.InterfaceType:
+		return newOrderedObj()
+	}
+	return newOrderedObj()
+}
+
+func (b *jsonSchemaBuilder) namedTypeSchema(typeName string) *orderedObj {
+	for _, f := range b.files {
+		for _, decl := range f.Decls {
+			gd, ok := decl.(*ast.GenDecl)
+			if !ok {
+				continue
+			}
+			for _, spec := range gd.Specs {
+				ts, ok := spec.(*ast.TypeSpec)
+				if !ok || ts.Name.Name != typeName {
+					continue
+				}
+				switch ut := ts.Type.(type) {
+				case *ast.Ident:
+					if jt, ok := basicTypeToJSON(ut.Name); ok {
+						obj := newOrderedObj()
+						obj.set("type", jt)
+						return obj
+					}
+					return b.namedTypeSchema(ut.Name)
+				case *ast.SelectorExpr:
+					if pkg, ok := ut.X.(*ast.Ident); ok && pkg.Name == "strfmt" {
+						obj := newOrderedObj()
+						obj.set("type", "string")
+						return obj
+					}
+					return b.namedTypeSchema(ut.Sel.Name)
+				case *ast.StructType:
+					if s := b.structSchema(typeName); s != nil {
+						return s
+					}
+					obj := newOrderedObj()
+					obj.set("type", "object")
+					return obj
+				case *ast.ArrayType:
+					obj := newOrderedObj()
+					obj.set("type", "array")
+					obj.set("items", b.fieldSchema(ut.Elt))
+					return obj
+				case *ast.MapType:
+					obj := newOrderedObj()
+					obj.set("type", "object")
+					obj.set("additionalProperties", b.fieldSchema(ut.Value))
+					return obj
+				case *ast.InterfaceType:
+					return newOrderedObj()
+				}
+			}
+		}
+	}
+	obj := newOrderedObj()
+	obj.set("type", "object")
+	return obj
+}
+
+func (b *jsonSchemaBuilder) findStruct(typeName string) *ast.StructType {
+	for _, f := range b.files {
+		if st := findStructType(f, typeName); st != nil {
+			return st
+		}
+	}
+	return nil
+}
+
+// orderedObj is a JSON object whose keys are serialized in insertion order.
+// The standard library's json.Marshal sorts map[string]any keys alphabetically,
+// which makes generated schemas less readable and unstable compared to the
+// source struct's field order.
+type orderedObj struct {
+	keys   []string
+	values map[string]any
+}
+
+func newOrderedObj() *orderedObj {
+	return &orderedObj{values: map[string]any{}}
+}
+
+func (o *orderedObj) set(k string, v any) {
+	if _, ok := o.values[k]; !ok {
+		o.keys = append(o.keys, k)
+	}
+	o.values[k] = v
+}
+
+func (o *orderedObj) MarshalJSON() ([]byte, error) {
+	var buf bytes.Buffer
+	buf.WriteByte('{')
+	for i, k := range o.keys {
+		if i > 0 {
+			buf.WriteByte(',')
+		}
+		kb, err := json.Marshal(k)
+		if err != nil {
+			return nil, err
+		}
+		buf.Write(kb)
+		buf.WriteByte(':')
+		vb, err := json.Marshal(o.values[k])
+		if err != nil {
+			return nil, err
+		}
+		buf.Write(vb)
+	}
+	buf.WriteByte('}')
+	return buf.Bytes(), nil
+}
+
+func stringsToAny(ss []string) []any {
+	out := make([]any, len(ss))
+	for i, s := range ss {
+		out[i] = s
+	}
+	return out
 }

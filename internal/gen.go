@@ -65,6 +65,16 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	accessControlAddTeamRoleBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AddTeamRoleCommand",
+  "type": "object",
+  "properties": {
+    "roleUid": {
+      "type": "string"
+    }
+  }
+}`
 	accessControlAddTeamRoleCmd = &cobra.Command{
 		Use:   "add-team-role",
 		Short: "Adds team role",
@@ -77,6 +87,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlAddTeamRoleFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlAddTeamRoleBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -107,6 +123,19 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlAddUserRoleBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AddUserRoleCommand",
+  "type": "object",
+  "properties": {
+    "global": {
+      "type": "boolean"
+    },
+    "roleUid": {
+      "type": "string"
+    }
+  }
+}`
 	accessControlAddUserRoleCmd = &cobra.Command{
 		Use:   "add-user-role",
 		Short: "Adds a user role assignment",
@@ -121,6 +150,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlAddUserRoleFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlAddUserRoleBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -151,6 +186,57 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlCreateRoleBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateRoleForm",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "global": {
+      "type": "boolean"
+    },
+    "group": {
+      "type": "string"
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "uid": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number"
+    }
+  }
+}`
 	accessControlCreateRoleCmd = &cobra.Command{
 		Use:   "create-role",
 		Short: "Creates a new custom role",
@@ -179,6 +265,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlCreateRoleFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlCreateRoleBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -435,6 +527,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlListTeamsRolesBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RolesSearchQuery",
+  "type": "object",
+  "properties": {
+    "includeHidden": {
+      "type": "boolean"
+    },
+    "orgId": {
+      "type": "number"
+    },
+    "teamIds": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "userIds": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  }
+}`
 	accessControlListTeamsRolesCmd = &cobra.Command{
 		Use:   "list-teams-roles",
 		Short: "Lists roles assigned to multiple teams",
@@ -451,6 +568,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlListTeamsRolesFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlListTeamsRolesBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -511,6 +634,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlListUsersRolesBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RolesSearchQuery",
+  "type": "object",
+  "properties": {
+    "includeHidden": {
+      "type": "boolean"
+    },
+    "orgId": {
+      "type": "number"
+    },
+    "teamIds": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "userIds": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  }
+}`
 	accessControlListUsersRolesCmd = &cobra.Command{
 		Use:   "list-users-roles",
 		Short: "Lists roles assigned to multiple users",
@@ -527,6 +675,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlListUsersRolesFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlListUsersRolesBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -614,6 +768,33 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlSetResourcePermissionsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SetPermissionsCommand",
+  "type": "object",
+  "properties": {
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "builtInRole": {
+            "type": "string"
+          },
+          "permission": {
+            "type": "string"
+          },
+          "teamId": {
+            "type": "number"
+          },
+          "userId": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}`
 	accessControlSetResourcePermissionsCmd = &cobra.Command{
 		Use: "set-resource-permissions",
 		Long: longHelp(
@@ -630,6 +811,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlSetResourcePermissionsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlSetResourcePermissionsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -661,6 +848,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlSetResourcePermissionsForBuiltInRoleBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SetPermissionCommand",
+  "type": "object",
+  "properties": {
+    "permission": {
+      "type": "string"
+    }
+  }
+}`
 	accessControlSetResourcePermissionsForBuiltInRoleCmd = &cobra.Command{
 		Use: "set-resource-permissions-for-built-in-role",
 		Long: longHelp(
@@ -670,6 +867,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlSetResourcePermissionsForBuiltInRoleFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlSetResourcePermissionsForBuiltInRoleBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -702,6 +905,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlSetResourcePermissionsForTeamBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SetPermissionCommand",
+  "type": "object",
+  "properties": {
+    "permission": {
+      "type": "string"
+    }
+  }
+}`
 	accessControlSetResourcePermissionsForTeamCmd = &cobra.Command{
 		Use: "set-resource-permissions-for-team",
 		Long: longHelp(
@@ -711,6 +924,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlSetResourcePermissionsForTeamFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlSetResourcePermissionsForTeamBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -743,6 +962,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlSetResourcePermissionsForUserBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SetPermissionCommand",
+  "type": "object",
+  "properties": {
+    "permission": {
+      "type": "string"
+    }
+  }
+}`
 	accessControlSetResourcePermissionsForUserCmd = &cobra.Command{
 		Use: "set-resource-permissions-for-user",
 		Long: longHelp(
@@ -752,6 +981,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlSetResourcePermissionsForUserFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlSetResourcePermissionsForUserBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -784,6 +1019,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlSetRoleAssignmentsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SetRoleAssignmentsCommand",
+  "type": "object",
+  "properties": {
+    "service_accounts": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "teams": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "users": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  }
+}`
 	accessControlSetRoleAssignmentsCmd = &cobra.Command{
 		Use:   "set-role-assignments",
 		Short: "Sets role assignments",
@@ -799,6 +1059,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlSetRoleAssignmentsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlSetRoleAssignmentsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -829,6 +1095,22 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlSetTeamRolesBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SetTeamRolesCommand",
+  "type": "object",
+  "properties": {
+    "includeHidden": {
+      "type": "boolean"
+    },
+    "roleUids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}`
 	accessControlSetTeamRolesCmd = &cobra.Command{
 		Use:   "set-team-roles",
 		Short: "Updates team role",
@@ -842,6 +1124,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlSetTeamRolesFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlSetTeamRolesBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -872,6 +1160,25 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlSetUserRolesBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SetUserRolesCommand",
+  "type": "object",
+  "properties": {
+    "global": {
+      "type": "boolean"
+    },
+    "includeHidden": {
+      "type": "boolean"
+    },
+    "roleUids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}`
 	accessControlSetUserRolesCmd = &cobra.Command{
 		Use:   "set-user-roles",
 		Short: "Sets user role assignments",
@@ -887,6 +1194,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlSetUserRolesFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlSetUserRolesBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -917,6 +1230,59 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlUpdateRoleBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateRoleCommand",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "global": {
+      "type": "boolean"
+    },
+    "group": {
+      "type": "string"
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "version": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "description",
+    "displayName",
+    "group"
+  ]
+}`
 	accessControlUpdateRoleCmd = &cobra.Command{
 		Use:   "update-role",
 		Short: "Updates a custom role",
@@ -946,6 +1312,12 @@ var (
   group                    required`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if accessControlUpdateRoleFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(accessControlUpdateRoleBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -977,15 +1349,18 @@ var (
 		},
 	}
 	accessControlAddTeamRoleFlag = struct {
-		Body   string
-		TeamID int64
+		Body                   string
+		TeamID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlAddUserRoleFlag = struct {
-		Body   string
-		UserID int64
+		Body                   string
+		UserID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlCreateRoleFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlDeleteRoleFlag = struct {
 		Force   bool
@@ -1013,13 +1388,15 @@ var (
 		TeamID int64
 	}{}
 	accessControlListTeamsRolesFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlListUserRolesFlag = struct {
 		UserID int64
 	}{}
 	accessControlListUsersRolesFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlRemoveTeamRoleFlag = struct {
 		RoleUID string
@@ -1031,43 +1408,51 @@ var (
 		UserID  int64
 	}{}
 	accessControlSetResourcePermissionsFlag = struct {
-		Body       string
-		Resource   string
-		ResourceID string
+		Body                   string
+		Resource               string
+		ResourceID             string
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlSetResourcePermissionsForBuiltInRoleFlag = struct {
-		Body        string
-		BuiltInRole string
-		Resource    string
-		ResourceID  string
+		Body                   string
+		BuiltInRole            string
+		Resource               string
+		ResourceID             string
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlSetResourcePermissionsForTeamFlag = struct {
-		Body       string
-		Resource   string
-		ResourceID string
-		TeamID     int64
+		Body                   string
+		Resource               string
+		ResourceID             string
+		TeamID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlSetResourcePermissionsForUserFlag = struct {
-		Body       string
-		Resource   string
-		ResourceID string
-		UserID     int64
+		Body                   string
+		Resource               string
+		ResourceID             string
+		UserID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlSetRoleAssignmentsFlag = struct {
-		Body    string
-		RoleUID string
+		Body                   string
+		RoleUID                string
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlSetTeamRolesFlag = struct {
-		Body   string
-		TeamID int64
+		Body                   string
+		TeamID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlSetUserRolesFlag = struct {
-		Body   string
-		UserID int64
+		Body                   string
+		UserID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlUpdateRoleFlag = struct {
-		Body    string
-		RoleUID string
+		Body                   string
+		RoleUID                string
+		DescribeBodyJSONSchema bool
 	}{}
 	accessControlProvisioningCmd = &cobra.Command{
 		Use:               "access-control-provisioning",
@@ -1390,6 +1775,28 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	adminUsersAdminCreateUserBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AdminCreateUserForm",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string"
+    },
+    "login": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "orgId": {
+      "type": "number"
+    },
+    "password": {
+      "type": "string"
+    }
+  }
+}`
 	adminUsersAdminCreateUserCmd = &cobra.Command{
 		Use:   "admin-create-user",
 		Short: "Creates new user",
@@ -1406,6 +1813,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if adminUsersAdminCreateUserFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(adminUsersAdminCreateUserBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -1585,6 +1998,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	adminUsersAdminRevokeUserAuthTokenBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RevokeAuthTokenCmd",
+  "type": "object",
+  "properties": {
+    "authTokenId": {
+      "type": "number"
+    }
+  }
+}`
 	adminUsersAdminRevokeUserAuthTokenCmd = &cobra.Command{
 		Use:   "admin-revoke-user-auth-token",
 		Short: "Revokes auth token for user",
@@ -1597,6 +2020,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if adminUsersAdminRevokeUserAuthTokenFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(adminUsersAdminRevokeUserAuthTokenBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -1627,6 +2056,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	adminUsersAdminUpdateUserPasswordBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AdminUpdateUserPasswordForm",
+  "type": "object",
+  "properties": {
+    "password": {
+      "type": "string"
+    }
+  }
+}`
 	adminUsersAdminUpdateUserPasswordCmd = &cobra.Command{
 		Use:   "admin-update-user-password",
 		Short: "Sets password for user",
@@ -1639,6 +2078,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if adminUsersAdminUpdateUserPasswordFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(adminUsersAdminUpdateUserPasswordBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -1669,6 +2114,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	adminUsersAdminUpdateUserPermissionsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AdminUpdateUserPermissionsForm",
+  "type": "object",
+  "properties": {
+    "isGrafanaAdmin": {
+      "type": "boolean"
+    }
+  }
+}`
 	adminUsersAdminUpdateUserPermissionsCmd = &cobra.Command{
 		Use:   "admin-update-user-permissions",
 		Short: "Sets permissions for user",
@@ -1681,6 +2136,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if adminUsersAdminUpdateUserPermissionsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(adminUsersAdminUpdateUserPermissionsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -1712,7 +2173,8 @@ var (
 		},
 	}
 	adminUsersAdminCreateUserFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	adminUsersAdminDeleteUserFlag = struct {
 		UserID int64
@@ -1730,16 +2192,19 @@ var (
 		UserID int64
 	}{}
 	adminUsersAdminRevokeUserAuthTokenFlag = struct {
-		Body   string
-		UserID int64
+		Body                   string
+		UserID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	adminUsersAdminUpdateUserPasswordFlag = struct {
-		Body   string
-		UserID int64
+		Body                   string
+		UserID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	adminUsersAdminUpdateUserPermissionsFlag = struct {
-		Body   string
-		UserID int64
+		Body                   string
+		UserID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	annotationsCmd = &cobra.Command{
 		Use:               "annotations",
@@ -1810,6 +2275,25 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	annotationsMassDeleteAnnotationsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MassDeleteAnnotationsCmd",
+  "type": "object",
+  "properties": {
+    "annotationId": {
+      "type": "number"
+    },
+    "dashboardId": {
+      "type": "number"
+    },
+    "dashboardUID": {
+      "type": "string"
+    },
+    "panelId": {
+      "type": "number"
+    }
+  }
+}`
 	annotationsMassDeleteAnnotationsCmd = &cobra.Command{
 		Use:   "mass-delete-annotations",
 		Short: "Deletes multiple annotations",
@@ -1824,6 +2308,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if annotationsMassDeleteAnnotationsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(annotationsMassDeleteAnnotationsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -1853,6 +2343,32 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	annotationsPatchAnnotationBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PatchAnnotationsCmd",
+  "type": "object",
+  "properties": {
+    "data": {},
+    "id": {
+      "type": "number"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "text": {
+      "type": "string"
+    },
+    "time": {
+      "type": "number"
+    },
+    "timeEnd": {
+      "type": "number"
+    }
+  }
+}`
 	annotationsPatchAnnotationCmd = &cobra.Command{
 		Use:   "patch-annotation",
 		Short: "Patches annotation",
@@ -1870,6 +2386,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if annotationsPatchAnnotationFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(annotationsPatchAnnotationBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -1900,6 +2422,41 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	annotationsPostAnnotationBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PostAnnotationsCmd",
+  "type": "object",
+  "properties": {
+    "dashboardId": {
+      "type": "number"
+    },
+    "dashboardUID": {
+      "type": "string"
+    },
+    "data": {},
+    "panelId": {
+      "type": "number"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "text": {
+      "type": "string"
+    },
+    "time": {
+      "type": "number"
+    },
+    "timeEnd": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "text"
+  ]
+}`
 	annotationsPostAnnotationCmd = &cobra.Command{
 		Use:   "post-annotation",
 		Short: "Creates annotation",
@@ -1920,6 +2477,12 @@ var (
   text                     required`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if annotationsPostAnnotationFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(annotationsPostAnnotationBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -1949,6 +2512,23 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	annotationsPostGraphiteAnnotationBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PostGraphiteAnnotationsCmd",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "string"
+    },
+    "tags": {},
+    "what": {
+      "type": "string"
+    },
+    "when": {
+      "type": "number"
+    }
+  }
+}`
 	annotationsPostGraphiteAnnotationCmd = &cobra.Command{
 		Use:   "post-graphite-annotation",
 		Short: "Creates annotation in graphite format",
@@ -1964,6 +2544,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if annotationsPostGraphiteAnnotationFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(annotationsPostGraphiteAnnotationBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -1993,6 +2579,32 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	annotationsUpdateAnnotationBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateAnnotationsCmd",
+  "type": "object",
+  "properties": {
+    "data": {},
+    "id": {
+      "type": "number"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "text": {
+      "type": "string"
+    },
+    "time": {
+      "type": "number"
+    },
+    "timeEnd": {
+      "type": "number"
+    }
+  }
+}`
 	annotationsUpdateAnnotationCmd = &cobra.Command{
 		Use:   "update-annotation",
 		Short: "Updates annotation",
@@ -2010,6 +2622,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if annotationsUpdateAnnotationFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(annotationsUpdateAnnotationBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -2059,21 +2677,26 @@ var (
 		UserID       int64
 	}{}
 	annotationsMassDeleteAnnotationsFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	annotationsPatchAnnotationFlag = struct {
-		AnnotationID string
-		Body         string
+		AnnotationID           string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	annotationsPostAnnotationFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	annotationsPostGraphiteAnnotationFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	annotationsUpdateAnnotationFlag = struct {
-		AnnotationID string
-		Body         string
+		AnnotationID           string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	convertPrometheusCmd = &cobra.Command{
 		Use:               "convert-prometheus",
@@ -2212,6 +2835,66 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	convertPrometheusConvertPrometheusCortexPostRuleGroupBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PrometheusRuleGroup",
+  "type": "object",
+  "properties": {
+    "interval": {
+      "type": "number"
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "limit": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "query_offset": {
+      "type": "string"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "alert": {
+            "type": "string"
+          },
+          "annotations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "expr": {
+            "type": "string"
+          },
+          "for": {
+            "type": "string"
+          },
+          "keep_firing_for": {
+            "type": "string"
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "record": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}`
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd = &cobra.Command{
 		Use: "convert-prometheus-cortex-post-rule-group",
 		Long: longHelp(
@@ -2236,6 +2919,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(convertPrometheusConvertPrometheusCortexPostRuleGroupBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -2426,6 +3115,66 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	convertPrometheusConvertPrometheusPostRuleGroupBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PrometheusRuleGroup",
+  "type": "object",
+  "properties": {
+    "interval": {
+      "type": "number"
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "limit": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "query_offset": {
+      "type": "string"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "alert": {
+            "type": "string"
+          },
+          "annotations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "expr": {
+            "type": "string"
+          },
+          "for": {
+            "type": "string"
+          },
+          "keep_firing_for": {
+            "type": "string"
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "record": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}`
 	convertPrometheusConvertPrometheusPostRuleGroupCmd = &cobra.Command{
 		Use: "convert-prometheus-post-rule-group",
 		Long: longHelp(
@@ -2450,6 +3199,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if convertPrometheusConvertPrometheusPostRuleGroupFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(convertPrometheusConvertPrometheusPostRuleGroupBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -2533,6 +3288,7 @@ var (
 		XGrafanaAlertingNotificationSettings string
 		XGrafanaAlertingRecordingRulesPaused bool
 		XGrafanaAlertingTargetDatasourceUID  string
+		DescribeBodyJSONSchema               bool
 	}{}
 	convertPrometheusConvertPrometheusDeleteNamespaceFlag = struct {
 		NamespaceTitle string
@@ -2557,6 +3313,7 @@ var (
 		XGrafanaAlertingNotificationSettings string
 		XGrafanaAlertingRecordingRulesPaused bool
 		XGrafanaAlertingTargetDatasourceUID  string
+		DescribeBodyJSONSchema               bool
 	}{}
 	dashboardsCmd = &cobra.Command{
 		Use:               "dashboards",
@@ -2565,6 +3322,38 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	dashboardsCreateDashboardSnapshotBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateDashboardSnapshotCommand",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string"
+    },
+    "dashboard": {},
+    "deleteKey": {
+      "type": "string"
+    },
+    "expires": {
+      "type": "number"
+    },
+    "external": {
+      "type": "boolean"
+    },
+    "key": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "dashboard"
+  ]
+}`
 	dashboardsCreateDashboardSnapshotCmd = &cobra.Command{
 		Use:   "create-dashboard-snapshot",
 		Short: "Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI",
@@ -2585,6 +3374,12 @@ var (
   dashboard                required`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if dashboardsCreateDashboardSnapshotFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(dashboardsCreateDashboardSnapshotBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -2614,6 +3409,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	dashboardsCreatePublicDashboardBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PublicDashboardDTO",
+  "type": "object",
+  "properties": {
+    "accessToken": {
+      "type": "string"
+    },
+    "annotationsEnabled": {
+      "type": "boolean"
+    },
+    "isEnabled": {
+      "type": "boolean"
+    },
+    "share": {
+      "type": "string"
+    },
+    "timeSelectionEnabled": {
+      "type": "boolean"
+    },
+    "uid": {
+      "type": "string"
+    }
+  }
+}`
 	dashboardsCreatePublicDashboardCmd = &cobra.Command{
 		Use:   "create-public-dashboard",
 		Short: "Create public dashboard for a dashboard",
@@ -2630,6 +3450,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if dashboardsCreatePublicDashboardFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(dashboardsCreatePublicDashboardBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -3010,6 +3836,49 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	dashboardsImportDashboardBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ImportDashboardRequest",
+  "type": "object",
+  "properties": {
+    "dashboard": {},
+    "folderId": {
+      "type": "number"
+    },
+    "folderUid": {
+      "type": "string"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "pluginId": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "overwrite": {
+      "type": "boolean"
+    },
+    "path": {
+      "type": "string"
+    },
+    "pluginId": {
+      "type": "string"
+    }
+  }
+}`
 	dashboardsImportDashboardCmd = &cobra.Command{
 		Use:   "import-dashboard",
 		Short: "Imports dashboard",
@@ -3034,6 +3903,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if dashboardsImportDashboardFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(dashboardsImportDashboardBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -3111,6 +3986,35 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	dashboardsPostDashboardBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SaveDashboardCommand",
+  "type": "object",
+  "properties": {
+    "UpdatedAt": {
+      "type": "string"
+    },
+    "dashboard": {},
+    "folderId": {
+      "type": "number"
+    },
+    "folderUid": {
+      "type": "string"
+    },
+    "isFolder": {
+      "type": "boolean"
+    },
+    "message": {
+      "type": "string"
+    },
+    "overwrite": {
+      "type": "boolean"
+    },
+    "userId": {
+      "type": "number"
+    }
+  }
+}`
 	dashboardsPostDashboardCmd = &cobra.Command{
 		Use:   "post-dashboard",
 		Short: "Creates update dashboard",
@@ -3130,6 +4034,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if dashboardsPostDashboardFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(dashboardsPostDashboardBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -3186,6 +4096,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	dashboardsRestoreDashboardVersionByUIDBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RestoreDashboardVersionCommand",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number"
+    }
+  }
+}`
 	dashboardsRestoreDashboardVersionByUIDCmd = &cobra.Command{
 		Use:   "restore-dashboard-version-by-uid",
 		Short: "Restores a dashboard to a given dashboard version using UID",
@@ -3197,6 +4117,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if dashboardsRestoreDashboardVersionByUIDFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(dashboardsRestoreDashboardVersionByUIDBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -3253,6 +4179,39 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	dashboardsUpdateDashboardPermissionsByUIDBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateDashboardACLCommand",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "permission": {
+            "type": "number"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "None",
+              "Viewer",
+              "Editor",
+              "Admin"
+            ]
+          },
+          "teamId": {
+            "type": "number"
+          },
+          "userId": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}`
 	dashboardsUpdateDashboardPermissionsByUIDCmd = &cobra.Command{
 		Use:   "update-dashboard-permissions-by-uid",
 		Short: "Updates permissions for a dashboard",
@@ -3273,6 +4232,12 @@ var (
   items[].role             enum: None | Viewer | Editor | Admin`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if dashboardsUpdateDashboardPermissionsByUIDFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(dashboardsUpdateDashboardPermissionsByUIDBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -3303,6 +4268,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	dashboardsUpdatePublicDashboardBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PublicDashboardDTO",
+  "type": "object",
+  "properties": {
+    "accessToken": {
+      "type": "string"
+    },
+    "annotationsEnabled": {
+      "type": "boolean"
+    },
+    "isEnabled": {
+      "type": "boolean"
+    },
+    "share": {
+      "type": "string"
+    },
+    "timeSelectionEnabled": {
+      "type": "boolean"
+    },
+    "uid": {
+      "type": "string"
+    }
+  }
+}`
 	dashboardsUpdatePublicDashboardCmd = &cobra.Command{
 		Use: "update-public-dashboard",
 		Long: longHelp(
@@ -3317,6 +4307,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if dashboardsUpdatePublicDashboardFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(dashboardsUpdatePublicDashboardBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -3375,11 +4371,13 @@ var (
 		},
 	}
 	dashboardsCreateDashboardSnapshotFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	dashboardsCreatePublicDashboardFlag = struct {
-		Body         string
-		DashboardUID string
+		Body                   string
+		DashboardUID           string
+		DescribeBodyJSONSchema bool
 	}{}
 	dashboardsDeleteDashboardByUIDFlag = struct {
 		UID string
@@ -3419,31 +4417,36 @@ var (
 		DashboardUID string
 	}{}
 	dashboardsImportDashboardFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	dashboardsPostDashboardFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	dashboardsQueryPublicDashboardFlag = struct {
 		AccessToken string
 		PanelID     int64
 	}{}
 	dashboardsRestoreDashboardVersionByUIDFlag = struct {
-		Body string
-		UID  string
+		Body                   string
+		UID                    string
+		DescribeBodyJSONSchema bool
 	}{}
 	dashboardsSearchDashboardSnapshotsFlag = struct {
 		Limit int64
 		Query string
 	}{}
 	dashboardsUpdateDashboardPermissionsByUIDFlag = struct {
-		Body string
-		UID  string
+		Body                   string
+		UID                    string
+		DescribeBodyJSONSchema bool
 	}{}
 	dashboardsUpdatePublicDashboardFlag = struct {
-		Body         string
-		DashboardUID string
-		UID          string
+		Body                   string
+		DashboardUID           string
+		UID                    string
+		DescribeBodyJSONSchema bool
 	}{}
 	dashboardsViewPublicDashboardFlag = struct {
 		AccessToken string
@@ -3455,6 +4458,53 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	datasourcesAddDatasourceBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AddDataSourceCommand",
+  "type": "object",
+  "properties": {
+    "access": {
+      "type": "string"
+    },
+    "basicAuth": {
+      "type": "boolean"
+    },
+    "basicAuthUser": {
+      "type": "string"
+    },
+    "database": {
+      "type": "string"
+    },
+    "isDefault": {
+      "type": "boolean"
+    },
+    "jsonData": {},
+    "name": {
+      "type": "string"
+    },
+    "secureJsonData": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "type": {
+      "type": "string"
+    },
+    "uid": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "user": {
+      "type": "string"
+    },
+    "withCredentials": {
+      "type": "boolean"
+    }
+  }
+}`
 	datasourcesAddDatasourceCmd = &cobra.Command{
 		Use:   "add-datasource",
 		Short: "Creates a data source",
@@ -3480,6 +4530,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if datasourcesAddDatasourceFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(datasourcesAddDatasourceBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -3562,6 +4618,68 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	datasourcesCreateCorrelationBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateCorrelationCommand",
+  "type": "object",
+  "properties": {
+    "config": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "target": {},
+        "transformations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "expression": {
+                "type": "string"
+              },
+              "field": {
+                "type": "string"
+              },
+              "mapValue": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "regex",
+                  "logfmt"
+                ]
+              }
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "target"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "provisioned": {
+      "type": "boolean"
+    },
+    "targetUID": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  }
+}`
 	datasourcesCreateCorrelationCmd = &cobra.Command{
 		Use:   "create-correlation",
 		Short: "Adds correlation",
@@ -3585,6 +4703,12 @@ var (
   config.target            required`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if datasourcesCreateCorrelationFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(datasourcesCreateCorrelationBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -3900,6 +5024,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	datasourcesQueryMetricsWithExpressionsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MetricRequest",
+  "type": "object",
+  "properties": {
+    "debug": {
+      "type": "boolean"
+    },
+    "from": {
+      "type": "string"
+    },
+    "queries": {
+      "type": "array",
+      "items": {}
+    },
+    "to": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "from",
+    "queries",
+    "to"
+  ]
+}`
 	datasourcesQueryMetricsWithExpressionsCmd = &cobra.Command{
 		Use:   "query-metrics-with-expressions",
 		Short: "Data source query metrics with expressions",
@@ -3918,6 +5067,12 @@ var (
   to                       required`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if datasourcesQueryMetricsWithExpressionsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(datasourcesQueryMetricsWithExpressionsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -3947,6 +5102,55 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	datasourcesUpdateCorrelationBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateCorrelationCommand",
+  "type": "object",
+  "properties": {
+    "config": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "target": {},
+        "transformations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "expression": {
+                "type": "string"
+              },
+              "field": {
+                "type": "string"
+              },
+              "mapValue": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "regex",
+                  "logfmt"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  }
+}`
 	datasourcesUpdateCorrelationCmd = &cobra.Command{
 		Use: "update-correlation",
 		Long: longHelp(
@@ -3963,6 +5167,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if datasourcesUpdateCorrelationFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(datasourcesUpdateCorrelationBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -3994,6 +5204,56 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	datasourcesUpdateDatasourceByUIDBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateDataSourceCommand",
+  "type": "object",
+  "properties": {
+    "access": {
+      "type": "string"
+    },
+    "basicAuth": {
+      "type": "boolean"
+    },
+    "basicAuthUser": {
+      "type": "string"
+    },
+    "database": {
+      "type": "string"
+    },
+    "isDefault": {
+      "type": "boolean"
+    },
+    "jsonData": {},
+    "name": {
+      "type": "string"
+    },
+    "secureJsonData": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "type": {
+      "type": "string"
+    },
+    "uid": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "user": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number"
+    },
+    "withCredentials": {
+      "type": "boolean"
+    }
+  }
+}`
 	datasourcesUpdateDatasourceByUIDCmd = &cobra.Command{
 		Use:   "update-datasource-by-uid",
 		Short: "Updates an existing data source",
@@ -4020,6 +5280,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if datasourcesUpdateDatasourceByUIDFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(datasourcesUpdateDatasourceByUIDBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -4051,7 +5317,8 @@ var (
 		},
 	}
 	datasourcesAddDatasourceFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	datasourcesCallDatasourceResourceFlag = struct {
 		DatasourceProxyRoute string
@@ -4061,8 +5328,9 @@ var (
 		UID string
 	}{}
 	datasourcesCreateCorrelationFlag = struct {
-		Body      string
-		SourceUID string
+		Body                   string
+		SourceUID              string
+		DescribeBodyJSONSchema bool
 	}{}
 	datasourcesDeleteCorrelationFlag = struct {
 		CorrelationUID string
@@ -4096,16 +5364,19 @@ var (
 		Name string
 	}{}
 	datasourcesQueryMetricsWithExpressionsFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	datasourcesUpdateCorrelationFlag = struct {
-		Body           string
-		CorrelationUID string
-		SourceUID      string
+		Body                   string
+		CorrelationUID         string
+		SourceUID              string
+		DescribeBodyJSONSchema bool
 	}{}
 	datasourcesUpdateDatasourceByUIDFlag = struct {
-		Body string
-		UID  string
+		Body                   string
+		UID                    string
+		DescribeBodyJSONSchema bool
 	}{}
 	devicesCmd = &cobra.Command{
 		Use:               "devices",
@@ -4328,6 +5599,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	enterpriseSetDatasourceCacheConfigBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CacheConfigSetter",
+  "type": "object",
+  "properties": {
+    "dataSourceID": {
+      "type": "number"
+    },
+    "dataSourceUID": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "ttlQueriesMs": {
+      "type": "number"
+    },
+    "ttlResourcesMs": {
+      "type": "number"
+    },
+    "useDefaultTTL": {
+      "type": "boolean"
+    }
+  }
+}`
 	enterpriseSetDatasourceCacheConfigCmd = &cobra.Command{
 		Use:   "set-datasource-cache-config",
 		Short: "Set cache config for a single data source",
@@ -4344,6 +5640,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if enterpriseSetDatasourceCacheConfigFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(enterpriseSetDatasourceCacheConfigBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -4374,6 +5676,33 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	enterpriseUpdateTeamLBACRulesAPIBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateTeamLBACCommand",
+  "type": "object",
+  "properties": {
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "teamId": {
+            "type": "string"
+          },
+          "teamUid": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}`
 	enterpriseUpdateTeamLBACRulesAPICmd = &cobra.Command{
 		Use: "update-team-lbac-rules-api",
 		Long: longHelp(
@@ -4389,6 +5718,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if enterpriseUpdateTeamLBACRulesAPIFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(enterpriseUpdateTeamLBACRulesAPIBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -4435,12 +5770,14 @@ var (
 		UID string
 	}{}
 	enterpriseSetDatasourceCacheConfigFlag = struct {
-		Body          string
-		DataSourceUID string
+		Body                   string
+		DataSourceUID          string
+		DescribeBodyJSONSchema bool
 	}{}
 	enterpriseUpdateTeamLBACRulesAPIFlag = struct {
-		Body string
-		UID  string
+		Body                   string
+		UID                    string
+		DescribeBodyJSONSchema bool
 	}{}
 	foldersCmd = &cobra.Command{
 		Use:               "folders",
@@ -4449,6 +5786,25 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	foldersCreateFolderBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateFolderCommand",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "parentUid": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "uid": {
+      "type": "string"
+    }
+  }
+}`
 	foldersCreateFolderCmd = &cobra.Command{
 		Use:   "create-folder",
 		Short: "Creates folder",
@@ -4464,6 +5820,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if foldersCreateFolderFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(foldersCreateFolderBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -4625,6 +5987,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	foldersMoveFolderBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MoveFolderCommand",
+  "type": "object",
+  "properties": {
+    "parentUid": {
+      "type": "string"
+    }
+  }
+}`
 	foldersMoveFolderCmd = &cobra.Command{
 		Use:   "move-folder",
 		Short: "Moves folder",
@@ -4636,6 +6008,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if foldersMoveFolderFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(foldersMoveFolderBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -4666,6 +6044,25 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	foldersUpdateFolderBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateFolderCommand",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "overwrite": {
+      "type": "boolean"
+    },
+    "title": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number"
+    }
+  }
+}`
 	foldersUpdateFolderCmd = &cobra.Command{
 		Use:   "update-folder",
 		Short: "Updates folder",
@@ -4680,6 +6077,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if foldersUpdateFolderFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(foldersUpdateFolderBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -4710,6 +6113,39 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	foldersUpdateFolderPermissionsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateDashboardACLCommand",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "permission": {
+            "type": "number"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "None",
+              "Viewer",
+              "Editor",
+              "Admin"
+            ]
+          },
+          "teamId": {
+            "type": "number"
+          },
+          "userId": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}`
 	foldersUpdateFolderPermissionsCmd = &cobra.Command{
 		Use:   "update-folder-permissions",
 		Short: "Updates permissions for a folder this operation will remove existing permissions if they re not included in the request",
@@ -4729,6 +6165,12 @@ var (
   items[].role             enum: None | Viewer | Editor | Admin`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if foldersUpdateFolderPermissionsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(foldersUpdateFolderPermissionsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -4760,7 +6202,8 @@ var (
 		},
 	}
 	foldersCreateFolderFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	foldersDeleteFolderFlag = struct {
 		FolderUID        string
@@ -4782,16 +6225,19 @@ var (
 		Permission string
 	}{}
 	foldersMoveFolderFlag = struct {
-		Body      string
-		FolderUID string
+		Body                   string
+		FolderUID              string
+		DescribeBodyJSONSchema bool
 	}{}
 	foldersUpdateFolderFlag = struct {
-		Body      string
-		FolderUID string
+		Body                   string
+		FolderUID              string
+		DescribeBodyJSONSchema bool
 	}{}
 	foldersUpdateFolderPermissionsFlag = struct {
-		Body      string
-		FolderUID string
+		Body                   string
+		FolderUID              string
+		DescribeBodyJSONSchema bool
 	}{}
 	groupAttributeSyncCmd = &cobra.Command{
 		Use:               "group-attribute-sync",
@@ -4800,6 +6246,19 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	groupAttributeSyncCreateGroupMappingsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GroupAttributes",
+  "type": "object",
+  "properties": {
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}`
 	groupAttributeSyncCreateGroupMappingsCmd = &cobra.Command{
 		Use:   "create-group-mappings",
 		Short: "Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
@@ -4811,6 +6270,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if groupAttributeSyncCreateGroupMappingsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(groupAttributeSyncCreateGroupMappingsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -4917,6 +6382,19 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	groupAttributeSyncUpdateGroupMappingsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GroupAttributes",
+  "type": "object",
+  "properties": {
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}`
 	groupAttributeSyncUpdateGroupMappingsCmd = &cobra.Command{
 		Use:   "update-group-mappings",
 		Short: "Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
@@ -4928,6 +6406,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if groupAttributeSyncUpdateGroupMappingsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(groupAttributeSyncUpdateGroupMappingsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -4959,8 +6443,9 @@ var (
 		},
 	}
 	groupAttributeSyncCreateGroupMappingsFlag = struct {
-		Body    string
-		GroupID string
+		Body                   string
+		GroupID                string
+		DescribeBodyJSONSchema bool
 	}{}
 	groupAttributeSyncDeleteGroupMappingsFlag = struct {
 		GroupID string
@@ -4969,8 +6454,9 @@ var (
 		GroupID string
 	}{}
 	groupAttributeSyncUpdateGroupMappingsFlag = struct {
-		Body    string
-		GroupID string
+		Body                   string
+		GroupID                string
+		DescribeBodyJSONSchema bool
 	}{}
 	healthCmd = &cobra.Command{
 		Use:               "health",
@@ -5045,6 +6531,32 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	libraryElementsCreateLibraryElementBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateLibraryElementCommand",
+  "type": "object",
+  "properties": {
+    "folderId": {
+      "type": "number"
+    },
+    "folderUid": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "number",
+      "enum": [
+        "1"
+      ]
+    },
+    "model": {},
+    "name": {
+      "type": "string"
+    },
+    "uid": {
+      "type": "string"
+    }
+  }
+}`
 	libraryElementsCreateLibraryElementCmd = &cobra.Command{
 		Use:   "create-library-element",
 		Short: "Creates library element",
@@ -5063,6 +6575,12 @@ var (
   kind                     enum: 1`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if libraryElementsCreateLibraryElementFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(libraryElementsCreateLibraryElementBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -5244,6 +6762,35 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	libraryElementsUpdateLibraryElementBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PatchLibraryElementCommand",
+  "type": "object",
+  "properties": {
+    "folderId": {
+      "type": "number"
+    },
+    "folderUid": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "number",
+      "enum": [
+        "1"
+      ]
+    },
+    "model": {},
+    "name": {
+      "type": "string"
+    },
+    "uid": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number"
+    }
+  }
+}`
 	libraryElementsUpdateLibraryElementCmd = &cobra.Command{
 		Use:   "update-library-element",
 		Short: "Updates library element",
@@ -5263,6 +6810,12 @@ var (
   kind                     enum: 1`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if libraryElementsUpdateLibraryElementFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(libraryElementsUpdateLibraryElementBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -5294,7 +6847,8 @@ var (
 		},
 	}
 	libraryElementsCreateLibraryElementFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	libraryElementsDeleteLibraryElementByUIDFlag = struct {
 		LibraryElementUID string
@@ -5319,8 +6873,9 @@ var (
 		TypeFilter    string
 	}{}
 	libraryElementsUpdateLibraryElementFlag = struct {
-		Body              string
-		LibraryElementUID string
+		Body                   string
+		LibraryElementUID      string
+		DescribeBodyJSONSchema bool
 	}{}
 	licensingCmd = &cobra.Command{
 		Use:               "licensing",
@@ -5329,6 +6884,16 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	licensingDeleteLicenseTokenBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeleteTokenCommand",
+  "type": "object",
+  "properties": {
+    "instance": {
+      "type": "string"
+    }
+  }
+}`
 	licensingDeleteLicenseTokenCmd = &cobra.Command{
 		Use:   "delete-license-token",
 		Short: "Removes license from database",
@@ -5342,6 +6907,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if licensingDeleteLicenseTokenFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(licensingDeleteLicenseTokenBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -5482,6 +7053,16 @@ var (
 			return nil
 		},
 	}
+	licensingPostLicenseTokenBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeleteTokenCommand",
+  "type": "object",
+  "properties": {
+    "instance": {
+      "type": "string"
+    }
+  }
+}`
 	licensingPostLicenseTokenCmd = &cobra.Command{
 		Use:   "post-license-token",
 		Short: "Creates license token",
@@ -5494,6 +7075,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if licensingPostLicenseTokenFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(licensingPostLicenseTokenBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -5588,10 +7175,12 @@ var (
 		},
 	}
 	licensingDeleteLicenseTokenFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	licensingPostLicenseTokenFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	licensingPostRenewLicenseTokenFlag = struct {
 		Body string
@@ -5659,6 +7248,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	migrationsCreateSessionBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CloudMigrationSessionRequestDTO",
+  "type": "object",
+  "properties": {
+    "authToken": {
+      "type": "string"
+    }
+  }
+}`
 	migrationsCreateSessionCmd = &cobra.Command{
 		Use:   "create-session",
 		Short: "Creates a migration session",
@@ -5670,6 +7269,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if migrationsCreateSessionFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(migrationsCreateSessionBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -5699,6 +7304,19 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	migrationsCreateSnapshotBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateSnapshotRequestDTO",
+  "type": "object",
+  "properties": {
+    "resourceTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}`
 	migrationsCreateSnapshotCmd = &cobra.Command{
 		Use:   "create-snapshot",
 		Short: "Triggers the creation of an instance snapshot associated with the provided session",
@@ -5711,6 +7329,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if migrationsCreateSnapshotFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(migrationsCreateSnapshotBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -5985,11 +7609,13 @@ var (
 		UID         string
 	}{}
 	migrationsCreateSessionFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	migrationsCreateSnapshotFlag = struct {
-		Body string
-		UID  string
+		Body                   string
+		UID                    string
+		DescribeBodyJSONSchema bool
 	}{}
 	migrationsDeleteCloudMigrationTokenFlag = struct {
 		UID string
@@ -6026,6 +7652,31 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	orgAddOrgInviteBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AddInviteForm",
+  "type": "object",
+  "properties": {
+    "loginOrEmail": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "None",
+        "Viewer",
+        "Editor",
+        "Admin"
+      ]
+    },
+    "sendEmail": {
+      "type": "boolean"
+    }
+  }
+}`
 	orgAddOrgInviteCmd = &cobra.Command{
 		Use:   "add-org-invite",
 		Short: "Adds invite",
@@ -6041,6 +7692,12 @@ var (
   role                     enum: None | Viewer | Editor | Admin`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgAddOrgInviteFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgAddOrgInviteBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6070,6 +7727,25 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgAddOrgUserToCurrentOrgBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AddOrgUserCommand",
+  "type": "object",
+  "properties": {
+    "loginOrEmail": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "None",
+        "Viewer",
+        "Editor",
+        "Admin"
+      ]
+    }
+  }
+}`
 	orgAddOrgUserToCurrentOrgCmd = &cobra.Command{
 		Use:   "add-org-user-to-current-org",
 		Short: "Adds a new user to the current organization",
@@ -6085,6 +7761,12 @@ var (
   role                     enum: None | Viewer | Editor | Admin`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgAddOrgUserToCurrentOrgFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgAddOrgUserToCurrentOrgBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6238,6 +7920,67 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgPatchOrgPreferencesBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PatchPrefsCmd",
+  "type": "object",
+  "properties": {
+    "cookies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "homeDashboardId": {
+      "type": "number"
+    },
+    "homeDashboardUID": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "navbar": {
+      "type": "object",
+      "properties": {
+        "bookmarkUrls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "queryHistory": {
+      "type": "object",
+      "properties": {
+        "homeTab": {
+          "type": "string"
+        }
+      }
+    },
+    "regionalFormat": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "string",
+      "enum": [
+        "light",
+        "dark"
+      ]
+    },
+    "timezone": {
+      "type": "string",
+      "enum": [
+        "utc",
+        "browser"
+      ]
+    },
+    "weekStart": {
+      "type": "string"
+    }
+  }
+}`
 	orgPatchOrgPreferencesCmd = &cobra.Command{
 		Use:   "patch-org-preferences",
 		Short: "Patches current org prefs",
@@ -6264,6 +8007,12 @@ var (
   timezone                 enum: utc | browser`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgPatchOrgPreferencesFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgPatchOrgPreferencesBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6349,6 +8098,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgUpdateCurrentOrgBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateOrgForm",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  }
+}`
 	orgUpdateCurrentOrgCmd = &cobra.Command{
 		Use:   "update-current-org",
 		Short: "Updates current organization",
@@ -6360,6 +8119,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgUpdateCurrentOrgFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgUpdateCurrentOrgBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6389,6 +8154,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgUpdateCurrentOrgAddressBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateOrgAddressForm",
+  "type": "object",
+  "properties": {
+    "address1": {
+      "type": "string"
+    },
+    "address2": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string"
+    }
+  }
+}`
 	orgUpdateCurrentOrgAddressCmd = &cobra.Command{
 		Use:   "update-current-org-address",
 		Short: "Updates current organization s address",
@@ -6405,6 +8195,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgUpdateCurrentOrgAddressFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgUpdateCurrentOrgAddressBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6434,6 +8230,68 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgUpdateOrgPreferencesBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdatePrefsCmd",
+  "type": "object",
+  "properties": {
+    "cookies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "homeDashboardId": {
+      "type": "number"
+    },
+    "homeDashboardUID": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "navbar": {
+      "type": "object",
+      "properties": {
+        "bookmarkUrls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "queryHistory": {
+      "type": "object",
+      "properties": {
+        "homeTab": {
+          "type": "string"
+        }
+      }
+    },
+    "regionalFormat": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "string",
+      "enum": [
+        "light",
+        "dark",
+        "system"
+      ]
+    },
+    "timezone": {
+      "type": "string",
+      "enum": [
+        "utc",
+        "browser"
+      ]
+    },
+    "weekStart": {
+      "type": "string"
+    }
+  }
+}`
 	orgUpdateOrgPreferencesCmd = &cobra.Command{
 		Use:   "update-org-preferences",
 		Short: "Updates current org prefs",
@@ -6460,6 +8318,12 @@ var (
   timezone                 enum: utc | browser`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgUpdateOrgPreferencesFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgUpdateOrgPreferencesBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6489,6 +8353,22 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgUpdateOrgUserForCurrentOrgBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateOrgUserCommand",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "None",
+        "Viewer",
+        "Editor",
+        "Admin"
+      ]
+    }
+  }
+}`
 	orgUpdateOrgUserForCurrentOrgCmd = &cobra.Command{
 		Use:   "update-org-user-for-current-org",
 		Short: "Updates the given user",
@@ -6502,6 +8382,12 @@ var (
   role                     enum: None | Viewer | Editor | Admin`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgUpdateOrgUserForCurrentOrgFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgUpdateOrgUserForCurrentOrgBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6533,10 +8419,12 @@ var (
 		},
 	}
 	orgAddOrgInviteFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	orgAddOrgUserToCurrentOrgFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	orgGetOrgUsersForCurrentOrgFlag = struct {
 		Limit int64
@@ -6547,7 +8435,8 @@ var (
 		Query string
 	}{}
 	orgPatchOrgPreferencesFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	orgRemoveOrgUserForCurrentOrgFlag = struct {
 		UserID int64
@@ -6556,17 +8445,21 @@ var (
 		InvitationCode string
 	}{}
 	orgUpdateCurrentOrgFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	orgUpdateCurrentOrgAddressFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	orgUpdateOrgPreferencesFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	orgUpdateOrgUserForCurrentOrgFlag = struct {
-		Body   string
-		UserID int64
+		Body                   string
+		UserID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	orgsCmd = &cobra.Command{
 		Use:               "orgs",
@@ -6575,6 +8468,25 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	orgsAddOrgUserBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AddOrgUserCommand",
+  "type": "object",
+  "properties": {
+    "loginOrEmail": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "None",
+        "Viewer",
+        "Editor",
+        "Admin"
+      ]
+    }
+  }
+}`
 	orgsAddOrgUserCmd = &cobra.Command{
 		Use:   "add-org-user",
 		Short: "Adds a new user to the current organization",
@@ -6590,6 +8502,12 @@ var (
   role                     enum: None | Viewer | Editor | Admin`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgsAddOrgUserFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgsAddOrgUserBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6620,6 +8538,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgsCreateOrgBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateOrgCommand",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  }
+}`
 	orgsCreateOrgCmd = &cobra.Command{
 		Use:   "create-org",
 		Short: "Creates organization",
@@ -6632,6 +8560,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgsCreateOrgFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgsCreateOrgBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6806,6 +8740,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgsUpdateOrgBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateOrgForm",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  }
+}`
 	orgsUpdateOrgCmd = &cobra.Command{
 		Use:   "update-org",
 		Short: "Updates organization",
@@ -6817,6 +8761,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgsUpdateOrgFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgsUpdateOrgBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6847,6 +8797,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgsUpdateOrgAddressBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateOrgAddressForm",
+  "type": "object",
+  "properties": {
+    "address1": {
+      "type": "string"
+    },
+    "address2": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string"
+    }
+  }
+}`
 	orgsUpdateOrgAddressCmd = &cobra.Command{
 		Use:   "update-org-address",
 		Short: "Updates organization s address",
@@ -6863,6 +8838,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgsUpdateOrgAddressFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgsUpdateOrgAddressBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6893,6 +8874,22 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	orgsUpdateOrgUserBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateOrgUserCommand",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "None",
+        "Viewer",
+        "Editor",
+        "Admin"
+      ]
+    }
+  }
+}`
 	orgsUpdateOrgUserCmd = &cobra.Command{
 		Use: "update-org-user",
 		Long: longHelp(
@@ -6903,6 +8900,12 @@ var (
   role                     enum: None | Viewer | Editor | Admin`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if orgsUpdateOrgUserFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(orgsUpdateOrgUserBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -6935,11 +8938,13 @@ var (
 		},
 	}
 	orgsAddOrgUserFlag = struct {
-		Body  string
-		OrgID int64
+		Body                   string
+		OrgID                  int64
+		DescribeBodyJSONSchema bool
 	}{}
 	orgsCreateOrgFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	orgsGetOrgByNameFlag = struct {
 		OrgName string
@@ -6961,17 +8966,20 @@ var (
 		Query   string
 	}{}
 	orgsUpdateOrgFlag = struct {
-		Body  string
-		OrgID int64
+		Body                   string
+		OrgID                  int64
+		DescribeBodyJSONSchema bool
 	}{}
 	orgsUpdateOrgAddressFlag = struct {
-		Body  string
-		OrgID int64
+		Body                   string
+		OrgID                  int64
+		DescribeBodyJSONSchema bool
 	}{}
 	orgsUpdateOrgUserFlag = struct {
-		Body   string
-		OrgID  int64
-		UserID int64
+		Body                   string
+		OrgID                  int64
+		UserID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	playlistsCmd = &cobra.Command{
 		Use:               "playlists",
@@ -6980,6 +8988,45 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	playlistsCreatePlaylistBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreatePlaylistCommand",
+  "type": "object",
+  "properties": {
+    "interval": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "number"
+          },
+          "PlaylistId": {
+            "type": "number"
+          },
+          "order": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}`
 	playlistsCreatePlaylistCmd = &cobra.Command{
 		Use:   "create-playlist",
 		Short: "Creates playlist",
@@ -7002,6 +9049,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if playlistsCreatePlaylistFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(playlistsCreatePlaylistBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -7135,6 +9188,48 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	playlistsUpdatePlaylistBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdatePlaylistCommand",
+  "type": "object",
+  "properties": {
+    "interval": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "number"
+          },
+          "PlaylistId": {
+            "type": "number"
+          },
+          "order": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "name": {
+      "type": "string"
+    },
+    "uid": {
+      "type": "string"
+    }
+  }
+}`
 	playlistsUpdatePlaylistCmd = &cobra.Command{
 		Use:   "update-playlist",
 		Short: "Updates playlist",
@@ -7158,6 +9253,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if playlistsUpdatePlaylistFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(playlistsUpdatePlaylistBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -7189,7 +9290,8 @@ var (
 		},
 	}
 	playlistsCreatePlaylistFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	playlistsDeletePlaylistFlag = struct {
 		UID string
@@ -7205,8 +9307,9 @@ var (
 		Query string
 	}{}
 	playlistsUpdatePlaylistFlag = struct {
-		Body string
-		UID  string
+		Body                   string
+		UID                    string
+		DescribeBodyJSONSchema bool
 	}{}
 	provisioningCmd = &cobra.Command{
 		Use:               "provisioning",
@@ -7767,6 +9870,176 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	provisioningPostAlertRuleBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProvisionedAlertRule",
+  "type": "object",
+  "properties": {
+    "annotations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "condition": {
+      "type": "string"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "datasourceUid": {
+            "type": "string"
+          },
+          "model": {},
+          "queryType": {
+            "type": "string"
+          },
+          "refId": {
+            "type": "string"
+          },
+          "relativeTimeRange": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "number"
+              },
+              "to": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "execErrState": {
+      "type": "string",
+      "enum": [
+        "OK",
+        "Alerting",
+        "Error"
+      ]
+    },
+    "folderUID": {
+      "type": "string"
+    },
+    "for": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "isPaused": {
+      "type": "boolean"
+    },
+    "keep_firing_for": {
+      "type": "string"
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "missingSeriesEvalsToResolve": {
+      "type": "number"
+    },
+    "noDataState": {
+      "type": "string",
+      "enum": [
+        "Alerting",
+        "NoData",
+        "OK"
+      ]
+    },
+    "notification_settings": {
+      "type": "object",
+      "properties": {
+        "active_time_intervals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "group_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "group_interval": {
+          "type": "string"
+        },
+        "group_wait": {
+          "type": "string"
+        },
+        "mute_time_intervals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "receiver": {
+          "type": "string"
+        },
+        "repeat_interval": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "receiver"
+      ]
+    },
+    "orgID": {
+      "type": "number"
+    },
+    "provenance": {
+      "type": "string"
+    },
+    "record": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "metric": {
+          "type": "string"
+        },
+        "target_datasource_uid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "from",
+        "metric"
+      ]
+    },
+    "ruleGroup": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "uid": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "condition",
+    "data",
+    "execErrState",
+    "folderUID",
+    "for",
+    "noDataState",
+    "orgID",
+    "ruleGroup",
+    "title"
+  ]
+}`
 	provisioningPostAlertRuleCmd = &cobra.Command{
 		Use: "post-alert-rule",
 		Long: longHelp(
@@ -7827,6 +10100,12 @@ var (
   title                    required`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if provisioningPostAlertRuleFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(provisioningPostAlertRuleBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -7857,6 +10136,53 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	provisioningPostContactpointsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EmbeddedContactPoint",
+  "type": "object",
+  "properties": {
+    "disableResolveMessage": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "string"
+    },
+    "settings": {},
+    "type": {
+      "type": "string",
+      "enum": [
+        "alertmanager",
+        "dingding",
+        "discord",
+        "email",
+        "googlechat",
+        "kafka",
+        "line",
+        "opsgenie",
+        "pagerduty",
+        "pushover",
+        "sensugo",
+        "slack",
+        "teams",
+        "telegram",
+        "threema",
+        "victorops",
+        "webhook",
+        "wecom"
+      ]
+    },
+    "uid": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "settings",
+    "type"
+  ]
+}`
 	provisioningPostContactpointsCmd = &cobra.Command{
 		Use: "post-contactpoints",
 		Long: longHelp(
@@ -7873,6 +10199,12 @@ var (
   type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if provisioningPostContactpointsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(provisioningPostContactpointsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -7903,6 +10235,65 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	provisioningPostMuteTimingBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MuteTimeInterval",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "time_intervals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "days_of_month": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "location": {
+            "type": "string"
+          },
+          "months": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "times": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "end_time": {
+                  "type": "string"
+                },
+                "start_time": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "weekdays": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "years": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}`
 	provisioningPostMuteTimingCmd = &cobra.Command{
 		Use: "post-mute-timing",
 		Long: longHelp(
@@ -7922,6 +10313,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if provisioningPostMuteTimingFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(provisioningPostMuteTimingBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -7952,6 +10349,176 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	provisioningPutAlertRuleBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProvisionedAlertRule",
+  "type": "object",
+  "properties": {
+    "annotations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "condition": {
+      "type": "string"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "datasourceUid": {
+            "type": "string"
+          },
+          "model": {},
+          "queryType": {
+            "type": "string"
+          },
+          "refId": {
+            "type": "string"
+          },
+          "relativeTimeRange": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "number"
+              },
+              "to": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "execErrState": {
+      "type": "string",
+      "enum": [
+        "OK",
+        "Alerting",
+        "Error"
+      ]
+    },
+    "folderUID": {
+      "type": "string"
+    },
+    "for": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "isPaused": {
+      "type": "boolean"
+    },
+    "keep_firing_for": {
+      "type": "string"
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "missingSeriesEvalsToResolve": {
+      "type": "number"
+    },
+    "noDataState": {
+      "type": "string",
+      "enum": [
+        "Alerting",
+        "NoData",
+        "OK"
+      ]
+    },
+    "notification_settings": {
+      "type": "object",
+      "properties": {
+        "active_time_intervals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "group_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "group_interval": {
+          "type": "string"
+        },
+        "group_wait": {
+          "type": "string"
+        },
+        "mute_time_intervals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "receiver": {
+          "type": "string"
+        },
+        "repeat_interval": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "receiver"
+      ]
+    },
+    "orgID": {
+      "type": "number"
+    },
+    "provenance": {
+      "type": "string"
+    },
+    "record": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "metric": {
+          "type": "string"
+        },
+        "target_datasource_uid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "from",
+        "metric"
+      ]
+    },
+    "ruleGroup": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "uid": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "condition",
+    "data",
+    "execErrState",
+    "folderUID",
+    "for",
+    "noDataState",
+    "orgID",
+    "ruleGroup",
+    "title"
+  ]
+}`
 	provisioningPutAlertRuleCmd = &cobra.Command{
 		Use: "put-alert-rule",
 		Long: longHelp(
@@ -8012,6 +10579,12 @@ var (
   title                    required`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if provisioningPutAlertRuleFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(provisioningPutAlertRuleBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -8043,6 +10616,193 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	provisioningPutAlertRuleGroupBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AlertRuleGroup",
+  "type": "object",
+  "properties": {
+    "folderUid": {
+      "type": "string"
+    },
+    "interval": {
+      "type": "number"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "annotations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "condition": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "datasourceUid": {
+                  "type": "string"
+                },
+                "model": {},
+                "queryType": {
+                  "type": "string"
+                },
+                "refId": {
+                  "type": "string"
+                },
+                "relativeTimeRange": {
+                  "type": "object",
+                  "properties": {
+                    "from": {
+                      "type": "number"
+                    },
+                    "to": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "execErrState": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "Alerting",
+              "Error"
+            ]
+          },
+          "folderUID": {
+            "type": "string"
+          },
+          "for": {
+            "type": "string"
+          },
+          "id": {
+            "type": "number"
+          },
+          "isPaused": {
+            "type": "boolean"
+          },
+          "keep_firing_for": {
+            "type": "string"
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "missingSeriesEvalsToResolve": {
+            "type": "number"
+          },
+          "noDataState": {
+            "type": "string",
+            "enum": [
+              "Alerting",
+              "NoData",
+              "OK"
+            ]
+          },
+          "notification_settings": {
+            "type": "object",
+            "properties": {
+              "active_time_intervals": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "group_by": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "group_interval": {
+                "type": "string"
+              },
+              "group_wait": {
+                "type": "string"
+              },
+              "mute_time_intervals": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "receiver": {
+                "type": "string"
+              },
+              "repeat_interval": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "receiver"
+            ]
+          },
+          "orgID": {
+            "type": "number"
+          },
+          "provenance": {
+            "type": "string"
+          },
+          "record": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "metric": {
+                "type": "string"
+              },
+              "target_datasource_uid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "from",
+              "metric"
+            ]
+          },
+          "ruleGroup": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "uid": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "condition",
+          "data",
+          "execErrState",
+          "folderUID",
+          "for",
+          "noDataState",
+          "orgID",
+          "ruleGroup",
+          "title"
+        ]
+      }
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}`
 	provisioningPutAlertRuleGroupCmd = &cobra.Command{
 		Use: "put-alert-rule-group",
 		Long: longHelp(
@@ -8087,6 +10847,12 @@ var (
   rules[].title            required`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if provisioningPutAlertRuleGroupFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(provisioningPutAlertRuleGroupBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -8119,6 +10885,53 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	provisioningPutContactpointBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EmbeddedContactPoint",
+  "type": "object",
+  "properties": {
+    "disableResolveMessage": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "string"
+    },
+    "settings": {},
+    "type": {
+      "type": "string",
+      "enum": [
+        "alertmanager",
+        "dingding",
+        "discord",
+        "email",
+        "googlechat",
+        "kafka",
+        "line",
+        "opsgenie",
+        "pagerduty",
+        "pushover",
+        "sensugo",
+        "slack",
+        "teams",
+        "telegram",
+        "threema",
+        "victorops",
+        "webhook",
+        "wecom"
+      ]
+    },
+    "uid": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "settings",
+    "type"
+  ]
+}`
 	provisioningPutContactpointCmd = &cobra.Command{
 		Use: "put-contactpoint",
 		Long: longHelp(
@@ -8135,6 +10948,12 @@ var (
   type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if provisioningPutContactpointFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(provisioningPutContactpointBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -8166,6 +10985,65 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	provisioningPutMuteTimingBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MuteTimeInterval",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "time_intervals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "days_of_month": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "location": {
+            "type": "string"
+          },
+          "months": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "times": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "end_time": {
+                  "type": "string"
+                },
+                "start_time": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "weekdays": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "years": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}`
 	provisioningPutMuteTimingCmd = &cobra.Command{
 		Use: "put-mute-timing",
 		Long: longHelp(
@@ -8185,6 +11063,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if provisioningPutMuteTimingFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(provisioningPutMuteTimingBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -8216,6 +11100,101 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	provisioningPutPolicyTreeBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Route",
+  "type": "object",
+  "properties": {
+    "active_time_intervals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "continue": {
+      "type": "boolean"
+    },
+    "group_by": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "group_interval": {
+      "type": "string"
+    },
+    "group_wait": {
+      "type": "string"
+    },
+    "match": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "match_re": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "matchers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "isEqual": {
+            "type": "boolean"
+          },
+          "isRegex": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "isRegex",
+          "name",
+          "value"
+        ]
+      }
+    },
+    "mute_time_intervals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "object_matchers": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "provenance": {
+      "type": "string"
+    },
+    "receiver": {
+      "type": "string"
+    },
+    "repeat_interval": {
+      "type": "string"
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}`
 	provisioningPutPolicyTreeCmd = &cobra.Command{
 		Use: "put-policy-tree",
 		Long: longHelp(
@@ -8255,6 +11234,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if provisioningPutPolicyTreeFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(provisioningPutPolicyTreeBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -8285,6 +11270,19 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	provisioningPutTemplateBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NotificationTemplateContent",
+  "type": "object",
+  "properties": {
+    "template": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    }
+  }
+}`
 	provisioningPutTemplateCmd = &cobra.Command{
 		Use: "put-template",
 		Long: longHelp(
@@ -8295,6 +11293,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if provisioningPutTemplateFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(provisioningPutTemplateBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -8420,46 +11424,55 @@ var (
 		Name string
 	}{}
 	provisioningPostAlertRuleFlag = struct {
-		Body               string
-		XDisableProvenance string
+		Body                   string
+		XDisableProvenance     string
+		DescribeBodyJSONSchema bool
 	}{}
 	provisioningPostContactpointsFlag = struct {
-		Body               string
-		XDisableProvenance string
+		Body                   string
+		XDisableProvenance     string
+		DescribeBodyJSONSchema bool
 	}{}
 	provisioningPostMuteTimingFlag = struct {
-		Body               string
-		XDisableProvenance string
+		Body                   string
+		XDisableProvenance     string
+		DescribeBodyJSONSchema bool
 	}{}
 	provisioningPutAlertRuleFlag = struct {
-		Body               string
-		UID                string
-		XDisableProvenance string
+		Body                   string
+		UID                    string
+		XDisableProvenance     string
+		DescribeBodyJSONSchema bool
 	}{}
 	provisioningPutAlertRuleGroupFlag = struct {
-		Body               string
-		FolderUID          string
-		Group              string
-		XDisableProvenance string
+		Body                   string
+		FolderUID              string
+		Group                  string
+		XDisableProvenance     string
+		DescribeBodyJSONSchema bool
 	}{}
 	provisioningPutContactpointFlag = struct {
-		Body               string
-		UID                string
-		XDisableProvenance string
+		Body                   string
+		UID                    string
+		XDisableProvenance     string
+		DescribeBodyJSONSchema bool
 	}{}
 	provisioningPutMuteTimingFlag = struct {
-		Body               string
-		XDisableProvenance string
-		Name               string
+		Body                   string
+		XDisableProvenance     string
+		Name                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	provisioningPutPolicyTreeFlag = struct {
-		Body               string
-		XDisableProvenance string
+		Body                   string
+		XDisableProvenance     string
+		DescribeBodyJSONSchema bool
 	}{}
 	provisioningPutTemplateFlag = struct {
-		Body               string
-		XDisableProvenance string
-		Name               string
+		Body                   string
+		XDisableProvenance     string
+		Name                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	queryHistoryCmd = &cobra.Command{
 		Use:               "query-history",
@@ -8468,6 +11481,20 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	queryHistoryCreateQueryBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateQueryInQueryHistoryCommand",
+  "type": "object",
+  "properties": {
+    "datasourceUid": {
+      "type": "string"
+    },
+    "queries": {}
+  },
+  "required": [
+    "queries"
+  ]
+}`
 	queryHistoryCreateQueryCmd = &cobra.Command{
 		Use:   "create-query",
 		Short: "Adds query to query history",
@@ -8482,6 +11509,12 @@ var (
   queries                  required`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if queryHistoryCreateQueryFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(queryHistoryCreateQueryBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -8541,6 +11574,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	queryHistoryPatchQueryCommentBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PatchQueryCommentInQueryHistoryCommand",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    }
+  }
+}`
 	queryHistoryPatchQueryCommentCmd = &cobra.Command{
 		Use:   "patch-query-comment",
 		Short: "Updates comment for query in query history",
@@ -8553,6 +11596,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if queryHistoryPatchQueryCommentFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(queryHistoryPatchQueryCommentBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -8676,14 +11725,16 @@ var (
 		},
 	}
 	queryHistoryCreateQueryFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	queryHistoryDeleteQueryFlag = struct {
 		QueryHistoryUID string
 	}{}
 	queryHistoryPatchQueryCommentFlag = struct {
-		Body            string
-		QueryHistoryUID string
+		Body                   string
+		QueryHistoryUID        string
+		DescribeBodyJSONSchema bool
 	}{}
 	queryHistorySearchQueriesFlag = struct {
 		DatasourceUID []string
@@ -8820,6 +11871,19 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	quotaUpdateOrgQuotaBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateQuotaCmd",
+  "type": "object",
+  "properties": {
+    "limit": {
+      "type": "number"
+    },
+    "target": {
+      "type": "string"
+    }
+  }
+}`
 	quotaUpdateOrgQuotaCmd = &cobra.Command{
 		Use: "update-org-quota",
 		Long: longHelp(
@@ -8830,6 +11894,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if quotaUpdateOrgQuotaFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(quotaUpdateOrgQuotaBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -8861,6 +11931,19 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	quotaUpdateUserQuotaBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateQuotaCmd",
+  "type": "object",
+  "properties": {
+    "limit": {
+      "type": "number"
+    },
+    "target": {
+      "type": "string"
+    }
+  }
+}`
 	quotaUpdateUserQuotaCmd = &cobra.Command{
 		Use: "update-user-quota",
 		Long: longHelp(
@@ -8871,6 +11954,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if quotaUpdateUserQuotaFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(quotaUpdateUserQuotaBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -8909,14 +11998,16 @@ var (
 		UserID int64
 	}{}
 	quotaUpdateOrgQuotaFlag = struct {
-		Body        string
-		OrgID       int64
-		QuotaTarget string
+		Body                   string
+		OrgID                  int64
+		QuotaTarget            string
+		DescribeBodyJSONSchema bool
 	}{}
 	quotaUpdateUserQuotaFlag = struct {
-		Body        string
-		QuotaTarget string
-		UserID      int64
+		Body                   string
+		QuotaTarget            string
+		UserID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	recordingRulesCmd = &cobra.Command{
 		Use:               "recording-rules",
@@ -8925,6 +12016,47 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	recordingRulesCreateRecordingRuleBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RecordingRuleJSON",
+  "type": "object",
+  "properties": {
+    "active": {
+      "type": "boolean"
+    },
+    "count": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "string"
+    },
+    "dest_data_source_uid": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "interval": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "prom_name": {
+      "type": "string"
+    },
+    "queries": {
+      "type": "array",
+      "items": {}
+    },
+    "range": {
+      "type": "number"
+    },
+    "target_ref_id": {
+      "type": "string"
+    }
+  }
+}`
 	recordingRulesCreateRecordingRuleCmd = &cobra.Command{
 		Use:   "create-recording-rule",
 		Short: "Creates a recording rule that is then registered and started",
@@ -8946,6 +12078,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if recordingRulesCreateRecordingRuleFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(recordingRulesCreateRecordingRuleBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -8975,6 +12113,22 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	recordingRulesCreateRecordingRuleWriteTargetBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PrometheusRemoteWriteTargetJSON",
+  "type": "object",
+  "properties": {
+    "data_source_uid": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "remote_write_path": {
+      "type": "string"
+    }
+  }
+}`
 	recordingRulesCreateRecordingRuleWriteTargetCmd = &cobra.Command{
 		Use:   "create-recording-rule-write-target",
 		Short: "Creates a remote write target",
@@ -8989,6 +12143,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if recordingRulesCreateRecordingRuleWriteTargetFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(recordingRulesCreateRecordingRuleWriteTargetBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -9116,6 +12276,47 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	recordingRulesTestCreateRecordingRuleBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RecordingRuleJSON",
+  "type": "object",
+  "properties": {
+    "active": {
+      "type": "boolean"
+    },
+    "count": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "string"
+    },
+    "dest_data_source_uid": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "interval": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "prom_name": {
+      "type": "string"
+    },
+    "queries": {
+      "type": "array",
+      "items": {}
+    },
+    "range": {
+      "type": "number"
+    },
+    "target_ref_id": {
+      "type": "string"
+    }
+  }
+}`
 	recordingRulesTestCreateRecordingRuleCmd = &cobra.Command{
 		Use:   "test-create-recording-rule",
 		Short: "Tests a recording rule",
@@ -9137,6 +12338,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if recordingRulesTestCreateRecordingRuleFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(recordingRulesTestCreateRecordingRuleBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -9166,6 +12373,47 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	recordingRulesUpdateRecordingRuleBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RecordingRuleJSON",
+  "type": "object",
+  "properties": {
+    "active": {
+      "type": "boolean"
+    },
+    "count": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "string"
+    },
+    "dest_data_source_uid": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "interval": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "prom_name": {
+      "type": "string"
+    },
+    "queries": {
+      "type": "array",
+      "items": {}
+    },
+    "range": {
+      "type": "number"
+    },
+    "target_ref_id": {
+      "type": "string"
+    }
+  }
+}`
 	recordingRulesUpdateRecordingRuleCmd = &cobra.Command{
 		Use:   "update-recording-rule",
 		Short: "Updates the active status of a rule",
@@ -9187,6 +12435,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if recordingRulesUpdateRecordingRuleFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(recordingRulesUpdateRecordingRuleBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -9217,19 +12471,23 @@ var (
 		},
 	}
 	recordingRulesCreateRecordingRuleFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	recordingRulesCreateRecordingRuleWriteTargetFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	recordingRulesDeleteRecordingRuleFlag = struct {
 		RecordingRuleID int64
 	}{}
 	recordingRulesTestCreateRecordingRuleFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	recordingRulesUpdateRecordingRuleFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	reportsCmd = &cobra.Command{
 		Use:               "reports",
@@ -9238,6 +12496,137 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	reportsCreateReportBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateOrUpdateReport",
+  "type": "object",
+  "properties": {
+    "dashboards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dashboard": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "uid": {
+                "type": "string"
+              }
+            }
+          },
+          "reportVariables": {},
+          "timeRange": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "enableCsv": {
+      "type": "boolean"
+    },
+    "enableDashboardUrl": {
+      "type": "boolean"
+    },
+    "formats": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "message": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "string"
+        },
+        "orientation": {
+          "type": "string"
+        },
+        "pdfCombineOneFile": {
+          "type": "boolean"
+        },
+        "pdfShowTemplateVariables": {
+          "type": "boolean"
+        },
+        "timeRange": {
+          "type": "object",
+          "properties": {
+            "from": {
+              "type": "string"
+            },
+            "to": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "recipients": {
+      "type": "string"
+    },
+    "replyTo": {
+      "type": "string"
+    },
+    "scaleFactor": {
+      "type": "number"
+    },
+    "schedule": {
+      "type": "object",
+      "properties": {
+        "dayOfMonth": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "frequency": {
+          "type": "string"
+        },
+        "intervalAmount": {
+          "type": "number"
+        },
+        "intervalFrequency": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "timeZone": {
+          "type": "string"
+        },
+        "workdaysOnly": {
+          "type": "boolean"
+        }
+      }
+    },
+    "state": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    }
+  }
+}`
 	reportsCreateReportCmd = &cobra.Command{
 		Use:   "create-report",
 		Short: "Creates a report",
@@ -9284,6 +12673,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if reportsCreateReportFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(reportsCreateReportBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -9551,6 +12946,48 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	reportsSaveReportSettingsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReportSettings",
+  "type": "object",
+  "properties": {
+    "branding": {
+      "type": "object",
+      "properties": {
+        "emailFooterLink": {
+          "type": "string"
+        },
+        "emailFooterMode": {
+          "type": "string"
+        },
+        "emailFooterText": {
+          "type": "string"
+        },
+        "emailLogoUrl": {
+          "type": "string"
+        },
+        "reportLogoUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "embeddedImageTheme": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "orgId": {
+      "type": "number"
+    },
+    "pdfTheme": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "number"
+    }
+  }
+}`
 	reportsSaveReportSettingsCmd = &cobra.Command{
 		Use:   "save-report-settings",
 		Short: "Saves settings",
@@ -9575,6 +13012,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if reportsSaveReportSettingsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(reportsSaveReportSettingsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -9604,6 +13047,22 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	reportsSendReportBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReportEmail",
+  "type": "object",
+  "properties": {
+    "emails": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "useEmailsFromReport": {
+      "type": "boolean"
+    }
+  }
+}`
 	reportsSendReportCmd = &cobra.Command{
 		Use:   "send-report",
 		Short: "Sends a report",
@@ -9620,6 +13079,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if reportsSendReportFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(reportsSendReportBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -9649,6 +13114,137 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	reportsSendTestEmailBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateOrUpdateReport",
+  "type": "object",
+  "properties": {
+    "dashboards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dashboard": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "uid": {
+                "type": "string"
+              }
+            }
+          },
+          "reportVariables": {},
+          "timeRange": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "enableCsv": {
+      "type": "boolean"
+    },
+    "enableDashboardUrl": {
+      "type": "boolean"
+    },
+    "formats": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "message": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "string"
+        },
+        "orientation": {
+          "type": "string"
+        },
+        "pdfCombineOneFile": {
+          "type": "boolean"
+        },
+        "pdfShowTemplateVariables": {
+          "type": "boolean"
+        },
+        "timeRange": {
+          "type": "object",
+          "properties": {
+            "from": {
+              "type": "string"
+            },
+            "to": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "recipients": {
+      "type": "string"
+    },
+    "replyTo": {
+      "type": "string"
+    },
+    "scaleFactor": {
+      "type": "number"
+    },
+    "schedule": {
+      "type": "object",
+      "properties": {
+        "dayOfMonth": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "frequency": {
+          "type": "string"
+        },
+        "intervalAmount": {
+          "type": "number"
+        },
+        "intervalFrequency": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "timeZone": {
+          "type": "string"
+        },
+        "workdaysOnly": {
+          "type": "boolean"
+        }
+      }
+    },
+    "state": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    }
+  }
+}`
 	reportsSendTestEmailCmd = &cobra.Command{
 		Use:   "send-test-email",
 		Short: "Sends test report via email",
@@ -9695,6 +13291,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if reportsSendTestEmailFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(reportsSendTestEmailBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -9724,6 +13326,137 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	reportsUpdateReportBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateOrUpdateReport",
+  "type": "object",
+  "properties": {
+    "dashboards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dashboard": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "uid": {
+                "type": "string"
+              }
+            }
+          },
+          "reportVariables": {},
+          "timeRange": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "enableCsv": {
+      "type": "boolean"
+    },
+    "enableDashboardUrl": {
+      "type": "boolean"
+    },
+    "formats": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "message": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "string"
+        },
+        "orientation": {
+          "type": "string"
+        },
+        "pdfCombineOneFile": {
+          "type": "boolean"
+        },
+        "pdfShowTemplateVariables": {
+          "type": "boolean"
+        },
+        "timeRange": {
+          "type": "object",
+          "properties": {
+            "from": {
+              "type": "string"
+            },
+            "to": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "recipients": {
+      "type": "string"
+    },
+    "replyTo": {
+      "type": "string"
+    },
+    "scaleFactor": {
+      "type": "number"
+    },
+    "schedule": {
+      "type": "object",
+      "properties": {
+        "dayOfMonth": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "frequency": {
+          "type": "string"
+        },
+        "intervalAmount": {
+          "type": "number"
+        },
+        "intervalFrequency": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "timeZone": {
+          "type": "string"
+        },
+        "workdaysOnly": {
+          "type": "boolean"
+        }
+      }
+    },
+    "state": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    }
+  }
+}`
 	reportsUpdateReportCmd = &cobra.Command{
 		Use:   "update-report",
 		Short: "Updates a report",
@@ -9771,6 +13504,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if reportsUpdateReportFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(reportsUpdateReportBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -9802,7 +13541,8 @@ var (
 		},
 	}
 	reportsCreateReportFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	reportsDeleteReportFlag = struct {
 		ID int64
@@ -9826,17 +13566,21 @@ var (
 		Title         string
 	}{}
 	reportsSaveReportSettingsFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	reportsSendReportFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	reportsSendTestEmailFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	reportsUpdateReportFlag = struct {
-		Body string
-		ID   int64
+		Body                   string
+		ID                     int64
+		DescribeBodyJSONSchema bool
 	}{}
 	samlCmd = &cobra.Command{
 		Use:               "saml",
@@ -10073,6 +13817,28 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	serviceAccountsCreateServiceAccountBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateServiceAccountForm",
+  "type": "object",
+  "properties": {
+    "isDisabled": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "None",
+        "Viewer",
+        "Editor",
+        "Admin"
+      ]
+    }
+  }
+}`
 	serviceAccountsCreateServiceAccountCmd = &cobra.Command{
 		Use: "create-service-account",
 		Long: longHelp(
@@ -10085,6 +13851,12 @@ var (
   role                     enum: None | Viewer | Editor | Admin`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if serviceAccountsCreateServiceAccountFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(serviceAccountsCreateServiceAccountBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -10114,6 +13886,19 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	serviceAccountsCreateTokenBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AddServiceAccountTokenCommand",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "secondsToLive": {
+      "type": "number"
+    }
+  }
+}`
 	serviceAccountsCreateTokenCmd = &cobra.Command{
 		Use: "create-token",
 		Long: longHelp(
@@ -10124,6 +13909,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if serviceAccountsCreateTokenFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(serviceAccountsCreateTokenBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -10306,6 +14097,31 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	serviceAccountsUpdateServiceAccountBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateServiceAccountForm",
+  "type": "object",
+  "properties": {
+    "isDisabled": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "None",
+        "Viewer",
+        "Editor",
+        "Admin"
+      ]
+    },
+    "serviceAccountId": {
+      "type": "number"
+    }
+  }
+}`
 	serviceAccountsUpdateServiceAccountCmd = &cobra.Command{
 		Use: "update-service-account",
 		Long: longHelp(
@@ -10319,6 +14135,12 @@ var (
   role                     enum: None | Viewer | Editor | Admin`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if serviceAccountsUpdateServiceAccountFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(serviceAccountsUpdateServiceAccountBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -10350,11 +14172,13 @@ var (
 		},
 	}
 	serviceAccountsCreateServiceAccountFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	serviceAccountsCreateTokenFlag = struct {
-		Body             string
-		ServiceAccountID int64
+		Body                   string
+		ServiceAccountID       int64
+		DescribeBodyJSONSchema bool
 	}{}
 	serviceAccountsDeleteServiceAccountFlag = struct {
 		ServiceAccountID int64
@@ -10377,8 +14201,9 @@ var (
 		Query         string
 	}{}
 	serviceAccountsUpdateServiceAccountFlag = struct {
-		Body             string
-		ServiceAccountID int64
+		Body                   string
+		ServiceAccountID       int64
+		DescribeBodyJSONSchema bool
 	}{}
 	signedInUserCmd = &cobra.Command{
 		Use:               "signed-in-user",
@@ -10387,6 +14212,19 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	signedInUserChangeUserPasswordBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ChangeUserPasswordCommand",
+  "type": "object",
+  "properties": {
+    "newPassword": {
+      "type": "string"
+    },
+    "oldPassword": {
+      "type": "string"
+    }
+  }
+}`
 	signedInUserChangeUserPasswordCmd = &cobra.Command{
 		Use:   "change-user-password",
 		Short: "Changes password",
@@ -10400,6 +14238,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if signedInUserChangeUserPasswordFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(signedInUserChangeUserPasswordBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -10585,6 +14429,67 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	signedInUserPatchUserPreferencesBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PatchPrefsCmd",
+  "type": "object",
+  "properties": {
+    "cookies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "homeDashboardId": {
+      "type": "number"
+    },
+    "homeDashboardUID": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "navbar": {
+      "type": "object",
+      "properties": {
+        "bookmarkUrls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "queryHistory": {
+      "type": "object",
+      "properties": {
+        "homeTab": {
+          "type": "string"
+        }
+      }
+    },
+    "regionalFormat": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "string",
+      "enum": [
+        "light",
+        "dark"
+      ]
+    },
+    "timezone": {
+      "type": "string",
+      "enum": [
+        "utc",
+        "browser"
+      ]
+    },
+    "weekStart": {
+      "type": "string"
+    }
+  }
+}`
 	signedInUserPatchUserPreferencesCmd = &cobra.Command{
 		Use:   "patch-user-preferences",
 		Short: "Patches user preferences",
@@ -10611,6 +14516,12 @@ var (
   timezone                 enum: utc | browser`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if signedInUserPatchUserPreferencesFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(signedInUserPatchUserPreferencesBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -10640,6 +14551,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	signedInUserRevokeUserAuthTokenBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RevokeAuthTokenCmd",
+  "type": "object",
+  "properties": {
+    "authTokenId": {
+      "type": "number"
+    }
+  }
+}`
 	signedInUserRevokeUserAuthTokenCmd = &cobra.Command{
 		Use:   "revoke-user-auth-token",
 		Short: "Revokes an auth token of the actual user",
@@ -10652,6 +14573,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if signedInUserRevokeUserAuthTokenFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(signedInUserRevokeUserAuthTokenBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -10767,6 +14694,25 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	signedInUserUpdateSignedInUserBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateUserCommand",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string"
+    },
+    "login": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "string"
+    }
+  }
+}`
 	signedInUserUpdateSignedInUserCmd = &cobra.Command{
 		Use:   "update-signed-in-user",
 		Short: "Updates signed in user",
@@ -10781,6 +14727,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if signedInUserUpdateSignedInUserFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(signedInUserUpdateSignedInUserBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -10810,6 +14762,68 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	signedInUserUpdateUserPreferencesBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdatePrefsCmd",
+  "type": "object",
+  "properties": {
+    "cookies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "homeDashboardId": {
+      "type": "number"
+    },
+    "homeDashboardUID": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "navbar": {
+      "type": "object",
+      "properties": {
+        "bookmarkUrls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "queryHistory": {
+      "type": "object",
+      "properties": {
+        "homeTab": {
+          "type": "string"
+        }
+      }
+    },
+    "regionalFormat": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "string",
+      "enum": [
+        "light",
+        "dark",
+        "system"
+      ]
+    },
+    "timezone": {
+      "type": "string",
+      "enum": [
+        "utc",
+        "browser"
+      ]
+    },
+    "weekStart": {
+      "type": "string"
+    }
+  }
+}`
 	signedInUserUpdateUserPreferencesCmd = &cobra.Command{
 		Use:   "update-user-preferences",
 		Short: "Updates user preferences",
@@ -10837,6 +14851,12 @@ var (
   timezone                 enum: utc | browser`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if signedInUserUpdateUserPreferencesFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(signedInUserUpdateUserPreferencesBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -10897,13 +14917,16 @@ var (
 		},
 	}
 	signedInUserChangeUserPasswordFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	signedInUserPatchUserPreferencesFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	signedInUserRevokeUserAuthTokenFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	signedInUserSetHelpFlagFlag = struct {
 		FlagID string
@@ -10915,10 +14938,12 @@ var (
 		DashboardUID string
 	}{}
 	signedInUserUpdateSignedInUserFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	signedInUserUpdateUserPreferencesFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	signedInUserUserSetUsingOrgFlag = struct {
 		OrgID int64
@@ -11085,6 +15110,20 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	ssoSettingsUpdateProviderSettingsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateProviderSettingsParamsBody",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "settings": {}
+  }
+}`
 	ssoSettingsUpdateProviderSettingsCmd = &cobra.Command{
 		Use:   "update-provider-settings",
 		Short: "Updates s s o settings",
@@ -11100,6 +15139,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if ssoSettingsUpdateProviderSettingsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(ssoSettingsUpdateProviderSettingsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -11137,8 +15182,9 @@ var (
 		Key string
 	}{}
 	ssoSettingsUpdateProviderSettingsFlag = struct {
-		Body string
-		Key  string
+		Body                   string
+		Key                    string
+		DescribeBodyJSONSchema bool
 	}{}
 	syncTeamGroupsCmd = &cobra.Command{
 		Use:               "sync-team-groups",
@@ -11147,6 +15193,16 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	syncTeamGroupsAddTeamGroupAPIBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TeamGroupMapping",
+  "type": "object",
+  "properties": {
+    "groupId": {
+      "type": "string"
+    }
+  }
+}`
 	syncTeamGroupsAddTeamGroupAPICmd = &cobra.Command{
 		Use:   "add-team-group-api",
 		Short: "Adds external group",
@@ -11158,6 +15214,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if syncTeamGroupsAddTeamGroupAPIFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(syncTeamGroupsAddTeamGroupAPIBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -11270,8 +15332,9 @@ var (
 		},
 	}
 	syncTeamGroupsAddTeamGroupAPIFlag = struct {
-		Body   string
-		TeamID int64
+		Body                   string
+		TeamID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	syncTeamGroupsGetTeamGroupsAPIFlag = struct {
 		TeamID int64
@@ -11294,6 +15357,19 @@ var (
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
 	}
+	teamsAddTeamMemberBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AddTeamMemberCommand",
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "userId"
+  ]
+}`
 	teamsAddTeamMemberCmd = &cobra.Command{
 		Use:   "add-team-member",
 		Short: "Adds team member",
@@ -11306,6 +15382,12 @@ var (
   userId                   required`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if teamsAddTeamMemberFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(teamsAddTeamMemberBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -11336,6 +15418,22 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	teamsCreateTeamBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateTeamCommand",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}`
 	teamsCreateTeamCmd = &cobra.Command{
 		Use:   "create-team",
 		Short: "Adds team",
@@ -11349,6 +15447,12 @@ var (
   name                     required`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if teamsCreateTeamFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(teamsCreateTeamBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -11487,6 +15591,25 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	teamsSetTeamMembershipsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SetTeamMembershipsCommand",
+  "type": "object",
+  "properties": {
+    "admins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}`
 	teamsSetTeamMembershipsCmd = &cobra.Command{
 		Use:   "set-team-memberships",
 		Short: "Sets team memberships",
@@ -11500,6 +15623,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if teamsSetTeamMembershipsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(teamsSetTeamMembershipsBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -11530,6 +15659,19 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	teamsUpdateTeamBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateTeamCommand",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}`
 	teamsUpdateTeamCmd = &cobra.Command{
 		Use:   "update-team",
 		Short: "Updates team",
@@ -11542,6 +15684,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if teamsUpdateTeamFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(teamsUpdateTeamBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -11572,6 +15720,16 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	teamsUpdateTeamMemberBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateTeamMemberCommand",
+  "type": "object",
+  "properties": {
+    "permission": {
+      "type": "number"
+    }
+  }
+}`
 	teamsUpdateTeamMemberCmd = &cobra.Command{
 		Use: "update-team-member",
 		Long: longHelp(
@@ -11581,6 +15739,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if teamsUpdateTeamMemberFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(teamsUpdateTeamMemberBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -11612,6 +15776,68 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	teamsUpdateTeamPreferencesBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdatePrefsCmd",
+  "type": "object",
+  "properties": {
+    "cookies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "homeDashboardId": {
+      "type": "number"
+    },
+    "homeDashboardUID": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "navbar": {
+      "type": "object",
+      "properties": {
+        "bookmarkUrls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "queryHistory": {
+      "type": "object",
+      "properties": {
+        "homeTab": {
+          "type": "string"
+        }
+      }
+    },
+    "regionalFormat": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "string",
+      "enum": [
+        "light",
+        "dark",
+        "system"
+      ]
+    },
+    "timezone": {
+      "type": "string",
+      "enum": [
+        "utc",
+        "browser"
+      ]
+    },
+    "weekStart": {
+      "type": "string"
+    }
+  }
+}`
 	teamsUpdateTeamPreferencesCmd = &cobra.Command{
 		Use:   "update-team-preferences",
 		Short: "Updates team preferences",
@@ -11638,6 +15864,12 @@ var (
   timezone                 enum: utc | browser`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if teamsUpdateTeamPreferencesFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(teamsUpdateTeamPreferencesBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -11669,11 +15901,13 @@ var (
 		},
 	}
 	teamsAddTeamMemberFlag = struct {
-		Body   string
-		TeamID string
+		Body                   string
+		TeamID                 string
+		DescribeBodyJSONSchema bool
 	}{}
 	teamsCreateTeamFlag = struct {
-		Body string
+		Body                   string
+		DescribeBodyJSONSchema bool
 	}{}
 	teamsGetTeamMembersFlag = struct {
 		TeamID string
@@ -11694,21 +15928,25 @@ var (
 		Sort          string
 	}{}
 	teamsSetTeamMembershipsFlag = struct {
-		Body   string
-		TeamID string
+		Body                   string
+		TeamID                 string
+		DescribeBodyJSONSchema bool
 	}{}
 	teamsUpdateTeamFlag = struct {
-		Body   string
-		TeamID string
+		Body                   string
+		TeamID                 string
+		DescribeBodyJSONSchema bool
 	}{}
 	teamsUpdateTeamMemberFlag = struct {
-		Body   string
-		TeamID string
-		UserID int64
+		Body                   string
+		TeamID                 string
+		UserID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 	teamsUpdateTeamPreferencesFlag = struct {
-		Body   string
-		TeamID string
+		Body                   string
+		TeamID                 string
+		DescribeBodyJSONSchema bool
 	}{}
 	userCmd = &cobra.Command{
 		Use:               "user",
@@ -11889,6 +16127,25 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	usersUpdateUserBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateUserCommand",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string"
+    },
+    "login": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "string"
+    }
+  }
+}`
 	usersUpdateUserCmd = &cobra.Command{
 		Use:   "update-user",
 		Short: "Updates user",
@@ -11904,6 +16161,12 @@ var (
 }`,
 		),
 		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if usersUpdateUserFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(usersUpdateUserBodyJSONSchema)
+			}
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -11948,8 +16211,9 @@ var (
 		Perpage int64
 	}{}
 	usersUpdateUserFlag = struct {
-		Body   string
-		UserID int64
+		Body                   string
+		UserID                 int64
+		DescribeBodyJSONSchema bool
 	}{}
 )
 
@@ -11963,14 +16227,17 @@ func init() {
 	accessControlAddTeamRoleCmd.MarkFlagRequired("body")
 	accessControlAddTeamRoleCmd.Flags().Int64Var(&accessControlAddTeamRoleFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlAddTeamRoleCmd.MarkFlagRequired("team-id")
+	accessControlAddTeamRoleCmd.Flags().BoolVar(&accessControlAddTeamRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlAddTeamRoleCmd)
 	accessControlAddUserRoleCmd.Flags().StringVar(&accessControlAddUserRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlAddUserRoleCmd.MarkFlagRequired("body")
 	accessControlAddUserRoleCmd.Flags().Int64Var(&accessControlAddUserRoleFlag.UserID, "user-id", 0, "UserID")
 	accessControlAddUserRoleCmd.MarkFlagRequired("user-id")
+	accessControlAddUserRoleCmd.Flags().BoolVar(&accessControlAddUserRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlAddUserRoleCmd)
 	accessControlCreateRoleCmd.Flags().StringVar(&accessControlCreateRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlCreateRoleCmd.MarkFlagRequired("body")
+	accessControlCreateRoleCmd.Flags().BoolVar(&accessControlCreateRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlCreateRoleCmd)
 	accessControlDeleteRoleCmd.Flags().BoolVar(&accessControlDeleteRoleFlag.Force, "force", false, "Force")
 	accessControlDeleteRoleCmd.Flags().BoolVar(&accessControlDeleteRoleFlag.Global, "global", false, "Global")
@@ -12000,12 +16267,14 @@ func init() {
 	accessControlCmd.AddCommand(accessControlListTeamRolesCmd)
 	accessControlListTeamsRolesCmd.Flags().StringVar(&accessControlListTeamsRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlListTeamsRolesCmd.MarkFlagRequired("body")
+	accessControlListTeamsRolesCmd.Flags().BoolVar(&accessControlListTeamsRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlListTeamsRolesCmd)
 	accessControlListUserRolesCmd.Flags().Int64Var(&accessControlListUserRolesFlag.UserID, "user-id", 0, "UserID")
 	accessControlListUserRolesCmd.MarkFlagRequired("user-id")
 	accessControlCmd.AddCommand(accessControlListUserRolesCmd)
 	accessControlListUsersRolesCmd.Flags().StringVar(&accessControlListUsersRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlListUsersRolesCmd.MarkFlagRequired("body")
+	accessControlListUsersRolesCmd.Flags().BoolVar(&accessControlListUsersRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlListUsersRolesCmd)
 	accessControlRemoveTeamRoleCmd.Flags().StringVar(&accessControlRemoveTeamRoleFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlRemoveTeamRoleCmd.MarkFlagRequired("role-uid")
@@ -12024,6 +16293,7 @@ func init() {
 	accessControlSetResourcePermissionsCmd.MarkFlagRequired("resource")
 	accessControlSetResourcePermissionsCmd.Flags().StringVar(&accessControlSetResourcePermissionsFlag.ResourceID, "resource-id", "", "ResourceID")
 	accessControlSetResourcePermissionsCmd.MarkFlagRequired("resource-id")
+	accessControlSetResourcePermissionsCmd.Flags().BoolVar(&accessControlSetResourcePermissionsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsCmd)
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().StringVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.MarkFlagRequired("body")
@@ -12033,6 +16303,7 @@ func init() {
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.MarkFlagRequired("resource")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().StringVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.ResourceID, "resource-id", "", "ResourceID")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.MarkFlagRequired("resource-id")
+	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForBuiltInRoleCmd)
 	accessControlSetResourcePermissionsForTeamCmd.Flags().StringVar(&accessControlSetResourcePermissionsForTeamFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetResourcePermissionsForTeamCmd.MarkFlagRequired("body")
@@ -12042,6 +16313,7 @@ func init() {
 	accessControlSetResourcePermissionsForTeamCmd.MarkFlagRequired("resource-id")
 	accessControlSetResourcePermissionsForTeamCmd.Flags().Int64Var(&accessControlSetResourcePermissionsForTeamFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlSetResourcePermissionsForTeamCmd.MarkFlagRequired("team-id")
+	accessControlSetResourcePermissionsForTeamCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForTeamFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForTeamCmd)
 	accessControlSetResourcePermissionsForUserCmd.Flags().StringVar(&accessControlSetResourcePermissionsForUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetResourcePermissionsForUserCmd.MarkFlagRequired("body")
@@ -12051,26 +16323,31 @@ func init() {
 	accessControlSetResourcePermissionsForUserCmd.MarkFlagRequired("resource-id")
 	accessControlSetResourcePermissionsForUserCmd.Flags().Int64Var(&accessControlSetResourcePermissionsForUserFlag.UserID, "user-id", 0, "UserID")
 	accessControlSetResourcePermissionsForUserCmd.MarkFlagRequired("user-id")
+	accessControlSetResourcePermissionsForUserCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForUserCmd)
 	accessControlSetRoleAssignmentsCmd.Flags().StringVar(&accessControlSetRoleAssignmentsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetRoleAssignmentsCmd.MarkFlagRequired("body")
 	accessControlSetRoleAssignmentsCmd.Flags().StringVar(&accessControlSetRoleAssignmentsFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlSetRoleAssignmentsCmd.MarkFlagRequired("role-uid")
+	accessControlSetRoleAssignmentsCmd.Flags().BoolVar(&accessControlSetRoleAssignmentsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlSetRoleAssignmentsCmd)
 	accessControlSetTeamRolesCmd.Flags().StringVar(&accessControlSetTeamRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetTeamRolesCmd.MarkFlagRequired("body")
 	accessControlSetTeamRolesCmd.Flags().Int64Var(&accessControlSetTeamRolesFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlSetTeamRolesCmd.MarkFlagRequired("team-id")
+	accessControlSetTeamRolesCmd.Flags().BoolVar(&accessControlSetTeamRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlSetTeamRolesCmd)
 	accessControlSetUserRolesCmd.Flags().StringVar(&accessControlSetUserRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetUserRolesCmd.MarkFlagRequired("body")
 	accessControlSetUserRolesCmd.Flags().Int64Var(&accessControlSetUserRolesFlag.UserID, "user-id", 0, "UserID")
 	accessControlSetUserRolesCmd.MarkFlagRequired("user-id")
+	accessControlSetUserRolesCmd.Flags().BoolVar(&accessControlSetUserRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlSetUserRolesCmd)
 	accessControlUpdateRoleCmd.Flags().StringVar(&accessControlUpdateRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlUpdateRoleCmd.MarkFlagRequired("body")
 	accessControlUpdateRoleCmd.Flags().StringVar(&accessControlUpdateRoleFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlUpdateRoleCmd.MarkFlagRequired("role-uid")
+	accessControlUpdateRoleCmd.Flags().BoolVar(&accessControlUpdateRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCmd.AddCommand(accessControlUpdateRoleCmd)
 	rootCmd.AddCommand(accessControlProvisioningCmd)
 	accessControlProvisioningCmd.AddCommand(accessControlProvisioningAdminProvisioningReloadAccessControlCmd)
@@ -12093,6 +16370,7 @@ func init() {
 	rootCmd.AddCommand(adminUsersCmd)
 	adminUsersAdminCreateUserCmd.Flags().StringVar(&adminUsersAdminCreateUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	adminUsersAdminCreateUserCmd.MarkFlagRequired("body")
+	adminUsersAdminCreateUserCmd.Flags().BoolVar(&adminUsersAdminCreateUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	adminUsersCmd.AddCommand(adminUsersAdminCreateUserCmd)
 	adminUsersAdminDeleteUserCmd.Flags().Int64Var(&adminUsersAdminDeleteUserFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminDeleteUserCmd.MarkFlagRequired("user-id")
@@ -12113,16 +16391,19 @@ func init() {
 	adminUsersAdminRevokeUserAuthTokenCmd.MarkFlagRequired("body")
 	adminUsersAdminRevokeUserAuthTokenCmd.Flags().Int64Var(&adminUsersAdminRevokeUserAuthTokenFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminRevokeUserAuthTokenCmd.MarkFlagRequired("user-id")
+	adminUsersAdminRevokeUserAuthTokenCmd.Flags().BoolVar(&adminUsersAdminRevokeUserAuthTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	adminUsersCmd.AddCommand(adminUsersAdminRevokeUserAuthTokenCmd)
 	adminUsersAdminUpdateUserPasswordCmd.Flags().StringVar(&adminUsersAdminUpdateUserPasswordFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	adminUsersAdminUpdateUserPasswordCmd.MarkFlagRequired("body")
 	adminUsersAdminUpdateUserPasswordCmd.Flags().Int64Var(&adminUsersAdminUpdateUserPasswordFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminUpdateUserPasswordCmd.MarkFlagRequired("user-id")
+	adminUsersAdminUpdateUserPasswordCmd.Flags().BoolVar(&adminUsersAdminUpdateUserPasswordFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	adminUsersCmd.AddCommand(adminUsersAdminUpdateUserPasswordCmd)
 	adminUsersAdminUpdateUserPermissionsCmd.Flags().StringVar(&adminUsersAdminUpdateUserPermissionsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	adminUsersAdminUpdateUserPermissionsCmd.MarkFlagRequired("body")
 	adminUsersAdminUpdateUserPermissionsCmd.Flags().Int64Var(&adminUsersAdminUpdateUserPermissionsFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminUpdateUserPermissionsCmd.MarkFlagRequired("user-id")
+	adminUsersAdminUpdateUserPermissionsCmd.Flags().BoolVar(&adminUsersAdminUpdateUserPermissionsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	adminUsersCmd.AddCommand(adminUsersAdminUpdateUserPermissionsCmd)
 	rootCmd.AddCommand(annotationsCmd)
 	annotationsGetAnnotationTagsCmd.Flags().StringVar(&annotationsGetAnnotationTagsFlag.Limit, "limit", "", "Max limit for results returned. Default: \"100\"")
@@ -12144,22 +16425,27 @@ func init() {
 	annotationsCmd.AddCommand(annotationsGetAnnotationsCmd)
 	annotationsMassDeleteAnnotationsCmd.Flags().StringVar(&annotationsMassDeleteAnnotationsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	annotationsMassDeleteAnnotationsCmd.MarkFlagRequired("body")
+	annotationsMassDeleteAnnotationsCmd.Flags().BoolVar(&annotationsMassDeleteAnnotationsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsCmd.AddCommand(annotationsMassDeleteAnnotationsCmd)
 	annotationsPatchAnnotationCmd.Flags().StringVar(&annotationsPatchAnnotationFlag.AnnotationID, "annotation-id", "", "AnnotationID")
 	annotationsPatchAnnotationCmd.MarkFlagRequired("annotation-id")
 	annotationsPatchAnnotationCmd.Flags().StringVar(&annotationsPatchAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	annotationsPatchAnnotationCmd.MarkFlagRequired("body")
+	annotationsPatchAnnotationCmd.Flags().BoolVar(&annotationsPatchAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsCmd.AddCommand(annotationsPatchAnnotationCmd)
 	annotationsPostAnnotationCmd.Flags().StringVar(&annotationsPostAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	annotationsPostAnnotationCmd.MarkFlagRequired("body")
+	annotationsPostAnnotationCmd.Flags().BoolVar(&annotationsPostAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsCmd.AddCommand(annotationsPostAnnotationCmd)
 	annotationsPostGraphiteAnnotationCmd.Flags().StringVar(&annotationsPostGraphiteAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	annotationsPostGraphiteAnnotationCmd.MarkFlagRequired("body")
+	annotationsPostGraphiteAnnotationCmd.Flags().BoolVar(&annotationsPostGraphiteAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsCmd.AddCommand(annotationsPostGraphiteAnnotationCmd)
 	annotationsUpdateAnnotationCmd.Flags().StringVar(&annotationsUpdateAnnotationFlag.AnnotationID, "annotation-id", "", "AnnotationID")
 	annotationsUpdateAnnotationCmd.MarkFlagRequired("annotation-id")
 	annotationsUpdateAnnotationCmd.Flags().StringVar(&annotationsUpdateAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	annotationsUpdateAnnotationCmd.MarkFlagRequired("body")
+	annotationsUpdateAnnotationCmd.Flags().BoolVar(&annotationsUpdateAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsCmd.AddCommand(annotationsUpdateAnnotationCmd)
 	rootCmd.AddCommand(convertPrometheusCmd)
 	convertPrometheusConvertPrometheusCortexDeleteNamespaceCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexDeleteNamespaceFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
@@ -12189,6 +16475,7 @@ func init() {
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingNotificationSettings, "x-grafana-alerting-notification-settings", "", "XGrafanaAlertingNotificationSettings")
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingRecordingRulesPaused, "x-grafana-alerting-recording-rules-paused", false, "XGrafanaAlertingRecordingRulesPaused")
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingTargetDatasourceUID, "x-grafana-alerting-target-datasource-uid", "", "XGrafanaAlertingTargetDatasourceUID")
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexPostRuleGroupCmd)
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexPostRuleGroupsCmd)
 	convertPrometheusConvertPrometheusDeleteNamespaceCmd.Flags().StringVar(&convertPrometheusConvertPrometheusDeleteNamespaceFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
@@ -12218,16 +16505,19 @@ func init() {
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingNotificationSettings, "x-grafana-alerting-notification-settings", "", "XGrafanaAlertingNotificationSettings")
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingRecordingRulesPaused, "x-grafana-alerting-recording-rules-paused", false, "XGrafanaAlertingRecordingRulesPaused")
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingTargetDatasourceUID, "x-grafana-alerting-target-datasource-uid", "", "XGrafanaAlertingTargetDatasourceUID")
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusPostRuleGroupCmd)
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusPostRuleGroupsCmd)
 	rootCmd.AddCommand(dashboardsCmd)
 	dashboardsCreateDashboardSnapshotCmd.Flags().StringVar(&dashboardsCreateDashboardSnapshotFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsCreateDashboardSnapshotCmd.MarkFlagRequired("body")
+	dashboardsCreateDashboardSnapshotCmd.Flags().BoolVar(&dashboardsCreateDashboardSnapshotFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsCmd.AddCommand(dashboardsCreateDashboardSnapshotCmd)
 	dashboardsCreatePublicDashboardCmd.Flags().StringVar(&dashboardsCreatePublicDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsCreatePublicDashboardCmd.MarkFlagRequired("body")
 	dashboardsCreatePublicDashboardCmd.Flags().StringVar(&dashboardsCreatePublicDashboardFlag.DashboardUID, "dashboard-uid", "", "DashboardUID")
 	dashboardsCreatePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
+	dashboardsCreatePublicDashboardCmd.Flags().BoolVar(&dashboardsCreatePublicDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsCmd.AddCommand(dashboardsCreatePublicDashboardCmd)
 	dashboardsDeleteDashboardByUIDCmd.Flags().StringVar(&dashboardsDeleteDashboardByUIDFlag.UID, "uid", "", "UID")
 	dashboardsDeleteDashboardByUIDCmd.MarkFlagRequired("uid")
@@ -12272,11 +16562,13 @@ func init() {
 	dashboardsCmd.AddCommand(dashboardsGetPublicDashboardCmd)
 	dashboardsImportDashboardCmd.Flags().StringVar(&dashboardsImportDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsImportDashboardCmd.MarkFlagRequired("body")
+	dashboardsImportDashboardCmd.Flags().BoolVar(&dashboardsImportDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsCmd.AddCommand(dashboardsImportDashboardCmd)
 	dashboardsCmd.AddCommand(dashboardsInterpolateDashboardCmd)
 	dashboardsCmd.AddCommand(dashboardsListPublicDashboardsCmd)
 	dashboardsPostDashboardCmd.Flags().StringVar(&dashboardsPostDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsPostDashboardCmd.MarkFlagRequired("body")
+	dashboardsPostDashboardCmd.Flags().BoolVar(&dashboardsPostDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsCmd.AddCommand(dashboardsPostDashboardCmd)
 	dashboardsQueryPublicDashboardCmd.Flags().StringVar(&dashboardsQueryPublicDashboardFlag.AccessToken, "access-token", "", "AccessToken")
 	dashboardsQueryPublicDashboardCmd.MarkFlagRequired("access-token")
@@ -12287,6 +16579,7 @@ func init() {
 	dashboardsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("body")
 	dashboardsRestoreDashboardVersionByUIDCmd.Flags().StringVar(&dashboardsRestoreDashboardVersionByUIDFlag.UID, "uid", "", "UID")
 	dashboardsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("uid")
+	dashboardsRestoreDashboardVersionByUIDCmd.Flags().BoolVar(&dashboardsRestoreDashboardVersionByUIDFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsCmd.AddCommand(dashboardsRestoreDashboardVersionByUIDCmd)
 	dashboardsSearchDashboardSnapshotsCmd.Flags().Int64Var(&dashboardsSearchDashboardSnapshotsFlag.Limit, "limit", 0, "Limit the number of returned results Default: 1000")
 	dashboardsSearchDashboardSnapshotsCmd.Flags().StringVar(&dashboardsSearchDashboardSnapshotsFlag.Query, "query", "", "Search Query")
@@ -12295,6 +16588,7 @@ func init() {
 	dashboardsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("body")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().StringVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.UID, "uid", "", "UID")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("uid")
+	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().BoolVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsCmd.AddCommand(dashboardsUpdateDashboardPermissionsByUIDCmd)
 	dashboardsUpdatePublicDashboardCmd.Flags().StringVar(&dashboardsUpdatePublicDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("body")
@@ -12302,6 +16596,7 @@ func init() {
 	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
 	dashboardsUpdatePublicDashboardCmd.Flags().StringVar(&dashboardsUpdatePublicDashboardFlag.UID, "uid", "", "UID")
 	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("uid")
+	dashboardsUpdatePublicDashboardCmd.Flags().BoolVar(&dashboardsUpdatePublicDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsCmd.AddCommand(dashboardsUpdatePublicDashboardCmd)
 	dashboardsViewPublicDashboardCmd.Flags().StringVar(&dashboardsViewPublicDashboardFlag.AccessToken, "access-token", "", "AccessToken")
 	dashboardsViewPublicDashboardCmd.MarkFlagRequired("access-token")
@@ -12309,6 +16604,7 @@ func init() {
 	rootCmd.AddCommand(datasourcesCmd)
 	datasourcesAddDatasourceCmd.Flags().StringVar(&datasourcesAddDatasourceFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	datasourcesAddDatasourceCmd.MarkFlagRequired("body")
+	datasourcesAddDatasourceCmd.Flags().BoolVar(&datasourcesAddDatasourceFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	datasourcesCmd.AddCommand(datasourcesAddDatasourceCmd)
 	datasourcesCallDatasourceResourceCmd.Flags().StringVar(&datasourcesCallDatasourceResourceFlag.DatasourceProxyRoute, "datasource-proxy-route", "", "DatasourceProxyRoute")
 	datasourcesCallDatasourceResourceCmd.MarkFlagRequired("datasource-proxy-route")
@@ -12322,6 +16618,7 @@ func init() {
 	datasourcesCreateCorrelationCmd.MarkFlagRequired("body")
 	datasourcesCreateCorrelationCmd.Flags().StringVar(&datasourcesCreateCorrelationFlag.SourceUID, "source-uid", "", "SourceUID")
 	datasourcesCreateCorrelationCmd.MarkFlagRequired("source-uid")
+	datasourcesCreateCorrelationCmd.Flags().BoolVar(&datasourcesCreateCorrelationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	datasourcesCmd.AddCommand(datasourcesCreateCorrelationCmd)
 	datasourcesDeleteCorrelationCmd.Flags().StringVar(&datasourcesDeleteCorrelationFlag.CorrelationUID, "correlation-uid", "", "CorrelationUID")
 	datasourcesDeleteCorrelationCmd.MarkFlagRequired("correlation-uid")
@@ -12359,6 +16656,7 @@ func init() {
 	datasourcesCmd.AddCommand(datasourcesGetDatasourcesCmd)
 	datasourcesQueryMetricsWithExpressionsCmd.Flags().StringVar(&datasourcesQueryMetricsWithExpressionsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	datasourcesQueryMetricsWithExpressionsCmd.MarkFlagRequired("body")
+	datasourcesQueryMetricsWithExpressionsCmd.Flags().BoolVar(&datasourcesQueryMetricsWithExpressionsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	datasourcesCmd.AddCommand(datasourcesQueryMetricsWithExpressionsCmd)
 	datasourcesUpdateCorrelationCmd.Flags().StringVar(&datasourcesUpdateCorrelationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	datasourcesUpdateCorrelationCmd.MarkFlagRequired("body")
@@ -12366,11 +16664,13 @@ func init() {
 	datasourcesUpdateCorrelationCmd.MarkFlagRequired("correlation-uid")
 	datasourcesUpdateCorrelationCmd.Flags().StringVar(&datasourcesUpdateCorrelationFlag.SourceUID, "source-uid", "", "SourceUID")
 	datasourcesUpdateCorrelationCmd.MarkFlagRequired("source-uid")
+	datasourcesUpdateCorrelationCmd.Flags().BoolVar(&datasourcesUpdateCorrelationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	datasourcesCmd.AddCommand(datasourcesUpdateCorrelationCmd)
 	datasourcesUpdateDatasourceByUIDCmd.Flags().StringVar(&datasourcesUpdateDatasourceByUIDFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	datasourcesUpdateDatasourceByUIDCmd.MarkFlagRequired("body")
 	datasourcesUpdateDatasourceByUIDCmd.Flags().StringVar(&datasourcesUpdateDatasourceByUIDFlag.UID, "uid", "", "UID")
 	datasourcesUpdateDatasourceByUIDCmd.MarkFlagRequired("uid")
+	datasourcesUpdateDatasourceByUIDCmd.Flags().BoolVar(&datasourcesUpdateDatasourceByUIDFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	datasourcesCmd.AddCommand(datasourcesUpdateDatasourceByUIDCmd)
 	rootCmd.AddCommand(devicesCmd)
 	devicesCmd.AddCommand(devicesSearchDevicesCmd)
@@ -12396,15 +16696,18 @@ func init() {
 	enterpriseSetDatasourceCacheConfigCmd.MarkFlagRequired("body")
 	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseSetDatasourceCacheConfigCmd.MarkFlagRequired("data-source-uid")
+	enterpriseSetDatasourceCacheConfigCmd.Flags().BoolVar(&enterpriseSetDatasourceCacheConfigFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	enterpriseCmd.AddCommand(enterpriseSetDatasourceCacheConfigCmd)
 	enterpriseUpdateTeamLBACRulesAPICmd.Flags().StringVar(&enterpriseUpdateTeamLBACRulesAPIFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	enterpriseUpdateTeamLBACRulesAPICmd.MarkFlagRequired("body")
 	enterpriseUpdateTeamLBACRulesAPICmd.Flags().StringVar(&enterpriseUpdateTeamLBACRulesAPIFlag.UID, "uid", "", "UID")
 	enterpriseUpdateTeamLBACRulesAPICmd.MarkFlagRequired("uid")
+	enterpriseUpdateTeamLBACRulesAPICmd.Flags().BoolVar(&enterpriseUpdateTeamLBACRulesAPIFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	enterpriseCmd.AddCommand(enterpriseUpdateTeamLBACRulesAPICmd)
 	rootCmd.AddCommand(foldersCmd)
 	foldersCreateFolderCmd.Flags().StringVar(&foldersCreateFolderFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	foldersCreateFolderCmd.MarkFlagRequired("body")
+	foldersCreateFolderCmd.Flags().BoolVar(&foldersCreateFolderFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	foldersCmd.AddCommand(foldersCreateFolderCmd)
 	foldersDeleteFolderCmd.Flags().StringVar(&foldersDeleteFolderFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersDeleteFolderCmd.MarkFlagRequired("folder-uid")
@@ -12428,22 +16731,26 @@ func init() {
 	foldersMoveFolderCmd.MarkFlagRequired("body")
 	foldersMoveFolderCmd.Flags().StringVar(&foldersMoveFolderFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersMoveFolderCmd.MarkFlagRequired("folder-uid")
+	foldersMoveFolderCmd.Flags().BoolVar(&foldersMoveFolderFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	foldersCmd.AddCommand(foldersMoveFolderCmd)
 	foldersUpdateFolderCmd.Flags().StringVar(&foldersUpdateFolderFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	foldersUpdateFolderCmd.MarkFlagRequired("body")
 	foldersUpdateFolderCmd.Flags().StringVar(&foldersUpdateFolderFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersUpdateFolderCmd.MarkFlagRequired("folder-uid")
+	foldersUpdateFolderCmd.Flags().BoolVar(&foldersUpdateFolderFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	foldersCmd.AddCommand(foldersUpdateFolderCmd)
 	foldersUpdateFolderPermissionsCmd.Flags().StringVar(&foldersUpdateFolderPermissionsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	foldersUpdateFolderPermissionsCmd.MarkFlagRequired("body")
 	foldersUpdateFolderPermissionsCmd.Flags().StringVar(&foldersUpdateFolderPermissionsFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersUpdateFolderPermissionsCmd.MarkFlagRequired("folder-uid")
+	foldersUpdateFolderPermissionsCmd.Flags().BoolVar(&foldersUpdateFolderPermissionsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	foldersCmd.AddCommand(foldersUpdateFolderPermissionsCmd)
 	rootCmd.AddCommand(groupAttributeSyncCmd)
 	groupAttributeSyncCreateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncCreateGroupMappingsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	groupAttributeSyncCreateGroupMappingsCmd.MarkFlagRequired("body")
 	groupAttributeSyncCreateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncCreateGroupMappingsFlag.GroupID, "group-id", "", "GroupID")
 	groupAttributeSyncCreateGroupMappingsCmd.MarkFlagRequired("group-id")
+	groupAttributeSyncCreateGroupMappingsCmd.Flags().BoolVar(&groupAttributeSyncCreateGroupMappingsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	groupAttributeSyncCmd.AddCommand(groupAttributeSyncCreateGroupMappingsCmd)
 	groupAttributeSyncDeleteGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncDeleteGroupMappingsFlag.GroupID, "group-id", "", "GroupID")
 	groupAttributeSyncDeleteGroupMappingsCmd.MarkFlagRequired("group-id")
@@ -12456,6 +16763,7 @@ func init() {
 	groupAttributeSyncUpdateGroupMappingsCmd.MarkFlagRequired("body")
 	groupAttributeSyncUpdateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncUpdateGroupMappingsFlag.GroupID, "group-id", "", "GroupID")
 	groupAttributeSyncUpdateGroupMappingsCmd.MarkFlagRequired("group-id")
+	groupAttributeSyncUpdateGroupMappingsCmd.Flags().BoolVar(&groupAttributeSyncUpdateGroupMappingsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	groupAttributeSyncCmd.AddCommand(groupAttributeSyncUpdateGroupMappingsCmd)
 	rootCmd.AddCommand(healthCmd)
 	healthCmd.AddCommand(healthGetHealthCmd)
@@ -12464,6 +16772,7 @@ func init() {
 	rootCmd.AddCommand(libraryElementsCmd)
 	libraryElementsCreateLibraryElementCmd.Flags().StringVar(&libraryElementsCreateLibraryElementFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	libraryElementsCreateLibraryElementCmd.MarkFlagRequired("body")
+	libraryElementsCreateLibraryElementCmd.Flags().BoolVar(&libraryElementsCreateLibraryElementFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	libraryElementsCmd.AddCommand(libraryElementsCreateLibraryElementCmd)
 	libraryElementsDeleteLibraryElementByUIDCmd.Flags().StringVar(&libraryElementsDeleteLibraryElementByUIDFlag.LibraryElementUID, "library-element-uid", "", "LibraryElementUID")
 	libraryElementsDeleteLibraryElementByUIDCmd.MarkFlagRequired("library-element-uid")
@@ -12490,10 +16799,12 @@ func init() {
 	libraryElementsUpdateLibraryElementCmd.MarkFlagRequired("body")
 	libraryElementsUpdateLibraryElementCmd.Flags().StringVar(&libraryElementsUpdateLibraryElementFlag.LibraryElementUID, "library-element-uid", "", "LibraryElementUID")
 	libraryElementsUpdateLibraryElementCmd.MarkFlagRequired("library-element-uid")
+	libraryElementsUpdateLibraryElementCmd.Flags().BoolVar(&libraryElementsUpdateLibraryElementFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	libraryElementsCmd.AddCommand(libraryElementsUpdateLibraryElementCmd)
 	rootCmd.AddCommand(licensingCmd)
 	licensingDeleteLicenseTokenCmd.Flags().StringVar(&licensingDeleteLicenseTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	licensingDeleteLicenseTokenCmd.MarkFlagRequired("body")
+	licensingDeleteLicenseTokenCmd.Flags().BoolVar(&licensingDeleteLicenseTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	licensingCmd.AddCommand(licensingDeleteLicenseTokenCmd)
 	licensingCmd.AddCommand(licensingGetCustomPermissionsCSVCmd)
 	licensingCmd.AddCommand(licensingGetCustomPermissionsReportCmd)
@@ -12501,6 +16812,7 @@ func init() {
 	licensingCmd.AddCommand(licensingGetStatusCmd)
 	licensingPostLicenseTokenCmd.Flags().StringVar(&licensingPostLicenseTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	licensingPostLicenseTokenCmd.MarkFlagRequired("body")
+	licensingPostLicenseTokenCmd.Flags().BoolVar(&licensingPostLicenseTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	licensingCmd.AddCommand(licensingPostLicenseTokenCmd)
 	licensingPostRenewLicenseTokenCmd.Flags().StringVar(&licensingPostRenewLicenseTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	licensingPostRenewLicenseTokenCmd.MarkFlagRequired("body")
@@ -12515,11 +16827,13 @@ func init() {
 	migrationsCmd.AddCommand(migrationsCreateCloudMigrationTokenCmd)
 	migrationsCreateSessionCmd.Flags().StringVar(&migrationsCreateSessionFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	migrationsCreateSessionCmd.MarkFlagRequired("body")
+	migrationsCreateSessionCmd.Flags().BoolVar(&migrationsCreateSessionFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	migrationsCmd.AddCommand(migrationsCreateSessionCmd)
 	migrationsCreateSnapshotCmd.Flags().StringVar(&migrationsCreateSnapshotFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	migrationsCreateSnapshotCmd.MarkFlagRequired("body")
 	migrationsCreateSnapshotCmd.Flags().StringVar(&migrationsCreateSnapshotFlag.UID, "uid", "", "UID of a session")
 	migrationsCreateSnapshotCmd.MarkFlagRequired("uid")
+	migrationsCreateSnapshotCmd.Flags().BoolVar(&migrationsCreateSnapshotFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	migrationsCmd.AddCommand(migrationsCreateSnapshotCmd)
 	migrationsDeleteCloudMigrationTokenCmd.Flags().StringVar(&migrationsDeleteCloudMigrationTokenFlag.UID, "uid", "", "UID of a cloud migration token")
 	migrationsDeleteCloudMigrationTokenCmd.MarkFlagRequired("uid")
@@ -12557,9 +16871,11 @@ func init() {
 	rootCmd.AddCommand(orgCmd)
 	orgAddOrgInviteCmd.Flags().StringVar(&orgAddOrgInviteFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgAddOrgInviteCmd.MarkFlagRequired("body")
+	orgAddOrgInviteCmd.Flags().BoolVar(&orgAddOrgInviteFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgCmd.AddCommand(orgAddOrgInviteCmd)
 	orgAddOrgUserToCurrentOrgCmd.Flags().StringVar(&orgAddOrgUserToCurrentOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgAddOrgUserToCurrentOrgCmd.MarkFlagRequired("body")
+	orgAddOrgUserToCurrentOrgCmd.Flags().BoolVar(&orgAddOrgUserToCurrentOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgCmd.AddCommand(orgAddOrgUserToCurrentOrgCmd)
 	orgCmd.AddCommand(orgGetCurrentOrgCmd)
 	orgCmd.AddCommand(orgGetOrgPreferencesCmd)
@@ -12572,6 +16888,7 @@ func init() {
 	orgCmd.AddCommand(orgGetPendingOrgInvitesCmd)
 	orgPatchOrgPreferencesCmd.Flags().StringVar(&orgPatchOrgPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgPatchOrgPreferencesCmd.MarkFlagRequired("body")
+	orgPatchOrgPreferencesCmd.Flags().BoolVar(&orgPatchOrgPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgCmd.AddCommand(orgPatchOrgPreferencesCmd)
 	orgRemoveOrgUserForCurrentOrgCmd.Flags().Int64Var(&orgRemoveOrgUserForCurrentOrgFlag.UserID, "user-id", 0, "UserID")
 	orgRemoveOrgUserForCurrentOrgCmd.MarkFlagRequired("user-id")
@@ -12581,26 +16898,32 @@ func init() {
 	orgCmd.AddCommand(orgRevokeInviteCmd)
 	orgUpdateCurrentOrgCmd.Flags().StringVar(&orgUpdateCurrentOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgUpdateCurrentOrgCmd.MarkFlagRequired("body")
+	orgUpdateCurrentOrgCmd.Flags().BoolVar(&orgUpdateCurrentOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgCmd.AddCommand(orgUpdateCurrentOrgCmd)
 	orgUpdateCurrentOrgAddressCmd.Flags().StringVar(&orgUpdateCurrentOrgAddressFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgUpdateCurrentOrgAddressCmd.MarkFlagRequired("body")
+	orgUpdateCurrentOrgAddressCmd.Flags().BoolVar(&orgUpdateCurrentOrgAddressFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgCmd.AddCommand(orgUpdateCurrentOrgAddressCmd)
 	orgUpdateOrgPreferencesCmd.Flags().StringVar(&orgUpdateOrgPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgUpdateOrgPreferencesCmd.MarkFlagRequired("body")
+	orgUpdateOrgPreferencesCmd.Flags().BoolVar(&orgUpdateOrgPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgCmd.AddCommand(orgUpdateOrgPreferencesCmd)
 	orgUpdateOrgUserForCurrentOrgCmd.Flags().StringVar(&orgUpdateOrgUserForCurrentOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgUpdateOrgUserForCurrentOrgCmd.MarkFlagRequired("body")
 	orgUpdateOrgUserForCurrentOrgCmd.Flags().Int64Var(&orgUpdateOrgUserForCurrentOrgFlag.UserID, "user-id", 0, "UserID")
 	orgUpdateOrgUserForCurrentOrgCmd.MarkFlagRequired("user-id")
+	orgUpdateOrgUserForCurrentOrgCmd.Flags().BoolVar(&orgUpdateOrgUserForCurrentOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgCmd.AddCommand(orgUpdateOrgUserForCurrentOrgCmd)
 	rootCmd.AddCommand(orgsCmd)
 	orgsAddOrgUserCmd.Flags().StringVar(&orgsAddOrgUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgsAddOrgUserCmd.MarkFlagRequired("body")
 	orgsAddOrgUserCmd.Flags().Int64Var(&orgsAddOrgUserFlag.OrgID, "org-id", 0, "OrgID")
 	orgsAddOrgUserCmd.MarkFlagRequired("org-id")
+	orgsAddOrgUserCmd.Flags().BoolVar(&orgsAddOrgUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgsCmd.AddCommand(orgsAddOrgUserCmd)
 	orgsCreateOrgCmd.Flags().StringVar(&orgsCreateOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgsCreateOrgCmd.MarkFlagRequired("body")
+	orgsCreateOrgCmd.Flags().BoolVar(&orgsCreateOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgsCmd.AddCommand(orgsCreateOrgCmd)
 	orgsGetOrgByNameCmd.Flags().StringVar(&orgsGetOrgByNameFlag.OrgName, "org-name", "", "OrgName")
 	orgsGetOrgByNameCmd.MarkFlagRequired("org-name")
@@ -12625,11 +16948,13 @@ func init() {
 	orgsUpdateOrgCmd.MarkFlagRequired("body")
 	orgsUpdateOrgCmd.Flags().Int64Var(&orgsUpdateOrgFlag.OrgID, "org-id", 0, "OrgID")
 	orgsUpdateOrgCmd.MarkFlagRequired("org-id")
+	orgsUpdateOrgCmd.Flags().BoolVar(&orgsUpdateOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgsCmd.AddCommand(orgsUpdateOrgCmd)
 	orgsUpdateOrgAddressCmd.Flags().StringVar(&orgsUpdateOrgAddressFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgsUpdateOrgAddressCmd.MarkFlagRequired("body")
 	orgsUpdateOrgAddressCmd.Flags().Int64Var(&orgsUpdateOrgAddressFlag.OrgID, "org-id", 0, "OrgID")
 	orgsUpdateOrgAddressCmd.MarkFlagRequired("org-id")
+	orgsUpdateOrgAddressCmd.Flags().BoolVar(&orgsUpdateOrgAddressFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgsCmd.AddCommand(orgsUpdateOrgAddressCmd)
 	orgsUpdateOrgUserCmd.Flags().StringVar(&orgsUpdateOrgUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgsUpdateOrgUserCmd.MarkFlagRequired("body")
@@ -12637,10 +16962,12 @@ func init() {
 	orgsUpdateOrgUserCmd.MarkFlagRequired("org-id")
 	orgsUpdateOrgUserCmd.Flags().Int64Var(&orgsUpdateOrgUserFlag.UserID, "user-id", 0, "UserID")
 	orgsUpdateOrgUserCmd.MarkFlagRequired("user-id")
+	orgsUpdateOrgUserCmd.Flags().BoolVar(&orgsUpdateOrgUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgsCmd.AddCommand(orgsUpdateOrgUserCmd)
 	rootCmd.AddCommand(playlistsCmd)
 	playlistsCreatePlaylistCmd.Flags().StringVar(&playlistsCreatePlaylistFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	playlistsCreatePlaylistCmd.MarkFlagRequired("body")
+	playlistsCreatePlaylistCmd.Flags().BoolVar(&playlistsCreatePlaylistFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	playlistsCmd.AddCommand(playlistsCreatePlaylistCmd)
 	playlistsDeletePlaylistCmd.Flags().StringVar(&playlistsDeletePlaylistFlag.UID, "uid", "", "UID")
 	playlistsDeletePlaylistCmd.MarkFlagRequired("uid")
@@ -12658,6 +16985,7 @@ func init() {
 	playlistsUpdatePlaylistCmd.MarkFlagRequired("body")
 	playlistsUpdatePlaylistCmd.Flags().StringVar(&playlistsUpdatePlaylistFlag.UID, "uid", "", "UID")
 	playlistsUpdatePlaylistCmd.MarkFlagRequired("uid")
+	playlistsUpdatePlaylistCmd.Flags().BoolVar(&playlistsUpdatePlaylistFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	playlistsCmd.AddCommand(playlistsUpdatePlaylistCmd)
 	rootCmd.AddCommand(provisioningCmd)
 	provisioningDeleteAlertRuleCmd.Flags().StringVar(&provisioningDeleteAlertRuleFlag.UID, "uid", "", "Alert rule UID")
@@ -12737,20 +17065,24 @@ func init() {
 	provisioningPostAlertRuleCmd.Flags().StringVar(&provisioningPostAlertRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPostAlertRuleCmd.MarkFlagRequired("body")
 	provisioningPostAlertRuleCmd.Flags().StringVar(&provisioningPostAlertRuleFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
+	provisioningPostAlertRuleCmd.Flags().BoolVar(&provisioningPostAlertRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningCmd.AddCommand(provisioningPostAlertRuleCmd)
 	provisioningPostContactpointsCmd.Flags().StringVar(&provisioningPostContactpointsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPostContactpointsCmd.MarkFlagRequired("body")
 	provisioningPostContactpointsCmd.Flags().StringVar(&provisioningPostContactpointsFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
+	provisioningPostContactpointsCmd.Flags().BoolVar(&provisioningPostContactpointsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningCmd.AddCommand(provisioningPostContactpointsCmd)
 	provisioningPostMuteTimingCmd.Flags().StringVar(&provisioningPostMuteTimingFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPostMuteTimingCmd.MarkFlagRequired("body")
 	provisioningPostMuteTimingCmd.Flags().StringVar(&provisioningPostMuteTimingFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
+	provisioningPostMuteTimingCmd.Flags().BoolVar(&provisioningPostMuteTimingFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningCmd.AddCommand(provisioningPostMuteTimingCmd)
 	provisioningPutAlertRuleCmd.Flags().StringVar(&provisioningPutAlertRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutAlertRuleCmd.MarkFlagRequired("body")
 	provisioningPutAlertRuleCmd.Flags().StringVar(&provisioningPutAlertRuleFlag.UID, "uid", "", "Alert rule UID")
 	provisioningPutAlertRuleCmd.MarkFlagRequired("uid")
 	provisioningPutAlertRuleCmd.Flags().StringVar(&provisioningPutAlertRuleFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
+	provisioningPutAlertRuleCmd.Flags().BoolVar(&provisioningPutAlertRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningCmd.AddCommand(provisioningPutAlertRuleCmd)
 	provisioningPutAlertRuleGroupCmd.Flags().StringVar(&provisioningPutAlertRuleGroupFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutAlertRuleGroupCmd.MarkFlagRequired("body")
@@ -12759,33 +17091,39 @@ func init() {
 	provisioningPutAlertRuleGroupCmd.Flags().StringVar(&provisioningPutAlertRuleGroupFlag.Group, "group", "", "Group")
 	provisioningPutAlertRuleGroupCmd.MarkFlagRequired("group")
 	provisioningPutAlertRuleGroupCmd.Flags().StringVar(&provisioningPutAlertRuleGroupFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
+	provisioningPutAlertRuleGroupCmd.Flags().BoolVar(&provisioningPutAlertRuleGroupFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningCmd.AddCommand(provisioningPutAlertRuleGroupCmd)
 	provisioningPutContactpointCmd.Flags().StringVar(&provisioningPutContactpointFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutContactpointCmd.MarkFlagRequired("body")
 	provisioningPutContactpointCmd.Flags().StringVar(&provisioningPutContactpointFlag.UID, "uid", "", "UID is the contact point unique identifier")
 	provisioningPutContactpointCmd.MarkFlagRequired("uid")
 	provisioningPutContactpointCmd.Flags().StringVar(&provisioningPutContactpointFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
+	provisioningPutContactpointCmd.Flags().BoolVar(&provisioningPutContactpointFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningCmd.AddCommand(provisioningPutContactpointCmd)
 	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutMuteTimingCmd.MarkFlagRequired("body")
 	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.Name, "name", "", "Mute timing name")
 	provisioningPutMuteTimingCmd.MarkFlagRequired("name")
+	provisioningPutMuteTimingCmd.Flags().BoolVar(&provisioningPutMuteTimingFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningCmd.AddCommand(provisioningPutMuteTimingCmd)
 	provisioningPutPolicyTreeCmd.Flags().StringVar(&provisioningPutPolicyTreeFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutPolicyTreeCmd.MarkFlagRequired("body")
 	provisioningPutPolicyTreeCmd.Flags().StringVar(&provisioningPutPolicyTreeFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
+	provisioningPutPolicyTreeCmd.Flags().BoolVar(&provisioningPutPolicyTreeFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningCmd.AddCommand(provisioningPutPolicyTreeCmd)
 	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutTemplateCmd.MarkFlagRequired("body")
 	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.Name, "name", "", "Template group name")
 	provisioningPutTemplateCmd.MarkFlagRequired("name")
+	provisioningPutTemplateCmd.Flags().BoolVar(&provisioningPutTemplateFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningCmd.AddCommand(provisioningPutTemplateCmd)
 	provisioningCmd.AddCommand(provisioningResetPolicyTreeCmd)
 	rootCmd.AddCommand(queryHistoryCmd)
 	queryHistoryCreateQueryCmd.Flags().StringVar(&queryHistoryCreateQueryFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	queryHistoryCreateQueryCmd.MarkFlagRequired("body")
+	queryHistoryCreateQueryCmd.Flags().BoolVar(&queryHistoryCreateQueryFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	queryHistoryCmd.AddCommand(queryHistoryCreateQueryCmd)
 	queryHistoryDeleteQueryCmd.Flags().StringVar(&queryHistoryDeleteQueryFlag.QueryHistoryUID, "query-history-uid", "", "QueryHistoryUID")
 	queryHistoryDeleteQueryCmd.MarkFlagRequired("query-history-uid")
@@ -12794,6 +17132,7 @@ func init() {
 	queryHistoryPatchQueryCommentCmd.MarkFlagRequired("body")
 	queryHistoryPatchQueryCommentCmd.Flags().StringVar(&queryHistoryPatchQueryCommentFlag.QueryHistoryUID, "query-history-uid", "", "QueryHistoryUID")
 	queryHistoryPatchQueryCommentCmd.MarkFlagRequired("query-history-uid")
+	queryHistoryPatchQueryCommentCmd.Flags().BoolVar(&queryHistoryPatchQueryCommentFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	queryHistoryCmd.AddCommand(queryHistoryPatchQueryCommentCmd)
 	queryHistorySearchQueriesCmd.Flags().StringSliceVar(&queryHistorySearchQueriesFlag.DatasourceUID, "datasource-uid", []string{}, "List of data source UIDs to search for")
 	queryHistorySearchQueriesCmd.MarkFlagRequired("datasource-uid")
@@ -12826,6 +17165,7 @@ func init() {
 	quotaUpdateOrgQuotaCmd.MarkFlagRequired("org-id")
 	quotaUpdateOrgQuotaCmd.Flags().StringVar(&quotaUpdateOrgQuotaFlag.QuotaTarget, "quota-target", "", "QuotaTarget")
 	quotaUpdateOrgQuotaCmd.MarkFlagRequired("quota-target")
+	quotaUpdateOrgQuotaCmd.Flags().BoolVar(&quotaUpdateOrgQuotaFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	quotaCmd.AddCommand(quotaUpdateOrgQuotaCmd)
 	quotaUpdateUserQuotaCmd.Flags().StringVar(&quotaUpdateUserQuotaFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	quotaUpdateUserQuotaCmd.MarkFlagRequired("body")
@@ -12833,13 +17173,16 @@ func init() {
 	quotaUpdateUserQuotaCmd.MarkFlagRequired("quota-target")
 	quotaUpdateUserQuotaCmd.Flags().Int64Var(&quotaUpdateUserQuotaFlag.UserID, "user-id", 0, "UserID")
 	quotaUpdateUserQuotaCmd.MarkFlagRequired("user-id")
+	quotaUpdateUserQuotaCmd.Flags().BoolVar(&quotaUpdateUserQuotaFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	quotaCmd.AddCommand(quotaUpdateUserQuotaCmd)
 	rootCmd.AddCommand(recordingRulesCmd)
 	recordingRulesCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	recordingRulesCreateRecordingRuleCmd.MarkFlagRequired("body")
+	recordingRulesCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesCmd.AddCommand(recordingRulesCreateRecordingRuleCmd)
 	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	recordingRulesCreateRecordingRuleWriteTargetCmd.MarkFlagRequired("body")
+	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesCmd.AddCommand(recordingRulesCreateRecordingRuleWriteTargetCmd)
 	recordingRulesDeleteRecordingRuleCmd.Flags().Int64Var(&recordingRulesDeleteRecordingRuleFlag.RecordingRuleID, "recording-rule-id", 0, "RecordingRuleID")
 	recordingRulesDeleteRecordingRuleCmd.MarkFlagRequired("recording-rule-id")
@@ -12849,13 +17192,16 @@ func init() {
 	recordingRulesCmd.AddCommand(recordingRulesListRecordingRulesCmd)
 	recordingRulesTestCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesTestCreateRecordingRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	recordingRulesTestCreateRecordingRuleCmd.MarkFlagRequired("body")
+	recordingRulesTestCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesTestCreateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesCmd.AddCommand(recordingRulesTestCreateRecordingRuleCmd)
 	recordingRulesUpdateRecordingRuleCmd.Flags().StringVar(&recordingRulesUpdateRecordingRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	recordingRulesUpdateRecordingRuleCmd.MarkFlagRequired("body")
+	recordingRulesUpdateRecordingRuleCmd.Flags().BoolVar(&recordingRulesUpdateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesCmd.AddCommand(recordingRulesUpdateRecordingRuleCmd)
 	rootCmd.AddCommand(reportsCmd)
 	reportsCreateReportCmd.Flags().StringVar(&reportsCreateReportFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	reportsCreateReportCmd.MarkFlagRequired("body")
+	reportsCreateReportCmd.Flags().BoolVar(&reportsCreateReportFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsCmd.AddCommand(reportsCreateReportCmd)
 	reportsDeleteReportCmd.Flags().Int64Var(&reportsDeleteReportFlag.ID, "id", 0, "ID")
 	reportsDeleteReportCmd.MarkFlagRequired("id")
@@ -12881,17 +17227,21 @@ func init() {
 	reportsCmd.AddCommand(reportsRenderReportPDFsCmd)
 	reportsSaveReportSettingsCmd.Flags().StringVar(&reportsSaveReportSettingsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	reportsSaveReportSettingsCmd.MarkFlagRequired("body")
+	reportsSaveReportSettingsCmd.Flags().BoolVar(&reportsSaveReportSettingsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsCmd.AddCommand(reportsSaveReportSettingsCmd)
 	reportsSendReportCmd.Flags().StringVar(&reportsSendReportFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	reportsSendReportCmd.MarkFlagRequired("body")
+	reportsSendReportCmd.Flags().BoolVar(&reportsSendReportFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsCmd.AddCommand(reportsSendReportCmd)
 	reportsSendTestEmailCmd.Flags().StringVar(&reportsSendTestEmailFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	reportsSendTestEmailCmd.MarkFlagRequired("body")
+	reportsSendTestEmailCmd.Flags().BoolVar(&reportsSendTestEmailFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsCmd.AddCommand(reportsSendTestEmailCmd)
 	reportsUpdateReportCmd.Flags().StringVar(&reportsUpdateReportFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	reportsUpdateReportCmd.MarkFlagRequired("body")
 	reportsUpdateReportCmd.Flags().Int64Var(&reportsUpdateReportFlag.ID, "id", 0, "ID")
 	reportsUpdateReportCmd.MarkFlagRequired("id")
+	reportsUpdateReportCmd.Flags().BoolVar(&reportsUpdateReportFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsCmd.AddCommand(reportsUpdateReportCmd)
 	rootCmd.AddCommand(samlCmd)
 	samlCmd.AddCommand(samlGetMetadataCmd)
@@ -12926,11 +17276,13 @@ func init() {
 	rootCmd.AddCommand(serviceAccountsCmd)
 	serviceAccountsCreateServiceAccountCmd.Flags().StringVar(&serviceAccountsCreateServiceAccountFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	serviceAccountsCreateServiceAccountCmd.MarkFlagRequired("body")
+	serviceAccountsCreateServiceAccountCmd.Flags().BoolVar(&serviceAccountsCreateServiceAccountFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	serviceAccountsCmd.AddCommand(serviceAccountsCreateServiceAccountCmd)
 	serviceAccountsCreateTokenCmd.Flags().StringVar(&serviceAccountsCreateTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	serviceAccountsCreateTokenCmd.MarkFlagRequired("body")
 	serviceAccountsCreateTokenCmd.Flags().Int64Var(&serviceAccountsCreateTokenFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsCreateTokenCmd.MarkFlagRequired("service-account-id")
+	serviceAccountsCreateTokenCmd.Flags().BoolVar(&serviceAccountsCreateTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	serviceAccountsCmd.AddCommand(serviceAccountsCreateTokenCmd)
 	serviceAccountsDeleteServiceAccountCmd.Flags().Int64Var(&serviceAccountsDeleteServiceAccountFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsDeleteServiceAccountCmd.MarkFlagRequired("service-account-id")
@@ -12956,10 +17308,12 @@ func init() {
 	serviceAccountsUpdateServiceAccountCmd.MarkFlagRequired("body")
 	serviceAccountsUpdateServiceAccountCmd.Flags().Int64Var(&serviceAccountsUpdateServiceAccountFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsUpdateServiceAccountCmd.MarkFlagRequired("service-account-id")
+	serviceAccountsUpdateServiceAccountCmd.Flags().BoolVar(&serviceAccountsUpdateServiceAccountFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	serviceAccountsCmd.AddCommand(serviceAccountsUpdateServiceAccountCmd)
 	rootCmd.AddCommand(signedInUserCmd)
 	signedInUserChangeUserPasswordCmd.Flags().StringVar(&signedInUserChangeUserPasswordFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	signedInUserChangeUserPasswordCmd.MarkFlagRequired("body")
+	signedInUserChangeUserPasswordCmd.Flags().BoolVar(&signedInUserChangeUserPasswordFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserCmd.AddCommand(signedInUserChangeUserPasswordCmd)
 	signedInUserCmd.AddCommand(signedInUserClearHelpFlagsCmd)
 	signedInUserCmd.AddCommand(signedInUserGetSignedInUserCmd)
@@ -12969,9 +17323,11 @@ func init() {
 	signedInUserCmd.AddCommand(signedInUserGetUserPreferencesCmd)
 	signedInUserPatchUserPreferencesCmd.Flags().StringVar(&signedInUserPatchUserPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	signedInUserPatchUserPreferencesCmd.MarkFlagRequired("body")
+	signedInUserPatchUserPreferencesCmd.Flags().BoolVar(&signedInUserPatchUserPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserCmd.AddCommand(signedInUserPatchUserPreferencesCmd)
 	signedInUserRevokeUserAuthTokenCmd.Flags().StringVar(&signedInUserRevokeUserAuthTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	signedInUserRevokeUserAuthTokenCmd.MarkFlagRequired("body")
+	signedInUserRevokeUserAuthTokenCmd.Flags().BoolVar(&signedInUserRevokeUserAuthTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserCmd.AddCommand(signedInUserRevokeUserAuthTokenCmd)
 	signedInUserSetHelpFlagCmd.Flags().StringVar(&signedInUserSetHelpFlagFlag.FlagID, "flag-id", "", "FlagID")
 	signedInUserSetHelpFlagCmd.MarkFlagRequired("flag-id")
@@ -12984,9 +17340,11 @@ func init() {
 	signedInUserCmd.AddCommand(signedInUserUnstarDashboardByUIDCmd)
 	signedInUserUpdateSignedInUserCmd.Flags().StringVar(&signedInUserUpdateSignedInUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	signedInUserUpdateSignedInUserCmd.MarkFlagRequired("body")
+	signedInUserUpdateSignedInUserCmd.Flags().BoolVar(&signedInUserUpdateSignedInUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserCmd.AddCommand(signedInUserUpdateSignedInUserCmd)
 	signedInUserUpdateUserPreferencesCmd.Flags().StringVar(&signedInUserUpdateUserPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	signedInUserUpdateUserPreferencesCmd.MarkFlagRequired("body")
+	signedInUserUpdateUserPreferencesCmd.Flags().BoolVar(&signedInUserUpdateUserPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserCmd.AddCommand(signedInUserUpdateUserPreferencesCmd)
 	signedInUserUserSetUsingOrgCmd.Flags().Int64Var(&signedInUserUserSetUsingOrgFlag.OrgID, "org-id", 0, "OrgID")
 	signedInUserUserSetUsingOrgCmd.MarkFlagRequired("org-id")
@@ -13007,12 +17365,14 @@ func init() {
 	ssoSettingsUpdateProviderSettingsCmd.MarkFlagRequired("body")
 	ssoSettingsUpdateProviderSettingsCmd.Flags().StringVar(&ssoSettingsUpdateProviderSettingsFlag.Key, "key", "", "Key")
 	ssoSettingsUpdateProviderSettingsCmd.MarkFlagRequired("key")
+	ssoSettingsUpdateProviderSettingsCmd.Flags().BoolVar(&ssoSettingsUpdateProviderSettingsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	ssoSettingsCmd.AddCommand(ssoSettingsUpdateProviderSettingsCmd)
 	rootCmd.AddCommand(syncTeamGroupsCmd)
 	syncTeamGroupsAddTeamGroupAPICmd.Flags().StringVar(&syncTeamGroupsAddTeamGroupAPIFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	syncTeamGroupsAddTeamGroupAPICmd.MarkFlagRequired("body")
 	syncTeamGroupsAddTeamGroupAPICmd.Flags().Int64Var(&syncTeamGroupsAddTeamGroupAPIFlag.TeamID, "team-id", 0, "TeamID")
 	syncTeamGroupsAddTeamGroupAPICmd.MarkFlagRequired("team-id")
+	syncTeamGroupsAddTeamGroupAPICmd.Flags().BoolVar(&syncTeamGroupsAddTeamGroupAPIFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	syncTeamGroupsCmd.AddCommand(syncTeamGroupsAddTeamGroupAPICmd)
 	syncTeamGroupsGetTeamGroupsAPICmd.Flags().Int64Var(&syncTeamGroupsGetTeamGroupsAPIFlag.TeamID, "team-id", 0, "TeamID")
 	syncTeamGroupsGetTeamGroupsAPICmd.MarkFlagRequired("team-id")
@@ -13033,9 +17393,11 @@ func init() {
 	teamsAddTeamMemberCmd.MarkFlagRequired("body")
 	teamsAddTeamMemberCmd.Flags().StringVar(&teamsAddTeamMemberFlag.TeamID, "team-id", "", "TeamID")
 	teamsAddTeamMemberCmd.MarkFlagRequired("team-id")
+	teamsAddTeamMemberCmd.Flags().BoolVar(&teamsAddTeamMemberFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	teamsCmd.AddCommand(teamsAddTeamMemberCmd)
 	teamsCreateTeamCmd.Flags().StringVar(&teamsCreateTeamFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	teamsCreateTeamCmd.MarkFlagRequired("body")
+	teamsCreateTeamCmd.Flags().BoolVar(&teamsCreateTeamFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	teamsCmd.AddCommand(teamsCreateTeamCmd)
 	teamsGetTeamMembersCmd.Flags().StringVar(&teamsGetTeamMembersFlag.TeamID, "team-id", "", "TeamID")
 	teamsGetTeamMembersCmd.MarkFlagRequired("team-id")
@@ -13059,11 +17421,13 @@ func init() {
 	teamsSetTeamMembershipsCmd.MarkFlagRequired("body")
 	teamsSetTeamMembershipsCmd.Flags().StringVar(&teamsSetTeamMembershipsFlag.TeamID, "team-id", "", "TeamID")
 	teamsSetTeamMembershipsCmd.MarkFlagRequired("team-id")
+	teamsSetTeamMembershipsCmd.Flags().BoolVar(&teamsSetTeamMembershipsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	teamsCmd.AddCommand(teamsSetTeamMembershipsCmd)
 	teamsUpdateTeamCmd.Flags().StringVar(&teamsUpdateTeamFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	teamsUpdateTeamCmd.MarkFlagRequired("body")
 	teamsUpdateTeamCmd.Flags().StringVar(&teamsUpdateTeamFlag.TeamID, "team-id", "", "TeamID")
 	teamsUpdateTeamCmd.MarkFlagRequired("team-id")
+	teamsUpdateTeamCmd.Flags().BoolVar(&teamsUpdateTeamFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	teamsCmd.AddCommand(teamsUpdateTeamCmd)
 	teamsUpdateTeamMemberCmd.Flags().StringVar(&teamsUpdateTeamMemberFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	teamsUpdateTeamMemberCmd.MarkFlagRequired("body")
@@ -13071,11 +17435,13 @@ func init() {
 	teamsUpdateTeamMemberCmd.MarkFlagRequired("team-id")
 	teamsUpdateTeamMemberCmd.Flags().Int64Var(&teamsUpdateTeamMemberFlag.UserID, "user-id", 0, "UserID")
 	teamsUpdateTeamMemberCmd.MarkFlagRequired("user-id")
+	teamsUpdateTeamMemberCmd.Flags().BoolVar(&teamsUpdateTeamMemberFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	teamsCmd.AddCommand(teamsUpdateTeamMemberCmd)
 	teamsUpdateTeamPreferencesCmd.Flags().StringVar(&teamsUpdateTeamPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	teamsUpdateTeamPreferencesCmd.MarkFlagRequired("body")
 	teamsUpdateTeamPreferencesCmd.Flags().StringVar(&teamsUpdateTeamPreferencesFlag.TeamID, "team-id", "", "TeamID")
 	teamsUpdateTeamPreferencesCmd.MarkFlagRequired("team-id")
+	teamsUpdateTeamPreferencesCmd.Flags().BoolVar(&teamsUpdateTeamPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	teamsCmd.AddCommand(teamsUpdateTeamPreferencesCmd)
 	rootCmd.AddCommand(userCmd)
 	userCmd.AddCommand(userUpdateUserEmailCmd)
@@ -13097,5 +17463,6 @@ func init() {
 	usersUpdateUserCmd.MarkFlagRequired("body")
 	usersUpdateUserCmd.Flags().Int64Var(&usersUpdateUserFlag.UserID, "user-id", 0, "UserID")
 	usersUpdateUserCmd.MarkFlagRequired("user-id")
+	usersUpdateUserCmd.Flags().BoolVar(&usersUpdateUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	usersCmd.AddCommand(usersUpdateUserCmd)
 }

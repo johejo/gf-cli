@@ -55,8 +55,9 @@ gf reports create-report [flags]
 ### Options
 
 ```
-      --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
-  -h, --help          help for create-report
+      --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+      --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
+  -h, --help                       help for create-report
 ```
 
 ### Options inherited from parent commands

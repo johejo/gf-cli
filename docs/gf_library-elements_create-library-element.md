@@ -26,8 +26,9 @@ gf library-elements create-library-element [flags]
 ### Options
 
 ```
-      --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
-  -h, --help          help for create-library-element
+      --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+      --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
+  -h, --help                       help for create-library-element
 ```
 
 ### Options inherited from parent commands

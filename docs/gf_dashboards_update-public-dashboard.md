@@ -21,10 +21,11 @@ gf dashboards update-public-dashboard [flags]
 ### Options
 
 ```
-      --body string            The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
-      --dashboard-uid string   DashboardUID
-  -h, --help                   help for update-public-dashboard
-      --uid string             UID
+      --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+      --dashboard-uid string       DashboardUID
+      --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
+  -h, --help                       help for update-public-dashboard
+      --uid string                 UID
 ```
 
 ### Options inherited from parent commands

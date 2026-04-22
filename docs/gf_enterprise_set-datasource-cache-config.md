@@ -23,9 +23,10 @@ gf enterprise set-datasource-cache-config [flags]
 ### Options
 
 ```
-      --body string              The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
-      --data-source-uid string   DataSourceUID
-  -h, --help                     help for set-datasource-cache-config
+      --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+      --data-source-uid string     DataSourceUID
+      --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
+  -h, --help                       help for set-datasource-cache-config
 ```
 
 ### Options inherited from parent commands

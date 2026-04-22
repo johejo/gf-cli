@@ -21,8 +21,9 @@ gf signed-in-user update-signed-in-user [flags]
 ### Options
 
 ```
-      --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
-  -h, --help          help for update-signed-in-user
+      --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+      --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
+  -h, --help                       help for update-signed-in-user
 ```
 
 ### Options inherited from parent commands

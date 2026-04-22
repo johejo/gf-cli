@@ -172,3 +172,12 @@ func getBodyParam(flg string, dst any) error {
 type getPayloadError interface {
 	GetPayload() *models.ErrorResponseBody
 }
+
+// describeBodyJSONSchema prints the JSON Schema for --describe-body-jsonschema
+// and exits. os.Exit bypasses cobra's post-PreRun required-flag validation so
+// the user does not need to also pass --body / path-param flags just to view
+// the schema; it mirrors how --help and --version typically short-circuit.
+func describeBodyJSONSchema(schema string) {
+	fmt.Println(schema)
+	os.Exit(0)
+}

@@ -23,10 +23,11 @@ gf access-control set-resource-permissions [flags]
 ### Options
 
 ```
-      --body string          The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
-  -h, --help                 help for set-resource-permissions
-      --resource string      Resource
-      --resource-id string   ResourceID
+      --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+      --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
+  -h, --help                       help for set-resource-permissions
+      --resource string            Resource
+      --resource-id string         ResourceID
 ```
 
 ### Options inherited from parent commands

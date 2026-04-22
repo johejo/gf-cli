@@ -23,9 +23,10 @@ gf orgs update-org-address [flags]
 ### Options
 
 ```
-      --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
-  -h, --help          help for update-org-address
-      --org-id int    OrgID
+      --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+      --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
+  -h, --help                       help for update-org-address
+      --org-id int                 OrgID
 ```
 
 ### Options inherited from parent commands

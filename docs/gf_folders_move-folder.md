@@ -18,9 +18,10 @@ gf folders move-folder [flags]
 ### Options
 
 ```
-      --body string         The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
-      --folder-uid string   FolderUID
-  -h, --help                help for move-folder
+      --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+      --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
+      --folder-uid string          FolderUID
+  -h, --help                       help for move-folder
 ```
 
 ### Options inherited from parent commands

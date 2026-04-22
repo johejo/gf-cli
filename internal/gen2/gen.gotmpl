@@ -36,6 +36,9 @@ var (
 {{- $svc := . }}
 {{- range .Actions }}
 {{- $act := . }}
+{{- if and .BodyField (ne .BodyField.JSONSchema "") }}
+	{{ $svc.VarName }}{{ .VarName }}BodyJSONSchema = {{ stringLiteral .BodyField.JSONSchema }}
+{{- end }}
 	{{ $svc.VarName }}{{ .VarName }}Cmd = &cobra.Command{
 		Use:               "{{ .CmdName }}",
 {{- if .Short }}
@@ -50,6 +53,14 @@ var (
 		),
 {{- end }}
 		DisableAutoGenTag: true,
+{{- if and .BodyField (ne .BodyField.JSONSchema "") }}
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if {{ $svc.VarName }}{{ $act.VarName }}Flag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema({{ $svc.VarName }}{{ $act.VarName }}BodyJSONSchema)
+			}
+			return nil
+		},
+{{- end }}
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
@@ -125,6 +136,9 @@ var (
 		{{ .FieldName }} {{ .Type }}
 {{- end }}
 {{- end }}
+{{- if and .BodyField (ne .BodyField.JSONSchema "") }}
+		DescribeBodyJSONSchema bool
+{{- end }}
 	}{}
 {{- end }}
 {{- end }}
@@ -146,6 +160,9 @@ func init() {
 {{- if .IsRequired }}
 	{{ $svc.VarName }}{{ $act.VarName }}Cmd.MarkFlagRequired("{{ .Name }}")
 {{- end }}
+{{- end }}
+{{- if and .BodyField (ne .BodyField.JSONSchema "") }}
+	{{ $svc.VarName }}{{ $act.VarName }}Cmd.Flags().BoolVar(&{{ $svc.VarName }}{{ $act.VarName }}Flag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 {{- end }}
 	{{ $svc.VarName }}Cmd.AddCommand({{ $svc.VarName }}{{ $act.VarName }}Cmd)
 {{- end }}

@@ -97,6 +97,12 @@ func main() {
 						} else {
 							bfi.Schema = schema
 						}
+						jsonSchema, err := BuildBodyJSONSchema(baseDir, pf.ModelType)
+						if err != nil {
+							log.Printf("warning: could not build JSON Schema for %s: %v", pf.ModelType, err)
+						} else {
+							bfi.JSONSchema = jsonSchema
+						}
 					}
 					act.BodyField = bfi
 					act.Flags = append(act.Flags, &Flag{
