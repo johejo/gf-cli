@@ -222,11 +222,25 @@ func flagHelp(fieldName string, doc string) string {
 }
 
 // stringLiteral returns a readable Go string literal for generated help text.
+// Multi-line strings use a raw string literal; embedded backticks are emitted
+// as "`" + concatenated segments so the multi-line form is preserved.
 func stringLiteral(s string) string {
-	if strings.Contains(s, "\n") && !strings.Contains(s, "`") {
+	if !strings.Contains(s, "\n") {
+		return fmt.Sprintf("%q", s)
+	}
+	if !strings.Contains(s, "`") {
 		return "`" + s + "`"
 	}
-	return fmt.Sprintf("%q", s)
+	var b strings.Builder
+	for i, part := range strings.Split(s, "`") {
+		if i > 0 {
+			b.WriteString(` + "` + "`" + `" + `)
+		}
+		b.WriteByte('`')
+		b.WriteString(part)
+		b.WriteByte('`')
+	}
+	return b.String()
 }
 
 func actionLongParts(act *Action) []string {

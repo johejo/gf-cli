@@ -12,6 +12,7 @@ Body schema (PatchQueryCommentInQueryHistoryCommand):
 {
   "comment": string
 }
+  comment                  Updated comment
 
 ```
 gf query-history patch-query-comment [flags]

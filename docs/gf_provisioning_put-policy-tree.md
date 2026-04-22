@@ -38,6 +38,8 @@ Body schema (Route):
     }
   ]
 }
+  match                    Deprecated. Remove before v1.0 release.
+  routes[].match           Deprecated. Remove before v1.0 release.
 
 ```
 gf provisioning put-policy-tree [flags]

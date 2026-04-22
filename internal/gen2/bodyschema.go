@@ -61,10 +61,11 @@ func extractModelFields(files []*ast.File, st *ast.StructType, expand bool) []*M
 		}
 
 		mf := &ModelField{
-			JSONName:   jsonName,
-			GoType:     resolveDisplayType(field.Type),
-			IsRequired: hasRequiredAnnotation(field.Doc),
-			EnumValues: extractEnumValues(field.Doc),
+			JSONName:    jsonName,
+			GoType:      resolveDisplayType(field.Type),
+			IsRequired:  hasRequiredAnnotation(field.Doc),
+			EnumValues:  extractEnumValues(field.Doc),
+			Description: extractDescription(field.Doc, jsonName),
 		}
 
 		classifyField(mf, field.Type, files, expand)
@@ -223,6 +224,68 @@ func hasRequiredAnnotation(doc *ast.CommentGroup) bool {
 	return false
 }
 
+// extractDescription returns the field's doc comment with go-swagger's known
+// schema-annotation lines (Required:, Enum:, Format:, etc.) stripped out,
+// so only the human-readable description remains. Lines are joined with a
+// single space. If the result is a trivial restatement of jsonName (only
+// case/whitespace differs), it is dropped as noise.
+func extractDescription(doc *ast.CommentGroup, jsonName string) string {
+	if doc == nil {
+		return ""
+	}
+	var kept []string
+	for line := range strings.SplitSeq(strings.TrimSpace(doc.Text()), "\n") {
+		line = strings.TrimSpace(line)
+		if line == "" || isAnnotationLine(line) {
+			continue
+		}
+		kept = append(kept, line)
+	}
+	desc := strings.Join(kept, " ")
+	if isTrivialDescription(desc, jsonName) {
+		return ""
+	}
+	return desc
+}
+
+// isTrivialDescription reports whether desc is a restatement of jsonName after
+// lowercasing and stripping non-alphanumerics. E.g. jsonName "roleUid" and
+// desc "role Uid" both normalize to "roleuid".
+func isTrivialDescription(desc, jsonName string) bool {
+	if desc == "" {
+		return true
+	}
+	return normalizeForCompare(desc) == normalizeForCompare(jsonName)
+}
+
+func normalizeForCompare(s string) string {
+	var b strings.Builder
+	b.Grow(len(s))
+	for _, r := range s {
+		switch {
+		case r >= 'A' && r <= 'Z':
+			b.WriteRune(r + ('a' - 'A'))
+		case r >= 'a' && r <= 'z', r >= '0' && r <= '9':
+			b.WriteRune(r)
+		}
+	}
+	return b.String()
+}
+
+func isAnnotationLine(s string) bool {
+	for _, p := range []string{
+		"Required:", "Enum:", "Format:", "Pattern:",
+		"Minimum:", "Maximum:", "MinLength:", "MaxLength:",
+		"MinItems:", "MaxItems:", "UniqueItems:",
+		"Example:", "Default:", "MultipleOf:",
+	} {
+		if strings.HasPrefix(s, p) {
+			return true
+		}
+	}
+	return false
+}
+
 func extractEnumValues(doc *ast.CommentGroup) []string {
 	if doc == nil {
 		return nil
@@ -322,6 +385,9 @@ func formatAnnotations(fields []*ModelField, prefix string) string {
 	for _, f := range fields {
 		var parts []string
 		key := prefix + f.JSONName
+		if f.Description != "" {
+			parts = append(parts, f.Description)
+		}
 		if f.IsRequired {
 			parts = append(parts, "required")
 		}
@@ -412,6 +478,9 @@ func (b *jsonSchemaBuilder) structSchema(typeName string) *orderedObj {
 			continue
 		}
 		prop := b.fieldSchema(field.Type)
+		if desc := extractDescription(field.Doc, jsonName); desc != "" {
+			prop.set("description", desc)
+		}
 		if enums := extractEnumValues(field.Doc); len(enums) > 0 {
 			prop.set("enum", stringsToAny(enums))
 		}

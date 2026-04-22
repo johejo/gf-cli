@@ -48,6 +48,7 @@ type ModelField struct {
 	IsMap        bool          // true if field is map[K]V
 	MapValueType string        // resolved JSON type for map values
 	EnumValues   []string      // from "// Enum: [val1 val2]" comment
+	Description  string        // field doc comment with go-swagger annotations stripped
 	NestedFields []*ModelField // 1-level expansion for struct types
 }
 

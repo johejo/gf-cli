@@ -20,7 +20,7 @@ func TestParseModelSchema(t *testing.T) {
 	}
 	t.Logf("TypeName: %s", schema.TypeName)
 	for _, f := range schema.Fields {
-		t.Logf("  %s %s required=%v", f.JSONName, f.GoType, f.IsRequired)
+		t.Logf("  %s %s required=%v description=%q", f.JSONName, f.GoType, f.IsRequired, f.Description)
 	}
 	if len(schema.Fields) == 0 {
 		t.Error("expected fields")
@@ -92,10 +92,12 @@ import "github.com/go-openapi/strfmt"
 
 // CreateThing create thing
 type CreateThing struct {
+	// name
 	// Required: true
 	Name string ` + "`json:\"name\"`" + `
 
 	// Email
+	// address of the user
 	Email *string ` + "`json:\"email,omitempty\"`" + `
 
 	// Enum: [active pending expired]
@@ -113,7 +115,8 @@ type CreateThing struct {
 	// Permissions
 	Permissions []*Permission ` + "`json:\"permissions,omitempty\"`" + `
 
-	// Created at
+	// created at
+	// Format: date-time
 	CreatedAt strfmt.DateTime ` + "`json:\"createdAt,omitempty\"`" + `
 
 	// Extra arbitrary blob
@@ -163,7 +166,8 @@ type Permission struct {
       "type": "string"
     },
     "email": {
-      "type": "string"
+      "type": "string",
+      "description": "Email address of the user"
     },
     "status": {
       "type": "string",
@@ -213,7 +217,9 @@ type Permission struct {
     "createdAt": {
       "type": "string"
     },
-    "extra": {}
+    "extra": {
+      "description": "Extra arbitrary blob"
+    }
   },
   "required": [
     "name"
@@ -321,5 +327,53 @@ type Config struct {
 func TestBuildBodyJSONSchemaInvalidModelType(t *testing.T) {
 	if _, err := BuildBodyJSONSchema("/does/not/matter", "NotAModel"); err == nil {
 		t.Fatal("expected error for non-models.* modelType")
+	}
+}
+
+func TestExtractDescriptionSkipsAnnotations(t *testing.T) {
+	src := `package models
+
+type T struct {
+	// first line
+	// continues here
+	// Required: true
+	// Format: date-time
+	// Enum: [a b c]
+	// Pattern: ^.*$
+	// Example: foo
+	A string ` + "`json:\"a\"`" + `
+
+	B string ` + "`json:\"b\"`" + `
+
+	// Required: true
+	C string ` + "`json:\"c\"`" + `
+
+	// role Uid
+	RoleUID string ` + "`json:\"roleUid\"`" + `
+}
+`
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, "t.go", src, parser.ParseComments)
+	if err != nil {
+		t.Fatalf("parse: %v", err)
+	}
+	st := findStructType(f, "T")
+	if st == nil {
+		t.Fatal("struct T not found")
+	}
+	got := make(map[string]string)
+	for _, field := range st.Fields.List {
+		got[field.Names[0].Name] = extractDescription(field.Doc, extractJSONName(field))
+	}
+	want := map[string]string{
+		"A":       "first line continues here",
+		"B":       "",
+		"C":       "",
+		"RoleUID": "", // "role Uid" normalizes to the same as "roleUid" -> dropped
+	}
+	for k, v := range want {
+		if got[k] != v {
+			t.Errorf("%s: got %q, want %q", k, got[k], v)
+		}
 	}
 }

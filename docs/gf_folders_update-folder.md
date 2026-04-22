@@ -13,6 +13,10 @@ Body schema (UpdateFolderCommand):
   "title": string,
   "version": number
 }
+  description              NewDescription it's an optional parameter used for overriding the existing folder description
+  overwrite                Overwrite only used by the legacy folder implementation
+  title                    NewTitle it's an optional parameter used for overriding the existing folder title
+  version                  Version only used by the legacy folder implementation
 
 ```
 gf folders update-folder [flags]

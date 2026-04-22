@@ -18,6 +18,9 @@ Body schema (ReportEmail):
   "id": string,
   "useEmailsFromReport": boolean
 }
+  emails                   Comma-separated list of emails to which to send the report to.
+  id                       Send the report to the emails specified in the report. Required if emails is not present.
+  useEmailsFromReport      Send the report to the emails specified in the report. Required if emails is not present.
 
 ```
 gf reports send-report [flags]

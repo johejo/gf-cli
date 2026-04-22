@@ -27,6 +27,7 @@ Body schema (UpdateDataSourceCommand):
   "version": number,
   "withCredentials": boolean
 }
+  version                  The previous version -- used for optimistic locking
 
 ```
 gf datasources update-datasource-by-uid [flags]

@@ -23,6 +23,7 @@ Body schema (ImportDashboardRequest):
   "path": string,
   "pluginId": string
 }
+  folderId                 Deprecated: use FolderUID instead
 
 ```
 gf dashboards import-dashboard [flags]

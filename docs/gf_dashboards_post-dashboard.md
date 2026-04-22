@@ -19,6 +19,7 @@ Body schema (SaveDashboardCommand):
   "overwrite": boolean,
   "userId": number
 }
+  folderId                 Deprecated: use FolderUID instead
 
 ```
 gf dashboards post-dashboard [flags]

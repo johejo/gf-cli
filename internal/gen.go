@@ -3328,26 +3328,33 @@ var (
   "type": "object",
   "properties": {
     "apiVersion": {
-      "type": "string"
+      "type": "string",
+      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources +optional"
     },
     "dashboard": {},
     "deleteKey": {
-      "type": "string"
+      "type": "string",
+      "description": "Unique key used to delete the snapshot. It is different from the ` + "`" + `key` + "`" + ` so that only the creator can delete the snapshot. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `."
     },
     "expires": {
-      "type": "number"
+      "type": "number",
+      "description": "When the snapshot should expire in seconds in seconds. Default is never to expire."
     },
     "external": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "these are passed when storing an external snapshot ref Save the snapshot on an external server rather than locally."
     },
     "key": {
-      "type": "string"
+      "type": "string",
+      "description": "Define the unique key. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `."
     },
     "kind": {
-      "type": "string"
+      "type": "string",
+      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds +optional"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Snapshot name"
     }
   },
   "required": [
@@ -3371,7 +3378,14 @@ var (
   "kind": string,
   "name": string
 }
-  dashboard                required`,
+  apiVersion               APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources +optional
+  dashboard                required
+  deleteKey                Unique key used to delete the snapshot. It is different from the `+"`"+`key`+"`"+` so that only the creator can delete the snapshot. Required if `+"`"+`external`+"`"+` is `+"`"+`true`+"`"+`.
+  expires                  When the snapshot should expire in seconds in seconds. Default is never to expire.
+  external                 these are passed when storing an external snapshot ref Save the snapshot on an external server rather than locally.
+  key                      Define the unique key. Required if `+"`"+`external`+"`"+` is `+"`"+`true`+"`"+`.
+  kind                     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds +optional
+  name                     Snapshot name`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -3843,7 +3857,8 @@ var (
   "properties": {
     "dashboard": {},
     "folderId": {
-      "type": "number"
+      "type": "number",
+      "description": "Deprecated: use FolderUID instead"
     },
     "folderUid": {
       "type": "string"
@@ -3900,7 +3915,8 @@ var (
   "overwrite": boolean,
   "path": string,
   "pluginId": string
-}`,
+}
+  folderId                 Deprecated: use FolderUID instead`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -3996,7 +4012,8 @@ var (
     },
     "dashboard": {},
     "folderId": {
-      "type": "number"
+      "type": "number",
+      "description": "Deprecated: use FolderUID instead"
     },
     "folderUid": {
       "type": "string"
@@ -4031,7 +4048,8 @@ var (
   "message": string,
   "overwrite": boolean,
   "userId": number
-}`,
+}
+  folderId                 Deprecated: use FolderUID instead`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -4627,9 +4645,12 @@ var (
       "type": "object",
       "properties": {
         "field": {
-          "type": "string"
+          "type": "string",
+          "description": "Field used to attach the correlation link"
         },
-        "target": {},
+        "target": {
+          "description": "Target data query"
+        },
         "transformations": {
           "type": "array",
           "items": {
@@ -4664,16 +4685,20 @@ var (
       ]
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "description": "Optional description of the correlation"
     },
     "label": {
-      "type": "string"
+      "type": "string",
+      "description": "Optional label identifying the correlation"
     },
     "provisioned": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "True if correlation was created with provisioning. This makes it read-only."
     },
     "targetUID": {
-      "type": "string"
+      "type": "string",
+      "description": "Target data source UID to which the correlation is created. required if type = query"
     },
     "type": {
       "type": "string"
@@ -4699,8 +4724,12 @@ var (
   "targetUID": string,
   "type": string
 }
-  config.field             required
-  config.target            required`,
+  config.field             Field used to attach the correlation link, required
+  config.target            Target data query, required
+  description              Optional description of the correlation
+  label                    Optional label identifying the correlation
+  provisioned              True if correlation was created with provisioning. This makes it read-only.
+  targetUID                Target data source UID to which the correlation is created. required if type = query`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -5033,14 +5062,17 @@ var (
       "type": "boolean"
     },
     "from": {
-      "type": "string"
+      "type": "string",
+      "description": "From Start time in epoch timestamps in milliseconds or relative using Grafana time units."
     },
     "queries": {
       "type": "array",
-      "items": {}
+      "items": {},
+      "description": "queries.refId – Specifies an identifier of the query. Is optional and default to “A”. queries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId. queries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100. queries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000."
     },
     "to": {
-      "type": "string"
+      "type": "string",
+      "description": "To End time in epoch timestamps in milliseconds or relative using Grafana time units."
     }
   },
   "required": [
@@ -5062,9 +5094,9 @@ var (
   "queries": [any],
   "to": string
 }
-  from                     required
-  queries                  required
-  to                       required`,
+  from                     From Start time in epoch timestamps in milliseconds or relative using Grafana time units., required
+  queries                  queries.refId – Specifies an identifier of the query. Is optional and default to “A”. queries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId. queries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100. queries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000., required
+  to                       To End time in epoch timestamps in milliseconds or relative using Grafana time units., required`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -5111,9 +5143,12 @@ var (
       "type": "object",
       "properties": {
         "field": {
-          "type": "string"
+          "type": "string",
+          "description": "Field used to attach the correlation link"
         },
-        "target": {},
+        "target": {
+          "description": "Target data query"
+        },
         "transformations": {
           "type": "array",
           "items": {
@@ -5136,15 +5171,18 @@ var (
                 ]
               }
             }
-          }
+          },
+          "description": "Source data transformations"
         }
       }
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "description": "Optional description of the correlation"
     },
     "label": {
-      "type": "string"
+      "type": "string",
+      "description": "Optional label identifying the correlation"
     },
     "type": {
       "type": "string"
@@ -5164,7 +5202,12 @@ var (
   "description": string,
   "label": string,
   "type": string
-}`,
+}
+  config.field             Field used to attach the correlation link
+  config.target            Target data query
+  config.transformations   Source data transformations
+  description              Optional description of the correlation
+  label                    Optional label identifying the correlation`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -5247,7 +5290,8 @@ var (
       "type": "string"
     },
     "version": {
-      "type": "number"
+      "type": "number",
+      "description": "The previous version -- used for optimistic locking"
     },
     "withCredentials": {
       "type": "boolean"
@@ -5277,7 +5321,8 @@ var (
   "user": string,
   "version": number,
   "withCredentials": boolean
-}`,
+}
+  version                  The previous version -- used for optimistic locking`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -5614,13 +5659,15 @@ var (
       "type": "boolean"
     },
     "ttlQueriesMs": {
-      "type": "number"
+      "type": "number",
+      "description": "TTL MS, or \"time to live\", is how long a cached item will stay in the cache before it is removed (in milliseconds)"
     },
     "ttlResourcesMs": {
       "type": "number"
     },
     "useDefaultTTL": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini"
     }
   }
 }`
@@ -5637,7 +5684,9 @@ var (
   "ttlQueriesMs": number,
   "ttlResourcesMs": number,
   "useDefaultTTL": boolean
-}`,
+}
+  ttlQueriesMs             TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+  useDefaultTTL            If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -6050,16 +6099,20 @@ var (
   "type": "object",
   "properties": {
     "description": {
-      "type": "string"
+      "type": "string",
+      "description": "NewDescription it's an optional parameter used for overriding the existing folder description"
     },
     "overwrite": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Overwrite only used by the legacy folder implementation"
     },
     "title": {
-      "type": "string"
+      "type": "string",
+      "description": "NewTitle it's an optional parameter used for overriding the existing folder title"
     },
     "version": {
-      "type": "number"
+      "type": "number",
+      "description": "Version only used by the legacy folder implementation"
     }
   }
 }`
@@ -6074,7 +6127,11 @@ var (
   "overwrite": boolean,
   "title": string,
   "version": number
-}`,
+}
+  description              NewDescription it's an optional parameter used for overriding the existing folder description
+  overwrite                Overwrite only used by the legacy folder implementation
+  title                    NewTitle it's an optional parameter used for overriding the existing folder title
+  version                  Version only used by the legacy folder implementation`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -6537,20 +6594,26 @@ var (
   "type": "object",
   "properties": {
     "folderId": {
-      "type": "number"
+      "type": "number",
+      "description": "ID of the folder where the library element is stored. Deprecated: use FolderUID instead"
     },
     "folderUid": {
-      "type": "string"
+      "type": "string",
+      "description": "UID of the folder where the library element is stored."
     },
     "kind": {
       "type": "number",
+      "description": "Kind of element to create, Use 1 for library panels or 2 for c. Description: 1 - library panels",
       "enum": [
         "1"
       ]
     },
-    "model": {},
+    "model": {
+      "description": "The JSON model for the library element."
+    },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Name of the library element."
     },
     "uid": {
       "type": "string"
@@ -6572,7 +6635,11 @@ var (
   "name": string,
   "uid": string
 }
-  kind                     enum: 1`,
+  folderId                 ID of the folder where the library element is stored. Deprecated: use FolderUID instead
+  folderUid                UID of the folder where the library element is stored.
+  kind                     Kind of element to create, Use 1 for library panels or 2 for c. Description: 1 - library panels, enum: 1
+  model                    The JSON model for the library element.
+  name                     Name of the library element.`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -6768,26 +6835,33 @@ var (
   "type": "object",
   "properties": {
     "folderId": {
-      "type": "number"
+      "type": "number",
+      "description": "ID of the folder where the library element is stored. Deprecated: use FolderUID instead"
     },
     "folderUid": {
-      "type": "string"
+      "type": "string",
+      "description": "UID of the folder where the library element is stored."
     },
     "kind": {
       "type": "number",
+      "description": "Kind of element to create, Use 1 for library panels or 2 for c. Description: 1 - library panels",
       "enum": [
         "1"
       ]
     },
-    "model": {},
+    "model": {
+      "description": "The JSON model for the library element."
+    },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Name of the library element."
     },
     "uid": {
       "type": "string"
     },
     "version": {
-      "type": "number"
+      "type": "number",
+      "description": "Version of the library element you are updating."
     }
   }
 }`
@@ -6807,7 +6881,12 @@ var (
   "uid": string,
   "version": number
 }
-  kind                     enum: 1`,
+  folderId                 ID of the folder where the library element is stored. Deprecated: use FolderUID instead
+  folderUid                UID of the folder where the library element is stored.
+  kind                     Kind of element to create, Use 1 for library panels or 2 for c. Description: 1 - library panels, enum: 1
+  model                    The JSON model for the library element.
+  name                     Name of the library element.
+  version                  Version of the library element you are updating.`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -7932,7 +8011,8 @@ var (
       }
     },
     "homeDashboardId": {
-      "type": "number"
+      "type": "number",
+      "description": "The numerical :id of a favorited dashboard"
     },
     "homeDashboardUID": {
       "type": "string"
@@ -8003,6 +8083,7 @@ var (
   "timezone": string,
   "weekStart": string
 }
+  homeDashboardId          The numerical :id of a favorited dashboard
   theme                    enum: light | dark
   timezone                 enum: utc | browser`,
 		),
@@ -8242,7 +8323,8 @@ var (
       }
     },
     "homeDashboardId": {
-      "type": "number"
+      "type": "number",
+      "description": "The numerical :id of a favorited dashboard"
     },
     "homeDashboardUID": {
       "type": "string"
@@ -8314,6 +8396,7 @@ var (
   "timezone": string,
   "weekStart": string
 }
+  homeDashboardId          The numerical :id of a favorited dashboard
   theme                    enum: light | dark | system
   timezone                 enum: utc | browser`,
 		),
@@ -9890,14 +9973,19 @@ var (
         "type": "object",
         "properties": {
           "datasourceUid": {
-            "type": "string"
+            "type": "string",
+            "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
           },
-          "model": {},
+          "model": {
+            "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
+          },
           "queryType": {
-            "type": "string"
+            "type": "string",
+            "description": "QueryType is an optional identifier for the type of query. It can be used to distinguish different types of queries."
           },
           "refId": {
-            "type": "string"
+            "type": "string",
+            "description": "RefID is the unique identifier of the query, set by the frontend call."
           },
           "relativeTimeRange": {
             "type": "object",
@@ -9960,31 +10048,38 @@ var (
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "Override the times when notifications should not be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent at the time that matches any interval."
         },
         "group_by": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels use the special value '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Must include 'alertname' and 'grafana_folder' if not using '...'."
         },
         "group_interval": {
-          "type": "string"
+          "type": "string",
+          "description": "Override how long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent. (Usually ~5m or more.)"
         },
         "group_wait": {
-          "type": "string"
+          "type": "string",
+          "description": "Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)"
         },
         "mute_time_intervals": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "Override the times when notifications should be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but otherwise acts normally."
         },
         "receiver": {
-          "type": "string"
+          "type": "string",
+          "description": "Name of the receiver to send notifications to."
         },
         "repeat_interval": {
-          "type": "string"
+          "type": "string",
+          "description": "Override how long to wait before sending a notification again if it has already been sent successfully for an alert. (Usually ~3h or more). Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag. Notifications will be resent after either repeat_interval or the data retention period have passed, whichever occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `."
         }
       },
       "required": [
@@ -10001,13 +10096,16 @@ var (
       "type": "object",
       "properties": {
         "from": {
-          "type": "string"
+          "type": "string",
+          "description": "Which expression node should be used as the input for the recorded metric."
         },
         "metric": {
-          "type": "string"
+          "type": "string",
+          "description": "Name of the recorded metric."
         },
         "target_datasource_uid": {
-          "type": "string"
+          "type": "string",
+          "description": "Which data source should be used to write the output of the recording rule, specified by UID."
         }
       },
       "required": [
@@ -10016,16 +10114,20 @@ var (
       ]
     },
     "ruleGroup": {
-      "type": "string"
+      "type": "string",
+      "description": "rule group Max Length: 190 Min Length: 1"
     },
     "title": {
-      "type": "string"
+      "type": "string",
+      "description": "title Max Length: 190 Min Length: 1"
     },
     "uid": {
-      "type": "string"
+      "type": "string",
+      "description": "uid Max Length: 40 Min Length: 1"
     },
     "updated": {
-      "type": "string"
+      "type": "string",
+      "description": "updated Read Only: true"
     }
   },
   "required": [
@@ -10088,16 +10190,29 @@ var (
 }
   condition                required
   data                     required
+  data[].datasourceUid     Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
+  data[].model             JSON is the raw JSON query and includes the above properties as well as custom properties.
+  data[].queryType         QueryType is an optional identifier for the type of query. It can be used to distinguish different types of queries.
+  data[].refId             RefID is the unique identifier of the query, set by the frontend call.
   execErrState             required, enum: OK | Alerting | Error
   folderUID                required
   for                      required
   noDataState              required, enum: Alerting | NoData | OK
-  notification_settings.receiver required
+  notification_settings.active_time_intervals Override the times when notifications should not be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent at the time that matches any interval.
+  notification_settings.group_by Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels use the special value '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Must include 'alertname' and 'grafana_folder' if not using '...'.
+  notification_settings.group_interval Override how long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent. (Usually ~5m or more.)
+  notification_settings.group_wait Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  notification_settings.mute_time_intervals Override the times when notifications should be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but otherwise acts normally.
+  notification_settings.receiver Name of the receiver to send notifications to., required
+  notification_settings.repeat_interval Override how long to wait before sending a notification again if it has already been sent successfully for an alert. (Usually ~3h or more). Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag. Notifications will be resent after either repeat_interval or the data retention period have passed, whichever occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
   orgID                    required
-  record.from              required
-  record.metric            required
-  ruleGroup                required
-  title                    required`,
+  record.from              Which expression node should be used as the input for the recorded metric., required
+  record.metric            Name of the recorded metric., required
+  record.target_datasource_uid Which data source should be used to write the output of the recording rule, specified by UID.
+  ruleGroup                rule group Max Length: 190 Min Length: 1, required
+  title                    title Max Length: 190 Min Length: 1, required
+  uid                      uid Max Length: 40 Min Length: 1
+  updated                  updated Read Only: true`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -10145,10 +10260,12 @@ var (
       "type": "boolean"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Name is used as grouping key in the UI. Contact points with the same name will be grouped in the UI."
     },
     "provenance": {
-      "type": "string"
+      "type": "string",
+      "description": "provenance Read Only: true"
     },
     "settings": {},
     "type": {
@@ -10175,7 +10292,8 @@ var (
       ]
     },
     "uid": {
-      "type": "string"
+      "type": "string",
+      "description": "UID is the unique identifier of the contact point. The UID can be set by the user. Max Length: 40 Min Length: 1"
     }
   },
   "required": [
@@ -10195,8 +10313,11 @@ var (
   "type": string,
   "uid": string
 }
+  name                     Name is used as grouping key in the UI. Contact points with the same name will be grouped in the UI.
+  provenance               provenance Read Only: true
   settings                 required
-  type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom`,
+  type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
+  uid                      UID is the unique identifier of the contact point. The UID can be set by the user. Max Length: 40 Min Length: 1`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -10369,14 +10490,19 @@ var (
         "type": "object",
         "properties": {
           "datasourceUid": {
-            "type": "string"
+            "type": "string",
+            "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
           },
-          "model": {},
+          "model": {
+            "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
+          },
           "queryType": {
-            "type": "string"
+            "type": "string",
+            "description": "QueryType is an optional identifier for the type of query. It can be used to distinguish different types of queries."
           },
           "refId": {
-            "type": "string"
+            "type": "string",
+            "description": "RefID is the unique identifier of the query, set by the frontend call."
           },
           "relativeTimeRange": {
             "type": "object",
@@ -10439,31 +10565,38 @@ var (
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "Override the times when notifications should not be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent at the time that matches any interval."
         },
         "group_by": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels use the special value '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Must include 'alertname' and 'grafana_folder' if not using '...'."
         },
         "group_interval": {
-          "type": "string"
+          "type": "string",
+          "description": "Override how long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent. (Usually ~5m or more.)"
         },
         "group_wait": {
-          "type": "string"
+          "type": "string",
+          "description": "Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)"
         },
         "mute_time_intervals": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "Override the times when notifications should be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but otherwise acts normally."
         },
         "receiver": {
-          "type": "string"
+          "type": "string",
+          "description": "Name of the receiver to send notifications to."
         },
         "repeat_interval": {
-          "type": "string"
+          "type": "string",
+          "description": "Override how long to wait before sending a notification again if it has already been sent successfully for an alert. (Usually ~3h or more). Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag. Notifications will be resent after either repeat_interval or the data retention period have passed, whichever occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `."
         }
       },
       "required": [
@@ -10480,13 +10613,16 @@ var (
       "type": "object",
       "properties": {
         "from": {
-          "type": "string"
+          "type": "string",
+          "description": "Which expression node should be used as the input for the recorded metric."
         },
         "metric": {
-          "type": "string"
+          "type": "string",
+          "description": "Name of the recorded metric."
         },
         "target_datasource_uid": {
-          "type": "string"
+          "type": "string",
+          "description": "Which data source should be used to write the output of the recording rule, specified by UID."
         }
       },
       "required": [
@@ -10495,16 +10631,20 @@ var (
       ]
     },
     "ruleGroup": {
-      "type": "string"
+      "type": "string",
+      "description": "rule group Max Length: 190 Min Length: 1"
     },
     "title": {
-      "type": "string"
+      "type": "string",
+      "description": "title Max Length: 190 Min Length: 1"
     },
     "uid": {
-      "type": "string"
+      "type": "string",
+      "description": "uid Max Length: 40 Min Length: 1"
     },
     "updated": {
-      "type": "string"
+      "type": "string",
+      "description": "updated Read Only: true"
     }
   },
   "required": [
@@ -10567,16 +10707,29 @@ var (
 }
   condition                required
   data                     required
+  data[].datasourceUid     Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
+  data[].model             JSON is the raw JSON query and includes the above properties as well as custom properties.
+  data[].queryType         QueryType is an optional identifier for the type of query. It can be used to distinguish different types of queries.
+  data[].refId             RefID is the unique identifier of the query, set by the frontend call.
   execErrState             required, enum: OK | Alerting | Error
   folderUID                required
   for                      required
   noDataState              required, enum: Alerting | NoData | OK
-  notification_settings.receiver required
+  notification_settings.active_time_intervals Override the times when notifications should not be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent at the time that matches any interval.
+  notification_settings.group_by Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels use the special value '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Must include 'alertname' and 'grafana_folder' if not using '...'.
+  notification_settings.group_interval Override how long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent. (Usually ~5m or more.)
+  notification_settings.group_wait Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  notification_settings.mute_time_intervals Override the times when notifications should be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but otherwise acts normally.
+  notification_settings.receiver Name of the receiver to send notifications to., required
+  notification_settings.repeat_interval Override how long to wait before sending a notification again if it has already been sent successfully for an alert. (Usually ~3h or more). Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag. Notifications will be resent after either repeat_interval or the data retention period have passed, whichever occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
   orgID                    required
-  record.from              required
-  record.metric            required
-  ruleGroup                required
-  title                    required`,
+  record.from              Which expression node should be used as the input for the recorded metric., required
+  record.metric            Name of the recorded metric., required
+  record.target_datasource_uid Which data source should be used to write the output of the recording rule, specified by UID.
+  ruleGroup                rule group Max Length: 190 Min Length: 1, required
+  title                    title Max Length: 190 Min Length: 1, required
+  uid                      uid Max Length: 40 Min Length: 1
+  updated                  updated Read Only: true`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -10647,14 +10800,19 @@ var (
               "type": "object",
               "properties": {
                 "datasourceUid": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
                 },
-                "model": {},
+                "model": {
+                  "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
+                },
                 "queryType": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "QueryType is an optional identifier for the type of query. It can be used to distinguish different types of queries."
                 },
                 "refId": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "RefID is the unique identifier of the query, set by the frontend call."
                 },
                 "relativeTimeRange": {
                   "type": "object",
@@ -10717,31 +10875,38 @@ var (
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "description": "Override the times when notifications should not be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent at the time that matches any interval."
               },
               "group_by": {
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "description": "Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels use the special value '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Must include 'alertname' and 'grafana_folder' if not using '...'."
               },
               "group_interval": {
-                "type": "string"
+                "type": "string",
+                "description": "Override how long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent. (Usually ~5m or more.)"
               },
               "group_wait": {
-                "type": "string"
+                "type": "string",
+                "description": "Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)"
               },
               "mute_time_intervals": {
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "description": "Override the times when notifications should be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but otherwise acts normally."
               },
               "receiver": {
-                "type": "string"
+                "type": "string",
+                "description": "Name of the receiver to send notifications to."
               },
               "repeat_interval": {
-                "type": "string"
+                "type": "string",
+                "description": "Override how long to wait before sending a notification again if it has already been sent successfully for an alert. (Usually ~3h or more). Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag. Notifications will be resent after either repeat_interval or the data retention period have passed, whichever occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `."
               }
             },
             "required": [
@@ -10758,13 +10923,16 @@ var (
             "type": "object",
             "properties": {
               "from": {
-                "type": "string"
+                "type": "string",
+                "description": "Which expression node should be used as the input for the recorded metric."
               },
               "metric": {
-                "type": "string"
+                "type": "string",
+                "description": "Name of the recorded metric."
               },
               "target_datasource_uid": {
-                "type": "string"
+                "type": "string",
+                "description": "Which data source should be used to write the output of the recording rule, specified by UID."
               }
             },
             "required": [
@@ -10773,16 +10941,20 @@ var (
             ]
           },
           "ruleGroup": {
-            "type": "string"
+            "type": "string",
+            "description": "rule group Max Length: 190 Min Length: 1"
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "description": "title Max Length: 190 Min Length: 1"
           },
           "uid": {
-            "type": "string"
+            "type": "string",
+            "description": "uid Max Length: 40 Min Length: 1"
           },
           "updated": {
-            "type": "string"
+            "type": "string",
+            "description": "updated Read Only: true"
           }
         },
         "required": [
@@ -10843,8 +11015,10 @@ var (
   rules[].for              required
   rules[].noDataState      required, enum: Alerting | NoData | OK
   rules[].orgID            required
-  rules[].ruleGroup        required
-  rules[].title            required`,
+  rules[].ruleGroup        rule group Max Length: 190 Min Length: 1, required
+  rules[].title            title Max Length: 190 Min Length: 1, required
+  rules[].uid              uid Max Length: 40 Min Length: 1
+  rules[].updated          updated Read Only: true`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -10894,10 +11068,12 @@ var (
       "type": "boolean"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Name is used as grouping key in the UI. Contact points with the same name will be grouped in the UI."
     },
     "provenance": {
-      "type": "string"
+      "type": "string",
+      "description": "provenance Read Only: true"
     },
     "settings": {},
     "type": {
@@ -10924,7 +11100,8 @@ var (
       ]
     },
     "uid": {
-      "type": "string"
+      "type": "string",
+      "description": "UID is the unique identifier of the contact point. The UID can be set by the user. Max Length: 40 Min Length: 1"
     }
   },
   "required": [
@@ -10944,8 +11121,11 @@ var (
   "type": string,
   "uid": string
 }
+  name                     Name is used as grouping key in the UI. Contact points with the same name will be grouped in the UI.
+  provenance               provenance Read Only: true
   settings                 required
-  type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom`,
+  type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
+  uid                      UID is the unique identifier of the contact point. The UID can be set by the user. Max Length: 40 Min Length: 1`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -11130,7 +11310,8 @@ var (
       "type": "object",
       "additionalProperties": {
         "type": "string"
-      }
+      },
+      "description": "Deprecated. Remove before v1.0 release."
     },
     "match_re": {
       "type": "object",
@@ -11231,7 +11412,9 @@ var (
       "routes": [object]
     }
   ]
-}`,
+}
+  match                    Deprecated. Remove before v1.0 release.
+  routes[].match           Deprecated. Remove before v1.0 release.`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -11487,7 +11670,8 @@ var (
   "type": "object",
   "properties": {
     "datasourceUid": {
-      "type": "string"
+      "type": "string",
+      "description": "UID of the data source for which are queries stored."
     },
     "queries": {}
   },
@@ -11506,6 +11690,7 @@ var (
   "datasourceUid": string,
   "queries": any
 }
+  datasourceUid            UID of the data source for which are queries stored.
   queries                  required`,
 		),
 		DisableAutoGenTag: true,
@@ -11580,7 +11765,8 @@ var (
   "type": "object",
   "properties": {
     "comment": {
-      "type": "string"
+      "type": "string",
+      "description": "Updated comment"
     }
   }
 }`
@@ -11593,7 +11779,8 @@ var (
 			`Body schema (PatchQueryCommentInQueryHistoryCommand):
 {
   "comment": string
-}`,
+}
+  comment                  Updated comment`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -13053,13 +13240,16 @@ var (
   "type": "object",
   "properties": {
     "emails": {
-      "type": "string"
+      "type": "string",
+      "description": "Comma-separated list of emails to which to send the report to."
     },
     "id": {
-      "type": "string"
+      "type": "string",
+      "description": "Send the report to the emails specified in the report. Required if emails is not present."
     },
     "useEmailsFromReport": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Send the report to the emails specified in the report. Required if emails is not present."
     }
   }
 }`
@@ -13076,7 +13266,10 @@ var (
   "emails": string,
   "id": string,
   "useEmailsFromReport": boolean
-}`,
+}
+  emails                   Comma-separated list of emails to which to send the report to.
+  id                       Send the report to the emails specified in the report. Required if emails is not present.
+  useEmailsFromReport      Send the report to the emails specified in the report. Required if emails is not present.`,
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -14441,7 +14634,8 @@ var (
       }
     },
     "homeDashboardId": {
-      "type": "number"
+      "type": "number",
+      "description": "The numerical :id of a favorited dashboard"
     },
     "homeDashboardUID": {
       "type": "string"
@@ -14512,6 +14706,7 @@ var (
   "timezone": string,
   "weekStart": string
 }
+  homeDashboardId          The numerical :id of a favorited dashboard
   theme                    enum: light | dark
   timezone                 enum: utc | browser`,
 		),
@@ -14774,7 +14969,8 @@ var (
       }
     },
     "homeDashboardId": {
-      "type": "number"
+      "type": "number",
+      "description": "The numerical :id of a favorited dashboard"
     },
     "homeDashboardUID": {
       "type": "string"
@@ -14847,6 +15043,7 @@ var (
   "timezone": string,
   "weekStart": string
 }
+  homeDashboardId          The numerical :id of a favorited dashboard
   theme                    enum: light | dark | system
   timezone                 enum: utc | browser`,
 		),
@@ -15788,7 +15985,8 @@ var (
       }
     },
     "homeDashboardId": {
-      "type": "number"
+      "type": "number",
+      "description": "The numerical :id of a favorited dashboard"
     },
     "homeDashboardUID": {
       "type": "string"
@@ -15860,6 +16058,7 @@ var (
   "timezone": string,
   "weekStart": string
 }
+  homeDashboardId          The numerical :id of a favorited dashboard
   theme                    enum: light | dark | system
   timezone                 enum: utc | browser`,
 		),

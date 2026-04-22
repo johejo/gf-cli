@@ -15,9 +15,9 @@ Body schema (MetricRequest):
   "queries": [any],
   "to": string
 }
-  from                     required
-  queries                  required
-  to                       required
+  from                     From Start time in epoch timestamps in milliseconds or relative using Grafana time units., required
+  queries                  queries.refId – Specifies an identifier of the query. Is optional and default to “A”. queries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId. queries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100. queries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000., required
+  to                       To End time in epoch timestamps in milliseconds or relative using Grafana time units., required
 
 ```
 gf datasources query-metrics-with-expressions [flags]

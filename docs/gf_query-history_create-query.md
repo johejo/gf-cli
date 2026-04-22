@@ -13,6 +13,7 @@ Body schema (CreateQueryInQueryHistoryCommand):
   "datasourceUid": string,
   "queries": any
 }
+  datasourceUid            UID of the data source for which are queries stored.
   queries                  required
 
 ```

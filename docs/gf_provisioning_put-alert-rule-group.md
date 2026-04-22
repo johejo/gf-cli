@@ -41,8 +41,10 @@ Body schema (AlertRuleGroup):
   rules[].for              required
   rules[].noDataState      required, enum: Alerting | NoData | OK
   rules[].orgID            required
-  rules[].ruleGroup        required
-  rules[].title            required
+  rules[].ruleGroup        rule group Max Length: 190 Min Length: 1, required
+  rules[].title            title Max Length: 190 Min Length: 1, required
+  rules[].uid              uid Max Length: 40 Min Length: 1
+  rules[].updated          updated Read Only: true
 
 ```
 gf provisioning put-alert-rule-group [flags]

@@ -25,6 +25,7 @@ Body schema (UpdatePrefsCmd):
   "timezone": string,
   "weekStart": string
 }
+  homeDashboardId          The numerical :id of a favorited dashboard
   theme                    enum: light | dark | system
   timezone                 enum: utc | browser
 

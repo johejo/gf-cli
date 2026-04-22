@@ -18,7 +18,12 @@ Body schema (PatchLibraryElementCommand):
   "uid": string,
   "version": number
 }
-  kind                     enum: 1
+  folderId                 ID of the folder where the library element is stored. Deprecated: use FolderUID instead
+  folderUid                UID of the folder where the library element is stored.
+  kind                     Kind of element to create, Use 1 for library panels or 2 for c. Description: 1 - library panels, enum: 1
+  model                    The JSON model for the library element.
+  name                     Name of the library element.
+  version                  Version of the library element you are updating.
 
 ```
 gf library-elements update-library-element [flags]

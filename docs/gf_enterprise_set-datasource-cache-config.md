@@ -15,6 +15,8 @@ Body schema (CacheConfigSetter):
   "ttlResourcesMs": number,
   "useDefaultTTL": boolean
 }
+  ttlQueriesMs             TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+  useDefaultTTL            If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini
 
 ```
 gf enterprise set-datasource-cache-config [flags]

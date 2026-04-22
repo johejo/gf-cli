@@ -20,8 +20,12 @@ Body schema (CreateCorrelationCommand):
   "targetUID": string,
   "type": string
 }
-  config.field             required
-  config.target            required
+  config.field             Field used to attach the correlation link, required
+  config.target            Target data query, required
+  description              Optional description of the correlation
+  label                    Optional label identifying the correlation
+  provisioned              True if correlation was created with provisioning. This makes it read-only.
+  targetUID                Target data source UID to which the correlation is created. required if type = query
 
 ```
 gf datasources create-correlation [flags]
