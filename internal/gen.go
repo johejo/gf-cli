@@ -60,6 +60,7 @@ var (
 var (
 	accessControlCmd = &cobra.Command{
 		Use:               "access-control",
+		Short:             "Access control API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -1070,6 +1071,7 @@ var (
 	}{}
 	accessControlProvisioningCmd = &cobra.Command{
 		Use:               "access-control-provisioning",
+		Short:             "Access control provisioning API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -1100,6 +1102,7 @@ var (
 	}
 	adminCmd = &cobra.Command{
 		Use:               "admin",
+		Short:             "Admin API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -1162,6 +1165,7 @@ var (
 	}
 	adminLdapCmd = &cobra.Command{
 		Use:               "admin-ldap",
+		Short:             "Admin ldap API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -1290,6 +1294,7 @@ var (
 	}{}
 	adminProvisioningCmd = &cobra.Command{
 		Use:               "admin-provisioning",
+		Short:             "Admin provisioning API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -1380,6 +1385,7 @@ var (
 	}
 	adminUsersCmd = &cobra.Command{
 		Use:               "admin-users",
+		Short:             "Admin users API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -1737,6 +1743,7 @@ var (
 	}{}
 	annotationsCmd = &cobra.Command{
 		Use:               "annotations",
+		Short:             "Annotations API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -2070,6 +2077,7 @@ var (
 	}{}
 	convertPrometheusCmd = &cobra.Command{
 		Use:               "convert-prometheus",
+		Short:             "Convert prometheus API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -2552,6 +2560,7 @@ var (
 	}{}
 	dashboardsCmd = &cobra.Command{
 		Use:               "dashboards",
+		Short:             "Dashboards API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -3441,6 +3450,7 @@ var (
 	}{}
 	datasourcesCmd = &cobra.Command{
 		Use:               "datasources",
+		Short:             "Datasources API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -4099,6 +4109,7 @@ var (
 	}{}
 	devicesCmd = &cobra.Command{
 		Use:               "devices",
+		Short:             "Devices API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -4153,6 +4164,7 @@ var (
 	}
 	enterpriseCmd = &cobra.Command{
 		Use:               "enterprise",
+		Short:             "Enterprise API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -4432,6 +4444,7 @@ var (
 	}{}
 	foldersCmd = &cobra.Command{
 		Use:               "folders",
+		Short:             "Folders API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -4782,6 +4795,7 @@ var (
 	}{}
 	groupAttributeSyncCmd = &cobra.Command{
 		Use:               "group-attribute-sync",
+		Short:             "Group attribute sync API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -4960,6 +4974,7 @@ var (
 	}{}
 	healthCmd = &cobra.Command{
 		Use:               "health",
+		Short:             "Health API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -4990,6 +5005,7 @@ var (
 	}
 	ldapDebugCmd = &cobra.Command{
 		Use:               "ldap-debug",
+		Short:             "Ldap debug API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -5024,6 +5040,7 @@ var (
 	}
 	libraryElementsCmd = &cobra.Command{
 		Use:               "library-elements",
+		Short:             "Library elements API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -5307,6 +5324,7 @@ var (
 	}{}
 	licensingCmd = &cobra.Command{
 		Use:               "licensing",
+		Short:             "Licensing API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -5580,6 +5598,7 @@ var (
 	}{}
 	migrationsCmd = &cobra.Command{
 		Use:               "migrations",
+		Short:             "Migrations API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -6002,6 +6021,7 @@ var (
 	}{}
 	orgCmd = &cobra.Command{
 		Use:               "org",
+		Short:             "Org API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -6550,6 +6570,7 @@ var (
 	}{}
 	orgsCmd = &cobra.Command{
 		Use:               "orgs",
+		Short:             "Orgs API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -6954,6 +6975,7 @@ var (
 	}{}
 	playlistsCmd = &cobra.Command{
 		Use:               "playlists",
+		Short:             "Playlists API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -7188,6 +7210,7 @@ var (
 	}{}
 	provisioningCmd = &cobra.Command{
 		Use:               "provisioning",
+		Short:             "Provisioning API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -8440,6 +8463,7 @@ var (
 	}{}
 	queryHistoryCmd = &cobra.Command{
 		Use:               "query-history",
+		Short:             "Query history API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -8679,6 +8703,7 @@ var (
 	}{}
 	quotaCmd = &cobra.Command{
 		Use:               "quota",
+		Short:             "Quota API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -8895,6 +8920,7 @@ var (
 	}{}
 	recordingRulesCmd = &cobra.Command{
 		Use:               "recording-rules",
+		Short:             "Recording rules API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -9207,6 +9233,7 @@ var (
 	}{}
 	reportsCmd = &cobra.Command{
 		Use:               "reports",
+		Short:             "Reports API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -9813,6 +9840,7 @@ var (
 	}{}
 	samlCmd = &cobra.Command{
 		Use:               "saml",
+		Short:             "Saml API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -9957,6 +9985,7 @@ var (
 	}{}
 	searchCmd = &cobra.Command{
 		Use:               "search",
+		Short:             "Search API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -10039,6 +10068,7 @@ var (
 	}{}
 	serviceAccountsCmd = &cobra.Command{
 		Use:               "service-accounts",
+		Short:             "Service accounts API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -10352,6 +10382,7 @@ var (
 	}{}
 	signedInUserCmd = &cobra.Command{
 		Use:               "signed-in-user",
+		Short:             "Signed in user API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -10894,6 +10925,7 @@ var (
 	}{}
 	signingKeysCmd = &cobra.Command{
 		Use:               "signing-keys",
+		Short:             "Signing keys API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -10928,6 +10960,7 @@ var (
 	}
 	snapshotsCmd = &cobra.Command{
 		Use:               "snapshots",
+		Short:             "Snapshots API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -10958,6 +10991,7 @@ var (
 	}
 	ssoSettingsCmd = &cobra.Command{
 		Use:               "sso-settings",
+		Short:             "Sso settings API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -11108,6 +11142,7 @@ var (
 	}{}
 	syncTeamGroupsCmd = &cobra.Command{
 		Use:               "sync-team-groups",
+		Short:             "Sync team groups API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -11254,6 +11289,7 @@ var (
 	}{}
 	teamsCmd = &cobra.Command{
 		Use:               "teams",
+		Short:             "Teams API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -11676,6 +11712,7 @@ var (
 	}{}
 	userCmd = &cobra.Command{
 		Use:               "user",
+		Short:             "User API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
@@ -11711,6 +11748,7 @@ var (
 	}
 	usersCmd = &cobra.Command{
 		Use:               "users",
+		Short:             "Users API",
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,

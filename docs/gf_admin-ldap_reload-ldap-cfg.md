@@ -32,5 +32,5 @@ gf admin-ldap reload-ldap-cfg [flags]
 
 ### SEE ALSO
 
-* [gf admin-ldap](gf_admin-ldap.md)	 - 
+* [gf admin-ldap](gf_admin-ldap.md)	 - Admin ldap API
 

@@ -33,5 +33,5 @@ gf admin-ldap get-user-from-ldap [flags]
 
 ### SEE ALSO
 
-* [gf admin-ldap](gf_admin-ldap.md)	 - 
+* [gf admin-ldap](gf_admin-ldap.md)	 - Admin ldap API
 

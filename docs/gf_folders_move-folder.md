@@ -37,5 +37,5 @@ gf folders move-folder [flags]
 
 ### SEE ALSO
 
-* [gf folders](gf_folders.md)	 - 
+* [gf folders](gf_folders.md)	 - Folders API
 

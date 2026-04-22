@@ -1,6 +1,6 @@
 ## gf reports
 
-
+Reports API
 
 ```
 gf reports [flags]

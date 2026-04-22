@@ -32,5 +32,5 @@ gf admin admin-get-stats [flags]
 
 ### SEE ALSO
 
-* [gf admin](gf_admin.md)	 - 
+* [gf admin](gf_admin.md)	 - Admin API
 

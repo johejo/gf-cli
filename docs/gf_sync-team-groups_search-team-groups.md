@@ -31,5 +31,5 @@ gf sync-team-groups search-team-groups [flags]
 
 ### SEE ALSO
 
-* [gf sync-team-groups](gf_sync-team-groups.md)	 - 
+* [gf sync-team-groups](gf_sync-team-groups.md)	 - Sync team groups API
 

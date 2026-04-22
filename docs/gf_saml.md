@@ -1,6 +1,6 @@
 ## gf saml
 
-
+Saml API
 
 ```
 gf saml [flags]

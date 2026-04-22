@@ -30,5 +30,5 @@ gf migrations get-shapshot-list [flags]
 
 ### SEE ALSO
 
-* [gf migrations](gf_migrations.md)	 - 
+* [gf migrations](gf_migrations.md)	 - Migrations API
 

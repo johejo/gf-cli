@@ -26,5 +26,5 @@ gf provisioning reset-policy-tree [flags]
 
 ### SEE ALSO
 
-* [gf provisioning](gf_provisioning.md)	 - 
+* [gf provisioning](gf_provisioning.md)	 - Provisioning API
 

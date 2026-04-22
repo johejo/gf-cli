@@ -27,5 +27,5 @@ gf enterprise get-datasource-cache-config [flags]
 
 ### SEE ALSO
 
-* [gf enterprise](gf_enterprise.md)	 - 
+* [gf enterprise](gf_enterprise.md)	 - Enterprise API
 

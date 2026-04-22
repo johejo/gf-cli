@@ -26,5 +26,5 @@ gf snapshots get-sharing-options [flags]
 
 ### SEE ALSO
 
-* [gf snapshots](gf_snapshots.md)	 - 
+* [gf snapshots](gf_snapshots.md)	 - Snapshots API
 

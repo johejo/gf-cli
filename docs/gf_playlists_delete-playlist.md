@@ -27,5 +27,5 @@ gf playlists delete-playlist [flags]
 
 ### SEE ALSO
 
-* [gf playlists](gf_playlists.md)	 - 
+* [gf playlists](gf_playlists.md)	 - Playlists API
 

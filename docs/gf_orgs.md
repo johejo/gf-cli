@@ -1,6 +1,6 @@
 ## gf orgs
 
-
+Orgs API
 
 ```
 gf orgs [flags]

@@ -26,5 +26,5 @@ gf migrations get-resource-dependencies [flags]
 
 ### SEE ALSO
 
-* [gf migrations](gf_migrations.md)	 - 
+* [gf migrations](gf_migrations.md)	 - Migrations API
 

@@ -28,5 +28,5 @@ gf sync-team-groups remove-team-group-api-query [flags]
 
 ### SEE ALSO
 
-* [gf sync-team-groups](gf_sync-team-groups.md)	 - 
+* [gf sync-team-groups](gf_sync-team-groups.md)	 - Sync team groups API
 

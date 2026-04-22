@@ -27,5 +27,5 @@ gf orgs get-org-by-name [flags]
 
 ### SEE ALSO
 
-* [gf orgs](gf_orgs.md)	 - 
+* [gf orgs](gf_orgs.md)	 - Orgs API
 

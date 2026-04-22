@@ -26,5 +26,5 @@ gf migrations get-session-list [flags]
 
 ### SEE ALSO
 
-* [gf migrations](gf_migrations.md)	 - 
+* [gf migrations](gf_migrations.md)	 - Migrations API
 

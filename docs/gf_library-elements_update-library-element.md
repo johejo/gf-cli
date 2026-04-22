@@ -46,5 +46,5 @@ gf library-elements update-library-element [flags]
 
 ### SEE ALSO
 
-* [gf library-elements](gf_library-elements.md)	 - 
+* [gf library-elements](gf_library-elements.md)	 - Library elements API
 

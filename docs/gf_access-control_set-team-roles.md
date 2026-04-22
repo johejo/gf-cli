@@ -40,5 +40,5 @@ gf access-control set-team-roles [flags]
 
 ### SEE ALSO
 
-* [gf access-control](gf_access-control.md)	 - 
+* [gf access-control](gf_access-control.md)	 - Access control API
 

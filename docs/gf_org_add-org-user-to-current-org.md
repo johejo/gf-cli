@@ -42,5 +42,5 @@ gf org add-org-user-to-current-org [flags]
 
 ### SEE ALSO
 
-* [gf org](gf_org.md)	 - 
+* [gf org](gf_org.md)	 - Org API
 

@@ -34,5 +34,5 @@ gf enterprise search-result [flags]
 
 ### SEE ALSO
 
-* [gf enterprise](gf_enterprise.md)	 - 
+* [gf enterprise](gf_enterprise.md)	 - Enterprise API
 

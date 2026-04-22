@@ -38,5 +38,5 @@ gf orgs create-org [flags]
 
 ### SEE ALSO
 
-* [gf orgs](gf_orgs.md)	 - 
+* [gf orgs](gf_orgs.md)	 - Orgs API
 

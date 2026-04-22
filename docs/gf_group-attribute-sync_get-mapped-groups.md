@@ -26,5 +26,5 @@ gf group-attribute-sync get-mapped-groups [flags]
 
 ### SEE ALSO
 
-* [gf group-attribute-sync](gf_group-attribute-sync.md)	 - 
+* [gf group-attribute-sync](gf_group-attribute-sync.md)	 - Group attribute sync API
 

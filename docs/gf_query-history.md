@@ -1,6 +1,6 @@
 ## gf query-history
 
-
+Query history API
 
 ```
 gf query-history [flags]

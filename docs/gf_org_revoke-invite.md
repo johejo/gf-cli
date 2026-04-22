@@ -27,5 +27,5 @@ gf org revoke-invite [flags]
 
 ### SEE ALSO
 
-* [gf org](gf_org.md)	 - 
+* [gf org](gf_org.md)	 - Org API
 

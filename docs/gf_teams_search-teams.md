@@ -32,5 +32,5 @@ gf teams search-teams [flags]
 
 ### SEE ALSO
 
-* [gf teams](gf_teams.md)	 - 
+* [gf teams](gf_teams.md)	 - Teams API
 

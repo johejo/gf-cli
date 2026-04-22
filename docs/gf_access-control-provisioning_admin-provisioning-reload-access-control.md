@@ -26,5 +26,5 @@ gf access-control-provisioning admin-provisioning-reload-access-control [flags]
 
 ### SEE ALSO
 
-* [gf access-control-provisioning](gf_access-control-provisioning.md)	 - 
+* [gf access-control-provisioning](gf_access-control-provisioning.md)	 - Access control provisioning API
 

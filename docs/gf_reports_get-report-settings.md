@@ -34,5 +34,5 @@ gf reports get-report-settings [flags]
 
 ### SEE ALSO
 
-* [gf reports](gf_reports.md)	 - 
+* [gf reports](gf_reports.md)	 - Reports API
 

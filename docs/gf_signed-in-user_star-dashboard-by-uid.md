@@ -33,5 +33,5 @@ gf signed-in-user star-dashboard-by-uid [flags]
 
 ### SEE ALSO
 
-* [gf signed-in-user](gf_signed-in-user.md)	 - 
+* [gf signed-in-user](gf_signed-in-user.md)	 - Signed in user API
 

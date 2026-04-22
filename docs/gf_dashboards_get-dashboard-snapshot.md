@@ -27,5 +27,5 @@ gf dashboards get-dashboard-snapshot [flags]
 
 ### SEE ALSO
 
-* [gf dashboards](gf_dashboards.md)	 - 
+* [gf dashboards](gf_dashboards.md)	 - Dashboards API
 

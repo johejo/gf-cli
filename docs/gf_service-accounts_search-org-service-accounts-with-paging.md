@@ -31,5 +31,5 @@ gf service-accounts search-org-service-accounts-with-paging [flags]
 
 ### SEE ALSO
 
-* [gf service-accounts](gf_service-accounts.md)	 - 
+* [gf service-accounts](gf_service-accounts.md)	 - Service accounts API
 

@@ -1,6 +1,6 @@
 ## gf devices
 
-
+Devices API
 
 ```
 gf devices [flags]

@@ -26,5 +26,5 @@ gf search list-sort-options [flags]
 
 ### SEE ALSO
 
-* [gf search](gf_search.md)	 - 
+* [gf search](gf_search.md)	 - Search API
 

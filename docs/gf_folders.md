@@ -1,6 +1,6 @@
 ## gf folders
 
-
+Folders API
 
 ```
 gf folders [flags]

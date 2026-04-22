@@ -44,5 +44,5 @@ gf annotations update-annotation [flags]
 
 ### SEE ALSO
 
-* [gf annotations](gf_annotations.md)	 - 
+* [gf annotations](gf_annotations.md)	 - Annotations API
 

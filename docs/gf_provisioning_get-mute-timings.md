@@ -26,5 +26,5 @@ gf provisioning get-mute-timings [flags]
 
 ### SEE ALSO
 
-* [gf provisioning](gf_provisioning.md)	 - 
+* [gf provisioning](gf_provisioning.md)	 - Provisioning API
 

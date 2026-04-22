@@ -1,6 +1,6 @@
 ## gf health
 
-
+Health API
 
 ```
 gf health [flags]

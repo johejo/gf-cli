@@ -1,6 +1,6 @@
 ## gf admin
 
-
+Admin API
 
 ```
 gf admin [flags]

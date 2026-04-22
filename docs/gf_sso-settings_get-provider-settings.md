@@ -33,5 +33,5 @@ gf sso-settings get-provider-settings [flags]
 
 ### SEE ALSO
 
-* [gf sso-settings](gf_sso-settings.md)	 - 
+* [gf sso-settings](gf_sso-settings.md)	 - Sso settings API
 

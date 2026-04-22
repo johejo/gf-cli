@@ -33,5 +33,5 @@ gf migrations get-snapshot [flags]
 
 ### SEE ALSO
 
-* [gf migrations](gf_migrations.md)	 - 
+* [gf migrations](gf_migrations.md)	 - Migrations API
 

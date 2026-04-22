@@ -32,5 +32,5 @@ gf user update-user-email [flags]
 
 ### SEE ALSO
 
-* [gf user](gf_user.md)	 - 
+* [gf user](gf_user.md)	 - User API
 

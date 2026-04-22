@@ -36,5 +36,5 @@ gf teams update-team-member [flags]
 
 ### SEE ALSO
 
-* [gf teams](gf_teams.md)	 - 
+* [gf teams](gf_teams.md)	 - Teams API
 

@@ -33,5 +33,5 @@ gf library-elements delete-library-element-by-uid [flags]
 
 ### SEE ALSO
 
-* [gf library-elements](gf_library-elements.md)	 - 
+* [gf library-elements](gf_library-elements.md)	 - Library elements API
 

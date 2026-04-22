@@ -30,5 +30,5 @@ gf folders get-folders [flags]
 
 ### SEE ALSO
 
-* [gf folders](gf_folders.md)	 - 
+* [gf folders](gf_folders.md)	 - Folders API
 

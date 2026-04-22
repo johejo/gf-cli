@@ -1,6 +1,6 @@
 ## gf licensing
 
-
+Licensing API
 
 ```
 gf licensing [flags]

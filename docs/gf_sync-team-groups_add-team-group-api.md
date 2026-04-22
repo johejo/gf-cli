@@ -37,5 +37,5 @@ gf sync-team-groups add-team-group-api [flags]
 
 ### SEE ALSO
 
-* [gf sync-team-groups](gf_sync-team-groups.md)	 - 
+* [gf sync-team-groups](gf_sync-team-groups.md)	 - Sync team groups API
 

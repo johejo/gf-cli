@@ -32,5 +32,5 @@ gf admin-provisioning admin-provisioning-reload-dashboards [flags]
 
 ### SEE ALSO
 
-* [gf admin-provisioning](gf_admin-provisioning.md)	 - 
+* [gf admin-provisioning](gf_admin-provisioning.md)	 - Admin provisioning API
 

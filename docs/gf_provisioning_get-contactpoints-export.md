@@ -30,5 +30,5 @@ gf provisioning get-contactpoints-export [flags]
 
 ### SEE ALSO
 
-* [gf provisioning](gf_provisioning.md)	 - 
+* [gf provisioning](gf_provisioning.md)	 - Provisioning API
 

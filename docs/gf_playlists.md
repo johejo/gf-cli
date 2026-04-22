@@ -1,6 +1,6 @@
 ## gf playlists
 
-
+Playlists API
 
 ```
 gf playlists [flags]

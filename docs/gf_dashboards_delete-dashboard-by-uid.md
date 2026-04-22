@@ -33,5 +33,5 @@ gf dashboards delete-dashboard-by-uid [flags]
 
 ### SEE ALSO
 
-* [gf dashboards](gf_dashboards.md)	 - 
+* [gf dashboards](gf_dashboards.md)	 - Dashboards API
 

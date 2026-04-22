@@ -39,5 +39,5 @@ gf signed-in-user update-signed-in-user [flags]
 
 ### SEE ALSO
 
-* [gf signed-in-user](gf_signed-in-user.md)	 - 
+* [gf signed-in-user](gf_signed-in-user.md)	 - Signed in user API
 

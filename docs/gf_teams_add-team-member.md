@@ -38,5 +38,5 @@ gf teams add-team-member [flags]
 
 ### SEE ALSO
 
-* [gf teams](gf_teams.md)	 - 
+* [gf teams](gf_teams.md)	 - Teams API
 

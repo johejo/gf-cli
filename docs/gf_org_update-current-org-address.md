@@ -41,5 +41,5 @@ gf org update-current-org-address [flags]
 
 ### SEE ALSO
 
-* [gf org](gf_org.md)	 - 
+* [gf org](gf_org.md)	 - Org API
 

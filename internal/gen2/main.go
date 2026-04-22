@@ -32,7 +32,7 @@ func main() {
 	// Phase 2-5: Parse each service
 	var services []*Service
 	for _, entry := range entries {
-		methods, err := ParseService(baseDir, entry.PkgName)
+		short, methods, err := ParseService(baseDir, entry.PkgName)
 		if err != nil {
 			log.Printf("warning: skipping service %s: %v", entry.PkgName, err)
 			continue
@@ -46,6 +46,7 @@ func main() {
 			FieldName: entry.FieldName,
 			CmdName:   toKebab(entry.PkgName),
 			VarName:   toLowerCamel(entry.PkgName),
+			Short:     short,
 		}
 
 		for _, m := range methods {

@@ -33,5 +33,5 @@ gf query-history star-query [flags]
 
 ### SEE ALSO
 
-* [gf query-history](gf_query-history.md)	 - 
+* [gf query-history](gf_query-history.md)	 - Query history API
 

@@ -33,5 +33,5 @@ gf orgs remove-org-user [flags]
 
 ### SEE ALSO
 
-* [gf orgs](gf_orgs.md)	 - 
+* [gf orgs](gf_orgs.md)	 - Orgs API
 

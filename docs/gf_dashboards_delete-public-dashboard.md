@@ -28,5 +28,5 @@ gf dashboards delete-public-dashboard [flags]
 
 ### SEE ALSO
 
-* [gf dashboards](gf_dashboards.md)	 - 
+* [gf dashboards](gf_dashboards.md)	 - Dashboards API
 

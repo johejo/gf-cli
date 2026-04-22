@@ -39,5 +39,5 @@ gf search search [flags]
 
 ### SEE ALSO
 
-* [gf search](gf_search.md)	 - 
+* [gf search](gf_search.md)	 - Search API
 

@@ -35,5 +35,5 @@ gf sso-settings remove-provider-settings [flags]
 
 ### SEE ALSO
 
-* [gf sso-settings](gf_sso-settings.md)	 - 
+* [gf sso-settings](gf_sso-settings.md)	 - Sso settings API
 

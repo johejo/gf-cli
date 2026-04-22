@@ -33,5 +33,5 @@ gf service-accounts retrieve-service-account [flags]
 
 ### SEE ALSO
 
-* [gf service-accounts](gf_service-accounts.md)	 - 
+* [gf service-accounts](gf_service-accounts.md)	 - Service accounts API
 

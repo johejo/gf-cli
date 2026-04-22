@@ -1,6 +1,6 @@
 ## gf recording-rules
 
-
+Recording rules API
 
 ```
 gf recording-rules [flags]

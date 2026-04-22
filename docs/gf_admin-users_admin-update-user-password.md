@@ -39,5 +39,5 @@ gf admin-users admin-update-user-password [flags]
 
 ### SEE ALSO
 
-* [gf admin-users](gf_admin-users.md)	 - 
+* [gf admin-users](gf_admin-users.md)	 - Admin users API
 

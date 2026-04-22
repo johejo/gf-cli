@@ -26,5 +26,5 @@ gf health get-health [flags]
 
 ### SEE ALSO
 
-* [gf health](gf_health.md)	 - 
+* [gf health](gf_health.md)	 - Health API
 

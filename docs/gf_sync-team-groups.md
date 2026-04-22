@@ -1,6 +1,6 @@
 ## gf sync-team-groups
 
-
+Sync team groups API
 
 ```
 gf sync-team-groups [flags]

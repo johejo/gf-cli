@@ -51,5 +51,5 @@ gf org update-org-preferences [flags]
 
 ### SEE ALSO
 
-* [gf org](gf_org.md)	 - 
+* [gf org](gf_org.md)	 - Org API
 

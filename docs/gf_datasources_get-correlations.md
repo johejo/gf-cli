@@ -29,5 +29,5 @@ gf datasources get-correlations [flags]
 
 ### SEE ALSO
 
-* [gf datasources](gf_datasources.md)	 - 
+* [gf datasources](gf_datasources.md)	 - Datasources API
 

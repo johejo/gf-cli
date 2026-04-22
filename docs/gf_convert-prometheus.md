@@ -1,6 +1,6 @@
 ## gf convert-prometheus
 
-
+Convert prometheus API
 
 ```
 gf convert-prometheus [flags]

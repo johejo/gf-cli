@@ -28,5 +28,5 @@ gf users search-users [flags]
 
 ### SEE ALSO
 
-* [gf users](gf_users.md)	 - 
+* [gf users](gf_users.md)	 - Users API
 

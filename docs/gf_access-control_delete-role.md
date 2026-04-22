@@ -29,5 +29,5 @@ gf access-control delete-role [flags]
 
 ### SEE ALSO
 
-* [gf access-control](gf_access-control.md)	 - 
+* [gf access-control](gf_access-control.md)	 - Access control API
 

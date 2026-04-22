@@ -1,6 +1,6 @@
 ## gf admin-provisioning
 
-
+Admin provisioning API
 
 ```
 gf admin-provisioning [flags]

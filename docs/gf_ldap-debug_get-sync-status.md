@@ -32,5 +32,5 @@ gf ldap-debug get-sync-status [flags]
 
 ### SEE ALSO
 
-* [gf ldap-debug](gf_ldap-debug.md)	 - 
+* [gf ldap-debug](gf_ldap-debug.md)	 - Ldap debug API
 

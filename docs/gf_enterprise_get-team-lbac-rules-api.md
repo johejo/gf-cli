@@ -27,5 +27,5 @@ gf enterprise get-team-lbac-rules-api [flags]
 
 ### SEE ALSO
 
-* [gf enterprise](gf_enterprise.md)	 - 
+* [gf enterprise](gf_enterprise.md)	 - Enterprise API
 

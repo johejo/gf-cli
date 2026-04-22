@@ -32,5 +32,5 @@ gf quota get-org-quota [flags]
 
 ### SEE ALSO
 
-* [gf quota](gf_quota.md)	 - 
+* [gf quota](gf_quota.md)	 - Quota API
 

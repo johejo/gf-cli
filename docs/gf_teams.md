@@ -1,6 +1,6 @@
 ## gf teams
 
-
+Teams API
 
 ```
 gf teams [flags]

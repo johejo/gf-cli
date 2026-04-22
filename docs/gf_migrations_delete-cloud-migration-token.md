@@ -27,5 +27,5 @@ gf migrations delete-cloud-migration-token [flags]
 
 ### SEE ALSO
 
-* [gf migrations](gf_migrations.md)	 - 
+* [gf migrations](gf_migrations.md)	 - Migrations API
 

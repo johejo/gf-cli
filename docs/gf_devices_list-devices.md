@@ -26,5 +26,5 @@ gf devices list-devices [flags]
 
 ### SEE ALSO
 
-* [gf devices](gf_devices.md)	 - 
+* [gf devices](gf_devices.md)	 - Devices API
 

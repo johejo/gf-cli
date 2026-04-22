@@ -26,5 +26,5 @@ gf saml get-saml-logout [flags]
 
 ### SEE ALSO
 
-* [gf saml](gf_saml.md)	 - 
+* [gf saml](gf_saml.md)	 - Saml API
 

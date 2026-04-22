@@ -32,5 +32,5 @@ gf licensing get-custom-permissions-csv [flags]
 
 ### SEE ALSO
 
-* [gf licensing](gf_licensing.md)	 - 
+* [gf licensing](gf_licensing.md)	 - Licensing API
 

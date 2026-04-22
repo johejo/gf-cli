@@ -33,5 +33,5 @@ gf dashboards delete-dashboard-snapshot-by-delete-key [flags]
 
 ### SEE ALSO
 
-* [gf dashboards](gf_dashboards.md)	 - 
+* [gf dashboards](gf_dashboards.md)	 - Dashboards API
 

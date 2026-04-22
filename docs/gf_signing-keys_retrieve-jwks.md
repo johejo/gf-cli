@@ -32,5 +32,5 @@ gf signing-keys retrieve-jwks [flags]
 
 ### SEE ALSO
 
-* [gf signing-keys](gf_signing-keys.md)	 - 
+* [gf signing-keys](gf_signing-keys.md)	 - Signing keys API
 

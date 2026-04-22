@@ -1,6 +1,6 @@
 ## gf sso-settings
 
-
+Sso settings API
 
 ```
 gf sso-settings [flags]

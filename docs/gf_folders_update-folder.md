@@ -40,5 +40,5 @@ gf folders update-folder [flags]
 
 ### SEE ALSO
 
-* [gf folders](gf_folders.md)	 - 
+* [gf folders](gf_folders.md)	 - Folders API
 

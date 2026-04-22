@@ -33,5 +33,5 @@ gf datasources delete-datasource-by-name [flags]
 
 ### SEE ALSO
 
-* [gf datasources](gf_datasources.md)	 - 
+* [gf datasources](gf_datasources.md)	 - Datasources API
 

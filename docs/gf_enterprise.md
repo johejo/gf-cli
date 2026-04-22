@@ -1,6 +1,6 @@
 ## gf enterprise
 
-
+Enterprise API
 
 ```
 gf enterprise [flags]

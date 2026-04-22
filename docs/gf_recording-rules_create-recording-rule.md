@@ -46,5 +46,5 @@ gf recording-rules create-recording-rule [flags]
 
 ### SEE ALSO
 
-* [gf recording-rules](gf_recording-rules.md)	 - 
+* [gf recording-rules](gf_recording-rules.md)	 - Recording rules API
 

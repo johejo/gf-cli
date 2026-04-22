@@ -27,5 +27,5 @@ gf dashboards get-dashboard-permissions-list-by-uid [flags]
 
 ### SEE ALSO
 
-* [gf dashboards](gf_dashboards.md)	 - 
+* [gf dashboards](gf_dashboards.md)	 - Dashboards API
 

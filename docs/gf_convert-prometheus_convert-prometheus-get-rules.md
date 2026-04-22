@@ -26,5 +26,5 @@ gf convert-prometheus convert-prometheus-get-rules [flags]
 
 ### SEE ALSO
 
-* [gf convert-prometheus](gf_convert-prometheus.md)	 - 
+* [gf convert-prometheus](gf_convert-prometheus.md)	 - Convert prometheus API
 

@@ -43,5 +43,5 @@ gf datasources update-correlation [flags]
 
 ### SEE ALSO
 
-* [gf datasources](gf_datasources.md)	 - 
+* [gf datasources](gf_datasources.md)	 - Datasources API
 

@@ -26,5 +26,5 @@ gf signed-in-user get-signed-in-user [flags]
 
 ### SEE ALSO
 
-* [gf signed-in-user](gf_signed-in-user.md)	 - 
+* [gf signed-in-user](gf_signed-in-user.md)	 - Signed in user API
 

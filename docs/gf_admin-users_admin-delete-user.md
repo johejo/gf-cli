@@ -33,5 +33,5 @@ gf admin-users admin-delete-user [flags]
 
 ### SEE ALSO
 
-* [gf admin-users](gf_admin-users.md)	 - 
+* [gf admin-users](gf_admin-users.md)	 - Admin users API
 

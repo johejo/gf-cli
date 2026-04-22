@@ -1,6 +1,6 @@
 ## gf dashboards
 
-
+Dashboards API
 
 ```
 gf dashboards [flags]

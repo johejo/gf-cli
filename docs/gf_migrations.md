@@ -1,6 +1,6 @@
 ## gf migrations
 
-
+Migrations API
 
 ```
 gf migrations [flags]

@@ -19,14 +19,16 @@ type MethodInfo struct {
 }
 
 // ParseService parses a ClientService interface from <baseDir>/client/<pkgName>/<pkgName>_client.go
-// and returns the list of methods matching our criteria.
-func ParseService(baseDir string, pkgName string) ([]*MethodInfo, error) {
+// and returns the service-level short description and the list of methods matching our criteria.
+func ParseService(baseDir string, pkgName string) (string, []*MethodInfo, error) {
 	clientFile := filepath.Join(baseDir, "client", pkgName, pkgName+"_client.go")
 	fset := token.NewFileSet()
 	f, err := parser.ParseFile(fset, clientFile, nil, parser.ParseComments)
 	if err != nil {
-		return nil, fmt.Errorf("parsing service file %s: %w", clientFile, err)
+		return "", nil, fmt.Errorf("parsing service file %s: %w", clientFile, err)
 	}
+
+	short := extractServiceShort(f)
 
 	// Build doc comment map from implementation methods: func (a *Client) Xxx(...)
 	docMap := buildMethodDocMap(f)
@@ -34,7 +36,7 @@ func ParseService(baseDir string, pkgName string) ([]*MethodInfo, error) {
 	// Find ClientService interface
 	iface := findClientServiceInterface(f)
 	if iface == nil {
-		return nil, fmt.Errorf("ClientService interface not found in %s", clientFile)
+		return "", nil, fmt.Errorf("ClientService interface not found in %s", clientFile)
 	}
 
 	var methods []*MethodInfo
@@ -93,7 +95,46 @@ func ParseService(baseDir string, pkgName string) ([]*MethodInfo, error) {
 			Long:           doc.Long,
 		})
 	}
-	return methods, nil
+	return short, methods, nil
+}
+
+// extractServiceShort reads the doc comment on the Client struct
+// (e.g. "Client for access control API") and turns it into a cobra Short
+// (e.g. "Access control API"). Returns "" if no usable comment is found.
+func extractServiceShort(f *ast.File) string {
+	for _, decl := range f.Decls {
+		gd, ok := decl.(*ast.GenDecl)
+		if !ok || gd.Tok != token.TYPE {
+			continue
+		}
+		for _, spec := range gd.Specs {
+			ts, ok := spec.(*ast.TypeSpec)
+			if !ok || ts.Name.Name != "Client" {
+				continue
+			}
+			doc := ""
+			if gd.Doc != nil {
+				doc = gd.Doc.Text()
+			}
+			if doc == "" && ts.Doc != nil {
+				doc = ts.Doc.Text()
+			}
+			return formatServiceShort(doc)
+		}
+	}
+	return ""
+}
+
+func formatServiceShort(s string) string {
+	s = strings.TrimSpace(s)
+	if s == "" {
+		return ""
+	}
+	if idx := strings.IndexByte(s, '\n'); idx >= 0 {
+		s = strings.TrimSpace(s[:idx])
+	}
+	s = strings.TrimPrefix(s, "Client for ")
+	return capitalizeFirst(s)
 }
 
 type MethodDoc struct {

@@ -44,5 +44,5 @@ gf datasources query-metrics-with-expressions [flags]
 
 ### SEE ALSO
 
-* [gf datasources](gf_datasources.md)	 - 
+* [gf datasources](gf_datasources.md)	 - Datasources API
 

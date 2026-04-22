@@ -1,6 +1,6 @@
 ## gf users
 
-
+Users API
 
 ```
 gf users [flags]

@@ -32,5 +32,5 @@ gf orgs search-org-users [flags]
 
 ### SEE ALSO
 
-* [gf orgs](gf_orgs.md)	 - 
+* [gf orgs](gf_orgs.md)	 - Orgs API
 

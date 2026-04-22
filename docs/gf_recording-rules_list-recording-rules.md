@@ -26,5 +26,5 @@ gf recording-rules list-recording-rules [flags]
 
 ### SEE ALSO
 
-* [gf recording-rules](gf_recording-rules.md)	 - 
+* [gf recording-rules](gf_recording-rules.md)	 - Recording rules API
 

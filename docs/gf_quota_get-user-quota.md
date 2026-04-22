@@ -33,5 +33,5 @@ gf quota get-user-quota [flags]
 
 ### SEE ALSO
 
-* [gf quota](gf_quota.md)	 - 
+* [gf quota](gf_quota.md)	 - Quota API
 

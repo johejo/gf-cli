@@ -1,6 +1,6 @@
 ## gf search
 
-
+Search API
 
 ```
 gf search [flags]

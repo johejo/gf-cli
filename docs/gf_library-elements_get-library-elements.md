@@ -34,5 +34,5 @@ gf library-elements get-library-elements [flags]
 
 ### SEE ALSO
 
-* [gf library-elements](gf_library-elements.md)	 - 
+* [gf library-elements](gf_library-elements.md)	 - Library elements API
 

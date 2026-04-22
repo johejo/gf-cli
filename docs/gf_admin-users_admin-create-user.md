@@ -42,5 +42,5 @@ gf admin-users admin-create-user [flags]
 
 ### SEE ALSO
 
-* [gf admin-users](gf_admin-users.md)	 - 
+* [gf admin-users](gf_admin-users.md)	 - Admin users API
 

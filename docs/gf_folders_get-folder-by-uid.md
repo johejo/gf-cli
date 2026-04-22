@@ -27,5 +27,5 @@ gf folders get-folder-by-uid [flags]
 
 ### SEE ALSO
 
-* [gf folders](gf_folders.md)	 - 
+* [gf folders](gf_folders.md)	 - Folders API
 

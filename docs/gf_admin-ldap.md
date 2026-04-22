@@ -1,6 +1,6 @@
 ## gf admin-ldap
 
-
+Admin ldap API
 
 ```
 gf admin-ldap [flags]

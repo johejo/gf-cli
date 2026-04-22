@@ -27,5 +27,5 @@ gf playlists get-playlist [flags]
 
 ### SEE ALSO
 
-* [gf playlists](gf_playlists.md)	 - 
+* [gf playlists](gf_playlists.md)	 - Playlists API
 

@@ -32,5 +32,5 @@ gf licensing get-license-token [flags]
 
 ### SEE ALSO
 
-* [gf licensing](gf_licensing.md)	 - 
+* [gf licensing](gf_licensing.md)	 - Licensing API
 

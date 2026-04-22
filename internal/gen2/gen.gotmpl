@@ -26,6 +26,9 @@ var (
 {{- range . }}
 	{{ .VarName }}Cmd = &cobra.Command{
 		Use:               "{{ .CmdName }}",
+{{- if .Short }}
+		Short:             {{ printf "%q" .Short }},
+{{- end }}
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,

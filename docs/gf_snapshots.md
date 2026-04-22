@@ -1,6 +1,6 @@
 ## gf snapshots
 
-
+Snapshots API
 
 ```
 gf snapshots [flags]

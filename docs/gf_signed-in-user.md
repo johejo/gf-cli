@@ -1,6 +1,6 @@
 ## gf signed-in-user
 
-
+Signed in user API
 
 ```
 gf signed-in-user [flags]

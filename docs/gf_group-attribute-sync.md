@@ -1,6 +1,6 @@
 ## gf group-attribute-sync
 
-
+Group attribute sync API
 
 ```
 gf group-attribute-sync [flags]

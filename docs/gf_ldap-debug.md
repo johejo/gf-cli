@@ -1,6 +1,6 @@
 ## gf ldap-debug
 
-
+Ldap debug API
 
 ```
 gf ldap-debug [flags]

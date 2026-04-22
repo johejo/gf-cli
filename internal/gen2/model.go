@@ -5,6 +5,7 @@ type Service struct {
 	FieldName string // "AccessControl" (field name on GrafanaHTTPAPI)
 	CmdName   string // "access-control"
 	VarName   string // "accessControl" (variable name prefix in generated code)
+	Short     string // single-line summary from the Client struct doc comment
 	Actions   []*Action
 }
 
