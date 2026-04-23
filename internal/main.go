@@ -1,8 +1,11 @@
 package internal
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
 	"net/netip"
 	"net/url"
 	"os"
@@ -97,7 +100,62 @@ func gfClient() (*gfclient.GrafanaHTTPAPI, error) {
 	}
 	api := gfclient.NewHTTPClientWithConfig(nil, cfg)
 	api = applyEnvInt64("GF_ORG_ID", rootCmdFlag.orgID, api.WithOrgID)
+	rawResponseBody = nil
+	api = api.WithHTTPClient(&http.Client{Transport: rawCaptureRoundTripper{}})
 	return api, nil
+}
+
+// rawResponseBody holds the most recently received HTTP response body. It is
+// populated by rawCaptureRoundTripper on every request and consumed by
+// printRawResponse when a command's --raw flag is set. Commands run
+// sequentially so there is no concurrency concern.
+var rawResponseBody []byte
+
+// rawCaptureRoundTripper tees response bodies into rawResponseBody so that
+// callers can emit the server's actual JSON verbatim, bypassing
+// grafana-openapi-client-go models whose shapes don't match Grafana's wire
+// format (notably models.Frame).
+type rawCaptureRoundTripper struct {
+	base http.RoundTripper
+}
+
+func (r rawCaptureRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	base := r.base
+	if base == nil {
+		base = http.DefaultTransport
+	}
+	resp, err := base.RoundTrip(req)
+	if err != nil {
+		return nil, err
+	}
+	body, rerr := io.ReadAll(resp.Body)
+	resp.Body.Close()
+	if rerr != nil {
+		return nil, rerr
+	}
+	rawResponseBody = body
+	resp.Body = io.NopCloser(bytes.NewReader(body))
+	return resp, nil
+}
+
+func hasRawResponse() bool {
+	return len(rawResponseBody) > 0
+}
+
+func printRawResponse() error {
+	if len(rawResponseBody) == 0 {
+		return nil
+	}
+	// Use json.Indent (not Unmarshal + Encode) so large integer values are
+	// preserved verbatim — re-encoding would round them into float64.
+	var buf bytes.Buffer
+	if err := json.Indent(&buf, rawResponseBody, "", "  "); err == nil {
+		buf.WriteByte('\n')
+		_, err := os.Stdout.Write(buf.Bytes())
+		return err
+	}
+	_, err := os.Stdout.Write(rawResponseBody)
+	return err
 }
 
 func parseSchemeAndHost(s string) (string, string, error) {

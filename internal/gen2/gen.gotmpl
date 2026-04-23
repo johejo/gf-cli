@@ -103,6 +103,12 @@ var (
 {{- end }}
 				},
 			)
+			if {{ $svc.VarName }}{{ $act.VarName }}Flag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -127,7 +133,6 @@ var (
 	}
 {{- end }}
 {{- range .Actions }}
-{{- if .Flags }}
 	{{ $svc.VarName }}{{ .VarName }}Flag = struct {
 {{- range .Flags }}
 {{- if eq .FieldName "Body" }}
@@ -139,8 +144,8 @@ var (
 {{- if and .BodyField (ne .BodyField.JSONSchema "") }}
 		DescribeBodyJSONSchema bool
 {{- end }}
+		Raw bool
 	}{}
-{{- end }}
 {{- end }}
 {{- end }}
 )
@@ -164,6 +169,7 @@ func init() {
 {{- if and .BodyField (ne .BodyField.JSONSchema "") }}
 	{{ $svc.VarName }}{{ $act.VarName }}Cmd.Flags().BoolVar(&{{ $svc.VarName }}{{ $act.VarName }}Flag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 {{- end }}
+	{{ $svc.VarName }}{{ $act.VarName }}Cmd.Flags().BoolVar(&{{ $svc.VarName }}{{ $act.VarName }}Flag.Raw, "raw", {{ .Response.ContainsFrame }}, "Print the raw HTTP response body instead of the decoded payload")
 	{{ $svc.VarName }}Cmd.AddCommand({{ $svc.VarName }}{{ $act.VarName }}Cmd)
 {{- end }}
 {{- end }}

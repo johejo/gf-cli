@@ -74,6 +74,7 @@ func main() {
 					log.Printf("warning: could not parse response for %s.%s: %v", entry.PkgName, m.Name, err)
 				} else {
 					act.Response.HasPayload = resp.HasPayload
+					act.Response.ContainsFrame = resp.ContainsFrame
 				}
 			}
 

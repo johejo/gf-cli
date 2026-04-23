@@ -111,6 +111,12 @@ var (
 					TeamID: accessControlAddTeamRoleFlag.TeamID,
 				},
 			)
+			if accessControlAddTeamRoleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -174,6 +180,12 @@ var (
 					UserID: accessControlAddUserRoleFlag.UserID,
 				},
 			)
+			if accessControlAddUserRoleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -288,6 +300,12 @@ var (
 					Body: &body,
 				},
 			)
+			if accessControlCreateRoleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -315,6 +333,12 @@ var (
 					RoleUID: accessControlDeleteRoleFlag.RoleUID,
 				},
 			)
+			if accessControlDeleteRoleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -344,6 +368,12 @@ var (
 			resp, err := api.AccessControl.GetAccessControlStatusWithParams(
 				&access_control.GetAccessControlStatusParams{},
 			)
+			if accessControlGetAccessControlStatusFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -370,6 +400,12 @@ var (
 					Resource: accessControlGetResourceDescriptionFlag.Resource,
 				},
 			)
+			if accessControlGetResourceDescriptionFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -397,6 +433,12 @@ var (
 					ResourceID: accessControlGetResourcePermissionsFlag.ResourceID,
 				},
 			)
+			if accessControlGetResourcePermissionsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -428,6 +470,12 @@ var (
 					RoleUID: accessControlGetRoleFlag.RoleUID,
 				},
 			)
+			if accessControlGetRoleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -459,6 +507,12 @@ var (
 					RoleUID: accessControlGetRoleAssignmentsFlag.RoleUID,
 				},
 			)
+			if accessControlGetRoleAssignmentsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -485,6 +539,12 @@ var (
 					IncludeHidden: &accessControlListRolesFlag.IncludeHidden,
 				},
 			)
+			if accessControlListRolesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -515,6 +575,12 @@ var (
 					TeamID: accessControlListTeamRolesFlag.TeamID,
 				},
 			)
+			if accessControlListTeamRolesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -591,6 +657,12 @@ var (
 					Body: &body,
 				},
 			)
+			if accessControlListTeamsRolesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -622,6 +694,12 @@ var (
 					UserID: accessControlListUserRolesFlag.UserID,
 				},
 			)
+			if accessControlListUserRolesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -698,6 +776,12 @@ var (
 					Body: &body,
 				},
 			)
+			if accessControlListUsersRolesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -729,6 +813,12 @@ var (
 					TeamID:  accessControlRemoveTeamRoleFlag.TeamID,
 				},
 			)
+			if accessControlRemoveTeamRoleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -756,6 +846,12 @@ var (
 					UserID:  accessControlRemoveUserRoleFlag.UserID,
 				},
 			)
+			if accessControlRemoveUserRoleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -836,6 +932,12 @@ var (
 					ResourceID: accessControlSetResourcePermissionsFlag.ResourceID,
 				},
 			)
+			if accessControlSetResourcePermissionsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -893,6 +995,12 @@ var (
 					ResourceID:  accessControlSetResourcePermissionsForBuiltInRoleFlag.ResourceID,
 				},
 			)
+			if accessControlSetResourcePermissionsForBuiltInRoleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -950,6 +1058,12 @@ var (
 					TeamID:     accessControlSetResourcePermissionsForTeamFlag.TeamID,
 				},
 			)
+			if accessControlSetResourcePermissionsForTeamFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1007,6 +1121,12 @@ var (
 					UserID:     accessControlSetResourcePermissionsForUserFlag.UserID,
 				},
 			)
+			if accessControlSetResourcePermissionsForUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1083,6 +1203,12 @@ var (
 					RoleUID: accessControlSetRoleAssignmentsFlag.RoleUID,
 				},
 			)
+			if accessControlSetRoleAssignmentsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1148,6 +1274,12 @@ var (
 					TeamID: accessControlSetTeamRolesFlag.TeamID,
 				},
 			)
+			if accessControlSetTeamRolesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1218,6 +1350,12 @@ var (
 					UserID: accessControlSetUserRolesFlag.UserID,
 				},
 			)
+			if accessControlSetUserRolesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1336,6 +1474,12 @@ var (
 					RoleUID: accessControlUpdateRoleFlag.RoleUID,
 				},
 			)
+			if accessControlUpdateRoleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1352,66 +1496,85 @@ var (
 		Body                   string
 		TeamID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlAddUserRoleFlag = struct {
 		Body                   string
 		UserID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlCreateRoleFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlDeleteRoleFlag = struct {
 		Force   bool
 		Global  bool
 		RoleUID string
+		Raw     bool
+	}{}
+	accessControlGetAccessControlStatusFlag = struct {
+		Raw bool
 	}{}
 	accessControlGetResourceDescriptionFlag = struct {
 		Resource string
+		Raw      bool
 	}{}
 	accessControlGetResourcePermissionsFlag = struct {
 		Resource   string
 		ResourceID string
+		Raw        bool
 	}{}
 	accessControlGetRoleFlag = struct {
 		RoleUID string
+		Raw     bool
 	}{}
 	accessControlGetRoleAssignmentsFlag = struct {
 		RoleUID string
+		Raw     bool
 	}{}
 	accessControlListRolesFlag = struct {
 		Delegatable   bool
 		IncludeHidden bool
+		Raw           bool
 	}{}
 	accessControlListTeamRolesFlag = struct {
 		TeamID int64
+		Raw    bool
 	}{}
 	accessControlListTeamsRolesFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlListUserRolesFlag = struct {
 		UserID int64
+		Raw    bool
 	}{}
 	accessControlListUsersRolesFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlRemoveTeamRoleFlag = struct {
 		RoleUID string
 		TeamID  int64
+		Raw     bool
 	}{}
 	accessControlRemoveUserRoleFlag = struct {
 		Global  bool
 		RoleUID string
 		UserID  int64
+		Raw     bool
 	}{}
 	accessControlSetResourcePermissionsFlag = struct {
 		Body                   string
 		Resource               string
 		ResourceID             string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlSetResourcePermissionsForBuiltInRoleFlag = struct {
 		Body                   string
@@ -1419,6 +1582,7 @@ var (
 		Resource               string
 		ResourceID             string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlSetResourcePermissionsForTeamFlag = struct {
 		Body                   string
@@ -1426,6 +1590,7 @@ var (
 		ResourceID             string
 		TeamID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlSetResourcePermissionsForUserFlag = struct {
 		Body                   string
@@ -1433,26 +1598,31 @@ var (
 		ResourceID             string
 		UserID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlSetRoleAssignmentsFlag = struct {
 		Body                   string
 		RoleUID                string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlSetTeamRolesFlag = struct {
 		Body                   string
 		TeamID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlSetUserRolesFlag = struct {
 		Body                   string
 		UserID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlUpdateRoleFlag = struct {
 		Body                   string
 		RoleUID                string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	accessControlProvisioningCmd = &cobra.Command{
 		Use:               "access-control-provisioning",
@@ -1473,6 +1643,12 @@ var (
 			resp, err := api.AccessControlProvisioning.AdminProvisioningReloadAccessControlWithParams(
 				&access_control_provisioning.AdminProvisioningReloadAccessControlParams{},
 			)
+			if accessControlProvisioningAdminProvisioningReloadAccessControlFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1485,6 +1661,9 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	accessControlProvisioningAdminProvisioningReloadAccessControlFlag = struct {
+		Raw bool
+	}{}
 	adminCmd = &cobra.Command{
 		Use:               "admin",
 		Short:             "Admin API",
@@ -1508,6 +1687,12 @@ var (
 			resp, err := api.Admin.AdminGetSettingsWithParams(
 				&admin.AdminGetSettingsParams{},
 			)
+			if adminAdminGetSettingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1536,6 +1721,12 @@ var (
 			resp, err := api.Admin.AdminGetStatsWithParams(
 				&admin.AdminGetStatsParams{},
 			)
+			if adminAdminGetStatsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1548,6 +1739,12 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	adminAdminGetSettingsFlag = struct {
+		Raw bool
+	}{}
+	adminAdminGetStatsFlag = struct {
+		Raw bool
+	}{}
 	adminLdapCmd = &cobra.Command{
 		Use:               "admin-ldap",
 		Short:             "Admin ldap API",
@@ -1571,6 +1768,12 @@ var (
 			resp, err := api.AdminLDAP.GetLDAPStatusWithParams(
 				&admin_ldap.GetLDAPStatusParams{},
 			)
+			if adminLdapGetLDAPStatusFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1601,6 +1804,12 @@ var (
 					UserName: adminLdapGetUserFromLDAPFlag.UserName,
 				},
 			)
+			if adminLdapGetUserFromLDAPFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1631,6 +1840,12 @@ var (
 					UserID: adminLdapPostSyncUserWithLDAPFlag.UserID,
 				},
 			)
+			if adminLdapPostSyncUserWithLDAPFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1659,6 +1874,12 @@ var (
 			resp, err := api.AdminLDAP.ReloadLDAPCfgWithParams(
 				&admin_ldap.ReloadLDAPCfgParams{},
 			)
+			if adminLdapReloadLDAPCfgFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1671,11 +1892,19 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	adminLdapGetLDAPStatusFlag = struct {
+		Raw bool
+	}{}
 	adminLdapGetUserFromLDAPFlag = struct {
 		UserName string
+		Raw      bool
 	}{}
 	adminLdapPostSyncUserWithLDAPFlag = struct {
 		UserID int64
+		Raw    bool
+	}{}
+	adminLdapReloadLDAPCfgFlag = struct {
+		Raw bool
 	}{}
 	adminProvisioningCmd = &cobra.Command{
 		Use:               "admin-provisioning",
@@ -1700,6 +1929,12 @@ var (
 			resp, err := api.AdminProvisioning.AdminProvisioningReloadDashboardsWithParams(
 				&admin_provisioning.AdminProvisioningReloadDashboardsParams{},
 			)
+			if adminProvisioningAdminProvisioningReloadDashboardsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1728,6 +1963,12 @@ var (
 			resp, err := api.AdminProvisioning.AdminProvisioningReloadDatasourcesWithParams(
 				&admin_provisioning.AdminProvisioningReloadDatasourcesParams{},
 			)
+			if adminProvisioningAdminProvisioningReloadDatasourcesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1756,6 +1997,12 @@ var (
 			resp, err := api.AdminProvisioning.AdminProvisioningReloadPluginsWithParams(
 				&admin_provisioning.AdminProvisioningReloadPluginsParams{},
 			)
+			if adminProvisioningAdminProvisioningReloadPluginsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1768,6 +2015,15 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	adminProvisioningAdminProvisioningReloadDashboardsFlag = struct {
+		Raw bool
+	}{}
+	adminProvisioningAdminProvisioningReloadDatasourcesFlag = struct {
+		Raw bool
+	}{}
+	adminProvisioningAdminProvisioningReloadPluginsFlag = struct {
+		Raw bool
+	}{}
 	adminUsersCmd = &cobra.Command{
 		Use:               "admin-users",
 		Short:             "Admin users API",
@@ -1836,6 +2092,12 @@ var (
 					Body: &body,
 				},
 			)
+			if adminUsersAdminCreateUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1866,6 +2128,12 @@ var (
 					UserID: adminUsersAdminDeleteUserFlag.UserID,
 				},
 			)
+			if adminUsersAdminDeleteUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1896,6 +2164,12 @@ var (
 					UserID: adminUsersAdminDisableUserFlag.UserID,
 				},
 			)
+			if adminUsersAdminDisableUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1926,6 +2200,12 @@ var (
 					UserID: adminUsersAdminEnableUserFlag.UserID,
 				},
 			)
+			if adminUsersAdminEnableUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1956,6 +2236,12 @@ var (
 					UserID: adminUsersAdminGetUserAuthTokensFlag.UserID,
 				},
 			)
+			if adminUsersAdminGetUserAuthTokensFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -1986,6 +2272,12 @@ var (
 					UserID: adminUsersAdminLogoutUserFlag.UserID,
 				},
 			)
+			if adminUsersAdminLogoutUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2044,6 +2336,12 @@ var (
 					UserID: adminUsersAdminRevokeUserAuthTokenFlag.UserID,
 				},
 			)
+			if adminUsersAdminRevokeUserAuthTokenFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2102,6 +2400,12 @@ var (
 					UserID: adminUsersAdminUpdateUserPasswordFlag.UserID,
 				},
 			)
+			if adminUsersAdminUpdateUserPasswordFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2160,6 +2464,12 @@ var (
 					UserID: adminUsersAdminUpdateUserPermissionsFlag.UserID,
 				},
 			)
+			if adminUsersAdminUpdateUserPermissionsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2175,36 +2485,45 @@ var (
 	adminUsersAdminCreateUserFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	adminUsersAdminDeleteUserFlag = struct {
 		UserID int64
+		Raw    bool
 	}{}
 	adminUsersAdminDisableUserFlag = struct {
 		UserID int64
+		Raw    bool
 	}{}
 	adminUsersAdminEnableUserFlag = struct {
 		UserID int64
+		Raw    bool
 	}{}
 	adminUsersAdminGetUserAuthTokensFlag = struct {
 		UserID int64
+		Raw    bool
 	}{}
 	adminUsersAdminLogoutUserFlag = struct {
 		UserID int64
+		Raw    bool
 	}{}
 	adminUsersAdminRevokeUserAuthTokenFlag = struct {
 		Body                   string
 		UserID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	adminUsersAdminUpdateUserPasswordFlag = struct {
 		Body                   string
 		UserID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	adminUsersAdminUpdateUserPermissionsFlag = struct {
 		Body                   string
 		UserID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	annotationsCmd = &cobra.Command{
 		Use:               "annotations",
@@ -2227,6 +2546,12 @@ var (
 					Tag:   &annotationsGetAnnotationTagsFlag.Tag,
 				},
 			)
+			if annotationsGetAnnotationTagsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2263,6 +2588,12 @@ var (
 					UserID:       &annotationsGetAnnotationsFlag.UserID,
 				},
 			)
+			if annotationsGetAnnotationsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2331,6 +2662,12 @@ var (
 					Body: &body,
 				},
 			)
+			if annotationsMassDeleteAnnotationsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2410,6 +2747,12 @@ var (
 					Body:         &body,
 				},
 			)
+			if annotationsPatchAnnotationFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2500,6 +2843,12 @@ var (
 					Body: &body,
 				},
 			)
+			if annotationsPostAnnotationFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2567,6 +2916,12 @@ var (
 					Body: &body,
 				},
 			)
+			if annotationsPostGraphiteAnnotationFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2646,6 +3001,12 @@ var (
 					Body:         &body,
 				},
 			)
+			if annotationsUpdateAnnotationFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2661,6 +3022,7 @@ var (
 	annotationsGetAnnotationTagsFlag = struct {
 		Limit string
 		Tag   string
+		Raw   bool
 	}{}
 	annotationsGetAnnotationsFlag = struct {
 		AlertID      int64
@@ -2675,28 +3037,34 @@ var (
 		To           int64
 		Type         string
 		UserID       int64
+		Raw          bool
 	}{}
 	annotationsMassDeleteAnnotationsFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	annotationsPatchAnnotationFlag = struct {
 		AnnotationID           string
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	annotationsPostAnnotationFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	annotationsPostGraphiteAnnotationFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	annotationsUpdateAnnotationFlag = struct {
 		AnnotationID           string
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	convertPrometheusCmd = &cobra.Command{
 		Use:               "convert-prometheus",
@@ -2719,6 +3087,12 @@ var (
 					NamespaceTitle: convertPrometheusConvertPrometheusCortexDeleteNamespaceFlag.NamespaceTitle,
 				},
 			)
+			if convertPrometheusConvertPrometheusCortexDeleteNamespaceFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2746,6 +3120,12 @@ var (
 					NamespaceTitle: convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag.NamespaceTitle,
 				},
 			)
+			if convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2772,6 +3152,12 @@ var (
 					NamespaceTitle: convertPrometheusConvertPrometheusCortexGetNamespaceFlag.NamespaceTitle,
 				},
 			)
+			if convertPrometheusConvertPrometheusCortexGetNamespaceFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2799,6 +3185,12 @@ var (
 					NamespaceTitle: convertPrometheusConvertPrometheusCortexGetRuleGroupFlag.NamespaceTitle,
 				},
 			)
+			if convertPrometheusConvertPrometheusCortexGetRuleGroupFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2823,6 +3215,12 @@ var (
 			resp, err := api.ConvertPrometheus.ConvertPrometheusCortexGetRulesWithParams(
 				&convert_prometheus.ConvertPrometheusCortexGetRulesParams{},
 			)
+			if convertPrometheusConvertPrometheusCortexGetRulesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2949,6 +3347,12 @@ var (
 					XGrafanaAlertingTargetDatasourceUID:  &convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingTargetDatasourceUID,
 				},
 			)
+			if convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2973,6 +3377,12 @@ var (
 			resp, err := api.ConvertPrometheus.ConvertPrometheusCortexPostRuleGroupsWithParams(
 				&convert_prometheus.ConvertPrometheusCortexPostRuleGroupsParams{},
 			)
+			if convertPrometheusConvertPrometheusCortexPostRuleGroupsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -2999,6 +3409,12 @@ var (
 					NamespaceTitle: convertPrometheusConvertPrometheusDeleteNamespaceFlag.NamespaceTitle,
 				},
 			)
+			if convertPrometheusConvertPrometheusDeleteNamespaceFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3026,6 +3442,12 @@ var (
 					NamespaceTitle: convertPrometheusConvertPrometheusDeleteRuleGroupFlag.NamespaceTitle,
 				},
 			)
+			if convertPrometheusConvertPrometheusDeleteRuleGroupFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3052,6 +3474,12 @@ var (
 					NamespaceTitle: convertPrometheusConvertPrometheusGetNamespaceFlag.NamespaceTitle,
 				},
 			)
+			if convertPrometheusConvertPrometheusGetNamespaceFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3079,6 +3507,12 @@ var (
 					NamespaceTitle: convertPrometheusConvertPrometheusGetRuleGroupFlag.NamespaceTitle,
 				},
 			)
+			if convertPrometheusConvertPrometheusGetRuleGroupFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3103,6 +3537,12 @@ var (
 			resp, err := api.ConvertPrometheus.ConvertPrometheusGetRulesWithParams(
 				&convert_prometheus.ConvertPrometheusGetRulesParams{},
 			)
+			if convertPrometheusConvertPrometheusGetRulesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3229,6 +3669,12 @@ var (
 					XGrafanaAlertingTargetDatasourceUID:  &convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingTargetDatasourceUID,
 				},
 			)
+			if convertPrometheusConvertPrometheusPostRuleGroupFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3253,6 +3699,12 @@ var (
 			resp, err := api.ConvertPrometheus.ConvertPrometheusPostRuleGroupsWithParams(
 				&convert_prometheus.ConvertPrometheusPostRuleGroupsParams{},
 			)
+			if convertPrometheusConvertPrometheusPostRuleGroupsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3267,17 +3719,24 @@ var (
 	}
 	convertPrometheusConvertPrometheusCortexDeleteNamespaceFlag = struct {
 		NamespaceTitle string
+		Raw            bool
 	}{}
 	convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag = struct {
 		Group          string
 		NamespaceTitle string
+		Raw            bool
 	}{}
 	convertPrometheusConvertPrometheusCortexGetNamespaceFlag = struct {
 		NamespaceTitle string
+		Raw            bool
 	}{}
 	convertPrometheusConvertPrometheusCortexGetRuleGroupFlag = struct {
 		Group          string
 		NamespaceTitle string
+		Raw            bool
+	}{}
+	convertPrometheusConvertPrometheusCortexGetRulesFlag = struct {
+		Raw bool
 	}{}
 	convertPrometheusConvertPrometheusCortexPostRuleGroupFlag = struct {
 		Body                                 string
@@ -3289,20 +3748,31 @@ var (
 		XGrafanaAlertingRecordingRulesPaused bool
 		XGrafanaAlertingTargetDatasourceUID  string
 		DescribeBodyJSONSchema               bool
+		Raw                                  bool
+	}{}
+	convertPrometheusConvertPrometheusCortexPostRuleGroupsFlag = struct {
+		Raw bool
 	}{}
 	convertPrometheusConvertPrometheusDeleteNamespaceFlag = struct {
 		NamespaceTitle string
+		Raw            bool
 	}{}
 	convertPrometheusConvertPrometheusDeleteRuleGroupFlag = struct {
 		Group          string
 		NamespaceTitle string
+		Raw            bool
 	}{}
 	convertPrometheusConvertPrometheusGetNamespaceFlag = struct {
 		NamespaceTitle string
+		Raw            bool
 	}{}
 	convertPrometheusConvertPrometheusGetRuleGroupFlag = struct {
 		Group          string
 		NamespaceTitle string
+		Raw            bool
+	}{}
+	convertPrometheusConvertPrometheusGetRulesFlag = struct {
+		Raw bool
 	}{}
 	convertPrometheusConvertPrometheusPostRuleGroupFlag = struct {
 		Body                                 string
@@ -3314,6 +3784,10 @@ var (
 		XGrafanaAlertingRecordingRulesPaused bool
 		XGrafanaAlertingTargetDatasourceUID  string
 		DescribeBodyJSONSchema               bool
+		Raw                                  bool
+	}{}
+	convertPrometheusConvertPrometheusPostRuleGroupsFlag = struct {
+		Raw bool
 	}{}
 	dashboardsCmd = &cobra.Command{
 		Use:               "dashboards",
@@ -3411,6 +3885,12 @@ var (
 					Body: &body,
 				},
 			)
+			if dashboardsCreateDashboardSnapshotFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3488,6 +3968,12 @@ var (
 					DashboardUID: dashboardsCreatePublicDashboardFlag.DashboardUID,
 				},
 			)
+			if dashboardsCreatePublicDashboardFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3518,6 +4004,12 @@ var (
 					UID: dashboardsDeleteDashboardByUIDFlag.UID,
 				},
 			)
+			if dashboardsDeleteDashboardByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3544,6 +4036,12 @@ var (
 					Key: dashboardsDeleteDashboardSnapshotFlag.Key,
 				},
 			)
+			if dashboardsDeleteDashboardSnapshotFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3574,6 +4072,12 @@ var (
 					DeleteKey: dashboardsDeleteDashboardSnapshotByDeleteKeyFlag.DeleteKey,
 				},
 			)
+			if dashboardsDeleteDashboardSnapshotByDeleteKeyFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3601,6 +4105,12 @@ var (
 					UID:          dashboardsDeletePublicDashboardFlag.UID,
 				},
 			)
+			if dashboardsDeletePublicDashboardFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3631,6 +4141,12 @@ var (
 					UID: dashboardsGetDashboardByUIDFlag.UID,
 				},
 			)
+			if dashboardsGetDashboardByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3657,6 +4173,12 @@ var (
 					UID: dashboardsGetDashboardPermissionsListByUIDFlag.UID,
 				},
 			)
+			if dashboardsGetDashboardPermissionsListByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3683,6 +4205,12 @@ var (
 					Key: dashboardsGetDashboardSnapshotFlag.Key,
 				},
 			)
+			if dashboardsGetDashboardSnapshotFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3708,6 +4236,12 @@ var (
 			resp, err := api.Dashboards.GetDashboardTagsWithParams(
 				&dashboards.GetDashboardTagsParams{},
 			)
+			if dashboardsGetDashboardTagsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3735,6 +4269,12 @@ var (
 					UID:                dashboardsGetDashboardVersionByUIDFlag.UID,
 				},
 			)
+			if dashboardsGetDashboardVersionByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3762,6 +4302,12 @@ var (
 					UID:   dashboardsGetDashboardVersionsByUIDFlag.UID,
 				},
 			)
+			if dashboardsGetDashboardVersionsByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3786,6 +4332,12 @@ var (
 			resp, err := api.Dashboards.GetHomeDashboardWithParams(
 				&dashboards.GetHomeDashboardParams{},
 			)
+			if dashboardsGetHomeDashboardFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3812,6 +4364,12 @@ var (
 					AccessToken: dashboardsGetPublicAnnotationsFlag.AccessToken,
 				},
 			)
+			if dashboardsGetPublicAnnotationsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3838,6 +4396,12 @@ var (
 					DashboardUID: dashboardsGetPublicDashboardFlag.DashboardUID,
 				},
 			)
+			if dashboardsGetPublicDashboardFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3942,6 +4506,12 @@ var (
 					Body: &body,
 				},
 			)
+			if dashboardsImportDashboardFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3966,6 +4536,12 @@ var (
 			resp, err := api.Dashboards.InterpolateDashboardWithParams(
 				&dashboards.InterpolateDashboardParams{},
 			)
+			if dashboardsInterpolateDashboardFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -3990,6 +4566,12 @@ var (
 			resp, err := api.Dashboards.ListPublicDashboardsWithParams(
 				&dashboards.ListPublicDashboardsParams{},
 			)
+			if dashboardsListPublicDashboardsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4075,6 +4657,12 @@ var (
 					Body: &body,
 				},
 			)
+			if dashboardsPostDashboardFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4102,6 +4690,12 @@ var (
 					PanelID:     dashboardsQueryPublicDashboardFlag.PanelID,
 				},
 			)
+			if dashboardsQueryPublicDashboardFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4159,6 +4753,12 @@ var (
 					UID:  dashboardsRestoreDashboardVersionByUIDFlag.UID,
 				},
 			)
+			if dashboardsRestoreDashboardVersionByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4185,6 +4785,12 @@ var (
 					Query: &dashboardsSearchDashboardSnapshotsFlag.Query,
 				},
 			)
+			if dashboardsSearchDashboardSnapshotsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4274,6 +4880,12 @@ var (
 					UID:  dashboardsUpdateDashboardPermissionsByUIDFlag.UID,
 				},
 			)
+			if dashboardsUpdateDashboardPermissionsByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4350,6 +4962,12 @@ var (
 					UID:          dashboardsUpdatePublicDashboardFlag.UID,
 				},
 			)
+			if dashboardsUpdatePublicDashboardFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4376,6 +4994,12 @@ var (
 					AccessToken: dashboardsViewPublicDashboardFlag.AccessToken,
 				},
 			)
+			if dashboardsViewPublicDashboardFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4391,83 +5015,116 @@ var (
 	dashboardsCreateDashboardSnapshotFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	dashboardsCreatePublicDashboardFlag = struct {
 		Body                   string
 		DashboardUID           string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	dashboardsDeleteDashboardByUIDFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	dashboardsDeleteDashboardSnapshotFlag = struct {
 		Key string
+		Raw bool
 	}{}
 	dashboardsDeleteDashboardSnapshotByDeleteKeyFlag = struct {
 		DeleteKey string
+		Raw       bool
 	}{}
 	dashboardsDeletePublicDashboardFlag = struct {
 		DashboardUID string
 		UID          string
+		Raw          bool
 	}{}
 	dashboardsGetDashboardByUIDFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	dashboardsGetDashboardPermissionsListByUIDFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	dashboardsGetDashboardSnapshotFlag = struct {
 		Key string
+		Raw bool
+	}{}
+	dashboardsGetDashboardTagsFlag = struct {
+		Raw bool
 	}{}
 	dashboardsGetDashboardVersionByUIDFlag = struct {
 		DashboardVersionID int64
 		UID                string
+		Raw                bool
 	}{}
 	dashboardsGetDashboardVersionsByUIDFlag = struct {
 		Limit int64
 		Start int64
 		UID   string
+		Raw   bool
+	}{}
+	dashboardsGetHomeDashboardFlag = struct {
+		Raw bool
 	}{}
 	dashboardsGetPublicAnnotationsFlag = struct {
 		AccessToken string
+		Raw         bool
 	}{}
 	dashboardsGetPublicDashboardFlag = struct {
 		DashboardUID string
+		Raw          bool
 	}{}
 	dashboardsImportDashboardFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
+	}{}
+	dashboardsInterpolateDashboardFlag = struct {
+		Raw bool
+	}{}
+	dashboardsListPublicDashboardsFlag = struct {
+		Raw bool
 	}{}
 	dashboardsPostDashboardFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	dashboardsQueryPublicDashboardFlag = struct {
 		AccessToken string
 		PanelID     int64
+		Raw         bool
 	}{}
 	dashboardsRestoreDashboardVersionByUIDFlag = struct {
 		Body                   string
 		UID                    string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	dashboardsSearchDashboardSnapshotsFlag = struct {
 		Limit int64
 		Query string
+		Raw   bool
 	}{}
 	dashboardsUpdateDashboardPermissionsByUIDFlag = struct {
 		Body                   string
 		UID                    string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	dashboardsUpdatePublicDashboardFlag = struct {
 		Body                   string
 		DashboardUID           string
 		UID                    string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	dashboardsViewPublicDashboardFlag = struct {
 		AccessToken string
+		Raw         bool
 	}{}
 	datasourcesCmd = &cobra.Command{
 		Use:               "datasources",
@@ -4571,6 +5228,12 @@ var (
 					Body: &body,
 				},
 			)
+			if datasourcesAddDatasourceFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4598,6 +5261,12 @@ var (
 					UID:                  datasourcesCallDatasourceResourceFlag.UID,
 				},
 			)
+			if datasourcesCallDatasourceResourceFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4624,6 +5293,12 @@ var (
 					UID: datasourcesCheckDatasourceHealthFlag.UID,
 				},
 			)
+			if datasourcesCheckDatasourceHealthFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4756,6 +5431,12 @@ var (
 					SourceUID: datasourcesCreateCorrelationFlag.SourceUID,
 				},
 			)
+			if datasourcesCreateCorrelationFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4783,6 +5464,12 @@ var (
 					UID:            datasourcesDeleteCorrelationFlag.UID,
 				},
 			)
+			if datasourcesDeleteCorrelationFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4813,6 +5500,12 @@ var (
 					Name: datasourcesDeleteDatasourceByNameFlag.Name,
 				},
 			)
+			if datasourcesDeleteDatasourceByNameFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4843,6 +5536,12 @@ var (
 					UID: datasourcesDeleteDatasourceByUIDFlag.UID,
 				},
 			)
+			if datasourcesDeleteDatasourceByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4870,6 +5569,12 @@ var (
 					SourceUID:      datasourcesGetCorrelationFlag.SourceUID,
 				},
 			)
+			if datasourcesGetCorrelationFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4897,6 +5602,12 @@ var (
 					SourceUID: datasourcesGetCorrelationsFlag.SourceUID,
 				},
 			)
+			if datasourcesGetCorrelationsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4923,6 +5634,12 @@ var (
 					SourceUID: datasourcesGetCorrelationsBySourceUIDFlag.SourceUID,
 				},
 			)
+			if datasourcesGetCorrelationsBySourceUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4953,6 +5670,12 @@ var (
 					Name: datasourcesGetDatasourceByNameFlag.Name,
 				},
 			)
+			if datasourcesGetDatasourceByNameFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -4983,6 +5706,12 @@ var (
 					UID: datasourcesGetDatasourceByUIDFlag.UID,
 				},
 			)
+			if datasourcesGetDatasourceByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5013,6 +5742,12 @@ var (
 					Name: datasourcesGetDatasourceIDByNameFlag.Name,
 				},
 			)
+			if datasourcesGetDatasourceIDByNameFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5041,6 +5776,12 @@ var (
 			resp, err := api.Datasources.GetDataSourcesWithParams(
 				&datasources.GetDataSourcesParams{},
 			)
+			if datasourcesGetDatasourcesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5122,6 +5863,12 @@ var (
 					Body: &body,
 				},
 			)
+			if datasourcesQueryMetricsWithExpressionsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5235,6 +5982,12 @@ var (
 					SourceUID:      datasourcesUpdateCorrelationFlag.SourceUID,
 				},
 			)
+			if datasourcesUpdateCorrelationFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5349,6 +6102,12 @@ var (
 					UID:  datasourcesUpdateDatasourceByUIDFlag.UID,
 				},
 			)
+			if datasourcesUpdateDatasourceByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5364,64 +6123,83 @@ var (
 	datasourcesAddDatasourceFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	datasourcesCallDatasourceResourceFlag = struct {
 		DatasourceProxyRoute string
 		UID                  string
+		Raw                  bool
 	}{}
 	datasourcesCheckDatasourceHealthFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	datasourcesCreateCorrelationFlag = struct {
 		Body                   string
 		SourceUID              string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	datasourcesDeleteCorrelationFlag = struct {
 		CorrelationUID string
 		UID            string
+		Raw            bool
 	}{}
 	datasourcesDeleteDatasourceByNameFlag = struct {
 		Name string
+		Raw  bool
 	}{}
 	datasourcesDeleteDatasourceByUIDFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	datasourcesGetCorrelationFlag = struct {
 		CorrelationUID string
 		SourceUID      string
+		Raw            bool
 	}{}
 	datasourcesGetCorrelationsFlag = struct {
 		Limit     int64
 		Page      int64
 		SourceUID []string
+		Raw       bool
 	}{}
 	datasourcesGetCorrelationsBySourceUIDFlag = struct {
 		SourceUID string
+		Raw       bool
 	}{}
 	datasourcesGetDatasourceByNameFlag = struct {
 		Name string
+		Raw  bool
 	}{}
 	datasourcesGetDatasourceByUIDFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	datasourcesGetDatasourceIDByNameFlag = struct {
 		Name string
+		Raw  bool
+	}{}
+	datasourcesGetDatasourcesFlag = struct {
+		Raw bool
 	}{}
 	datasourcesQueryMetricsWithExpressionsFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	datasourcesUpdateCorrelationFlag = struct {
 		Body                   string
 		CorrelationUID         string
 		SourceUID              string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	datasourcesUpdateDatasourceByUIDFlag = struct {
 		Body                   string
 		UID                    string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	devicesCmd = &cobra.Command{
 		Use:               "devices",
@@ -5442,6 +6220,12 @@ var (
 			resp, err := api.Devices.SearchDevicesWithParams(
 				&devices.SearchDevicesParams{},
 			)
+			if devicesSearchDevicesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5466,6 +6250,12 @@ var (
 			resp, err := api.Devices.ListDevicesWithParams(
 				&devices.ListDevicesParams{},
 			)
+			if devicesListDevicesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5478,6 +6268,12 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	devicesSearchDevicesFlag = struct {
+		Raw bool
+	}{}
+	devicesListDevicesFlag = struct {
+		Raw bool
+	}{}
 	enterpriseCmd = &cobra.Command{
 		Use:               "enterprise",
 		Short:             "Enterprise API",
@@ -5499,6 +6295,12 @@ var (
 					DataSourceUID: enterpriseCleanDatasourceCacheFlag.DataSourceUID,
 				},
 			)
+			if enterpriseCleanDatasourceCacheFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5525,6 +6327,12 @@ var (
 					DataSourceUID: enterpriseDisableDatasourceCacheFlag.DataSourceUID,
 				},
 			)
+			if enterpriseDisableDatasourceCacheFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5551,6 +6359,12 @@ var (
 					DataSourceUID: enterpriseEnableDatasourceCacheFlag.DataSourceUID,
 				},
 			)
+			if enterpriseEnableDatasourceCacheFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5577,6 +6391,12 @@ var (
 					DataSourceUID: enterpriseGetDatasourceCacheConfigFlag.DataSourceUID,
 				},
 			)
+			if enterpriseGetDatasourceCacheConfigFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5603,6 +6423,12 @@ var (
 					UID: enterpriseGetTeamLBACRulesAPIFlag.UID,
 				},
 			)
+			if enterpriseGetTeamLBACRulesAPIFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5632,6 +6458,12 @@ var (
 			resp, err := api.Enterprise.SearchResultWithParams(
 				&enterprise.SearchResultParams{},
 			)
+			if enterpriseSearchResultFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5713,6 +6545,12 @@ var (
 					DataSourceUID: enterpriseSetDatasourceCacheConfigFlag.DataSourceUID,
 				},
 			)
+			if enterpriseSetDatasourceCacheConfigFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5791,6 +6629,12 @@ var (
 					UID:  enterpriseUpdateTeamLBACRulesAPIFlag.UID,
 				},
 			)
+			if enterpriseUpdateTeamLBACRulesAPIFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5805,28 +6649,38 @@ var (
 	}
 	enterpriseCleanDatasourceCacheFlag = struct {
 		DataSourceUID string
+		Raw           bool
 	}{}
 	enterpriseDisableDatasourceCacheFlag = struct {
 		DataSourceUID string
+		Raw           bool
 	}{}
 	enterpriseEnableDatasourceCacheFlag = struct {
 		DataSourceUID string
+		Raw           bool
 	}{}
 	enterpriseGetDatasourceCacheConfigFlag = struct {
 		DataSourceUID string
+		Raw           bool
 	}{}
 	enterpriseGetTeamLBACRulesAPIFlag = struct {
 		UID string
+		Raw bool
+	}{}
+	enterpriseSearchResultFlag = struct {
+		Raw bool
 	}{}
 	enterpriseSetDatasourceCacheConfigFlag = struct {
 		Body                   string
 		DataSourceUID          string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	enterpriseUpdateTeamLBACRulesAPIFlag = struct {
 		Body                   string
 		UID                    string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	foldersCmd = &cobra.Command{
 		Use:               "folders",
@@ -5892,6 +6746,12 @@ var (
 					Body: &body,
 				},
 			)
+			if foldersCreateFolderFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5918,6 +6778,12 @@ var (
 					ForceDeleteRules: &foldersDeleteFolderFlag.ForceDeleteRules,
 				},
 			)
+			if foldersDeleteFolderFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5944,6 +6810,12 @@ var (
 					FolderUID: foldersGetFolderByUIDFlag.FolderUID,
 				},
 			)
+			if foldersGetFolderByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5970,6 +6842,12 @@ var (
 					FolderUID: foldersGetFolderDescendantCountsFlag.FolderUID,
 				},
 			)
+			if foldersGetFolderDescendantCountsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -5996,6 +6874,12 @@ var (
 					FolderUID: foldersGetFolderPermissionListFlag.FolderUID,
 				},
 			)
+			if foldersGetFolderPermissionListFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6024,6 +6908,12 @@ var (
 					Permission: &foldersGetFoldersFlag.Permission,
 				},
 			)
+			if foldersGetFoldersFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6081,6 +6971,12 @@ var (
 					FolderUID: foldersMoveFolderFlag.FolderUID,
 				},
 			)
+			if foldersMoveFolderFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6158,6 +7054,12 @@ var (
 					FolderUID: foldersUpdateFolderFlag.FolderUID,
 				},
 			)
+			if foldersUpdateFolderFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6246,6 +7148,12 @@ var (
 					FolderUID: foldersUpdateFolderPermissionsFlag.FolderUID,
 				},
 			)
+			if foldersUpdateFolderPermissionsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6261,40 +7169,49 @@ var (
 	foldersCreateFolderFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	foldersDeleteFolderFlag = struct {
 		FolderUID        string
 		ForceDeleteRules bool
+		Raw              bool
 	}{}
 	foldersGetFolderByUIDFlag = struct {
 		FolderUID string
+		Raw       bool
 	}{}
 	foldersGetFolderDescendantCountsFlag = struct {
 		FolderUID string
+		Raw       bool
 	}{}
 	foldersGetFolderPermissionListFlag = struct {
 		FolderUID string
+		Raw       bool
 	}{}
 	foldersGetFoldersFlag = struct {
 		Limit      int64
 		Page       int64
 		ParentUID  string
 		Permission string
+		Raw        bool
 	}{}
 	foldersMoveFolderFlag = struct {
 		Body                   string
 		FolderUID              string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	foldersUpdateFolderFlag = struct {
 		Body                   string
 		FolderUID              string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	foldersUpdateFolderPermissionsFlag = struct {
 		Body                   string
 		FolderUID              string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	groupAttributeSyncCmd = &cobra.Command{
 		Use:               "group-attribute-sync",
@@ -6351,6 +7268,12 @@ var (
 					GroupID: groupAttributeSyncCreateGroupMappingsFlag.GroupID,
 				},
 			)
+			if groupAttributeSyncCreateGroupMappingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6377,6 +7300,12 @@ var (
 					GroupID: groupAttributeSyncDeleteGroupMappingsFlag.GroupID,
 				},
 			)
+			if groupAttributeSyncDeleteGroupMappingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6403,6 +7332,12 @@ var (
 					GroupID: groupAttributeSyncGetGroupRolesFlag.GroupID,
 				},
 			)
+			if groupAttributeSyncGetGroupRolesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6427,6 +7362,12 @@ var (
 			resp, err := api.GroupAttributeSync.GetMappedGroupsWithParams(
 				&group_attribute_sync.GetMappedGroupsParams{},
 			)
+			if groupAttributeSyncGetMappedGroupsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6487,6 +7428,12 @@ var (
 					GroupID: groupAttributeSyncUpdateGroupMappingsFlag.GroupID,
 				},
 			)
+			if groupAttributeSyncUpdateGroupMappingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6503,17 +7450,24 @@ var (
 		Body                   string
 		GroupID                string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	groupAttributeSyncDeleteGroupMappingsFlag = struct {
 		GroupID string
+		Raw     bool
 	}{}
 	groupAttributeSyncGetGroupRolesFlag = struct {
 		GroupID string
+		Raw     bool
+	}{}
+	groupAttributeSyncGetMappedGroupsFlag = struct {
+		Raw bool
 	}{}
 	groupAttributeSyncUpdateGroupMappingsFlag = struct {
 		Body                   string
 		GroupID                string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	healthCmd = &cobra.Command{
 		Use:               "health",
@@ -6534,6 +7488,12 @@ var (
 			resp, err := api.Health.GetHealthWithParams(
 				&health.GetHealthParams{},
 			)
+			if healthGetHealthFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6546,6 +7506,9 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	healthGetHealthFlag = struct {
+		Raw bool
+	}{}
 	ldapDebugCmd = &cobra.Command{
 		Use:               "ldap-debug",
 		Short:             "Ldap debug API",
@@ -6569,6 +7532,12 @@ var (
 			resp, err := api.LDAPDebug.GetSyncStatusWithParams(
 				&ldap_debug.GetSyncStatusParams{},
 			)
+			if ldapDebugGetSyncStatusFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6581,6 +7550,9 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	ldapDebugGetSyncStatusFlag = struct {
+		Raw bool
+	}{}
 	libraryElementsCmd = &cobra.Command{
 		Use:               "library-elements",
 		Short:             "Library elements API",
@@ -6665,6 +7637,12 @@ var (
 					Body: &body,
 				},
 			)
+			if libraryElementsCreateLibraryElementFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6695,6 +7673,12 @@ var (
 					LibraryElementUID: libraryElementsDeleteLibraryElementByUIDFlag.LibraryElementUID,
 				},
 			)
+			if libraryElementsDeleteLibraryElementByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6725,6 +7709,12 @@ var (
 					LibraryElementName: libraryElementsGetLibraryElementByNameFlag.LibraryElementName,
 				},
 			)
+			if libraryElementsGetLibraryElementByNameFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6755,6 +7745,12 @@ var (
 					LibraryElementUID: libraryElementsGetLibraryElementByUIDFlag.LibraryElementUID,
 				},
 			)
+			if libraryElementsGetLibraryElementByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6785,6 +7781,12 @@ var (
 					LibraryElementUID: libraryElementsGetLibraryElementConnectionsFlag.LibraryElementUID,
 				},
 			)
+			if libraryElementsGetLibraryElementConnectionsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6817,6 +7819,12 @@ var (
 					TypeFilter:    &libraryElementsGetLibraryElementsFlag.TypeFilter,
 				},
 			)
+			if libraryElementsGetLibraryElementsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6913,6 +7921,12 @@ var (
 					LibraryElementUID: libraryElementsUpdateLibraryElementFlag.LibraryElementUID,
 				},
 			)
+			if libraryElementsUpdateLibraryElementFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -6928,18 +7942,23 @@ var (
 	libraryElementsCreateLibraryElementFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	libraryElementsDeleteLibraryElementByUIDFlag = struct {
 		LibraryElementUID string
+		Raw               bool
 	}{}
 	libraryElementsGetLibraryElementByNameFlag = struct {
 		LibraryElementName string
+		Raw                bool
 	}{}
 	libraryElementsGetLibraryElementByUIDFlag = struct {
 		LibraryElementUID string
+		Raw               bool
 	}{}
 	libraryElementsGetLibraryElementConnectionsFlag = struct {
 		LibraryElementUID string
+		Raw               bool
 	}{}
 	libraryElementsGetLibraryElementsFlag = struct {
 		ExcludeUID    string
@@ -6950,11 +7969,13 @@ var (
 		SearchString  string
 		SortDirection string
 		TypeFilter    string
+		Raw           bool
 	}{}
 	libraryElementsUpdateLibraryElementFlag = struct {
 		Body                   string
 		LibraryElementUID      string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	licensingCmd = &cobra.Command{
 		Use:               "licensing",
@@ -7009,6 +8030,12 @@ var (
 					Body: &body,
 				},
 			)
+			if licensingDeleteLicenseTokenFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7037,6 +8064,12 @@ var (
 			err = api.Licensing.GetCustomPermissionsCSVWithParams(
 				&licensing.GetCustomPermissionsCSVParams{},
 			)
+			if licensingGetCustomPermissionsCSVFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7066,6 +8099,12 @@ var (
 			err = api.Licensing.GetCustomPermissionsReportWithParams(
 				&licensing.GetCustomPermissionsReportParams{},
 			)
+			if licensingGetCustomPermissionsReportFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7095,6 +8134,12 @@ var (
 			resp, err := api.Licensing.GetLicenseTokenWithParams(
 				&licensing.GetLicenseTokenParams{},
 			)
+			if licensingGetLicenseTokenFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7119,6 +8164,12 @@ var (
 			resp, err := api.Licensing.GetStatusWithParams(
 				&licensing.GetStatusParams{},
 			)
+			if licensingGetStatusFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7177,6 +8228,12 @@ var (
 					Body: &body,
 				},
 			)
+			if licensingPostLicenseTokenFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7212,6 +8269,12 @@ var (
 					Body: body,
 				},
 			)
+			if licensingPostRenewLicenseTokenFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7241,6 +8304,12 @@ var (
 			resp, err := api.Licensing.RefreshLicenseStatsWithParams(
 				&licensing.RefreshLicenseStatsParams{},
 			)
+			if licensingRefreshLicenseStatsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7256,13 +8325,31 @@ var (
 	licensingDeleteLicenseTokenFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
+	}{}
+	licensingGetCustomPermissionsCSVFlag = struct {
+		Raw bool
+	}{}
+	licensingGetCustomPermissionsReportFlag = struct {
+		Raw bool
+	}{}
+	licensingGetLicenseTokenFlag = struct {
+		Raw bool
+	}{}
+	licensingGetStatusFlag = struct {
+		Raw bool
 	}{}
 	licensingPostLicenseTokenFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	licensingPostRenewLicenseTokenFlag = struct {
 		Body string
+		Raw  bool
+	}{}
+	licensingRefreshLicenseStatsFlag = struct {
+		Raw bool
 	}{}
 	migrationsCmd = &cobra.Command{
 		Use:               "migrations",
@@ -7290,6 +8377,12 @@ var (
 					UID:         migrationsCancelSnapshotFlag.UID,
 				},
 			)
+			if migrationsCancelSnapshotFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7315,6 +8408,12 @@ var (
 			resp, err := api.Migrations.CreateCloudMigrationTokenWithParams(
 				&migrations.CreateCloudMigrationTokenParams{},
 			)
+			if migrationsCreateCloudMigrationTokenFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7371,6 +8470,12 @@ var (
 					Body: &body,
 				},
 			)
+			if migrationsCreateSessionFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7432,6 +8537,12 @@ var (
 					UID:  migrationsCreateSnapshotFlag.UID,
 				},
 			)
+			if migrationsCreateSnapshotFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7458,6 +8569,12 @@ var (
 					UID: migrationsDeleteCloudMigrationTokenFlag.UID,
 				},
 			)
+			if migrationsDeleteCloudMigrationTokenFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7485,6 +8602,12 @@ var (
 					UID: migrationsDeleteSessionFlag.UID,
 				},
 			)
+			if migrationsDeleteSessionFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7510,6 +8633,12 @@ var (
 			resp, err := api.Migrations.GetCloudMigrationTokenWithParams(
 				&migrations.GetCloudMigrationTokenParams{},
 			)
+			if migrationsGetCloudMigrationTokenFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7534,6 +8663,12 @@ var (
 			resp, err := api.Migrations.GetResourceDependenciesWithParams(
 				&migrations.GetResourceDependenciesParams{},
 			)
+			if migrationsGetResourceDependenciesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7560,6 +8695,12 @@ var (
 					UID: migrationsGetSessionFlag.UID,
 				},
 			)
+			if migrationsGetSessionFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7584,6 +8725,12 @@ var (
 			resp, err := api.Migrations.GetSessionListWithParams(
 				&migrations.GetSessionListParams{},
 			)
+			if migrationsGetSessionListFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7612,6 +8759,12 @@ var (
 					UID:   migrationsGetShapshotListFlag.UID,
 				},
 			)
+			if migrationsGetShapshotListFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7643,6 +8796,12 @@ var (
 					UID:              migrationsGetSnapshotFlag.UID,
 				},
 			)
+			if migrationsGetSnapshotFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7670,6 +8829,12 @@ var (
 					UID:         migrationsUploadSnapshotFlag.UID,
 				},
 			)
+			if migrationsUploadSnapshotFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7686,30 +8851,49 @@ var (
 	migrationsCancelSnapshotFlag = struct {
 		SnapshotUID string
 		UID         string
+		Raw         bool
+	}{}
+	migrationsCreateCloudMigrationTokenFlag = struct {
+		Raw bool
 	}{}
 	migrationsCreateSessionFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	migrationsCreateSnapshotFlag = struct {
 		Body                   string
 		UID                    string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	migrationsDeleteCloudMigrationTokenFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	migrationsDeleteSessionFlag = struct {
 		UID string
+		Raw bool
+	}{}
+	migrationsGetCloudMigrationTokenFlag = struct {
+		Raw bool
+	}{}
+	migrationsGetResourceDependenciesFlag = struct {
+		Raw bool
 	}{}
 	migrationsGetSessionFlag = struct {
 		UID string
+		Raw bool
+	}{}
+	migrationsGetSessionListFlag = struct {
+		Raw bool
 	}{}
 	migrationsGetShapshotListFlag = struct {
 		Limit int64
 		Page  int64
 		Sort  string
 		UID   string
+		Raw   bool
 	}{}
 	migrationsGetSnapshotFlag = struct {
 		ErrorsOnly       bool
@@ -7719,10 +8903,12 @@ var (
 		ResultSortOrder  string
 		SnapshotUID      string
 		UID              string
+		Raw              bool
 	}{}
 	migrationsUploadSnapshotFlag = struct {
 		SnapshotUID string
 		UID         string
+		Raw         bool
 	}{}
 	orgCmd = &cobra.Command{
 		Use:               "org",
@@ -7794,6 +8980,12 @@ var (
 					Body: &body,
 				},
 			)
+			if orgAddOrgInviteFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7863,6 +9055,12 @@ var (
 					Body: &body,
 				},
 			)
+			if orgAddOrgUserToCurrentOrgFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7887,6 +9085,12 @@ var (
 			resp, err := api.Org.GetCurrentOrgWithParams(
 				&org.GetCurrentOrgParams{},
 			)
+			if orgGetCurrentOrgFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7911,6 +9115,12 @@ var (
 			resp, err := api.Org.GetOrgPreferencesWithParams(
 				&org.GetOrgPreferencesParams{},
 			)
+			if orgGetOrgPreferencesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7937,6 +9147,12 @@ var (
 					Query: &orgGetOrgUsersForCurrentOrgFlag.Query,
 				},
 			)
+			if orgGetOrgUsersForCurrentOrgFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7963,6 +9179,12 @@ var (
 					Query: &orgGetOrgUsersForCurrentOrgLookupFlag.Query,
 				},
 			)
+			if orgGetOrgUsersForCurrentOrgLookupFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -7987,6 +9209,12 @@ var (
 			resp, err := api.Org.GetPendingOrgInvitesWithParams(
 				&org.GetPendingOrgInvitesParams{},
 			)
+			if orgGetPendingOrgInvitesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8111,6 +9339,12 @@ var (
 					Body: &body,
 				},
 			)
+			if orgPatchOrgPreferencesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8141,6 +9375,12 @@ var (
 					UserID: orgRemoveOrgUserForCurrentOrgFlag.UserID,
 				},
 			)
+			if orgRemoveOrgUserForCurrentOrgFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8167,6 +9407,12 @@ var (
 					InvitationCode: orgRevokeInviteFlag.InvitationCode,
 				},
 			)
+			if orgRevokeInviteFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8223,6 +9469,12 @@ var (
 					Body: &body,
 				},
 			)
+			if orgUpdateCurrentOrgFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8299,6 +9551,12 @@ var (
 					Body: &body,
 				},
 			)
+			if orgUpdateCurrentOrgAddressFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8424,6 +9682,12 @@ var (
 					Body: &body,
 				},
 			)
+			if orgUpdateOrgPreferencesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8489,6 +9753,12 @@ var (
 					UserID: orgUpdateOrgUserForCurrentOrgFlag.UserID,
 				},
 			)
+			if orgUpdateOrgUserForCurrentOrgFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8504,45 +9774,65 @@ var (
 	orgAddOrgInviteFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	orgAddOrgUserToCurrentOrgFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
+	}{}
+	orgGetCurrentOrgFlag = struct {
+		Raw bool
+	}{}
+	orgGetOrgPreferencesFlag = struct {
+		Raw bool
 	}{}
 	orgGetOrgUsersForCurrentOrgFlag = struct {
 		Limit int64
 		Query string
+		Raw   bool
 	}{}
 	orgGetOrgUsersForCurrentOrgLookupFlag = struct {
 		Limit int64
 		Query string
+		Raw   bool
+	}{}
+	orgGetPendingOrgInvitesFlag = struct {
+		Raw bool
 	}{}
 	orgPatchOrgPreferencesFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	orgRemoveOrgUserForCurrentOrgFlag = struct {
 		UserID int64
+		Raw    bool
 	}{}
 	orgRevokeInviteFlag = struct {
 		InvitationCode string
+		Raw            bool
 	}{}
 	orgUpdateCurrentOrgFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	orgUpdateCurrentOrgAddressFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	orgUpdateOrgPreferencesFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	orgUpdateOrgUserForCurrentOrgFlag = struct {
 		Body                   string
 		UserID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	orgsCmd = &cobra.Command{
 		Use:               "orgs",
@@ -8609,6 +9899,12 @@ var (
 					OrgID: orgsAddOrgUserFlag.OrgID,
 				},
 			)
+			if orgsAddOrgUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8666,6 +9962,12 @@ var (
 					Body: &body,
 				},
 			)
+			if orgsCreateOrgFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8692,6 +9994,12 @@ var (
 					OrgName: orgsGetOrgByNameFlag.OrgName,
 				},
 			)
+			if orgsGetOrgByNameFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8722,6 +10030,12 @@ var (
 					OrgID: orgsGetOrgUsersFlag.OrgID,
 				},
 			)
+			if orgsGetOrgUsersFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8753,6 +10067,12 @@ var (
 					UserID: orgsRemoveOrgUserFlag.UserID,
 				},
 			)
+			if orgsRemoveOrgUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8783,6 +10103,12 @@ var (
 					OrgID: orgsSearchOrgUsersFlag.OrgID,
 				},
 			)
+			if orgsSearchOrgUsersFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8811,6 +10137,12 @@ var (
 					Query:   &orgsSearchOrgsFlag.Query,
 				},
 			)
+			if orgsSearchOrgsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8868,6 +10200,12 @@ var (
 					OrgID: orgsUpdateOrgFlag.OrgID,
 				},
 			)
+			if orgsUpdateOrgFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -8945,6 +10283,12 @@ var (
 					OrgID: orgsUpdateOrgAddressFlag.OrgID,
 				},
 			)
+			if orgsUpdateOrgAddressFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9008,6 +10352,12 @@ var (
 					UserID: orgsUpdateOrgUserFlag.UserID,
 				},
 			)
+			if orgsUpdateOrgUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9024,45 +10374,55 @@ var (
 		Body                   string
 		OrgID                  int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	orgsCreateOrgFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	orgsGetOrgByNameFlag = struct {
 		OrgName string
+		Raw     bool
 	}{}
 	orgsGetOrgUsersFlag = struct {
 		OrgID int64
+		Raw   bool
 	}{}
 	orgsRemoveOrgUserFlag = struct {
 		OrgID  int64
 		UserID int64
+		Raw    bool
 	}{}
 	orgsSearchOrgUsersFlag = struct {
 		OrgID int64
+		Raw   bool
 	}{}
 	orgsSearchOrgsFlag = struct {
 		Name    string
 		Page    int64
 		Perpage int64
 		Query   string
+		Raw     bool
 	}{}
 	orgsUpdateOrgFlag = struct {
 		Body                   string
 		OrgID                  int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	orgsUpdateOrgAddressFlag = struct {
 		Body                   string
 		OrgID                  int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	orgsUpdateOrgUserFlag = struct {
 		Body                   string
 		OrgID                  int64
 		UserID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	playlistsCmd = &cobra.Command{
 		Use:               "playlists",
@@ -9155,6 +10515,12 @@ var (
 					Body: &body,
 				},
 			)
+			if playlistsCreatePlaylistFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9181,6 +10547,12 @@ var (
 					UID: playlistsDeletePlaylistFlag.UID,
 				},
 			)
+			if playlistsDeletePlaylistFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9207,6 +10579,12 @@ var (
 					UID: playlistsGetPlaylistFlag.UID,
 				},
 			)
+			if playlistsGetPlaylistFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9233,6 +10611,12 @@ var (
 					UID: playlistsGetPlaylistItemsFlag.UID,
 				},
 			)
+			if playlistsGetPlaylistItemsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9259,6 +10643,12 @@ var (
 					Query: &playlistsSearchPlaylistsFlag.Query,
 				},
 			)
+			if playlistsSearchPlaylistsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9360,6 +10750,12 @@ var (
 					UID:  playlistsUpdatePlaylistFlag.UID,
 				},
 			)
+			if playlistsUpdatePlaylistFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9375,24 +10771,30 @@ var (
 	playlistsCreatePlaylistFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	playlistsDeletePlaylistFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	playlistsGetPlaylistFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	playlistsGetPlaylistItemsFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	playlistsSearchPlaylistsFlag = struct {
 		Limit int64
 		Query string
+		Raw   bool
 	}{}
 	playlistsUpdatePlaylistFlag = struct {
 		Body                   string
 		UID                    string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	provisioningCmd = &cobra.Command{
 		Use:               "provisioning",
@@ -9415,6 +10817,12 @@ var (
 					XDisableProvenance: &provisioningDeleteAlertRuleFlag.XDisableProvenance,
 				},
 			)
+			if provisioningDeleteAlertRuleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9443,6 +10851,12 @@ var (
 					Group:     provisioningDeleteAlertRuleGroupFlag.Group,
 				},
 			)
+			if provisioningDeleteAlertRuleGroupFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9470,6 +10884,12 @@ var (
 					UID: provisioningDeleteContactpointsFlag.UID,
 				},
 			)
+			if provisioningDeleteContactpointsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9498,6 +10918,12 @@ var (
 					Version:            &provisioningDeleteMuteTimingFlag.Version,
 				},
 			)
+			if provisioningDeleteMuteTimingFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9525,6 +10951,12 @@ var (
 					Version: &provisioningDeleteTemplateFlag.Version,
 				},
 			)
+			if provisioningDeleteTemplateFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9553,6 +10985,12 @@ var (
 					Name:     provisioningExportMuteTimingFlag.Name,
 				},
 			)
+			if provisioningExportMuteTimingFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9579,6 +11017,12 @@ var (
 					Format:   &provisioningExportMuteTimingsFlag.Format,
 				},
 			)
+			if provisioningExportMuteTimingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9605,6 +11049,12 @@ var (
 					UID: provisioningGetAlertRuleFlag.UID,
 				},
 			)
+			if provisioningGetAlertRuleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9632,6 +11082,12 @@ var (
 					Format:   &provisioningGetAlertRuleExportFlag.Format,
 				},
 			)
+			if provisioningGetAlertRuleExportFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9659,6 +11115,12 @@ var (
 					Group:     provisioningGetAlertRuleGroupFlag.Group,
 				},
 			)
+			if provisioningGetAlertRuleGroupFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9687,6 +11149,12 @@ var (
 					Format:    &provisioningGetAlertRuleGroupExportFlag.Format,
 				},
 			)
+			if provisioningGetAlertRuleGroupExportFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9711,6 +11179,12 @@ var (
 			resp, err := api.Provisioning.GetAlertRulesWithParams(
 				&provisioning.GetAlertRulesParams{},
 			)
+			if provisioningGetAlertRulesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9740,6 +11214,12 @@ var (
 					RuleUID:   &provisioningGetAlertRulesExportFlag.RuleUID,
 				},
 			)
+			if provisioningGetAlertRulesExportFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9765,6 +11245,12 @@ var (
 					Name: &provisioningGetContactpointsFlag.Name,
 				},
 			)
+			if provisioningGetContactpointsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9793,6 +11279,12 @@ var (
 					Name:     &provisioningGetContactpointsExportFlag.Name,
 				},
 			)
+			if provisioningGetContactpointsExportFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9819,6 +11311,12 @@ var (
 					Name: provisioningGetMuteTimingFlag.Name,
 				},
 			)
+			if provisioningGetMuteTimingFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9843,6 +11341,12 @@ var (
 			resp, err := api.Provisioning.GetMuteTimingsWithParams(
 				&provisioning.GetMuteTimingsParams{},
 			)
+			if provisioningGetMuteTimingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9867,6 +11371,12 @@ var (
 			resp, err := api.Provisioning.GetPolicyTreeWithParams(
 				&provisioning.GetPolicyTreeParams{},
 			)
+			if provisioningGetPolicyTreeFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9891,6 +11401,12 @@ var (
 			resp, err := api.Provisioning.GetPolicyTreeExportWithParams(
 				&provisioning.GetPolicyTreeExportParams{},
 			)
+			if provisioningGetPolicyTreeExportFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9917,6 +11433,12 @@ var (
 					Name: provisioningGetTemplateFlag.Name,
 				},
 			)
+			if provisioningGetTemplateFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -9941,6 +11463,12 @@ var (
 			resp, err := api.Provisioning.GetTemplatesWithParams(
 				&provisioning.GetTemplatesParams{},
 			)
+			if provisioningGetTemplatesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -10239,6 +11767,12 @@ var (
 					XDisableProvenance: &provisioningPostAlertRuleFlag.XDisableProvenance,
 				},
 			)
+			if provisioningPostAlertRuleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -10344,6 +11878,12 @@ var (
 					XDisableProvenance: &provisioningPostContactpointsFlag.XDisableProvenance,
 				},
 			)
+			if provisioningPostContactpointsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -10458,6 +11998,12 @@ var (
 					XDisableProvenance: &provisioningPostMuteTimingFlag.XDisableProvenance,
 				},
 			)
+			if provisioningPostMuteTimingFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -10757,6 +12303,12 @@ var (
 					XDisableProvenance: &provisioningPutAlertRuleFlag.XDisableProvenance,
 				},
 			)
+			if provisioningPutAlertRuleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11047,6 +12599,12 @@ var (
 					XDisableProvenance: &provisioningPutAlertRuleGroupFlag.XDisableProvenance,
 				},
 			)
+			if provisioningPutAlertRuleGroupFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11153,6 +12711,12 @@ var (
 					XDisableProvenance: &provisioningPutContactpointFlag.XDisableProvenance,
 				},
 			)
+			if provisioningPutContactpointFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11268,6 +12832,12 @@ var (
 					Name:               provisioningPutMuteTimingFlag.Name,
 				},
 			)
+			if provisioningPutMuteTimingFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11441,6 +13011,12 @@ var (
 					XDisableProvenance: &provisioningPutPolicyTreeFlag.XDisableProvenance,
 				},
 			)
+			if provisioningPutPolicyTreeFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11501,6 +13077,12 @@ var (
 					Name:               provisioningPutTemplateFlag.Name,
 				},
 			)
+			if provisioningPutTemplateFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11525,6 +13107,12 @@ var (
 			resp, err := api.Provisioning.ResetPolicyTreeWithParams(
 				&provisioning.ResetPolicyTreeParams{},
 			)
+			if provisioningResetPolicyTreeFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11540,49 +13128,63 @@ var (
 	provisioningDeleteAlertRuleFlag = struct {
 		UID                string
 		XDisableProvenance string
+		Raw                bool
 	}{}
 	provisioningDeleteAlertRuleGroupFlag = struct {
 		FolderUID string
 		Group     string
+		Raw       bool
 	}{}
 	provisioningDeleteContactpointsFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	provisioningDeleteMuteTimingFlag = struct {
 		XDisableProvenance string
 		Name               string
 		Version            string
+		Raw                bool
 	}{}
 	provisioningDeleteTemplateFlag = struct {
 		Name    string
 		Version string
+		Raw     bool
 	}{}
 	provisioningExportMuteTimingFlag = struct {
 		Download bool
 		Format   string
 		Name     string
+		Raw      bool
 	}{}
 	provisioningExportMuteTimingsFlag = struct {
 		Download bool
 		Format   string
+		Raw      bool
 	}{}
 	provisioningGetAlertRuleFlag = struct {
 		UID string
+		Raw bool
 	}{}
 	provisioningGetAlertRuleExportFlag = struct {
 		UID      string
 		Download bool
 		Format   string
+		Raw      bool
 	}{}
 	provisioningGetAlertRuleGroupFlag = struct {
 		FolderUID string
 		Group     string
+		Raw       bool
 	}{}
 	provisioningGetAlertRuleGroupExportFlag = struct {
 		FolderUID string
 		Group     string
 		Download  bool
 		Format    string
+		Raw       bool
+	}{}
+	provisioningGetAlertRulesFlag = struct {
+		Raw bool
 	}{}
 	provisioningGetAlertRulesExportFlag = struct {
 		Download  bool
@@ -11590,42 +13192,63 @@ var (
 		Format    string
 		Group     string
 		RuleUID   string
+		Raw       bool
 	}{}
 	provisioningGetContactpointsFlag = struct {
 		Name string
+		Raw  bool
 	}{}
 	provisioningGetContactpointsExportFlag = struct {
 		Decrypt  bool
 		Download bool
 		Format   string
 		Name     string
+		Raw      bool
 	}{}
 	provisioningGetMuteTimingFlag = struct {
 		Name string
+		Raw  bool
+	}{}
+	provisioningGetMuteTimingsFlag = struct {
+		Raw bool
+	}{}
+	provisioningGetPolicyTreeFlag = struct {
+		Raw bool
+	}{}
+	provisioningGetPolicyTreeExportFlag = struct {
+		Raw bool
 	}{}
 	provisioningGetTemplateFlag = struct {
 		Name string
+		Raw  bool
+	}{}
+	provisioningGetTemplatesFlag = struct {
+		Raw bool
 	}{}
 	provisioningPostAlertRuleFlag = struct {
 		Body                   string
 		XDisableProvenance     string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	provisioningPostContactpointsFlag = struct {
 		Body                   string
 		XDisableProvenance     string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	provisioningPostMuteTimingFlag = struct {
 		Body                   string
 		XDisableProvenance     string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	provisioningPutAlertRuleFlag = struct {
 		Body                   string
 		UID                    string
 		XDisableProvenance     string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	provisioningPutAlertRuleGroupFlag = struct {
 		Body                   string
@@ -11633,29 +13256,37 @@ var (
 		Group                  string
 		XDisableProvenance     string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	provisioningPutContactpointFlag = struct {
 		Body                   string
 		UID                    string
 		XDisableProvenance     string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	provisioningPutMuteTimingFlag = struct {
 		Body                   string
 		XDisableProvenance     string
 		Name                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	provisioningPutPolicyTreeFlag = struct {
 		Body                   string
 		XDisableProvenance     string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	provisioningPutTemplateFlag = struct {
 		Body                   string
 		XDisableProvenance     string
 		Name                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
+	}{}
+	provisioningResetPolicyTreeFlag = struct {
+		Raw bool
 	}{}
 	queryHistoryCmd = &cobra.Command{
 		Use:               "query-history",
@@ -11717,6 +13348,12 @@ var (
 					Body: &body,
 				},
 			)
+			if queryHistoryCreateQueryFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11747,6 +13384,12 @@ var (
 					QueryHistoryUID: queryHistoryDeleteQueryFlag.QueryHistoryUID,
 				},
 			)
+			if queryHistoryDeleteQueryFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11807,6 +13450,12 @@ var (
 					QueryHistoryUID: queryHistoryPatchQueryCommentFlag.QueryHistoryUID,
 				},
 			)
+			if queryHistoryPatchQueryCommentFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11839,6 +13488,12 @@ var (
 					To:            &queryHistorySearchQueriesFlag.To,
 				},
 			)
+			if queryHistorySearchQueriesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11869,6 +13524,12 @@ var (
 					QueryHistoryUID: queryHistoryStarQueryFlag.QueryHistoryUID,
 				},
 			)
+			if queryHistoryStarQueryFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11899,6 +13560,12 @@ var (
 					QueryHistoryUID: queryHistoryUnstarQueryFlag.QueryHistoryUID,
 				},
 			)
+			if queryHistoryUnstarQueryFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11914,14 +13581,17 @@ var (
 	queryHistoryCreateQueryFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	queryHistoryDeleteQueryFlag = struct {
 		QueryHistoryUID string
+		Raw             bool
 	}{}
 	queryHistoryPatchQueryCommentFlag = struct {
 		Body                   string
 		QueryHistoryUID        string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	queryHistorySearchQueriesFlag = struct {
 		DatasourceUID []string
@@ -11932,12 +13602,15 @@ var (
 		SearchString  string
 		Sort          string
 		To            int64
+		Raw           bool
 	}{}
 	queryHistoryStarQueryFlag = struct {
 		QueryHistoryUID string
+		Raw             bool
 	}{}
 	queryHistoryUnstarQueryFlag = struct {
 		QueryHistoryUID string
+		Raw             bool
 	}{}
 	quotaCmd = &cobra.Command{
 		Use:               "quota",
@@ -11962,6 +13635,12 @@ var (
 			resp, err := api.Quota.GetCurrentOrgQuotaWithParams(
 				&quota.GetCurrentOrgQuotaParams{},
 			)
+			if quotaGetCurrentOrgQuotaFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -11992,6 +13671,12 @@ var (
 					OrgID: quotaGetOrgQuotaFlag.OrgID,
 				},
 			)
+			if quotaGetOrgQuotaFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12022,6 +13707,12 @@ var (
 					UserID: quotaGetUserQuotaFlag.UserID,
 				},
 			)
+			if quotaGetUserQuotaFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12046,6 +13737,12 @@ var (
 			resp, err := api.Quota.GetUserQuotasWithParams(
 				&quota.GetUserQuotasParams{},
 			)
+			if quotaGetUserQuotasFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12106,6 +13803,12 @@ var (
 					QuotaTarget: quotaUpdateOrgQuotaFlag.QuotaTarget,
 				},
 			)
+			if quotaUpdateOrgQuotaFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12166,6 +13869,12 @@ var (
 					UserID:      quotaUpdateUserQuotaFlag.UserID,
 				},
 			)
+			if quotaUpdateUserQuotaFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12178,23 +13887,33 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	quotaGetCurrentOrgQuotaFlag = struct {
+		Raw bool
+	}{}
 	quotaGetOrgQuotaFlag = struct {
 		OrgID int64
+		Raw   bool
 	}{}
 	quotaGetUserQuotaFlag = struct {
 		UserID int64
+		Raw    bool
+	}{}
+	quotaGetUserQuotasFlag = struct {
+		Raw bool
 	}{}
 	quotaUpdateOrgQuotaFlag = struct {
 		Body                   string
 		OrgID                  int64
 		QuotaTarget            string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	quotaUpdateUserQuotaFlag = struct {
 		Body                   string
 		QuotaTarget            string
 		UserID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	recordingRulesCmd = &cobra.Command{
 		Use:               "recording-rules",
@@ -12288,6 +14007,12 @@ var (
 					Body: &body,
 				},
 			)
+			if recordingRulesCreateRecordingRuleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12353,6 +14078,12 @@ var (
 					Body: &body,
 				},
 			)
+			if recordingRulesCreateRecordingRuleWriteTargetFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12379,6 +14110,12 @@ var (
 					RecordingRuleID: recordingRulesDeleteRecordingRuleFlag.RecordingRuleID,
 				},
 			)
+			if recordingRulesDeleteRecordingRuleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12403,6 +14140,12 @@ var (
 			resp, err := api.RecordingRules.DeleteRecordingRuleWriteTargetWithParams(
 				&recording_rules.DeleteRecordingRuleWriteTargetParams{},
 			)
+			if recordingRulesDeleteRecordingRuleWriteTargetFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12427,6 +14170,12 @@ var (
 			resp, err := api.RecordingRules.GetRecordingRuleWriteTargetWithParams(
 				&recording_rules.GetRecordingRuleWriteTargetParams{},
 			)
+			if recordingRulesGetRecordingRuleWriteTargetFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12451,6 +14200,12 @@ var (
 			resp, err := api.RecordingRules.ListRecordingRulesWithParams(
 				&recording_rules.ListRecordingRulesParams{},
 			)
+			if recordingRulesListRecordingRulesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12548,6 +14303,12 @@ var (
 					Body: &body,
 				},
 			)
+			if recordingRulesTestCreateRecordingRuleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12645,6 +14406,12 @@ var (
 					Body: &body,
 				},
 			)
+			if recordingRulesUpdateRecordingRuleFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12660,21 +14427,35 @@ var (
 	recordingRulesCreateRecordingRuleFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	recordingRulesCreateRecordingRuleWriteTargetFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	recordingRulesDeleteRecordingRuleFlag = struct {
 		RecordingRuleID int64
+		Raw             bool
+	}{}
+	recordingRulesDeleteRecordingRuleWriteTargetFlag = struct {
+		Raw bool
+	}{}
+	recordingRulesGetRecordingRuleWriteTargetFlag = struct {
+		Raw bool
+	}{}
+	recordingRulesListRecordingRulesFlag = struct {
+		Raw bool
 	}{}
 	recordingRulesTestCreateRecordingRuleFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	recordingRulesUpdateRecordingRuleFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	reportsCmd = &cobra.Command{
 		Use:               "reports",
@@ -12883,6 +14664,12 @@ var (
 					Body: &body,
 				},
 			)
+			if reportsCreateReportFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12915,6 +14702,12 @@ var (
 					ID: reportsDeleteReportFlag.ID,
 				},
 			)
+			if reportsDeleteReportFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12947,6 +14740,12 @@ var (
 					ID: reportsGetReportFlag.ID,
 				},
 			)
+			if reportsGetReportFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -12976,6 +14775,12 @@ var (
 			resp, err := api.Reports.GetReportSettingsWithParams(
 				&reports.GetReportSettingsParams{},
 			)
+			if reportsGetReportSettingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13005,6 +14810,12 @@ var (
 			resp, err := api.Reports.GetReportsWithParams(
 				&reports.GetReportsParams{},
 			)
+			if reportsGetReportsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13036,6 +14847,12 @@ var (
 					UID: reportsGetReportsByDashboardUIDFlag.UID,
 				},
 			)
+			if reportsGetReportsByDashboardUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13065,6 +14882,12 @@ var (
 			resp, err := api.Reports.GetSettingsImageWithParams(
 				&reports.GetSettingsImageParams{},
 			)
+			if reportsGetSettingsImageFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13091,6 +14914,12 @@ var (
 					Title:      &reportsRenderReportCSVsFlag.Title,
 				},
 			)
+			if reportsRenderReportCSVsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13121,6 +14950,12 @@ var (
 					Title:         &reportsRenderReportPDFsFlag.Title,
 				},
 			)
+			if reportsRenderReportPDFsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13222,6 +15057,12 @@ var (
 					Body: &body,
 				},
 			)
+			if reportsSaveReportSettingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13295,6 +15136,12 @@ var (
 					Body: &body,
 				},
 			)
+			if reportsSendReportFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13507,6 +15354,12 @@ var (
 					Body: &body,
 				},
 			)
+			if reportsSendTestEmailFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13721,6 +15574,12 @@ var (
 					ID:   reportsUpdateReportFlag.ID,
 				},
 			)
+			if reportsUpdateReportFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13736,19 +15595,33 @@ var (
 	reportsCreateReportFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	reportsDeleteReportFlag = struct {
-		ID int64
+		ID  int64
+		Raw bool
 	}{}
 	reportsGetReportFlag = struct {
-		ID int64
+		ID  int64
+		Raw bool
+	}{}
+	reportsGetReportSettingsFlag = struct {
+		Raw bool
+	}{}
+	reportsGetReportsFlag = struct {
+		Raw bool
 	}{}
 	reportsGetReportsByDashboardUIDFlag = struct {
 		UID string
+		Raw bool
+	}{}
+	reportsGetSettingsImageFlag = struct {
+		Raw bool
 	}{}
 	reportsRenderReportCSVsFlag = struct {
 		Dashboards string
 		Title      string
+		Raw        bool
 	}{}
 	reportsRenderReportPDFsFlag = struct {
 		Dashboards    string
@@ -13757,23 +15630,28 @@ var (
 		Orientation   string
 		ScaleFactor   string
 		Title         string
+		Raw           bool
 	}{}
 	reportsSaveReportSettingsFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	reportsSendReportFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	reportsSendTestEmailFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	reportsUpdateReportFlag = struct {
 		Body                   string
 		ID                     int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	samlCmd = &cobra.Command{
 		Use:               "saml",
@@ -13794,6 +15672,12 @@ var (
 			resp, err := api.Saml.GetMetadataWithParams(
 				&saml.GetMetadataParams{},
 			)
+			if samlGetMetadataFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13818,6 +15702,12 @@ var (
 			err = api.Saml.GetSAMLLogoutWithParams(
 				&saml.GetSAMLLogoutParams{},
 			)
+			if samlGetSAMLLogoutFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13847,6 +15737,12 @@ var (
 			err = api.Saml.GetSLOWithParams(
 				&saml.GetSLOParams{},
 			)
+			if samlGetSLOFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13873,6 +15769,12 @@ var (
 					RelayState: &samlPostACSFlag.RelayState,
 				},
 			)
+			if samlPostACSFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13900,6 +15802,12 @@ var (
 					SAMLResponse: &samlPostSLOFlag.SAMLResponse,
 				},
 			)
+			if samlPostSLOFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13913,12 +15821,23 @@ var (
 			return nil
 		},
 	}
+	samlGetMetadataFlag = struct {
+		Raw bool
+	}{}
+	samlGetSAMLLogoutFlag = struct {
+		Raw bool
+	}{}
+	samlGetSLOFlag = struct {
+		Raw bool
+	}{}
 	samlPostACSFlag = struct {
 		RelayState string
+		Raw        bool
 	}{}
 	samlPostSLOFlag = struct {
 		SAMLRequest  string
 		SAMLResponse string
+		Raw          bool
 	}{}
 	searchCmd = &cobra.Command{
 		Use:               "search",
@@ -13939,6 +15858,12 @@ var (
 			resp, err := api.Search.ListSortOptionsWithParams(
 				&search.ListSortOptionsParams{},
 			)
+			if searchListSortOptionsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13976,6 +15901,12 @@ var (
 					Type:          &searchSearchFlag.Type,
 				},
 			)
+			if searchSearchFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -13988,6 +15919,9 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	searchListSortOptionsFlag = struct {
+		Raw bool
+	}{}
 	searchSearchFlag = struct {
 		DashboardIds  []int64
 		DashboardUIDs []string
@@ -14002,6 +15936,7 @@ var (
 		Starred       bool
 		Tag           []string
 		Type          string
+		Raw           bool
 	}{}
 	serviceAccountsCmd = &cobra.Command{
 		Use:               "service-accounts",
@@ -14067,6 +16002,12 @@ var (
 					Body: &body,
 				},
 			)
+			if serviceAccountsCreateServiceAccountFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14126,6 +16067,12 @@ var (
 					ServiceAccountID: serviceAccountsCreateTokenFlag.ServiceAccountID,
 				},
 			)
+			if serviceAccountsCreateTokenFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14156,6 +16103,12 @@ var (
 					ServiceAccountID: serviceAccountsDeleteServiceAccountFlag.ServiceAccountID,
 				},
 			)
+			if serviceAccountsDeleteServiceAccountFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14188,6 +16141,12 @@ var (
 					TokenID:          serviceAccountsDeleteTokenFlag.TokenID,
 				},
 			)
+			if serviceAccountsDeleteTokenFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14219,6 +16178,12 @@ var (
 					ServiceAccountID: serviceAccountsListTokensFlag.ServiceAccountID,
 				},
 			)
+			if serviceAccountsListTokensFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14249,6 +16214,12 @@ var (
 					ServiceAccountID: serviceAccountsRetrieveServiceAccountFlag.ServiceAccountID,
 				},
 			)
+			if serviceAccountsRetrieveServiceAccountFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14278,6 +16249,12 @@ var (
 					Query:         &serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Query,
 				},
 			)
+			if serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14352,6 +16329,12 @@ var (
 					ServiceAccountID: serviceAccountsUpdateServiceAccountFlag.ServiceAccountID,
 				},
 			)
+			if serviceAccountsUpdateServiceAccountFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14367,24 +16350,30 @@ var (
 	serviceAccountsCreateServiceAccountFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	serviceAccountsCreateTokenFlag = struct {
 		Body                   string
 		ServiceAccountID       int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	serviceAccountsDeleteServiceAccountFlag = struct {
 		ServiceAccountID int64
+		Raw              bool
 	}{}
 	serviceAccountsDeleteTokenFlag = struct {
 		ServiceAccountID int64
 		TokenID          int64
+		Raw              bool
 	}{}
 	serviceAccountsListTokensFlag = struct {
 		ServiceAccountID int64
+		Raw              bool
 	}{}
 	serviceAccountsRetrieveServiceAccountFlag = struct {
 		ServiceAccountID int64
+		Raw              bool
 	}{}
 	serviceAccountsSearchOrgServiceAccountsWithPagingFlag = struct {
 		Disabled      bool
@@ -14392,11 +16381,13 @@ var (
 		Page          int64
 		Perpage       int64
 		Query         string
+		Raw           bool
 	}{}
 	serviceAccountsUpdateServiceAccountFlag = struct {
 		Body                   string
 		ServiceAccountID       int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	signedInUserCmd = &cobra.Command{
 		Use:               "signed-in-user",
@@ -14454,6 +16445,12 @@ var (
 					Body: &body,
 				},
 			)
+			if signedInUserChangeUserPasswordFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14478,6 +16475,12 @@ var (
 			resp, err := api.SignedInUser.ClearHelpFlagsWithParams(
 				&signed_in_user.ClearHelpFlagsParams{},
 			)
+			if signedInUserClearHelpFlagsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14502,6 +16505,12 @@ var (
 			resp, err := api.SignedInUser.GetSignedInUserWithParams(
 				&signed_in_user.GetSignedInUserParams{},
 			)
+			if signedInUserGetSignedInUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14530,6 +16539,12 @@ var (
 			resp, err := api.SignedInUser.GetSignedInUserOrgListWithParams(
 				&signed_in_user.GetSignedInUserOrgListParams{},
 			)
+			if signedInUserGetSignedInUserOrgListFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14558,6 +16573,12 @@ var (
 			resp, err := api.SignedInUser.GetSignedInUserTeamListWithParams(
 				&signed_in_user.GetSignedInUserTeamListParams{},
 			)
+			if signedInUserGetSignedInUserTeamListFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14586,6 +16607,12 @@ var (
 			resp, err := api.SignedInUser.GetUserAuthTokensWithParams(
 				&signed_in_user.GetUserAuthTokensParams{},
 			)
+			if signedInUserGetUserAuthTokensFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14610,6 +16637,12 @@ var (
 			resp, err := api.SignedInUser.GetUserPreferencesWithParams(
 				&signed_in_user.GetUserPreferencesParams{},
 			)
+			if signedInUserGetUserPreferencesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14734,6 +16767,12 @@ var (
 					Body: &body,
 				},
 			)
+			if signedInUserPatchUserPreferencesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14791,6 +16830,12 @@ var (
 					Body: &body,
 				},
 			)
+			if signedInUserRevokeUserAuthTokenFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14817,6 +16862,12 @@ var (
 					FlagID: signedInUserSetHelpFlagFlag.FlagID,
 				},
 			)
+			if signedInUserSetHelpFlagFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14847,6 +16898,12 @@ var (
 					DashboardUID: signedInUserStarDashboardByUIDFlag.DashboardUID,
 				},
 			)
+			if signedInUserStarDashboardByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14877,6 +16934,12 @@ var (
 					DashboardUID: signedInUserUnstarDashboardByUIDFlag.DashboardUID,
 				},
 			)
+			if signedInUserUnstarDashboardByUIDFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -14945,6 +17008,12 @@ var (
 					Body: &body,
 				},
 			)
+			if signedInUserUpdateSignedInUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15071,6 +17140,12 @@ var (
 					Body: &body,
 				},
 			)
+			if signedInUserUpdateUserPreferencesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15101,6 +17176,12 @@ var (
 					OrgID: signedInUserUserSetUsingOrgFlag.OrgID,
 				},
 			)
+			if signedInUserUserSetUsingOrgFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15116,34 +17197,61 @@ var (
 	signedInUserChangeUserPasswordFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
+	}{}
+	signedInUserClearHelpFlagsFlag = struct {
+		Raw bool
+	}{}
+	signedInUserGetSignedInUserFlag = struct {
+		Raw bool
+	}{}
+	signedInUserGetSignedInUserOrgListFlag = struct {
+		Raw bool
+	}{}
+	signedInUserGetSignedInUserTeamListFlag = struct {
+		Raw bool
+	}{}
+	signedInUserGetUserAuthTokensFlag = struct {
+		Raw bool
+	}{}
+	signedInUserGetUserPreferencesFlag = struct {
+		Raw bool
 	}{}
 	signedInUserPatchUserPreferencesFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	signedInUserRevokeUserAuthTokenFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	signedInUserSetHelpFlagFlag = struct {
 		FlagID string
+		Raw    bool
 	}{}
 	signedInUserStarDashboardByUIDFlag = struct {
 		DashboardUID string
+		Raw          bool
 	}{}
 	signedInUserUnstarDashboardByUIDFlag = struct {
 		DashboardUID string
+		Raw          bool
 	}{}
 	signedInUserUpdateSignedInUserFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	signedInUserUpdateUserPreferencesFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	signedInUserUserSetUsingOrgFlag = struct {
 		OrgID int64
+		Raw   bool
 	}{}
 	signingKeysCmd = &cobra.Command{
 		Use:               "signing-keys",
@@ -15168,6 +17276,12 @@ var (
 			resp, err := api.SigningKeys.RetrieveJWKSWithParams(
 				&signing_keys.RetrieveJWKSParams{},
 			)
+			if signingKeysRetrieveJWKSFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15180,6 +17294,9 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	signingKeysRetrieveJWKSFlag = struct {
+		Raw bool
+	}{}
 	snapshotsCmd = &cobra.Command{
 		Use:               "snapshots",
 		Short:             "Snapshots API",
@@ -15199,6 +17316,12 @@ var (
 			resp, err := api.Snapshots.GetSharingOptionsWithParams(
 				&snapshots.GetSharingOptionsParams{},
 			)
+			if snapshotsGetSharingOptionsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15211,6 +17334,9 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	snapshotsGetSharingOptionsFlag = struct {
+		Raw bool
+	}{}
 	ssoSettingsCmd = &cobra.Command{
 		Use:               "sso-settings",
 		Short:             "Sso settings API",
@@ -15236,6 +17362,12 @@ var (
 					Key: ssoSettingsGetProviderSettingsFlag.Key,
 				},
 			)
+			if ssoSettingsGetProviderSettingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15264,6 +17396,12 @@ var (
 			resp, err := api.SsoSettings.ListAllProvidersSettingsWithParams(
 				&sso_settings.ListAllProvidersSettingsParams{},
 			)
+			if ssoSettingsListAllProvidersSettingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15295,6 +17433,12 @@ var (
 					Key: ssoSettingsRemoveProviderSettingsFlag.Key,
 				},
 			)
+			if ssoSettingsRemoveProviderSettingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15360,6 +17504,12 @@ var (
 					Key:  ssoSettingsUpdateProviderSettingsFlag.Key,
 				},
 			)
+			if ssoSettingsUpdateProviderSettingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15374,14 +17524,20 @@ var (
 	}
 	ssoSettingsGetProviderSettingsFlag = struct {
 		Key string
+		Raw bool
+	}{}
+	ssoSettingsListAllProvidersSettingsFlag = struct {
+		Raw bool
 	}{}
 	ssoSettingsRemoveProviderSettingsFlag = struct {
 		Key string
+		Raw bool
 	}{}
 	ssoSettingsUpdateProviderSettingsFlag = struct {
 		Body                   string
 		Key                    string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	syncTeamGroupsCmd = &cobra.Command{
 		Use:               "sync-team-groups",
@@ -15435,6 +17591,12 @@ var (
 					TeamID: syncTeamGroupsAddTeamGroupAPIFlag.TeamID,
 				},
 			)
+			if syncTeamGroupsAddTeamGroupAPIFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15461,6 +17623,12 @@ var (
 					TeamID: syncTeamGroupsGetTeamGroupsAPIFlag.TeamID,
 				},
 			)
+			if syncTeamGroupsGetTeamGroupsAPIFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15487,6 +17655,12 @@ var (
 					TeamID:  syncTeamGroupsRemoveTeamGroupAPIQueryFlag.TeamID,
 				},
 			)
+			if syncTeamGroupsRemoveTeamGroupAPIQueryFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15516,6 +17690,12 @@ var (
 					TeamID:  syncTeamGroupsSearchTeamGroupsFlag.TeamID,
 				},
 			)
+			if syncTeamGroupsSearchTeamGroupsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15532,13 +17712,16 @@ var (
 		Body                   string
 		TeamID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	syncTeamGroupsGetTeamGroupsAPIFlag = struct {
 		TeamID int64
+		Raw    bool
 	}{}
 	syncTeamGroupsRemoveTeamGroupAPIQueryFlag = struct {
 		GroupID string
 		TeamID  int64
+		Raw     bool
 	}{}
 	syncTeamGroupsSearchTeamGroupsFlag = struct {
 		Name    string
@@ -15546,6 +17729,7 @@ var (
 		Perpage int64
 		Query   string
 		TeamID  int64
+		Raw     bool
 	}{}
 	teamsCmd = &cobra.Command{
 		Use:               "teams",
@@ -15603,6 +17787,12 @@ var (
 					TeamID: teamsAddTeamMemberFlag.TeamID,
 				},
 			)
+			if teamsAddTeamMemberFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15667,6 +17857,12 @@ var (
 					Body: &body,
 				},
 			)
+			if teamsCreateTeamFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15693,6 +17889,12 @@ var (
 					TeamID: teamsGetTeamMembersFlag.TeamID,
 				},
 			)
+			if teamsGetTeamMembersFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15719,6 +17921,12 @@ var (
 					TeamID: teamsGetTeamPreferencesFlag.TeamID,
 				},
 			)
+			if teamsGetTeamPreferencesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15746,6 +17954,12 @@ var (
 					UserID: teamsRemoveTeamMemberFlag.UserID,
 				},
 			)
+			if teamsRemoveTeamMemberFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15776,6 +17990,12 @@ var (
 					Sort:          &teamsSearchTeamsFlag.Sort,
 				},
 			)
+			if teamsSearchTeamsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15844,6 +18064,12 @@ var (
 					TeamID: teamsSetTeamMembershipsFlag.TeamID,
 				},
 			)
+			if teamsSetTeamMembershipsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15905,6 +18131,12 @@ var (
 					TeamID: teamsUpdateTeamFlag.TeamID,
 				},
 			)
+			if teamsUpdateTeamFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -15961,6 +18193,12 @@ var (
 					UserID: teamsUpdateTeamMemberFlag.UserID,
 				},
 			)
+			if teamsUpdateTeamMemberFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -16087,6 +18325,12 @@ var (
 					TeamID: teamsUpdateTeamPreferencesFlag.TeamID,
 				},
 			)
+			if teamsUpdateTeamPreferencesFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -16103,20 +18347,25 @@ var (
 		Body                   string
 		TeamID                 string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	teamsCreateTeamFlag = struct {
 		Body                   string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	teamsGetTeamMembersFlag = struct {
 		TeamID string
+		Raw    bool
 	}{}
 	teamsGetTeamPreferencesFlag = struct {
 		TeamID string
+		Raw    bool
 	}{}
 	teamsRemoveTeamMemberFlag = struct {
 		TeamID string
 		UserID int64
+		Raw    bool
 	}{}
 	teamsSearchTeamsFlag = struct {
 		Accesscontrol bool
@@ -16125,27 +18374,32 @@ var (
 		Perpage       int64
 		Query         string
 		Sort          string
+		Raw           bool
 	}{}
 	teamsSetTeamMembershipsFlag = struct {
 		Body                   string
 		TeamID                 string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	teamsUpdateTeamFlag = struct {
 		Body                   string
 		TeamID                 string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	teamsUpdateTeamMemberFlag = struct {
 		Body                   string
 		TeamID                 string
 		UserID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	teamsUpdateTeamPreferencesFlag = struct {
 		Body                   string
 		TeamID                 string
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 	userCmd = &cobra.Command{
 		Use:               "user",
@@ -16170,6 +18424,12 @@ var (
 			err = api.User.UpdateUserEmailWithParams(
 				&user.UpdateUserEmailParams{},
 			)
+			if userUpdateUserEmailFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -16183,6 +18443,9 @@ var (
 			return nil
 		},
 	}
+	userUpdateUserEmailFlag = struct {
+		Raw bool
+	}{}
 	usersCmd = &cobra.Command{
 		Use:               "users",
 		Short:             "Users API",
@@ -16204,6 +18467,12 @@ var (
 					LoginOrEmail: usersGetUserByLoginOrEmailFlag.LoginOrEmail,
 				},
 			)
+			if usersGetUserByLoginOrEmailFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -16234,6 +18503,12 @@ var (
 					UserID: usersGetUserOrgListFlag.UserID,
 				},
 			)
+			if usersGetUserOrgListFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -16264,6 +18539,12 @@ var (
 					UserID: usersGetUserTeamsFlag.UserID,
 				},
 			)
+			if usersGetUserTeamsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -16290,6 +18571,12 @@ var (
 					Perpage: &usersSearchUsersFlag.Perpage,
 				},
 			)
+			if usersSearchUsersFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -16314,6 +18601,12 @@ var (
 			resp, err := api.Users.SearchUsersWithPagingWithParams(
 				&users.SearchUsersWithPagingParams{},
 			)
+			if usersSearchUsersWithPagingFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -16384,6 +18677,12 @@ var (
 					UserID: usersUpdateUserFlag.UserID,
 				},
 			)
+			if usersUpdateUserFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
 					if err := printPayload(pe.GetPayload()); err != nil {
@@ -16398,21 +18697,29 @@ var (
 	}
 	usersGetUserByLoginOrEmailFlag = struct {
 		LoginOrEmail string
+		Raw          bool
 	}{}
 	usersGetUserOrgListFlag = struct {
 		UserID int64
+		Raw    bool
 	}{}
 	usersGetUserTeamsFlag = struct {
 		UserID int64
+		Raw    bool
 	}{}
 	usersSearchUsersFlag = struct {
 		Page    int64
 		Perpage int64
+		Raw     bool
+	}{}
+	usersSearchUsersWithPagingFlag = struct {
+		Raw bool
 	}{}
 	usersUpdateUserFlag = struct {
 		Body                   string
 		UserID                 int64
 		DescribeBodyJSONSchema bool
+		Raw                    bool
 	}{}
 )
 
@@ -16427,64 +18734,80 @@ func init() {
 	accessControlAddTeamRoleCmd.Flags().Int64Var(&accessControlAddTeamRoleFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlAddTeamRoleCmd.MarkFlagRequired("team-id")
 	accessControlAddTeamRoleCmd.Flags().BoolVar(&accessControlAddTeamRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlAddTeamRoleCmd.Flags().BoolVar(&accessControlAddTeamRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlAddTeamRoleCmd)
 	accessControlAddUserRoleCmd.Flags().StringVar(&accessControlAddUserRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlAddUserRoleCmd.MarkFlagRequired("body")
 	accessControlAddUserRoleCmd.Flags().Int64Var(&accessControlAddUserRoleFlag.UserID, "user-id", 0, "UserID")
 	accessControlAddUserRoleCmd.MarkFlagRequired("user-id")
 	accessControlAddUserRoleCmd.Flags().BoolVar(&accessControlAddUserRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlAddUserRoleCmd.Flags().BoolVar(&accessControlAddUserRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlAddUserRoleCmd)
 	accessControlCreateRoleCmd.Flags().StringVar(&accessControlCreateRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlCreateRoleCmd.MarkFlagRequired("body")
 	accessControlCreateRoleCmd.Flags().BoolVar(&accessControlCreateRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlCreateRoleCmd.Flags().BoolVar(&accessControlCreateRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlCreateRoleCmd)
 	accessControlDeleteRoleCmd.Flags().BoolVar(&accessControlDeleteRoleFlag.Force, "force", false, "Force")
 	accessControlDeleteRoleCmd.Flags().BoolVar(&accessControlDeleteRoleFlag.Global, "global", false, "Global")
 	accessControlDeleteRoleCmd.Flags().StringVar(&accessControlDeleteRoleFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlDeleteRoleCmd.MarkFlagRequired("role-uid")
+	accessControlDeleteRoleCmd.Flags().BoolVar(&accessControlDeleteRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlDeleteRoleCmd)
+	accessControlGetAccessControlStatusCmd.Flags().BoolVar(&accessControlGetAccessControlStatusFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlGetAccessControlStatusCmd)
 	accessControlGetResourceDescriptionCmd.Flags().StringVar(&accessControlGetResourceDescriptionFlag.Resource, "resource", "", "Resource")
 	accessControlGetResourceDescriptionCmd.MarkFlagRequired("resource")
+	accessControlGetResourceDescriptionCmd.Flags().BoolVar(&accessControlGetResourceDescriptionFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlGetResourceDescriptionCmd)
 	accessControlGetResourcePermissionsCmd.Flags().StringVar(&accessControlGetResourcePermissionsFlag.Resource, "resource", "", "Resource")
 	accessControlGetResourcePermissionsCmd.MarkFlagRequired("resource")
 	accessControlGetResourcePermissionsCmd.Flags().StringVar(&accessControlGetResourcePermissionsFlag.ResourceID, "resource-id", "", "ResourceID")
 	accessControlGetResourcePermissionsCmd.MarkFlagRequired("resource-id")
+	accessControlGetResourcePermissionsCmd.Flags().BoolVar(&accessControlGetResourcePermissionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlGetResourcePermissionsCmd)
 	accessControlGetRoleCmd.Flags().StringVar(&accessControlGetRoleFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlGetRoleCmd.MarkFlagRequired("role-uid")
+	accessControlGetRoleCmd.Flags().BoolVar(&accessControlGetRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlGetRoleCmd)
 	accessControlGetRoleAssignmentsCmd.Flags().StringVar(&accessControlGetRoleAssignmentsFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlGetRoleAssignmentsCmd.MarkFlagRequired("role-uid")
+	accessControlGetRoleAssignmentsCmd.Flags().BoolVar(&accessControlGetRoleAssignmentsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlGetRoleAssignmentsCmd)
 	accessControlListRolesCmd.Flags().BoolVar(&accessControlListRolesFlag.Delegatable, "delegatable", false, "Delegatable")
 	accessControlListRolesCmd.Flags().BoolVar(&accessControlListRolesFlag.IncludeHidden, "include-hidden", false, "IncludeHidden")
+	accessControlListRolesCmd.Flags().BoolVar(&accessControlListRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlListRolesCmd)
 	accessControlListTeamRolesCmd.Flags().Int64Var(&accessControlListTeamRolesFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlListTeamRolesCmd.MarkFlagRequired("team-id")
+	accessControlListTeamRolesCmd.Flags().BoolVar(&accessControlListTeamRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlListTeamRolesCmd)
 	accessControlListTeamsRolesCmd.Flags().StringVar(&accessControlListTeamsRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlListTeamsRolesCmd.MarkFlagRequired("body")
 	accessControlListTeamsRolesCmd.Flags().BoolVar(&accessControlListTeamsRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlListTeamsRolesCmd.Flags().BoolVar(&accessControlListTeamsRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlListTeamsRolesCmd)
 	accessControlListUserRolesCmd.Flags().Int64Var(&accessControlListUserRolesFlag.UserID, "user-id", 0, "UserID")
 	accessControlListUserRolesCmd.MarkFlagRequired("user-id")
+	accessControlListUserRolesCmd.Flags().BoolVar(&accessControlListUserRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlListUserRolesCmd)
 	accessControlListUsersRolesCmd.Flags().StringVar(&accessControlListUsersRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlListUsersRolesCmd.MarkFlagRequired("body")
 	accessControlListUsersRolesCmd.Flags().BoolVar(&accessControlListUsersRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlListUsersRolesCmd.Flags().BoolVar(&accessControlListUsersRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlListUsersRolesCmd)
 	accessControlRemoveTeamRoleCmd.Flags().StringVar(&accessControlRemoveTeamRoleFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlRemoveTeamRoleCmd.MarkFlagRequired("role-uid")
 	accessControlRemoveTeamRoleCmd.Flags().Int64Var(&accessControlRemoveTeamRoleFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlRemoveTeamRoleCmd.MarkFlagRequired("team-id")
+	accessControlRemoveTeamRoleCmd.Flags().BoolVar(&accessControlRemoveTeamRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlRemoveTeamRoleCmd)
 	accessControlRemoveUserRoleCmd.Flags().BoolVar(&accessControlRemoveUserRoleFlag.Global, "global", false, "A flag indicating if the assignment is global or not. If set to false, the default org ID of the authenticated user will be used from the request to remove assignment.")
 	accessControlRemoveUserRoleCmd.Flags().StringVar(&accessControlRemoveUserRoleFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlRemoveUserRoleCmd.MarkFlagRequired("role-uid")
 	accessControlRemoveUserRoleCmd.Flags().Int64Var(&accessControlRemoveUserRoleFlag.UserID, "user-id", 0, "UserID")
 	accessControlRemoveUserRoleCmd.MarkFlagRequired("user-id")
+	accessControlRemoveUserRoleCmd.Flags().BoolVar(&accessControlRemoveUserRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlRemoveUserRoleCmd)
 	accessControlSetResourcePermissionsCmd.Flags().StringVar(&accessControlSetResourcePermissionsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetResourcePermissionsCmd.MarkFlagRequired("body")
@@ -16493,6 +18816,7 @@ func init() {
 	accessControlSetResourcePermissionsCmd.Flags().StringVar(&accessControlSetResourcePermissionsFlag.ResourceID, "resource-id", "", "ResourceID")
 	accessControlSetResourcePermissionsCmd.MarkFlagRequired("resource-id")
 	accessControlSetResourcePermissionsCmd.Flags().BoolVar(&accessControlSetResourcePermissionsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlSetResourcePermissionsCmd.Flags().BoolVar(&accessControlSetResourcePermissionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsCmd)
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().StringVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.MarkFlagRequired("body")
@@ -16503,6 +18827,7 @@ func init() {
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().StringVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.ResourceID, "resource-id", "", "ResourceID")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.MarkFlagRequired("resource-id")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForBuiltInRoleCmd)
 	accessControlSetResourcePermissionsForTeamCmd.Flags().StringVar(&accessControlSetResourcePermissionsForTeamFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetResourcePermissionsForTeamCmd.MarkFlagRequired("body")
@@ -16513,6 +18838,7 @@ func init() {
 	accessControlSetResourcePermissionsForTeamCmd.Flags().Int64Var(&accessControlSetResourcePermissionsForTeamFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlSetResourcePermissionsForTeamCmd.MarkFlagRequired("team-id")
 	accessControlSetResourcePermissionsForTeamCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForTeamFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlSetResourcePermissionsForTeamCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForTeamFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForTeamCmd)
 	accessControlSetResourcePermissionsForUserCmd.Flags().StringVar(&accessControlSetResourcePermissionsForUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetResourcePermissionsForUserCmd.MarkFlagRequired("body")
@@ -16523,90 +18849,115 @@ func init() {
 	accessControlSetResourcePermissionsForUserCmd.Flags().Int64Var(&accessControlSetResourcePermissionsForUserFlag.UserID, "user-id", 0, "UserID")
 	accessControlSetResourcePermissionsForUserCmd.MarkFlagRequired("user-id")
 	accessControlSetResourcePermissionsForUserCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlSetResourcePermissionsForUserCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForUserCmd)
 	accessControlSetRoleAssignmentsCmd.Flags().StringVar(&accessControlSetRoleAssignmentsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetRoleAssignmentsCmd.MarkFlagRequired("body")
 	accessControlSetRoleAssignmentsCmd.Flags().StringVar(&accessControlSetRoleAssignmentsFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlSetRoleAssignmentsCmd.MarkFlagRequired("role-uid")
 	accessControlSetRoleAssignmentsCmd.Flags().BoolVar(&accessControlSetRoleAssignmentsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlSetRoleAssignmentsCmd.Flags().BoolVar(&accessControlSetRoleAssignmentsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetRoleAssignmentsCmd)
 	accessControlSetTeamRolesCmd.Flags().StringVar(&accessControlSetTeamRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetTeamRolesCmd.MarkFlagRequired("body")
 	accessControlSetTeamRolesCmd.Flags().Int64Var(&accessControlSetTeamRolesFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlSetTeamRolesCmd.MarkFlagRequired("team-id")
 	accessControlSetTeamRolesCmd.Flags().BoolVar(&accessControlSetTeamRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlSetTeamRolesCmd.Flags().BoolVar(&accessControlSetTeamRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetTeamRolesCmd)
 	accessControlSetUserRolesCmd.Flags().StringVar(&accessControlSetUserRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlSetUserRolesCmd.MarkFlagRequired("body")
 	accessControlSetUserRolesCmd.Flags().Int64Var(&accessControlSetUserRolesFlag.UserID, "user-id", 0, "UserID")
 	accessControlSetUserRolesCmd.MarkFlagRequired("user-id")
 	accessControlSetUserRolesCmd.Flags().BoolVar(&accessControlSetUserRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlSetUserRolesCmd.Flags().BoolVar(&accessControlSetUserRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetUserRolesCmd)
 	accessControlUpdateRoleCmd.Flags().StringVar(&accessControlUpdateRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	accessControlUpdateRoleCmd.MarkFlagRequired("body")
 	accessControlUpdateRoleCmd.Flags().StringVar(&accessControlUpdateRoleFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlUpdateRoleCmd.MarkFlagRequired("role-uid")
 	accessControlUpdateRoleCmd.Flags().BoolVar(&accessControlUpdateRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	accessControlUpdateRoleCmd.Flags().BoolVar(&accessControlUpdateRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlUpdateRoleCmd)
 	rootCmd.AddCommand(accessControlProvisioningCmd)
+	accessControlProvisioningAdminProvisioningReloadAccessControlCmd.Flags().BoolVar(&accessControlProvisioningAdminProvisioningReloadAccessControlFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlProvisioningCmd.AddCommand(accessControlProvisioningAdminProvisioningReloadAccessControlCmd)
 	rootCmd.AddCommand(adminCmd)
+	adminAdminGetSettingsCmd.Flags().BoolVar(&adminAdminGetSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminCmd.AddCommand(adminAdminGetSettingsCmd)
+	adminAdminGetStatsCmd.Flags().BoolVar(&adminAdminGetStatsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminCmd.AddCommand(adminAdminGetStatsCmd)
 	rootCmd.AddCommand(adminLdapCmd)
+	adminLdapGetLDAPStatusCmd.Flags().BoolVar(&adminLdapGetLDAPStatusFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminLdapCmd.AddCommand(adminLdapGetLDAPStatusCmd)
 	adminLdapGetUserFromLDAPCmd.Flags().StringVar(&adminLdapGetUserFromLDAPFlag.UserName, "user-name", "", "UserName")
 	adminLdapGetUserFromLDAPCmd.MarkFlagRequired("user-name")
+	adminLdapGetUserFromLDAPCmd.Flags().BoolVar(&adminLdapGetUserFromLDAPFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminLdapCmd.AddCommand(adminLdapGetUserFromLDAPCmd)
 	adminLdapPostSyncUserWithLDAPCmd.Flags().Int64Var(&adminLdapPostSyncUserWithLDAPFlag.UserID, "user-id", 0, "UserID")
 	adminLdapPostSyncUserWithLDAPCmd.MarkFlagRequired("user-id")
+	adminLdapPostSyncUserWithLDAPCmd.Flags().BoolVar(&adminLdapPostSyncUserWithLDAPFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminLdapCmd.AddCommand(adminLdapPostSyncUserWithLDAPCmd)
+	adminLdapReloadLDAPCfgCmd.Flags().BoolVar(&adminLdapReloadLDAPCfgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminLdapCmd.AddCommand(adminLdapReloadLDAPCfgCmd)
 	rootCmd.AddCommand(adminProvisioningCmd)
+	adminProvisioningAdminProvisioningReloadDashboardsCmd.Flags().BoolVar(&adminProvisioningAdminProvisioningReloadDashboardsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminProvisioningCmd.AddCommand(adminProvisioningAdminProvisioningReloadDashboardsCmd)
+	adminProvisioningAdminProvisioningReloadDatasourcesCmd.Flags().BoolVar(&adminProvisioningAdminProvisioningReloadDatasourcesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminProvisioningCmd.AddCommand(adminProvisioningAdminProvisioningReloadDatasourcesCmd)
+	adminProvisioningAdminProvisioningReloadPluginsCmd.Flags().BoolVar(&adminProvisioningAdminProvisioningReloadPluginsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminProvisioningCmd.AddCommand(adminProvisioningAdminProvisioningReloadPluginsCmd)
 	rootCmd.AddCommand(adminUsersCmd)
 	adminUsersAdminCreateUserCmd.Flags().StringVar(&adminUsersAdminCreateUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	adminUsersAdminCreateUserCmd.MarkFlagRequired("body")
 	adminUsersAdminCreateUserCmd.Flags().BoolVar(&adminUsersAdminCreateUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	adminUsersAdminCreateUserCmd.Flags().BoolVar(&adminUsersAdminCreateUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminCreateUserCmd)
 	adminUsersAdminDeleteUserCmd.Flags().Int64Var(&adminUsersAdminDeleteUserFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminDeleteUserCmd.MarkFlagRequired("user-id")
+	adminUsersAdminDeleteUserCmd.Flags().BoolVar(&adminUsersAdminDeleteUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminDeleteUserCmd)
 	adminUsersAdminDisableUserCmd.Flags().Int64Var(&adminUsersAdminDisableUserFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminDisableUserCmd.MarkFlagRequired("user-id")
+	adminUsersAdminDisableUserCmd.Flags().BoolVar(&adminUsersAdminDisableUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminDisableUserCmd)
 	adminUsersAdminEnableUserCmd.Flags().Int64Var(&adminUsersAdminEnableUserFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminEnableUserCmd.MarkFlagRequired("user-id")
+	adminUsersAdminEnableUserCmd.Flags().BoolVar(&adminUsersAdminEnableUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminEnableUserCmd)
 	adminUsersAdminGetUserAuthTokensCmd.Flags().Int64Var(&adminUsersAdminGetUserAuthTokensFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminGetUserAuthTokensCmd.MarkFlagRequired("user-id")
+	adminUsersAdminGetUserAuthTokensCmd.Flags().BoolVar(&adminUsersAdminGetUserAuthTokensFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminGetUserAuthTokensCmd)
 	adminUsersAdminLogoutUserCmd.Flags().Int64Var(&adminUsersAdminLogoutUserFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminLogoutUserCmd.MarkFlagRequired("user-id")
+	adminUsersAdminLogoutUserCmd.Flags().BoolVar(&adminUsersAdminLogoutUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminLogoutUserCmd)
 	adminUsersAdminRevokeUserAuthTokenCmd.Flags().StringVar(&adminUsersAdminRevokeUserAuthTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	adminUsersAdminRevokeUserAuthTokenCmd.MarkFlagRequired("body")
 	adminUsersAdminRevokeUserAuthTokenCmd.Flags().Int64Var(&adminUsersAdminRevokeUserAuthTokenFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminRevokeUserAuthTokenCmd.MarkFlagRequired("user-id")
 	adminUsersAdminRevokeUserAuthTokenCmd.Flags().BoolVar(&adminUsersAdminRevokeUserAuthTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	adminUsersAdminRevokeUserAuthTokenCmd.Flags().BoolVar(&adminUsersAdminRevokeUserAuthTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminRevokeUserAuthTokenCmd)
 	adminUsersAdminUpdateUserPasswordCmd.Flags().StringVar(&adminUsersAdminUpdateUserPasswordFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	adminUsersAdminUpdateUserPasswordCmd.MarkFlagRequired("body")
 	adminUsersAdminUpdateUserPasswordCmd.Flags().Int64Var(&adminUsersAdminUpdateUserPasswordFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminUpdateUserPasswordCmd.MarkFlagRequired("user-id")
 	adminUsersAdminUpdateUserPasswordCmd.Flags().BoolVar(&adminUsersAdminUpdateUserPasswordFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	adminUsersAdminUpdateUserPasswordCmd.Flags().BoolVar(&adminUsersAdminUpdateUserPasswordFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminUpdateUserPasswordCmd)
 	adminUsersAdminUpdateUserPermissionsCmd.Flags().StringVar(&adminUsersAdminUpdateUserPermissionsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	adminUsersAdminUpdateUserPermissionsCmd.MarkFlagRequired("body")
 	adminUsersAdminUpdateUserPermissionsCmd.Flags().Int64Var(&adminUsersAdminUpdateUserPermissionsFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminUpdateUserPermissionsCmd.MarkFlagRequired("user-id")
 	adminUsersAdminUpdateUserPermissionsCmd.Flags().BoolVar(&adminUsersAdminUpdateUserPermissionsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	adminUsersAdminUpdateUserPermissionsCmd.Flags().BoolVar(&adminUsersAdminUpdateUserPermissionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminUpdateUserPermissionsCmd)
 	rootCmd.AddCommand(annotationsCmd)
 	annotationsGetAnnotationTagsCmd.Flags().StringVar(&annotationsGetAnnotationTagsFlag.Limit, "limit", "", "Max limit for results returned. Default: \"100\"")
 	annotationsGetAnnotationTagsCmd.Flags().StringVar(&annotationsGetAnnotationTagsFlag.Tag, "tag", "", "Tag is a string that you can use to filter tags.")
+	annotationsGetAnnotationTagsCmd.Flags().BoolVar(&annotationsGetAnnotationTagsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsGetAnnotationTagsCmd)
 	annotationsGetAnnotationsCmd.Flags().Int64Var(&annotationsGetAnnotationsFlag.AlertID, "alert-id", 0, "Find annotations for a specified alert rule by its ID. deprecated: AlertID is deprecated and will be removed in future versions. Please use AlertUID instead.")
 	annotationsGetAnnotationsCmd.Flags().StringVar(&annotationsGetAnnotationsFlag.AlertUID, "alert-uid", "", "Find annotations for a specified alert rule by its UID.")
@@ -16621,48 +18972,59 @@ func init() {
 	annotationsGetAnnotationsCmd.Flags().Int64Var(&annotationsGetAnnotationsFlag.To, "to", 0, "Find annotations created before specific epoch datetime in milliseconds.")
 	annotationsGetAnnotationsCmd.Flags().StringVar(&annotationsGetAnnotationsFlag.Type, "type", "", "Return alerts or user created annotations")
 	annotationsGetAnnotationsCmd.Flags().Int64Var(&annotationsGetAnnotationsFlag.UserID, "user-id", 0, "Limit response to annotations created by specific user.")
+	annotationsGetAnnotationsCmd.Flags().BoolVar(&annotationsGetAnnotationsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsGetAnnotationsCmd)
 	annotationsMassDeleteAnnotationsCmd.Flags().StringVar(&annotationsMassDeleteAnnotationsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	annotationsMassDeleteAnnotationsCmd.MarkFlagRequired("body")
 	annotationsMassDeleteAnnotationsCmd.Flags().BoolVar(&annotationsMassDeleteAnnotationsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	annotationsMassDeleteAnnotationsCmd.Flags().BoolVar(&annotationsMassDeleteAnnotationsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsMassDeleteAnnotationsCmd)
 	annotationsPatchAnnotationCmd.Flags().StringVar(&annotationsPatchAnnotationFlag.AnnotationID, "annotation-id", "", "AnnotationID")
 	annotationsPatchAnnotationCmd.MarkFlagRequired("annotation-id")
 	annotationsPatchAnnotationCmd.Flags().StringVar(&annotationsPatchAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	annotationsPatchAnnotationCmd.MarkFlagRequired("body")
 	annotationsPatchAnnotationCmd.Flags().BoolVar(&annotationsPatchAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	annotationsPatchAnnotationCmd.Flags().BoolVar(&annotationsPatchAnnotationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsPatchAnnotationCmd)
 	annotationsPostAnnotationCmd.Flags().StringVar(&annotationsPostAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	annotationsPostAnnotationCmd.MarkFlagRequired("body")
 	annotationsPostAnnotationCmd.Flags().BoolVar(&annotationsPostAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	annotationsPostAnnotationCmd.Flags().BoolVar(&annotationsPostAnnotationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsPostAnnotationCmd)
 	annotationsPostGraphiteAnnotationCmd.Flags().StringVar(&annotationsPostGraphiteAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	annotationsPostGraphiteAnnotationCmd.MarkFlagRequired("body")
 	annotationsPostGraphiteAnnotationCmd.Flags().BoolVar(&annotationsPostGraphiteAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	annotationsPostGraphiteAnnotationCmd.Flags().BoolVar(&annotationsPostGraphiteAnnotationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsPostGraphiteAnnotationCmd)
 	annotationsUpdateAnnotationCmd.Flags().StringVar(&annotationsUpdateAnnotationFlag.AnnotationID, "annotation-id", "", "AnnotationID")
 	annotationsUpdateAnnotationCmd.MarkFlagRequired("annotation-id")
 	annotationsUpdateAnnotationCmd.Flags().StringVar(&annotationsUpdateAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	annotationsUpdateAnnotationCmd.MarkFlagRequired("body")
 	annotationsUpdateAnnotationCmd.Flags().BoolVar(&annotationsUpdateAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	annotationsUpdateAnnotationCmd.Flags().BoolVar(&annotationsUpdateAnnotationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsUpdateAnnotationCmd)
 	rootCmd.AddCommand(convertPrometheusCmd)
 	convertPrometheusConvertPrometheusCortexDeleteNamespaceCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexDeleteNamespaceFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusCortexDeleteNamespaceCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusConvertPrometheusCortexDeleteNamespaceCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexDeleteNamespaceFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexDeleteNamespaceCmd)
 	convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag.Group, "group", "", "Group")
 	convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd.MarkFlagRequired("group")
 	convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd)
 	convertPrometheusConvertPrometheusCortexGetNamespaceCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexGetNamespaceFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusCortexGetNamespaceCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusConvertPrometheusCortexGetNamespaceCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexGetNamespaceFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexGetNamespaceCmd)
 	convertPrometheusConvertPrometheusCortexGetRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexGetRuleGroupFlag.Group, "group", "", "Group")
 	convertPrometheusConvertPrometheusCortexGetRuleGroupCmd.MarkFlagRequired("group")
 	convertPrometheusConvertPrometheusCortexGetRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexGetRuleGroupFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusCortexGetRuleGroupCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusConvertPrometheusCortexGetRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexGetRuleGroupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexGetRuleGroupCmd)
+	convertPrometheusConvertPrometheusCortexGetRulesCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexGetRulesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexGetRulesCmd)
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.MarkFlagRequired("body")
@@ -16675,24 +19037,31 @@ func init() {
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingRecordingRulesPaused, "x-grafana-alerting-recording-rules-paused", false, "XGrafanaAlertingRecordingRulesPaused")
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.XGrafanaAlertingTargetDatasourceUID, "x-grafana-alerting-target-datasource-uid", "", "XGrafanaAlertingTargetDatasourceUID")
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexPostRuleGroupCmd)
+	convertPrometheusConvertPrometheusCortexPostRuleGroupsCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexPostRuleGroupsCmd)
 	convertPrometheusConvertPrometheusDeleteNamespaceCmd.Flags().StringVar(&convertPrometheusConvertPrometheusDeleteNamespaceFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusDeleteNamespaceCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusConvertPrometheusDeleteNamespaceCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusDeleteNamespaceFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusDeleteNamespaceCmd)
 	convertPrometheusConvertPrometheusDeleteRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusDeleteRuleGroupFlag.Group, "group", "", "Group")
 	convertPrometheusConvertPrometheusDeleteRuleGroupCmd.MarkFlagRequired("group")
 	convertPrometheusConvertPrometheusDeleteRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusDeleteRuleGroupFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusDeleteRuleGroupCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusConvertPrometheusDeleteRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusDeleteRuleGroupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusDeleteRuleGroupCmd)
 	convertPrometheusConvertPrometheusGetNamespaceCmd.Flags().StringVar(&convertPrometheusConvertPrometheusGetNamespaceFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusGetNamespaceCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusConvertPrometheusGetNamespaceCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusGetNamespaceFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusGetNamespaceCmd)
 	convertPrometheusConvertPrometheusGetRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusGetRuleGroupFlag.Group, "group", "", "Group")
 	convertPrometheusConvertPrometheusGetRuleGroupCmd.MarkFlagRequired("group")
 	convertPrometheusConvertPrometheusGetRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusGetRuleGroupFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusGetRuleGroupCmd.MarkFlagRequired("namespace-title")
+	convertPrometheusConvertPrometheusGetRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusGetRuleGroupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusGetRuleGroupCmd)
+	convertPrometheusConvertPrometheusGetRulesCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusGetRulesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusGetRulesCmd)
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.MarkFlagRequired("body")
@@ -16705,89 +19074,114 @@ func init() {
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingRecordingRulesPaused, "x-grafana-alerting-recording-rules-paused", false, "XGrafanaAlertingRecordingRulesPaused")
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.XGrafanaAlertingTargetDatasourceUID, "x-grafana-alerting-target-datasource-uid", "", "XGrafanaAlertingTargetDatasourceUID")
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusPostRuleGroupCmd)
+	convertPrometheusConvertPrometheusPostRuleGroupsCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusPostRuleGroupsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusPostRuleGroupsCmd)
 	rootCmd.AddCommand(dashboardsCmd)
 	dashboardsCreateDashboardSnapshotCmd.Flags().StringVar(&dashboardsCreateDashboardSnapshotFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsCreateDashboardSnapshotCmd.MarkFlagRequired("body")
 	dashboardsCreateDashboardSnapshotCmd.Flags().BoolVar(&dashboardsCreateDashboardSnapshotFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	dashboardsCreateDashboardSnapshotCmd.Flags().BoolVar(&dashboardsCreateDashboardSnapshotFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsCreateDashboardSnapshotCmd)
 	dashboardsCreatePublicDashboardCmd.Flags().StringVar(&dashboardsCreatePublicDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsCreatePublicDashboardCmd.MarkFlagRequired("body")
 	dashboardsCreatePublicDashboardCmd.Flags().StringVar(&dashboardsCreatePublicDashboardFlag.DashboardUID, "dashboard-uid", "", "DashboardUID")
 	dashboardsCreatePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
 	dashboardsCreatePublicDashboardCmd.Flags().BoolVar(&dashboardsCreatePublicDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	dashboardsCreatePublicDashboardCmd.Flags().BoolVar(&dashboardsCreatePublicDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsCreatePublicDashboardCmd)
 	dashboardsDeleteDashboardByUIDCmd.Flags().StringVar(&dashboardsDeleteDashboardByUIDFlag.UID, "uid", "", "UID")
 	dashboardsDeleteDashboardByUIDCmd.MarkFlagRequired("uid")
+	dashboardsDeleteDashboardByUIDCmd.Flags().BoolVar(&dashboardsDeleteDashboardByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsDeleteDashboardByUIDCmd)
 	dashboardsDeleteDashboardSnapshotCmd.Flags().StringVar(&dashboardsDeleteDashboardSnapshotFlag.Key, "key", "", "Key")
 	dashboardsDeleteDashboardSnapshotCmd.MarkFlagRequired("key")
+	dashboardsDeleteDashboardSnapshotCmd.Flags().BoolVar(&dashboardsDeleteDashboardSnapshotFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsDeleteDashboardSnapshotCmd)
 	dashboardsDeleteDashboardSnapshotByDeleteKeyCmd.Flags().StringVar(&dashboardsDeleteDashboardSnapshotByDeleteKeyFlag.DeleteKey, "delete-key", "", "DeleteKey")
 	dashboardsDeleteDashboardSnapshotByDeleteKeyCmd.MarkFlagRequired("delete-key")
+	dashboardsDeleteDashboardSnapshotByDeleteKeyCmd.Flags().BoolVar(&dashboardsDeleteDashboardSnapshotByDeleteKeyFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsDeleteDashboardSnapshotByDeleteKeyCmd)
 	dashboardsDeletePublicDashboardCmd.Flags().StringVar(&dashboardsDeletePublicDashboardFlag.DashboardUID, "dashboard-uid", "", "DashboardUID")
 	dashboardsDeletePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
 	dashboardsDeletePublicDashboardCmd.Flags().StringVar(&dashboardsDeletePublicDashboardFlag.UID, "uid", "", "UID")
 	dashboardsDeletePublicDashboardCmd.MarkFlagRequired("uid")
+	dashboardsDeletePublicDashboardCmd.Flags().BoolVar(&dashboardsDeletePublicDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsDeletePublicDashboardCmd)
 	dashboardsGetDashboardByUIDCmd.Flags().StringVar(&dashboardsGetDashboardByUIDFlag.UID, "uid", "", "UID")
 	dashboardsGetDashboardByUIDCmd.MarkFlagRequired("uid")
+	dashboardsGetDashboardByUIDCmd.Flags().BoolVar(&dashboardsGetDashboardByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsGetDashboardByUIDCmd)
 	dashboardsGetDashboardPermissionsListByUIDCmd.Flags().StringVar(&dashboardsGetDashboardPermissionsListByUIDFlag.UID, "uid", "", "UID")
 	dashboardsGetDashboardPermissionsListByUIDCmd.MarkFlagRequired("uid")
+	dashboardsGetDashboardPermissionsListByUIDCmd.Flags().BoolVar(&dashboardsGetDashboardPermissionsListByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsGetDashboardPermissionsListByUIDCmd)
 	dashboardsGetDashboardSnapshotCmd.Flags().StringVar(&dashboardsGetDashboardSnapshotFlag.Key, "key", "", "Key")
 	dashboardsGetDashboardSnapshotCmd.MarkFlagRequired("key")
+	dashboardsGetDashboardSnapshotCmd.Flags().BoolVar(&dashboardsGetDashboardSnapshotFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsGetDashboardSnapshotCmd)
+	dashboardsGetDashboardTagsCmd.Flags().BoolVar(&dashboardsGetDashboardTagsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsGetDashboardTagsCmd)
 	dashboardsGetDashboardVersionByUIDCmd.Flags().Int64Var(&dashboardsGetDashboardVersionByUIDFlag.DashboardVersionID, "dashboard-version-id", 0, "DashboardVersionID")
 	dashboardsGetDashboardVersionByUIDCmd.MarkFlagRequired("dashboard-version-id")
 	dashboardsGetDashboardVersionByUIDCmd.Flags().StringVar(&dashboardsGetDashboardVersionByUIDFlag.UID, "uid", "", "UID")
 	dashboardsGetDashboardVersionByUIDCmd.MarkFlagRequired("uid")
+	dashboardsGetDashboardVersionByUIDCmd.Flags().BoolVar(&dashboardsGetDashboardVersionByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsGetDashboardVersionByUIDCmd)
 	dashboardsGetDashboardVersionsByUIDCmd.Flags().Int64Var(&dashboardsGetDashboardVersionsByUIDFlag.Limit, "limit", 0, "Maximum number of results to return")
 	dashboardsGetDashboardVersionsByUIDCmd.Flags().Int64Var(&dashboardsGetDashboardVersionsByUIDFlag.Start, "start", 0, "Version to start from when returning queries")
 	dashboardsGetDashboardVersionsByUIDCmd.Flags().StringVar(&dashboardsGetDashboardVersionsByUIDFlag.UID, "uid", "", "UID")
 	dashboardsGetDashboardVersionsByUIDCmd.MarkFlagRequired("uid")
+	dashboardsGetDashboardVersionsByUIDCmd.Flags().BoolVar(&dashboardsGetDashboardVersionsByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsGetDashboardVersionsByUIDCmd)
+	dashboardsGetHomeDashboardCmd.Flags().BoolVar(&dashboardsGetHomeDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsGetHomeDashboardCmd)
 	dashboardsGetPublicAnnotationsCmd.Flags().StringVar(&dashboardsGetPublicAnnotationsFlag.AccessToken, "access-token", "", "AccessToken")
 	dashboardsGetPublicAnnotationsCmd.MarkFlagRequired("access-token")
+	dashboardsGetPublicAnnotationsCmd.Flags().BoolVar(&dashboardsGetPublicAnnotationsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsGetPublicAnnotationsCmd)
 	dashboardsGetPublicDashboardCmd.Flags().StringVar(&dashboardsGetPublicDashboardFlag.DashboardUID, "dashboard-uid", "", "DashboardUID")
 	dashboardsGetPublicDashboardCmd.MarkFlagRequired("dashboard-uid")
+	dashboardsGetPublicDashboardCmd.Flags().BoolVar(&dashboardsGetPublicDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsGetPublicDashboardCmd)
 	dashboardsImportDashboardCmd.Flags().StringVar(&dashboardsImportDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsImportDashboardCmd.MarkFlagRequired("body")
 	dashboardsImportDashboardCmd.Flags().BoolVar(&dashboardsImportDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	dashboardsImportDashboardCmd.Flags().BoolVar(&dashboardsImportDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsImportDashboardCmd)
+	dashboardsInterpolateDashboardCmd.Flags().BoolVar(&dashboardsInterpolateDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsInterpolateDashboardCmd)
+	dashboardsListPublicDashboardsCmd.Flags().BoolVar(&dashboardsListPublicDashboardsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsListPublicDashboardsCmd)
 	dashboardsPostDashboardCmd.Flags().StringVar(&dashboardsPostDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsPostDashboardCmd.MarkFlagRequired("body")
 	dashboardsPostDashboardCmd.Flags().BoolVar(&dashboardsPostDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	dashboardsPostDashboardCmd.Flags().BoolVar(&dashboardsPostDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsPostDashboardCmd)
 	dashboardsQueryPublicDashboardCmd.Flags().StringVar(&dashboardsQueryPublicDashboardFlag.AccessToken, "access-token", "", "AccessToken")
 	dashboardsQueryPublicDashboardCmd.MarkFlagRequired("access-token")
 	dashboardsQueryPublicDashboardCmd.Flags().Int64Var(&dashboardsQueryPublicDashboardFlag.PanelID, "panel-id", 0, "PanelID")
 	dashboardsQueryPublicDashboardCmd.MarkFlagRequired("panel-id")
+	dashboardsQueryPublicDashboardCmd.Flags().BoolVar(&dashboardsQueryPublicDashboardFlag.Raw, "raw", true, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsQueryPublicDashboardCmd)
 	dashboardsRestoreDashboardVersionByUIDCmd.Flags().StringVar(&dashboardsRestoreDashboardVersionByUIDFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("body")
 	dashboardsRestoreDashboardVersionByUIDCmd.Flags().StringVar(&dashboardsRestoreDashboardVersionByUIDFlag.UID, "uid", "", "UID")
 	dashboardsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("uid")
 	dashboardsRestoreDashboardVersionByUIDCmd.Flags().BoolVar(&dashboardsRestoreDashboardVersionByUIDFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	dashboardsRestoreDashboardVersionByUIDCmd.Flags().BoolVar(&dashboardsRestoreDashboardVersionByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsRestoreDashboardVersionByUIDCmd)
 	dashboardsSearchDashboardSnapshotsCmd.Flags().Int64Var(&dashboardsSearchDashboardSnapshotsFlag.Limit, "limit", 0, "Limit the number of returned results Default: 1000")
 	dashboardsSearchDashboardSnapshotsCmd.Flags().StringVar(&dashboardsSearchDashboardSnapshotsFlag.Query, "query", "", "Search Query")
+	dashboardsSearchDashboardSnapshotsCmd.Flags().BoolVar(&dashboardsSearchDashboardSnapshotsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsSearchDashboardSnapshotsCmd)
 	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().StringVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("body")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().StringVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.UID, "uid", "", "UID")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("uid")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().BoolVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().BoolVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsUpdateDashboardPermissionsByUIDCmd)
 	dashboardsUpdatePublicDashboardCmd.Flags().StringVar(&dashboardsUpdatePublicDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("body")
@@ -16796,66 +19190,83 @@ func init() {
 	dashboardsUpdatePublicDashboardCmd.Flags().StringVar(&dashboardsUpdatePublicDashboardFlag.UID, "uid", "", "UID")
 	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("uid")
 	dashboardsUpdatePublicDashboardCmd.Flags().BoolVar(&dashboardsUpdatePublicDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	dashboardsUpdatePublicDashboardCmd.Flags().BoolVar(&dashboardsUpdatePublicDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsUpdatePublicDashboardCmd)
 	dashboardsViewPublicDashboardCmd.Flags().StringVar(&dashboardsViewPublicDashboardFlag.AccessToken, "access-token", "", "AccessToken")
 	dashboardsViewPublicDashboardCmd.MarkFlagRequired("access-token")
+	dashboardsViewPublicDashboardCmd.Flags().BoolVar(&dashboardsViewPublicDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsViewPublicDashboardCmd)
 	rootCmd.AddCommand(datasourcesCmd)
 	datasourcesAddDatasourceCmd.Flags().StringVar(&datasourcesAddDatasourceFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	datasourcesAddDatasourceCmd.MarkFlagRequired("body")
 	datasourcesAddDatasourceCmd.Flags().BoolVar(&datasourcesAddDatasourceFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	datasourcesAddDatasourceCmd.Flags().BoolVar(&datasourcesAddDatasourceFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesAddDatasourceCmd)
 	datasourcesCallDatasourceResourceCmd.Flags().StringVar(&datasourcesCallDatasourceResourceFlag.DatasourceProxyRoute, "datasource-proxy-route", "", "DatasourceProxyRoute")
 	datasourcesCallDatasourceResourceCmd.MarkFlagRequired("datasource-proxy-route")
 	datasourcesCallDatasourceResourceCmd.Flags().StringVar(&datasourcesCallDatasourceResourceFlag.UID, "uid", "", "UID")
 	datasourcesCallDatasourceResourceCmd.MarkFlagRequired("uid")
+	datasourcesCallDatasourceResourceCmd.Flags().BoolVar(&datasourcesCallDatasourceResourceFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesCallDatasourceResourceCmd)
 	datasourcesCheckDatasourceHealthCmd.Flags().StringVar(&datasourcesCheckDatasourceHealthFlag.UID, "uid", "", "UID")
 	datasourcesCheckDatasourceHealthCmd.MarkFlagRequired("uid")
+	datasourcesCheckDatasourceHealthCmd.Flags().BoolVar(&datasourcesCheckDatasourceHealthFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesCheckDatasourceHealthCmd)
 	datasourcesCreateCorrelationCmd.Flags().StringVar(&datasourcesCreateCorrelationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	datasourcesCreateCorrelationCmd.MarkFlagRequired("body")
 	datasourcesCreateCorrelationCmd.Flags().StringVar(&datasourcesCreateCorrelationFlag.SourceUID, "source-uid", "", "SourceUID")
 	datasourcesCreateCorrelationCmd.MarkFlagRequired("source-uid")
 	datasourcesCreateCorrelationCmd.Flags().BoolVar(&datasourcesCreateCorrelationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	datasourcesCreateCorrelationCmd.Flags().BoolVar(&datasourcesCreateCorrelationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesCreateCorrelationCmd)
 	datasourcesDeleteCorrelationCmd.Flags().StringVar(&datasourcesDeleteCorrelationFlag.CorrelationUID, "correlation-uid", "", "CorrelationUID")
 	datasourcesDeleteCorrelationCmd.MarkFlagRequired("correlation-uid")
 	datasourcesDeleteCorrelationCmd.Flags().StringVar(&datasourcesDeleteCorrelationFlag.UID, "uid", "", "UID")
 	datasourcesDeleteCorrelationCmd.MarkFlagRequired("uid")
+	datasourcesDeleteCorrelationCmd.Flags().BoolVar(&datasourcesDeleteCorrelationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesDeleteCorrelationCmd)
 	datasourcesDeleteDatasourceByNameCmd.Flags().StringVar(&datasourcesDeleteDatasourceByNameFlag.Name, "name", "", "Name")
 	datasourcesDeleteDatasourceByNameCmd.MarkFlagRequired("name")
+	datasourcesDeleteDatasourceByNameCmd.Flags().BoolVar(&datasourcesDeleteDatasourceByNameFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesDeleteDatasourceByNameCmd)
 	datasourcesDeleteDatasourceByUIDCmd.Flags().StringVar(&datasourcesDeleteDatasourceByUIDFlag.UID, "uid", "", "UID")
 	datasourcesDeleteDatasourceByUIDCmd.MarkFlagRequired("uid")
+	datasourcesDeleteDatasourceByUIDCmd.Flags().BoolVar(&datasourcesDeleteDatasourceByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesDeleteDatasourceByUIDCmd)
 	datasourcesGetCorrelationCmd.Flags().StringVar(&datasourcesGetCorrelationFlag.CorrelationUID, "correlation-uid", "", "CorrelationUID")
 	datasourcesGetCorrelationCmd.MarkFlagRequired("correlation-uid")
 	datasourcesGetCorrelationCmd.Flags().StringVar(&datasourcesGetCorrelationFlag.SourceUID, "source-uid", "", "SourceUID")
 	datasourcesGetCorrelationCmd.MarkFlagRequired("source-uid")
+	datasourcesGetCorrelationCmd.Flags().BoolVar(&datasourcesGetCorrelationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesGetCorrelationCmd)
 	datasourcesGetCorrelationsCmd.Flags().Int64Var(&datasourcesGetCorrelationsFlag.Limit, "limit", 0, "Limit the maximum number of correlations to return per page Default: 100")
 	datasourcesGetCorrelationsCmd.Flags().Int64Var(&datasourcesGetCorrelationsFlag.Page, "page", 0, "Page index for starting fetching correlations Default: 1")
 	datasourcesGetCorrelationsCmd.Flags().StringSliceVar(&datasourcesGetCorrelationsFlag.SourceUID, "source-uid", []string{}, "Source datasource UID filter to be applied to correlations")
 	datasourcesGetCorrelationsCmd.MarkFlagRequired("source-uid")
+	datasourcesGetCorrelationsCmd.Flags().BoolVar(&datasourcesGetCorrelationsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesGetCorrelationsCmd)
 	datasourcesGetCorrelationsBySourceUIDCmd.Flags().StringVar(&datasourcesGetCorrelationsBySourceUIDFlag.SourceUID, "source-uid", "", "SourceUID")
 	datasourcesGetCorrelationsBySourceUIDCmd.MarkFlagRequired("source-uid")
+	datasourcesGetCorrelationsBySourceUIDCmd.Flags().BoolVar(&datasourcesGetCorrelationsBySourceUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesGetCorrelationsBySourceUIDCmd)
 	datasourcesGetDatasourceByNameCmd.Flags().StringVar(&datasourcesGetDatasourceByNameFlag.Name, "name", "", "Name")
 	datasourcesGetDatasourceByNameCmd.MarkFlagRequired("name")
+	datasourcesGetDatasourceByNameCmd.Flags().BoolVar(&datasourcesGetDatasourceByNameFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesGetDatasourceByNameCmd)
 	datasourcesGetDatasourceByUIDCmd.Flags().StringVar(&datasourcesGetDatasourceByUIDFlag.UID, "uid", "", "UID")
 	datasourcesGetDatasourceByUIDCmd.MarkFlagRequired("uid")
+	datasourcesGetDatasourceByUIDCmd.Flags().BoolVar(&datasourcesGetDatasourceByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesGetDatasourceByUIDCmd)
 	datasourcesGetDatasourceIDByNameCmd.Flags().StringVar(&datasourcesGetDatasourceIDByNameFlag.Name, "name", "", "Name")
 	datasourcesGetDatasourceIDByNameCmd.MarkFlagRequired("name")
+	datasourcesGetDatasourceIDByNameCmd.Flags().BoolVar(&datasourcesGetDatasourceIDByNameFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesGetDatasourceIDByNameCmd)
+	datasourcesGetDatasourcesCmd.Flags().BoolVar(&datasourcesGetDatasourcesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesGetDatasourcesCmd)
 	datasourcesQueryMetricsWithExpressionsCmd.Flags().StringVar(&datasourcesQueryMetricsWithExpressionsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	datasourcesQueryMetricsWithExpressionsCmd.MarkFlagRequired("body")
 	datasourcesQueryMetricsWithExpressionsCmd.Flags().BoolVar(&datasourcesQueryMetricsWithExpressionsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	datasourcesQueryMetricsWithExpressionsCmd.Flags().BoolVar(&datasourcesQueryMetricsWithExpressionsFlag.Raw, "raw", true, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesQueryMetricsWithExpressionsCmd)
 	datasourcesUpdateCorrelationCmd.Flags().StringVar(&datasourcesUpdateCorrelationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	datasourcesUpdateCorrelationCmd.MarkFlagRequired("body")
@@ -16864,85 +19275,106 @@ func init() {
 	datasourcesUpdateCorrelationCmd.Flags().StringVar(&datasourcesUpdateCorrelationFlag.SourceUID, "source-uid", "", "SourceUID")
 	datasourcesUpdateCorrelationCmd.MarkFlagRequired("source-uid")
 	datasourcesUpdateCorrelationCmd.Flags().BoolVar(&datasourcesUpdateCorrelationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	datasourcesUpdateCorrelationCmd.Flags().BoolVar(&datasourcesUpdateCorrelationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesUpdateCorrelationCmd)
 	datasourcesUpdateDatasourceByUIDCmd.Flags().StringVar(&datasourcesUpdateDatasourceByUIDFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	datasourcesUpdateDatasourceByUIDCmd.MarkFlagRequired("body")
 	datasourcesUpdateDatasourceByUIDCmd.Flags().StringVar(&datasourcesUpdateDatasourceByUIDFlag.UID, "uid", "", "UID")
 	datasourcesUpdateDatasourceByUIDCmd.MarkFlagRequired("uid")
 	datasourcesUpdateDatasourceByUIDCmd.Flags().BoolVar(&datasourcesUpdateDatasourceByUIDFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	datasourcesUpdateDatasourceByUIDCmd.Flags().BoolVar(&datasourcesUpdateDatasourceByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesUpdateDatasourceByUIDCmd)
 	rootCmd.AddCommand(devicesCmd)
+	devicesSearchDevicesCmd.Flags().BoolVar(&devicesSearchDevicesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	devicesCmd.AddCommand(devicesSearchDevicesCmd)
+	devicesListDevicesCmd.Flags().BoolVar(&devicesListDevicesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	devicesCmd.AddCommand(devicesListDevicesCmd)
 	rootCmd.AddCommand(enterpriseCmd)
 	enterpriseCleanDatasourceCacheCmd.Flags().StringVar(&enterpriseCleanDatasourceCacheFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseCleanDatasourceCacheCmd.MarkFlagRequired("data-source-uid")
+	enterpriseCleanDatasourceCacheCmd.Flags().BoolVar(&enterpriseCleanDatasourceCacheFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseCleanDatasourceCacheCmd)
 	enterpriseDisableDatasourceCacheCmd.Flags().StringVar(&enterpriseDisableDatasourceCacheFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseDisableDatasourceCacheCmd.MarkFlagRequired("data-source-uid")
+	enterpriseDisableDatasourceCacheCmd.Flags().BoolVar(&enterpriseDisableDatasourceCacheFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseDisableDatasourceCacheCmd)
 	enterpriseEnableDatasourceCacheCmd.Flags().StringVar(&enterpriseEnableDatasourceCacheFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseEnableDatasourceCacheCmd.MarkFlagRequired("data-source-uid")
+	enterpriseEnableDatasourceCacheCmd.Flags().BoolVar(&enterpriseEnableDatasourceCacheFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseEnableDatasourceCacheCmd)
 	enterpriseGetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseGetDatasourceCacheConfigFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseGetDatasourceCacheConfigCmd.MarkFlagRequired("data-source-uid")
+	enterpriseGetDatasourceCacheConfigCmd.Flags().BoolVar(&enterpriseGetDatasourceCacheConfigFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseGetDatasourceCacheConfigCmd)
 	enterpriseGetTeamLBACRulesAPICmd.Flags().StringVar(&enterpriseGetTeamLBACRulesAPIFlag.UID, "uid", "", "UID")
 	enterpriseGetTeamLBACRulesAPICmd.MarkFlagRequired("uid")
+	enterpriseGetTeamLBACRulesAPICmd.Flags().BoolVar(&enterpriseGetTeamLBACRulesAPIFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseGetTeamLBACRulesAPICmd)
+	enterpriseSearchResultCmd.Flags().BoolVar(&enterpriseSearchResultFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseSearchResultCmd)
 	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	enterpriseSetDatasourceCacheConfigCmd.MarkFlagRequired("body")
 	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseSetDatasourceCacheConfigCmd.MarkFlagRequired("data-source-uid")
 	enterpriseSetDatasourceCacheConfigCmd.Flags().BoolVar(&enterpriseSetDatasourceCacheConfigFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	enterpriseSetDatasourceCacheConfigCmd.Flags().BoolVar(&enterpriseSetDatasourceCacheConfigFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseSetDatasourceCacheConfigCmd)
 	enterpriseUpdateTeamLBACRulesAPICmd.Flags().StringVar(&enterpriseUpdateTeamLBACRulesAPIFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	enterpriseUpdateTeamLBACRulesAPICmd.MarkFlagRequired("body")
 	enterpriseUpdateTeamLBACRulesAPICmd.Flags().StringVar(&enterpriseUpdateTeamLBACRulesAPIFlag.UID, "uid", "", "UID")
 	enterpriseUpdateTeamLBACRulesAPICmd.MarkFlagRequired("uid")
 	enterpriseUpdateTeamLBACRulesAPICmd.Flags().BoolVar(&enterpriseUpdateTeamLBACRulesAPIFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	enterpriseUpdateTeamLBACRulesAPICmd.Flags().BoolVar(&enterpriseUpdateTeamLBACRulesAPIFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseUpdateTeamLBACRulesAPICmd)
 	rootCmd.AddCommand(foldersCmd)
 	foldersCreateFolderCmd.Flags().StringVar(&foldersCreateFolderFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	foldersCreateFolderCmd.MarkFlagRequired("body")
 	foldersCreateFolderCmd.Flags().BoolVar(&foldersCreateFolderFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	foldersCreateFolderCmd.Flags().BoolVar(&foldersCreateFolderFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersCreateFolderCmd)
 	foldersDeleteFolderCmd.Flags().StringVar(&foldersDeleteFolderFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersDeleteFolderCmd.MarkFlagRequired("folder-uid")
 	foldersDeleteFolderCmd.Flags().BoolVar(&foldersDeleteFolderFlag.ForceDeleteRules, "force-delete-rules", false, "If `true` any Grafana 8 Alerts under this folder will be deleted. Set to `false` so that the request will fail if the folder contains any Grafana 8 Alerts.")
+	foldersDeleteFolderCmd.Flags().BoolVar(&foldersDeleteFolderFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersDeleteFolderCmd)
 	foldersGetFolderByUIDCmd.Flags().StringVar(&foldersGetFolderByUIDFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersGetFolderByUIDCmd.MarkFlagRequired("folder-uid")
+	foldersGetFolderByUIDCmd.Flags().BoolVar(&foldersGetFolderByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersGetFolderByUIDCmd)
 	foldersGetFolderDescendantCountsCmd.Flags().StringVar(&foldersGetFolderDescendantCountsFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersGetFolderDescendantCountsCmd.MarkFlagRequired("folder-uid")
+	foldersGetFolderDescendantCountsCmd.Flags().BoolVar(&foldersGetFolderDescendantCountsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersGetFolderDescendantCountsCmd)
 	foldersGetFolderPermissionListCmd.Flags().StringVar(&foldersGetFolderPermissionListFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersGetFolderPermissionListCmd.MarkFlagRequired("folder-uid")
+	foldersGetFolderPermissionListCmd.Flags().BoolVar(&foldersGetFolderPermissionListFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersGetFolderPermissionListCmd)
 	foldersGetFoldersCmd.Flags().Int64Var(&foldersGetFoldersFlag.Limit, "limit", 0, "Limit the maximum number of folders to return Default: 1000")
 	foldersGetFoldersCmd.Flags().Int64Var(&foldersGetFoldersFlag.Page, "page", 0, "Page index for starting fetching folders Default: 1")
 	foldersGetFoldersCmd.Flags().StringVar(&foldersGetFoldersFlag.ParentUID, "parent-uid", "", "The parent folder UID")
 	foldersGetFoldersCmd.Flags().StringVar(&foldersGetFoldersFlag.Permission, "permission", "", "Set to `Edit` to return folders that the user can edit Default: \"View\"")
+	foldersGetFoldersCmd.Flags().BoolVar(&foldersGetFoldersFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersGetFoldersCmd)
 	foldersMoveFolderCmd.Flags().StringVar(&foldersMoveFolderFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	foldersMoveFolderCmd.MarkFlagRequired("body")
 	foldersMoveFolderCmd.Flags().StringVar(&foldersMoveFolderFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersMoveFolderCmd.MarkFlagRequired("folder-uid")
 	foldersMoveFolderCmd.Flags().BoolVar(&foldersMoveFolderFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	foldersMoveFolderCmd.Flags().BoolVar(&foldersMoveFolderFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersMoveFolderCmd)
 	foldersUpdateFolderCmd.Flags().StringVar(&foldersUpdateFolderFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	foldersUpdateFolderCmd.MarkFlagRequired("body")
 	foldersUpdateFolderCmd.Flags().StringVar(&foldersUpdateFolderFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersUpdateFolderCmd.MarkFlagRequired("folder-uid")
 	foldersUpdateFolderCmd.Flags().BoolVar(&foldersUpdateFolderFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	foldersUpdateFolderCmd.Flags().BoolVar(&foldersUpdateFolderFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersUpdateFolderCmd)
 	foldersUpdateFolderPermissionsCmd.Flags().StringVar(&foldersUpdateFolderPermissionsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	foldersUpdateFolderPermissionsCmd.MarkFlagRequired("body")
 	foldersUpdateFolderPermissionsCmd.Flags().StringVar(&foldersUpdateFolderPermissionsFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersUpdateFolderPermissionsCmd.MarkFlagRequired("folder-uid")
 	foldersUpdateFolderPermissionsCmd.Flags().BoolVar(&foldersUpdateFolderPermissionsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	foldersUpdateFolderPermissionsCmd.Flags().BoolVar(&foldersUpdateFolderPermissionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersUpdateFolderPermissionsCmd)
 	rootCmd.AddCommand(groupAttributeSyncCmd)
 	groupAttributeSyncCreateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncCreateGroupMappingsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
@@ -16950,40 +19382,52 @@ func init() {
 	groupAttributeSyncCreateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncCreateGroupMappingsFlag.GroupID, "group-id", "", "GroupID")
 	groupAttributeSyncCreateGroupMappingsCmd.MarkFlagRequired("group-id")
 	groupAttributeSyncCreateGroupMappingsCmd.Flags().BoolVar(&groupAttributeSyncCreateGroupMappingsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	groupAttributeSyncCreateGroupMappingsCmd.Flags().BoolVar(&groupAttributeSyncCreateGroupMappingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	groupAttributeSyncCmd.AddCommand(groupAttributeSyncCreateGroupMappingsCmd)
 	groupAttributeSyncDeleteGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncDeleteGroupMappingsFlag.GroupID, "group-id", "", "GroupID")
 	groupAttributeSyncDeleteGroupMappingsCmd.MarkFlagRequired("group-id")
+	groupAttributeSyncDeleteGroupMappingsCmd.Flags().BoolVar(&groupAttributeSyncDeleteGroupMappingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	groupAttributeSyncCmd.AddCommand(groupAttributeSyncDeleteGroupMappingsCmd)
 	groupAttributeSyncGetGroupRolesCmd.Flags().StringVar(&groupAttributeSyncGetGroupRolesFlag.GroupID, "group-id", "", "GroupID")
 	groupAttributeSyncGetGroupRolesCmd.MarkFlagRequired("group-id")
+	groupAttributeSyncGetGroupRolesCmd.Flags().BoolVar(&groupAttributeSyncGetGroupRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	groupAttributeSyncCmd.AddCommand(groupAttributeSyncGetGroupRolesCmd)
+	groupAttributeSyncGetMappedGroupsCmd.Flags().BoolVar(&groupAttributeSyncGetMappedGroupsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	groupAttributeSyncCmd.AddCommand(groupAttributeSyncGetMappedGroupsCmd)
 	groupAttributeSyncUpdateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncUpdateGroupMappingsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	groupAttributeSyncUpdateGroupMappingsCmd.MarkFlagRequired("body")
 	groupAttributeSyncUpdateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncUpdateGroupMappingsFlag.GroupID, "group-id", "", "GroupID")
 	groupAttributeSyncUpdateGroupMappingsCmd.MarkFlagRequired("group-id")
 	groupAttributeSyncUpdateGroupMappingsCmd.Flags().BoolVar(&groupAttributeSyncUpdateGroupMappingsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	groupAttributeSyncUpdateGroupMappingsCmd.Flags().BoolVar(&groupAttributeSyncUpdateGroupMappingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	groupAttributeSyncCmd.AddCommand(groupAttributeSyncUpdateGroupMappingsCmd)
 	rootCmd.AddCommand(healthCmd)
+	healthGetHealthCmd.Flags().BoolVar(&healthGetHealthFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	healthCmd.AddCommand(healthGetHealthCmd)
 	rootCmd.AddCommand(ldapDebugCmd)
+	ldapDebugGetSyncStatusCmd.Flags().BoolVar(&ldapDebugGetSyncStatusFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ldapDebugCmd.AddCommand(ldapDebugGetSyncStatusCmd)
 	rootCmd.AddCommand(libraryElementsCmd)
 	libraryElementsCreateLibraryElementCmd.Flags().StringVar(&libraryElementsCreateLibraryElementFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	libraryElementsCreateLibraryElementCmd.MarkFlagRequired("body")
 	libraryElementsCreateLibraryElementCmd.Flags().BoolVar(&libraryElementsCreateLibraryElementFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	libraryElementsCreateLibraryElementCmd.Flags().BoolVar(&libraryElementsCreateLibraryElementFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsCreateLibraryElementCmd)
 	libraryElementsDeleteLibraryElementByUIDCmd.Flags().StringVar(&libraryElementsDeleteLibraryElementByUIDFlag.LibraryElementUID, "library-element-uid", "", "LibraryElementUID")
 	libraryElementsDeleteLibraryElementByUIDCmd.MarkFlagRequired("library-element-uid")
+	libraryElementsDeleteLibraryElementByUIDCmd.Flags().BoolVar(&libraryElementsDeleteLibraryElementByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsDeleteLibraryElementByUIDCmd)
 	libraryElementsGetLibraryElementByNameCmd.Flags().StringVar(&libraryElementsGetLibraryElementByNameFlag.LibraryElementName, "library-element-name", "", "LibraryElementName")
 	libraryElementsGetLibraryElementByNameCmd.MarkFlagRequired("library-element-name")
+	libraryElementsGetLibraryElementByNameCmd.Flags().BoolVar(&libraryElementsGetLibraryElementByNameFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsGetLibraryElementByNameCmd)
 	libraryElementsGetLibraryElementByUIDCmd.Flags().StringVar(&libraryElementsGetLibraryElementByUIDFlag.LibraryElementUID, "library-element-uid", "", "LibraryElementUID")
 	libraryElementsGetLibraryElementByUIDCmd.MarkFlagRequired("library-element-uid")
+	libraryElementsGetLibraryElementByUIDCmd.Flags().BoolVar(&libraryElementsGetLibraryElementByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsGetLibraryElementByUIDCmd)
 	libraryElementsGetLibraryElementConnectionsCmd.Flags().StringVar(&libraryElementsGetLibraryElementConnectionsFlag.LibraryElementUID, "library-element-uid", "", "LibraryElementUID")
 	libraryElementsGetLibraryElementConnectionsCmd.MarkFlagRequired("library-element-uid")
+	libraryElementsGetLibraryElementConnectionsCmd.Flags().BoolVar(&libraryElementsGetLibraryElementConnectionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsGetLibraryElementConnectionsCmd)
 	libraryElementsGetLibraryElementsCmd.Flags().StringVar(&libraryElementsGetLibraryElementsFlag.ExcludeUID, "exclude-uid", "", "Element UID to exclude from search results.")
 	libraryElementsGetLibraryElementsCmd.Flags().StringVar(&libraryElementsGetLibraryElementsFlag.FolderFilter, "folder-filter", "", "A comma separated list of folder ID(s) to filter the elements by.")
@@ -16993,64 +19437,85 @@ func init() {
 	libraryElementsGetLibraryElementsCmd.Flags().StringVar(&libraryElementsGetLibraryElementsFlag.SearchString, "search-string", "", "Part of the name or description searched for.")
 	libraryElementsGetLibraryElementsCmd.Flags().StringVar(&libraryElementsGetLibraryElementsFlag.SortDirection, "sort-direction", "", "Sort order of elements.")
 	libraryElementsGetLibraryElementsCmd.Flags().StringVar(&libraryElementsGetLibraryElementsFlag.TypeFilter, "type-filter", "", "A comma separated list of types to filter the elements by")
+	libraryElementsGetLibraryElementsCmd.Flags().BoolVar(&libraryElementsGetLibraryElementsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsGetLibraryElementsCmd)
 	libraryElementsUpdateLibraryElementCmd.Flags().StringVar(&libraryElementsUpdateLibraryElementFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	libraryElementsUpdateLibraryElementCmd.MarkFlagRequired("body")
 	libraryElementsUpdateLibraryElementCmd.Flags().StringVar(&libraryElementsUpdateLibraryElementFlag.LibraryElementUID, "library-element-uid", "", "LibraryElementUID")
 	libraryElementsUpdateLibraryElementCmd.MarkFlagRequired("library-element-uid")
 	libraryElementsUpdateLibraryElementCmd.Flags().BoolVar(&libraryElementsUpdateLibraryElementFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	libraryElementsUpdateLibraryElementCmd.Flags().BoolVar(&libraryElementsUpdateLibraryElementFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsUpdateLibraryElementCmd)
 	rootCmd.AddCommand(licensingCmd)
 	licensingDeleteLicenseTokenCmd.Flags().StringVar(&licensingDeleteLicenseTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	licensingDeleteLicenseTokenCmd.MarkFlagRequired("body")
 	licensingDeleteLicenseTokenCmd.Flags().BoolVar(&licensingDeleteLicenseTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	licensingDeleteLicenseTokenCmd.Flags().BoolVar(&licensingDeleteLicenseTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingDeleteLicenseTokenCmd)
+	licensingGetCustomPermissionsCSVCmd.Flags().BoolVar(&licensingGetCustomPermissionsCSVFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingGetCustomPermissionsCSVCmd)
+	licensingGetCustomPermissionsReportCmd.Flags().BoolVar(&licensingGetCustomPermissionsReportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingGetCustomPermissionsReportCmd)
+	licensingGetLicenseTokenCmd.Flags().BoolVar(&licensingGetLicenseTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingGetLicenseTokenCmd)
+	licensingGetStatusCmd.Flags().BoolVar(&licensingGetStatusFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingGetStatusCmd)
 	licensingPostLicenseTokenCmd.Flags().StringVar(&licensingPostLicenseTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	licensingPostLicenseTokenCmd.MarkFlagRequired("body")
 	licensingPostLicenseTokenCmd.Flags().BoolVar(&licensingPostLicenseTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	licensingPostLicenseTokenCmd.Flags().BoolVar(&licensingPostLicenseTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingPostLicenseTokenCmd)
 	licensingPostRenewLicenseTokenCmd.Flags().StringVar(&licensingPostRenewLicenseTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	licensingPostRenewLicenseTokenCmd.MarkFlagRequired("body")
+	licensingPostRenewLicenseTokenCmd.Flags().BoolVar(&licensingPostRenewLicenseTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingPostRenewLicenseTokenCmd)
+	licensingRefreshLicenseStatsCmd.Flags().BoolVar(&licensingRefreshLicenseStatsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingRefreshLicenseStatsCmd)
 	rootCmd.AddCommand(migrationsCmd)
 	migrationsCancelSnapshotCmd.Flags().StringVar(&migrationsCancelSnapshotFlag.SnapshotUID, "snapshot-uid", "", "UID of a snapshot")
 	migrationsCancelSnapshotCmd.MarkFlagRequired("snapshot-uid")
 	migrationsCancelSnapshotCmd.Flags().StringVar(&migrationsCancelSnapshotFlag.UID, "uid", "", "Session UID of a session")
 	migrationsCancelSnapshotCmd.MarkFlagRequired("uid")
+	migrationsCancelSnapshotCmd.Flags().BoolVar(&migrationsCancelSnapshotFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsCancelSnapshotCmd)
+	migrationsCreateCloudMigrationTokenCmd.Flags().BoolVar(&migrationsCreateCloudMigrationTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsCreateCloudMigrationTokenCmd)
 	migrationsCreateSessionCmd.Flags().StringVar(&migrationsCreateSessionFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	migrationsCreateSessionCmd.MarkFlagRequired("body")
 	migrationsCreateSessionCmd.Flags().BoolVar(&migrationsCreateSessionFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	migrationsCreateSessionCmd.Flags().BoolVar(&migrationsCreateSessionFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsCreateSessionCmd)
 	migrationsCreateSnapshotCmd.Flags().StringVar(&migrationsCreateSnapshotFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	migrationsCreateSnapshotCmd.MarkFlagRequired("body")
 	migrationsCreateSnapshotCmd.Flags().StringVar(&migrationsCreateSnapshotFlag.UID, "uid", "", "UID of a session")
 	migrationsCreateSnapshotCmd.MarkFlagRequired("uid")
 	migrationsCreateSnapshotCmd.Flags().BoolVar(&migrationsCreateSnapshotFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	migrationsCreateSnapshotCmd.Flags().BoolVar(&migrationsCreateSnapshotFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsCreateSnapshotCmd)
 	migrationsDeleteCloudMigrationTokenCmd.Flags().StringVar(&migrationsDeleteCloudMigrationTokenFlag.UID, "uid", "", "UID of a cloud migration token")
 	migrationsDeleteCloudMigrationTokenCmd.MarkFlagRequired("uid")
+	migrationsDeleteCloudMigrationTokenCmd.Flags().BoolVar(&migrationsDeleteCloudMigrationTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsDeleteCloudMigrationTokenCmd)
 	migrationsDeleteSessionCmd.Flags().StringVar(&migrationsDeleteSessionFlag.UID, "uid", "", "UID of a migration session")
 	migrationsDeleteSessionCmd.MarkFlagRequired("uid")
+	migrationsDeleteSessionCmd.Flags().BoolVar(&migrationsDeleteSessionFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsDeleteSessionCmd)
+	migrationsGetCloudMigrationTokenCmd.Flags().BoolVar(&migrationsGetCloudMigrationTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsGetCloudMigrationTokenCmd)
+	migrationsGetResourceDependenciesCmd.Flags().BoolVar(&migrationsGetResourceDependenciesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsGetResourceDependenciesCmd)
 	migrationsGetSessionCmd.Flags().StringVar(&migrationsGetSessionFlag.UID, "uid", "", "UID of a migration session")
 	migrationsGetSessionCmd.MarkFlagRequired("uid")
+	migrationsGetSessionCmd.Flags().BoolVar(&migrationsGetSessionFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsGetSessionCmd)
+	migrationsGetSessionListCmd.Flags().BoolVar(&migrationsGetSessionListFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsGetSessionListCmd)
 	migrationsGetShapshotListCmd.Flags().Int64Var(&migrationsGetShapshotListFlag.Limit, "limit", 0, "Max limit for results returned. Default: 100")
 	migrationsGetShapshotListCmd.Flags().Int64Var(&migrationsGetShapshotListFlag.Page, "page", 0, "Page is used for pagination with limit Default: 1")
 	migrationsGetShapshotListCmd.Flags().StringVar(&migrationsGetShapshotListFlag.Sort, "sort", "", "Sort with value latest to return results sorted in descending order.")
 	migrationsGetShapshotListCmd.Flags().StringVar(&migrationsGetShapshotListFlag.UID, "uid", "", "Session UID of a session")
 	migrationsGetShapshotListCmd.MarkFlagRequired("uid")
+	migrationsGetShapshotListCmd.Flags().BoolVar(&migrationsGetShapshotListFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsGetShapshotListCmd)
 	migrationsGetSnapshotCmd.Flags().BoolVar(&migrationsGetSnapshotFlag.ErrorsOnly, "errors-only", false, "ErrorsOnly is used to only return resources with error statuses")
 	migrationsGetSnapshotCmd.Flags().Int64Var(&migrationsGetSnapshotFlag.ResultLimit, "result-limit", 0, "Max limit for snapshot results returned. Default: 100")
@@ -17061,57 +19526,73 @@ func init() {
 	migrationsGetSnapshotCmd.MarkFlagRequired("snapshot-uid")
 	migrationsGetSnapshotCmd.Flags().StringVar(&migrationsGetSnapshotFlag.UID, "uid", "", "Session UID of a session")
 	migrationsGetSnapshotCmd.MarkFlagRequired("uid")
+	migrationsGetSnapshotCmd.Flags().BoolVar(&migrationsGetSnapshotFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsGetSnapshotCmd)
 	migrationsUploadSnapshotCmd.Flags().StringVar(&migrationsUploadSnapshotFlag.SnapshotUID, "snapshot-uid", "", "UID of a snapshot")
 	migrationsUploadSnapshotCmd.MarkFlagRequired("snapshot-uid")
 	migrationsUploadSnapshotCmd.Flags().StringVar(&migrationsUploadSnapshotFlag.UID, "uid", "", "Session UID of a session")
 	migrationsUploadSnapshotCmd.MarkFlagRequired("uid")
+	migrationsUploadSnapshotCmd.Flags().BoolVar(&migrationsUploadSnapshotFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsUploadSnapshotCmd)
 	rootCmd.AddCommand(orgCmd)
 	orgAddOrgInviteCmd.Flags().StringVar(&orgAddOrgInviteFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgAddOrgInviteCmd.MarkFlagRequired("body")
 	orgAddOrgInviteCmd.Flags().BoolVar(&orgAddOrgInviteFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgAddOrgInviteCmd.Flags().BoolVar(&orgAddOrgInviteFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgAddOrgInviteCmd)
 	orgAddOrgUserToCurrentOrgCmd.Flags().StringVar(&orgAddOrgUserToCurrentOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgAddOrgUserToCurrentOrgCmd.MarkFlagRequired("body")
 	orgAddOrgUserToCurrentOrgCmd.Flags().BoolVar(&orgAddOrgUserToCurrentOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgAddOrgUserToCurrentOrgCmd.Flags().BoolVar(&orgAddOrgUserToCurrentOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgAddOrgUserToCurrentOrgCmd)
+	orgGetCurrentOrgCmd.Flags().BoolVar(&orgGetCurrentOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgGetCurrentOrgCmd)
+	orgGetOrgPreferencesCmd.Flags().BoolVar(&orgGetOrgPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgGetOrgPreferencesCmd)
 	orgGetOrgUsersForCurrentOrgCmd.Flags().Int64Var(&orgGetOrgUsersForCurrentOrgFlag.Limit, "limit", 0, "Limit")
 	orgGetOrgUsersForCurrentOrgCmd.Flags().StringVar(&orgGetOrgUsersForCurrentOrgFlag.Query, "query", "", "Query")
+	orgGetOrgUsersForCurrentOrgCmd.Flags().BoolVar(&orgGetOrgUsersForCurrentOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgGetOrgUsersForCurrentOrgCmd)
 	orgGetOrgUsersForCurrentOrgLookupCmd.Flags().Int64Var(&orgGetOrgUsersForCurrentOrgLookupFlag.Limit, "limit", 0, "Limit")
 	orgGetOrgUsersForCurrentOrgLookupCmd.Flags().StringVar(&orgGetOrgUsersForCurrentOrgLookupFlag.Query, "query", "", "Query")
+	orgGetOrgUsersForCurrentOrgLookupCmd.Flags().BoolVar(&orgGetOrgUsersForCurrentOrgLookupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgGetOrgUsersForCurrentOrgLookupCmd)
+	orgGetPendingOrgInvitesCmd.Flags().BoolVar(&orgGetPendingOrgInvitesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgGetPendingOrgInvitesCmd)
 	orgPatchOrgPreferencesCmd.Flags().StringVar(&orgPatchOrgPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgPatchOrgPreferencesCmd.MarkFlagRequired("body")
 	orgPatchOrgPreferencesCmd.Flags().BoolVar(&orgPatchOrgPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgPatchOrgPreferencesCmd.Flags().BoolVar(&orgPatchOrgPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgPatchOrgPreferencesCmd)
 	orgRemoveOrgUserForCurrentOrgCmd.Flags().Int64Var(&orgRemoveOrgUserForCurrentOrgFlag.UserID, "user-id", 0, "UserID")
 	orgRemoveOrgUserForCurrentOrgCmd.MarkFlagRequired("user-id")
+	orgRemoveOrgUserForCurrentOrgCmd.Flags().BoolVar(&orgRemoveOrgUserForCurrentOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgRemoveOrgUserForCurrentOrgCmd)
 	orgRevokeInviteCmd.Flags().StringVar(&orgRevokeInviteFlag.InvitationCode, "invitation-code", "", "InvitationCode")
 	orgRevokeInviteCmd.MarkFlagRequired("invitation-code")
+	orgRevokeInviteCmd.Flags().BoolVar(&orgRevokeInviteFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgRevokeInviteCmd)
 	orgUpdateCurrentOrgCmd.Flags().StringVar(&orgUpdateCurrentOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgUpdateCurrentOrgCmd.MarkFlagRequired("body")
 	orgUpdateCurrentOrgCmd.Flags().BoolVar(&orgUpdateCurrentOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgUpdateCurrentOrgCmd.Flags().BoolVar(&orgUpdateCurrentOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateCurrentOrgCmd)
 	orgUpdateCurrentOrgAddressCmd.Flags().StringVar(&orgUpdateCurrentOrgAddressFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgUpdateCurrentOrgAddressCmd.MarkFlagRequired("body")
 	orgUpdateCurrentOrgAddressCmd.Flags().BoolVar(&orgUpdateCurrentOrgAddressFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgUpdateCurrentOrgAddressCmd.Flags().BoolVar(&orgUpdateCurrentOrgAddressFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateCurrentOrgAddressCmd)
 	orgUpdateOrgPreferencesCmd.Flags().StringVar(&orgUpdateOrgPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgUpdateOrgPreferencesCmd.MarkFlagRequired("body")
 	orgUpdateOrgPreferencesCmd.Flags().BoolVar(&orgUpdateOrgPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgUpdateOrgPreferencesCmd.Flags().BoolVar(&orgUpdateOrgPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateOrgPreferencesCmd)
 	orgUpdateOrgUserForCurrentOrgCmd.Flags().StringVar(&orgUpdateOrgUserForCurrentOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgUpdateOrgUserForCurrentOrgCmd.MarkFlagRequired("body")
 	orgUpdateOrgUserForCurrentOrgCmd.Flags().Int64Var(&orgUpdateOrgUserForCurrentOrgFlag.UserID, "user-id", 0, "UserID")
 	orgUpdateOrgUserForCurrentOrgCmd.MarkFlagRequired("user-id")
 	orgUpdateOrgUserForCurrentOrgCmd.Flags().BoolVar(&orgUpdateOrgUserForCurrentOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgUpdateOrgUserForCurrentOrgCmd.Flags().BoolVar(&orgUpdateOrgUserForCurrentOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateOrgUserForCurrentOrgCmd)
 	rootCmd.AddCommand(orgsCmd)
 	orgsAddOrgUserCmd.Flags().StringVar(&orgsAddOrgUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
@@ -17119,41 +19600,50 @@ func init() {
 	orgsAddOrgUserCmd.Flags().Int64Var(&orgsAddOrgUserFlag.OrgID, "org-id", 0, "OrgID")
 	orgsAddOrgUserCmd.MarkFlagRequired("org-id")
 	orgsAddOrgUserCmd.Flags().BoolVar(&orgsAddOrgUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgsAddOrgUserCmd.Flags().BoolVar(&orgsAddOrgUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsAddOrgUserCmd)
 	orgsCreateOrgCmd.Flags().StringVar(&orgsCreateOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgsCreateOrgCmd.MarkFlagRequired("body")
 	orgsCreateOrgCmd.Flags().BoolVar(&orgsCreateOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgsCreateOrgCmd.Flags().BoolVar(&orgsCreateOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsCreateOrgCmd)
 	orgsGetOrgByNameCmd.Flags().StringVar(&orgsGetOrgByNameFlag.OrgName, "org-name", "", "OrgName")
 	orgsGetOrgByNameCmd.MarkFlagRequired("org-name")
+	orgsGetOrgByNameCmd.Flags().BoolVar(&orgsGetOrgByNameFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsGetOrgByNameCmd)
 	orgsGetOrgUsersCmd.Flags().Int64Var(&orgsGetOrgUsersFlag.OrgID, "org-id", 0, "OrgID")
 	orgsGetOrgUsersCmd.MarkFlagRequired("org-id")
+	orgsGetOrgUsersCmd.Flags().BoolVar(&orgsGetOrgUsersFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsGetOrgUsersCmd)
 	orgsRemoveOrgUserCmd.Flags().Int64Var(&orgsRemoveOrgUserFlag.OrgID, "org-id", 0, "OrgID")
 	orgsRemoveOrgUserCmd.MarkFlagRequired("org-id")
 	orgsRemoveOrgUserCmd.Flags().Int64Var(&orgsRemoveOrgUserFlag.UserID, "user-id", 0, "UserID")
 	orgsRemoveOrgUserCmd.MarkFlagRequired("user-id")
+	orgsRemoveOrgUserCmd.Flags().BoolVar(&orgsRemoveOrgUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsRemoveOrgUserCmd)
 	orgsSearchOrgUsersCmd.Flags().Int64Var(&orgsSearchOrgUsersFlag.OrgID, "org-id", 0, "OrgID")
 	orgsSearchOrgUsersCmd.MarkFlagRequired("org-id")
+	orgsSearchOrgUsersCmd.Flags().BoolVar(&orgsSearchOrgUsersFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsSearchOrgUsersCmd)
 	orgsSearchOrgsCmd.Flags().StringVar(&orgsSearchOrgsFlag.Name, "name", "", "Name")
 	orgsSearchOrgsCmd.Flags().Int64Var(&orgsSearchOrgsFlag.Page, "page", 0, "Default: 1")
 	orgsSearchOrgsCmd.Flags().Int64Var(&orgsSearchOrgsFlag.Perpage, "perpage", 1000, "Number of items per page The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams. Default: 1000")
 	orgsSearchOrgsCmd.Flags().StringVar(&orgsSearchOrgsFlag.Query, "query", "", "If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded.")
+	orgsSearchOrgsCmd.Flags().BoolVar(&orgsSearchOrgsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsSearchOrgsCmd)
 	orgsUpdateOrgCmd.Flags().StringVar(&orgsUpdateOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgsUpdateOrgCmd.MarkFlagRequired("body")
 	orgsUpdateOrgCmd.Flags().Int64Var(&orgsUpdateOrgFlag.OrgID, "org-id", 0, "OrgID")
 	orgsUpdateOrgCmd.MarkFlagRequired("org-id")
 	orgsUpdateOrgCmd.Flags().BoolVar(&orgsUpdateOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgsUpdateOrgCmd.Flags().BoolVar(&orgsUpdateOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsUpdateOrgCmd)
 	orgsUpdateOrgAddressCmd.Flags().StringVar(&orgsUpdateOrgAddressFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgsUpdateOrgAddressCmd.MarkFlagRequired("body")
 	orgsUpdateOrgAddressCmd.Flags().Int64Var(&orgsUpdateOrgAddressFlag.OrgID, "org-id", 0, "OrgID")
 	orgsUpdateOrgAddressCmd.MarkFlagRequired("org-id")
 	orgsUpdateOrgAddressCmd.Flags().BoolVar(&orgsUpdateOrgAddressFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgsUpdateOrgAddressCmd.Flags().BoolVar(&orgsUpdateOrgAddressFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsUpdateOrgAddressCmd)
 	orgsUpdateOrgUserCmd.Flags().StringVar(&orgsUpdateOrgUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	orgsUpdateOrgUserCmd.MarkFlagRequired("body")
@@ -17162,72 +19652,89 @@ func init() {
 	orgsUpdateOrgUserCmd.Flags().Int64Var(&orgsUpdateOrgUserFlag.UserID, "user-id", 0, "UserID")
 	orgsUpdateOrgUserCmd.MarkFlagRequired("user-id")
 	orgsUpdateOrgUserCmd.Flags().BoolVar(&orgsUpdateOrgUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	orgsUpdateOrgUserCmd.Flags().BoolVar(&orgsUpdateOrgUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsUpdateOrgUserCmd)
 	rootCmd.AddCommand(playlistsCmd)
 	playlistsCreatePlaylistCmd.Flags().StringVar(&playlistsCreatePlaylistFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	playlistsCreatePlaylistCmd.MarkFlagRequired("body")
 	playlistsCreatePlaylistCmd.Flags().BoolVar(&playlistsCreatePlaylistFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	playlistsCreatePlaylistCmd.Flags().BoolVar(&playlistsCreatePlaylistFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	playlistsCmd.AddCommand(playlistsCreatePlaylistCmd)
 	playlistsDeletePlaylistCmd.Flags().StringVar(&playlistsDeletePlaylistFlag.UID, "uid", "", "UID")
 	playlistsDeletePlaylistCmd.MarkFlagRequired("uid")
+	playlistsDeletePlaylistCmd.Flags().BoolVar(&playlistsDeletePlaylistFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	playlistsCmd.AddCommand(playlistsDeletePlaylistCmd)
 	playlistsGetPlaylistCmd.Flags().StringVar(&playlistsGetPlaylistFlag.UID, "uid", "", "UID")
 	playlistsGetPlaylistCmd.MarkFlagRequired("uid")
+	playlistsGetPlaylistCmd.Flags().BoolVar(&playlistsGetPlaylistFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	playlistsCmd.AddCommand(playlistsGetPlaylistCmd)
 	playlistsGetPlaylistItemsCmd.Flags().StringVar(&playlistsGetPlaylistItemsFlag.UID, "uid", "", "UID")
 	playlistsGetPlaylistItemsCmd.MarkFlagRequired("uid")
+	playlistsGetPlaylistItemsCmd.Flags().BoolVar(&playlistsGetPlaylistItemsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	playlistsCmd.AddCommand(playlistsGetPlaylistItemsCmd)
 	playlistsSearchPlaylistsCmd.Flags().Int64Var(&playlistsSearchPlaylistsFlag.Limit, "limit", 0, "in:limit")
 	playlistsSearchPlaylistsCmd.Flags().StringVar(&playlistsSearchPlaylistsFlag.Query, "query", "", "Query")
+	playlistsSearchPlaylistsCmd.Flags().BoolVar(&playlistsSearchPlaylistsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	playlistsCmd.AddCommand(playlistsSearchPlaylistsCmd)
 	playlistsUpdatePlaylistCmd.Flags().StringVar(&playlistsUpdatePlaylistFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	playlistsUpdatePlaylistCmd.MarkFlagRequired("body")
 	playlistsUpdatePlaylistCmd.Flags().StringVar(&playlistsUpdatePlaylistFlag.UID, "uid", "", "UID")
 	playlistsUpdatePlaylistCmd.MarkFlagRequired("uid")
 	playlistsUpdatePlaylistCmd.Flags().BoolVar(&playlistsUpdatePlaylistFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	playlistsUpdatePlaylistCmd.Flags().BoolVar(&playlistsUpdatePlaylistFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	playlistsCmd.AddCommand(playlistsUpdatePlaylistCmd)
 	rootCmd.AddCommand(provisioningCmd)
 	provisioningDeleteAlertRuleCmd.Flags().StringVar(&provisioningDeleteAlertRuleFlag.UID, "uid", "", "Alert rule UID")
 	provisioningDeleteAlertRuleCmd.MarkFlagRequired("uid")
 	provisioningDeleteAlertRuleCmd.Flags().StringVar(&provisioningDeleteAlertRuleFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
+	provisioningDeleteAlertRuleCmd.Flags().BoolVar(&provisioningDeleteAlertRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningDeleteAlertRuleCmd)
 	provisioningDeleteAlertRuleGroupCmd.Flags().StringVar(&provisioningDeleteAlertRuleGroupFlag.FolderUID, "folder-uid", "", "FolderUID")
 	provisioningDeleteAlertRuleGroupCmd.MarkFlagRequired("folder-uid")
 	provisioningDeleteAlertRuleGroupCmd.Flags().StringVar(&provisioningDeleteAlertRuleGroupFlag.Group, "group", "", "Group")
 	provisioningDeleteAlertRuleGroupCmd.MarkFlagRequired("group")
+	provisioningDeleteAlertRuleGroupCmd.Flags().BoolVar(&provisioningDeleteAlertRuleGroupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningDeleteAlertRuleGroupCmd)
 	provisioningDeleteContactpointsCmd.Flags().StringVar(&provisioningDeleteContactpointsFlag.UID, "uid", "", "UID is the contact point unique identifier")
 	provisioningDeleteContactpointsCmd.MarkFlagRequired("uid")
+	provisioningDeleteContactpointsCmd.Flags().BoolVar(&provisioningDeleteContactpointsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningDeleteContactpointsCmd)
 	provisioningDeleteMuteTimingCmd.Flags().StringVar(&provisioningDeleteMuteTimingFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningDeleteMuteTimingCmd.Flags().StringVar(&provisioningDeleteMuteTimingFlag.Name, "name", "", "Mute timing name")
 	provisioningDeleteMuteTimingCmd.MarkFlagRequired("name")
 	provisioningDeleteMuteTimingCmd.Flags().StringVar(&provisioningDeleteMuteTimingFlag.Version, "version", "", "Version of mute timing to use for optimistic concurrency. Leave empty to disable validation")
+	provisioningDeleteMuteTimingCmd.Flags().BoolVar(&provisioningDeleteMuteTimingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningDeleteMuteTimingCmd)
 	provisioningDeleteTemplateCmd.Flags().StringVar(&provisioningDeleteTemplateFlag.Name, "name", "", "Template group name")
 	provisioningDeleteTemplateCmd.MarkFlagRequired("name")
 	provisioningDeleteTemplateCmd.Flags().StringVar(&provisioningDeleteTemplateFlag.Version, "version", "", "Version of template to use for optimistic concurrency. Leave empty to disable validation")
+	provisioningDeleteTemplateCmd.Flags().BoolVar(&provisioningDeleteTemplateFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningDeleteTemplateCmd)
 	provisioningExportMuteTimingCmd.Flags().BoolVar(&provisioningExportMuteTimingFlag.Download, "download", false, "Whether to initiate a download of the file or not.")
 	provisioningExportMuteTimingCmd.Flags().StringVar(&provisioningExportMuteTimingFlag.Format, "format", "", "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\"")
 	provisioningExportMuteTimingCmd.Flags().StringVar(&provisioningExportMuteTimingFlag.Name, "name", "", "Mute timing name")
 	provisioningExportMuteTimingCmd.MarkFlagRequired("name")
+	provisioningExportMuteTimingCmd.Flags().BoolVar(&provisioningExportMuteTimingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningExportMuteTimingCmd)
 	provisioningExportMuteTimingsCmd.Flags().BoolVar(&provisioningExportMuteTimingsFlag.Download, "download", false, "Whether to initiate a download of the file or not.")
 	provisioningExportMuteTimingsCmd.Flags().StringVar(&provisioningExportMuteTimingsFlag.Format, "format", "", "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\"")
+	provisioningExportMuteTimingsCmd.Flags().BoolVar(&provisioningExportMuteTimingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningExportMuteTimingsCmd)
 	provisioningGetAlertRuleCmd.Flags().StringVar(&provisioningGetAlertRuleFlag.UID, "uid", "", "Alert rule UID")
 	provisioningGetAlertRuleCmd.MarkFlagRequired("uid")
+	provisioningGetAlertRuleCmd.Flags().BoolVar(&provisioningGetAlertRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetAlertRuleCmd)
 	provisioningGetAlertRuleExportCmd.Flags().StringVar(&provisioningGetAlertRuleExportFlag.UID, "uid", "", "Alert rule UID")
 	provisioningGetAlertRuleExportCmd.MarkFlagRequired("uid")
 	provisioningGetAlertRuleExportCmd.Flags().BoolVar(&provisioningGetAlertRuleExportFlag.Download, "download", false, "Whether to initiate a download of the file or not.")
 	provisioningGetAlertRuleExportCmd.Flags().StringVar(&provisioningGetAlertRuleExportFlag.Format, "format", "", "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\"")
+	provisioningGetAlertRuleExportCmd.Flags().BoolVar(&provisioningGetAlertRuleExportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetAlertRuleExportCmd)
 	provisioningGetAlertRuleGroupCmd.Flags().StringVar(&provisioningGetAlertRuleGroupFlag.FolderUID, "folder-uid", "", "FolderUID")
 	provisioningGetAlertRuleGroupCmd.MarkFlagRequired("folder-uid")
 	provisioningGetAlertRuleGroupCmd.Flags().StringVar(&provisioningGetAlertRuleGroupFlag.Group, "group", "", "Group")
 	provisioningGetAlertRuleGroupCmd.MarkFlagRequired("group")
+	provisioningGetAlertRuleGroupCmd.Flags().BoolVar(&provisioningGetAlertRuleGroupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetAlertRuleGroupCmd)
 	provisioningGetAlertRuleGroupExportCmd.Flags().StringVar(&provisioningGetAlertRuleGroupExportFlag.FolderUID, "folder-uid", "", "FolderUID")
 	provisioningGetAlertRuleGroupExportCmd.MarkFlagRequired("folder-uid")
@@ -17235,7 +19742,9 @@ func init() {
 	provisioningGetAlertRuleGroupExportCmd.MarkFlagRequired("group")
 	provisioningGetAlertRuleGroupExportCmd.Flags().BoolVar(&provisioningGetAlertRuleGroupExportFlag.Download, "download", false, "Whether to initiate a download of the file or not.")
 	provisioningGetAlertRuleGroupExportCmd.Flags().StringVar(&provisioningGetAlertRuleGroupExportFlag.Format, "format", "", "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\"")
+	provisioningGetAlertRuleGroupExportCmd.Flags().BoolVar(&provisioningGetAlertRuleGroupExportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetAlertRuleGroupExportCmd)
+	provisioningGetAlertRulesCmd.Flags().BoolVar(&provisioningGetAlertRulesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetAlertRulesCmd)
 	provisioningGetAlertRulesExportCmd.Flags().BoolVar(&provisioningGetAlertRulesExportFlag.Download, "download", false, "Whether to initiate a download of the file or not.")
 	provisioningGetAlertRulesExportCmd.Flags().StringSliceVar(&provisioningGetAlertRulesExportFlag.FolderUID, "folder-uid", []string{}, "UIDs of folders from which to export rules")
@@ -17243,38 +19752,50 @@ func init() {
 	provisioningGetAlertRulesExportCmd.Flags().StringVar(&provisioningGetAlertRulesExportFlag.Format, "format", "", "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\"")
 	provisioningGetAlertRulesExportCmd.Flags().StringVar(&provisioningGetAlertRulesExportFlag.Group, "group", "", "Name of group of rules to export. Must be specified only together with a single folder UID")
 	provisioningGetAlertRulesExportCmd.Flags().StringVar(&provisioningGetAlertRulesExportFlag.RuleUID, "rule-uid", "", "UID of alert rule to export. If specified, parameters folderUid and group must be empty.")
+	provisioningGetAlertRulesExportCmd.Flags().BoolVar(&provisioningGetAlertRulesExportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetAlertRulesExportCmd)
 	provisioningGetContactpointsCmd.Flags().StringVar(&provisioningGetContactpointsFlag.Name, "name", "", "Filter by name")
+	provisioningGetContactpointsCmd.Flags().BoolVar(&provisioningGetContactpointsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetContactpointsCmd)
 	provisioningGetContactpointsExportCmd.Flags().BoolVar(&provisioningGetContactpointsExportFlag.Decrypt, "decrypt", false, "Whether any contained secure settings should be decrypted or left redacted. Redacted settings will contain RedactedValue instead. Currently, only org admin can view decrypted secure settings.")
 	provisioningGetContactpointsExportCmd.Flags().BoolVar(&provisioningGetContactpointsExportFlag.Download, "download", false, "Whether to initiate a download of the file or not.")
 	provisioningGetContactpointsExportCmd.Flags().StringVar(&provisioningGetContactpointsExportFlag.Format, "format", "", "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\"")
 	provisioningGetContactpointsExportCmd.Flags().StringVar(&provisioningGetContactpointsExportFlag.Name, "name", "", "Filter by name")
+	provisioningGetContactpointsExportCmd.Flags().BoolVar(&provisioningGetContactpointsExportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetContactpointsExportCmd)
 	provisioningGetMuteTimingCmd.Flags().StringVar(&provisioningGetMuteTimingFlag.Name, "name", "", "Mute timing name")
 	provisioningGetMuteTimingCmd.MarkFlagRequired("name")
+	provisioningGetMuteTimingCmd.Flags().BoolVar(&provisioningGetMuteTimingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetMuteTimingCmd)
+	provisioningGetMuteTimingsCmd.Flags().BoolVar(&provisioningGetMuteTimingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetMuteTimingsCmd)
+	provisioningGetPolicyTreeCmd.Flags().BoolVar(&provisioningGetPolicyTreeFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetPolicyTreeCmd)
+	provisioningGetPolicyTreeExportCmd.Flags().BoolVar(&provisioningGetPolicyTreeExportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetPolicyTreeExportCmd)
 	provisioningGetTemplateCmd.Flags().StringVar(&provisioningGetTemplateFlag.Name, "name", "", "Template group name")
 	provisioningGetTemplateCmd.MarkFlagRequired("name")
+	provisioningGetTemplateCmd.Flags().BoolVar(&provisioningGetTemplateFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetTemplateCmd)
+	provisioningGetTemplatesCmd.Flags().BoolVar(&provisioningGetTemplatesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetTemplatesCmd)
 	provisioningPostAlertRuleCmd.Flags().StringVar(&provisioningPostAlertRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPostAlertRuleCmd.MarkFlagRequired("body")
 	provisioningPostAlertRuleCmd.Flags().StringVar(&provisioningPostAlertRuleFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPostAlertRuleCmd.Flags().BoolVar(&provisioningPostAlertRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	provisioningPostAlertRuleCmd.Flags().BoolVar(&provisioningPostAlertRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPostAlertRuleCmd)
 	provisioningPostContactpointsCmd.Flags().StringVar(&provisioningPostContactpointsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPostContactpointsCmd.MarkFlagRequired("body")
 	provisioningPostContactpointsCmd.Flags().StringVar(&provisioningPostContactpointsFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPostContactpointsCmd.Flags().BoolVar(&provisioningPostContactpointsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	provisioningPostContactpointsCmd.Flags().BoolVar(&provisioningPostContactpointsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPostContactpointsCmd)
 	provisioningPostMuteTimingCmd.Flags().StringVar(&provisioningPostMuteTimingFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPostMuteTimingCmd.MarkFlagRequired("body")
 	provisioningPostMuteTimingCmd.Flags().StringVar(&provisioningPostMuteTimingFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPostMuteTimingCmd.Flags().BoolVar(&provisioningPostMuteTimingFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	provisioningPostMuteTimingCmd.Flags().BoolVar(&provisioningPostMuteTimingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPostMuteTimingCmd)
 	provisioningPutAlertRuleCmd.Flags().StringVar(&provisioningPutAlertRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutAlertRuleCmd.MarkFlagRequired("body")
@@ -17282,6 +19803,7 @@ func init() {
 	provisioningPutAlertRuleCmd.MarkFlagRequired("uid")
 	provisioningPutAlertRuleCmd.Flags().StringVar(&provisioningPutAlertRuleFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutAlertRuleCmd.Flags().BoolVar(&provisioningPutAlertRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	provisioningPutAlertRuleCmd.Flags().BoolVar(&provisioningPutAlertRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutAlertRuleCmd)
 	provisioningPutAlertRuleGroupCmd.Flags().StringVar(&provisioningPutAlertRuleGroupFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutAlertRuleGroupCmd.MarkFlagRequired("body")
@@ -17291,6 +19813,7 @@ func init() {
 	provisioningPutAlertRuleGroupCmd.MarkFlagRequired("group")
 	provisioningPutAlertRuleGroupCmd.Flags().StringVar(&provisioningPutAlertRuleGroupFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutAlertRuleGroupCmd.Flags().BoolVar(&provisioningPutAlertRuleGroupFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	provisioningPutAlertRuleGroupCmd.Flags().BoolVar(&provisioningPutAlertRuleGroupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutAlertRuleGroupCmd)
 	provisioningPutContactpointCmd.Flags().StringVar(&provisioningPutContactpointFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutContactpointCmd.MarkFlagRequired("body")
@@ -17298,6 +19821,7 @@ func init() {
 	provisioningPutContactpointCmd.MarkFlagRequired("uid")
 	provisioningPutContactpointCmd.Flags().StringVar(&provisioningPutContactpointFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutContactpointCmd.Flags().BoolVar(&provisioningPutContactpointFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	provisioningPutContactpointCmd.Flags().BoolVar(&provisioningPutContactpointFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutContactpointCmd)
 	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutMuteTimingCmd.MarkFlagRequired("body")
@@ -17305,11 +19829,13 @@ func init() {
 	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.Name, "name", "", "Mute timing name")
 	provisioningPutMuteTimingCmd.MarkFlagRequired("name")
 	provisioningPutMuteTimingCmd.Flags().BoolVar(&provisioningPutMuteTimingFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	provisioningPutMuteTimingCmd.Flags().BoolVar(&provisioningPutMuteTimingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutMuteTimingCmd)
 	provisioningPutPolicyTreeCmd.Flags().StringVar(&provisioningPutPolicyTreeFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutPolicyTreeCmd.MarkFlagRequired("body")
 	provisioningPutPolicyTreeCmd.Flags().StringVar(&provisioningPutPolicyTreeFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutPolicyTreeCmd.Flags().BoolVar(&provisioningPutPolicyTreeFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	provisioningPutPolicyTreeCmd.Flags().BoolVar(&provisioningPutPolicyTreeFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutPolicyTreeCmd)
 	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	provisioningPutTemplateCmd.MarkFlagRequired("body")
@@ -17317,21 +19843,26 @@ func init() {
 	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.Name, "name", "", "Template group name")
 	provisioningPutTemplateCmd.MarkFlagRequired("name")
 	provisioningPutTemplateCmd.Flags().BoolVar(&provisioningPutTemplateFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	provisioningPutTemplateCmd.Flags().BoolVar(&provisioningPutTemplateFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutTemplateCmd)
+	provisioningResetPolicyTreeCmd.Flags().BoolVar(&provisioningResetPolicyTreeFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningResetPolicyTreeCmd)
 	rootCmd.AddCommand(queryHistoryCmd)
 	queryHistoryCreateQueryCmd.Flags().StringVar(&queryHistoryCreateQueryFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	queryHistoryCreateQueryCmd.MarkFlagRequired("body")
 	queryHistoryCreateQueryCmd.Flags().BoolVar(&queryHistoryCreateQueryFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	queryHistoryCreateQueryCmd.Flags().BoolVar(&queryHistoryCreateQueryFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	queryHistoryCmd.AddCommand(queryHistoryCreateQueryCmd)
 	queryHistoryDeleteQueryCmd.Flags().StringVar(&queryHistoryDeleteQueryFlag.QueryHistoryUID, "query-history-uid", "", "QueryHistoryUID")
 	queryHistoryDeleteQueryCmd.MarkFlagRequired("query-history-uid")
+	queryHistoryDeleteQueryCmd.Flags().BoolVar(&queryHistoryDeleteQueryFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	queryHistoryCmd.AddCommand(queryHistoryDeleteQueryCmd)
 	queryHistoryPatchQueryCommentCmd.Flags().StringVar(&queryHistoryPatchQueryCommentFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	queryHistoryPatchQueryCommentCmd.MarkFlagRequired("body")
 	queryHistoryPatchQueryCommentCmd.Flags().StringVar(&queryHistoryPatchQueryCommentFlag.QueryHistoryUID, "query-history-uid", "", "QueryHistoryUID")
 	queryHistoryPatchQueryCommentCmd.MarkFlagRequired("query-history-uid")
 	queryHistoryPatchQueryCommentCmd.Flags().BoolVar(&queryHistoryPatchQueryCommentFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	queryHistoryPatchQueryCommentCmd.Flags().BoolVar(&queryHistoryPatchQueryCommentFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	queryHistoryCmd.AddCommand(queryHistoryPatchQueryCommentCmd)
 	queryHistorySearchQueriesCmd.Flags().StringSliceVar(&queryHistorySearchQueriesFlag.DatasourceUID, "datasource-uid", []string{}, "List of data source UIDs to search for")
 	queryHistorySearchQueriesCmd.MarkFlagRequired("datasource-uid")
@@ -17342,21 +19873,28 @@ func init() {
 	queryHistorySearchQueriesCmd.Flags().StringVar(&queryHistorySearchQueriesFlag.SearchString, "search-string", "", "Text inside query or comments that is searched for")
 	queryHistorySearchQueriesCmd.Flags().StringVar(&queryHistorySearchQueriesFlag.Sort, "sort", "", "Sort method Default: \"time-desc\"")
 	queryHistorySearchQueriesCmd.Flags().Int64Var(&queryHistorySearchQueriesFlag.To, "to", 0, "To range for the query history search")
+	queryHistorySearchQueriesCmd.Flags().BoolVar(&queryHistorySearchQueriesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	queryHistoryCmd.AddCommand(queryHistorySearchQueriesCmd)
 	queryHistoryStarQueryCmd.Flags().StringVar(&queryHistoryStarQueryFlag.QueryHistoryUID, "query-history-uid", "", "QueryHistoryUID")
 	queryHistoryStarQueryCmd.MarkFlagRequired("query-history-uid")
+	queryHistoryStarQueryCmd.Flags().BoolVar(&queryHistoryStarQueryFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	queryHistoryCmd.AddCommand(queryHistoryStarQueryCmd)
 	queryHistoryUnstarQueryCmd.Flags().StringVar(&queryHistoryUnstarQueryFlag.QueryHistoryUID, "query-history-uid", "", "QueryHistoryUID")
 	queryHistoryUnstarQueryCmd.MarkFlagRequired("query-history-uid")
+	queryHistoryUnstarQueryCmd.Flags().BoolVar(&queryHistoryUnstarQueryFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	queryHistoryCmd.AddCommand(queryHistoryUnstarQueryCmd)
 	rootCmd.AddCommand(quotaCmd)
+	quotaGetCurrentOrgQuotaCmd.Flags().BoolVar(&quotaGetCurrentOrgQuotaFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaGetCurrentOrgQuotaCmd)
 	quotaGetOrgQuotaCmd.Flags().Int64Var(&quotaGetOrgQuotaFlag.OrgID, "org-id", 0, "OrgID")
 	quotaGetOrgQuotaCmd.MarkFlagRequired("org-id")
+	quotaGetOrgQuotaCmd.Flags().BoolVar(&quotaGetOrgQuotaFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaGetOrgQuotaCmd)
 	quotaGetUserQuotaCmd.Flags().Int64Var(&quotaGetUserQuotaFlag.UserID, "user-id", 0, "UserID")
 	quotaGetUserQuotaCmd.MarkFlagRequired("user-id")
+	quotaGetUserQuotaCmd.Flags().BoolVar(&quotaGetUserQuotaFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaGetUserQuotaCmd)
+	quotaGetUserQuotasCmd.Flags().BoolVar(&quotaGetUserQuotasFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaGetUserQuotasCmd)
 	quotaUpdateOrgQuotaCmd.Flags().StringVar(&quotaUpdateOrgQuotaFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	quotaUpdateOrgQuotaCmd.MarkFlagRequired("body")
@@ -17365,6 +19903,7 @@ func init() {
 	quotaUpdateOrgQuotaCmd.Flags().StringVar(&quotaUpdateOrgQuotaFlag.QuotaTarget, "quota-target", "", "QuotaTarget")
 	quotaUpdateOrgQuotaCmd.MarkFlagRequired("quota-target")
 	quotaUpdateOrgQuotaCmd.Flags().BoolVar(&quotaUpdateOrgQuotaFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	quotaUpdateOrgQuotaCmd.Flags().BoolVar(&quotaUpdateOrgQuotaFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaUpdateOrgQuotaCmd)
 	quotaUpdateUserQuotaCmd.Flags().StringVar(&quotaUpdateUserQuotaFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	quotaUpdateUserQuotaCmd.MarkFlagRequired("body")
@@ -17373,49 +19912,66 @@ func init() {
 	quotaUpdateUserQuotaCmd.Flags().Int64Var(&quotaUpdateUserQuotaFlag.UserID, "user-id", 0, "UserID")
 	quotaUpdateUserQuotaCmd.MarkFlagRequired("user-id")
 	quotaUpdateUserQuotaCmd.Flags().BoolVar(&quotaUpdateUserQuotaFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	quotaUpdateUserQuotaCmd.Flags().BoolVar(&quotaUpdateUserQuotaFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaUpdateUserQuotaCmd)
 	rootCmd.AddCommand(recordingRulesCmd)
 	recordingRulesCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	recordingRulesCreateRecordingRuleCmd.MarkFlagRequired("body")
 	recordingRulesCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	recordingRulesCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesCreateRecordingRuleCmd)
 	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	recordingRulesCreateRecordingRuleWriteTargetCmd.MarkFlagRequired("body")
 	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesCreateRecordingRuleWriteTargetCmd)
 	recordingRulesDeleteRecordingRuleCmd.Flags().Int64Var(&recordingRulesDeleteRecordingRuleFlag.RecordingRuleID, "recording-rule-id", 0, "RecordingRuleID")
 	recordingRulesDeleteRecordingRuleCmd.MarkFlagRequired("recording-rule-id")
+	recordingRulesDeleteRecordingRuleCmd.Flags().BoolVar(&recordingRulesDeleteRecordingRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesDeleteRecordingRuleCmd)
+	recordingRulesDeleteRecordingRuleWriteTargetCmd.Flags().BoolVar(&recordingRulesDeleteRecordingRuleWriteTargetFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesDeleteRecordingRuleWriteTargetCmd)
+	recordingRulesGetRecordingRuleWriteTargetCmd.Flags().BoolVar(&recordingRulesGetRecordingRuleWriteTargetFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesGetRecordingRuleWriteTargetCmd)
+	recordingRulesListRecordingRulesCmd.Flags().BoolVar(&recordingRulesListRecordingRulesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesListRecordingRulesCmd)
 	recordingRulesTestCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesTestCreateRecordingRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	recordingRulesTestCreateRecordingRuleCmd.MarkFlagRequired("body")
 	recordingRulesTestCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesTestCreateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	recordingRulesTestCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesTestCreateRecordingRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesTestCreateRecordingRuleCmd)
 	recordingRulesUpdateRecordingRuleCmd.Flags().StringVar(&recordingRulesUpdateRecordingRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	recordingRulesUpdateRecordingRuleCmd.MarkFlagRequired("body")
 	recordingRulesUpdateRecordingRuleCmd.Flags().BoolVar(&recordingRulesUpdateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	recordingRulesUpdateRecordingRuleCmd.Flags().BoolVar(&recordingRulesUpdateRecordingRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesUpdateRecordingRuleCmd)
 	rootCmd.AddCommand(reportsCmd)
 	reportsCreateReportCmd.Flags().StringVar(&reportsCreateReportFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	reportsCreateReportCmd.MarkFlagRequired("body")
 	reportsCreateReportCmd.Flags().BoolVar(&reportsCreateReportFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	reportsCreateReportCmd.Flags().BoolVar(&reportsCreateReportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsCreateReportCmd)
 	reportsDeleteReportCmd.Flags().Int64Var(&reportsDeleteReportFlag.ID, "id", 0, "ID")
 	reportsDeleteReportCmd.MarkFlagRequired("id")
+	reportsDeleteReportCmd.Flags().BoolVar(&reportsDeleteReportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsDeleteReportCmd)
 	reportsGetReportCmd.Flags().Int64Var(&reportsGetReportFlag.ID, "id", 0, "ID")
 	reportsGetReportCmd.MarkFlagRequired("id")
+	reportsGetReportCmd.Flags().BoolVar(&reportsGetReportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsGetReportCmd)
+	reportsGetReportSettingsCmd.Flags().BoolVar(&reportsGetReportSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsGetReportSettingsCmd)
+	reportsGetReportsCmd.Flags().BoolVar(&reportsGetReportsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsGetReportsCmd)
 	reportsGetReportsByDashboardUIDCmd.Flags().StringVar(&reportsGetReportsByDashboardUIDFlag.UID, "uid", "", "UID")
 	reportsGetReportsByDashboardUIDCmd.MarkFlagRequired("uid")
+	reportsGetReportsByDashboardUIDCmd.Flags().BoolVar(&reportsGetReportsByDashboardUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsGetReportsByDashboardUIDCmd)
+	reportsGetSettingsImageCmd.Flags().BoolVar(&reportsGetSettingsImageFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsGetSettingsImageCmd)
 	reportsRenderReportCSVsCmd.Flags().StringVar(&reportsRenderReportCSVsFlag.Dashboards, "dashboards", "", "Dashboards")
 	reportsRenderReportCSVsCmd.Flags().StringVar(&reportsRenderReportCSVsFlag.Title, "title", "", "Title")
+	reportsRenderReportCSVsCmd.Flags().BoolVar(&reportsRenderReportCSVsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsRenderReportCSVsCmd)
 	reportsRenderReportPDFsCmd.Flags().StringVar(&reportsRenderReportPDFsFlag.Dashboards, "dashboards", "", "Dashboards")
 	reportsRenderReportPDFsCmd.Flags().StringVar(&reportsRenderReportPDFsFlag.IncludeTables, "include-tables", "", "IncludeTables")
@@ -17423,35 +19979,46 @@ func init() {
 	reportsRenderReportPDFsCmd.Flags().StringVar(&reportsRenderReportPDFsFlag.Orientation, "orientation", "", "Orientation")
 	reportsRenderReportPDFsCmd.Flags().StringVar(&reportsRenderReportPDFsFlag.ScaleFactor, "scale-factor", "", "ScaleFactor")
 	reportsRenderReportPDFsCmd.Flags().StringVar(&reportsRenderReportPDFsFlag.Title, "title", "", "Title")
+	reportsRenderReportPDFsCmd.Flags().BoolVar(&reportsRenderReportPDFsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsRenderReportPDFsCmd)
 	reportsSaveReportSettingsCmd.Flags().StringVar(&reportsSaveReportSettingsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	reportsSaveReportSettingsCmd.MarkFlagRequired("body")
 	reportsSaveReportSettingsCmd.Flags().BoolVar(&reportsSaveReportSettingsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	reportsSaveReportSettingsCmd.Flags().BoolVar(&reportsSaveReportSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsSaveReportSettingsCmd)
 	reportsSendReportCmd.Flags().StringVar(&reportsSendReportFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	reportsSendReportCmd.MarkFlagRequired("body")
 	reportsSendReportCmd.Flags().BoolVar(&reportsSendReportFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	reportsSendReportCmd.Flags().BoolVar(&reportsSendReportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsSendReportCmd)
 	reportsSendTestEmailCmd.Flags().StringVar(&reportsSendTestEmailFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	reportsSendTestEmailCmd.MarkFlagRequired("body")
 	reportsSendTestEmailCmd.Flags().BoolVar(&reportsSendTestEmailFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	reportsSendTestEmailCmd.Flags().BoolVar(&reportsSendTestEmailFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsSendTestEmailCmd)
 	reportsUpdateReportCmd.Flags().StringVar(&reportsUpdateReportFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	reportsUpdateReportCmd.MarkFlagRequired("body")
 	reportsUpdateReportCmd.Flags().Int64Var(&reportsUpdateReportFlag.ID, "id", 0, "ID")
 	reportsUpdateReportCmd.MarkFlagRequired("id")
 	reportsUpdateReportCmd.Flags().BoolVar(&reportsUpdateReportFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	reportsUpdateReportCmd.Flags().BoolVar(&reportsUpdateReportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsUpdateReportCmd)
 	rootCmd.AddCommand(samlCmd)
+	samlGetMetadataCmd.Flags().BoolVar(&samlGetMetadataFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	samlCmd.AddCommand(samlGetMetadataCmd)
+	samlGetSAMLLogoutCmd.Flags().BoolVar(&samlGetSAMLLogoutFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	samlCmd.AddCommand(samlGetSAMLLogoutCmd)
+	samlGetSLOCmd.Flags().BoolVar(&samlGetSLOFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	samlCmd.AddCommand(samlGetSLOCmd)
 	samlPostACSCmd.Flags().StringVar(&samlPostACSFlag.RelayState, "relay-state", "", "RelayState")
+	samlPostACSCmd.Flags().BoolVar(&samlPostACSFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	samlCmd.AddCommand(samlPostACSCmd)
 	samlPostSLOCmd.Flags().StringVar(&samlPostSLOFlag.SAMLRequest, "saml-request", "", "SAMLRequest")
 	samlPostSLOCmd.Flags().StringVar(&samlPostSLOFlag.SAMLResponse, "saml-response", "", "SAMLResponse")
+	samlPostSLOCmd.Flags().BoolVar(&samlPostSLOFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	samlCmd.AddCommand(samlPostSLOCmd)
 	rootCmd.AddCommand(searchCmd)
+	searchListSortOptionsCmd.Flags().BoolVar(&searchListSortOptionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	searchCmd.AddCommand(searchListSortOptionsCmd)
 	searchSearchCmd.Flags().Int64SliceVar(&searchSearchFlag.DashboardIds, "dashboard-ids", []int64{}, "List of dashboard id’s to search for This is deprecated: users should use the `dashboardUIDs` query parameter instead")
 	searchSearchCmd.MarkFlagRequired("dashboard-ids")
@@ -17471,100 +20038,130 @@ func init() {
 	searchSearchCmd.Flags().StringSliceVar(&searchSearchFlag.Tag, "tag", []string{}, "List of tags to search for")
 	searchSearchCmd.MarkFlagRequired("tag")
 	searchSearchCmd.Flags().StringVar(&searchSearchFlag.Type, "type", "", "Type to search for, dash-folder or dash-db")
+	searchSearchCmd.Flags().BoolVar(&searchSearchFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	searchCmd.AddCommand(searchSearchCmd)
 	rootCmd.AddCommand(serviceAccountsCmd)
 	serviceAccountsCreateServiceAccountCmd.Flags().StringVar(&serviceAccountsCreateServiceAccountFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	serviceAccountsCreateServiceAccountCmd.MarkFlagRequired("body")
 	serviceAccountsCreateServiceAccountCmd.Flags().BoolVar(&serviceAccountsCreateServiceAccountFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	serviceAccountsCreateServiceAccountCmd.Flags().BoolVar(&serviceAccountsCreateServiceAccountFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsCreateServiceAccountCmd)
 	serviceAccountsCreateTokenCmd.Flags().StringVar(&serviceAccountsCreateTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	serviceAccountsCreateTokenCmd.MarkFlagRequired("body")
 	serviceAccountsCreateTokenCmd.Flags().Int64Var(&serviceAccountsCreateTokenFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsCreateTokenCmd.MarkFlagRequired("service-account-id")
 	serviceAccountsCreateTokenCmd.Flags().BoolVar(&serviceAccountsCreateTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	serviceAccountsCreateTokenCmd.Flags().BoolVar(&serviceAccountsCreateTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsCreateTokenCmd)
 	serviceAccountsDeleteServiceAccountCmd.Flags().Int64Var(&serviceAccountsDeleteServiceAccountFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsDeleteServiceAccountCmd.MarkFlagRequired("service-account-id")
+	serviceAccountsDeleteServiceAccountCmd.Flags().BoolVar(&serviceAccountsDeleteServiceAccountFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsDeleteServiceAccountCmd)
 	serviceAccountsDeleteTokenCmd.Flags().Int64Var(&serviceAccountsDeleteTokenFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsDeleteTokenCmd.MarkFlagRequired("service-account-id")
 	serviceAccountsDeleteTokenCmd.Flags().Int64Var(&serviceAccountsDeleteTokenFlag.TokenID, "token-id", 0, "TokenID")
 	serviceAccountsDeleteTokenCmd.MarkFlagRequired("token-id")
+	serviceAccountsDeleteTokenCmd.Flags().BoolVar(&serviceAccountsDeleteTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsDeleteTokenCmd)
 	serviceAccountsListTokensCmd.Flags().Int64Var(&serviceAccountsListTokensFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsListTokensCmd.MarkFlagRequired("service-account-id")
+	serviceAccountsListTokensCmd.Flags().BoolVar(&serviceAccountsListTokensFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsListTokensCmd)
 	serviceAccountsRetrieveServiceAccountCmd.Flags().Int64Var(&serviceAccountsRetrieveServiceAccountFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsRetrieveServiceAccountCmd.MarkFlagRequired("service-account-id")
+	serviceAccountsRetrieveServiceAccountCmd.Flags().BoolVar(&serviceAccountsRetrieveServiceAccountFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsRetrieveServiceAccountCmd)
 	serviceAccountsSearchOrgServiceAccountsWithPagingCmd.Flags().BoolVar(&serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Disabled, "disabled", false, "Disabled")
 	serviceAccountsSearchOrgServiceAccountsWithPagingCmd.Flags().BoolVar(&serviceAccountsSearchOrgServiceAccountsWithPagingFlag.ExpiredTokens, "expired-tokens", false, "ExpiredTokens")
 	serviceAccountsSearchOrgServiceAccountsWithPagingCmd.Flags().Int64Var(&serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Page, "page", 0, "The default value is 1.")
 	serviceAccountsSearchOrgServiceAccountsWithPagingCmd.Flags().Int64Var(&serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Perpage, "perpage", 1000, "The default value is 1000.")
 	serviceAccountsSearchOrgServiceAccountsWithPagingCmd.Flags().StringVar(&serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Query, "query", "", "It will return results where the query value is contained in one of the name. Query values with spaces need to be URL encoded.")
+	serviceAccountsSearchOrgServiceAccountsWithPagingCmd.Flags().BoolVar(&serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsSearchOrgServiceAccountsWithPagingCmd)
 	serviceAccountsUpdateServiceAccountCmd.Flags().StringVar(&serviceAccountsUpdateServiceAccountFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	serviceAccountsUpdateServiceAccountCmd.MarkFlagRequired("body")
 	serviceAccountsUpdateServiceAccountCmd.Flags().Int64Var(&serviceAccountsUpdateServiceAccountFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsUpdateServiceAccountCmd.MarkFlagRequired("service-account-id")
 	serviceAccountsUpdateServiceAccountCmd.Flags().BoolVar(&serviceAccountsUpdateServiceAccountFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	serviceAccountsUpdateServiceAccountCmd.Flags().BoolVar(&serviceAccountsUpdateServiceAccountFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsUpdateServiceAccountCmd)
 	rootCmd.AddCommand(signedInUserCmd)
 	signedInUserChangeUserPasswordCmd.Flags().StringVar(&signedInUserChangeUserPasswordFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	signedInUserChangeUserPasswordCmd.MarkFlagRequired("body")
 	signedInUserChangeUserPasswordCmd.Flags().BoolVar(&signedInUserChangeUserPasswordFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	signedInUserChangeUserPasswordCmd.Flags().BoolVar(&signedInUserChangeUserPasswordFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserChangeUserPasswordCmd)
+	signedInUserClearHelpFlagsCmd.Flags().BoolVar(&signedInUserClearHelpFlagsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserClearHelpFlagsCmd)
+	signedInUserGetSignedInUserCmd.Flags().BoolVar(&signedInUserGetSignedInUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserGetSignedInUserCmd)
+	signedInUserGetSignedInUserOrgListCmd.Flags().BoolVar(&signedInUserGetSignedInUserOrgListFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserGetSignedInUserOrgListCmd)
+	signedInUserGetSignedInUserTeamListCmd.Flags().BoolVar(&signedInUserGetSignedInUserTeamListFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserGetSignedInUserTeamListCmd)
+	signedInUserGetUserAuthTokensCmd.Flags().BoolVar(&signedInUserGetUserAuthTokensFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserGetUserAuthTokensCmd)
+	signedInUserGetUserPreferencesCmd.Flags().BoolVar(&signedInUserGetUserPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserGetUserPreferencesCmd)
 	signedInUserPatchUserPreferencesCmd.Flags().StringVar(&signedInUserPatchUserPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	signedInUserPatchUserPreferencesCmd.MarkFlagRequired("body")
 	signedInUserPatchUserPreferencesCmd.Flags().BoolVar(&signedInUserPatchUserPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	signedInUserPatchUserPreferencesCmd.Flags().BoolVar(&signedInUserPatchUserPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserPatchUserPreferencesCmd)
 	signedInUserRevokeUserAuthTokenCmd.Flags().StringVar(&signedInUserRevokeUserAuthTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	signedInUserRevokeUserAuthTokenCmd.MarkFlagRequired("body")
 	signedInUserRevokeUserAuthTokenCmd.Flags().BoolVar(&signedInUserRevokeUserAuthTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	signedInUserRevokeUserAuthTokenCmd.Flags().BoolVar(&signedInUserRevokeUserAuthTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserRevokeUserAuthTokenCmd)
 	signedInUserSetHelpFlagCmd.Flags().StringVar(&signedInUserSetHelpFlagFlag.FlagID, "flag-id", "", "FlagID")
 	signedInUserSetHelpFlagCmd.MarkFlagRequired("flag-id")
+	signedInUserSetHelpFlagCmd.Flags().BoolVar(&signedInUserSetHelpFlagFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserSetHelpFlagCmd)
 	signedInUserStarDashboardByUIDCmd.Flags().StringVar(&signedInUserStarDashboardByUIDFlag.DashboardUID, "dashboard-uid", "", "DashboardUID")
 	signedInUserStarDashboardByUIDCmd.MarkFlagRequired("dashboard-uid")
+	signedInUserStarDashboardByUIDCmd.Flags().BoolVar(&signedInUserStarDashboardByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserStarDashboardByUIDCmd)
 	signedInUserUnstarDashboardByUIDCmd.Flags().StringVar(&signedInUserUnstarDashboardByUIDFlag.DashboardUID, "dashboard-uid", "", "DashboardUID")
 	signedInUserUnstarDashboardByUIDCmd.MarkFlagRequired("dashboard-uid")
+	signedInUserUnstarDashboardByUIDCmd.Flags().BoolVar(&signedInUserUnstarDashboardByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserUnstarDashboardByUIDCmd)
 	signedInUserUpdateSignedInUserCmd.Flags().StringVar(&signedInUserUpdateSignedInUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	signedInUserUpdateSignedInUserCmd.MarkFlagRequired("body")
 	signedInUserUpdateSignedInUserCmd.Flags().BoolVar(&signedInUserUpdateSignedInUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	signedInUserUpdateSignedInUserCmd.Flags().BoolVar(&signedInUserUpdateSignedInUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserUpdateSignedInUserCmd)
 	signedInUserUpdateUserPreferencesCmd.Flags().StringVar(&signedInUserUpdateUserPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	signedInUserUpdateUserPreferencesCmd.MarkFlagRequired("body")
 	signedInUserUpdateUserPreferencesCmd.Flags().BoolVar(&signedInUserUpdateUserPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	signedInUserUpdateUserPreferencesCmd.Flags().BoolVar(&signedInUserUpdateUserPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserUpdateUserPreferencesCmd)
 	signedInUserUserSetUsingOrgCmd.Flags().Int64Var(&signedInUserUserSetUsingOrgFlag.OrgID, "org-id", 0, "OrgID")
 	signedInUserUserSetUsingOrgCmd.MarkFlagRequired("org-id")
+	signedInUserUserSetUsingOrgCmd.Flags().BoolVar(&signedInUserUserSetUsingOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserUserSetUsingOrgCmd)
 	rootCmd.AddCommand(signingKeysCmd)
+	signingKeysRetrieveJWKSCmd.Flags().BoolVar(&signingKeysRetrieveJWKSFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signingKeysCmd.AddCommand(signingKeysRetrieveJWKSCmd)
 	rootCmd.AddCommand(snapshotsCmd)
+	snapshotsGetSharingOptionsCmd.Flags().BoolVar(&snapshotsGetSharingOptionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	snapshotsCmd.AddCommand(snapshotsGetSharingOptionsCmd)
 	rootCmd.AddCommand(ssoSettingsCmd)
 	ssoSettingsGetProviderSettingsCmd.Flags().StringVar(&ssoSettingsGetProviderSettingsFlag.Key, "key", "", "Key")
 	ssoSettingsGetProviderSettingsCmd.MarkFlagRequired("key")
+	ssoSettingsGetProviderSettingsCmd.Flags().BoolVar(&ssoSettingsGetProviderSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ssoSettingsCmd.AddCommand(ssoSettingsGetProviderSettingsCmd)
+	ssoSettingsListAllProvidersSettingsCmd.Flags().BoolVar(&ssoSettingsListAllProvidersSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ssoSettingsCmd.AddCommand(ssoSettingsListAllProvidersSettingsCmd)
 	ssoSettingsRemoveProviderSettingsCmd.Flags().StringVar(&ssoSettingsRemoveProviderSettingsFlag.Key, "key", "", "Key")
 	ssoSettingsRemoveProviderSettingsCmd.MarkFlagRequired("key")
+	ssoSettingsRemoveProviderSettingsCmd.Flags().BoolVar(&ssoSettingsRemoveProviderSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ssoSettingsCmd.AddCommand(ssoSettingsRemoveProviderSettingsCmd)
 	ssoSettingsUpdateProviderSettingsCmd.Flags().StringVar(&ssoSettingsUpdateProviderSettingsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	ssoSettingsUpdateProviderSettingsCmd.MarkFlagRequired("body")
 	ssoSettingsUpdateProviderSettingsCmd.Flags().StringVar(&ssoSettingsUpdateProviderSettingsFlag.Key, "key", "", "Key")
 	ssoSettingsUpdateProviderSettingsCmd.MarkFlagRequired("key")
 	ssoSettingsUpdateProviderSettingsCmd.Flags().BoolVar(&ssoSettingsUpdateProviderSettingsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	ssoSettingsUpdateProviderSettingsCmd.Flags().BoolVar(&ssoSettingsUpdateProviderSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ssoSettingsCmd.AddCommand(ssoSettingsUpdateProviderSettingsCmd)
 	rootCmd.AddCommand(syncTeamGroupsCmd)
 	syncTeamGroupsAddTeamGroupAPICmd.Flags().StringVar(&syncTeamGroupsAddTeamGroupAPIFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
@@ -17572,13 +20169,16 @@ func init() {
 	syncTeamGroupsAddTeamGroupAPICmd.Flags().Int64Var(&syncTeamGroupsAddTeamGroupAPIFlag.TeamID, "team-id", 0, "TeamID")
 	syncTeamGroupsAddTeamGroupAPICmd.MarkFlagRequired("team-id")
 	syncTeamGroupsAddTeamGroupAPICmd.Flags().BoolVar(&syncTeamGroupsAddTeamGroupAPIFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	syncTeamGroupsAddTeamGroupAPICmd.Flags().BoolVar(&syncTeamGroupsAddTeamGroupAPIFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	syncTeamGroupsCmd.AddCommand(syncTeamGroupsAddTeamGroupAPICmd)
 	syncTeamGroupsGetTeamGroupsAPICmd.Flags().Int64Var(&syncTeamGroupsGetTeamGroupsAPIFlag.TeamID, "team-id", 0, "TeamID")
 	syncTeamGroupsGetTeamGroupsAPICmd.MarkFlagRequired("team-id")
+	syncTeamGroupsGetTeamGroupsAPICmd.Flags().BoolVar(&syncTeamGroupsGetTeamGroupsAPIFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	syncTeamGroupsCmd.AddCommand(syncTeamGroupsGetTeamGroupsAPICmd)
 	syncTeamGroupsRemoveTeamGroupAPIQueryCmd.Flags().StringVar(&syncTeamGroupsRemoveTeamGroupAPIQueryFlag.GroupID, "group-id", "", "GroupID")
 	syncTeamGroupsRemoveTeamGroupAPIQueryCmd.Flags().Int64Var(&syncTeamGroupsRemoveTeamGroupAPIQueryFlag.TeamID, "team-id", 0, "TeamID")
 	syncTeamGroupsRemoveTeamGroupAPIQueryCmd.MarkFlagRequired("team-id")
+	syncTeamGroupsRemoveTeamGroupAPIQueryCmd.Flags().BoolVar(&syncTeamGroupsRemoveTeamGroupAPIQueryFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	syncTeamGroupsCmd.AddCommand(syncTeamGroupsRemoveTeamGroupAPIQueryCmd)
 	syncTeamGroupsSearchTeamGroupsCmd.Flags().StringVar(&syncTeamGroupsSearchTeamGroupsFlag.Name, "name", "", "Filter by exact name match")
 	syncTeamGroupsSearchTeamGroupsCmd.Flags().Int64Var(&syncTeamGroupsSearchTeamGroupsFlag.Page, "page", 0, "Default: 1")
@@ -17586,6 +20186,7 @@ func init() {
 	syncTeamGroupsSearchTeamGroupsCmd.Flags().StringVar(&syncTeamGroupsSearchTeamGroupsFlag.Query, "query", "", "If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded.")
 	syncTeamGroupsSearchTeamGroupsCmd.Flags().Int64Var(&syncTeamGroupsSearchTeamGroupsFlag.TeamID, "team-id", 0, "TeamID")
 	syncTeamGroupsSearchTeamGroupsCmd.MarkFlagRequired("team-id")
+	syncTeamGroupsSearchTeamGroupsCmd.Flags().BoolVar(&syncTeamGroupsSearchTeamGroupsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	syncTeamGroupsCmd.AddCommand(syncTeamGroupsSearchTeamGroupsCmd)
 	rootCmd.AddCommand(teamsCmd)
 	teamsAddTeamMemberCmd.Flags().StringVar(&teamsAddTeamMemberFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
@@ -17593,21 +20194,26 @@ func init() {
 	teamsAddTeamMemberCmd.Flags().StringVar(&teamsAddTeamMemberFlag.TeamID, "team-id", "", "TeamID")
 	teamsAddTeamMemberCmd.MarkFlagRequired("team-id")
 	teamsAddTeamMemberCmd.Flags().BoolVar(&teamsAddTeamMemberFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	teamsAddTeamMemberCmd.Flags().BoolVar(&teamsAddTeamMemberFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsAddTeamMemberCmd)
 	teamsCreateTeamCmd.Flags().StringVar(&teamsCreateTeamFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	teamsCreateTeamCmd.MarkFlagRequired("body")
 	teamsCreateTeamCmd.Flags().BoolVar(&teamsCreateTeamFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	teamsCreateTeamCmd.Flags().BoolVar(&teamsCreateTeamFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsCreateTeamCmd)
 	teamsGetTeamMembersCmd.Flags().StringVar(&teamsGetTeamMembersFlag.TeamID, "team-id", "", "TeamID")
 	teamsGetTeamMembersCmd.MarkFlagRequired("team-id")
+	teamsGetTeamMembersCmd.Flags().BoolVar(&teamsGetTeamMembersFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsGetTeamMembersCmd)
 	teamsGetTeamPreferencesCmd.Flags().StringVar(&teamsGetTeamPreferencesFlag.TeamID, "team-id", "", "TeamID")
 	teamsGetTeamPreferencesCmd.MarkFlagRequired("team-id")
+	teamsGetTeamPreferencesCmd.Flags().BoolVar(&teamsGetTeamPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsGetTeamPreferencesCmd)
 	teamsRemoveTeamMemberCmd.Flags().StringVar(&teamsRemoveTeamMemberFlag.TeamID, "team-id", "", "TeamID")
 	teamsRemoveTeamMemberCmd.MarkFlagRequired("team-id")
 	teamsRemoveTeamMemberCmd.Flags().Int64Var(&teamsRemoveTeamMemberFlag.UserID, "user-id", 0, "UserID")
 	teamsRemoveTeamMemberCmd.MarkFlagRequired("user-id")
+	teamsRemoveTeamMemberCmd.Flags().BoolVar(&teamsRemoveTeamMemberFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsRemoveTeamMemberCmd)
 	teamsSearchTeamsCmd.Flags().BoolVar(&teamsSearchTeamsFlag.Accesscontrol, "accesscontrol", false, "Accesscontrol")
 	teamsSearchTeamsCmd.Flags().StringVar(&teamsSearchTeamsFlag.Name, "name", "", "Name")
@@ -17615,18 +20221,21 @@ func init() {
 	teamsSearchTeamsCmd.Flags().Int64Var(&teamsSearchTeamsFlag.Perpage, "perpage", 1000, "Number of items per page The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams. Default: 1000")
 	teamsSearchTeamsCmd.Flags().StringVar(&teamsSearchTeamsFlag.Query, "query", "", "If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded.")
 	teamsSearchTeamsCmd.Flags().StringVar(&teamsSearchTeamsFlag.Sort, "sort", "", "Sort")
+	teamsSearchTeamsCmd.Flags().BoolVar(&teamsSearchTeamsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsSearchTeamsCmd)
 	teamsSetTeamMembershipsCmd.Flags().StringVar(&teamsSetTeamMembershipsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	teamsSetTeamMembershipsCmd.MarkFlagRequired("body")
 	teamsSetTeamMembershipsCmd.Flags().StringVar(&teamsSetTeamMembershipsFlag.TeamID, "team-id", "", "TeamID")
 	teamsSetTeamMembershipsCmd.MarkFlagRequired("team-id")
 	teamsSetTeamMembershipsCmd.Flags().BoolVar(&teamsSetTeamMembershipsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	teamsSetTeamMembershipsCmd.Flags().BoolVar(&teamsSetTeamMembershipsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsSetTeamMembershipsCmd)
 	teamsUpdateTeamCmd.Flags().StringVar(&teamsUpdateTeamFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	teamsUpdateTeamCmd.MarkFlagRequired("body")
 	teamsUpdateTeamCmd.Flags().StringVar(&teamsUpdateTeamFlag.TeamID, "team-id", "", "TeamID")
 	teamsUpdateTeamCmd.MarkFlagRequired("team-id")
 	teamsUpdateTeamCmd.Flags().BoolVar(&teamsUpdateTeamFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	teamsUpdateTeamCmd.Flags().BoolVar(&teamsUpdateTeamFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsUpdateTeamCmd)
 	teamsUpdateTeamMemberCmd.Flags().StringVar(&teamsUpdateTeamMemberFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	teamsUpdateTeamMemberCmd.MarkFlagRequired("body")
@@ -17635,33 +20244,42 @@ func init() {
 	teamsUpdateTeamMemberCmd.Flags().Int64Var(&teamsUpdateTeamMemberFlag.UserID, "user-id", 0, "UserID")
 	teamsUpdateTeamMemberCmd.MarkFlagRequired("user-id")
 	teamsUpdateTeamMemberCmd.Flags().BoolVar(&teamsUpdateTeamMemberFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	teamsUpdateTeamMemberCmd.Flags().BoolVar(&teamsUpdateTeamMemberFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsUpdateTeamMemberCmd)
 	teamsUpdateTeamPreferencesCmd.Flags().StringVar(&teamsUpdateTeamPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	teamsUpdateTeamPreferencesCmd.MarkFlagRequired("body")
 	teamsUpdateTeamPreferencesCmd.Flags().StringVar(&teamsUpdateTeamPreferencesFlag.TeamID, "team-id", "", "TeamID")
 	teamsUpdateTeamPreferencesCmd.MarkFlagRequired("team-id")
 	teamsUpdateTeamPreferencesCmd.Flags().BoolVar(&teamsUpdateTeamPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	teamsUpdateTeamPreferencesCmd.Flags().BoolVar(&teamsUpdateTeamPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsUpdateTeamPreferencesCmd)
 	rootCmd.AddCommand(userCmd)
+	userUpdateUserEmailCmd.Flags().BoolVar(&userUpdateUserEmailFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	userCmd.AddCommand(userUpdateUserEmailCmd)
 	rootCmd.AddCommand(usersCmd)
 	usersGetUserByLoginOrEmailCmd.Flags().StringVar(&usersGetUserByLoginOrEmailFlag.LoginOrEmail, "login-or-email", "", "loginOrEmail of the user")
 	usersGetUserByLoginOrEmailCmd.MarkFlagRequired("login-or-email")
+	usersGetUserByLoginOrEmailCmd.Flags().BoolVar(&usersGetUserByLoginOrEmailFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	usersCmd.AddCommand(usersGetUserByLoginOrEmailCmd)
 	usersGetUserOrgListCmd.Flags().Int64Var(&usersGetUserOrgListFlag.UserID, "user-id", 0, "UserID")
 	usersGetUserOrgListCmd.MarkFlagRequired("user-id")
+	usersGetUserOrgListCmd.Flags().BoolVar(&usersGetUserOrgListFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	usersCmd.AddCommand(usersGetUserOrgListCmd)
 	usersGetUserTeamsCmd.Flags().Int64Var(&usersGetUserTeamsFlag.UserID, "user-id", 0, "UserID")
 	usersGetUserTeamsCmd.MarkFlagRequired("user-id")
+	usersGetUserTeamsCmd.Flags().BoolVar(&usersGetUserTeamsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	usersCmd.AddCommand(usersGetUserTeamsCmd)
 	usersSearchUsersCmd.Flags().Int64Var(&usersSearchUsersFlag.Page, "page", 0, "Page index for starting fetching users Default: 1")
 	usersSearchUsersCmd.Flags().Int64Var(&usersSearchUsersFlag.Perpage, "perpage", 1000, "Limit the maximum number of users to return per page Default: 1000")
+	usersSearchUsersCmd.Flags().BoolVar(&usersSearchUsersFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	usersCmd.AddCommand(usersSearchUsersCmd)
+	usersSearchUsersWithPagingCmd.Flags().BoolVar(&usersSearchUsersWithPagingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	usersCmd.AddCommand(usersSearchUsersWithPagingCmd)
 	usersUpdateUserCmd.Flags().StringVar(&usersUpdateUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
 	usersUpdateUserCmd.MarkFlagRequired("body")
 	usersUpdateUserCmd.Flags().Int64Var(&usersUpdateUserFlag.UserID, "user-id", 0, "UserID")
 	usersUpdateUserCmd.MarkFlagRequired("user-id")
 	usersUpdateUserCmd.Flags().BoolVar(&usersUpdateUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	usersUpdateUserCmd.Flags().BoolVar(&usersUpdateUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	usersCmd.AddCommand(usersUpdateUserCmd)
 }
