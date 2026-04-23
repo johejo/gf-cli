@@ -10,6 +10,7 @@ gf sync-team-groups get-team-groups-api [flags]
 
 ```
   -h, --help          help for get-team-groups-api
+      --raw           Print the raw HTTP response body instead of the decoded payload
       --team-id int   TeamID
 ```
 

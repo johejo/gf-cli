@@ -32,6 +32,7 @@ gf datasources update-correlation [flags]
       --correlation-uid string     CorrelationUID
       --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
   -h, --help                       help for update-correlation
+      --raw                        Print the raw HTTP response body instead of the decoded payload
       --source-uid string          SourceUID
 ```
 

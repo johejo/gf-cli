@@ -12,6 +12,7 @@ gf org get-org-users-for-current-org [flags]
   -h, --help           help for get-org-users-for-current-org
       --limit int      Limit
       --query string   Query
+      --raw            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

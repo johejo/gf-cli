@@ -18,6 +18,7 @@ gf access-control list-user-roles [flags]
 
 ```
   -h, --help          help for list-user-roles
+      --raw           Print the raw HTTP response body instead of the decoded payload
       --user-id int   UserID
 ```
 

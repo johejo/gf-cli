@@ -11,6 +11,7 @@ gf users get-user-by-login-or-email [flags]
 ```
   -h, --help                    help for get-user-by-login-or-email
       --login-or-email string   loginOrEmail of the user
+      --raw                     Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

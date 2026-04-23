@@ -10,6 +10,7 @@ gf signed-in-user clear-help-flags [flags]
 
 ```
   -h, --help   help for clear-help-flags
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

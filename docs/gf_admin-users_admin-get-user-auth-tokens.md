@@ -16,6 +16,7 @@ gf admin-users admin-get-user-auth-tokens [flags]
 
 ```
   -h, --help          help for admin-get-user-auth-tokens
+      --raw           Print the raw HTTP response body instead of the decoded payload
       --user-id int   UserID
 ```
 

@@ -16,6 +16,7 @@ gf admin-users admin-logout-user [flags]
 
 ```
   -h, --help          help for admin-logout-user
+      --raw           Print the raw HTTP response body instead of the decoded payload
       --user-id int   UserID
 ```
 

@@ -17,6 +17,7 @@ gf library-elements delete-library-element-by-uid [flags]
 ```
   -h, --help                         help for delete-library-element-by-uid
       --library-element-uid string   LibraryElementUID
+      --raw                          Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

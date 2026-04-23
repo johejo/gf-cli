@@ -10,6 +10,7 @@ gf convert-prometheus convert-prometheus-cortex-post-rule-groups [flags]
 
 ```
   -h, --help   help for convert-prometheus-cortex-post-rule-groups
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

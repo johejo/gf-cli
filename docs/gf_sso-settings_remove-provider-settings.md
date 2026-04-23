@@ -19,6 +19,7 @@ gf sso-settings remove-provider-settings [flags]
 ```
   -h, --help         help for remove-provider-settings
       --key string   Key
+      --raw          Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

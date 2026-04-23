@@ -17,6 +17,7 @@ gf orgs get-org-users [flags]
 ```
   -h, --help         help for get-org-users
       --org-id int   OrgID
+      --raw          Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

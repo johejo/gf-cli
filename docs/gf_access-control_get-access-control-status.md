@@ -18,6 +18,7 @@ gf access-control get-access-control-status [flags]
 
 ```
   -h, --help   help for get-access-control-status
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -11,6 +11,7 @@ gf datasources get-correlation [flags]
 ```
       --correlation-uid string   CorrelationUID
   -h, --help                     help for get-correlation
+      --raw                      Print the raw HTTP response body instead of the decoded payload
       --source-uid string        SourceUID
 ```
 

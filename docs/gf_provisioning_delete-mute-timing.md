@@ -11,6 +11,7 @@ gf provisioning delete-mute-timing [flags]
 ```
   -h, --help                          help for delete-mute-timing
       --name string                   Mute timing name
+      --raw                           Print the raw HTTP response body instead of the decoded payload
       --version string                Version of mute timing to use for optimistic concurrency. Leave empty to disable validation
       --x-disable-provenance string   XDisableProvenance
 ```

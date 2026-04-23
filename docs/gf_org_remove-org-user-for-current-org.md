@@ -16,6 +16,7 @@ gf org remove-org-user-for-current-org [flags]
 
 ```
   -h, --help          help for remove-org-user-for-current-org
+      --raw           Print the raw HTTP response body instead of the decoded payload
       --user-id int   UserID
 ```
 

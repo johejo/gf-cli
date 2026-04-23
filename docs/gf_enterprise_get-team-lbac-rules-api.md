@@ -10,6 +10,7 @@ gf enterprise get-team-lbac-rules-api [flags]
 
 ```
   -h, --help         help for get-team-lbac-rules-api
+      --raw          Print the raw HTTP response body instead of the decoded payload
       --uid string   UID
 ```
 

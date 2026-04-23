@@ -18,6 +18,7 @@ gf enterprise search-result [flags]
 
 ```
   -h, --help   help for search-result
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

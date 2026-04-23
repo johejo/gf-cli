@@ -21,6 +21,7 @@ gf quota update-user-quota [flags]
       --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
   -h, --help                       help for update-user-quota
       --quota-target string        QuotaTarget
+      --raw                        Print the raw HTTP response body instead of the decoded payload
       --user-id int                UserID
 ```
 

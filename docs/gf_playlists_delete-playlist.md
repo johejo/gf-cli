@@ -10,6 +10,7 @@ gf playlists delete-playlist [flags]
 
 ```
   -h, --help         help for delete-playlist
+      --raw          Print the raw HTTP response body instead of the decoded payload
       --uid string   UID
 ```
 

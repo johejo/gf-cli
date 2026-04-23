@@ -11,6 +11,7 @@ gf enterprise get-datasource-cache-config [flags]
 ```
       --data-source-uid string   DataSourceUID
   -h, --help                     help for get-datasource-cache-config
+      --raw                      Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

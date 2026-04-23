@@ -16,6 +16,7 @@ gf signed-in-user get-user-auth-tokens [flags]
 
 ```
   -h, --help   help for get-user-auth-tokens
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

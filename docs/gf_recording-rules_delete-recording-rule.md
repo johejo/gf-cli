@@ -10,6 +10,7 @@ gf recording-rules delete-recording-rule [flags]
 
 ```
   -h, --help                    help for delete-recording-rule
+      --raw                     Print the raw HTTP response body instead of the decoded payload
       --recording-rule-id int   RecordingRuleID
 ```
 

@@ -17,6 +17,7 @@ gf signed-in-user star-dashboard-by-uid [flags]
 ```
       --dashboard-uid string   DashboardUID
   -h, --help                   help for star-dashboard-by-uid
+      --raw                    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

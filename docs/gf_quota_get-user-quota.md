@@ -16,6 +16,7 @@ gf quota get-user-quota [flags]
 
 ```
   -h, --help          help for get-user-quota
+      --raw           Print the raw HTTP response body instead of the decoded payload
       --user-id int   UserID
 ```
 

@@ -10,6 +10,7 @@ gf provisioning get-alert-rule [flags]
 
 ```
   -h, --help         help for get-alert-rule
+      --raw          Print the raw HTTP response body instead of the decoded payload
       --uid string   Alert rule UID
 ```
 

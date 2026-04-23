@@ -16,6 +16,7 @@ gf service-accounts retrieve-service-account [flags]
 
 ```
   -h, --help                     help for retrieve-service-account
+      --raw                      Print the raw HTTP response body instead of the decoded payload
       --service-account-id int   ServiceAccountID
 ```
 

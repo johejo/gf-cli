@@ -29,6 +29,7 @@ gf folders update-folder [flags]
       --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
       --folder-uid string          FolderUID
   -h, --help                       help for update-folder
+      --raw                        Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

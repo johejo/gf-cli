@@ -10,6 +10,7 @@ gf saml post-slo [flags]
 
 ```
   -h, --help                   help for post-slo
+      --raw                    Print the raw HTTP response body instead of the decoded payload
       --saml-request string    SAMLRequest
       --saml-response string   SAMLResponse
 ```

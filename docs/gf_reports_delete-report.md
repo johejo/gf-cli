@@ -21,6 +21,7 @@ gf reports delete-report [flags]
 ```
   -h, --help     help for delete-report
       --id int   ID
+      --raw      Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

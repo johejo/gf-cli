@@ -16,6 +16,7 @@ gf dashboards get-dashboard-by-uid [flags]
 
 ```
   -h, --help         help for get-dashboard-by-uid
+      --raw          Print the raw HTTP response body instead of the decoded payload
       --uid string   UID
 ```
 

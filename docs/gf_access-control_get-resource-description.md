@@ -10,6 +10,7 @@ gf access-control get-resource-description [flags]
 
 ```
   -h, --help              help for get-resource-description
+      --raw               Print the raw HTTP response body instead of the decoded payload
       --resource string   Resource
 ```
 

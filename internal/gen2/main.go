@@ -134,11 +134,12 @@ func main() {
 
 	// Phase 6: Execute template
 	funcMap := template.FuncMap{
-		"flagFunc":        flagFunc,
-		"defaultValue":    defaultValue,
-		"flagHelp":        flagHelp,
-		"stringLiteral":   stringLiteral,
-		"actionLongParts": actionLongParts,
+		"flagFunc":         flagFunc,
+		"defaultValue":     defaultValue,
+		"flagHelp":         flagHelp,
+		"stringLiteral":    stringLiteral,
+		"actionLongParts":  actionLongParts,
+		"actionBodySchema": actionBodySchema,
 	}
 
 	t, err := template.New("gen").Funcs(funcMap).Parse(tmpl)
@@ -249,11 +250,6 @@ func actionLongParts(act *Action) []string {
 	if act.Long != "" {
 		longParts = append(longParts, strings.Split(act.Long, "\n\n")...)
 	}
-	if act.BodyField != nil && act.BodyField.Schema != nil {
-		if s := formatBodySchema(act.BodyField.Schema); s != "" {
-			longParts = append(longParts, s)
-		}
-	}
 	if len(longParts) == 0 {
 		return nil
 	}
@@ -261,4 +257,11 @@ func actionLongParts(act *Action) []string {
 		return longParts
 	}
 	return append([]string{act.Short}, longParts...)
+}
+
+func actionBodySchema(act *Action) string {
+	if act.BodyField == nil || act.BodyField.Schema == nil {
+		return ""
+	}
+	return formatBodySchema(act.BodyField.Schema)
 }

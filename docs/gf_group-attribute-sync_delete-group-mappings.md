@@ -11,6 +11,7 @@ gf group-attribute-sync delete-group-mappings [flags]
 ```
       --group-id string   GroupID
   -h, --help              help for delete-group-mappings
+      --raw               Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

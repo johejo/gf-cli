@@ -11,6 +11,7 @@ gf provisioning get-contactpoints [flags]
 ```
   -h, --help          help for get-contactpoints
       --name string   Filter by name
+      --raw           Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

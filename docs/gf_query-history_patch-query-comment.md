@@ -25,6 +25,7 @@ gf query-history patch-query-comment [flags]
       --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
   -h, --help                       help for patch-query-comment
       --query-history-uid string   QueryHistoryUID
+      --raw                        Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

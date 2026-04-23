@@ -11,6 +11,7 @@ gf sync-team-groups remove-team-group-api-query [flags]
 ```
       --group-id string   GroupID
   -h, --help              help for remove-team-group-api-query
+      --raw               Print the raw HTTP response body instead of the decoded payload
       --team-id int       TeamID
 ```
 

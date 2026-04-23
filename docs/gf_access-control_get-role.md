@@ -18,6 +18,7 @@ gf access-control get-role [flags]
 
 ```
   -h, --help              help for get-role
+      --raw               Print the raw HTTP response body instead of the decoded payload
       --role-uid string   RoleUID
 ```
 

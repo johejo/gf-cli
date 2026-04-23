@@ -22,6 +22,7 @@ gf quota update-org-quota [flags]
   -h, --help                       help for update-org-quota
       --org-id int                 OrgID
       --quota-target string        QuotaTarget
+      --raw                        Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

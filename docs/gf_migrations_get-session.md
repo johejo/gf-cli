@@ -10,6 +10,7 @@ gf migrations get-session [flags]
 
 ```
   -h, --help         help for get-session
+      --raw          Print the raw HTTP response body instead of the decoded payload
       --uid string   UID of a migration session
 ```
 

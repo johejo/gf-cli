@@ -10,6 +10,7 @@ gf convert-prometheus convert-prometheus-get-rules [flags]
 
 ```
   -h, --help   help for convert-prometheus-get-rules
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

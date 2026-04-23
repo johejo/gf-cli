@@ -10,6 +10,7 @@ gf migrations get-session-list [flags]
 
 ```
   -h, --help   help for get-session-list
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

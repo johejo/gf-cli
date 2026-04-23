@@ -18,6 +18,7 @@ gf annotations get-annotations [flags]
       --limit int              Max limit for results returned.
       --match-any              Match any or all tags
       --panel-id int           Find annotations that are scoped to a specific panel
+      --raw                    Print the raw HTTP response body instead of the decoded payload
       --tags strings           Use this to filter organization annotations. Organization annotations are annotations from an annotation data source that are not connected specifically to a dashboard or panel. You can filter by multiple tags.
       --to int                 Find annotations created before specific epoch datetime in milliseconds.
       --type string            Return alerts or user created annotations

@@ -11,6 +11,7 @@ gf migrations get-snapshot [flags]
 ```
       --errors-only                 ErrorsOnly is used to only return resources with error statuses
   -h, --help                        help for get-snapshot
+      --raw                         Print the raw HTTP response body instead of the decoded payload
       --result-limit int            Max limit for snapshot results returned. Default: 100
       --result-page int             ResultPage is used for pagination with ResultLimit Default: 1
       --result-sort-column string   ResultSortColumn can be used to override the default system sort. Valid values are "name", "resource_type", and "status". Default: "default"

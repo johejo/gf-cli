@@ -12,6 +12,7 @@ gf provisioning get-alert-rule-group [flags]
       --folder-uid string   FolderUID
       --group string        Group
   -h, --help                help for get-alert-rule-group
+      --raw                 Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

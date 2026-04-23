@@ -16,6 +16,7 @@ gf saml get-slo [flags]
 
 ```
   -h, --help   help for get-slo
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -17,6 +17,7 @@ gf library-elements get-library-element-by-name [flags]
 ```
   -h, --help                          help for get-library-element-by-name
       --library-element-name string   LibraryElementName
+      --raw                           Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

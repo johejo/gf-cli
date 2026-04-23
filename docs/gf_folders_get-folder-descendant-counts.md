@@ -11,6 +11,7 @@ gf folders get-folder-descendant-counts [flags]
 ```
       --folder-uid string   FolderUID
   -h, --help                help for get-folder-descendant-counts
+      --raw                 Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -16,6 +16,7 @@ gf admin-provisioning admin-provisioning-reload-datasources [flags]
 
 ```
   -h, --help   help for admin-provisioning-reload-datasources
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

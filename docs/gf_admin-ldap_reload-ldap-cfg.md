@@ -16,6 +16,7 @@ gf admin-ldap reload-ldap-cfg [flags]
 
 ```
   -h, --help   help for reload-ldap-cfg
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

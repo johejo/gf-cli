@@ -12,6 +12,7 @@ gf dashboards query-public-dashboard [flags]
       --access-token string   AccessToken
   -h, --help                  help for query-public-dashboard
       --panel-id int          PanelID
+      --raw                   Print the raw HTTP response body instead of the decoded payload (default true)
 ```
 
 ### Options inherited from parent commands

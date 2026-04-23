@@ -30,6 +30,7 @@ gf provisioning put-mute-timing [flags]
       --describe-body-jsonschema      Print the JSON Schema of the request body and exit without calling the API
   -h, --help                          help for put-mute-timing
       --name string                   Mute timing name
+      --raw                           Print the raw HTTP response body instead of the decoded payload
       --x-disable-provenance string   XDisableProvenance
 ```
 

@@ -13,6 +13,7 @@ gf provisioning export-mute-timing [flags]
       --format string   Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: "yaml"
   -h, --help            help for export-mute-timing
       --name string     Mute timing name
+      --raw             Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

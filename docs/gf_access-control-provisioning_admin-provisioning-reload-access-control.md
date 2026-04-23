@@ -10,6 +10,7 @@ gf access-control-provisioning admin-provisioning-reload-access-control [flags]
 
 ```
   -h, --help   help for admin-provisioning-reload-access-control
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

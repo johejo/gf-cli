@@ -18,6 +18,7 @@ gf service-accounts delete-token [flags]
 
 ```
   -h, --help                     help for delete-token
+      --raw                      Print the raw HTTP response body instead of the decoded payload
       --service-account-id int   ServiceAccountID
       --token-id int             TokenID
 ```

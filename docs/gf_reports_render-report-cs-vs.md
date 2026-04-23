@@ -11,6 +11,7 @@ gf reports render-report-cs-vs [flags]
 ```
       --dashboards string   Dashboards
   -h, --help                help for render-report-cs-vs
+      --raw                 Print the raw HTTP response body instead of the decoded payload
       --title string        Title
 ```
 

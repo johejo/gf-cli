@@ -11,6 +11,7 @@ gf annotations get-annotation-tags [flags]
 ```
   -h, --help           help for get-annotation-tags
       --limit string   Max limit for results returned. Default: "100"
+      --raw            Print the raw HTTP response body instead of the decoded payload
       --tag string     Tag is a string that you can use to filter tags.
 ```
 

@@ -52,6 +52,12 @@ var (
 {{- end }}
 		),
 {{- end }}
+{{- $bodySchema := actionBodySchema . }}
+{{- if $bodySchema }}
+		Annotations: map[string]string{
+			"bodySchema": {{ stringLiteral $bodySchema }},
+		},
+{{- end }}
 		DisableAutoGenTag: true,
 {{- if and .BodyField (ne .BodyField.JSONSchema "") }}
 		PreRunE: func(cmd *cobra.Command, args []string) error {

@@ -17,6 +17,7 @@ gf datasources delete-datasource-by-name [flags]
 ```
   -h, --help          help for delete-datasource-by-name
       --name string   Name
+      --raw           Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

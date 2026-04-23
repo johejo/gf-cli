@@ -17,6 +17,7 @@ gf sso-settings get-provider-settings [flags]
 ```
   -h, --help         help for get-provider-settings
       --key string   Key
+      --raw          Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

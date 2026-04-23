@@ -16,6 +16,7 @@ gf service-accounts delete-service-account [flags]
 
 ```
   -h, --help                     help for delete-service-account
+      --raw                      Print the raw HTTP response body instead of the decoded payload
       --service-account-id int   ServiceAccountID
 ```
 

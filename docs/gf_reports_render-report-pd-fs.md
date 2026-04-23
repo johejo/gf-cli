@@ -14,6 +14,7 @@ gf reports render-report-pd-fs [flags]
       --include-tables string   IncludeTables
       --layout string           Layout
       --orientation string      Orientation
+      --raw                     Print the raw HTTP response body instead of the decoded payload
       --scale-factor string     ScaleFactor
       --title string            Title
 ```

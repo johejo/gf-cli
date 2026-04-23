@@ -10,6 +10,7 @@ gf migrations get-resource-dependencies [flags]
 
 ```
   -h, --help   help for get-resource-dependencies
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

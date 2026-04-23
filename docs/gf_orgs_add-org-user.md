@@ -28,6 +28,7 @@ gf orgs add-org-user [flags]
       --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
   -h, --help                       help for add-org-user
       --org-id int                 OrgID
+      --raw                        Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

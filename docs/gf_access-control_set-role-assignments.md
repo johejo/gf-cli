@@ -27,6 +27,7 @@ gf access-control set-role-assignments [flags]
       --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
       --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
   -h, --help                       help for set-role-assignments
+      --raw                        Print the raw HTTP response body instead of the decoded payload
       --role-uid string            RoleUID
 ```
 

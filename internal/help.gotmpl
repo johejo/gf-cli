@@ -1,0 +1,15 @@
+{{- /* Description: Long (falling back to Short), followed by a blank line. */ -}}
+{{- with (or .Long .Short) -}}
+{{ . | trimTrailingWhitespaces }}
+
+{{ end -}}
+
+{{- /* Usage / Flags / Global Flags (cobra auto-renders into UsageString). */ -}}
+{{- if or .Runnable .HasSubCommands -}}
+{{ .UsageString }}
+{{- end -}}
+
+{{- /* Body schema, if the command carries one. The leading newline produces the blank line that separates it from the Flags block above. */ -}}
+{{- with (index .Annotations "bodySchema") }}
+{{ . | trimTrailingWhitespaces }}
+{{ end -}}

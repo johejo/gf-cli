@@ -16,6 +16,7 @@ gf dashboards delete-dashboard-by-uid [flags]
 
 ```
   -h, --help         help for delete-dashboard-by-uid
+      --raw          Print the raw HTTP response body instead of the decoded payload
       --uid string   UID
 ```
 

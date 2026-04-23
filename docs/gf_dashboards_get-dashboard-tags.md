@@ -10,6 +10,7 @@ gf dashboards get-dashboard-tags [flags]
 
 ```
   -h, --help   help for get-dashboard-tags
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

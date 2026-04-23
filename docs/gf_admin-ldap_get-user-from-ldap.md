@@ -16,6 +16,7 @@ gf admin-ldap get-user-from-ldap [flags]
 
 ```
   -h, --help               help for get-user-from-ldap
+      --raw                Print the raw HTTP response body instead of the decoded payload
       --user-name string   UserName
 ```
 

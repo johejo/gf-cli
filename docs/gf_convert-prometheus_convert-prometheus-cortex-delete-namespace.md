@@ -11,6 +11,7 @@ gf convert-prometheus convert-prometheus-cortex-delete-namespace [flags]
 ```
   -h, --help                     help for convert-prometheus-cortex-delete-namespace
       --namespace-title string   NamespaceTitle
+      --raw                      Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

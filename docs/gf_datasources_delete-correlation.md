@@ -11,6 +11,7 @@ gf datasources delete-correlation [flags]
 ```
       --correlation-uid string   CorrelationUID
   -h, --help                     help for delete-correlation
+      --raw                      Print the raw HTTP response body instead of the decoded payload
       --uid string               UID
 ```
 

@@ -11,6 +11,7 @@ gf provisioning delete-template [flags]
 ```
   -h, --help             help for delete-template
       --name string      Template group name
+      --raw              Print the raw HTTP response body instead of the decoded payload
       --version string   Version of template to use for optimistic concurrency. Leave empty to disable validation
 ```
 

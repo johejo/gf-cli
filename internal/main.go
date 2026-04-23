@@ -2,6 +2,7 @@ package internal
 
 import (
 	"bytes"
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -17,6 +18,9 @@ import (
 	"github.com/spf13/cobra"
 	"mvdan.cc/xurls/v2"
 )
+
+//go:embed help.gotmpl
+var helpTemplate string
 
 var (
 	rootCmd = &cobra.Command{
@@ -47,6 +51,7 @@ func RootCmd() *cobra.Command {
 }
 
 func init() {
+	rootCmd.SetHelpTemplate(helpTemplate)
 	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.host, "host", "localhost:3000", "Grafana server host (env: GF_HOST)")
 	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.basePath, "base-path", "/api", "Base path for server: useful when using sever behind reverse proxy (env: GF_BASE_PATH)")
 	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.apiKey, "api-key", "", "API Key to authenticate to grafana server (env: GF_API_KEY)")

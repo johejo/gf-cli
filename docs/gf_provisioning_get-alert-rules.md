@@ -10,6 +10,7 @@ gf provisioning get-alert-rules [flags]
 
 ```
   -h, --help   help for get-alert-rules
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

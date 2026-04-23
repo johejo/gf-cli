@@ -16,6 +16,7 @@ gf ldap-debug get-sync-status [flags]
 
 ```
   -h, --help   help for get-sync-status
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

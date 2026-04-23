@@ -58,6 +58,7 @@ gf provisioning put-alert-rule-group [flags]
       --folder-uid string             FolderUID
       --group string                  Group
   -h, --help                          help for put-alert-rule-group
+      --raw                           Print the raw HTTP response body instead of the decoded payload
       --x-disable-provenance string   XDisableProvenance
 ```
 

@@ -10,6 +10,7 @@ gf saml get-saml-logout [flags]
 
 ```
   -h, --help   help for get-saml-logout
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

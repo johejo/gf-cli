@@ -22,6 +22,7 @@ gf group-attribute-sync update-group-mappings [flags]
       --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
       --group-id string            GroupID
   -h, --help                       help for update-group-mappings
+      --raw                        Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -22,6 +22,7 @@ gf folders move-folder [flags]
       --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
       --folder-uid string          FolderUID
   -h, --help                       help for move-folder
+      --raw                        Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

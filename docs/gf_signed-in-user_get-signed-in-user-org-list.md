@@ -16,6 +16,7 @@ gf signed-in-user get-signed-in-user-org-list [flags]
 
 ```
   -h, --help   help for get-signed-in-user-org-list
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -14,6 +14,7 @@ gf provisioning get-contactpoints-export [flags]
       --format string   Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: "yaml"
   -h, --help            help for get-contactpoints-export
       --name string     Filter by name
+      --raw             Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

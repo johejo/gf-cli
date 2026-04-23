@@ -11,6 +11,7 @@ gf datasources call-datasource-resource [flags]
 ```
       --datasource-proxy-route string   DatasourceProxyRoute
   -h, --help                            help for call-datasource-resource
+      --raw                             Print the raw HTTP response body instead of the decoded payload
       --uid string                      UID
 ```
 

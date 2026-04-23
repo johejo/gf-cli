@@ -15,6 +15,7 @@ gf query-history search-queries [flags]
       --limit int                Limit the number of returned results
       --only-starred             Flag indicating if only starred queries should be returned
       --page int                 Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size.
+      --raw                      Print the raw HTTP response body instead of the decoded payload
       --search-string string     Text inside query or comments that is searched for
       --sort string              Sort method Default: "time-desc"
       --to int                   To range for the query history search

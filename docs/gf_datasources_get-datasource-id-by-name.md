@@ -17,6 +17,7 @@ gf datasources get-datasource-id-by-name [flags]
 ```
   -h, --help          help for get-datasource-id-by-name
       --name string   Name
+      --raw           Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

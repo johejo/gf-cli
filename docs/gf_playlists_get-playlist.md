@@ -10,6 +10,7 @@ gf playlists get-playlist [flags]
 
 ```
   -h, --help         help for get-playlist
+      --raw          Print the raw HTTP response body instead of the decoded payload
       --uid string   UID
 ```
 

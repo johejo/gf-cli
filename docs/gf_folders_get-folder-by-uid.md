@@ -11,6 +11,7 @@ gf folders get-folder-by-uid [flags]
 ```
       --folder-uid string   FolderUID
   -h, --help                help for get-folder-by-uid
+      --raw                 Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -11,6 +11,7 @@ gf provisioning get-mute-timing [flags]
 ```
   -h, --help          help for get-mute-timing
       --name string   Mute timing name
+      --raw           Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

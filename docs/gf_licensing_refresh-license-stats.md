@@ -16,6 +16,7 @@ gf licensing refresh-license-stats [flags]
 
 ```
   -h, --help   help for refresh-license-stats
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

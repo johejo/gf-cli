@@ -10,6 +10,7 @@ gf migrations delete-cloud-migration-token [flags]
 
 ```
   -h, --help         help for delete-cloud-migration-token
+      --raw          Print the raw HTTP response body instead of the decoded payload
       --uid string   UID of a cloud migration token
 ```
 

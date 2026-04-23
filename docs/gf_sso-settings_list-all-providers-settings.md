@@ -16,6 +16,7 @@ gf sso-settings list-all-providers-settings [flags]
 
 ```
   -h, --help   help for list-all-providers-settings
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

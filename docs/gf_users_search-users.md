@@ -12,6 +12,7 @@ gf users search-users [flags]
   -h, --help          help for search-users
       --page int      Page index for starting fetching users Default: 1
       --perpage int   Limit the maximum number of users to return per page Default: 1000 (default 1000)
+      --raw           Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

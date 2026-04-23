@@ -12,6 +12,7 @@ gf provisioning get-alert-rule-export [flags]
       --download        Whether to initiate a download of the file or not.
       --format string   Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: "yaml"
   -h, --help            help for get-alert-rule-export
+      --raw             Print the raw HTTP response body instead of the decoded payload
       --uid string      Alert rule UID
 ```
 

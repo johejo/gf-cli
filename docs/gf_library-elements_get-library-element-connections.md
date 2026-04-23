@@ -17,6 +17,7 @@ gf library-elements get-library-element-connections [flags]
 ```
   -h, --help                         help for get-library-element-connections
       --library-element-uid string   LibraryElementUID
+      --raw                          Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

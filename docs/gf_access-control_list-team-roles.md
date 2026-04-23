@@ -16,6 +16,7 @@ gf access-control list-team-roles [flags]
 
 ```
   -h, --help          help for list-team-roles
+      --raw           Print the raw HTTP response body instead of the decoded payload
       --team-id int   TeamID
 ```
 

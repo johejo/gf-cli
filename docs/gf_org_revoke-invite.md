@@ -11,6 +11,7 @@ gf org revoke-invite [flags]
 ```
   -h, --help                     help for revoke-invite
       --invitation-code string   InvitationCode
+      --raw                      Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

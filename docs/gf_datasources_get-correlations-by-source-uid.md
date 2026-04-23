@@ -10,6 +10,7 @@ gf datasources get-correlations-by-source-uid [flags]
 
 ```
   -h, --help                help for get-correlations-by-source-uid
+      --raw                 Print the raw HTTP response body instead of the decoded payload
       --source-uid string   SourceUID
 ```
 

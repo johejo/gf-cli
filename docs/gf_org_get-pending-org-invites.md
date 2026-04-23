@@ -10,6 +10,7 @@ gf org get-pending-org-invites [flags]
 
 ```
   -h, --help   help for get-pending-org-invites
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -11,6 +11,7 @@ gf dashboards get-dashboard-snapshot [flags]
 ```
   -h, --help         help for get-dashboard-snapshot
       --key string   Key
+      --raw          Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -16,6 +16,7 @@ gf admin-ldap post-sync-user-with-ldap [flags]
 
 ```
   -h, --help          help for post-sync-user-with-ldap
+      --raw           Print the raw HTTP response body instead of the decoded payload
       --user-id int   UserID
 ```
 

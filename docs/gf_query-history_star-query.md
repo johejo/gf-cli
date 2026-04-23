@@ -17,6 +17,7 @@ gf query-history star-query [flags]
 ```
   -h, --help                       help for star-query
       --query-history-uid string   QueryHistoryUID
+      --raw                        Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

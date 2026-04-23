@@ -10,6 +10,7 @@ gf quota get-user-quotas [flags]
 
 ```
   -h, --help   help for get-user-quotas
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

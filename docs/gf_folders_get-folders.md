@@ -14,6 +14,7 @@ gf folders get-folders [flags]
       --page int            Page index for starting fetching folders Default: 1
       --parent-uid string   The parent folder UID
       --permission Edit     Set to Edit to return folders that the user can edit Default: "View"
+      --raw                 Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

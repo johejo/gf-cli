@@ -19,6 +19,7 @@ gf licensing post-renew-license-token [flags]
 ```
       --body string   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
   -h, --help          help for post-renew-license-token
+      --raw           Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -11,6 +11,7 @@ gf group-attribute-sync get-group-roles [flags]
 ```
       --group-id string   GroupID
   -h, --help              help for get-group-roles
+      --raw               Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

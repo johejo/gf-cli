@@ -11,6 +11,7 @@ gf enterprise disable-datasource-cache [flags]
 ```
       --data-source-uid string   DataSourceUID
   -h, --help                     help for disable-datasource-cache
+      --raw                      Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

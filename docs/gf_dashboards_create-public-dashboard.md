@@ -27,6 +27,7 @@ gf dashboards create-public-dashboard [flags]
       --dashboard-uid string       DashboardUID
       --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
   -h, --help                       help for create-public-dashboard
+      --raw                        Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

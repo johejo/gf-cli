@@ -35,6 +35,7 @@ gf convert-prometheus convert-prometheus-post-rule-group [flags]
       --describe-body-jsonschema                          Print the JSON Schema of the request body and exit without calling the API
   -h, --help                                              help for convert-prometheus-post-rule-group
       --namespace-title string                            NamespaceTitle
+      --raw                                               Print the raw HTTP response body instead of the decoded payload
       --x-grafana-alerting-alert-rules-paused             XGrafanaAlertingAlertRulesPaused
       --x-grafana-alerting-datasource-uid string          XGrafanaAlertingDatasourceUID
       --x-grafana-alerting-folder-uid string              XGrafanaAlertingFolderUID

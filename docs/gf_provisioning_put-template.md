@@ -21,6 +21,7 @@ gf provisioning put-template [flags]
       --describe-body-jsonschema      Print the JSON Schema of the request body and exit without calling the API
   -h, --help                          help for put-template
       --name string                   Template group name
+      --raw                           Print the raw HTTP response body instead of the decoded payload
       --x-disable-provenance string   XDisableProvenance
 ```
 

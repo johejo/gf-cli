@@ -17,6 +17,7 @@ gf query-history delete-query [flags]
 ```
   -h, --help                       help for delete-query
       --query-history-uid string   QueryHistoryUID
+      --raw                        Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

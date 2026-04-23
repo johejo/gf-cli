@@ -12,6 +12,7 @@ gf access-control delete-role [flags]
       --force             Force
       --global            Global
   -h, --help              help for delete-role
+      --raw               Print the raw HTTP response body instead of the decoded payload
       --role-uid string   RoleUID
 ```
 

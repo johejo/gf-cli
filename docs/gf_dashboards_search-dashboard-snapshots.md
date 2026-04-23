@@ -12,6 +12,7 @@ gf dashboards search-dashboard-snapshots [flags]
   -h, --help           help for search-dashboard-snapshots
       --limit int      Limit the number of returned results Default: 1000
       --query string   Search Query
+      --raw            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

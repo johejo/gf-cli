@@ -20,6 +20,7 @@ gf access-control set-resource-permissions-for-built-in-role [flags]
       --built-in-role string       BuiltInRole
       --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
   -h, --help                       help for set-resource-permissions-for-built-in-role
+      --raw                        Print the raw HTTP response body instead of the decoded payload
       --resource string            Resource
       --resource-id string         ResourceID
 ```

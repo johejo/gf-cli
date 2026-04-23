@@ -11,6 +11,7 @@ gf dashboards get-dashboard-version-by-uid [flags]
 ```
       --dashboard-version-id int   DashboardVersionID
   -h, --help                       help for get-dashboard-version-by-uid
+      --raw                        Print the raw HTTP response body instead of the decoded payload
       --uid string                 UID
 ```
 

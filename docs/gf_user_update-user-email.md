@@ -16,6 +16,7 @@ gf user update-user-email [flags]
 
 ```
   -h, --help   help for update-user-email
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

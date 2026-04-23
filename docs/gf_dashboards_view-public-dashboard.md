@@ -11,6 +11,7 @@ gf dashboards view-public-dashboard [flags]
 ```
       --access-token string   AccessToken
   -h, --help                  help for view-public-dashboard
+      --raw                   Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

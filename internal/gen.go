@@ -81,11 +81,13 @@ var (
 		Long: longHelp(
 			"Adds team role",
 			"You need to have a permission with action `teams.roles:add` and scope `permissions:type:delegate`.",
-			`Body schema (AddTeamRoleCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AddTeamRoleCommand):
 {
   "roleUid": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlAddTeamRoleFlag.DescribeBodyJSONSchema {
@@ -149,12 +151,14 @@ var (
 			"Adds a user role assignment",
 			"Assign a role to a specific user. For bulk updates consider Set user role assignments.",
 			"You need to have a permission with action `users.roles:add` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only assign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign a role which will allow to do that. This is done to prevent escalation of privileges.",
-			`Body schema (AddUserRoleCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AddUserRoleCommand):
 {
   "global": boolean,
   "roleUid": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlAddUserRoleFlag.DescribeBodyJSONSchema {
@@ -256,7 +260,9 @@ var (
 			"Creates a new custom role",
 			"Creates a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed Roles can’t be created.",
 			"You need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to create a custom role which allows to do that. This is done to prevent escalation of privileges.",
-			`Body schema (CreateRoleForm):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateRoleForm):
 {
   "description": string,
   "displayName": string,
@@ -275,7 +281,7 @@ var (
   "uid": string,
   "version": number
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlCreateRoleFlag.DescribeBodyJSONSchema {
@@ -625,14 +631,16 @@ var (
 			"Lists roles assigned to multiple teams",
 			"Lists the roles that have been directly assigned to the given teams.",
 			"You need to have a permission with action `teams.roles:read` and scope `teams:id:*`.",
-			`Body schema (RolesSearchQuery):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (RolesSearchQuery):
 {
   "includeHidden": boolean,
   "orgId": number,
   "teamIds": [number],
   "userIds": [number]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlListTeamsRolesFlag.DescribeBodyJSONSchema {
@@ -744,14 +752,16 @@ var (
 			"Lists roles assigned to multiple users",
 			"Lists the roles that have been directly assigned to the given users. The list does not include built-in roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.",
 			"You need to have a permission with action `users.roles:read` and scope `users:id:*`.",
-			`Body schema (RolesSearchQuery):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (RolesSearchQuery):
 {
   "includeHidden": boolean,
   "orgId": number,
   "teamIds": [number],
   "userIds": [number]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlListUsersRolesFlag.DescribeBodyJSONSchema {
@@ -893,8 +903,8 @@ var (
 }`
 	accessControlSetResourcePermissionsCmd = &cobra.Command{
 		Use: "set-resource-permissions",
-		Long: longHelp(
-			`Body schema (SetPermissionsCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (SetPermissionsCommand):
 {
   "permissions": [
     {
@@ -905,7 +915,7 @@ var (
     }
   ]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlSetResourcePermissionsFlag.DescribeBodyJSONSchema {
@@ -962,12 +972,12 @@ var (
 }`
 	accessControlSetResourcePermissionsForBuiltInRoleCmd = &cobra.Command{
 		Use: "set-resource-permissions-for-built-in-role",
-		Long: longHelp(
-			`Body schema (SetPermissionCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (SetPermissionCommand):
 {
   "permission": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlSetResourcePermissionsForBuiltInRoleFlag.DescribeBodyJSONSchema {
@@ -1025,12 +1035,12 @@ var (
 }`
 	accessControlSetResourcePermissionsForTeamCmd = &cobra.Command{
 		Use: "set-resource-permissions-for-team",
-		Long: longHelp(
-			`Body schema (SetPermissionCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (SetPermissionCommand):
 {
   "permission": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlSetResourcePermissionsForTeamFlag.DescribeBodyJSONSchema {
@@ -1088,12 +1098,12 @@ var (
 }`
 	accessControlSetResourcePermissionsForUserCmd = &cobra.Command{
 		Use: "set-resource-permissions-for-user",
-		Long: longHelp(
-			`Body schema (SetPermissionCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (SetPermissionCommand):
 {
   "permission": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlSetResourcePermissionsForUserFlag.DescribeBodyJSONSchema {
@@ -1171,13 +1181,15 @@ var (
 			"Sets role assignments",
 			"Set role assignments for the role with the given UID.",
 			"You need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate`, and `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate`.",
-			`Body schema (SetRoleAssignmentsCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (SetRoleAssignmentsCommand):
 {
   "service_accounts": [number],
   "teams": [number],
   "users": [number]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlSetRoleAssignmentsFlag.DescribeBodyJSONSchema {
@@ -1243,12 +1255,14 @@ var (
 		Long: longHelp(
 			"Updates team role",
 			"You need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate` for each.",
-			`Body schema (SetTeamRolesCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (SetTeamRolesCommand):
 {
   "includeHidden": boolean,
   "roleUids": [string]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlSetTeamRolesFlag.DescribeBodyJSONSchema {
@@ -1318,13 +1332,15 @@ var (
 			"Sets user role assignments",
 			"Update the user’s role assignments to match the provided set of UIDs. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user. Roles mapped through group attribute sync are not impacted. If you want to add or remove a single role, consider using Add a user role assignment or Remove a user role assignment instead.",
 			"You need to have a permission with action `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate` for each. `permissions:type:delegate`  scope ensures that users can only assign or unassign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign or unassign a role which will allow to do that. This is done to prevent escalation of privileges.",
-			`Body schema (SetUserRolesCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (SetUserRolesCommand):
 {
   "global": boolean,
   "includeHidden": boolean,
   "roleUids": [string]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlSetUserRolesFlag.DescribeBodyJSONSchema {
@@ -1427,7 +1443,9 @@ var (
 		Long: longHelp(
 			"Updates a custom role",
 			"You need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has.",
-			`Body schema (UpdateRoleCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateRoleCommand):
 {
   "description": string,
   "displayName": string,
@@ -1448,7 +1466,7 @@ var (
   description              required
   displayName              required
   group                    required`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlUpdateRoleFlag.DescribeBodyJSONSchema {
@@ -2059,7 +2077,9 @@ var (
 		Long: longHelp(
 			"Creates new user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:create`. Note that OrgId is an optional parameter that can be used to assign a new user to a different organization when `auto_assign_org` is set to `true`.",
-			`Body schema (AdminCreateUserForm):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AdminCreateUserForm):
 {
   "email": string,
   "login": string,
@@ -2067,7 +2087,7 @@ var (
   "orgId": number,
   "password": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminUsersAdminCreateUserFlag.DescribeBodyJSONSchema {
@@ -2306,11 +2326,13 @@ var (
 		Long: longHelp(
 			"Revokes auth token for user",
 			"Revokes the given auth token (device) for the user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.authtoken:update` and scope `global.users:*`.",
-			`Body schema (RevokeAuthTokenCmd):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (RevokeAuthTokenCmd):
 {
   "authTokenId": number
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminUsersAdminRevokeUserAuthTokenFlag.DescribeBodyJSONSchema {
@@ -2370,11 +2392,13 @@ var (
 		Long: longHelp(
 			"Sets password for user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.password:update` and scope `global.users:*`.",
-			`Body schema (AdminUpdateUserPasswordForm):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AdminUpdateUserPasswordForm):
 {
   "password": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminUsersAdminUpdateUserPasswordFlag.DescribeBodyJSONSchema {
@@ -2434,11 +2458,13 @@ var (
 		Long: longHelp(
 			"Sets permissions for user",
 			"Only works with Basic Authentication (username and password). See introduction for an explanation. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.permissions:update` and scope `global.users:*`.",
-			`Body schema (AdminUpdateUserPermissionsForm):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AdminUpdateUserPermissionsForm):
 {
   "isGrafanaAdmin": boolean
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminUsersAdminUpdateUserPermissionsFlag.DescribeBodyJSONSchema {
@@ -2628,16 +2654,15 @@ var (
 	annotationsMassDeleteAnnotationsCmd = &cobra.Command{
 		Use:   "mass-delete-annotations",
 		Short: "Deletes multiple annotations",
-		Long: longHelp(
-			"Deletes multiple annotations",
-			`Body schema (MassDeleteAnnotationsCmd):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (MassDeleteAnnotationsCmd):
 {
   "annotationId": number,
   "dashboardId": number,
   "dashboardUID": string,
   "panelId": number
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if annotationsMassDeleteAnnotationsFlag.DescribeBodyJSONSchema {
@@ -2712,7 +2737,9 @@ var (
 		Long: longHelp(
 			"Patches annotation",
 			"Updates one or more properties of an annotation that matches the specified ID. This operation currently supports updating of the `text`, `tags`, `time` and `timeEnd` properties. This is available in Grafana 6.0.0-beta2 and above.",
-			`Body schema (PatchAnnotationsCmd):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PatchAnnotationsCmd):
 {
   "data": any,
   "id": number,
@@ -2721,7 +2748,7 @@ var (
   "time": number,
   "timeEnd": number
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if annotationsPatchAnnotationFlag.DescribeBodyJSONSchema {
@@ -2806,7 +2833,9 @@ var (
 		Long: longHelp(
 			"Creates annotation",
 			"Creates an annotation in the Grafana database. The dashboardId and panelId fields are optional. If they are not specified then an organization annotation is created and can be queried in any dashboard that adds the Grafana annotations data source. When creating a region annotation include the timeEnd property. The format for `time` and `timeEnd` should be epoch numbers in millisecond resolution. The response for this HTTP request is slightly different in versions prior to v6.4. In prior versions you would also get an endId if you where creating a region. But in 6.4 regions are represented using a single event with time and timeEnd properties.",
-			`Body schema (PostAnnotationsCmd):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PostAnnotationsCmd):
 {
   "dashboardId": number,
   "dashboardUID": string,
@@ -2818,7 +2847,7 @@ var (
   "timeEnd": number
 }
   text                     required`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if annotationsPostAnnotationFlag.DescribeBodyJSONSchema {
@@ -2884,14 +2913,16 @@ var (
 		Long: longHelp(
 			"Creates annotation in graphite format",
 			"Creates an annotation by using Graphite-compatible event format. The `when` and `data` fields are optional. If `when` is not specified then the current time will be used as annotation’s timestamp. The `tags` field can also be in prior to Graphite `0.10.0` format (string with multiple tags being separated by a space).",
-			`Body schema (PostGraphiteAnnotationsCmd):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PostGraphiteAnnotationsCmd):
 {
   "data": string,
   "tags": any,
   "what": string,
   "when": number
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if annotationsPostGraphiteAnnotationFlag.DescribeBodyJSONSchema {
@@ -2966,7 +2997,9 @@ var (
 		Long: longHelp(
 			"Updates annotation",
 			"Updates all properties of an annotation that matches the specified id. To only update certain property, consider using the Patch Annotation operation.",
-			`Body schema (UpdateAnnotationsCmd):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateAnnotationsCmd):
 {
   "data": any,
   "id": number,
@@ -2975,7 +3008,7 @@ var (
   "time": number,
   "timeEnd": number
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if annotationsUpdateAnnotationFlag.DescribeBodyJSONSchema {
@@ -3295,8 +3328,8 @@ var (
 }`
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd = &cobra.Command{
 		Use: "convert-prometheus-cortex-post-rule-group",
-		Long: longHelp(
-			`Body schema (PrometheusRuleGroup):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PrometheusRuleGroup):
 {
   "interval": number,
   "labels": {"key": string},
@@ -3315,7 +3348,7 @@ var (
     }
   ]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.DescribeBodyJSONSchema {
@@ -3617,8 +3650,8 @@ var (
 }`
 	convertPrometheusConvertPrometheusPostRuleGroupCmd = &cobra.Command{
 		Use: "convert-prometheus-post-rule-group",
-		Long: longHelp(
-			`Body schema (PrometheusRuleGroup):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PrometheusRuleGroup):
 {
   "interval": number,
   "labels": {"key": string},
@@ -3637,7 +3670,7 @@ var (
     }
   ]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusPostRuleGroupFlag.DescribeBodyJSONSchema {
@@ -3841,7 +3874,9 @@ var (
 		Long: longHelp(
 			"Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI",
 			"Snapshot public mode should be enabled or authentication is required.",
-			`Body schema (CreateDashboardSnapshotCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateDashboardSnapshotCommand):
 {
   "apiVersion": string,
   "dashboard": any,
@@ -3854,13 +3889,13 @@ var (
 }
   apiVersion               APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources +optional
   dashboard                required
-  deleteKey                Unique key used to delete the snapshot. It is different from the `+"`"+`key`+"`"+` so that only the creator can delete the snapshot. Required if `+"`"+`external`+"`"+` is `+"`"+`true`+"`"+`.
+  deleteKey                Unique key used to delete the snapshot. It is different from the ` + "`" + `key` + "`" + ` so that only the creator can delete the snapshot. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `.
   expires                  When the snapshot should expire in seconds in seconds. Default is never to expire.
   external                 these are passed when storing an external snapshot ref Save the snapshot on an external server rather than locally.
-  key                      Define the unique key. Required if `+"`"+`external`+"`"+` is `+"`"+`true`+"`"+`.
+  key                      Define the unique key. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `.
   kind                     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds +optional
   name                     Snapshot name`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsCreateDashboardSnapshotFlag.DescribeBodyJSONSchema {
@@ -3931,9 +3966,8 @@ var (
 	dashboardsCreatePublicDashboardCmd = &cobra.Command{
 		Use:   "create-public-dashboard",
 		Short: "Create public dashboard for a dashboard",
-		Long: longHelp(
-			"Create public dashboard for a dashboard",
-			`Body schema (PublicDashboardDTO):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PublicDashboardDTO):
 {
   "accessToken": string,
   "annotationsEnabled": boolean,
@@ -3942,7 +3976,7 @@ var (
   "timeSelectionEnabled": boolean,
   "uid": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsCreatePublicDashboardFlag.DescribeBodyJSONSchema {
@@ -4461,9 +4495,8 @@ var (
 	dashboardsImportDashboardCmd = &cobra.Command{
 		Use:   "import-dashboard",
 		Short: "Imports dashboard",
-		Long: longHelp(
-			"Imports dashboard",
-			`Body schema (ImportDashboardRequest):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (ImportDashboardRequest):
 {
   "dashboard": any,
   "folderId": number,
@@ -4481,7 +4514,7 @@ var (
   "pluginId": string
 }
   folderId                 Deprecated: use FolderUID instead`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsImportDashboardFlag.DescribeBodyJSONSchema {
@@ -4620,7 +4653,9 @@ var (
 		Long: longHelp(
 			"Creates update dashboard",
 			"Creates a new dashboard or updates an existing dashboard. Note: This endpoint is not intended for creating folders, use `POST /api/folders` for that.",
-			`Body schema (SaveDashboardCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (SaveDashboardCommand):
 {
   "UpdatedAt": string,
   "dashboard": any,
@@ -4632,7 +4667,7 @@ var (
   "userId": number
 }
   folderId                 Deprecated: use FolderUID instead`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsPostDashboardFlag.DescribeBodyJSONSchema {
@@ -4721,13 +4756,12 @@ var (
 	dashboardsRestoreDashboardVersionByUIDCmd = &cobra.Command{
 		Use:   "restore-dashboard-version-by-uid",
 		Short: "Restores a dashboard to a given dashboard version using UID",
-		Long: longHelp(
-			"Restores a dashboard to a given dashboard version using UID",
-			`Body schema (RestoreDashboardVersionCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (RestoreDashboardVersionCommand):
 {
   "version": number
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsRestoreDashboardVersionByUIDFlag.DescribeBodyJSONSchema {
@@ -4842,7 +4876,9 @@ var (
 		Long: longHelp(
 			"Updates permissions for a dashboard",
 			"This operation will remove existing permissions if they’re not included in the request.",
-			`Body schema (UpdateDashboardACLCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateDashboardACLCommand):
 {
   "items": [
     {
@@ -4854,7 +4890,7 @@ var (
   ]
 }
   items[].role             enum: None | Viewer | Editor | Admin`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsUpdateDashboardPermissionsByUIDFlag.DescribeBodyJSONSchema {
@@ -4925,8 +4961,8 @@ var (
 }`
 	dashboardsUpdatePublicDashboardCmd = &cobra.Command{
 		Use: "update-public-dashboard",
-		Long: longHelp(
-			`Body schema (PublicDashboardDTO):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PublicDashboardDTO):
 {
   "accessToken": string,
   "annotationsEnabled": boolean,
@@ -4935,7 +4971,7 @@ var (
   "timeSelectionEnabled": boolean,
   "uid": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsUpdatePublicDashboardFlag.DescribeBodyJSONSchema {
@@ -5187,7 +5223,9 @@ var (
 			"Creates a data source",
 			"By defining `password` and `basicAuthPassword` under secureJsonData property Grafana encrypts them securely as an encrypted blob in the database. The response then lists the encrypted fields under secureJsonFields.",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:create`",
-			`Body schema (AddDataSourceCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AddDataSourceCommand):
 {
   "access": string,
   "basicAuth": boolean,
@@ -5203,7 +5241,7 @@ var (
   "user": string,
   "withCredentials": boolean
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesAddDatasourceFlag.DescribeBodyJSONSchema {
@@ -5383,9 +5421,8 @@ var (
 	datasourcesCreateCorrelationCmd = &cobra.Command{
 		Use:   "create-correlation",
 		Short: "Adds correlation",
-		Long: longHelp(
-			"Adds correlation",
-			`Body schema (CreateCorrelationCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateCorrelationCommand):
 {
   "config": {
     "field": string,
@@ -5405,7 +5442,7 @@ var (
   label                    Optional label identifying the correlation
   provisioned              True if correlation was created with provisioning. This makes it read-only.
   targetUID                Target data source UID to which the correlation is created. required if type = query`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesCreateCorrelationFlag.DescribeBodyJSONSchema {
@@ -5828,7 +5865,9 @@ var (
 		Long: longHelp(
 			"Data source query metrics with expressions",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:query`.",
-			`Body schema (MetricRequest):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (MetricRequest):
 {
   "debug": boolean,
   "from": string,
@@ -5838,7 +5877,7 @@ var (
   from                     From Start time in epoch timestamps in milliseconds or relative using Grafana time units., required
   queries                  queries.refId – Specifies an identifier of the query. Is optional and default to “A”. queries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId. queries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100. queries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000., required
   to                       To End time in epoch timestamps in milliseconds or relative using Grafana time units., required`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesQueryMetricsWithExpressionsFlag.DescribeBodyJSONSchema {
@@ -5938,8 +5977,8 @@ var (
 }`
 	datasourcesUpdateCorrelationCmd = &cobra.Command{
 		Use: "update-correlation",
-		Long: longHelp(
-			`Body schema (UpdateCorrelationCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateCorrelationCommand):
 {
   "config": {
     "field": string,
@@ -5955,7 +5994,7 @@ var (
   config.transformations   Source data transformations
   description              Optional description of the correlation
   label                    Optional label identifying the correlation`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesUpdateCorrelationFlag.DescribeBodyJSONSchema {
@@ -6058,7 +6097,9 @@ var (
 			"Updates an existing data source",
 			"Similar to creating a data source, `password` and `basicAuthPassword` should be defined under secureJsonData in order to be stored securely as an encrypted blob in the database. Then, the encrypted fields are listed under secureJsonFields section in the response.",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:write` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:1` (single data source).",
-			`Body schema (UpdateDataSourceCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateDataSourceCommand):
 {
   "access": string,
   "basicAuth": boolean,
@@ -6076,7 +6117,7 @@ var (
   "withCredentials": boolean
 }
   version                  The previous version -- used for optimistic locking`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesUpdateDatasourceByUIDFlag.DescribeBodyJSONSchema {
@@ -6506,9 +6547,8 @@ var (
 	enterpriseSetDatasourceCacheConfigCmd = &cobra.Command{
 		Use:   "set-datasource-cache-config",
 		Short: "Set cache config for a single data source",
-		Long: longHelp(
-			"Set cache config for a single data source",
-			`Body schema (CacheConfigSetter):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CacheConfigSetter):
 {
   "dataSourceID": number,
   "dataSourceUID": string,
@@ -6519,7 +6559,7 @@ var (
 }
   ttlQueriesMs             TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
   useDefaultTTL            If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if enterpriseSetDatasourceCacheConfigFlag.DescribeBodyJSONSchema {
@@ -6592,8 +6632,8 @@ var (
 }`
 	enterpriseUpdateTeamLBACRulesAPICmd = &cobra.Command{
 		Use: "update-team-lbac-rules-api",
-		Long: longHelp(
-			`Body schema (UpdateTeamLBACCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateTeamLBACCommand):
 {
   "rules": [
     {
@@ -6603,7 +6643,7 @@ var (
     }
   ]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if enterpriseUpdateTeamLBACRulesAPIFlag.DescribeBodyJSONSchema {
@@ -6714,14 +6754,16 @@ var (
 		Long: longHelp(
 			"Creates folder",
 			"If nested folders are enabled then it additionally expects the parent folder UID.",
-			`Body schema (CreateFolderCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateFolderCommand):
 {
   "description": string,
   "parentUid": string,
   "title": string,
   "uid": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if foldersCreateFolderFlag.DescribeBodyJSONSchema {
@@ -6939,13 +6981,12 @@ var (
 	foldersMoveFolderCmd = &cobra.Command{
 		Use:   "move-folder",
 		Short: "Moves folder",
-		Long: longHelp(
-			"Moves folder",
-			`Body schema (MoveFolderCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (MoveFolderCommand):
 {
   "parentUid": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if foldersMoveFolderFlag.DescribeBodyJSONSchema {
@@ -7015,9 +7056,8 @@ var (
 	foldersUpdateFolderCmd = &cobra.Command{
 		Use:   "update-folder",
 		Short: "Updates folder",
-		Long: longHelp(
-			"Updates folder",
-			`Body schema (UpdateFolderCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateFolderCommand):
 {
   "description": string,
   "overwrite": boolean,
@@ -7028,7 +7068,7 @@ var (
   overwrite                Overwrite only used by the legacy folder implementation
   title                    NewTitle it's an optional parameter used for overriding the existing folder title
   version                  Version only used by the legacy folder implementation`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if foldersUpdateFolderFlag.DescribeBodyJSONSchema {
@@ -7108,9 +7148,8 @@ var (
 	foldersUpdateFolderPermissionsCmd = &cobra.Command{
 		Use:   "update-folder-permissions",
 		Short: "Updates permissions for a folder this operation will remove existing permissions if they re not included in the request",
-		Long: longHelp(
-			"Updates permissions for a folder this operation will remove existing permissions if they re not included in the request",
-			`Body schema (UpdateDashboardACLCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateDashboardACLCommand):
 {
   "items": [
     {
@@ -7122,7 +7161,7 @@ var (
   ]
 }
   items[].role             enum: None | Viewer | Editor | Admin`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if foldersUpdateFolderPermissionsFlag.DescribeBodyJSONSchema {
@@ -7236,13 +7275,12 @@ var (
 	groupAttributeSyncCreateGroupMappingsCmd = &cobra.Command{
 		Use:   "create-group-mappings",
 		Short: "Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
-		Long: longHelp(
-			"Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
-			`Body schema (GroupAttributes):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (GroupAttributes):
 {
   "roles": [string]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if groupAttributeSyncCreateGroupMappingsFlag.DescribeBodyJSONSchema {
@@ -7396,13 +7434,12 @@ var (
 	groupAttributeSyncUpdateGroupMappingsCmd = &cobra.Command{
 		Use:   "update-group-mappings",
 		Short: "Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
-		Long: longHelp(
-			"Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
-			`Body schema (GroupAttributes):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (GroupAttributes):
 {
   "roles": [string]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if groupAttributeSyncUpdateGroupMappingsFlag.DescribeBodyJSONSchema {
@@ -7598,7 +7635,9 @@ var (
 		Long: longHelp(
 			"Creates library element",
 			"Creates a new library element.",
-			`Body schema (CreateLibraryElementCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateLibraryElementCommand):
 {
   "folderId": number,
   "folderUid": string,
@@ -7612,7 +7651,7 @@ var (
   kind                     Kind of element to create, Use 1 for library panels or 2 for c. Description: 1 - library panels, enum: 1
   model                    The JSON model for the library element.
   name                     Name of the library element.`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if libraryElementsCreateLibraryElementFlag.DescribeBodyJSONSchema {
@@ -7879,7 +7918,9 @@ var (
 		Long: longHelp(
 			"Updates library element",
 			"Updates an existing library element identified by uid.",
-			`Body schema (PatchLibraryElementCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PatchLibraryElementCommand):
 {
   "folderId": number,
   "folderUid": string,
@@ -7895,7 +7936,7 @@ var (
   model                    The JSON model for the library element.
   name                     Name of the library element.
   version                  Version of the library element you are updating.`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if libraryElementsUpdateLibraryElementFlag.DescribeBodyJSONSchema {
@@ -8001,11 +8042,13 @@ var (
 			"Removes license from database",
 			"Removes the license stored in the Grafana database. Available in Grafana Enterprise v7.4+.",
 			"You need to have a permission with action `licensing:delete`.",
-			`Body schema (DeleteTokenCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (DeleteTokenCommand):
 {
   "instance": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if licensingDeleteLicenseTokenFlag.DescribeBodyJSONSchema {
@@ -8199,11 +8242,13 @@ var (
 		Long: longHelp(
 			"Creates license token",
 			"You need to have a permission with action `licensing:write`.",
-			`Body schema (DeleteTokenCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (DeleteTokenCommand):
 {
   "instance": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if licensingPostLicenseTokenFlag.DescribeBodyJSONSchema {
@@ -8439,13 +8484,12 @@ var (
 	migrationsCreateSessionCmd = &cobra.Command{
 		Use:   "create-session",
 		Short: "Creates a migration session",
-		Long: longHelp(
-			"Creates a migration session",
-			`Body schema (CloudMigrationSessionRequestDTO):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CloudMigrationSessionRequestDTO):
 {
   "authToken": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if migrationsCreateSessionFlag.DescribeBodyJSONSchema {
@@ -8507,11 +8551,13 @@ var (
 		Long: longHelp(
 			"Triggers the creation of an instance snapshot associated with the provided session",
 			"If the snapshot initialization is successful, the snapshot uid is returned.",
-			`Body schema (CreateSnapshotRequestDTO):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateSnapshotRequestDTO):
 {
   "resourceTypes": [string]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if migrationsCreateSnapshotFlag.DescribeBodyJSONSchema {
@@ -8945,9 +8991,8 @@ var (
 	orgAddOrgInviteCmd = &cobra.Command{
 		Use:   "add-org-invite",
 		Short: "Adds invite",
-		Long: longHelp(
-			"Adds invite",
-			`Body schema (AddInviteForm):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AddInviteForm):
 {
   "loginOrEmail": string,
   "name": string,
@@ -8955,7 +9000,7 @@ var (
   "sendEmail": boolean
 }
   role                     enum: None | Viewer | Editor | Admin`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgAddOrgInviteFlag.DescribeBodyJSONSchema {
@@ -9024,13 +9069,15 @@ var (
 			"Adds a new user to the current organization",
 			"Adds a global user to the current organization.",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.",
-			`Body schema (AddOrgUserCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AddOrgUserCommand):
 {
   "loginOrEmail": string,
   "role": string
 }
   role                     enum: None | Viewer | Editor | Admin`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgAddOrgUserToCurrentOrgFlag.DescribeBodyJSONSchema {
@@ -9292,9 +9339,8 @@ var (
 	orgPatchOrgPreferencesCmd = &cobra.Command{
 		Use:   "patch-org-preferences",
 		Short: "Patches current org prefs",
-		Long: longHelp(
-			"Patches current org prefs",
-			`Body schema (PatchPrefsCmd):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PatchPrefsCmd):
 {
   "cookies": [string],
   "homeDashboardId": number,
@@ -9314,7 +9360,7 @@ var (
   homeDashboardId          The numerical :id of a favorited dashboard
   theme                    enum: light | dark
   timezone                 enum: utc | browser`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgPatchOrgPreferencesFlag.DescribeBodyJSONSchema {
@@ -9438,13 +9484,12 @@ var (
 	orgUpdateCurrentOrgCmd = &cobra.Command{
 		Use:   "update-current-org",
 		Short: "Updates current organization",
-		Long: longHelp(
-			"Updates current organization",
-			`Body schema (UpdateOrgForm):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateOrgForm):
 {
   "name": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgUpdateCurrentOrgFlag.DescribeBodyJSONSchema {
@@ -9515,9 +9560,8 @@ var (
 	orgUpdateCurrentOrgAddressCmd = &cobra.Command{
 		Use:   "update-current-org-address",
 		Short: "Updates current organization s address",
-		Long: longHelp(
-			"Updates current organization s address",
-			`Body schema (UpdateOrgAddressForm):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateOrgAddressForm):
 {
   "address1": string,
   "address2": string,
@@ -9526,7 +9570,7 @@ var (
   "state": string,
   "zipcode": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgUpdateCurrentOrgAddressFlag.DescribeBodyJSONSchema {
@@ -9635,9 +9679,8 @@ var (
 	orgUpdateOrgPreferencesCmd = &cobra.Command{
 		Use:   "update-org-preferences",
 		Short: "Updates current org prefs",
-		Long: longHelp(
-			"Updates current org prefs",
-			`Body schema (UpdatePrefsCmd):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdatePrefsCmd):
 {
   "cookies": [string],
   "homeDashboardId": number,
@@ -9657,7 +9700,7 @@ var (
   homeDashboardId          The numerical :id of a favorited dashboard
   theme                    enum: light | dark | system
   timezone                 enum: utc | browser`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgUpdateOrgPreferencesFlag.DescribeBodyJSONSchema {
@@ -9722,12 +9765,14 @@ var (
 		Long: longHelp(
 			"Updates the given user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users.role:update` with scope `users:*`.",
-			`Body schema (UpdateOrgUserCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateOrgUserCommand):
 {
   "role": string
 }
   role                     enum: None | Viewer | Editor | Admin`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgUpdateOrgUserForCurrentOrgFlag.DescribeBodyJSONSchema {
@@ -9867,13 +9912,15 @@ var (
 			"Adds a new user to the current organization",
 			"Adds a global user to the current organization.",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.",
-			`Body schema (AddOrgUserCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AddOrgUserCommand):
 {
   "loginOrEmail": string,
   "role": string
 }
   role                     enum: None | Viewer | Editor | Admin`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgsAddOrgUserFlag.DescribeBodyJSONSchema {
@@ -9933,11 +9980,13 @@ var (
 		Long: longHelp(
 			"Creates organization",
 			"Only works if [users.allow_org_create](https://grafana.com/docs/grafana/latest/administration/configuration/#allow_org_create) is set.",
-			`Body schema (CreateOrgCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateOrgCommand):
 {
   "name": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgsCreateOrgFlag.DescribeBodyJSONSchema {
@@ -10168,13 +10217,12 @@ var (
 	orgsUpdateOrgCmd = &cobra.Command{
 		Use:   "update-org",
 		Short: "Updates organization",
-		Long: longHelp(
-			"Updates organization",
-			`Body schema (UpdateOrgForm):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateOrgForm):
 {
   "name": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgsUpdateOrgFlag.DescribeBodyJSONSchema {
@@ -10246,9 +10294,8 @@ var (
 	orgsUpdateOrgAddressCmd = &cobra.Command{
 		Use:   "update-org-address",
 		Short: "Updates organization s address",
-		Long: longHelp(
-			"Updates organization s address",
-			`Body schema (UpdateOrgAddressForm):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateOrgAddressForm):
 {
   "address1": string,
   "address2": string,
@@ -10257,7 +10304,7 @@ var (
   "state": string,
   "zipcode": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgsUpdateOrgAddressFlag.DescribeBodyJSONSchema {
@@ -10319,13 +10366,13 @@ var (
 }`
 	orgsUpdateOrgUserCmd = &cobra.Command{
 		Use: "update-org-user",
-		Long: longHelp(
-			`Body schema (UpdateOrgUserCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateOrgUserCommand):
 {
   "role": string
 }
   role                     enum: None | Viewer | Editor | Admin`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgsUpdateOrgUserFlag.DescribeBodyJSONSchema {
@@ -10473,9 +10520,8 @@ var (
 	playlistsCreatePlaylistCmd = &cobra.Command{
 		Use:   "create-playlist",
 		Short: "Creates playlist",
-		Long: longHelp(
-			"Creates playlist",
-			`Body schema (CreatePlaylistCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreatePlaylistCommand):
 {
   "interval": string,
   "items": [
@@ -10490,7 +10536,7 @@ var (
   ],
   "name": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if playlistsCreatePlaylistFlag.DescribeBodyJSONSchema {
@@ -10706,9 +10752,8 @@ var (
 	playlistsUpdatePlaylistCmd = &cobra.Command{
 		Use:   "update-playlist",
 		Short: "Updates playlist",
-		Long: longHelp(
-			"Updates playlist",
-			`Body schema (UpdatePlaylistCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdatePlaylistCommand):
 {
   "interval": string,
   "items": [
@@ -10724,7 +10769,7 @@ var (
   "name": string,
   "uid": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if playlistsUpdatePlaylistFlag.DescribeBodyJSONSchema {
@@ -11672,8 +11717,8 @@ var (
 }`
 	provisioningPostAlertRuleCmd = &cobra.Command{
 		Use: "post-alert-rule",
-		Long: longHelp(
-			`Body schema (ProvisionedAlertRule):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (ProvisionedAlertRule):
 {
   "annotations": {"key": string},
   "condition": string,
@@ -11741,7 +11786,7 @@ var (
   title                    title Max Length: 190 Min Length: 1, required
   uid                      uid Max Length: 40 Min Length: 1
   updated                  updated Read Only: true`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningPostAlertRuleFlag.DescribeBodyJSONSchema {
@@ -11837,8 +11882,8 @@ var (
 }`
 	provisioningPostContactpointsCmd = &cobra.Command{
 		Use: "post-contactpoints",
-		Long: longHelp(
-			`Body schema (EmbeddedContactPoint):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (EmbeddedContactPoint):
 {
   "disableResolveMessage": boolean,
   "name": string,
@@ -11852,7 +11897,7 @@ var (
   settings                 required
   type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
   uid                      UID is the unique identifier of the contact point. The UID can be set by the user. Max Length: 40 Min Length: 1`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningPostContactpointsFlag.DescribeBodyJSONSchema {
@@ -11957,8 +12002,8 @@ var (
 }`
 	provisioningPostMuteTimingCmd = &cobra.Command{
 		Use: "post-mute-timing",
-		Long: longHelp(
-			`Body schema (MuteTimeInterval):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (MuteTimeInterval):
 {
   "name": string,
   "time_intervals": [
@@ -11972,7 +12017,7 @@ var (
     }
   ]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningPostMuteTimingFlag.DescribeBodyJSONSchema {
@@ -12207,8 +12252,8 @@ var (
 }`
 	provisioningPutAlertRuleCmd = &cobra.Command{
 		Use: "put-alert-rule",
-		Long: longHelp(
-			`Body schema (ProvisionedAlertRule):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (ProvisionedAlertRule):
 {
   "annotations": {"key": string},
   "condition": string,
@@ -12276,7 +12321,7 @@ var (
   title                    title Max Length: 190 Min Length: 1, required
   uid                      uid Max Length: 40 Min Length: 1
   updated                  updated Read Only: true`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningPutAlertRuleFlag.DescribeBodyJSONSchema {
@@ -12529,8 +12574,8 @@ var (
 }`
 	provisioningPutAlertRuleGroupCmd = &cobra.Command{
 		Use: "put-alert-rule-group",
-		Long: longHelp(
-			`Body schema (AlertRuleGroup):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AlertRuleGroup):
 {
   "folderUid": string,
   "interval": number,
@@ -12571,7 +12616,7 @@ var (
   rules[].title            title Max Length: 190 Min Length: 1, required
   rules[].uid              uid Max Length: 40 Min Length: 1
   rules[].updated          updated Read Only: true`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningPutAlertRuleGroupFlag.DescribeBodyJSONSchema {
@@ -12669,8 +12714,8 @@ var (
 }`
 	provisioningPutContactpointCmd = &cobra.Command{
 		Use: "put-contactpoint",
-		Long: longHelp(
-			`Body schema (EmbeddedContactPoint):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (EmbeddedContactPoint):
 {
   "disableResolveMessage": boolean,
   "name": string,
@@ -12684,7 +12729,7 @@ var (
   settings                 required
   type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
   uid                      UID is the unique identifier of the contact point. The UID can be set by the user. Max Length: 40 Min Length: 1`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningPutContactpointFlag.DescribeBodyJSONSchema {
@@ -12790,8 +12835,8 @@ var (
 }`
 	provisioningPutMuteTimingCmd = &cobra.Command{
 		Use: "put-mute-timing",
-		Long: longHelp(
-			`Body schema (MuteTimeInterval):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (MuteTimeInterval):
 {
   "name": string,
   "time_intervals": [
@@ -12805,7 +12850,7 @@ var (
     }
   ]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningPutMuteTimingFlag.DescribeBodyJSONSchema {
@@ -12948,8 +12993,8 @@ var (
 }`
 	provisioningPutPolicyTreeCmd = &cobra.Command{
 		Use: "put-policy-tree",
-		Long: longHelp(
-			`Body schema (Route):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (Route):
 {
   "active_time_intervals": [string],
   "continue": boolean,
@@ -12985,7 +13030,7 @@ var (
 }
   match                    Deprecated. Remove before v1.0 release.
   routes[].match           Deprecated. Remove before v1.0 release.`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningPutPolicyTreeFlag.DescribeBodyJSONSchema {
@@ -13044,13 +13089,13 @@ var (
 }`
 	provisioningPutTemplateCmd = &cobra.Command{
 		Use: "put-template",
-		Long: longHelp(
-			`Body schema (NotificationTemplateContent):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (NotificationTemplateContent):
 {
   "template": string,
   "version": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningPutTemplateFlag.DescribeBodyJSONSchema {
@@ -13316,14 +13361,16 @@ var (
 		Long: longHelp(
 			"Adds query to query history",
 			"Adds new query to query history.",
-			`Body schema (CreateQueryInQueryHistoryCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateQueryInQueryHistoryCommand):
 {
   "datasourceUid": string,
   "queries": any
 }
   datasourceUid            UID of the data source for which are queries stored.
   queries                  required`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if queryHistoryCreateQueryFlag.DescribeBodyJSONSchema {
@@ -13419,12 +13466,14 @@ var (
 		Long: longHelp(
 			"Updates comment for query in query history",
 			"Updates comment for query in query history as specified by the UID.",
-			`Body schema (PatchQueryCommentInQueryHistoryCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PatchQueryCommentInQueryHistoryCommand):
 {
   "comment": string
 }
   comment                  Updated comment`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if queryHistoryPatchQueryCommentFlag.DescribeBodyJSONSchema {
@@ -13770,13 +13819,13 @@ var (
 }`
 	quotaUpdateOrgQuotaCmd = &cobra.Command{
 		Use: "update-org-quota",
-		Long: longHelp(
-			`Body schema (UpdateQuotaCmd):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateQuotaCmd):
 {
   "limit": number,
   "target": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if quotaUpdateOrgQuotaFlag.DescribeBodyJSONSchema {
@@ -13836,13 +13885,13 @@ var (
 }`
 	quotaUpdateUserQuotaCmd = &cobra.Command{
 		Use: "update-user-quota",
-		Long: longHelp(
-			`Body schema (UpdateQuotaCmd):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateQuotaCmd):
 {
   "limit": number,
   "target": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if quotaUpdateUserQuotaFlag.DescribeBodyJSONSchema {
@@ -13966,9 +14015,8 @@ var (
 	recordingRulesCreateRecordingRuleCmd = &cobra.Command{
 		Use:   "create-recording-rule",
 		Short: "Creates a recording rule that is then registered and started",
-		Long: longHelp(
-			"Creates a recording rule that is then registered and started",
-			`Body schema (RecordingRuleJSON):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (RecordingRuleJSON):
 {
   "active": boolean,
   "count": boolean,
@@ -13982,7 +14030,7 @@ var (
   "range": number,
   "target_ref_id": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if recordingRulesCreateRecordingRuleFlag.DescribeBodyJSONSchema {
@@ -14047,13 +14095,15 @@ var (
 		Long: longHelp(
 			"Creates a remote write target",
 			"It returns a 422 if there is not an existing prometheus data source configured.",
-			`Body schema (PrometheusRemoteWriteTargetJSON):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PrometheusRemoteWriteTargetJSON):
 {
   "data_source_uid": string,
   "id": string,
   "remote_write_path": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if recordingRulesCreateRecordingRuleWriteTargetFlag.DescribeBodyJSONSchema {
@@ -14262,9 +14312,8 @@ var (
 	recordingRulesTestCreateRecordingRuleCmd = &cobra.Command{
 		Use:   "test-create-recording-rule",
 		Short: "Tests a recording rule",
-		Long: longHelp(
-			"Tests a recording rule",
-			`Body schema (RecordingRuleJSON):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (RecordingRuleJSON):
 {
   "active": boolean,
   "count": boolean,
@@ -14278,7 +14327,7 @@ var (
   "range": number,
   "target_ref_id": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if recordingRulesTestCreateRecordingRuleFlag.DescribeBodyJSONSchema {
@@ -14365,9 +14414,8 @@ var (
 	recordingRulesUpdateRecordingRuleCmd = &cobra.Command{
 		Use:   "update-recording-rule",
 		Short: "Updates the active status of a rule",
-		Long: longHelp(
-			"Updates the active status of a rule",
-			`Body schema (RecordingRuleJSON):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (RecordingRuleJSON):
 {
   "active": boolean,
   "count": boolean,
@@ -14381,7 +14429,7 @@ var (
   "range": number,
   "target_ref_id": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if recordingRulesUpdateRecordingRuleFlag.DescribeBodyJSONSchema {
@@ -14602,7 +14650,9 @@ var (
 			"Creates a report",
 			"Available to org admins only and with a valid license.",
 			"You need to have a permission with action `reports.admin:create`.",
-			`Body schema (CreateOrUpdateReport):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateOrUpdateReport):
 {
   "dashboards": [
     {
@@ -14639,7 +14689,7 @@ var (
   "state": string,
   "subject": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if reportsCreateReportFlag.DescribeBodyJSONSchema {
@@ -15017,7 +15067,9 @@ var (
 			"Saves settings",
 			"Available to org admins only and with a valid or expired license.",
 			"You need to have a permission with action `reports.settings:write`xx.",
-			`Body schema (ReportSettings):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (ReportSettings):
 {
   "branding": {
     "emailFooterLink": string,
@@ -15032,7 +15084,7 @@ var (
   "pdfTheme": string,
   "userId": number
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if reportsSaveReportSettingsFlag.DescribeBodyJSONSchema {
@@ -15102,7 +15154,9 @@ var (
 			"Generate and send a report. This API waits for the report to be generated before returning. We recommend that you set the client’s timeout to at least 60 seconds. Available to org admins only and with a valid license.",
 			"Only available in Grafana Enterprise v7.0+. This API endpoint is experimental and may be deprecated in a future release. On deprecation, a migration strategy will be provided and the endpoint will remain functional until the next major release of Grafana.",
 			"You need to have a permission with action `reports:send`.",
-			`Body schema (ReportEmail):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (ReportEmail):
 {
   "emails": string,
   "id": string,
@@ -15111,7 +15165,7 @@ var (
   emails                   Comma-separated list of emails to which to send the report to.
   id                       Send the report to the emails specified in the report. Required if emails is not present.
   useEmailsFromReport      Send the report to the emails specified in the report. Required if emails is not present.`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if reportsSendReportFlag.DescribeBodyJSONSchema {
@@ -15292,7 +15346,9 @@ var (
 			"Sends test report via email",
 			"Available to org admins only and with a valid license.",
 			"You need to have a permission with action `reports:send`.",
-			`Body schema (CreateOrUpdateReport):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateOrUpdateReport):
 {
   "dashboards": [
     {
@@ -15329,7 +15385,7 @@ var (
   "state": string,
   "subject": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if reportsSendTestEmailFlag.DescribeBodyJSONSchema {
@@ -15511,7 +15567,9 @@ var (
 			"Available to org admins only and with a valid or expired license.",
 			"You need to have a permission with action `reports.admin:write` with scope `reports:id:<report ID>`.",
 			"Requesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
-			`Body schema (CreateOrUpdateReport):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateOrUpdateReport):
 {
   "dashboards": [
     {
@@ -15548,7 +15606,7 @@ var (
   "state": string,
   "subject": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if reportsUpdateReportFlag.DescribeBodyJSONSchema {
@@ -15969,15 +16027,15 @@ var (
 }`
 	serviceAccountsCreateServiceAccountCmd = &cobra.Command{
 		Use: "create-service-account",
-		Long: longHelp(
-			`Body schema (CreateServiceAccountForm):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateServiceAccountForm):
 {
   "isDisabled": boolean,
   "name": string,
   "role": string
 }
   role                     enum: None | Viewer | Editor | Admin`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if serviceAccountsCreateServiceAccountFlag.DescribeBodyJSONSchema {
@@ -16035,13 +16093,13 @@ var (
 }`
 	serviceAccountsCreateTokenCmd = &cobra.Command{
 		Use: "create-token",
-		Long: longHelp(
-			`Body schema (AddServiceAccountTokenCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AddServiceAccountTokenCommand):
 {
   "name": string,
   "secondsToLive": number
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if serviceAccountsCreateTokenFlag.DescribeBodyJSONSchema {
@@ -16294,8 +16352,8 @@ var (
 }`
 	serviceAccountsUpdateServiceAccountCmd = &cobra.Command{
 		Use: "update-service-account",
-		Long: longHelp(
-			`Body schema (UpdateServiceAccountForm):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateServiceAccountForm):
 {
   "isDisabled": boolean,
   "name": string,
@@ -16303,7 +16361,7 @@ var (
   "serviceAccountId": number
 }
   role                     enum: None | Viewer | Editor | Admin`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if serviceAccountsUpdateServiceAccountFlag.DescribeBodyJSONSchema {
@@ -16415,12 +16473,14 @@ var (
 		Long: longHelp(
 			"Changes password",
 			"Changes the password for the user.",
-			`Body schema (ChangeUserPasswordCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (ChangeUserPasswordCommand):
 {
   "newPassword": string,
   "oldPassword": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserChangeUserPasswordFlag.DescribeBodyJSONSchema {
@@ -16720,9 +16780,8 @@ var (
 	signedInUserPatchUserPreferencesCmd = &cobra.Command{
 		Use:   "patch-user-preferences",
 		Short: "Patches user preferences",
-		Long: longHelp(
-			"Patches user preferences",
-			`Body schema (PatchPrefsCmd):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PatchPrefsCmd):
 {
   "cookies": [string],
   "homeDashboardId": number,
@@ -16742,7 +16801,7 @@ var (
   homeDashboardId          The numerical :id of a favorited dashboard
   theme                    enum: light | dark
   timezone                 enum: utc | browser`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserPatchUserPreferencesFlag.DescribeBodyJSONSchema {
@@ -16801,11 +16860,13 @@ var (
 		Long: longHelp(
 			"Revokes an auth token of the actual user",
 			"Revokes the given auth token (device) for the actual user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity.",
-			`Body schema (RevokeAuthTokenCmd):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (RevokeAuthTokenCmd):
 {
   "authTokenId": number
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserRevokeUserAuthTokenFlag.DescribeBodyJSONSchema {
@@ -16974,16 +17035,15 @@ var (
 	signedInUserUpdateSignedInUserCmd = &cobra.Command{
 		Use:   "update-signed-in-user",
 		Short: "Updates signed in user",
-		Long: longHelp(
-			"Updates signed in user",
-			`Body schema (UpdateUserCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateUserCommand):
 {
   "email": string,
   "login": string,
   "name": string,
   "theme": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserUpdateSignedInUserFlag.DescribeBodyJSONSchema {
@@ -17095,7 +17155,9 @@ var (
 		Long: longHelp(
 			"Updates user preferences",
 			"Omitting a key (`theme`, `homeDashboardUID`, `timezone`) will cause the current value to be replaced with the system default value.",
-			`Body schema (UpdatePrefsCmd):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdatePrefsCmd):
 {
   "cookies": [string],
   "homeDashboardId": number,
@@ -17115,7 +17177,7 @@ var (
   homeDashboardId          The numerical :id of a favorited dashboard
   theme                    enum: light | dark | system
   timezone                 enum: utc | browser`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserUpdateUserPreferencesFlag.DescribeBodyJSONSchema {
@@ -17472,13 +17534,15 @@ var (
 			"Updates s s o settings",
 			"Inserts or updates the SSO Settings for a provider.",
 			"You need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.",
-			`Body schema (UpdateProviderSettingsParamsBody):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateProviderSettingsParamsBody):
 {
   "id": string,
   "provider": string,
   "settings": any
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if ssoSettingsUpdateProviderSettingsFlag.DescribeBodyJSONSchema {
@@ -17559,13 +17623,12 @@ var (
 	syncTeamGroupsAddTeamGroupAPICmd = &cobra.Command{
 		Use:   "add-team-group-api",
 		Short: "Adds external group",
-		Long: longHelp(
-			"Adds external group",
-			`Body schema (TeamGroupMapping):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (TeamGroupMapping):
 {
   "groupId": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if syncTeamGroupsAddTeamGroupAPIFlag.DescribeBodyJSONSchema {
@@ -17754,14 +17817,13 @@ var (
 	teamsAddTeamMemberCmd = &cobra.Command{
 		Use:   "add-team-member",
 		Short: "Adds team member",
-		Long: longHelp(
-			"Adds team member",
-			`Body schema (AddTeamMemberCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (AddTeamMemberCommand):
 {
   "userId": number
 }
   userId                   required`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if teamsAddTeamMemberFlag.DescribeBodyJSONSchema {
@@ -17824,15 +17886,14 @@ var (
 	teamsCreateTeamCmd = &cobra.Command{
 		Use:   "create-team",
 		Short: "Adds team",
-		Long: longHelp(
-			"Adds team",
-			`Body schema (CreateTeamCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (CreateTeamCommand):
 {
   "email": string,
   "name": string
 }
   name                     required`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if teamsCreateTeamFlag.DescribeBodyJSONSchema {
@@ -18033,12 +18094,14 @@ var (
 		Long: longHelp(
 			"Sets team memberships",
 			"Takes user emails, and updates team members and admins to the provided lists of users. Any current team members and admins not in the provided lists will be removed.",
-			`Body schema (SetTeamMembershipsCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (SetTeamMembershipsCommand):
 {
   "admins": [string],
   "members": [string]
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if teamsSetTeamMembershipsFlag.DescribeBodyJSONSchema {
@@ -18098,14 +18161,13 @@ var (
 	teamsUpdateTeamCmd = &cobra.Command{
 		Use:   "update-team",
 		Short: "Updates team",
-		Long: longHelp(
-			"Updates team",
-			`Body schema (UpdateTeamCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateTeamCommand):
 {
   "email": string,
   "name": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if teamsUpdateTeamFlag.DescribeBodyJSONSchema {
@@ -18161,12 +18223,12 @@ var (
 }`
 	teamsUpdateTeamMemberCmd = &cobra.Command{
 		Use: "update-team-member",
-		Long: longHelp(
-			`Body schema (UpdateTeamMemberCommand):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateTeamMemberCommand):
 {
   "permission": number
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if teamsUpdateTeamMemberFlag.DescribeBodyJSONSchema {
@@ -18277,9 +18339,8 @@ var (
 	teamsUpdateTeamPreferencesCmd = &cobra.Command{
 		Use:   "update-team-preferences",
 		Short: "Updates team preferences",
-		Long: longHelp(
-			"Updates team preferences",
-			`Body schema (UpdatePrefsCmd):
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdatePrefsCmd):
 {
   "cookies": [string],
   "homeDashboardId": number,
@@ -18299,7 +18360,7 @@ var (
   homeDashboardId          The numerical :id of a favorited dashboard
   theme                    enum: light | dark | system
   timezone                 enum: utc | browser`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if teamsUpdateTeamPreferencesFlag.DescribeBodyJSONSchema {
@@ -18644,14 +18705,16 @@ var (
 		Long: longHelp(
 			"Updates user",
 			"Update the user identified by id.",
-			`Body schema (UpdateUserCommand):
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (UpdateUserCommand):
 {
   "email": string,
   "login": string,
   "name": string,
   "theme": string
 }`,
-		),
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if usersUpdateUserFlag.DescribeBodyJSONSchema {

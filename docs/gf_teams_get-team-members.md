@@ -10,6 +10,7 @@ gf teams get-team-members [flags]
 
 ```
   -h, --help             help for get-team-members
+      --raw              Print the raw HTTP response body instead of the decoded payload
       --team-id string   TeamID
 ```
 

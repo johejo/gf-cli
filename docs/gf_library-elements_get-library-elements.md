@@ -15,6 +15,7 @@ gf library-elements get-library-elements [flags]
       --kind int                Kind of element to search for.
       --page int                The page for a set of records, given that only perPage records are returned at a time. Numbering starts at 1. Default: 1
       --per-page int            The number of results per page. Default: 100
+      --raw                     Print the raw HTTP response body instead of the decoded payload
       --search-string string    Part of the name or description searched for.
       --sort-direction string   Sort order of elements.
       --type-filter string      A comma separated list of types to filter the elements by

@@ -16,6 +16,7 @@ gf quota get-current-org-quota [flags]
 
 ```
   -h, --help   help for get-current-org-quota
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

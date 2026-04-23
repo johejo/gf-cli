@@ -10,6 +10,7 @@ gf saml post-acs [flags]
 
 ```
   -h, --help                 help for post-acs
+      --raw                  Print the raw HTTP response body instead of the decoded payload
       --relay-state string   RelayState
 ```
 

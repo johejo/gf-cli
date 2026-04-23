@@ -16,6 +16,7 @@ gf datasources get-datasource-by-uid [flags]
 
 ```
   -h, --help         help for get-datasource-by-uid
+      --raw          Print the raw HTTP response body instead of the decoded payload
       --uid string   UID
 ```
 

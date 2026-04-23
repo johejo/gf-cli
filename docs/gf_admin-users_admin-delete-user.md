@@ -16,6 +16,7 @@ gf admin-users admin-delete-user [flags]
 
 ```
   -h, --help          help for admin-delete-user
+      --raw           Print the raw HTTP response body instead of the decoded payload
       --user-id int   UserID
 ```
 

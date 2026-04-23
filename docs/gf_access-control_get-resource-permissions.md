@@ -10,6 +10,7 @@ gf access-control get-resource-permissions [flags]
 
 ```
   -h, --help                 help for get-resource-permissions
+      --raw                  Print the raw HTTP response body instead of the decoded payload
       --resource string      Resource
       --resource-id string   ResourceID
 ```

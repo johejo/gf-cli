@@ -113,3 +113,50 @@ func TestActionLongParts(t *testing.T) {
 		})
 	}
 }
+
+func TestActionBodySchema(t *testing.T) {
+	t.Parallel()
+
+	schema := &BodySchemaInfo{
+		TypeName: "CreateTeamCommand",
+		Fields: []*ModelField{
+			{JSONName: "name", GoType: "string", JSONType: "string"},
+		},
+	}
+
+	tests := []struct {
+		name    string
+		act     *Action
+		wantHas bool
+	}{
+		{
+			name:    "no body field",
+			act:     &Action{Short: "Creates a team"},
+			wantHas: false,
+		},
+		{
+			name:    "body field without schema",
+			act:     &Action{BodyField: &BodyFieldInfo{}},
+			wantHas: false,
+		},
+		{
+			name:    "body field with schema",
+			act:     &Action{BodyField: &BodyFieldInfo{Schema: schema}},
+			wantHas: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := actionBodySchema(tt.act)
+			if tt.wantHas && got == "" {
+				t.Fatalf("actionBodySchema() = empty, want non-empty")
+			}
+			if !tt.wantHas && got != "" {
+				t.Fatalf("actionBodySchema() = %q, want empty", got)
+			}
+		})
+	}
+}

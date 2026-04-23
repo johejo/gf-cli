@@ -10,6 +10,7 @@ gf datasources check-datasource-health [flags]
 
 ```
   -h, --help         help for check-datasource-health
+      --raw          Print the raw HTTP response body instead of the decoded payload
       --uid string   UID
 ```
 

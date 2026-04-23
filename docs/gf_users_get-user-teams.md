@@ -16,6 +16,7 @@ gf users get-user-teams [flags]
 
 ```
   -h, --help          help for get-user-teams
+      --raw           Print the raw HTTP response body instead of the decoded payload
       --user-id int   UserID
 ```
 

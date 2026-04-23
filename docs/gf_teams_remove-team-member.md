@@ -10,6 +10,7 @@ gf teams remove-team-member [flags]
 
 ```
   -h, --help             help for remove-team-member
+      --raw              Print the raw HTTP response body instead of the decoded payload
       --team-id string   TeamID
       --user-id int      UserID
 ```

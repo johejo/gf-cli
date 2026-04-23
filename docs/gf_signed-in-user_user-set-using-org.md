@@ -17,6 +17,7 @@ gf signed-in-user user-set-using-org [flags]
 ```
   -h, --help         help for user-set-using-org
       --org-id int   OrgID
+      --raw          Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

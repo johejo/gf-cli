@@ -16,6 +16,7 @@ gf licensing get-custom-permissions-report [flags]
 
 ```
   -h, --help   help for get-custom-permissions-report
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

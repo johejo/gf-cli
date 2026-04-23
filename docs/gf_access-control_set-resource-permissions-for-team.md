@@ -19,6 +19,7 @@ gf access-control set-resource-permissions-for-team [flags]
       --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
       --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
   -h, --help                       help for set-resource-permissions-for-team
+      --raw                        Print the raw HTTP response body instead of the decoded payload
       --resource string            Resource
       --resource-id string         ResourceID
       --team-id int                TeamID

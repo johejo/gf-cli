@@ -16,6 +16,7 @@ gf admin admin-get-stats [flags]
 
 ```
   -h, --help   help for admin-get-stats
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

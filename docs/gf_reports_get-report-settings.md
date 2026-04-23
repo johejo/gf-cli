@@ -18,6 +18,7 @@ gf reports get-report-settings [flags]
 
 ```
   -h, --help   help for get-report-settings
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands
