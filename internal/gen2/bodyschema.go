@@ -395,23 +395,33 @@ var (
 func formatAnnotations(fields []*ModelField, prefix string) string {
 	var lines []string
 	for _, f := range fields {
-		var parts []string
 		key := prefix + f.JSONName
+		var descParts []string
 		if f.Description != "" {
-			parts = append(parts, f.Description)
-		}
-		if f.IsRequired {
-			parts = append(parts, "required")
+			descParts = append(descParts, f.Description)
 		}
 		if len(f.EnumValues) > 0 {
-			parts = append(parts, "enum: "+strings.Join(f.EnumValues, " | "))
+			descParts = append(descParts, "enum: "+strings.Join(f.EnumValues, " | "))
 		}
-		if len(parts) > 0 {
-			joined := strings.Join(parts, ", ")
-			descLines := strings.Split(joined, "\n")
-			lines = append(lines, fmt.Sprintf(annotationFirstLineFormat, key, descLines[0]))
-			for _, cont := range descLines[1:] {
-				lines = append(lines, annotationContinuationIndent+cont)
+		desc := strings.Join(descParts, ", ")
+
+		switch {
+		case f.IsRequired:
+			lines = append(lines, fmt.Sprintf(annotationFirstLineFormat, key, "REQUIRED"))
+			if desc != "" {
+				for cont := range strings.SplitSeq(desc, "\n") {
+					lines = append(lines, annotationContinuationIndent+cont)
+				}
+			}
+		case desc != "":
+			first := true
+			for line := range strings.SplitSeq(desc, "\n") {
+				if first {
+					lines = append(lines, fmt.Sprintf(annotationFirstLineFormat, key, line))
+					first = false
+					continue
+				}
+				lines = append(lines, annotationContinuationIndent+line)
 			}
 		}
 		// Recurse into nested fields for annotations.

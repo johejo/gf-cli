@@ -40,17 +40,28 @@ Body schema (AlertRuleGroup):
   ],
   "title": string
 }
-  rules[].condition        required
-  rules[].data             required
-  rules[].execErrState     required, enum: OK | Alerting | Error
-  rules[].folderUID        required
-  rules[].for              required
-  rules[].noDataState      required, enum: Alerting | NoData | OK
-  rules[].orgID            required
-  rules[].ruleGroup        rule group Max Length: 190 Min Length: 1, required
-  rules[].title            title Max Length: 190 Min Length: 1, required
-  rules[].uid              uid Max Length: 40 Min Length: 1
-  rules[].updated          updated Read Only: true
+  rules[].condition        REQUIRED
+  rules[].data             REQUIRED
+  rules[].execErrState     REQUIRED
+                           enum: OK | Alerting | Error
+  rules[].folderUID        REQUIRED
+  rules[].for              REQUIRED
+  rules[].noDataState      REQUIRED
+                           enum: Alerting | NoData | OK
+  rules[].orgID            REQUIRED
+  rules[].ruleGroup        REQUIRED
+                           rule group
+                           Max Length: 190
+                           Min Length: 1
+  rules[].title            REQUIRED
+                           title
+                           Max Length: 190
+                           Min Length: 1
+  rules[].uid              uid
+                           Max Length: 40
+                           Min Length: 1
+  rules[].updated          updated
+                           Read Only: true
 
 
 .SH OPTIONS

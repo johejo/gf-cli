@@ -11,7 +11,7 @@ Body schema (CreateTeamCommand):
   "email": string,
   "name": string
 }
-  name                     required
+  name                     REQUIRED
 
 ```
 gf teams create-team [flags]

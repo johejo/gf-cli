@@ -26,9 +26,9 @@ Body schema (UpdateRoleCommand):
   ],
   "version": number
 }
-  description              required
-  displayName              required
-  group                    required
+  description              REQUIRED
+  displayName              REQUIRED
+  group                    REQUIRED
 
 ```
 gf access-control update-role [flags]

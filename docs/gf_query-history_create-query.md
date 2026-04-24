@@ -14,7 +14,7 @@ Body schema (CreateQueryInQueryHistoryCommand):
   "queries": any
 }
   datasourceUid            UID of the data source for which are queries stored.
-  queries                  required
+  queries                  REQUIRED
 
 ```
 gf query-history create-query [flags]

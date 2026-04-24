@@ -1463,9 +1463,9 @@ var (
   ],
   "version": number
 }
-  description              required
-  displayName              required
-  group                    required`,
+  description              REQUIRED
+  displayName              REQUIRED
+  group                    REQUIRED`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -2846,7 +2846,7 @@ var (
   "time": number,
   "timeEnd": number
 }
-  text                     required`,
+  text                     REQUIRED`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -3892,7 +3892,7 @@ var (
                            may reject unrecognized values.
                            More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
                            +optional
-  dashboard                required
+  dashboard                REQUIRED
   deleteKey                Unique key used to delete the snapshot. It is different from the ` + "`" + `key` + "`" + ` so that only the creator can delete the snapshot. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `.
   expires                  When the snapshot should expire in seconds in seconds. Default is never to expire.
   external                 these are passed when storing an external snapshot ref
@@ -5446,8 +5446,10 @@ var (
   "targetUID": string,
   "type": string
 }
-  config.field             Field used to attach the correlation link, required
-  config.target            Target data query, required
+  config.field             REQUIRED
+                           Field used to attach the correlation link
+  config.target            REQUIRED
+                           Target data query
   description              Optional description of the correlation
   label                    Optional label identifying the correlation
   provisioned              True if correlation was created with provisioning. This makes it read-only.
@@ -5884,12 +5886,15 @@ var (
   "queries": [any],
   "to": string
 }
-  from                     From Start time in epoch timestamps in milliseconds or relative using Grafana time units., required
-  queries                  queries.refId – Specifies an identifier of the query. Is optional and default to “A”.
+  from                     REQUIRED
+                           From Start time in epoch timestamps in milliseconds or relative using Grafana time units.
+  queries                  REQUIRED
+                           queries.refId – Specifies an identifier of the query. Is optional and default to “A”.
                            queries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId.
                            queries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100.
-                           queries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000., required
-  to                       To End time in epoch timestamps in milliseconds or relative using Grafana time units., required`,
+                           queries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000.
+  to                       REQUIRED
+                           To End time in epoch timestamps in milliseconds or relative using Grafana time units.`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -11780,17 +11785,19 @@ var (
   "uid": string,
   "updated": string
 }
-  condition                required
-  data                     required
+  condition                REQUIRED
+  data                     REQUIRED
   data[].datasourceUid     Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
   data[].model             JSON is the raw JSON query and includes the above properties as well as custom properties.
   data[].queryType         QueryType is an optional identifier for the type of query.
                            It can be used to distinguish different types of queries.
   data[].refId             RefID is the unique identifier of the query, set by the frontend call.
-  execErrState             required, enum: OK | Alerting | Error
-  folderUID                required
-  for                      required
-  noDataState              required, enum: Alerting | NoData | OK
+  execErrState             REQUIRED
+                           enum: OK | Alerting | Error
+  folderUID                REQUIRED
+  for                      REQUIRED
+  noDataState              REQUIRED
+                           enum: Alerting | NoData | OK
   notification_settings.active_time_intervals Override the times when notifications should not be muted. These must match the name of a mute time interval defined
                            in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
                            at the time that matches any interval.
@@ -11807,22 +11814,27 @@ var (
   notification_settings.mute_time_intervals Override the times when notifications should be muted. These must match the name of a mute time interval defined
                            in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
                            otherwise acts normally.
-  notification_settings.receiver Name of the receiver to send notifications to., required
+  notification_settings.receiver REQUIRED
+                           Name of the receiver to send notifications to.
   notification_settings.repeat_interval Override how long to wait before sending a notification again if it has already been sent successfully for an
                            alert. (Usually ~3h or more).
                            Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
                            Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
                            occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
-  orgID                    required
-  record.from              Which expression node should be used as the input for the recorded metric., required
-  record.metric            Name of the recorded metric., required
+  orgID                    REQUIRED
+  record.from              REQUIRED
+                           Which expression node should be used as the input for the recorded metric.
+  record.metric            REQUIRED
+                           Name of the recorded metric.
   record.target_datasource_uid Which data source should be used to write the output of the recording rule, specified by UID.
-  ruleGroup                rule group
+  ruleGroup                REQUIRED
+                           rule group
                            Max Length: 190
-                           Min Length: 1, required
-  title                    title
+                           Min Length: 1
+  title                    REQUIRED
+                           title
                            Max Length: 190
-                           Min Length: 1, required
+                           Min Length: 1
   uid                      uid
                            Max Length: 40
                            Min Length: 1
@@ -11938,8 +11950,9 @@ var (
                            same name will be grouped in the UI.
   provenance               provenance
                            Read Only: true
-  settings                 required
-  type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
+  settings                 REQUIRED
+  type                     REQUIRED
+                           enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
   uid                      UID is the unique identifier of the contact point. The UID can be
                            set by the user.
                            Max Length: 40
@@ -12343,17 +12356,19 @@ var (
   "uid": string,
   "updated": string
 }
-  condition                required
-  data                     required
+  condition                REQUIRED
+  data                     REQUIRED
   data[].datasourceUid     Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
   data[].model             JSON is the raw JSON query and includes the above properties as well as custom properties.
   data[].queryType         QueryType is an optional identifier for the type of query.
                            It can be used to distinguish different types of queries.
   data[].refId             RefID is the unique identifier of the query, set by the frontend call.
-  execErrState             required, enum: OK | Alerting | Error
-  folderUID                required
-  for                      required
-  noDataState              required, enum: Alerting | NoData | OK
+  execErrState             REQUIRED
+                           enum: OK | Alerting | Error
+  folderUID                REQUIRED
+  for                      REQUIRED
+  noDataState              REQUIRED
+                           enum: Alerting | NoData | OK
   notification_settings.active_time_intervals Override the times when notifications should not be muted. These must match the name of a mute time interval defined
                            in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
                            at the time that matches any interval.
@@ -12370,22 +12385,27 @@ var (
   notification_settings.mute_time_intervals Override the times when notifications should be muted. These must match the name of a mute time interval defined
                            in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
                            otherwise acts normally.
-  notification_settings.receiver Name of the receiver to send notifications to., required
+  notification_settings.receiver REQUIRED
+                           Name of the receiver to send notifications to.
   notification_settings.repeat_interval Override how long to wait before sending a notification again if it has already been sent successfully for an
                            alert. (Usually ~3h or more).
                            Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
                            Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
                            occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
-  orgID                    required
-  record.from              Which expression node should be used as the input for the recorded metric., required
-  record.metric            Name of the recorded metric., required
+  orgID                    REQUIRED
+  record.from              REQUIRED
+                           Which expression node should be used as the input for the recorded metric.
+  record.metric            REQUIRED
+                           Name of the recorded metric.
   record.target_datasource_uid Which data source should be used to write the output of the recording rule, specified by UID.
-  ruleGroup                rule group
+  ruleGroup                REQUIRED
+                           rule group
                            Max Length: 190
-                           Min Length: 1, required
-  title                    title
+                           Min Length: 1
+  title                    REQUIRED
+                           title
                            Max Length: 190
-                           Min Length: 1, required
+                           Min Length: 1
   uid                      uid
                            Max Length: 40
                            Min Length: 1
@@ -12675,19 +12695,23 @@ var (
   ],
   "title": string
 }
-  rules[].condition        required
-  rules[].data             required
-  rules[].execErrState     required, enum: OK | Alerting | Error
-  rules[].folderUID        required
-  rules[].for              required
-  rules[].noDataState      required, enum: Alerting | NoData | OK
-  rules[].orgID            required
-  rules[].ruleGroup        rule group
+  rules[].condition        REQUIRED
+  rules[].data             REQUIRED
+  rules[].execErrState     REQUIRED
+                           enum: OK | Alerting | Error
+  rules[].folderUID        REQUIRED
+  rules[].for              REQUIRED
+  rules[].noDataState      REQUIRED
+                           enum: Alerting | NoData | OK
+  rules[].orgID            REQUIRED
+  rules[].ruleGroup        REQUIRED
+                           rule group
                            Max Length: 190
-                           Min Length: 1, required
-  rules[].title            title
+                           Min Length: 1
+  rules[].title            REQUIRED
+                           title
                            Max Length: 190
-                           Min Length: 1, required
+                           Min Length: 1
   rules[].uid              uid
                            Max Length: 40
                            Min Length: 1
@@ -12805,8 +12829,9 @@ var (
                            same name will be grouped in the UI.
   provenance               provenance
                            Read Only: true
-  settings                 required
-  type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
+  settings                 REQUIRED
+  type                     REQUIRED
+                           enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
   uid                      UID is the unique identifier of the contact point. The UID can be
                            set by the user.
                            Max Length: 40
@@ -13451,7 +13476,7 @@ var (
   "queries": any
 }
   datasourceUid            UID of the data source for which are queries stored.
-  queries                  required`,
+  queries                  REQUIRED`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -17904,7 +17929,7 @@ var (
 {
   "userId": number
 }
-  userId                   required`,
+  userId                   REQUIRED`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -17974,7 +17999,7 @@ var (
   "email": string,
   "name": string
 }
-  name                     required`,
+  name                     REQUIRED`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {

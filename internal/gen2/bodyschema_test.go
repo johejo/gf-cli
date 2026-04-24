@@ -106,9 +106,10 @@ func TestFormatBodySchemaMultiLineDescription(t *testing.T) {
 {
   "queries": [any]
 }
-  queries                  queries.refId – Specifies an identifier of the query.
+  queries                  REQUIRED
+                           queries.refId – Specifies an identifier of the query.
                            queries.datasourceId – Specifies the data source to be queried.
-                           queries.maxDataPoints - Species maximum amount of data points., required`
+                           queries.maxDataPoints - Species maximum amount of data points.`
 	if got != want {
 		t.Fatalf("formatBodySchema() =\n%s\nwant:\n%s", got, want)
 	}

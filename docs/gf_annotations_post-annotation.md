@@ -19,7 +19,7 @@ Body schema (PostAnnotationsCmd):
   "time": number,
   "timeEnd": number
 }
-  text                     required
+  text                     REQUIRED
 
 ```
 gf annotations post-annotation [flags]

@@ -10,7 +10,7 @@ Body schema (AddTeamMemberCommand):
 {
   "userId": number
 }
-  userId                   required
+  userId                   REQUIRED
 
 ```
 gf teams add-team-member [flags]
