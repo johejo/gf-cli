@@ -226,9 +226,11 @@ func hasRequiredAnnotation(doc *ast.CommentGroup) bool {
 
 // extractDescription returns the field's doc comment with go-swagger's known
 // schema-annotation lines (Required:, Enum:, Format:, etc.) stripped out,
-// so only the human-readable description remains. Lines are joined with a
-// single space. If the result is a trivial restatement of jsonName (only
-// case/whitespace differs), it is dropped as noise.
+// so only the human-readable description remains. The original physical line
+// breaks are preserved (kept lines are joined with "\n") so callers that
+// render the description can lay out multi-point comments readably. If the
+// result is a trivial restatement of jsonName (only case/whitespace differs),
+// it is dropped as noise.
 func extractDescription(doc *ast.CommentGroup, jsonName string) string {
 	if doc == nil {
 		return ""
@@ -241,7 +243,7 @@ func extractDescription(doc *ast.CommentGroup, jsonName string) string {
 		}
 		kept = append(kept, line)
 	}
-	desc := strings.Join(kept, " ")
+	desc := strings.Join(kept, "\n")
 	if isTrivialDescription(desc, jsonName) {
 		return ""
 	}
@@ -380,6 +382,16 @@ func writeFieldPlaceholder(b *strings.Builder, f *ModelField, indent int) {
 	b.WriteString(f.JSONType)
 }
 
+// annotationKeyWidth is the min-width of the key column on the first line of
+// each field's annotation. annotationFirstLineFormat and the continuation
+// indent are both derived from it so they stay in sync.
+const annotationKeyWidth = 24
+
+var (
+	annotationFirstLineFormat    = fmt.Sprintf("  %%-%ds %%s", annotationKeyWidth)
+	annotationContinuationIndent = strings.Repeat(" ", len("  ")+annotationKeyWidth+len(" "))
+)
+
 func formatAnnotations(fields []*ModelField, prefix string) string {
 	var lines []string
 	for _, f := range fields {
@@ -395,7 +407,12 @@ func formatAnnotations(fields []*ModelField, prefix string) string {
 			parts = append(parts, "enum: "+strings.Join(f.EnumValues, " | "))
 		}
 		if len(parts) > 0 {
-			lines = append(lines, fmt.Sprintf("  %-24s %s", key, strings.Join(parts, ", ")))
+			joined := strings.Join(parts, ", ")
+			descLines := strings.Split(joined, "\n")
+			lines = append(lines, fmt.Sprintf(annotationFirstLineFormat, key, descLines[0]))
+			for _, cont := range descLines[1:] {
+				lines = append(lines, annotationContinuationIndent+cont)
+			}
 		}
 		// Recurse into nested fields for annotations.
 		if len(f.NestedFields) > 0 {

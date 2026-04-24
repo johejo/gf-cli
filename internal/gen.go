@@ -3836,7 +3836,7 @@ var (
   "properties": {
     "apiVersion": {
       "type": "string",
-      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources +optional"
+      "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources\n+optional"
     },
     "dashboard": {},
     "deleteKey": {
@@ -3849,7 +3849,7 @@ var (
     },
     "external": {
       "type": "boolean",
-      "description": "these are passed when storing an external snapshot ref Save the snapshot on an external server rather than locally."
+      "description": "these are passed when storing an external snapshot ref\nSave the snapshot on an external server rather than locally."
     },
     "key": {
       "type": "string",
@@ -3857,7 +3857,7 @@ var (
     },
     "kind": {
       "type": "string",
-      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds +optional"
+      "description": "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds\n+optional"
     },
     "name": {
       "type": "string",
@@ -3887,13 +3887,23 @@ var (
   "kind": string,
   "name": string
 }
-  apiVersion               APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources +optional
+  apiVersion               APIVersion defines the versioned schema of this representation of an object.
+                           Servers should convert recognized schemas to the latest internal value, and
+                           may reject unrecognized values.
+                           More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+                           +optional
   dashboard                required
   deleteKey                Unique key used to delete the snapshot. It is different from the ` + "`" + `key` + "`" + ` so that only the creator can delete the snapshot. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `.
   expires                  When the snapshot should expire in seconds in seconds. Default is never to expire.
-  external                 these are passed when storing an external snapshot ref Save the snapshot on an external server rather than locally.
+  external                 these are passed when storing an external snapshot ref
+                           Save the snapshot on an external server rather than locally.
   key                      Define the unique key. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `.
-  kind                     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds +optional
+  kind                     Kind is a string value representing the REST resource this object represents.
+                           Servers may infer this from the endpoint the client submits requests to.
+                           Cannot be updated.
+                           In CamelCase.
+                           More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                           +optional
   name                     Snapshot name`,
 		},
 		DisableAutoGenTag: true,
@@ -5846,7 +5856,7 @@ var (
     "queries": {
       "type": "array",
       "items": {},
-      "description": "queries.refId – Specifies an identifier of the query. Is optional and default to “A”. queries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId. queries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100. queries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000."
+      "description": "queries.refId – Specifies an identifier of the query. Is optional and default to “A”.\nqueries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId.\nqueries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100.\nqueries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000."
     },
     "to": {
       "type": "string",
@@ -5875,7 +5885,10 @@ var (
   "to": string
 }
   from                     From Start time in epoch timestamps in milliseconds or relative using Grafana time units., required
-  queries                  queries.refId – Specifies an identifier of the query. Is optional and default to “A”. queries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId. queries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100. queries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000., required
+  queries                  queries.refId – Specifies an identifier of the query. Is optional and default to “A”.
+                           queries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId.
+                           queries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100.
+                           queries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000., required
   to                       To End time in epoch timestamps in milliseconds or relative using Grafana time units., required`,
 		},
 		DisableAutoGenTag: true,
@@ -7604,7 +7617,7 @@ var (
   "properties": {
     "folderId": {
       "type": "number",
-      "description": "ID of the folder where the library element is stored. Deprecated: use FolderUID instead"
+      "description": "ID of the folder where the library element is stored.\nDeprecated: use FolderUID instead"
     },
     "folderUid": {
       "type": "string",
@@ -7612,7 +7625,7 @@ var (
     },
     "kind": {
       "type": "number",
-      "description": "Kind of element to create, Use 1 for library panels or 2 for c. Description: 1 - library panels",
+      "description": "Kind of element to create, Use 1 for library panels or 2 for c.\nDescription:\n1 - library panels",
       "enum": [
         "1"
       ]
@@ -7646,9 +7659,12 @@ var (
   "name": string,
   "uid": string
 }
-  folderId                 ID of the folder where the library element is stored. Deprecated: use FolderUID instead
+  folderId                 ID of the folder where the library element is stored.
+                           Deprecated: use FolderUID instead
   folderUid                UID of the folder where the library element is stored.
-  kind                     Kind of element to create, Use 1 for library panels or 2 for c. Description: 1 - library panels, enum: 1
+  kind                     Kind of element to create, Use 1 for library panels or 2 for c.
+                           Description:
+                           1 - library panels, enum: 1
   model                    The JSON model for the library element.
   name                     Name of the library element.`,
 		},
@@ -7883,7 +7899,7 @@ var (
   "properties": {
     "folderId": {
       "type": "number",
-      "description": "ID of the folder where the library element is stored. Deprecated: use FolderUID instead"
+      "description": "ID of the folder where the library element is stored.\nDeprecated: use FolderUID instead"
     },
     "folderUid": {
       "type": "string",
@@ -7891,7 +7907,7 @@ var (
     },
     "kind": {
       "type": "number",
-      "description": "Kind of element to create, Use 1 for library panels or 2 for c. Description: 1 - library panels",
+      "description": "Kind of element to create, Use 1 for library panels or 2 for c.\nDescription:\n1 - library panels",
       "enum": [
         "1"
       ]
@@ -7930,9 +7946,12 @@ var (
   "uid": string,
   "version": number
 }
-  folderId                 ID of the folder where the library element is stored. Deprecated: use FolderUID instead
+  folderId                 ID of the folder where the library element is stored.
+                           Deprecated: use FolderUID instead
   folderUid                UID of the folder where the library element is stored.
-  kind                     Kind of element to create, Use 1 for library panels or 2 for c. Description: 1 - library panels, enum: 1
+  kind                     Kind of element to create, Use 1 for library panels or 2 for c.
+                           Description:
+                           1 - library panels, enum: 1
   model                    The JSON model for the library element.
   name                     Name of the library element.
   version                  Version of the library element you are updating.`,
@@ -11554,7 +11573,7 @@ var (
           },
           "queryType": {
             "type": "string",
-            "description": "QueryType is an optional identifier for the type of query. It can be used to distinguish different types of queries."
+            "description": "QueryType is an optional identifier for the type of query.\nIt can be used to distinguish different types of queries."
           },
           "refId": {
             "type": "string",
@@ -11622,29 +11641,29 @@ var (
           "items": {
             "type": "string"
           },
-          "description": "Override the times when notifications should not be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent at the time that matches any interval."
+          "description": "Override the times when notifications should not be muted. These must match the name of a mute time interval defined\nin the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent\nat the time that matches any interval."
         },
         "group_by": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels use the special value '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Must include 'alertname' and 'grafana_folder' if not using '...'."
+          "description": "Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for\ncluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels\nuse the special value '...' as the sole label name.\nThis effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what\nyou want, unless you have a very low alert volume or your upstream notification system performs its own grouping.\nMust include 'alertname' and 'grafana_folder' if not using '...'."
         },
         "group_interval": {
           "type": "string",
-          "description": "Override how long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent. (Usually ~5m or more.)"
+          "description": "Override how long to wait before sending a notification about new alerts that are added to a group of alerts for\nwhich an initial notification has already been sent. (Usually ~5m or more.)"
         },
         "group_wait": {
           "type": "string",
-          "description": "Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)"
+          "description": "Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an\ninhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)"
         },
         "mute_time_intervals": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Override the times when notifications should be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but otherwise acts normally."
+          "description": "Override the times when notifications should be muted. These must match the name of a mute time interval defined\nin the alertmanager configuration time_intervals section. When muted it will not send any notifications, but\notherwise acts normally."
         },
         "receiver": {
           "type": "string",
@@ -11652,7 +11671,7 @@ var (
         },
         "repeat_interval": {
           "type": "string",
-          "description": "Override how long to wait before sending a notification again if it has already been sent successfully for an alert. (Usually ~3h or more). Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag. Notifications will be resent after either repeat_interval or the data retention period have passed, whichever occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `."
+          "description": "Override how long to wait before sending a notification again if it has already been sent successfully for an\nalert. (Usually ~3h or more).\nNote that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.\nNotifications will be resent after either repeat_interval or the data retention period have passed, whichever\noccurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `."
         }
       },
       "required": [
@@ -11688,19 +11707,19 @@ var (
     },
     "ruleGroup": {
       "type": "string",
-      "description": "rule group Max Length: 190 Min Length: 1"
+      "description": "rule group\nMax Length: 190\nMin Length: 1"
     },
     "title": {
       "type": "string",
-      "description": "title Max Length: 190 Min Length: 1"
+      "description": "title\nMax Length: 190\nMin Length: 1"
     },
     "uid": {
       "type": "string",
-      "description": "uid Max Length: 40 Min Length: 1"
+      "description": "uid\nMax Length: 40\nMin Length: 1"
     },
     "updated": {
       "type": "string",
-      "description": "updated Read Only: true"
+      "description": "updated\nRead Only: true"
     }
   },
   "required": [
@@ -11765,27 +11784,50 @@ var (
   data                     required
   data[].datasourceUid     Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
   data[].model             JSON is the raw JSON query and includes the above properties as well as custom properties.
-  data[].queryType         QueryType is an optional identifier for the type of query. It can be used to distinguish different types of queries.
+  data[].queryType         QueryType is an optional identifier for the type of query.
+                           It can be used to distinguish different types of queries.
   data[].refId             RefID is the unique identifier of the query, set by the frontend call.
   execErrState             required, enum: OK | Alerting | Error
   folderUID                required
   for                      required
   noDataState              required, enum: Alerting | NoData | OK
-  notification_settings.active_time_intervals Override the times when notifications should not be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent at the time that matches any interval.
-  notification_settings.group_by Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels use the special value '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Must include 'alertname' and 'grafana_folder' if not using '...'.
-  notification_settings.group_interval Override how long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent. (Usually ~5m or more.)
-  notification_settings.group_wait Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
-  notification_settings.mute_time_intervals Override the times when notifications should be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but otherwise acts normally.
+  notification_settings.active_time_intervals Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+                           in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+                           at the time that matches any interval.
+  notification_settings.group_by Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+                           cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+                           use the special value '...' as the sole label name.
+                           This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+                           you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+                           Must include 'alertname' and 'grafana_folder' if not using '...'.
+  notification_settings.group_interval Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+                           which an initial notification has already been sent. (Usually ~5m or more.)
+  notification_settings.group_wait Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+                           inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  notification_settings.mute_time_intervals Override the times when notifications should be muted. These must match the name of a mute time interval defined
+                           in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+                           otherwise acts normally.
   notification_settings.receiver Name of the receiver to send notifications to., required
-  notification_settings.repeat_interval Override how long to wait before sending a notification again if it has already been sent successfully for an alert. (Usually ~3h or more). Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag. Notifications will be resent after either repeat_interval or the data retention period have passed, whichever occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
+  notification_settings.repeat_interval Override how long to wait before sending a notification again if it has already been sent successfully for an
+                           alert. (Usually ~3h or more).
+                           Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
+                           Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+                           occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
   orgID                    required
   record.from              Which expression node should be used as the input for the recorded metric., required
   record.metric            Name of the recorded metric., required
   record.target_datasource_uid Which data source should be used to write the output of the recording rule, specified by UID.
-  ruleGroup                rule group Max Length: 190 Min Length: 1, required
-  title                    title Max Length: 190 Min Length: 1, required
-  uid                      uid Max Length: 40 Min Length: 1
-  updated                  updated Read Only: true`,
+  ruleGroup                rule group
+                           Max Length: 190
+                           Min Length: 1, required
+  title                    title
+                           Max Length: 190
+                           Min Length: 1, required
+  uid                      uid
+                           Max Length: 40
+                           Min Length: 1
+  updated                  updated
+                           Read Only: true`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -11840,11 +11882,11 @@ var (
     },
     "name": {
       "type": "string",
-      "description": "Name is used as grouping key in the UI. Contact points with the same name will be grouped in the UI."
+      "description": "Name is used as grouping key in the UI. Contact points with the\nsame name will be grouped in the UI."
     },
     "provenance": {
       "type": "string",
-      "description": "provenance Read Only: true"
+      "description": "provenance\nRead Only: true"
     },
     "settings": {},
     "type": {
@@ -11872,7 +11914,7 @@ var (
     },
     "uid": {
       "type": "string",
-      "description": "UID is the unique identifier of the contact point. The UID can be set by the user. Max Length: 40 Min Length: 1"
+      "description": "UID is the unique identifier of the contact point. The UID can be\nset by the user.\nMax Length: 40\nMin Length: 1"
     }
   },
   "required": [
@@ -11892,11 +11934,16 @@ var (
   "type": string,
   "uid": string
 }
-  name                     Name is used as grouping key in the UI. Contact points with the same name will be grouped in the UI.
-  provenance               provenance Read Only: true
+  name                     Name is used as grouping key in the UI. Contact points with the
+                           same name will be grouped in the UI.
+  provenance               provenance
+                           Read Only: true
   settings                 required
   type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
-  uid                      UID is the unique identifier of the contact point. The UID can be set by the user. Max Length: 40 Min Length: 1`,
+  uid                      UID is the unique identifier of the contact point. The UID can be
+                           set by the user.
+                           Max Length: 40
+                           Min Length: 1`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -12089,7 +12136,7 @@ var (
           },
           "queryType": {
             "type": "string",
-            "description": "QueryType is an optional identifier for the type of query. It can be used to distinguish different types of queries."
+            "description": "QueryType is an optional identifier for the type of query.\nIt can be used to distinguish different types of queries."
           },
           "refId": {
             "type": "string",
@@ -12157,29 +12204,29 @@ var (
           "items": {
             "type": "string"
           },
-          "description": "Override the times when notifications should not be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent at the time that matches any interval."
+          "description": "Override the times when notifications should not be muted. These must match the name of a mute time interval defined\nin the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent\nat the time that matches any interval."
         },
         "group_by": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels use the special value '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Must include 'alertname' and 'grafana_folder' if not using '...'."
+          "description": "Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for\ncluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels\nuse the special value '...' as the sole label name.\nThis effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what\nyou want, unless you have a very low alert volume or your upstream notification system performs its own grouping.\nMust include 'alertname' and 'grafana_folder' if not using '...'."
         },
         "group_interval": {
           "type": "string",
-          "description": "Override how long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent. (Usually ~5m or more.)"
+          "description": "Override how long to wait before sending a notification about new alerts that are added to a group of alerts for\nwhich an initial notification has already been sent. (Usually ~5m or more.)"
         },
         "group_wait": {
           "type": "string",
-          "description": "Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)"
+          "description": "Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an\ninhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)"
         },
         "mute_time_intervals": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Override the times when notifications should be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but otherwise acts normally."
+          "description": "Override the times when notifications should be muted. These must match the name of a mute time interval defined\nin the alertmanager configuration time_intervals section. When muted it will not send any notifications, but\notherwise acts normally."
         },
         "receiver": {
           "type": "string",
@@ -12187,7 +12234,7 @@ var (
         },
         "repeat_interval": {
           "type": "string",
-          "description": "Override how long to wait before sending a notification again if it has already been sent successfully for an alert. (Usually ~3h or more). Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag. Notifications will be resent after either repeat_interval or the data retention period have passed, whichever occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `."
+          "description": "Override how long to wait before sending a notification again if it has already been sent successfully for an\nalert. (Usually ~3h or more).\nNote that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.\nNotifications will be resent after either repeat_interval or the data retention period have passed, whichever\noccurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `."
         }
       },
       "required": [
@@ -12223,19 +12270,19 @@ var (
     },
     "ruleGroup": {
       "type": "string",
-      "description": "rule group Max Length: 190 Min Length: 1"
+      "description": "rule group\nMax Length: 190\nMin Length: 1"
     },
     "title": {
       "type": "string",
-      "description": "title Max Length: 190 Min Length: 1"
+      "description": "title\nMax Length: 190\nMin Length: 1"
     },
     "uid": {
       "type": "string",
-      "description": "uid Max Length: 40 Min Length: 1"
+      "description": "uid\nMax Length: 40\nMin Length: 1"
     },
     "updated": {
       "type": "string",
-      "description": "updated Read Only: true"
+      "description": "updated\nRead Only: true"
     }
   },
   "required": [
@@ -12300,27 +12347,50 @@ var (
   data                     required
   data[].datasourceUid     Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
   data[].model             JSON is the raw JSON query and includes the above properties as well as custom properties.
-  data[].queryType         QueryType is an optional identifier for the type of query. It can be used to distinguish different types of queries.
+  data[].queryType         QueryType is an optional identifier for the type of query.
+                           It can be used to distinguish different types of queries.
   data[].refId             RefID is the unique identifier of the query, set by the frontend call.
   execErrState             required, enum: OK | Alerting | Error
   folderUID                required
   for                      required
   noDataState              required, enum: Alerting | NoData | OK
-  notification_settings.active_time_intervals Override the times when notifications should not be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent at the time that matches any interval.
-  notification_settings.group_by Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels use the special value '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Must include 'alertname' and 'grafana_folder' if not using '...'.
-  notification_settings.group_interval Override how long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent. (Usually ~5m or more.)
-  notification_settings.group_wait Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
-  notification_settings.mute_time_intervals Override the times when notifications should be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but otherwise acts normally.
+  notification_settings.active_time_intervals Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+                           in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+                           at the time that matches any interval.
+  notification_settings.group_by Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+                           cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+                           use the special value '...' as the sole label name.
+                           This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+                           you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+                           Must include 'alertname' and 'grafana_folder' if not using '...'.
+  notification_settings.group_interval Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+                           which an initial notification has already been sent. (Usually ~5m or more.)
+  notification_settings.group_wait Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+                           inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  notification_settings.mute_time_intervals Override the times when notifications should be muted. These must match the name of a mute time interval defined
+                           in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+                           otherwise acts normally.
   notification_settings.receiver Name of the receiver to send notifications to., required
-  notification_settings.repeat_interval Override how long to wait before sending a notification again if it has already been sent successfully for an alert. (Usually ~3h or more). Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag. Notifications will be resent after either repeat_interval or the data retention period have passed, whichever occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
+  notification_settings.repeat_interval Override how long to wait before sending a notification again if it has already been sent successfully for an
+                           alert. (Usually ~3h or more).
+                           Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
+                           Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+                           occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
   orgID                    required
   record.from              Which expression node should be used as the input for the recorded metric., required
   record.metric            Name of the recorded metric., required
   record.target_datasource_uid Which data source should be used to write the output of the recording rule, specified by UID.
-  ruleGroup                rule group Max Length: 190 Min Length: 1, required
-  title                    title Max Length: 190 Min Length: 1, required
-  uid                      uid Max Length: 40 Min Length: 1
-  updated                  updated Read Only: true`,
+  ruleGroup                rule group
+                           Max Length: 190
+                           Min Length: 1, required
+  title                    title
+                           Max Length: 190
+                           Min Length: 1, required
+  uid                      uid
+                           Max Length: 40
+                           Min Length: 1
+  updated                  updated
+                           Read Only: true`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -12405,7 +12475,7 @@ var (
                 },
                 "queryType": {
                   "type": "string",
-                  "description": "QueryType is an optional identifier for the type of query. It can be used to distinguish different types of queries."
+                  "description": "QueryType is an optional identifier for the type of query.\nIt can be used to distinguish different types of queries."
                 },
                 "refId": {
                   "type": "string",
@@ -12473,29 +12543,29 @@ var (
                 "items": {
                   "type": "string"
                 },
-                "description": "Override the times when notifications should not be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent at the time that matches any interval."
+                "description": "Override the times when notifications should not be muted. These must match the name of a mute time interval defined\nin the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent\nat the time that matches any interval."
               },
               "group_by": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "description": "Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels use the special value '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Must include 'alertname' and 'grafana_folder' if not using '...'."
+                "description": "Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for\ncluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels\nuse the special value '...' as the sole label name.\nThis effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what\nyou want, unless you have a very low alert volume or your upstream notification system performs its own grouping.\nMust include 'alertname' and 'grafana_folder' if not using '...'."
               },
               "group_interval": {
                 "type": "string",
-                "description": "Override how long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent. (Usually ~5m or more.)"
+                "description": "Override how long to wait before sending a notification about new alerts that are added to a group of alerts for\nwhich an initial notification has already been sent. (Usually ~5m or more.)"
               },
               "group_wait": {
                 "type": "string",
-                "description": "Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)"
+                "description": "Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an\ninhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)"
               },
               "mute_time_intervals": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "description": "Override the times when notifications should be muted. These must match the name of a mute time interval defined in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but otherwise acts normally."
+                "description": "Override the times when notifications should be muted. These must match the name of a mute time interval defined\nin the alertmanager configuration time_intervals section. When muted it will not send any notifications, but\notherwise acts normally."
               },
               "receiver": {
                 "type": "string",
@@ -12503,7 +12573,7 @@ var (
               },
               "repeat_interval": {
                 "type": "string",
-                "description": "Override how long to wait before sending a notification again if it has already been sent successfully for an alert. (Usually ~3h or more). Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag. Notifications will be resent after either repeat_interval or the data retention period have passed, whichever occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `."
+                "description": "Override how long to wait before sending a notification again if it has already been sent successfully for an\nalert. (Usually ~3h or more).\nNote that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.\nNotifications will be resent after either repeat_interval or the data retention period have passed, whichever\noccurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `."
               }
             },
             "required": [
@@ -12539,19 +12609,19 @@ var (
           },
           "ruleGroup": {
             "type": "string",
-            "description": "rule group Max Length: 190 Min Length: 1"
+            "description": "rule group\nMax Length: 190\nMin Length: 1"
           },
           "title": {
             "type": "string",
-            "description": "title Max Length: 190 Min Length: 1"
+            "description": "title\nMax Length: 190\nMin Length: 1"
           },
           "uid": {
             "type": "string",
-            "description": "uid Max Length: 40 Min Length: 1"
+            "description": "uid\nMax Length: 40\nMin Length: 1"
           },
           "updated": {
             "type": "string",
-            "description": "updated Read Only: true"
+            "description": "updated\nRead Only: true"
           }
         },
         "required": [
@@ -12612,10 +12682,17 @@ var (
   rules[].for              required
   rules[].noDataState      required, enum: Alerting | NoData | OK
   rules[].orgID            required
-  rules[].ruleGroup        rule group Max Length: 190 Min Length: 1, required
-  rules[].title            title Max Length: 190 Min Length: 1, required
-  rules[].uid              uid Max Length: 40 Min Length: 1
-  rules[].updated          updated Read Only: true`,
+  rules[].ruleGroup        rule group
+                           Max Length: 190
+                           Min Length: 1, required
+  rules[].title            title
+                           Max Length: 190
+                           Min Length: 1, required
+  rules[].uid              uid
+                           Max Length: 40
+                           Min Length: 1
+  rules[].updated          updated
+                           Read Only: true`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -12672,11 +12749,11 @@ var (
     },
     "name": {
       "type": "string",
-      "description": "Name is used as grouping key in the UI. Contact points with the same name will be grouped in the UI."
+      "description": "Name is used as grouping key in the UI. Contact points with the\nsame name will be grouped in the UI."
     },
     "provenance": {
       "type": "string",
-      "description": "provenance Read Only: true"
+      "description": "provenance\nRead Only: true"
     },
     "settings": {},
     "type": {
@@ -12704,7 +12781,7 @@ var (
     },
     "uid": {
       "type": "string",
-      "description": "UID is the unique identifier of the contact point. The UID can be set by the user. Max Length: 40 Min Length: 1"
+      "description": "UID is the unique identifier of the contact point. The UID can be\nset by the user.\nMax Length: 40\nMin Length: 1"
     }
   },
   "required": [
@@ -12724,11 +12801,16 @@ var (
   "type": string,
   "uid": string
 }
-  name                     Name is used as grouping key in the UI. Contact points with the same name will be grouped in the UI.
-  provenance               provenance Read Only: true
+  name                     Name is used as grouping key in the UI. Contact points with the
+                           same name will be grouped in the UI.
+  provenance               provenance
+                           Read Only: true
   settings                 required
   type                     required, enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
-  uid                      UID is the unique identifier of the contact point. The UID can be set by the user. Max Length: 40 Min Length: 1`,
+  uid                      UID is the unique identifier of the contact point. The UID can be
+                           set by the user.
+                           Max Length: 40
+                           Min Length: 1`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {

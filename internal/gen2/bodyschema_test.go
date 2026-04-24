@@ -85,6 +85,35 @@ func TestFormatBodySchemaNestedFields(t *testing.T) {
 	}
 }
 
+func TestFormatBodySchemaMultiLineDescription(t *testing.T) {
+	schema := &BodySchemaInfo{
+		TypeName: "MetricRequest",
+		Fields: []*ModelField{
+			{
+				JSONName:   "queries",
+				JSONType:   "any",
+				IsArray:    true,
+				IsRequired: true,
+				Description: "queries.refId – Specifies an identifier of the query.\n" +
+					"queries.datasourceId – Specifies the data source to be queried.\n" +
+					"queries.maxDataPoints - Species maximum amount of data points.",
+			},
+		},
+	}
+
+	got := formatBodySchema(schema)
+	want := `Body schema (MetricRequest):
+{
+  "queries": [any]
+}
+  queries                  queries.refId – Specifies an identifier of the query.
+                           queries.datasourceId – Specifies the data source to be queried.
+                           queries.maxDataPoints - Species maximum amount of data points., required`
+	if got != want {
+		t.Fatalf("formatBodySchema() =\n%s\nwant:\n%s", got, want)
+	}
+}
+
 func TestBuildBodyJSONSchema(t *testing.T) {
 	src := `package models
 
@@ -167,7 +196,7 @@ type Permission struct {
     },
     "email": {
       "type": "string",
-      "description": "Email address of the user"
+      "description": "Email\naddress of the user"
     },
     "status": {
       "type": "string",
@@ -366,7 +395,7 @@ type T struct {
 		got[field.Names[0].Name] = extractDescription(field.Doc, extractJSONName(field))
 	}
 	want := map[string]string{
-		"A":       "first line continues here",
+		"A":       "first line\ncontinues here",
 		"B":       "",
 		"C":       "",
 		"RoleUID": "", // "role Uid" normalizes to the same as "roleUid" -> dropped
