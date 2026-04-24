@@ -9,9 +9,10 @@ gf group-attribute-sync delete-group-mappings [flags]
 ### Options
 
 ```
-      --group-id string   GroupID
-  -h, --help              help for delete-group-mappings
-      --raw               Print the raw HTTP response body instead of the decoded payload
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --group-id string                GroupID
+  -h, --help                           help for delete-group-mappings
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

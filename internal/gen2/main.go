@@ -240,7 +240,8 @@ func defaultValue(typ string, fieldName string) string {
 // If doc is non-empty it takes precedence over the default.
 func flagHelp(fieldName string, doc string) string {
 	if fieldName == "Body" {
-		return `"The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'"` //nolint:goconst
+		return `"Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). ` +
+			`The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema."` //nolint:goconst
 	}
 	if doc != "" {
 		return fmt.Sprintf(`%q`, doc)

@@ -9,13 +9,14 @@ gf service-accounts search-org-service-accounts-with-paging [flags]
 ### Options
 
 ```
-      --disabled         Disabled
-      --expired-tokens   ExpiredTokens
-  -h, --help             help for search-org-service-accounts-with-paging
-      --page int         The default value is 1.
-      --perpage int      The default value is 1000. (default 1000)
-      --query string     It will return results where the query value is contained in one of the name. Query values with spaces need to be URL encoded.
-      --raw              Print the raw HTTP response body instead of the decoded payload
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --disabled                       Disabled
+      --expired-tokens                 ExpiredTokens
+  -h, --help                           help for search-org-service-accounts-with-paging
+      --page int                       The default value is 1.
+      --perpage int                    The default value is 1000. (default 1000)
+      --query string                   It will return results where the query value is contained in one of the name. Query values with spaces need to be URL encoded.
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

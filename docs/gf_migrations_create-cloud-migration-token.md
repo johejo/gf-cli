@@ -9,8 +9,9 @@ gf migrations create-cloud-migration-token [flags]
 ### Options
 
 ```
-  -h, --help   help for create-cloud-migration-token
-      --raw    Print the raw HTTP response body instead of the decoded payload
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for create-cloud-migration-token
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -15,10 +15,11 @@ gf access-control remove-team-role [flags]
 ### Options
 
 ```
-  -h, --help              help for remove-team-role
-      --raw               Print the raw HTTP response body instead of the decoded payload
-      --role-uid string   RoleUID
-      --team-id int       TeamID
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for remove-team-role
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --role-uid string                RoleUID
+      --team-id int                    TeamID
 ```
 
 ### Options inherited from parent commands

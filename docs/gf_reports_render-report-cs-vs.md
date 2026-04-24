@@ -9,10 +9,11 @@ gf reports render-report-cs-vs [flags]
 ### Options
 
 ```
-      --dashboards string   Dashboards
-  -h, --help                help for render-report-cs-vs
-      --raw                 Print the raw HTTP response body instead of the decoded payload
-      --title string        Title
+      --dashboards string              Dashboards
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for render-report-cs-vs
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --title string                   Title
 ```
 
 ### Options inherited from parent commands

@@ -9,11 +9,12 @@ gf dashboards get-dashboard-versions-by-uid [flags]
 ### Options
 
 ```
-  -h, --help         help for get-dashboard-versions-by-uid
-      --limit int    Maximum number of results to return
-      --raw          Print the raw HTTP response body instead of the decoded payload
-      --start int    Version to start from when returning queries
-      --uid string   UID
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for get-dashboard-versions-by-uid
+      --limit int                      Maximum number of results to return
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --start int                      Version to start from when returning queries
+      --uid string                     UID
 ```
 
 ### Options inherited from parent commands

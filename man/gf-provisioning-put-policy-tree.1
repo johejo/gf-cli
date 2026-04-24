@@ -18,8 +18,8 @@ Body schema (Route):
   "group_interval": string,
   "group_wait": string,
   "match": {"key": string},
-  "match_re": object,
-  "matchers": [object],
+  "match_re": object,  // models.MatchRegexps
+  "matchers": [object],  // models.Matchers
   "mute_time_intervals": [string],
   "object_matchers": [string],
   "provenance": string,
@@ -33,14 +33,14 @@ Body schema (Route):
       "group_interval": string,
       "group_wait": string,
       "match": {"key": string},
-      "match_re": object,
-      "matchers": [object],
+      "match_re": object,  // models.MatchRegexps
+      "matchers": [object],  // models.Matchers
       "mute_time_intervals": [string],
       "object_matchers": [string],
       "provenance": string,
       "receiver": string,
       "repeat_interval": string,
-      "routes": [object]
+      "routes": [object]  // []models.Route
     }
   ]
 }
@@ -50,11 +50,15 @@ Body schema (Route):
 
 .SH OPTIONS
 \fB--body\fP=""
-	The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]
 	Print the JSON Schema of the request body and exit without calling the API
+
+.PP
+\fB--describe-response-jsonschema\fP[=false]
+	Print the JSON Schema of the response payload and exit without calling the API
 
 .PP
 \fB-h\fP, \fB--help\fP[=false]

@@ -9,11 +9,12 @@ gf access-control remove-user-role [flags]
 ### Options
 
 ```
-      --global            A flag indicating if the assignment is global or not. If set to false, the default org ID of the authenticated user will be used from the request to remove assignment.
-  -h, --help              help for remove-user-role
-      --raw               Print the raw HTTP response body instead of the decoded payload
-      --role-uid string   RoleUID
-      --user-id int       UserID
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --global                         A flag indicating if the assignment is global or not. If set to false, the default org ID of the authenticated user will be used from the request to remove assignment.
+  -h, --help                           help for remove-user-role
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --role-uid string                RoleUID
+      --user-id int                    UserID
 ```
 
 ### Options inherited from parent commands

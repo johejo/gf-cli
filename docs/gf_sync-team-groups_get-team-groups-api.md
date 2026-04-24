@@ -9,9 +9,10 @@ gf sync-team-groups get-team-groups-api [flags]
 ### Options
 
 ```
-  -h, --help          help for get-team-groups-api
-      --raw           Print the raw HTTP response body instead of the decoded payload
-      --team-id int   TeamID
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for get-team-groups-api
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --team-id int                    TeamID
 ```
 
 ### Options inherited from parent commands

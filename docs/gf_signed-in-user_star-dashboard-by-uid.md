@@ -15,9 +15,10 @@ gf signed-in-user star-dashboard-by-uid [flags]
 ### Options
 
 ```
-      --dashboard-uid string   DashboardUID
-  -h, --help                   help for star-dashboard-by-uid
-      --raw                    Print the raw HTTP response body instead of the decoded payload
+      --dashboard-uid string           DashboardUID
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for star-dashboard-by-uid
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -9,16 +9,17 @@ gf query-history search-queries [flags]
 ### Options
 
 ```
-      --datasource-uid strings   List of data source UIDs to search for
-      --from int                 From range for the query history search
-  -h, --help                     help for search-queries
-      --limit int                Limit the number of returned results
-      --only-starred             Flag indicating if only starred queries should be returned
-      --page int                 Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size.
-      --raw                      Print the raw HTTP response body instead of the decoded payload
-      --search-string string     Text inside query or comments that is searched for
-      --sort string              Sort method Default: "time-desc"
-      --to int                   To range for the query history search
+      --datasource-uid strings         List of data source UIDs to search for
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --from int                       From range for the query history search
+  -h, --help                           help for search-queries
+      --limit int                      Limit the number of returned results
+      --only-starred                   Flag indicating if only starred queries should be returned
+      --page int                       Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size.
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --search-string string           Text inside query or comments that is searched for
+      --sort string                    Sort method Default: "time-desc"
+      --to int                         To range for the query history search
 ```
 
 ### Options inherited from parent commands

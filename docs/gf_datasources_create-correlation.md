@@ -11,7 +11,7 @@ Body schema (CreateCorrelationCommand):
   "config": {
     "field": string,
     "target": any,
-    "transformations": [object],
+    "transformations": [object],  // models.Transformations
     "type": string
   },
   "description": string,
@@ -36,11 +36,12 @@ gf datasources create-correlation [flags]
 ### Options
 
 ```
-      --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
-      --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
-  -h, --help                       help for create-correlation
-      --raw                        Print the raw HTTP response body instead of the decoded payload
-      --source-uid string          SourceUID
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for create-correlation
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --source-uid string              SourceUID
 ```
 
 ### Options inherited from parent commands

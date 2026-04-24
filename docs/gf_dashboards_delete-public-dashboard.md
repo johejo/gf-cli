@@ -9,10 +9,11 @@ gf dashboards delete-public-dashboard [flags]
 ### Options
 
 ```
-      --dashboard-uid string   DashboardUID
-  -h, --help                   help for delete-public-dashboard
-      --raw                    Print the raw HTTP response body instead of the decoded payload
-      --uid string             UID
+      --dashboard-uid string           DashboardUID
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for delete-public-dashboard
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --uid string                     UID
 ```
 
 ### Options inherited from parent commands

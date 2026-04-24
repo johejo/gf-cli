@@ -9,9 +9,10 @@ gf migrations get-session [flags]
 ### Options
 
 ```
-  -h, --help         help for get-session
-      --raw          Print the raw HTTP response body instead of the decoded payload
-      --uid string   UID of a migration session
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for get-session
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --uid string                     UID of a migration session
 ```
 
 ### Options inherited from parent commands

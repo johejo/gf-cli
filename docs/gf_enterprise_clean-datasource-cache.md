@@ -9,9 +9,10 @@ gf enterprise clean-datasource-cache [flags]
 ### Options
 
 ```
-      --data-source-uid string   DataSourceUID
-  -h, --help                     help for clean-datasource-cache
-      --raw                      Print the raw HTTP response body instead of the decoded payload
+      --data-source-uid string         DataSourceUID
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for clean-datasource-cache
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

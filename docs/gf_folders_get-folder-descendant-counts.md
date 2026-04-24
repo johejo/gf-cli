@@ -9,9 +9,10 @@ gf folders get-folder-descendant-counts [flags]
 ### Options
 
 ```
-      --folder-uid string   FolderUID
-  -h, --help                help for get-folder-descendant-counts
-      --raw                 Print the raw HTTP response body instead of the decoded payload
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --folder-uid string              FolderUID
+  -h, --help                           help for get-folder-descendant-counts
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

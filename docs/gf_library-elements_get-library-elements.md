@@ -9,16 +9,17 @@ gf library-elements get-library-elements [flags]
 ### Options
 
 ```
-      --exclude-uid string      Element UID to exclude from search results.
-      --folder-filter string    A comma separated list of folder ID(s) to filter the elements by.
-  -h, --help                    help for get-library-elements
-      --kind int                Kind of element to search for.
-      --page int                The page for a set of records, given that only perPage records are returned at a time. Numbering starts at 1. Default: 1
-      --per-page int            The number of results per page. Default: 100
-      --raw                     Print the raw HTTP response body instead of the decoded payload
-      --search-string string    Part of the name or description searched for.
-      --sort-direction string   Sort order of elements.
-      --type-filter string      A comma separated list of types to filter the elements by
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --exclude-uid string             Element UID to exclude from search results.
+      --folder-filter string           A comma separated list of folder ID(s) to filter the elements by.
+  -h, --help                           help for get-library-elements
+      --kind int                       Kind of element to search for.
+      --page int                       The page for a set of records, given that only perPage records are returned at a time. Numbering starts at 1. Default: 1
+      --per-page int                   The number of results per page. Default: 100
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --search-string string           Part of the name or description searched for.
+      --sort-direction string          Sort order of elements.
+      --type-filter string             A comma separated list of types to filter the elements by
 ```
 
 ### Options inherited from parent commands

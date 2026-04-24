@@ -9,9 +9,10 @@ gf access-control get-resource-description [flags]
 ### Options
 
 ```
-  -h, --help              help for get-resource-description
-      --raw               Print the raw HTTP response body instead of the decoded payload
-      --resource string   Resource
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for get-resource-description
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --resource string                Resource
 ```
 
 ### Options inherited from parent commands

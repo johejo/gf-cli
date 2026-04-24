@@ -9,9 +9,10 @@ gf signed-in-user set-help-flag [flags]
 ### Options
 
 ```
-      --flag-id string   FlagID
-  -h, --help             help for set-help-flag
-      --raw              Print the raw HTTP response body instead of the decoded payload
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --flag-id string                 FlagID
+  -h, --help                           help for set-help-flag
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

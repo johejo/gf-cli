@@ -115,6 +115,50 @@ func TestFormatBodySchemaMultiLineDescription(t *testing.T) {
 	}
 }
 
+func TestFormatBodySchemaGoTypeHint(t *testing.T) {
+	schema := &BodySchemaInfo{
+		TypeName: "CreateDashboardSnapshotCommand",
+		Fields: []*ModelField{
+			{JSONName: "dashboard", JSONType: "any", GoType: "Dashboard", IsRequired: true},
+			{JSONName: "relativeTimeRange", JSONType: "object", GoType: "RelativeTimeRange"},
+			{JSONName: "extra", JSONType: "any", GoType: ""},
+			{JSONName: "panels", JSONType: "any", IsArray: true, GoType: "[]Dashboard"},
+			{JSONName: "name", JSONType: "string", GoType: "string"},
+			{JSONName: "blob", JSONType: "any", GoType: "object"},
+			{JSONName: "freeform", JSONType: "any", GoType: "any"},
+			{JSONName: "labels", JSONType: "object", IsMap: true, MapValueType: "string", GoType: "map[string]Dashboard"},
+			{
+				JSONName: "nested",
+				JSONType: "object",
+				GoType:   "ExpandedStruct",
+				NestedFields: []*ModelField{
+					{JSONName: "inner", JSONType: "string"},
+				},
+			},
+		},
+	}
+
+	got := formatBodySchema(schema)
+	want := `Body schema (CreateDashboardSnapshotCommand):
+{
+  "dashboard": any,  // models.Dashboard
+  "relativeTimeRange": object,  // models.RelativeTimeRange
+  "extra": any,
+  "panels": [any],  // []models.Dashboard
+  "name": string,
+  "blob": any,
+  "freeform": any,
+  "labels": {"key": string},
+  "nested": {
+    "inner": string
+  }
+}
+  dashboard                REQUIRED`
+	if got != want {
+		t.Fatalf("formatBodySchema() =\n%s\nwant:\n%s", got, want)
+	}
+}
+
 func TestBuildBodyJSONSchema(t *testing.T) {
 	src := `package models
 

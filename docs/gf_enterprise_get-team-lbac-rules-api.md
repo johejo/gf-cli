@@ -9,9 +9,10 @@ gf enterprise get-team-lbac-rules-api [flags]
 ### Options
 
 ```
-  -h, --help         help for get-team-lbac-rules-api
-      --raw          Print the raw HTTP response body instead of the decoded payload
-      --uid string   UID
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for get-team-lbac-rules-api
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --uid string                     UID
 ```
 
 ### Options inherited from parent commands

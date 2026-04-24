@@ -15,8 +15,9 @@ gf signing-keys retrieve-jwks [flags]
 ### Options
 
 ```
-  -h, --help   help for retrieve-jwks
-      --raw    Print the raw HTTP response body instead of the decoded payload
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for retrieve-jwks
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

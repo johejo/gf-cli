@@ -9,14 +9,15 @@ gf reports render-report-pd-fs [flags]
 ### Options
 
 ```
-      --dashboards string       Dashboards
-  -h, --help                    help for render-report-pd-fs
-      --include-tables string   IncludeTables
-      --layout string           Layout
-      --orientation string      Orientation
-      --raw                     Print the raw HTTP response body instead of the decoded payload
-      --scale-factor string     ScaleFactor
-      --title string            Title
+      --dashboards string              Dashboards
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for render-report-pd-fs
+      --include-tables string          IncludeTables
+      --layout string                  Layout
+      --orientation string             Orientation
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --scale-factor string            ScaleFactor
+      --title string                   Title
 ```
 
 ### Options inherited from parent commands

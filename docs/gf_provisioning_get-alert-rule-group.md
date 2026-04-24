@@ -9,10 +9,11 @@ gf provisioning get-alert-rule-group [flags]
 ### Options
 
 ```
-      --folder-uid string   FolderUID
-      --group string        Group
-  -h, --help                help for get-alert-rule-group
-      --raw                 Print the raw HTTP response body instead of the decoded payload
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --folder-uid string              FolderUID
+      --group string                   Group
+  -h, --help                           help for get-alert-rule-group
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

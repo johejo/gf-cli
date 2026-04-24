@@ -9,12 +9,13 @@ gf provisioning get-contactpoints-export [flags]
 ### Options
 
 ```
-      --decrypt         Whether any contained secure settings should be decrypted or left redacted. Redacted settings will contain RedactedValue instead. Currently, only org admin can view decrypted secure settings.
-      --download        Whether to initiate a download of the file or not.
-      --format string   Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: "yaml"
-  -h, --help            help for get-contactpoints-export
-      --name string     Filter by name
-      --raw             Print the raw HTTP response body instead of the decoded payload
+      --decrypt                        Whether any contained secure settings should be decrypted or left redacted. Redacted settings will contain RedactedValue instead. Currently, only org admin can view decrypted secure settings.
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --download                       Whether to initiate a download of the file or not.
+      --format string                  Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: "yaml"
+  -h, --help                           help for get-contactpoints-export
+      --name string                    Filter by name
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

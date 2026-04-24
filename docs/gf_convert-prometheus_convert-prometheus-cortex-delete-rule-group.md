@@ -9,10 +9,11 @@ gf convert-prometheus convert-prometheus-cortex-delete-rule-group [flags]
 ### Options
 
 ```
-      --group string             Group
-  -h, --help                     help for convert-prometheus-cortex-delete-rule-group
-      --namespace-title string   NamespaceTitle
-      --raw                      Print the raw HTTP response body instead of the decoded payload
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --group string                   Group
+  -h, --help                           help for convert-prometheus-cortex-delete-rule-group
+      --namespace-title string         NamespaceTitle
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

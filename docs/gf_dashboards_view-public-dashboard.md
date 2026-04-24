@@ -9,9 +9,10 @@ gf dashboards view-public-dashboard [flags]
 ### Options
 
 ```
-      --access-token string   AccessToken
-  -h, --help                  help for view-public-dashboard
-      --raw                   Print the raw HTTP response body instead of the decoded payload
+      --access-token string            AccessToken
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for view-public-dashboard
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

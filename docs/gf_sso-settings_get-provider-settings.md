@@ -15,9 +15,10 @@ gf sso-settings get-provider-settings [flags]
 ### Options
 
 ```
-  -h, --help         help for get-provider-settings
-      --key string   Key
-      --raw          Print the raw HTTP response body instead of the decoded payload
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for get-provider-settings
+      --key string                     Key
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

@@ -9,9 +9,10 @@ gf recording-rules delete-recording-rule [flags]
 ### Options
 
 ```
-  -h, --help                    help for delete-recording-rule
-      --raw                     Print the raw HTTP response body instead of the decoded payload
-      --recording-rule-id int   RecordingRuleID
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for delete-recording-rule
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --recording-rule-id int          RecordingRuleID
 ```
 
 ### Options inherited from parent commands

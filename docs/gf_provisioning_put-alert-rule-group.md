@@ -12,7 +12,7 @@ Body schema (AlertRuleGroup):
     {
       "annotations": {"key": string},
       "condition": string,
-      "data": [object],
+      "data": [object],  // []models.AlertQuery
       "execErrState": string,
       "folderUID": string,
       "for": string,
@@ -22,10 +22,10 @@ Body schema (AlertRuleGroup):
       "labels": {"key": string},
       "missingSeriesEvalsToResolve": number,
       "noDataState": string,
-      "notification_settings": object,
+      "notification_settings": object,  // models.AlertRuleNotificationSettings
       "orgID": number,
       "provenance": string,
-      "record": object,
+      "record": object,  // models.Record
       "ruleGroup": string,
       "title": string,
       "uid": string,
@@ -64,13 +64,14 @@ gf provisioning put-alert-rule-group [flags]
 ### Options
 
 ```
-      --body string                   The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
-      --describe-body-jsonschema      Print the JSON Schema of the request body and exit without calling the API
-      --folder-uid string             FolderUID
-      --group string                  Group
-  -h, --help                          help for put-alert-rule-group
-      --raw                           Print the raw HTTP response body instead of the decoded payload
-      --x-disable-provenance string   XDisableProvenance
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --folder-uid string              FolderUID
+      --group string                   Group
+  -h, --help                           help for put-alert-rule-group
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --x-disable-provenance string    XDisableProvenance
 ```
 
 ### Options inherited from parent commands

@@ -4247,7 +4247,7 @@ var (
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PatchAnnotationsCmd):
 {
-  "data": any,
+  "data": any,  // models.JSON
   "id": number,
   "tags": [string],
   "text": string,
@@ -4367,7 +4367,7 @@ var (
 {
   "dashboardId": number,
   "dashboardUID": string,
-  "data": any,
+  "data": any,  // models.JSON
   "panelId": number,
   "tags": [string],
   "text": string,
@@ -4564,7 +4564,7 @@ var (
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateAnnotationsCmd):
 {
-  "data": any,
+  "data": any,  // models.JSON
   "id": number,
   "tags": [string],
   "text": string,
@@ -6105,7 +6105,7 @@ var (
 			"bodySchema": `Body schema (CreateDashboardSnapshotCommand):
 {
   "apiVersion": string,
-  "dashboard": any,
+  "dashboard": any,  // models.Unstructured
   "deleteKey": string,
   "expires": number,
   "external": boolean,
@@ -7473,7 +7473,7 @@ var (
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (ImportDashboardRequest):
 {
-  "dashboard": any,
+  "dashboard": any,  // models.JSON
   "folderId": number,
   "folderUid": string,
   "inputs": [
@@ -7737,7 +7737,7 @@ var (
 			"bodySchema": `Body schema (SaveDashboardCommand):
 {
   "UpdatedAt": string,
-  "dashboard": any,
+  "dashboard": any,  // models.JSON
   "folderId": number,
   "folderUid": string,
   "isFolder": boolean,
@@ -9232,7 +9232,7 @@ var (
   "basicAuthUser": string,
   "database": string,
   "isDefault": boolean,
-  "jsonData": any,
+  "jsonData": any,  // models.JSON
   "name": string,
   "secureJsonData": {"key": string},
   "type": string,
@@ -9551,7 +9551,7 @@ var (
   "config": {
     "field": string,
     "target": any,
-    "transformations": [object],
+    "transformations": [object],  // models.Transformations
     "type": string
   },
   "description": string,
@@ -11064,7 +11064,7 @@ var (
 {
   "debug": boolean,
   "from": string,
-  "queries": [any],
+  "queries": [any],  // []models.JSON
   "to": string
 }
   from                     REQUIRED
@@ -11274,7 +11274,7 @@ var (
   "config": {
     "field": string,
     "target": any,
-    "transformations": [object]
+    "transformations": [object]  // []models.Transformation
   },
   "description": string,
   "label": string,
@@ -11491,7 +11491,7 @@ var (
   "basicAuthUser": string,
   "database": string,
   "isDefault": boolean,
-  "jsonData": any,
+  "jsonData": any,  // models.JSON
   "name": string,
   "secureJsonData": {"key": string},
   "type": string,
@@ -24805,7 +24805,7 @@ var (
       "model": any,
       "queryType": string,
       "refId": string,
-      "relativeTimeRange": object
+      "relativeTimeRange": object  // models.RelativeTimeRange
     }
   ],
   "execErrState": string,
@@ -25048,7 +25048,7 @@ var (
   "disableResolveMessage": boolean,
   "name": string,
   "provenance": string,
-  "settings": any,
+  "settings": any,  // models.JSON
   "type": string,
   "uid": string
 }
@@ -25239,7 +25239,7 @@ var (
       "days_of_month": [string],
       "location": string,
       "months": [string],
-      "times": [object],
+      "times": [object],  // []models.TimeIntervalTimeRange
       "weekdays": [string],
       "years": [string]
     }
@@ -25683,7 +25683,7 @@ var (
       "model": any,
       "queryType": string,
       "refId": string,
-      "relativeTimeRange": object
+      "relativeTimeRange": object  // models.RelativeTimeRange
     }
   ],
   "execErrState": string,
@@ -26242,7 +26242,7 @@ var (
     {
       "annotations": {"key": string},
       "condition": string,
-      "data": [object],
+      "data": [object],  // []models.AlertQuery
       "execErrState": string,
       "folderUID": string,
       "for": string,
@@ -26252,10 +26252,10 @@ var (
       "labels": {"key": string},
       "missingSeriesEvalsToResolve": number,
       "noDataState": string,
-      "notification_settings": object,
+      "notification_settings": object,  // models.AlertRuleNotificationSettings
       "orgID": number,
       "provenance": string,
-      "record": object,
+      "record": object,  // models.Record
       "ruleGroup": string,
       "title": string,
       "uid": string,
@@ -26397,7 +26397,7 @@ var (
   "disableResolveMessage": boolean,
   "name": string,
   "provenance": string,
-  "settings": any,
+  "settings": any,  // models.JSON
   "type": string,
   "uid": string
 }
@@ -26589,7 +26589,7 @@ var (
       "days_of_month": [string],
       "location": string,
       "months": [string],
-      "times": [object],
+      "times": [object],  // []models.TimeIntervalTimeRange
       "weekdays": [string],
       "years": [string]
     }
@@ -26754,8 +26754,8 @@ var (
   "group_interval": string,
   "group_wait": string,
   "match": {"key": string},
-  "match_re": object,
-  "matchers": [object],
+  "match_re": object,  // models.MatchRegexps
+  "matchers": [object],  // models.Matchers
   "mute_time_intervals": [string],
   "object_matchers": [string],
   "provenance": string,
@@ -26769,14 +26769,14 @@ var (
       "group_interval": string,
       "group_wait": string,
       "match": {"key": string},
-      "match_re": object,
-      "matchers": [object],
+      "match_re": object,  // models.MatchRegexps
+      "matchers": [object],  // models.Matchers
       "mute_time_intervals": [string],
       "object_matchers": [string],
       "provenance": string,
       "receiver": string,
       "repeat_interval": string,
-      "routes": [object]
+      "routes": [object]  // []models.Route
     }
   ]
 }
@@ -27210,7 +27210,7 @@ var (
 			"bodySchema": `Body schema (CreateQueryInQueryHistoryCommand):
 {
   "datasourceUid": string,
-  "queries": any
+  "queries": any  // models.JSON
 }
   datasourceUid            UID of the data source for which are queries stored.
   queries                  REQUIRED`,
@@ -29091,9 +29091,9 @@ var (
 {
   "dashboards": [
     {
-      "dashboard": object,
+      "dashboard": object,  // models.ReportDashboardID
       "reportVariables": any,
-      "timeRange": object
+      "timeRange": object  // models.ReportTimeRange
     }
   ],
   "enableCsv": boolean,
@@ -29106,7 +29106,7 @@ var (
     "orientation": string,
     "pdfCombineOneFile": boolean,
     "pdfShowTemplateVariables": boolean,
-    "timeRange": object
+    "timeRange": object  // models.ReportTimeRange
   },
   "recipients": string,
   "replyTo": string,
@@ -30403,9 +30403,9 @@ var (
 {
   "dashboards": [
     {
-      "dashboard": object,
+      "dashboard": object,  // models.ReportDashboardID
       "reportVariables": any,
-      "timeRange": object
+      "timeRange": object  // models.ReportTimeRange
     }
   ],
   "enableCsv": boolean,
@@ -30418,7 +30418,7 @@ var (
     "orientation": string,
     "pdfCombineOneFile": boolean,
     "pdfShowTemplateVariables": boolean,
-    "timeRange": object
+    "timeRange": object  // models.ReportTimeRange
   },
   "recipients": string,
   "replyTo": string,
@@ -30637,9 +30637,9 @@ var (
 {
   "dashboards": [
     {
-      "dashboard": object,
+      "dashboard": object,  // models.ReportDashboardID
       "reportVariables": any,
-      "timeRange": object
+      "timeRange": object  // models.ReportTimeRange
     }
   ],
   "enableCsv": boolean,
@@ -30652,7 +30652,7 @@ var (
     "orientation": string,
     "pdfCombineOneFile": boolean,
     "pdfShowTemplateVariables": boolean,
-    "timeRange": object
+    "timeRange": object  // models.ReportTimeRange
   },
   "recipients": string,
   "replyTo": string,
@@ -36180,7 +36180,7 @@ func longHelp(parts ...string) string {
 
 func init() {
 	rootCmd.AddCommand(accessControlCmd)
-	accessControlAddTeamRoleCmd.Flags().StringVar(&accessControlAddTeamRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlAddTeamRoleCmd.Flags().StringVar(&accessControlAddTeamRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlAddTeamRoleCmd.MarkFlagRequired("body")
 	accessControlAddTeamRoleCmd.Flags().Int64Var(&accessControlAddTeamRoleFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlAddTeamRoleCmd.MarkFlagRequired("team-id")
@@ -36188,7 +36188,7 @@ func init() {
 	accessControlAddTeamRoleCmd.Flags().BoolVar(&accessControlAddTeamRoleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlAddTeamRoleCmd.Flags().BoolVar(&accessControlAddTeamRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlAddTeamRoleCmd)
-	accessControlAddUserRoleCmd.Flags().StringVar(&accessControlAddUserRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlAddUserRoleCmd.Flags().StringVar(&accessControlAddUserRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlAddUserRoleCmd.MarkFlagRequired("body")
 	accessControlAddUserRoleCmd.Flags().Int64Var(&accessControlAddUserRoleFlag.UserID, "user-id", 0, "UserID")
 	accessControlAddUserRoleCmd.MarkFlagRequired("user-id")
@@ -36196,7 +36196,7 @@ func init() {
 	accessControlAddUserRoleCmd.Flags().BoolVar(&accessControlAddUserRoleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlAddUserRoleCmd.Flags().BoolVar(&accessControlAddUserRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlAddUserRoleCmd)
-	accessControlCreateRoleCmd.Flags().StringVar(&accessControlCreateRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlCreateRoleCmd.Flags().StringVar(&accessControlCreateRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlCreateRoleCmd.MarkFlagRequired("body")
 	accessControlCreateRoleCmd.Flags().BoolVar(&accessControlCreateRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCreateRoleCmd.Flags().BoolVar(&accessControlCreateRoleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36244,7 +36244,7 @@ func init() {
 	accessControlListTeamRolesCmd.Flags().BoolVar(&accessControlListTeamRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlListTeamRolesCmd.Flags().BoolVar(&accessControlListTeamRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlListTeamRolesCmd)
-	accessControlListTeamsRolesCmd.Flags().StringVar(&accessControlListTeamsRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlListTeamsRolesCmd.Flags().StringVar(&accessControlListTeamsRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlListTeamsRolesCmd.MarkFlagRequired("body")
 	accessControlListTeamsRolesCmd.Flags().BoolVar(&accessControlListTeamsRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlListTeamsRolesCmd.Flags().BoolVar(&accessControlListTeamsRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36255,7 +36255,7 @@ func init() {
 	accessControlListUserRolesCmd.Flags().BoolVar(&accessControlListUserRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlListUserRolesCmd.Flags().BoolVar(&accessControlListUserRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlListUserRolesCmd)
-	accessControlListUsersRolesCmd.Flags().StringVar(&accessControlListUsersRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlListUsersRolesCmd.Flags().StringVar(&accessControlListUsersRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlListUsersRolesCmd.MarkFlagRequired("body")
 	accessControlListUsersRolesCmd.Flags().BoolVar(&accessControlListUsersRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlListUsersRolesCmd.Flags().BoolVar(&accessControlListUsersRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36276,7 +36276,7 @@ func init() {
 	accessControlRemoveUserRoleCmd.Flags().BoolVar(&accessControlRemoveUserRoleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlRemoveUserRoleCmd.Flags().BoolVar(&accessControlRemoveUserRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlRemoveUserRoleCmd)
-	accessControlSetResourcePermissionsCmd.Flags().StringVar(&accessControlSetResourcePermissionsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlSetResourcePermissionsCmd.Flags().StringVar(&accessControlSetResourcePermissionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetResourcePermissionsCmd.MarkFlagRequired("body")
 	accessControlSetResourcePermissionsCmd.Flags().StringVar(&accessControlSetResourcePermissionsFlag.Resource, "resource", "", "Resource")
 	accessControlSetResourcePermissionsCmd.MarkFlagRequired("resource")
@@ -36286,7 +36286,7 @@ func init() {
 	accessControlSetResourcePermissionsCmd.Flags().BoolVar(&accessControlSetResourcePermissionsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetResourcePermissionsCmd.Flags().BoolVar(&accessControlSetResourcePermissionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsCmd)
-	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().StringVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().StringVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.MarkFlagRequired("body")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().StringVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.BuiltInRole, "built-in-role", "", "BuiltInRole")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.MarkFlagRequired("built-in-role")
@@ -36298,7 +36298,7 @@ func init() {
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForBuiltInRoleCmd)
-	accessControlSetResourcePermissionsForTeamCmd.Flags().StringVar(&accessControlSetResourcePermissionsForTeamFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlSetResourcePermissionsForTeamCmd.Flags().StringVar(&accessControlSetResourcePermissionsForTeamFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetResourcePermissionsForTeamCmd.MarkFlagRequired("body")
 	accessControlSetResourcePermissionsForTeamCmd.Flags().StringVar(&accessControlSetResourcePermissionsForTeamFlag.Resource, "resource", "", "Resource")
 	accessControlSetResourcePermissionsForTeamCmd.MarkFlagRequired("resource")
@@ -36310,7 +36310,7 @@ func init() {
 	accessControlSetResourcePermissionsForTeamCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForTeamFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetResourcePermissionsForTeamCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForTeamFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForTeamCmd)
-	accessControlSetResourcePermissionsForUserCmd.Flags().StringVar(&accessControlSetResourcePermissionsForUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlSetResourcePermissionsForUserCmd.Flags().StringVar(&accessControlSetResourcePermissionsForUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetResourcePermissionsForUserCmd.MarkFlagRequired("body")
 	accessControlSetResourcePermissionsForUserCmd.Flags().StringVar(&accessControlSetResourcePermissionsForUserFlag.Resource, "resource", "", "Resource")
 	accessControlSetResourcePermissionsForUserCmd.MarkFlagRequired("resource")
@@ -36322,7 +36322,7 @@ func init() {
 	accessControlSetResourcePermissionsForUserCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForUserFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetResourcePermissionsForUserCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForUserCmd)
-	accessControlSetRoleAssignmentsCmd.Flags().StringVar(&accessControlSetRoleAssignmentsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlSetRoleAssignmentsCmd.Flags().StringVar(&accessControlSetRoleAssignmentsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetRoleAssignmentsCmd.MarkFlagRequired("body")
 	accessControlSetRoleAssignmentsCmd.Flags().StringVar(&accessControlSetRoleAssignmentsFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlSetRoleAssignmentsCmd.MarkFlagRequired("role-uid")
@@ -36330,7 +36330,7 @@ func init() {
 	accessControlSetRoleAssignmentsCmd.Flags().BoolVar(&accessControlSetRoleAssignmentsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetRoleAssignmentsCmd.Flags().BoolVar(&accessControlSetRoleAssignmentsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetRoleAssignmentsCmd)
-	accessControlSetTeamRolesCmd.Flags().StringVar(&accessControlSetTeamRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlSetTeamRolesCmd.Flags().StringVar(&accessControlSetTeamRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetTeamRolesCmd.MarkFlagRequired("body")
 	accessControlSetTeamRolesCmd.Flags().Int64Var(&accessControlSetTeamRolesFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlSetTeamRolesCmd.MarkFlagRequired("team-id")
@@ -36338,7 +36338,7 @@ func init() {
 	accessControlSetTeamRolesCmd.Flags().BoolVar(&accessControlSetTeamRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetTeamRolesCmd.Flags().BoolVar(&accessControlSetTeamRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetTeamRolesCmd)
-	accessControlSetUserRolesCmd.Flags().StringVar(&accessControlSetUserRolesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlSetUserRolesCmd.Flags().StringVar(&accessControlSetUserRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetUserRolesCmd.MarkFlagRequired("body")
 	accessControlSetUserRolesCmd.Flags().Int64Var(&accessControlSetUserRolesFlag.UserID, "user-id", 0, "UserID")
 	accessControlSetUserRolesCmd.MarkFlagRequired("user-id")
@@ -36346,7 +36346,7 @@ func init() {
 	accessControlSetUserRolesCmd.Flags().BoolVar(&accessControlSetUserRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetUserRolesCmd.Flags().BoolVar(&accessControlSetUserRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetUserRolesCmd)
-	accessControlUpdateRoleCmd.Flags().StringVar(&accessControlUpdateRoleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	accessControlUpdateRoleCmd.Flags().StringVar(&accessControlUpdateRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlUpdateRoleCmd.MarkFlagRequired("body")
 	accessControlUpdateRoleCmd.Flags().StringVar(&accessControlUpdateRoleFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlUpdateRoleCmd.MarkFlagRequired("role-uid")
@@ -36393,7 +36393,7 @@ func init() {
 	adminProvisioningAdminProvisioningReloadPluginsCmd.Flags().BoolVar(&adminProvisioningAdminProvisioningReloadPluginsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminProvisioningCmd.AddCommand(adminProvisioningAdminProvisioningReloadPluginsCmd)
 	rootCmd.AddCommand(adminUsersCmd)
-	adminUsersAdminCreateUserCmd.Flags().StringVar(&adminUsersAdminCreateUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	adminUsersAdminCreateUserCmd.Flags().StringVar(&adminUsersAdminCreateUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	adminUsersAdminCreateUserCmd.MarkFlagRequired("body")
 	adminUsersAdminCreateUserCmd.Flags().BoolVar(&adminUsersAdminCreateUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	adminUsersAdminCreateUserCmd.Flags().BoolVar(&adminUsersAdminCreateUserFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36424,7 +36424,7 @@ func init() {
 	adminUsersAdminLogoutUserCmd.Flags().BoolVar(&adminUsersAdminLogoutUserFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	adminUsersAdminLogoutUserCmd.Flags().BoolVar(&adminUsersAdminLogoutUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminLogoutUserCmd)
-	adminUsersAdminRevokeUserAuthTokenCmd.Flags().StringVar(&adminUsersAdminRevokeUserAuthTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	adminUsersAdminRevokeUserAuthTokenCmd.Flags().StringVar(&adminUsersAdminRevokeUserAuthTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	adminUsersAdminRevokeUserAuthTokenCmd.MarkFlagRequired("body")
 	adminUsersAdminRevokeUserAuthTokenCmd.Flags().Int64Var(&adminUsersAdminRevokeUserAuthTokenFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminRevokeUserAuthTokenCmd.MarkFlagRequired("user-id")
@@ -36432,7 +36432,7 @@ func init() {
 	adminUsersAdminRevokeUserAuthTokenCmd.Flags().BoolVar(&adminUsersAdminRevokeUserAuthTokenFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	adminUsersAdminRevokeUserAuthTokenCmd.Flags().BoolVar(&adminUsersAdminRevokeUserAuthTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminRevokeUserAuthTokenCmd)
-	adminUsersAdminUpdateUserPasswordCmd.Flags().StringVar(&adminUsersAdminUpdateUserPasswordFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	adminUsersAdminUpdateUserPasswordCmd.Flags().StringVar(&adminUsersAdminUpdateUserPasswordFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	adminUsersAdminUpdateUserPasswordCmd.MarkFlagRequired("body")
 	adminUsersAdminUpdateUserPasswordCmd.Flags().Int64Var(&adminUsersAdminUpdateUserPasswordFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminUpdateUserPasswordCmd.MarkFlagRequired("user-id")
@@ -36440,7 +36440,7 @@ func init() {
 	adminUsersAdminUpdateUserPasswordCmd.Flags().BoolVar(&adminUsersAdminUpdateUserPasswordFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	adminUsersAdminUpdateUserPasswordCmd.Flags().BoolVar(&adminUsersAdminUpdateUserPasswordFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminUpdateUserPasswordCmd)
-	adminUsersAdminUpdateUserPermissionsCmd.Flags().StringVar(&adminUsersAdminUpdateUserPermissionsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	adminUsersAdminUpdateUserPermissionsCmd.Flags().StringVar(&adminUsersAdminUpdateUserPermissionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	adminUsersAdminUpdateUserPermissionsCmd.MarkFlagRequired("body")
 	adminUsersAdminUpdateUserPermissionsCmd.Flags().Int64Var(&adminUsersAdminUpdateUserPermissionsFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminUpdateUserPermissionsCmd.MarkFlagRequired("user-id")
@@ -36470,7 +36470,7 @@ func init() {
 	annotationsGetAnnotationsCmd.Flags().BoolVar(&annotationsGetAnnotationsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	annotationsGetAnnotationsCmd.Flags().BoolVar(&annotationsGetAnnotationsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsGetAnnotationsCmd)
-	annotationsMassDeleteAnnotationsCmd.Flags().StringVar(&annotationsMassDeleteAnnotationsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	annotationsMassDeleteAnnotationsCmd.Flags().StringVar(&annotationsMassDeleteAnnotationsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	annotationsMassDeleteAnnotationsCmd.MarkFlagRequired("body")
 	annotationsMassDeleteAnnotationsCmd.Flags().BoolVar(&annotationsMassDeleteAnnotationsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsMassDeleteAnnotationsCmd.Flags().BoolVar(&annotationsMassDeleteAnnotationsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36478,19 +36478,19 @@ func init() {
 	annotationsCmd.AddCommand(annotationsMassDeleteAnnotationsCmd)
 	annotationsPatchAnnotationCmd.Flags().StringVar(&annotationsPatchAnnotationFlag.AnnotationID, "annotation-id", "", "AnnotationID")
 	annotationsPatchAnnotationCmd.MarkFlagRequired("annotation-id")
-	annotationsPatchAnnotationCmd.Flags().StringVar(&annotationsPatchAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	annotationsPatchAnnotationCmd.Flags().StringVar(&annotationsPatchAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	annotationsPatchAnnotationCmd.MarkFlagRequired("body")
 	annotationsPatchAnnotationCmd.Flags().BoolVar(&annotationsPatchAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsPatchAnnotationCmd.Flags().BoolVar(&annotationsPatchAnnotationFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	annotationsPatchAnnotationCmd.Flags().BoolVar(&annotationsPatchAnnotationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsPatchAnnotationCmd)
-	annotationsPostAnnotationCmd.Flags().StringVar(&annotationsPostAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	annotationsPostAnnotationCmd.Flags().StringVar(&annotationsPostAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	annotationsPostAnnotationCmd.MarkFlagRequired("body")
 	annotationsPostAnnotationCmd.Flags().BoolVar(&annotationsPostAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsPostAnnotationCmd.Flags().BoolVar(&annotationsPostAnnotationFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	annotationsPostAnnotationCmd.Flags().BoolVar(&annotationsPostAnnotationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsPostAnnotationCmd)
-	annotationsPostGraphiteAnnotationCmd.Flags().StringVar(&annotationsPostGraphiteAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	annotationsPostGraphiteAnnotationCmd.Flags().StringVar(&annotationsPostGraphiteAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	annotationsPostGraphiteAnnotationCmd.MarkFlagRequired("body")
 	annotationsPostGraphiteAnnotationCmd.Flags().BoolVar(&annotationsPostGraphiteAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsPostGraphiteAnnotationCmd.Flags().BoolVar(&annotationsPostGraphiteAnnotationFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36498,7 +36498,7 @@ func init() {
 	annotationsCmd.AddCommand(annotationsPostGraphiteAnnotationCmd)
 	annotationsUpdateAnnotationCmd.Flags().StringVar(&annotationsUpdateAnnotationFlag.AnnotationID, "annotation-id", "", "AnnotationID")
 	annotationsUpdateAnnotationCmd.MarkFlagRequired("annotation-id")
-	annotationsUpdateAnnotationCmd.Flags().StringVar(&annotationsUpdateAnnotationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	annotationsUpdateAnnotationCmd.Flags().StringVar(&annotationsUpdateAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	annotationsUpdateAnnotationCmd.MarkFlagRequired("body")
 	annotationsUpdateAnnotationCmd.Flags().BoolVar(&annotationsUpdateAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsUpdateAnnotationCmd.Flags().BoolVar(&annotationsUpdateAnnotationFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36532,7 +36532,7 @@ func init() {
 	convertPrometheusConvertPrometheusCortexGetRulesCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexGetRulesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	convertPrometheusConvertPrometheusCortexGetRulesCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexGetRulesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexGetRulesCmd)
-	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.MarkFlagRequired("body")
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.MarkFlagRequired("namespace-title")
@@ -36576,7 +36576,7 @@ func init() {
 	convertPrometheusConvertPrometheusGetRulesCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusGetRulesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	convertPrometheusConvertPrometheusGetRulesCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusGetRulesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusGetRulesCmd)
-	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.MarkFlagRequired("body")
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.MarkFlagRequired("namespace-title")
@@ -36594,13 +36594,13 @@ func init() {
 	convertPrometheusConvertPrometheusPostRuleGroupsCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusPostRuleGroupsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusPostRuleGroupsCmd)
 	rootCmd.AddCommand(dashboardsCmd)
-	dashboardsCreateDashboardSnapshotCmd.Flags().StringVar(&dashboardsCreateDashboardSnapshotFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	dashboardsCreateDashboardSnapshotCmd.Flags().StringVar(&dashboardsCreateDashboardSnapshotFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsCreateDashboardSnapshotCmd.MarkFlagRequired("body")
 	dashboardsCreateDashboardSnapshotCmd.Flags().BoolVar(&dashboardsCreateDashboardSnapshotFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsCreateDashboardSnapshotCmd.Flags().BoolVar(&dashboardsCreateDashboardSnapshotFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsCreateDashboardSnapshotCmd.Flags().BoolVar(&dashboardsCreateDashboardSnapshotFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsCreateDashboardSnapshotCmd)
-	dashboardsCreatePublicDashboardCmd.Flags().StringVar(&dashboardsCreatePublicDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	dashboardsCreatePublicDashboardCmd.Flags().StringVar(&dashboardsCreatePublicDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsCreatePublicDashboardCmd.MarkFlagRequired("body")
 	dashboardsCreatePublicDashboardCmd.Flags().StringVar(&dashboardsCreatePublicDashboardFlag.DashboardUID, "dashboard-uid", "", "DashboardUID")
 	dashboardsCreatePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
@@ -36674,7 +36674,7 @@ func init() {
 	dashboardsGetPublicDashboardCmd.Flags().BoolVar(&dashboardsGetPublicDashboardFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsGetPublicDashboardCmd.Flags().BoolVar(&dashboardsGetPublicDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsGetPublicDashboardCmd)
-	dashboardsImportDashboardCmd.Flags().StringVar(&dashboardsImportDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	dashboardsImportDashboardCmd.Flags().StringVar(&dashboardsImportDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsImportDashboardCmd.MarkFlagRequired("body")
 	dashboardsImportDashboardCmd.Flags().BoolVar(&dashboardsImportDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsImportDashboardCmd.Flags().BoolVar(&dashboardsImportDashboardFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36686,7 +36686,7 @@ func init() {
 	dashboardsListPublicDashboardsCmd.Flags().BoolVar(&dashboardsListPublicDashboardsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsListPublicDashboardsCmd.Flags().BoolVar(&dashboardsListPublicDashboardsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsListPublicDashboardsCmd)
-	dashboardsPostDashboardCmd.Flags().StringVar(&dashboardsPostDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	dashboardsPostDashboardCmd.Flags().StringVar(&dashboardsPostDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsPostDashboardCmd.MarkFlagRequired("body")
 	dashboardsPostDashboardCmd.Flags().BoolVar(&dashboardsPostDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsPostDashboardCmd.Flags().BoolVar(&dashboardsPostDashboardFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36699,7 +36699,7 @@ func init() {
 	dashboardsQueryPublicDashboardCmd.Flags().BoolVar(&dashboardsQueryPublicDashboardFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsQueryPublicDashboardCmd.Flags().BoolVar(&dashboardsQueryPublicDashboardFlag.Raw, "raw", true, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsQueryPublicDashboardCmd)
-	dashboardsRestoreDashboardVersionByUIDCmd.Flags().StringVar(&dashboardsRestoreDashboardVersionByUIDFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	dashboardsRestoreDashboardVersionByUIDCmd.Flags().StringVar(&dashboardsRestoreDashboardVersionByUIDFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("body")
 	dashboardsRestoreDashboardVersionByUIDCmd.Flags().StringVar(&dashboardsRestoreDashboardVersionByUIDFlag.UID, "uid", "", "UID")
 	dashboardsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("uid")
@@ -36712,7 +36712,7 @@ func init() {
 	dashboardsSearchDashboardSnapshotsCmd.Flags().BoolVar(&dashboardsSearchDashboardSnapshotsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsSearchDashboardSnapshotsCmd.Flags().BoolVar(&dashboardsSearchDashboardSnapshotsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsSearchDashboardSnapshotsCmd)
-	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().StringVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().StringVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("body")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().StringVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.UID, "uid", "", "UID")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("uid")
@@ -36720,7 +36720,7 @@ func init() {
 	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().BoolVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().BoolVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsUpdateDashboardPermissionsByUIDCmd)
-	dashboardsUpdatePublicDashboardCmd.Flags().StringVar(&dashboardsUpdatePublicDashboardFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	dashboardsUpdatePublicDashboardCmd.Flags().StringVar(&dashboardsUpdatePublicDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("body")
 	dashboardsUpdatePublicDashboardCmd.Flags().StringVar(&dashboardsUpdatePublicDashboardFlag.DashboardUID, "dashboard-uid", "", "DashboardUID")
 	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
@@ -36736,7 +36736,7 @@ func init() {
 	dashboardsViewPublicDashboardCmd.Flags().BoolVar(&dashboardsViewPublicDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsViewPublicDashboardCmd)
 	rootCmd.AddCommand(datasourcesCmd)
-	datasourcesAddDatasourceCmd.Flags().StringVar(&datasourcesAddDatasourceFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	datasourcesAddDatasourceCmd.Flags().StringVar(&datasourcesAddDatasourceFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	datasourcesAddDatasourceCmd.MarkFlagRequired("body")
 	datasourcesAddDatasourceCmd.Flags().BoolVar(&datasourcesAddDatasourceFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	datasourcesAddDatasourceCmd.Flags().BoolVar(&datasourcesAddDatasourceFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36754,7 +36754,7 @@ func init() {
 	datasourcesCheckDatasourceHealthCmd.Flags().BoolVar(&datasourcesCheckDatasourceHealthFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	datasourcesCheckDatasourceHealthCmd.Flags().BoolVar(&datasourcesCheckDatasourceHealthFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesCheckDatasourceHealthCmd)
-	datasourcesCreateCorrelationCmd.Flags().StringVar(&datasourcesCreateCorrelationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	datasourcesCreateCorrelationCmd.Flags().StringVar(&datasourcesCreateCorrelationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	datasourcesCreateCorrelationCmd.MarkFlagRequired("body")
 	datasourcesCreateCorrelationCmd.Flags().StringVar(&datasourcesCreateCorrelationFlag.SourceUID, "source-uid", "", "SourceUID")
 	datasourcesCreateCorrelationCmd.MarkFlagRequired("source-uid")
@@ -36816,13 +36816,13 @@ func init() {
 	datasourcesGetDatasourcesCmd.Flags().BoolVar(&datasourcesGetDatasourcesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	datasourcesGetDatasourcesCmd.Flags().BoolVar(&datasourcesGetDatasourcesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesGetDatasourcesCmd)
-	datasourcesQueryMetricsWithExpressionsCmd.Flags().StringVar(&datasourcesQueryMetricsWithExpressionsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	datasourcesQueryMetricsWithExpressionsCmd.Flags().StringVar(&datasourcesQueryMetricsWithExpressionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	datasourcesQueryMetricsWithExpressionsCmd.MarkFlagRequired("body")
 	datasourcesQueryMetricsWithExpressionsCmd.Flags().BoolVar(&datasourcesQueryMetricsWithExpressionsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	datasourcesQueryMetricsWithExpressionsCmd.Flags().BoolVar(&datasourcesQueryMetricsWithExpressionsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	datasourcesQueryMetricsWithExpressionsCmd.Flags().BoolVar(&datasourcesQueryMetricsWithExpressionsFlag.Raw, "raw", true, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesQueryMetricsWithExpressionsCmd)
-	datasourcesUpdateCorrelationCmd.Flags().StringVar(&datasourcesUpdateCorrelationFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	datasourcesUpdateCorrelationCmd.Flags().StringVar(&datasourcesUpdateCorrelationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	datasourcesUpdateCorrelationCmd.MarkFlagRequired("body")
 	datasourcesUpdateCorrelationCmd.Flags().StringVar(&datasourcesUpdateCorrelationFlag.CorrelationUID, "correlation-uid", "", "CorrelationUID")
 	datasourcesUpdateCorrelationCmd.MarkFlagRequired("correlation-uid")
@@ -36832,7 +36832,7 @@ func init() {
 	datasourcesUpdateCorrelationCmd.Flags().BoolVar(&datasourcesUpdateCorrelationFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	datasourcesUpdateCorrelationCmd.Flags().BoolVar(&datasourcesUpdateCorrelationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesUpdateCorrelationCmd)
-	datasourcesUpdateDatasourceByUIDCmd.Flags().StringVar(&datasourcesUpdateDatasourceByUIDFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	datasourcesUpdateDatasourceByUIDCmd.Flags().StringVar(&datasourcesUpdateDatasourceByUIDFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	datasourcesUpdateDatasourceByUIDCmd.MarkFlagRequired("body")
 	datasourcesUpdateDatasourceByUIDCmd.Flags().StringVar(&datasourcesUpdateDatasourceByUIDFlag.UID, "uid", "", "UID")
 	datasourcesUpdateDatasourceByUIDCmd.MarkFlagRequired("uid")
@@ -36876,7 +36876,7 @@ func init() {
 	enterpriseSearchResultCmd.Flags().BoolVar(&enterpriseSearchResultFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	enterpriseSearchResultCmd.Flags().BoolVar(&enterpriseSearchResultFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseSearchResultCmd)
-	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	enterpriseSetDatasourceCacheConfigCmd.MarkFlagRequired("body")
 	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseSetDatasourceCacheConfigCmd.MarkFlagRequired("data-source-uid")
@@ -36884,7 +36884,7 @@ func init() {
 	enterpriseSetDatasourceCacheConfigCmd.Flags().BoolVar(&enterpriseSetDatasourceCacheConfigFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	enterpriseSetDatasourceCacheConfigCmd.Flags().BoolVar(&enterpriseSetDatasourceCacheConfigFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseSetDatasourceCacheConfigCmd)
-	enterpriseUpdateTeamLBACRulesAPICmd.Flags().StringVar(&enterpriseUpdateTeamLBACRulesAPIFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	enterpriseUpdateTeamLBACRulesAPICmd.Flags().StringVar(&enterpriseUpdateTeamLBACRulesAPIFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	enterpriseUpdateTeamLBACRulesAPICmd.MarkFlagRequired("body")
 	enterpriseUpdateTeamLBACRulesAPICmd.Flags().StringVar(&enterpriseUpdateTeamLBACRulesAPIFlag.UID, "uid", "", "UID")
 	enterpriseUpdateTeamLBACRulesAPICmd.MarkFlagRequired("uid")
@@ -36893,7 +36893,7 @@ func init() {
 	enterpriseUpdateTeamLBACRulesAPICmd.Flags().BoolVar(&enterpriseUpdateTeamLBACRulesAPIFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseUpdateTeamLBACRulesAPICmd)
 	rootCmd.AddCommand(foldersCmd)
-	foldersCreateFolderCmd.Flags().StringVar(&foldersCreateFolderFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	foldersCreateFolderCmd.Flags().StringVar(&foldersCreateFolderFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	foldersCreateFolderCmd.MarkFlagRequired("body")
 	foldersCreateFolderCmd.Flags().BoolVar(&foldersCreateFolderFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	foldersCreateFolderCmd.Flags().BoolVar(&foldersCreateFolderFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36927,7 +36927,7 @@ func init() {
 	foldersGetFoldersCmd.Flags().BoolVar(&foldersGetFoldersFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	foldersGetFoldersCmd.Flags().BoolVar(&foldersGetFoldersFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersGetFoldersCmd)
-	foldersMoveFolderCmd.Flags().StringVar(&foldersMoveFolderFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	foldersMoveFolderCmd.Flags().StringVar(&foldersMoveFolderFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	foldersMoveFolderCmd.MarkFlagRequired("body")
 	foldersMoveFolderCmd.Flags().StringVar(&foldersMoveFolderFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersMoveFolderCmd.MarkFlagRequired("folder-uid")
@@ -36935,7 +36935,7 @@ func init() {
 	foldersMoveFolderCmd.Flags().BoolVar(&foldersMoveFolderFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	foldersMoveFolderCmd.Flags().BoolVar(&foldersMoveFolderFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersMoveFolderCmd)
-	foldersUpdateFolderCmd.Flags().StringVar(&foldersUpdateFolderFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	foldersUpdateFolderCmd.Flags().StringVar(&foldersUpdateFolderFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	foldersUpdateFolderCmd.MarkFlagRequired("body")
 	foldersUpdateFolderCmd.Flags().StringVar(&foldersUpdateFolderFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersUpdateFolderCmd.MarkFlagRequired("folder-uid")
@@ -36943,7 +36943,7 @@ func init() {
 	foldersUpdateFolderCmd.Flags().BoolVar(&foldersUpdateFolderFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	foldersUpdateFolderCmd.Flags().BoolVar(&foldersUpdateFolderFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersUpdateFolderCmd)
-	foldersUpdateFolderPermissionsCmd.Flags().StringVar(&foldersUpdateFolderPermissionsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	foldersUpdateFolderPermissionsCmd.Flags().StringVar(&foldersUpdateFolderPermissionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	foldersUpdateFolderPermissionsCmd.MarkFlagRequired("body")
 	foldersUpdateFolderPermissionsCmd.Flags().StringVar(&foldersUpdateFolderPermissionsFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersUpdateFolderPermissionsCmd.MarkFlagRequired("folder-uid")
@@ -36952,7 +36952,7 @@ func init() {
 	foldersUpdateFolderPermissionsCmd.Flags().BoolVar(&foldersUpdateFolderPermissionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersUpdateFolderPermissionsCmd)
 	rootCmd.AddCommand(groupAttributeSyncCmd)
-	groupAttributeSyncCreateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncCreateGroupMappingsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	groupAttributeSyncCreateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncCreateGroupMappingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	groupAttributeSyncCreateGroupMappingsCmd.MarkFlagRequired("body")
 	groupAttributeSyncCreateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncCreateGroupMappingsFlag.GroupID, "group-id", "", "GroupID")
 	groupAttributeSyncCreateGroupMappingsCmd.MarkFlagRequired("group-id")
@@ -36973,7 +36973,7 @@ func init() {
 	groupAttributeSyncGetMappedGroupsCmd.Flags().BoolVar(&groupAttributeSyncGetMappedGroupsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	groupAttributeSyncGetMappedGroupsCmd.Flags().BoolVar(&groupAttributeSyncGetMappedGroupsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	groupAttributeSyncCmd.AddCommand(groupAttributeSyncGetMappedGroupsCmd)
-	groupAttributeSyncUpdateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncUpdateGroupMappingsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	groupAttributeSyncUpdateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncUpdateGroupMappingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	groupAttributeSyncUpdateGroupMappingsCmd.MarkFlagRequired("body")
 	groupAttributeSyncUpdateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncUpdateGroupMappingsFlag.GroupID, "group-id", "", "GroupID")
 	groupAttributeSyncUpdateGroupMappingsCmd.MarkFlagRequired("group-id")
@@ -36990,7 +36990,7 @@ func init() {
 	ldapDebugGetSyncStatusCmd.Flags().BoolVar(&ldapDebugGetSyncStatusFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ldapDebugCmd.AddCommand(ldapDebugGetSyncStatusCmd)
 	rootCmd.AddCommand(libraryElementsCmd)
-	libraryElementsCreateLibraryElementCmd.Flags().StringVar(&libraryElementsCreateLibraryElementFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	libraryElementsCreateLibraryElementCmd.Flags().StringVar(&libraryElementsCreateLibraryElementFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	libraryElementsCreateLibraryElementCmd.MarkFlagRequired("body")
 	libraryElementsCreateLibraryElementCmd.Flags().BoolVar(&libraryElementsCreateLibraryElementFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	libraryElementsCreateLibraryElementCmd.Flags().BoolVar(&libraryElementsCreateLibraryElementFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37027,7 +37027,7 @@ func init() {
 	libraryElementsGetLibraryElementsCmd.Flags().BoolVar(&libraryElementsGetLibraryElementsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	libraryElementsGetLibraryElementsCmd.Flags().BoolVar(&libraryElementsGetLibraryElementsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsGetLibraryElementsCmd)
-	libraryElementsUpdateLibraryElementCmd.Flags().StringVar(&libraryElementsUpdateLibraryElementFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	libraryElementsUpdateLibraryElementCmd.Flags().StringVar(&libraryElementsUpdateLibraryElementFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	libraryElementsUpdateLibraryElementCmd.MarkFlagRequired("body")
 	libraryElementsUpdateLibraryElementCmd.Flags().StringVar(&libraryElementsUpdateLibraryElementFlag.LibraryElementUID, "library-element-uid", "", "LibraryElementUID")
 	libraryElementsUpdateLibraryElementCmd.MarkFlagRequired("library-element-uid")
@@ -37036,7 +37036,7 @@ func init() {
 	libraryElementsUpdateLibraryElementCmd.Flags().BoolVar(&libraryElementsUpdateLibraryElementFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsUpdateLibraryElementCmd)
 	rootCmd.AddCommand(licensingCmd)
-	licensingDeleteLicenseTokenCmd.Flags().StringVar(&licensingDeleteLicenseTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	licensingDeleteLicenseTokenCmd.Flags().StringVar(&licensingDeleteLicenseTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	licensingDeleteLicenseTokenCmd.MarkFlagRequired("body")
 	licensingDeleteLicenseTokenCmd.Flags().BoolVar(&licensingDeleteLicenseTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	licensingDeleteLicenseTokenCmd.Flags().BoolVar(&licensingDeleteLicenseTokenFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37051,13 +37051,13 @@ func init() {
 	licensingCmd.AddCommand(licensingGetLicenseTokenCmd)
 	licensingGetStatusCmd.Flags().BoolVar(&licensingGetStatusFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingGetStatusCmd)
-	licensingPostLicenseTokenCmd.Flags().StringVar(&licensingPostLicenseTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	licensingPostLicenseTokenCmd.Flags().StringVar(&licensingPostLicenseTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	licensingPostLicenseTokenCmd.MarkFlagRequired("body")
 	licensingPostLicenseTokenCmd.Flags().BoolVar(&licensingPostLicenseTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	licensingPostLicenseTokenCmd.Flags().BoolVar(&licensingPostLicenseTokenFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	licensingPostLicenseTokenCmd.Flags().BoolVar(&licensingPostLicenseTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingPostLicenseTokenCmd)
-	licensingPostRenewLicenseTokenCmd.Flags().StringVar(&licensingPostRenewLicenseTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	licensingPostRenewLicenseTokenCmd.Flags().StringVar(&licensingPostRenewLicenseTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	licensingPostRenewLicenseTokenCmd.MarkFlagRequired("body")
 	licensingPostRenewLicenseTokenCmd.Flags().BoolVar(&licensingPostRenewLicenseTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingPostRenewLicenseTokenCmd)
@@ -37074,13 +37074,13 @@ func init() {
 	migrationsCreateCloudMigrationTokenCmd.Flags().BoolVar(&migrationsCreateCloudMigrationTokenFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	migrationsCreateCloudMigrationTokenCmd.Flags().BoolVar(&migrationsCreateCloudMigrationTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsCreateCloudMigrationTokenCmd)
-	migrationsCreateSessionCmd.Flags().StringVar(&migrationsCreateSessionFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	migrationsCreateSessionCmd.Flags().StringVar(&migrationsCreateSessionFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	migrationsCreateSessionCmd.MarkFlagRequired("body")
 	migrationsCreateSessionCmd.Flags().BoolVar(&migrationsCreateSessionFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	migrationsCreateSessionCmd.Flags().BoolVar(&migrationsCreateSessionFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	migrationsCreateSessionCmd.Flags().BoolVar(&migrationsCreateSessionFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsCreateSessionCmd)
-	migrationsCreateSnapshotCmd.Flags().StringVar(&migrationsCreateSnapshotFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	migrationsCreateSnapshotCmd.Flags().StringVar(&migrationsCreateSnapshotFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	migrationsCreateSnapshotCmd.MarkFlagRequired("body")
 	migrationsCreateSnapshotCmd.Flags().StringVar(&migrationsCreateSnapshotFlag.UID, "uid", "", "UID of a session")
 	migrationsCreateSnapshotCmd.MarkFlagRequired("uid")
@@ -37137,13 +37137,13 @@ func init() {
 	migrationsUploadSnapshotCmd.Flags().BoolVar(&migrationsUploadSnapshotFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsUploadSnapshotCmd)
 	rootCmd.AddCommand(orgCmd)
-	orgAddOrgInviteCmd.Flags().StringVar(&orgAddOrgInviteFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgAddOrgInviteCmd.Flags().StringVar(&orgAddOrgInviteFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgAddOrgInviteCmd.MarkFlagRequired("body")
 	orgAddOrgInviteCmd.Flags().BoolVar(&orgAddOrgInviteFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgAddOrgInviteCmd.Flags().BoolVar(&orgAddOrgInviteFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgAddOrgInviteCmd.Flags().BoolVar(&orgAddOrgInviteFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgAddOrgInviteCmd)
-	orgAddOrgUserToCurrentOrgCmd.Flags().StringVar(&orgAddOrgUserToCurrentOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgAddOrgUserToCurrentOrgCmd.Flags().StringVar(&orgAddOrgUserToCurrentOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgAddOrgUserToCurrentOrgCmd.MarkFlagRequired("body")
 	orgAddOrgUserToCurrentOrgCmd.Flags().BoolVar(&orgAddOrgUserToCurrentOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgAddOrgUserToCurrentOrgCmd.Flags().BoolVar(&orgAddOrgUserToCurrentOrgFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37168,7 +37168,7 @@ func init() {
 	orgGetPendingOrgInvitesCmd.Flags().BoolVar(&orgGetPendingOrgInvitesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgGetPendingOrgInvitesCmd.Flags().BoolVar(&orgGetPendingOrgInvitesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgGetPendingOrgInvitesCmd)
-	orgPatchOrgPreferencesCmd.Flags().StringVar(&orgPatchOrgPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgPatchOrgPreferencesCmd.Flags().StringVar(&orgPatchOrgPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgPatchOrgPreferencesCmd.MarkFlagRequired("body")
 	orgPatchOrgPreferencesCmd.Flags().BoolVar(&orgPatchOrgPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgPatchOrgPreferencesCmd.Flags().BoolVar(&orgPatchOrgPreferencesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37184,25 +37184,25 @@ func init() {
 	orgRevokeInviteCmd.Flags().BoolVar(&orgRevokeInviteFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgRevokeInviteCmd.Flags().BoolVar(&orgRevokeInviteFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgRevokeInviteCmd)
-	orgUpdateCurrentOrgCmd.Flags().StringVar(&orgUpdateCurrentOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgUpdateCurrentOrgCmd.Flags().StringVar(&orgUpdateCurrentOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgUpdateCurrentOrgCmd.MarkFlagRequired("body")
 	orgUpdateCurrentOrgCmd.Flags().BoolVar(&orgUpdateCurrentOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgUpdateCurrentOrgCmd.Flags().BoolVar(&orgUpdateCurrentOrgFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgUpdateCurrentOrgCmd.Flags().BoolVar(&orgUpdateCurrentOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateCurrentOrgCmd)
-	orgUpdateCurrentOrgAddressCmd.Flags().StringVar(&orgUpdateCurrentOrgAddressFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgUpdateCurrentOrgAddressCmd.Flags().StringVar(&orgUpdateCurrentOrgAddressFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgUpdateCurrentOrgAddressCmd.MarkFlagRequired("body")
 	orgUpdateCurrentOrgAddressCmd.Flags().BoolVar(&orgUpdateCurrentOrgAddressFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgUpdateCurrentOrgAddressCmd.Flags().BoolVar(&orgUpdateCurrentOrgAddressFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgUpdateCurrentOrgAddressCmd.Flags().BoolVar(&orgUpdateCurrentOrgAddressFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateCurrentOrgAddressCmd)
-	orgUpdateOrgPreferencesCmd.Flags().StringVar(&orgUpdateOrgPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgUpdateOrgPreferencesCmd.Flags().StringVar(&orgUpdateOrgPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgUpdateOrgPreferencesCmd.MarkFlagRequired("body")
 	orgUpdateOrgPreferencesCmd.Flags().BoolVar(&orgUpdateOrgPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgUpdateOrgPreferencesCmd.Flags().BoolVar(&orgUpdateOrgPreferencesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgUpdateOrgPreferencesCmd.Flags().BoolVar(&orgUpdateOrgPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateOrgPreferencesCmd)
-	orgUpdateOrgUserForCurrentOrgCmd.Flags().StringVar(&orgUpdateOrgUserForCurrentOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgUpdateOrgUserForCurrentOrgCmd.Flags().StringVar(&orgUpdateOrgUserForCurrentOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgUpdateOrgUserForCurrentOrgCmd.MarkFlagRequired("body")
 	orgUpdateOrgUserForCurrentOrgCmd.Flags().Int64Var(&orgUpdateOrgUserForCurrentOrgFlag.UserID, "user-id", 0, "UserID")
 	orgUpdateOrgUserForCurrentOrgCmd.MarkFlagRequired("user-id")
@@ -37211,7 +37211,7 @@ func init() {
 	orgUpdateOrgUserForCurrentOrgCmd.Flags().BoolVar(&orgUpdateOrgUserForCurrentOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateOrgUserForCurrentOrgCmd)
 	rootCmd.AddCommand(orgsCmd)
-	orgsAddOrgUserCmd.Flags().StringVar(&orgsAddOrgUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgsAddOrgUserCmd.Flags().StringVar(&orgsAddOrgUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgsAddOrgUserCmd.MarkFlagRequired("body")
 	orgsAddOrgUserCmd.Flags().Int64Var(&orgsAddOrgUserFlag.OrgID, "org-id", 0, "OrgID")
 	orgsAddOrgUserCmd.MarkFlagRequired("org-id")
@@ -37219,7 +37219,7 @@ func init() {
 	orgsAddOrgUserCmd.Flags().BoolVar(&orgsAddOrgUserFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgsAddOrgUserCmd.Flags().BoolVar(&orgsAddOrgUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsAddOrgUserCmd)
-	orgsCreateOrgCmd.Flags().StringVar(&orgsCreateOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgsCreateOrgCmd.Flags().StringVar(&orgsCreateOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgsCreateOrgCmd.MarkFlagRequired("body")
 	orgsCreateOrgCmd.Flags().BoolVar(&orgsCreateOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgsCreateOrgCmd.Flags().BoolVar(&orgsCreateOrgFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37254,7 +37254,7 @@ func init() {
 	orgsSearchOrgsCmd.Flags().BoolVar(&orgsSearchOrgsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgsSearchOrgsCmd.Flags().BoolVar(&orgsSearchOrgsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsSearchOrgsCmd)
-	orgsUpdateOrgCmd.Flags().StringVar(&orgsUpdateOrgFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgsUpdateOrgCmd.Flags().StringVar(&orgsUpdateOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgsUpdateOrgCmd.MarkFlagRequired("body")
 	orgsUpdateOrgCmd.Flags().Int64Var(&orgsUpdateOrgFlag.OrgID, "org-id", 0, "OrgID")
 	orgsUpdateOrgCmd.MarkFlagRequired("org-id")
@@ -37262,7 +37262,7 @@ func init() {
 	orgsUpdateOrgCmd.Flags().BoolVar(&orgsUpdateOrgFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgsUpdateOrgCmd.Flags().BoolVar(&orgsUpdateOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsUpdateOrgCmd)
-	orgsUpdateOrgAddressCmd.Flags().StringVar(&orgsUpdateOrgAddressFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgsUpdateOrgAddressCmd.Flags().StringVar(&orgsUpdateOrgAddressFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgsUpdateOrgAddressCmd.MarkFlagRequired("body")
 	orgsUpdateOrgAddressCmd.Flags().Int64Var(&orgsUpdateOrgAddressFlag.OrgID, "org-id", 0, "OrgID")
 	orgsUpdateOrgAddressCmd.MarkFlagRequired("org-id")
@@ -37270,7 +37270,7 @@ func init() {
 	orgsUpdateOrgAddressCmd.Flags().BoolVar(&orgsUpdateOrgAddressFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgsUpdateOrgAddressCmd.Flags().BoolVar(&orgsUpdateOrgAddressFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsUpdateOrgAddressCmd)
-	orgsUpdateOrgUserCmd.Flags().StringVar(&orgsUpdateOrgUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	orgsUpdateOrgUserCmd.Flags().StringVar(&orgsUpdateOrgUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgsUpdateOrgUserCmd.MarkFlagRequired("body")
 	orgsUpdateOrgUserCmd.Flags().Int64Var(&orgsUpdateOrgUserFlag.OrgID, "org-id", 0, "OrgID")
 	orgsUpdateOrgUserCmd.MarkFlagRequired("org-id")
@@ -37281,7 +37281,7 @@ func init() {
 	orgsUpdateOrgUserCmd.Flags().BoolVar(&orgsUpdateOrgUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsUpdateOrgUserCmd)
 	rootCmd.AddCommand(playlistsCmd)
-	playlistsCreatePlaylistCmd.Flags().StringVar(&playlistsCreatePlaylistFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	playlistsCreatePlaylistCmd.Flags().StringVar(&playlistsCreatePlaylistFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	playlistsCreatePlaylistCmd.MarkFlagRequired("body")
 	playlistsCreatePlaylistCmd.Flags().BoolVar(&playlistsCreatePlaylistFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	playlistsCreatePlaylistCmd.Flags().BoolVar(&playlistsCreatePlaylistFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37307,7 +37307,7 @@ func init() {
 	playlistsSearchPlaylistsCmd.Flags().BoolVar(&playlistsSearchPlaylistsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	playlistsSearchPlaylistsCmd.Flags().BoolVar(&playlistsSearchPlaylistsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	playlistsCmd.AddCommand(playlistsSearchPlaylistsCmd)
-	playlistsUpdatePlaylistCmd.Flags().StringVar(&playlistsUpdatePlaylistFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	playlistsUpdatePlaylistCmd.Flags().StringVar(&playlistsUpdatePlaylistFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	playlistsUpdatePlaylistCmd.MarkFlagRequired("body")
 	playlistsUpdatePlaylistCmd.Flags().StringVar(&playlistsUpdatePlaylistFlag.UID, "uid", "", "UID")
 	playlistsUpdatePlaylistCmd.MarkFlagRequired("uid")
@@ -37427,28 +37427,28 @@ func init() {
 	provisioningGetTemplatesCmd.Flags().BoolVar(&provisioningGetTemplatesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningGetTemplatesCmd.Flags().BoolVar(&provisioningGetTemplatesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetTemplatesCmd)
-	provisioningPostAlertRuleCmd.Flags().StringVar(&provisioningPostAlertRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	provisioningPostAlertRuleCmd.Flags().StringVar(&provisioningPostAlertRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPostAlertRuleCmd.MarkFlagRequired("body")
 	provisioningPostAlertRuleCmd.Flags().StringVar(&provisioningPostAlertRuleFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPostAlertRuleCmd.Flags().BoolVar(&provisioningPostAlertRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningPostAlertRuleCmd.Flags().BoolVar(&provisioningPostAlertRuleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPostAlertRuleCmd.Flags().BoolVar(&provisioningPostAlertRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPostAlertRuleCmd)
-	provisioningPostContactpointsCmd.Flags().StringVar(&provisioningPostContactpointsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	provisioningPostContactpointsCmd.Flags().StringVar(&provisioningPostContactpointsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPostContactpointsCmd.MarkFlagRequired("body")
 	provisioningPostContactpointsCmd.Flags().StringVar(&provisioningPostContactpointsFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPostContactpointsCmd.Flags().BoolVar(&provisioningPostContactpointsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningPostContactpointsCmd.Flags().BoolVar(&provisioningPostContactpointsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPostContactpointsCmd.Flags().BoolVar(&provisioningPostContactpointsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPostContactpointsCmd)
-	provisioningPostMuteTimingCmd.Flags().StringVar(&provisioningPostMuteTimingFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	provisioningPostMuteTimingCmd.Flags().StringVar(&provisioningPostMuteTimingFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPostMuteTimingCmd.MarkFlagRequired("body")
 	provisioningPostMuteTimingCmd.Flags().StringVar(&provisioningPostMuteTimingFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPostMuteTimingCmd.Flags().BoolVar(&provisioningPostMuteTimingFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningPostMuteTimingCmd.Flags().BoolVar(&provisioningPostMuteTimingFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPostMuteTimingCmd.Flags().BoolVar(&provisioningPostMuteTimingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPostMuteTimingCmd)
-	provisioningPutAlertRuleCmd.Flags().StringVar(&provisioningPutAlertRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	provisioningPutAlertRuleCmd.Flags().StringVar(&provisioningPutAlertRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutAlertRuleCmd.MarkFlagRequired("body")
 	provisioningPutAlertRuleCmd.Flags().StringVar(&provisioningPutAlertRuleFlag.UID, "uid", "", "Alert rule UID")
 	provisioningPutAlertRuleCmd.MarkFlagRequired("uid")
@@ -37457,7 +37457,7 @@ func init() {
 	provisioningPutAlertRuleCmd.Flags().BoolVar(&provisioningPutAlertRuleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPutAlertRuleCmd.Flags().BoolVar(&provisioningPutAlertRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutAlertRuleCmd)
-	provisioningPutAlertRuleGroupCmd.Flags().StringVar(&provisioningPutAlertRuleGroupFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	provisioningPutAlertRuleGroupCmd.Flags().StringVar(&provisioningPutAlertRuleGroupFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutAlertRuleGroupCmd.MarkFlagRequired("body")
 	provisioningPutAlertRuleGroupCmd.Flags().StringVar(&provisioningPutAlertRuleGroupFlag.FolderUID, "folder-uid", "", "FolderUID")
 	provisioningPutAlertRuleGroupCmd.MarkFlagRequired("folder-uid")
@@ -37468,7 +37468,7 @@ func init() {
 	provisioningPutAlertRuleGroupCmd.Flags().BoolVar(&provisioningPutAlertRuleGroupFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPutAlertRuleGroupCmd.Flags().BoolVar(&provisioningPutAlertRuleGroupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutAlertRuleGroupCmd)
-	provisioningPutContactpointCmd.Flags().StringVar(&provisioningPutContactpointFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	provisioningPutContactpointCmd.Flags().StringVar(&provisioningPutContactpointFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutContactpointCmd.MarkFlagRequired("body")
 	provisioningPutContactpointCmd.Flags().StringVar(&provisioningPutContactpointFlag.UID, "uid", "", "UID is the contact point unique identifier")
 	provisioningPutContactpointCmd.MarkFlagRequired("uid")
@@ -37477,7 +37477,7 @@ func init() {
 	provisioningPutContactpointCmd.Flags().BoolVar(&provisioningPutContactpointFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPutContactpointCmd.Flags().BoolVar(&provisioningPutContactpointFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutContactpointCmd)
-	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutMuteTimingCmd.MarkFlagRequired("body")
 	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.Name, "name", "", "Mute timing name")
@@ -37486,14 +37486,14 @@ func init() {
 	provisioningPutMuteTimingCmd.Flags().BoolVar(&provisioningPutMuteTimingFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPutMuteTimingCmd.Flags().BoolVar(&provisioningPutMuteTimingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutMuteTimingCmd)
-	provisioningPutPolicyTreeCmd.Flags().StringVar(&provisioningPutPolicyTreeFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	provisioningPutPolicyTreeCmd.Flags().StringVar(&provisioningPutPolicyTreeFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutPolicyTreeCmd.MarkFlagRequired("body")
 	provisioningPutPolicyTreeCmd.Flags().StringVar(&provisioningPutPolicyTreeFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutPolicyTreeCmd.Flags().BoolVar(&provisioningPutPolicyTreeFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningPutPolicyTreeCmd.Flags().BoolVar(&provisioningPutPolicyTreeFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPutPolicyTreeCmd.Flags().BoolVar(&provisioningPutPolicyTreeFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutPolicyTreeCmd)
-	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutTemplateCmd.MarkFlagRequired("body")
 	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.Name, "name", "", "Template group name")
@@ -37506,7 +37506,7 @@ func init() {
 	provisioningResetPolicyTreeCmd.Flags().BoolVar(&provisioningResetPolicyTreeFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningResetPolicyTreeCmd)
 	rootCmd.AddCommand(queryHistoryCmd)
-	queryHistoryCreateQueryCmd.Flags().StringVar(&queryHistoryCreateQueryFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	queryHistoryCreateQueryCmd.Flags().StringVar(&queryHistoryCreateQueryFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	queryHistoryCreateQueryCmd.MarkFlagRequired("body")
 	queryHistoryCreateQueryCmd.Flags().BoolVar(&queryHistoryCreateQueryFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	queryHistoryCreateQueryCmd.Flags().BoolVar(&queryHistoryCreateQueryFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37517,7 +37517,7 @@ func init() {
 	queryHistoryDeleteQueryCmd.Flags().BoolVar(&queryHistoryDeleteQueryFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	queryHistoryDeleteQueryCmd.Flags().BoolVar(&queryHistoryDeleteQueryFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	queryHistoryCmd.AddCommand(queryHistoryDeleteQueryCmd)
-	queryHistoryPatchQueryCommentCmd.Flags().StringVar(&queryHistoryPatchQueryCommentFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	queryHistoryPatchQueryCommentCmd.Flags().StringVar(&queryHistoryPatchQueryCommentFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	queryHistoryPatchQueryCommentCmd.MarkFlagRequired("body")
 	queryHistoryPatchQueryCommentCmd.Flags().StringVar(&queryHistoryPatchQueryCommentFlag.QueryHistoryUID, "query-history-uid", "", "QueryHistoryUID")
 	queryHistoryPatchQueryCommentCmd.MarkFlagRequired("query-history-uid")
@@ -37564,7 +37564,7 @@ func init() {
 	quotaGetUserQuotasCmd.Flags().BoolVar(&quotaGetUserQuotasFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	quotaGetUserQuotasCmd.Flags().BoolVar(&quotaGetUserQuotasFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaGetUserQuotasCmd)
-	quotaUpdateOrgQuotaCmd.Flags().StringVar(&quotaUpdateOrgQuotaFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	quotaUpdateOrgQuotaCmd.Flags().StringVar(&quotaUpdateOrgQuotaFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	quotaUpdateOrgQuotaCmd.MarkFlagRequired("body")
 	quotaUpdateOrgQuotaCmd.Flags().Int64Var(&quotaUpdateOrgQuotaFlag.OrgID, "org-id", 0, "OrgID")
 	quotaUpdateOrgQuotaCmd.MarkFlagRequired("org-id")
@@ -37574,7 +37574,7 @@ func init() {
 	quotaUpdateOrgQuotaCmd.Flags().BoolVar(&quotaUpdateOrgQuotaFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	quotaUpdateOrgQuotaCmd.Flags().BoolVar(&quotaUpdateOrgQuotaFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaUpdateOrgQuotaCmd)
-	quotaUpdateUserQuotaCmd.Flags().StringVar(&quotaUpdateUserQuotaFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	quotaUpdateUserQuotaCmd.Flags().StringVar(&quotaUpdateUserQuotaFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	quotaUpdateUserQuotaCmd.MarkFlagRequired("body")
 	quotaUpdateUserQuotaCmd.Flags().StringVar(&quotaUpdateUserQuotaFlag.QuotaTarget, "quota-target", "", "QuotaTarget")
 	quotaUpdateUserQuotaCmd.MarkFlagRequired("quota-target")
@@ -37585,13 +37585,13 @@ func init() {
 	quotaUpdateUserQuotaCmd.Flags().BoolVar(&quotaUpdateUserQuotaFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaUpdateUserQuotaCmd)
 	rootCmd.AddCommand(recordingRulesCmd)
-	recordingRulesCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	recordingRulesCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	recordingRulesCreateRecordingRuleCmd.MarkFlagRequired("body")
 	recordingRulesCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	recordingRulesCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesCreateRecordingRuleCmd)
-	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	recordingRulesCreateRecordingRuleWriteTargetCmd.MarkFlagRequired("body")
 	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37611,20 +37611,20 @@ func init() {
 	recordingRulesListRecordingRulesCmd.Flags().BoolVar(&recordingRulesListRecordingRulesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	recordingRulesListRecordingRulesCmd.Flags().BoolVar(&recordingRulesListRecordingRulesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesListRecordingRulesCmd)
-	recordingRulesTestCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesTestCreateRecordingRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	recordingRulesTestCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesTestCreateRecordingRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	recordingRulesTestCreateRecordingRuleCmd.MarkFlagRequired("body")
 	recordingRulesTestCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesTestCreateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesTestCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesTestCreateRecordingRuleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	recordingRulesTestCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesTestCreateRecordingRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesTestCreateRecordingRuleCmd)
-	recordingRulesUpdateRecordingRuleCmd.Flags().StringVar(&recordingRulesUpdateRecordingRuleFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	recordingRulesUpdateRecordingRuleCmd.Flags().StringVar(&recordingRulesUpdateRecordingRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	recordingRulesUpdateRecordingRuleCmd.MarkFlagRequired("body")
 	recordingRulesUpdateRecordingRuleCmd.Flags().BoolVar(&recordingRulesUpdateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesUpdateRecordingRuleCmd.Flags().BoolVar(&recordingRulesUpdateRecordingRuleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	recordingRulesUpdateRecordingRuleCmd.Flags().BoolVar(&recordingRulesUpdateRecordingRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesUpdateRecordingRuleCmd)
 	rootCmd.AddCommand(reportsCmd)
-	reportsCreateReportCmd.Flags().StringVar(&reportsCreateReportFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	reportsCreateReportCmd.Flags().StringVar(&reportsCreateReportFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	reportsCreateReportCmd.MarkFlagRequired("body")
 	reportsCreateReportCmd.Flags().BoolVar(&reportsCreateReportFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsCreateReportCmd.Flags().BoolVar(&reportsCreateReportFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37668,25 +37668,25 @@ func init() {
 	reportsRenderReportPDFsCmd.Flags().BoolVar(&reportsRenderReportPDFsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	reportsRenderReportPDFsCmd.Flags().BoolVar(&reportsRenderReportPDFsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsRenderReportPDFsCmd)
-	reportsSaveReportSettingsCmd.Flags().StringVar(&reportsSaveReportSettingsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	reportsSaveReportSettingsCmd.Flags().StringVar(&reportsSaveReportSettingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	reportsSaveReportSettingsCmd.MarkFlagRequired("body")
 	reportsSaveReportSettingsCmd.Flags().BoolVar(&reportsSaveReportSettingsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsSaveReportSettingsCmd.Flags().BoolVar(&reportsSaveReportSettingsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	reportsSaveReportSettingsCmd.Flags().BoolVar(&reportsSaveReportSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsSaveReportSettingsCmd)
-	reportsSendReportCmd.Flags().StringVar(&reportsSendReportFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	reportsSendReportCmd.Flags().StringVar(&reportsSendReportFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	reportsSendReportCmd.MarkFlagRequired("body")
 	reportsSendReportCmd.Flags().BoolVar(&reportsSendReportFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsSendReportCmd.Flags().BoolVar(&reportsSendReportFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	reportsSendReportCmd.Flags().BoolVar(&reportsSendReportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsSendReportCmd)
-	reportsSendTestEmailCmd.Flags().StringVar(&reportsSendTestEmailFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	reportsSendTestEmailCmd.Flags().StringVar(&reportsSendTestEmailFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	reportsSendTestEmailCmd.MarkFlagRequired("body")
 	reportsSendTestEmailCmd.Flags().BoolVar(&reportsSendTestEmailFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsSendTestEmailCmd.Flags().BoolVar(&reportsSendTestEmailFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	reportsSendTestEmailCmd.Flags().BoolVar(&reportsSendTestEmailFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsSendTestEmailCmd)
-	reportsUpdateReportCmd.Flags().StringVar(&reportsUpdateReportFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	reportsUpdateReportCmd.Flags().StringVar(&reportsUpdateReportFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	reportsUpdateReportCmd.MarkFlagRequired("body")
 	reportsUpdateReportCmd.Flags().Int64Var(&reportsUpdateReportFlag.ID, "id", 0, "ID")
 	reportsUpdateReportCmd.MarkFlagRequired("id")
@@ -37735,13 +37735,13 @@ func init() {
 	searchSearchCmd.Flags().BoolVar(&searchSearchFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	searchCmd.AddCommand(searchSearchCmd)
 	rootCmd.AddCommand(serviceAccountsCmd)
-	serviceAccountsCreateServiceAccountCmd.Flags().StringVar(&serviceAccountsCreateServiceAccountFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	serviceAccountsCreateServiceAccountCmd.Flags().StringVar(&serviceAccountsCreateServiceAccountFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	serviceAccountsCreateServiceAccountCmd.MarkFlagRequired("body")
 	serviceAccountsCreateServiceAccountCmd.Flags().BoolVar(&serviceAccountsCreateServiceAccountFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	serviceAccountsCreateServiceAccountCmd.Flags().BoolVar(&serviceAccountsCreateServiceAccountFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	serviceAccountsCreateServiceAccountCmd.Flags().BoolVar(&serviceAccountsCreateServiceAccountFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsCreateServiceAccountCmd)
-	serviceAccountsCreateTokenCmd.Flags().StringVar(&serviceAccountsCreateTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	serviceAccountsCreateTokenCmd.Flags().StringVar(&serviceAccountsCreateTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	serviceAccountsCreateTokenCmd.MarkFlagRequired("body")
 	serviceAccountsCreateTokenCmd.Flags().Int64Var(&serviceAccountsCreateTokenFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsCreateTokenCmd.MarkFlagRequired("service-account-id")
@@ -37779,7 +37779,7 @@ func init() {
 	serviceAccountsSearchOrgServiceAccountsWithPagingCmd.Flags().BoolVar(&serviceAccountsSearchOrgServiceAccountsWithPagingFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	serviceAccountsSearchOrgServiceAccountsWithPagingCmd.Flags().BoolVar(&serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsSearchOrgServiceAccountsWithPagingCmd)
-	serviceAccountsUpdateServiceAccountCmd.Flags().StringVar(&serviceAccountsUpdateServiceAccountFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	serviceAccountsUpdateServiceAccountCmd.Flags().StringVar(&serviceAccountsUpdateServiceAccountFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	serviceAccountsUpdateServiceAccountCmd.MarkFlagRequired("body")
 	serviceAccountsUpdateServiceAccountCmd.Flags().Int64Var(&serviceAccountsUpdateServiceAccountFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsUpdateServiceAccountCmd.MarkFlagRequired("service-account-id")
@@ -37788,7 +37788,7 @@ func init() {
 	serviceAccountsUpdateServiceAccountCmd.Flags().BoolVar(&serviceAccountsUpdateServiceAccountFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsUpdateServiceAccountCmd)
 	rootCmd.AddCommand(signedInUserCmd)
-	signedInUserChangeUserPasswordCmd.Flags().StringVar(&signedInUserChangeUserPasswordFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	signedInUserChangeUserPasswordCmd.Flags().StringVar(&signedInUserChangeUserPasswordFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	signedInUserChangeUserPasswordCmd.MarkFlagRequired("body")
 	signedInUserChangeUserPasswordCmd.Flags().BoolVar(&signedInUserChangeUserPasswordFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserChangeUserPasswordCmd.Flags().BoolVar(&signedInUserChangeUserPasswordFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37812,13 +37812,13 @@ func init() {
 	signedInUserGetUserPreferencesCmd.Flags().BoolVar(&signedInUserGetUserPreferencesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	signedInUserGetUserPreferencesCmd.Flags().BoolVar(&signedInUserGetUserPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserGetUserPreferencesCmd)
-	signedInUserPatchUserPreferencesCmd.Flags().StringVar(&signedInUserPatchUserPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	signedInUserPatchUserPreferencesCmd.Flags().StringVar(&signedInUserPatchUserPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	signedInUserPatchUserPreferencesCmd.MarkFlagRequired("body")
 	signedInUserPatchUserPreferencesCmd.Flags().BoolVar(&signedInUserPatchUserPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserPatchUserPreferencesCmd.Flags().BoolVar(&signedInUserPatchUserPreferencesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	signedInUserPatchUserPreferencesCmd.Flags().BoolVar(&signedInUserPatchUserPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserPatchUserPreferencesCmd)
-	signedInUserRevokeUserAuthTokenCmd.Flags().StringVar(&signedInUserRevokeUserAuthTokenFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	signedInUserRevokeUserAuthTokenCmd.Flags().StringVar(&signedInUserRevokeUserAuthTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	signedInUserRevokeUserAuthTokenCmd.MarkFlagRequired("body")
 	signedInUserRevokeUserAuthTokenCmd.Flags().BoolVar(&signedInUserRevokeUserAuthTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserRevokeUserAuthTokenCmd.Flags().BoolVar(&signedInUserRevokeUserAuthTokenFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37839,13 +37839,13 @@ func init() {
 	signedInUserUnstarDashboardByUIDCmd.Flags().BoolVar(&signedInUserUnstarDashboardByUIDFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	signedInUserUnstarDashboardByUIDCmd.Flags().BoolVar(&signedInUserUnstarDashboardByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserUnstarDashboardByUIDCmd)
-	signedInUserUpdateSignedInUserCmd.Flags().StringVar(&signedInUserUpdateSignedInUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	signedInUserUpdateSignedInUserCmd.Flags().StringVar(&signedInUserUpdateSignedInUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	signedInUserUpdateSignedInUserCmd.MarkFlagRequired("body")
 	signedInUserUpdateSignedInUserCmd.Flags().BoolVar(&signedInUserUpdateSignedInUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserUpdateSignedInUserCmd.Flags().BoolVar(&signedInUserUpdateSignedInUserFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	signedInUserUpdateSignedInUserCmd.Flags().BoolVar(&signedInUserUpdateSignedInUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserUpdateSignedInUserCmd)
-	signedInUserUpdateUserPreferencesCmd.Flags().StringVar(&signedInUserUpdateUserPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	signedInUserUpdateUserPreferencesCmd.Flags().StringVar(&signedInUserUpdateUserPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	signedInUserUpdateUserPreferencesCmd.MarkFlagRequired("body")
 	signedInUserUpdateUserPreferencesCmd.Flags().BoolVar(&signedInUserUpdateUserPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserUpdateUserPreferencesCmd.Flags().BoolVar(&signedInUserUpdateUserPreferencesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37878,7 +37878,7 @@ func init() {
 	ssoSettingsRemoveProviderSettingsCmd.Flags().BoolVar(&ssoSettingsRemoveProviderSettingsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	ssoSettingsRemoveProviderSettingsCmd.Flags().BoolVar(&ssoSettingsRemoveProviderSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ssoSettingsCmd.AddCommand(ssoSettingsRemoveProviderSettingsCmd)
-	ssoSettingsUpdateProviderSettingsCmd.Flags().StringVar(&ssoSettingsUpdateProviderSettingsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	ssoSettingsUpdateProviderSettingsCmd.Flags().StringVar(&ssoSettingsUpdateProviderSettingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	ssoSettingsUpdateProviderSettingsCmd.MarkFlagRequired("body")
 	ssoSettingsUpdateProviderSettingsCmd.Flags().StringVar(&ssoSettingsUpdateProviderSettingsFlag.Key, "key", "", "Key")
 	ssoSettingsUpdateProviderSettingsCmd.MarkFlagRequired("key")
@@ -37887,7 +37887,7 @@ func init() {
 	ssoSettingsUpdateProviderSettingsCmd.Flags().BoolVar(&ssoSettingsUpdateProviderSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ssoSettingsCmd.AddCommand(ssoSettingsUpdateProviderSettingsCmd)
 	rootCmd.AddCommand(syncTeamGroupsCmd)
-	syncTeamGroupsAddTeamGroupAPICmd.Flags().StringVar(&syncTeamGroupsAddTeamGroupAPIFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	syncTeamGroupsAddTeamGroupAPICmd.Flags().StringVar(&syncTeamGroupsAddTeamGroupAPIFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	syncTeamGroupsAddTeamGroupAPICmd.MarkFlagRequired("body")
 	syncTeamGroupsAddTeamGroupAPICmd.Flags().Int64Var(&syncTeamGroupsAddTeamGroupAPIFlag.TeamID, "team-id", 0, "TeamID")
 	syncTeamGroupsAddTeamGroupAPICmd.MarkFlagRequired("team-id")
@@ -37916,7 +37916,7 @@ func init() {
 	syncTeamGroupsSearchTeamGroupsCmd.Flags().BoolVar(&syncTeamGroupsSearchTeamGroupsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	syncTeamGroupsCmd.AddCommand(syncTeamGroupsSearchTeamGroupsCmd)
 	rootCmd.AddCommand(teamsCmd)
-	teamsAddTeamMemberCmd.Flags().StringVar(&teamsAddTeamMemberFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	teamsAddTeamMemberCmd.Flags().StringVar(&teamsAddTeamMemberFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsAddTeamMemberCmd.MarkFlagRequired("body")
 	teamsAddTeamMemberCmd.Flags().StringVar(&teamsAddTeamMemberFlag.TeamID, "team-id", "", "TeamID")
 	teamsAddTeamMemberCmd.MarkFlagRequired("team-id")
@@ -37924,7 +37924,7 @@ func init() {
 	teamsAddTeamMemberCmd.Flags().BoolVar(&teamsAddTeamMemberFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	teamsAddTeamMemberCmd.Flags().BoolVar(&teamsAddTeamMemberFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsAddTeamMemberCmd)
-	teamsCreateTeamCmd.Flags().StringVar(&teamsCreateTeamFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	teamsCreateTeamCmd.Flags().StringVar(&teamsCreateTeamFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsCreateTeamCmd.MarkFlagRequired("body")
 	teamsCreateTeamCmd.Flags().BoolVar(&teamsCreateTeamFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	teamsCreateTeamCmd.Flags().BoolVar(&teamsCreateTeamFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37956,7 +37956,7 @@ func init() {
 	teamsSearchTeamsCmd.Flags().BoolVar(&teamsSearchTeamsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	teamsSearchTeamsCmd.Flags().BoolVar(&teamsSearchTeamsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsSearchTeamsCmd)
-	teamsSetTeamMembershipsCmd.Flags().StringVar(&teamsSetTeamMembershipsFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	teamsSetTeamMembershipsCmd.Flags().StringVar(&teamsSetTeamMembershipsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsSetTeamMembershipsCmd.MarkFlagRequired("body")
 	teamsSetTeamMembershipsCmd.Flags().StringVar(&teamsSetTeamMembershipsFlag.TeamID, "team-id", "", "TeamID")
 	teamsSetTeamMembershipsCmd.MarkFlagRequired("team-id")
@@ -37964,7 +37964,7 @@ func init() {
 	teamsSetTeamMembershipsCmd.Flags().BoolVar(&teamsSetTeamMembershipsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	teamsSetTeamMembershipsCmd.Flags().BoolVar(&teamsSetTeamMembershipsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsSetTeamMembershipsCmd)
-	teamsUpdateTeamCmd.Flags().StringVar(&teamsUpdateTeamFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	teamsUpdateTeamCmd.Flags().StringVar(&teamsUpdateTeamFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsUpdateTeamCmd.MarkFlagRequired("body")
 	teamsUpdateTeamCmd.Flags().StringVar(&teamsUpdateTeamFlag.TeamID, "team-id", "", "TeamID")
 	teamsUpdateTeamCmd.MarkFlagRequired("team-id")
@@ -37972,7 +37972,7 @@ func init() {
 	teamsUpdateTeamCmd.Flags().BoolVar(&teamsUpdateTeamFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	teamsUpdateTeamCmd.Flags().BoolVar(&teamsUpdateTeamFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsUpdateTeamCmd)
-	teamsUpdateTeamMemberCmd.Flags().StringVar(&teamsUpdateTeamMemberFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	teamsUpdateTeamMemberCmd.Flags().StringVar(&teamsUpdateTeamMemberFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsUpdateTeamMemberCmd.MarkFlagRequired("body")
 	teamsUpdateTeamMemberCmd.Flags().StringVar(&teamsUpdateTeamMemberFlag.TeamID, "team-id", "", "TeamID")
 	teamsUpdateTeamMemberCmd.MarkFlagRequired("team-id")
@@ -37982,7 +37982,7 @@ func init() {
 	teamsUpdateTeamMemberCmd.Flags().BoolVar(&teamsUpdateTeamMemberFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	teamsUpdateTeamMemberCmd.Flags().BoolVar(&teamsUpdateTeamMemberFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsUpdateTeamMemberCmd)
-	teamsUpdateTeamPreferencesCmd.Flags().StringVar(&teamsUpdateTeamPreferencesFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	teamsUpdateTeamPreferencesCmd.Flags().StringVar(&teamsUpdateTeamPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsUpdateTeamPreferencesCmd.MarkFlagRequired("body")
 	teamsUpdateTeamPreferencesCmd.Flags().StringVar(&teamsUpdateTeamPreferencesFlag.TeamID, "team-id", "", "TeamID")
 	teamsUpdateTeamPreferencesCmd.MarkFlagRequired("team-id")
@@ -38017,7 +38017,7 @@ func init() {
 	usersSearchUsersWithPagingCmd.Flags().BoolVar(&usersSearchUsersWithPagingFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	usersSearchUsersWithPagingCmd.Flags().BoolVar(&usersSearchUsersWithPagingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	usersCmd.AddCommand(usersSearchUsersWithPagingCmd)
-	usersUpdateUserCmd.Flags().StringVar(&usersUpdateUserFlag.Body, "body", "", "The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{\"foo\": \"bar\"}'")
+	usersUpdateUserCmd.Flags().StringVar(&usersUpdateUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
 	usersUpdateUserCmd.MarkFlagRequired("body")
 	usersUpdateUserCmd.Flags().Int64Var(&usersUpdateUserFlag.UserID, "user-id", 0, "UserID")
 	usersUpdateUserCmd.MarkFlagRequired("user-id")

@@ -343,10 +343,45 @@ func writeJSONTemplate(b *strings.Builder, fields []*ModelField, indent int) {
 		if i < len(fields)-1 {
 			b.WriteByte(',')
 		}
+		if hint := goTypeHint(f); hint != "" {
+			b.WriteString(hint)
+		}
 		b.WriteByte('\n')
 	}
 	b.WriteString(strings.Repeat(" ", max(0, indent-2)))
 	b.WriteByte('}')
+}
+
+// goTypeHint returns a trailing "  // models.X" comment for fields that render
+// as an opaque "any" or "object" token in the pseudo-JSON schema block. The Go
+// type name is preserved in ModelField.GoType but otherwise hidden by the
+// JSON-type collapse, leaving the user with no handle to look the type up.
+// Returns "" when the rendered placeholder is already self-describing (nested
+// struct expansion, map with inline value type) or when GoType adds no info
+// (primitive, literally "object"/"any").
+func goTypeHint(f *ModelField) string {
+	if f == nil || f.IsMap || len(f.NestedFields) > 0 {
+		return ""
+	}
+	if f.JSONType != "any" && f.JSONType != "object" {
+		return ""
+	}
+	if f.GoType == "" {
+		return ""
+	}
+	bare := f.GoType
+	depth := 0
+	for strings.HasPrefix(bare, "[]") {
+		bare = bare[2:]
+		depth++
+	}
+	if _, ok := basicTypeToJSON(bare); ok {
+		return ""
+	}
+	if bare == "object" || bare == "any" {
+		return ""
+	}
+	return "  // " + strings.Repeat("[]", depth) + "models." + bare
 }
 
 func writeFieldPlaceholder(b *strings.Builder, f *ModelField, indent int) {

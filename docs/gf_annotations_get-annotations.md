@@ -9,20 +9,21 @@ gf annotations get-annotations [flags]
 ### Options
 
 ```
-      --alert-id int           Find annotations for a specified alert rule by its ID. deprecated: AlertID is deprecated and will be removed in future versions. Please use AlertUID instead.
-      --alert-uid string       Find annotations for a specified alert rule by its UID.
-      --dashboard-id int       Find annotations that are scoped to a specific dashboard
-      --dashboard-uid string   Find annotations that are scoped to a specific dashboard
-      --from int               Find annotations created after specific epoch datetime in milliseconds.
-  -h, --help                   help for get-annotations
-      --limit int              Max limit for results returned.
-      --match-any              Match any or all tags
-      --panel-id int           Find annotations that are scoped to a specific panel
-      --raw                    Print the raw HTTP response body instead of the decoded payload
-      --tags strings           Use this to filter organization annotations. Organization annotations are annotations from an annotation data source that are not connected specifically to a dashboard or panel. You can filter by multiple tags.
-      --to int                 Find annotations created before specific epoch datetime in milliseconds.
-      --type string            Return alerts or user created annotations
-      --user-id int            Limit response to annotations created by specific user.
+      --alert-id int                   Find annotations for a specified alert rule by its ID. deprecated: AlertID is deprecated and will be removed in future versions. Please use AlertUID instead.
+      --alert-uid string               Find annotations for a specified alert rule by its UID.
+      --dashboard-id int               Find annotations that are scoped to a specific dashboard
+      --dashboard-uid string           Find annotations that are scoped to a specific dashboard
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+      --from int                       Find annotations created after specific epoch datetime in milliseconds.
+  -h, --help                           help for get-annotations
+      --limit int                      Max limit for results returned.
+      --match-any                      Match any or all tags
+      --panel-id int                   Find annotations that are scoped to a specific panel
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --tags strings                   Use this to filter organization annotations. Organization annotations are annotations from an annotation data source that are not connected specifically to a dashboard or panel. You can filter by multiple tags.
+      --to int                         Find annotations created before specific epoch datetime in milliseconds.
+      --type string                    Return alerts or user created annotations
+      --user-id int                    Limit response to annotations created by specific user.
 ```
 
 ### Options inherited from parent commands

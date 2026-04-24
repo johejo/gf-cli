@@ -10,6 +10,7 @@ gf datasources call-datasource-resource [flags]
 
 ```
       --datasource-proxy-route string   DatasourceProxyRoute
+      --describe-response-jsonschema    Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                            help for call-datasource-resource
       --raw                             Print the raw HTTP response body instead of the decoded payload
       --uid string                      UID

@@ -22,10 +22,11 @@ gf recording-rules create-recording-rule-write-target [flags]
 ### Options
 
 ```
-      --body string                The path to the body json file or json string. For example, --body=/path/to/body.json or --body='{"foo": "bar"}'
-      --describe-body-jsonschema   Print the JSON Schema of the request body and exit without calling the API
-  -h, --help                       help for create-recording-rule-write-target
-      --raw                        Print the raw HTTP response body instead of the decoded payload
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for create-recording-rule-write-target
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

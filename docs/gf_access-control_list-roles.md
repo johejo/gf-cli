@@ -9,10 +9,11 @@ gf access-control list-roles [flags]
 ### Options
 
 ```
-      --delegatable      Delegatable
-  -h, --help             help for list-roles
-      --include-hidden   IncludeHidden
-      --raw              Print the raw HTTP response body instead of the decoded payload
+      --delegatable                    Delegatable
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for list-roles
+      --include-hidden                 IncludeHidden
+      --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

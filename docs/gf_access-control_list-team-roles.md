@@ -15,9 +15,10 @@ gf access-control list-team-roles [flags]
 ### Options
 
 ```
-  -h, --help          help for list-team-roles
-      --raw           Print the raw HTTP response body instead of the decoded payload
-      --team-id int   TeamID
+      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
+  -h, --help                           help for list-team-roles
+      --raw                            Print the raw HTTP response body instead of the decoded payload
+      --team-id int                    TeamID
 ```
 
 ### Options inherited from parent commands
