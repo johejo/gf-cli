@@ -441,6 +441,42 @@ func formatAnnotations(fields []*ModelField, prefix string) string {
 	return strings.Join(lines, "\n")
 }
 
+// BuildJSONSchemaFromExpr returns a pretty-printed JSON Schema (draft 2020-12)
+// document describing an arbitrary Go type expression from the upstream client's
+// response package (e.g. *models.TeamDTO, []*models.TeamMemberDTO, map[string]any).
+// Used for response Payload fields, where the declared type is not always a
+// named struct in the models/ package.
+//
+// When frameNote is true, a description field is added warning that the
+// response wire format differs from the Go type (models.Frame mismatch).
+func BuildJSONSchemaFromExpr(baseDir string, expr ast.Expr, title string, frameNote bool) (string, error) {
+	files, err := getModelParsedFiles(baseDir)
+	if err != nil {
+		return "", err
+	}
+	b := &jsonSchemaBuilder{files: files, visited: map[string]bool{}}
+	inner := b.fieldSchema(expr)
+	if inner == nil {
+		return "", fmt.Errorf("empty schema for %s", title)
+	}
+	top := newOrderedObj()
+	top.set("$schema", "https://json-schema.org/draft/2020-12/schema")
+	if title != "" {
+		top.set("title", title)
+	}
+	if frameNote {
+		top.set("description", "Response wire format differs from the Go type; consider --raw.")
+	}
+	for _, k := range inner.keys {
+		top.set(k, inner.values[k])
+	}
+	out, err := json.MarshalIndent(top, "", "  ")
+	if err != nil {
+		return "", err
+	}
+	return string(out), nil
+}
+
 // BuildBodyJSONSchema returns a pretty-printed JSON Schema (draft 2020-12)
 // document describing the body struct referenced by modelType (e.g. "models.CreateTeamCommand").
 // The schema is derived by walking the Go AST of the models package with full-depth

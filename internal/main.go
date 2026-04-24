@@ -30,7 +30,7 @@ var (
 		DisableAutoGenTag: true,
 		SilenceUsage:      true,
 		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
+		RunE:              runRoot,
 	}
 	rootCmdFlag = struct {
 		host              string
@@ -43,6 +43,7 @@ var (
 		debug             bool
 		noColor           bool
 		colors            string
+		helpJSON          bool
 	}{}
 )
 
@@ -59,6 +60,21 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.basicAuthPassword, "basic-user-password", "", "Basic authentication password (env: GF_BASIC_AUTH_USERNAME)")
 	rootCmd.PersistentFlags().Int64Var(&rootCmdFlag.orgID, "org-id", 0, "Organization ID (env: GF_ORG_ID)")
 	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.debug, "debug", false, "Enable debug logging (env: GF_DEBUG)")
+	// --help-json is registered as a root-only flag (not persistent) so it does
+	// not appear on every subcommand's --help. Agents filter the output with jq.
+	rootCmd.Flags().BoolVar(&rootCmdFlag.helpJSON, "help-json", false, "Print the full CLI schema (flags, body, response) as JSON and exit")
+}
+
+func runRoot(cmd *cobra.Command, args []string) error {
+	if rootCmdFlag.helpJSON {
+		return printHelpJSON()
+	}
+	if len(args) == 0 {
+		cmd.Println("No subcommand specified.")
+		cmd.Print(cmd.UsageString())
+		os.Exit(1)
+	}
+	return nil
 }
 
 func failIfEmptyArgs(cmd *cobra.Command, args []string) {
@@ -243,4 +259,22 @@ type getPayloadError interface {
 func describeBodyJSONSchema(schema string) {
 	fmt.Println(schema)
 	os.Exit(0)
+}
+
+func describeResponseJSONSchema(schema string) {
+	fmt.Println(schema)
+	os.Exit(0)
+}
+
+// printHelpJSON re-indents the compact helpJSON string produced at gen time
+// and writes it to stdout. Invoked by --help-json on the root command.
+func printHelpJSON() error {
+	var buf bytes.Buffer
+	if err := json.Indent(&buf, []byte(helpJSON), "", "  "); err != nil {
+		_, werr := os.Stdout.WriteString(helpJSON)
+		return werr
+	}
+	buf.WriteByte('\n')
+	_, err := os.Stdout.Write(buf.Bytes())
+	return err
 }

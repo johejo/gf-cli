@@ -25,7 +25,8 @@ type ResponseInfo struct {
 	TypeName      string // "AddTeamRoleOK"
 	HasPayload    bool
 	NumReturns    int  // 1=error, 2=resp+error, 3=resp+extra+error
-	ContainsFrame bool // true if the payload type tree contains models.Frame (wire-format mismatch)
+	ContainsFrame bool   // true if the payload type tree contains models.Frame (wire-format mismatch)
+	JSONSchema    string // pretty-printed JSON Schema (draft 2020-12) for the Payload; empty when unavailable
 }
 
 type BodyFieldInfo struct {

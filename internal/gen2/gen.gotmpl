@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
-{{- range .}}
+{{- range .Services }}
 	"github.com/grafana/grafana-openapi-client-go/client/{{ .PkgName }}"
 {{- end }}
 	"github.com/grafana/grafana-openapi-client-go/models"
@@ -22,8 +22,13 @@ var (
 	_ = models.SuccessResponseBody{}
 )
 
+// helpJSON is the full CLI command tree serialized as a single compact JSON
+// document (flat-keyed by "<service> <action>"). Printed by --help-json on the
+// root command; re-indented at runtime.
+var helpJSON = {{ stringLiteral .HelpJSON }}
+
 var (
-{{- range . }}
+{{- range .Services }}
 	{{ .VarName }}Cmd = &cobra.Command{
 		Use:               "{{ .CmdName }}",
 {{- if .Short }}
@@ -38,6 +43,9 @@ var (
 {{- $act := . }}
 {{- if and .BodyField (ne .BodyField.JSONSchema "") }}
 	{{ $svc.VarName }}{{ .VarName }}BodyJSONSchema = {{ stringLiteral .BodyField.JSONSchema }}
+{{- end }}
+{{- if ne .Response.JSONSchema "" }}
+	{{ $svc.VarName }}{{ .VarName }}ResponseJSONSchema = {{ stringLiteral .Response.JSONSchema }}
 {{- end }}
 	{{ $svc.VarName }}{{ .VarName }}Cmd = &cobra.Command{
 		Use:               "{{ .CmdName }}",
@@ -59,11 +67,20 @@ var (
 		},
 {{- end }}
 		DisableAutoGenTag: true,
-{{- if and .BodyField (ne .BodyField.JSONSchema "") }}
+{{- $hasBodySchema := and .BodyField (ne .BodyField.JSONSchema "") }}
+{{- $hasRespSchema := ne .Response.JSONSchema "" }}
+{{- if or $hasBodySchema $hasRespSchema }}
 		PreRunE: func(cmd *cobra.Command, args []string) error {
+{{- if $hasBodySchema }}
 			if {{ $svc.VarName }}{{ $act.VarName }}Flag.DescribeBodyJSONSchema {
 				describeBodyJSONSchema({{ $svc.VarName }}{{ $act.VarName }}BodyJSONSchema)
 			}
+{{- end }}
+{{- if $hasRespSchema }}
+			if {{ $svc.VarName }}{{ $act.VarName }}Flag.DescribeResponseJSONSchema {
+				describeResponseJSONSchema({{ $svc.VarName }}{{ $act.VarName }}ResponseJSONSchema)
+			}
+{{- end }}
 			return nil
 		},
 {{- end }}
@@ -150,6 +167,9 @@ var (
 {{- if and .BodyField (ne .BodyField.JSONSchema "") }}
 		DescribeBodyJSONSchema bool
 {{- end }}
+{{- if ne .Response.JSONSchema "" }}
+		DescribeResponseJSONSchema bool
+{{- end }}
 		Raw bool
 	}{}
 {{- end }}
@@ -161,7 +181,7 @@ func longHelp(parts ...string) string {
 }
 
 func init() {
-{{- range . }}
+{{- range .Services }}
 {{- $svc := . }}
 	rootCmd.AddCommand({{ .VarName }}Cmd)
 {{- range .Actions }}
@@ -174,6 +194,9 @@ func init() {
 {{- end }}
 {{- if and .BodyField (ne .BodyField.JSONSchema "") }}
 	{{ $svc.VarName }}{{ $act.VarName }}Cmd.Flags().BoolVar(&{{ $svc.VarName }}{{ $act.VarName }}Flag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+{{- end }}
+{{- if ne .Response.JSONSchema "" }}
+	{{ $svc.VarName }}{{ $act.VarName }}Cmd.Flags().BoolVar(&{{ $svc.VarName }}{{ $act.VarName }}Flag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 {{- end }}
 	{{ $svc.VarName }}{{ $act.VarName }}Cmd.Flags().BoolVar(&{{ $svc.VarName }}{{ $act.VarName }}Flag.Raw, "raw", {{ .Response.ContainsFrame }}, "Print the raw HTTP response body instead of the decoded payload")
 	{{ $svc.VarName }}Cmd.AddCommand({{ $svc.VarName }}{{ $act.VarName }}Cmd)

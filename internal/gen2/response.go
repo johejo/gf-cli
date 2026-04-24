@@ -10,6 +10,10 @@ import (
 type ResponseField struct {
 	HasPayload    bool
 	ContainsFrame bool
+	// PayloadExpr is the ast.Expr of the Payload field's declared type (e.g.
+	// *models.TeamDTO or []*models.TeamMemberDTO). Retained so the JSON Schema
+	// builder can walk arbitrary shapes, not only named models.* structs.
+	PayloadExpr ast.Expr
 }
 
 // ParseResponse finds the response struct by type name within the package directory
@@ -32,7 +36,7 @@ func ParseResponse(baseDir string, pkgName string, responseTypeName string) (*Re
 			if len(field.Names) == 0 || field.Names[0].Name != "Payload" {
 				continue
 			}
-			rf := &ResponseField{HasPayload: true}
+			rf := &ResponseField{HasPayload: true, PayloadExpr: field.Type}
 			modelFiles, err := getModelParsedFiles(baseDir)
 			if err != nil {
 				return rf, nil

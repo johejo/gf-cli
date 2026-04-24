@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	_ "embed"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"go/format"
@@ -75,6 +76,15 @@ func main() {
 				} else {
 					act.Response.HasPayload = resp.HasPayload
 					act.Response.ContainsFrame = resp.ContainsFrame
+					if resp.HasPayload && resp.PayloadExpr != nil {
+						title := m.ReturnTypeName + ".Payload"
+						jsonSchema, err := BuildJSONSchemaFromExpr(baseDir, resp.PayloadExpr, title, resp.ContainsFrame)
+						if err != nil {
+							log.Printf("warning: could not build response JSON Schema for %s.%s: %v", entry.PkgName, m.Name, err)
+						} else {
+							act.Response.JSONSchema = jsonSchema
+						}
+					}
 				}
 			}
 
@@ -132,6 +142,13 @@ func main() {
 		}
 	}
 
+	// Build the --help-json payload: a flat map keyed by "<service> <action>"
+	// so agents can do O(1) lookup without recursing a tree.
+	helpJSON, err := buildHelpJSON(services)
+	if err != nil {
+		log.Fatalf("building help JSON: %v", err)
+	}
+
 	// Phase 6: Execute template
 	funcMap := template.FuncMap{
 		"flagFunc":         flagFunc,
@@ -147,8 +164,16 @@ func main() {
 		log.Fatalf("parsing template: %v", err)
 	}
 
+	data := struct {
+		Services []*Service
+		HelpJSON string
+	}{
+		Services: services,
+		HelpJSON: helpJSON,
+	}
+
 	var buf bytes.Buffer
-	if err := t.Execute(&buf, services); err != nil {
+	if err := t.Execute(&buf, data); err != nil {
 		log.Fatalf("executing template: %v", err)
 	}
 
@@ -264,4 +289,102 @@ func actionBodySchema(act *Action) string {
 		return ""
 	}
 	return formatBodySchema(act.BodyField.Schema)
+}
+
+// helpDoc is the top-level shape of the --help-json output. It is intentionally
+// flat-keyed by "<service> <action>" (the invocation string minus "gf ") so
+// agents can do O(1) lookup with .commands[name] instead of walking a tree.
+type helpDoc struct {
+	Version  string                       `json:"version"`
+	Commands map[string]*helpActionOutput `json:"commands"`
+}
+
+type helpActionOutput struct {
+	Service  string              `json:"service"`
+	Action   string              `json:"action"`
+	Short    string              `json:"short,omitempty"`
+	Long     string              `json:"long,omitempty"`
+	Flags    []helpFlagOutput    `json:"flags"`
+	Body     *helpBodyOutput     `json:"body,omitempty"`
+	Response *helpResponseOutput `json:"response,omitempty"`
+}
+
+type helpFlagOutput struct {
+	Name     string `json:"name"`
+	Type     string `json:"type"`
+	Required bool   `json:"required"`
+	Doc      string `json:"doc,omitempty"`
+}
+
+type helpBodyOutput struct {
+	ModelType  string          `json:"modelType"`
+	JSONSchema json.RawMessage `json:"jsonSchema,omitempty"`
+}
+
+type helpResponseOutput struct {
+	TypeName      string          `json:"typeName,omitempty"`
+	HasPayload    bool            `json:"hasPayload"`
+	ContainsFrame bool            `json:"containsFrame"`
+	JSONSchema    json.RawMessage `json:"jsonSchema,omitempty"`
+}
+
+// buildHelpJSON returns a compact (single-line) JSON document summarising the
+// whole CLI command tree. Compact form keeps the embedded string in gen.go
+// diff-friendly; the runtime re-indents before printing.
+func buildHelpJSON(services []*Service) (string, error) {
+	doc := &helpDoc{
+		Version:  "gf-help-json/1",
+		Commands: make(map[string]*helpActionOutput, 256),
+	}
+	for _, svc := range services {
+		for _, act := range svc.Actions {
+			key := svc.CmdName + " " + act.CmdName
+			out := &helpActionOutput{
+				Service: svc.CmdName,
+				Action:  act.CmdName,
+				Short:   act.Short,
+				Long:    act.Long,
+			}
+			for _, fl := range act.Flags {
+				// The synthetic "body" flag doesn't carry useful doc text for
+				// agents; skip it here — body info lives under Body below.
+				if fl.FieldName == "Body" {
+					continue
+				}
+				out.Flags = append(out.Flags, helpFlagOutput{
+					Name:     fl.Name,
+					Type:     fl.Type,
+					Required: fl.IsRequired,
+					Doc:      fl.Doc,
+				})
+			}
+			if out.Flags == nil {
+				out.Flags = []helpFlagOutput{}
+			}
+			if act.BodyField != nil {
+				b := &helpBodyOutput{ModelType: act.BodyField.ModelType}
+				if act.BodyField.JSONSchema != "" {
+					b.JSONSchema = json.RawMessage(act.BodyField.JSONSchema)
+				}
+				out.Body = b
+			}
+			if act.Response != nil && act.Response.HasPayload {
+				r := &helpResponseOutput{
+					TypeName:      act.Response.TypeName,
+					HasPayload:    true,
+					ContainsFrame: act.Response.ContainsFrame,
+				}
+				if act.Response.JSONSchema != "" {
+					r.JSONSchema = json.RawMessage(act.Response.JSONSchema)
+				}
+				out.Response = r
+			}
+			doc.Commands[key] = out
+		}
+	}
+	b, err := json.Marshal(doc)
+	if err != nil {
+		return "", err
+	}
+	return string(b), nil
 }
