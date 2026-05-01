@@ -272,11 +272,13 @@ func describeResponseJSONSchema(schema string) {
 	os.Exit(0)
 }
 
-// printHelpJSON re-indents the compact helpJSON string produced at gen time
-// and writes it to stdout. Invoked by --help-json on the root command.
+// printHelpJSON writes the embedded helpJSON to stdout in compact form.
+// The embedded string is pretty-printed for repo diff readability;
+// json.Compact strips that whitespace at runtime. Invoked by --help-json
+// on the root command.
 func printHelpJSON() error {
 	var buf bytes.Buffer
-	if err := json.Indent(&buf, []byte(helpJSON), "", "  "); err != nil {
+	if err := json.Compact(&buf, []byte(helpJSON)); err != nil {
 		_, werr := os.Stdout.WriteString(helpJSON)
 		return werr
 	}

@@ -346,9 +346,9 @@ type helpResponseOutput struct {
 }
 
 // buildHelpJSON returns an indented JSON document summarising the whole CLI
-// command tree. Indented form keeps the embedded string in gen.go diff-friendly
-// (one JSON line per source line); the runtime calls json.Indent again before
-// printing, which tolerates any input whitespace.
+// command tree. Indented form keeps the embedded help.json diff-friendly
+// (one JSON line per source line); the runtime calls json.Compact before
+// printing so --help-json output is single-line.
 func buildHelpJSON(services []*Service) (string, error) {
 	doc := &helpDoc{
 		Version:  "gf-help-json/1",
