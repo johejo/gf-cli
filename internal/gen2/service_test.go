@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"go/parser"
+	"go/token"
+	"testing"
+)
 
 func TestSplitDoc(t *testing.T) {
 	t.Parallel()
@@ -27,12 +31,36 @@ func TestSplitDoc(t *testing.T) {
 				"You need to have a permission with action `users.roles:add` and scope `permissions:type:delegate`.",
 		},
 		{
-			name: "first paragraph has multiple lines",
+			// A multi-line first paragraph means the upstream OpenAPI summary
+			// almost certainly leaked a description into the summary slot. We
+			// suppress Short and promote the paragraph into Long.
+			name: "first paragraph has multiple lines suppresses Short",
 			in: "CreateDashboardSnapshot whens creating a snapshot using the API\n" +
 				"you have to provide the full dashboard payload\n\n" +
 				"Snapshot public mode should be enabled or authentication is required.",
-			wantShort: "Whens creating a snapshot using the API you have to provide the full dashboard payload",
-			wantLong:  "Snapshot public mode should be enabled or authentication is required.",
+			wantShort: "",
+			wantLong: "Whens creating a snapshot using the API you have to provide the full dashboard payload\n\n" +
+				"Snapshot public mode should be enabled or authentication is required.",
+		},
+		{
+			// Short single-line summaries pass through verbatim even if the
+			// grammar is awkward; we can't reliably tell them apart from
+			// valid summaries without brittle heuristics.
+			name: "single-line short summary stays as Short",
+			in: "PostDashboard creates update dashboard\n\n" +
+				"Creates a new dashboard or updates an existing dashboard.",
+			wantShort: "Creates update dashboard",
+			wantLong:  "Creates a new dashboard or updates an existing dashboard.",
+		},
+		{
+			// A single line that exceeds shortMaxLen is treated like the
+			// multi-line case: suppress Short, promote into Long.
+			name: "very long single-line first paragraph suppresses Short",
+			in: "CreateDashboardSnapshot whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI\n\n" +
+				"Snapshot public mode should be enabled or authentication is required.",
+			wantShort: "",
+			wantLong: "Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI\n\n" +
+				"Snapshot public mode should be enabled or authentication is required.",
 		},
 		{
 			name:      "empty",
@@ -54,6 +82,50 @@ func TestSplitDoc(t *testing.T) {
 				t.Fatalf("Long = %q, want %q", got.Long, tt.wantLong)
 			}
 		})
+	}
+}
+
+func TestBuildMethodDocMap_RecoversBlankLineSeparated(t *testing.T) {
+	t.Parallel()
+
+	src := `package fake
+
+type Client struct{}
+
+/*
+WithBlankLine handles separated docs
+
+Long paragraph here.
+*/
+
+func (a *Client) WithBlankLine() error { return nil }
+
+/*
+NoBlankLine handles attached docs
+*/
+func (a *Client) NoBlankLine() error { return nil }
+
+func (a *Client) NoDoc() error { return nil }
+`
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, "fake.go", src, parser.ParseComments)
+	if err != nil {
+		t.Fatalf("ParseFile: %v", err)
+	}
+
+	m := buildMethodDocMap(f)
+
+	if got, want := m["WithBlankLine"].Short, "Handles separated docs"; got != want {
+		t.Errorf("WithBlankLine.Short = %q, want %q", got, want)
+	}
+	if got, want := m["WithBlankLine"].Long, "Long paragraph here."; got != want {
+		t.Errorf("WithBlankLine.Long = %q, want %q", got, want)
+	}
+	if got, want := m["NoBlankLine"].Short, "Handles attached docs"; got != want {
+		t.Errorf("NoBlankLine.Short = %q, want %q", got, want)
+	}
+	if _, ok := m["NoDoc"]; ok {
+		t.Errorf("NoDoc should have no entry, got %+v", m["NoDoc"])
 	}
 }
 

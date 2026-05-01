@@ -17,11 +17,23 @@ import (
 var tmpl string
 
 func main() {
-	var baseDir string
+	var (
+		baseDir     string
+		outGo       string
+		outHelpJSON string
+	)
 	flag.StringVar(&baseDir, "base-dir", "", "path to grafana-openapi-client-go root directory")
+	flag.StringVar(&outGo, "out-go", "", "destination path for the generated Go file")
+	flag.StringVar(&outHelpJSON, "out-help-json", "", "destination path for the help JSON document")
 	flag.Parse()
 	if baseDir == "" {
 		log.Fatal("-base-dir is required")
+	}
+	if outGo == "" {
+		log.Fatal("-out-go is required")
+	}
+	if outHelpJSON == "" {
+		log.Fatal("-out-help-json is required")
 	}
 
 	// Phase 1: Parse facade to discover services
@@ -166,10 +178,8 @@ func main() {
 
 	data := struct {
 		Services []*Service
-		HelpJSON string
 	}{
 		Services: services,
-		HelpJSON: helpJSON,
 	}
 
 	var buf bytes.Buffer
@@ -182,7 +192,12 @@ func main() {
 		os.Stderr.Write(buf.Bytes())
 		log.Fatalf("formatting: %v", err)
 	}
-	os.Stdout.Write(b)
+	if err := os.WriteFile(outGo, b, 0o644); err != nil {
+		log.Fatalf("writing %s: %v", outGo, err)
+	}
+	if err := os.WriteFile(outHelpJSON, []byte(helpJSON), 0o644); err != nil {
+		log.Fatalf("writing %s: %v", outHelpJSON, err)
+	}
 }
 
 // flagFunc returns the cobra flag registration function name for a type.
@@ -329,9 +344,10 @@ type helpResponseOutput struct {
 	JSONSchema    json.RawMessage `json:"jsonSchema,omitempty"`
 }
 
-// buildHelpJSON returns a compact (single-line) JSON document summarising the
-// whole CLI command tree. Compact form keeps the embedded string in gen.go
-// diff-friendly; the runtime re-indents before printing.
+// buildHelpJSON returns an indented JSON document summarising the whole CLI
+// command tree. Indented form keeps the embedded string in gen.go diff-friendly
+// (one JSON line per source line); the runtime calls json.Indent again before
+// printing, which tolerates any input whitespace.
 func buildHelpJSON(services []*Service) (string, error) {
 	doc := &helpDoc{
 		Version:  "gf-help-json/1",
@@ -383,7 +399,7 @@ func buildHelpJSON(services []*Service) (string, error) {
 			doc.Commands[key] = out
 		}
 	}
-	b, err := json.Marshal(doc)
+	b, err := json.MarshalIndent(doc, "", "  ")
 	if err != nil {
 		return "", err
 	}

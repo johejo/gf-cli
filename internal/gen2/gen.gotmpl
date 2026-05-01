@@ -22,11 +22,6 @@ var (
 	_ = models.SuccessResponseBody{}
 )
 
-// helpJSON is the full CLI command tree serialized as a single compact JSON
-// document (flat-keyed by "<service> <action>"). Printed by --help-json on the
-// root command; re-indented at runtime.
-var helpJSON = {{ stringLiteral .HelpJSON }}
-
 var (
 {{- range .Services }}
 	{{ .VarName }}Cmd = &cobra.Command{

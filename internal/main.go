@@ -22,6 +22,9 @@ import (
 //go:embed help.gotmpl
 var helpTemplate string
 
+//go:embed help.json
+var helpJSON string
+
 var (
 	rootCmd = &cobra.Command{
 		Use:               "gf",
