@@ -9,10 +9,11 @@ Sets team memberships
 Takes user emails, and updates team members and admins to the provided lists of users. Any current team members and admins not in the provided lists will be removed.
 
 Body schema (SetTeamMembershipsCommand):
-{
-  "admins": [string],
-  "members": [string]
-}
+  admins   array<string>
+  members  array<string>
+
+Response schema (SetTeamMembershipsOK.Payload):
+  message  string
 
 ```
 gf teams set-team-memberships [flags]
@@ -21,7 +22,7 @@ gf teams set-team-memberships [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for set-team-memberships

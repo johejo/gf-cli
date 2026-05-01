@@ -12,6 +12,15 @@ gf-migrations-get-shapshot-list - Gets a list of snapshots for a session
 .SH DESCRIPTION
 Gets a list of snapshots for a session
 
+.PP
+Response schema (GetShapshotListOK.Payload):
+  snapshots               array
+  snapshots[].created     string
+  snapshots[].finished    string
+  snapshots[].sessionUid  string
+  snapshots[].status      string         enum: INITIALIZING | CREATING | PENDING_UPLOAD | UPLOADING | PENDING_PROCESSING | PROCESSING | FINISHED | CANCELED | ERROR | UNKNOWN
+  snapshots[].uid         string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

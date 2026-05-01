@@ -7,9 +7,28 @@ Moves folder
 Moves folder
 
 Body schema (MoveFolderCommand):
-{
-  "parentUid": string
-}
+  parentUid  string
+
+Response schema (MoveFolderOK.Payload):
+  accessControl  map<string, boolean>
+  canAdmin       boolean
+  canDelete      boolean
+  canEdit        boolean
+  canSave        boolean
+  created        string
+  createdBy      string
+  hasAcl         boolean
+  id             number                Deprecated: use UID instead
+  managedBy      string
+  orgId          number
+  parentUid      string                only used if nested folders are enabled
+  parents        array<object>         the parent folders starting from the root going down
+  title          string
+  uid            string
+  updated        string
+  updatedBy      string
+  url            string
+  version        number
 
 ```
 gf folders move-folder [flags]
@@ -18,7 +37,7 @@ gf folders move-folder [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
       --folder-uid string              FolderUID

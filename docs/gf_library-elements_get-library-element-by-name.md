@@ -8,6 +8,35 @@ Gets library element by name
 
 Returns a library element with the given name.
 
+Response schema (GetLibraryElementByNameOK.Payload):
+  result                             array<object>
+  result[].description               string
+  result[].folderId                  number         Deprecated: use FolderUID instead
+  result[].folderUid                 string
+  result[].id                        number
+  result[].kind                      number
+  result[].meta                      object
+  result[].meta.connectedDashboards  number
+  result[].meta.created              string
+  result[].meta.createdBy            object
+  result[].meta.createdBy.avatarUrl  string
+  result[].meta.createdBy.id         number
+  result[].meta.createdBy.name       string
+  result[].meta.folderName           string
+  result[].meta.folderUid            string
+  result[].meta.updated              string
+  result[].meta.updatedBy            object
+  result[].meta.updatedBy.avatarUrl  string
+  result[].meta.updatedBy.id         number
+  result[].meta.updatedBy.name       string
+  result[].model                     object
+  result[].name                      string
+  result[].orgId                     number
+  result[].schemaVersion             number
+  result[].type                      string
+  result[].uid                       string
+  result[].version                   number
+
 ```
 gf library-elements get-library-element-by-name [flags]
 ```

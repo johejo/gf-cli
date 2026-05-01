@@ -17,29 +17,30 @@ If the group already exists and was not imported from a Prometheus-compatible so
 
 .PP
 Body schema (PrometheusRuleGroup):
-{
-  "interval": number,
-  "labels": {"key": string},
-  "limit": number,
-  "name": string,
-  "query_offset": string,
-  "rules": [
-    {
-      "alert": string,
-      "annotations": {"key": string},
-      "expr": string,
-      "for": string,
-      "keep_firing_for": string,
-      "labels": {"key": string},
-      "record": string
-    }
-  ]
-}
+  interval                 number
+  labels                   map
+  limit                    number
+  name                     string
+  query_offset             string
+  rules                    array
+  rules[].alert            string
+  rules[].annotations      map
+  rules[].expr             string
+  rules[].for              string
+  rules[].keep_firing_for  string
+  rules[].labels           map
+  rules[].record           string
+
+.PP
+Response schema (ConvertPrometheusCortexPostRuleGroupAccepted.Payload):
+  error      string
+  errorType  string
+  status     string
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

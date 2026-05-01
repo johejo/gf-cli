@@ -10,6 +10,9 @@ Removes the SSO Settings for a provider.
 
 You need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.
 
+Response schema (RemoveProviderSettingsNoContent.Payload):
+  message  string
+
 ```
 gf sso-settings remove-provider-settings [flags]
 ```

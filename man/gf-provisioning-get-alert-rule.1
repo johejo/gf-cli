@@ -12,6 +12,76 @@ gf-provisioning-get-alert-rule - Gets a specific alert rule by UID
 .SH DESCRIPTION
 Gets a specific alert rule by UID
 
+.PP
+Response schema (GetAlertRuleOK.Payload):
+  annotations                                  map
+  condition                                    string               REQUIRED
+  data                                         array        REQUIRED
+  data[].datasourceUid                         string               Grafana data source unique identifier; it should be '\fBexpr\fP\&' for a Server Side Expression operation.
+  data[].model                                 object               JSON is the raw JSON query and includes the above properties as well as custom properties.
+  data[].queryType                             string               QueryType is an optional identifier for the type of query.
+                                                                    It can be used to distinguish different types of queries.
+  data[].refId                                 string               RefID is the unique identifier of the query, set by the frontend call.
+  data[].relativeTimeRange                     object
+  data[].relativeTimeRange.from                number
+  data[].relativeTimeRange.to                  number
+  execErrState                                 string               REQUIRED
+                                                                    enum: OK | Alerting | Error
+  folderUID                                    string               REQUIRED
+  for                                          string               REQUIRED
+  id                                           number
+  isPaused                                     boolean
+  keep_firing_for                              string
+  labels                                       map
+  missingSeriesEvalsToResolve                  number
+  noDataState                                  string               REQUIRED
+                                                                    enum: Alerting | NoData | OK
+  notification_settings                        object
+  notification_settings.active_time_intervals  array        Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+                                                                    at the time that matches any interval.
+  notification_settings.group_by               array        Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+                                                                    cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+                                                                    use the special value '...' as the sole label name.
+                                                                    This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+                                                                    you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+                                                                    Must include 'alertname' and 'grafana_folder' if not using '...'.
+  notification_settings.group_interval         string               Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+                                                                    which an initial notification has already been sent. (Usually ~5m or more.)
+  notification_settings.group_wait             string               Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+                                                                    inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  notification_settings.mute_time_intervals    array        Override the times when notifications should be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+                                                                    otherwise acts normally.
+  notification_settings.receiver               string               REQUIRED
+                                                                    Name of the receiver to send notifications to.
+  notification_settings.repeat_interval        string               Override how long to wait before sending a notification again if it has already been sent successfully for an
+                                                                    alert. (Usually ~3h or more).
+                                                                    Note that this parameter is implicitly bound by Alertmanager's \fB--data.retention\fR configuration flag.
+                                                                    Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+                                                                    occurs first. \fBrepeat_interval\fR should not be less than \fBgroup_interval\fR\&.
+  orgID                                        number               REQUIRED
+  provenance                                   string
+  record                                       object
+  record.from                                  string               REQUIRED
+                                                                    Which expression node should be used as the input for the recorded metric.
+  record.metric                                string               REQUIRED
+                                                                    Name of the recorded metric.
+  record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
+  ruleGroup                                    string               REQUIRED
+                                                                    rule group
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  title                                        string               REQUIRED
+                                                                    title
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  uid                                          string               uid
+                                                                    Max Length: 40
+                                                                    Min Length: 1
+  updated                                      string               updated
+                                                                    Read Only: true
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

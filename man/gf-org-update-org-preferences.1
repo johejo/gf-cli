@@ -14,30 +14,27 @@ Updates current org prefs
 
 .PP
 Body schema (UpdatePrefsCmd):
-{
-  "cookies": [string],
-  "homeDashboardId": number,
-  "homeDashboardUID": string,
-  "language": string,
-  "navbar": {
-    "bookmarkUrls": [string]
-  },
-  "queryHistory": {
-    "homeTab": string
-  },
-  "regionalFormat": string,
-  "theme": string,
-  "timezone": string,
-  "weekStart": string
-}
-  homeDashboardId          The numerical :id of a favorited dashboard
-  theme                    enum: light | dark | system
-  timezone                 enum: utc | browser
+  cookies               array
+  homeDashboardId       number         The numerical :id of a favorited dashboard
+  homeDashboardUID      string
+  language              string
+  navbar                object
+  navbar.bookmarkUrls   array
+  queryHistory          object
+  queryHistory.homeTab  string
+  regionalFormat        string
+  theme                 string         enum: light | dark | system
+  timezone              string         enum: utc | browser
+  weekStart             string
+
+.PP
+Response schema (UpdateOrgPreferencesOK.Payload):
+  message  string
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

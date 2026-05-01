@@ -7,19 +7,28 @@ Creates a new mute timing
 Creates a new mute timing
 
 Body schema (MuteTimeInterval):
-{
-  "name": string,
-  "time_intervals": [
-    {
-      "days_of_month": [string],
-      "location": string,
-      "months": [string],
-      "times": [object],  // []models.TimeIntervalTimeRange
-      "weekdays": [string],
-      "years": [string]
-    }
-  ]
-}
+  name                                 string
+  time_intervals                       array<object>
+  time_intervals[].days_of_month       array<string>
+  time_intervals[].location            string
+  time_intervals[].months              array<string>
+  time_intervals[].times               array<object>
+  time_intervals[].times[].end_time    string
+  time_intervals[].times[].start_time  string
+  time_intervals[].weekdays            array<string>
+  time_intervals[].years               array<string>
+
+Response schema (PostMuteTimingCreated.Payload):
+  name                                 string
+  time_intervals                       array<object>
+  time_intervals[].days_of_month       array<string>
+  time_intervals[].location            string
+  time_intervals[].months              array<string>
+  time_intervals[].times               array<object>
+  time_intervals[].times[].end_time    string
+  time_intervals[].times[].start_time  string
+  time_intervals[].weekdays            array<string>
+  time_intervals[].years               array<string>
 
 ```
 gf provisioning post-mute-timing [flags]
@@ -28,7 +37,7 @@ gf provisioning post-mute-timing [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for post-mute-timing

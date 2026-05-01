@@ -2,6 +2,21 @@
 
 Gets current organization
 
+### Synopsis
+
+Gets current organization
+
+Response schema (GetCurrentOrgOK.Payload):
+  address           object
+  address.address1  string
+  address.address2  string
+  address.city      string
+  address.country   string
+  address.state     string
+  address.zipCode   string
+  id                number
+  name              string
+
 ```
 gf org get-current-org [flags]
 ```

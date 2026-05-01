@@ -9,17 +9,20 @@ Creates annotation
 Creates an annotation in the Grafana database. The dashboardId and panelId fields are optional. If they are not specified then an organization annotation is created and can be queried in any dashboard that adds the Grafana annotations data source. When creating a region annotation include the timeEnd property. The format for `time` and `timeEnd` should be epoch numbers in millisecond resolution. The response for this HTTP request is slightly different in versions prior to v6.4. In prior versions you would also get an endId if you where creating a region. But in 6.4 regions are represented using a single event with time and timeEnd properties.
 
 Body schema (PostAnnotationsCmd):
-{
-  "dashboardId": number,
-  "dashboardUID": string,
-  "data": any,  // models.JSON
-  "panelId": number,
-  "tags": [string],
-  "text": string,
-  "time": number,
-  "timeEnd": number
-}
-  text                     REQUIRED
+  dashboardId   number
+  dashboardUID  string
+  data          object
+  panelId       number
+  tags          array<string>
+  text          string         REQUIRED
+  time          number
+  timeEnd       number
+
+Response schema (PostAnnotationOK.Payload):
+  id       number  REQUIRED
+                   ID Identifier of the created annotation.
+  message  string  REQUIRED
+                   Message Message of the created annotation.
 
 ```
 gf annotations post-annotation [flags]
@@ -28,7 +31,7 @@ gf annotations post-annotation [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for post-annotation

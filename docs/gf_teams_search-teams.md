@@ -2,6 +2,28 @@
 
 Teams search with paging
 
+### Synopsis
+
+Teams search with paging
+
+Response schema (SearchTeamsOK.Payload):
+  page                   number
+  perPage                number
+  teams                  array<object>
+  teams[].accessControl  map<string, boolean>
+  teams[].avatarUrl      string
+  teams[].email          string
+  teams[].externalUID    string
+  teams[].id             number                REQUIRED
+                                               @deprecated Use UID instead
+  teams[].isProvisioned  boolean               REQUIRED
+  teams[].memberCount    number                REQUIRED
+  teams[].name           string                REQUIRED
+  teams[].orgId          number                REQUIRED
+  teams[].permission     number
+  teams[].uid            string                REQUIRED
+  totalCount             number
+
 ```
 gf teams search-teams [flags]
 ```

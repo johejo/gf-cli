@@ -8,6 +8,9 @@ Disables user
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:disable` and scope `global.users:1` (userIDScope).
 
+Response schema (AdminDisableUserOK.Payload):
+  message  string
+
 ```
 gf admin-users admin-disable-user [flags]
 ```

@@ -7,15 +7,20 @@ Updates l b a c rules for a team
 Updates l b a c rules for a team
 
 Body schema (UpdateTeamLBACCommand):
-{
-  "rules": [
-    {
-      "rules": [string],
-      "teamId": string,
-      "teamUid": string
-    }
-  ]
-}
+  rules            array<object>
+  rules[].rules    array<string>
+  rules[].teamId   string
+  rules[].teamUid  string
+
+Response schema (UpdateTeamLBACRulesAPIOK.Payload):
+  id               number
+  message          string
+  name             string
+  rules            array<object>
+  rules[].rules    array<string>
+  rules[].teamId   string
+  rules[].teamUid  string
+  uid              string
 
 ```
 gf enterprise update-team-lbac-rules-api [flags]
@@ -24,7 +29,7 @@ gf enterprise update-team-lbac-rules-api [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for update-team-lbac-rules-api

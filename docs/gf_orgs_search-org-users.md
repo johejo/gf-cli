@@ -8,6 +8,27 @@ Searches users in organization
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:read` with scope `users:*`.
 
+Response schema (SearchOrgUsersOK.Payload):
+  orgUsers                       array<object>
+  orgUsers[].accessControl       map<string, boolean>
+  orgUsers[].authLabels          array<string>
+  orgUsers[].avatarUrl           string
+  orgUsers[].email               string
+  orgUsers[].isDisabled          boolean
+  orgUsers[].isExternallySynced  boolean
+  orgUsers[].isProvisioned       boolean
+  orgUsers[].lastSeenAt          string
+  orgUsers[].lastSeenAtAge       string
+  orgUsers[].login               string
+  orgUsers[].name                string
+  orgUsers[].orgId               number
+  orgUsers[].role                string
+  orgUsers[].uid                 string
+  orgUsers[].userId              number
+  page                           number
+  perPage                        number
+  totalCount                     number
+
 ```
 gf orgs search-org-users [flags]
 ```

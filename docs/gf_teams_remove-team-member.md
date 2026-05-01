@@ -2,6 +2,13 @@
 
 Removes member from team
 
+### Synopsis
+
+Removes member from team
+
+Response schema (RemoveTeamMemberOK.Payload):
+  message  string
+
 ```
 gf teams remove-team-member [flags]
 ```

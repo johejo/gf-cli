@@ -7,27 +7,45 @@ Adds correlation
 Adds correlation
 
 Body schema (CreateCorrelationCommand):
-{
-  "config": {
-    "field": string,
-    "target": any,
-    "transformations": [object],  // models.Transformations
-    "type": string
-  },
-  "description": string,
-  "label": string,
-  "provisioned": boolean,
-  "targetUID": string,
-  "type": string
-}
-  config.field             REQUIRED
-                           Field used to attach the correlation link
-  config.target            REQUIRED
-                           Target data query
-  description              Optional description of the correlation
-  label                    Optional label identifying the correlation
-  provisioned              True if correlation was created with provisioning. This makes it read-only.
-  targetUID                Target data source UID to which the correlation is created. required if type = query
+  config                               object
+  config.field                         string         REQUIRED
+                                                      Field used to attach the correlation link
+  config.target                        object         REQUIRED
+                                                      Target data query
+  config.transformations               array<object>
+  config.transformations[].expression  string
+  config.transformations[].field       string
+  config.transformations[].mapValue    string
+  config.transformations[].type        string         enum: regex | logfmt
+  config.type                          string
+  description                          string         Optional description of the correlation
+  label                                string         Optional label identifying the correlation
+  provisioned                          boolean        True if correlation was created with provisioning. This makes it read-only.
+  targetUID                            string         Target data source UID to which the correlation is created. required if type = query
+  type                                 string
+
+Response schema (CreateCorrelationOK.Payload):
+  message                                     string
+  result                                      object
+  result.config                               object
+  result.config.field                         string         REQUIRED
+                                                             Field used to attach the correlation link
+  result.config.target                        object         REQUIRED
+                                                             Target data query
+  result.config.transformations               array<object>
+  result.config.transformations[].expression  string
+  result.config.transformations[].field       string
+  result.config.transformations[].mapValue    string
+  result.config.transformations[].type        string         enum: regex | logfmt
+  result.config.type                          string
+  result.description                          string         Description of the correlation
+  result.label                                string         Label identifying the correlation
+  result.orgId                                number         OrgID of the data source the correlation originates from
+  result.provisioned                          boolean        Provisioned True if the correlation was created during provisioning
+  result.sourceUID                            string         UID of the data source the correlation originates from
+  result.targetUID                            string         UID of the data source the correlation points to
+  result.type                                 string
+  result.uid                                  string         Unique identifier of the correlation
 
 ```
 gf datasources create-correlation [flags]
@@ -36,7 +54,7 @@ gf datasources create-correlation [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for create-correlation

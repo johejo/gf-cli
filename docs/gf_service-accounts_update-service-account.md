@@ -9,13 +9,31 @@ Updates service account
 Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:write` scope: `serviceaccounts:id:1` (single service account)
 
 Body schema (UpdateServiceAccountForm):
-{
-  "isDisabled": boolean,
-  "name": string,
-  "role": string,
-  "serviceAccountId": number
-}
-  role                     enum: None | Viewer | Editor | Admin
+  isDisabled        boolean
+  name              string
+  role              string   enum: None | Viewer | Editor | Admin
+  serviceAccountId  number
+
+Response schema (UpdateServiceAccountOK.Payload):
+  id                            number
+  message                       string
+  name                          string
+  serviceaccount                object
+  serviceaccount.accessControl  map<string, boolean>
+  serviceaccount.avatarUrl      string
+  serviceaccount.createdAt      string
+  serviceaccount.id             number
+  serviceaccount.isDisabled     boolean
+  serviceaccount.isExternal     boolean
+  serviceaccount.login          string
+  serviceaccount.name           string
+  serviceaccount.orgId          number
+  serviceaccount.requiredBy     string
+  serviceaccount.role           string
+  serviceaccount.teams          array<string>
+  serviceaccount.tokens         number
+  serviceaccount.uid            string
+  serviceaccount.updatedAt      string
 
 ```
 gf service-accounts update-service-account [flags]
@@ -24,7 +42,7 @@ gf service-accounts update-service-account [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for update-service-account

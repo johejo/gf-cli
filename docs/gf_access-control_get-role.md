@@ -10,6 +10,25 @@ Get a role for the given UID.
 
 You need to have a permission with action `roles:read` and scope `roles:*`.
 
+Response schema (GetRoleOK.Payload):
+  created                string         REQUIRED
+  delegatable            boolean
+  description            string         REQUIRED
+  displayName            string         REQUIRED
+  global                 boolean
+  group                  string         REQUIRED
+  hidden                 boolean
+  mapped                 boolean
+  name                   string         REQUIRED
+  permissions            array<object>
+  permissions[].action   string
+  permissions[].created  string
+  permissions[].scope    string
+  permissions[].updated  string
+  uid                    string         REQUIRED
+  updated                string         REQUIRED
+  version                number         REQUIRED
+
 ```
 gf access-control get-role [flags]
 ```

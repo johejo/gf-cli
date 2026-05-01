@@ -2,6 +2,14 @@
 
 Get results for a given panel on a public dashboard
 
+### Synopsis
+
+Get results for a given panel on a public dashboard
+
+Response schema (QueryPublicDashboardOK.Payload):
+  Note: Response wire format differs from the Go type; consider --raw.
+  results  map<string, object>
+
 ```
 gf dashboards query-public-dashboard [flags]
 ```

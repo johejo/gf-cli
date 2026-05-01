@@ -8,6 +8,27 @@ Gets a single data source by UID
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:kLtEtcRGk` (single data source).
 
+Response schema (GetDataSourceByUIDOK.Payload):
+  access            string
+  accessControl     map<string, boolean>
+  basicAuth         boolean
+  basicAuthUser     string
+  database          string
+  id                number
+  isDefault         boolean
+  jsonData          object
+  name              string
+  orgId             number
+  readOnly          boolean
+  secureJsonFields  map<string, boolean>
+  type              string
+  typeLogoUrl       string
+  uid               string
+  url               string
+  user              string
+  version           number
+  withCredentials   boolean
+
 ```
 gf datasources get-datasource-by-uid [flags]
 ```

@@ -8,6 +8,16 @@ Adds star to query in query history
 
 Adds star to query in query history as specified by the UID.
 
+Response schema (StarQueryOK.Payload):
+  result                object
+  result.comment        string
+  result.createdAt      number
+  result.createdBy      number
+  result.datasourceUid  string
+  result.queries        object
+  result.starred        boolean
+  result.uid            string
+
 ```
 gf query-history star-query [flags]
 ```

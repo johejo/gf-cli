@@ -2,6 +2,30 @@
 
 Gets the notification policy tree
 
+### Synopsis
+
+Gets the notification policy tree
+
+Response schema (GetPolicyTreeOK.Payload):
+  active_time_intervals  array<string>
+  continue               boolean
+  group_by               array<string>
+  group_interval         string
+  group_wait             string
+  match                  map<string, string>   Deprecated. Remove before v1.0 release.
+  match_re               map<string, string>
+  matchers               array<object>
+  matchers[].isEqual     boolean
+  matchers[].isRegex     boolean               REQUIRED
+  matchers[].name        string                REQUIRED
+  matchers[].value       string                REQUIRED
+  mute_time_intervals    array<string>
+  object_matchers        array<array<string>>
+  provenance             string
+  receiver               string
+  repeat_interval        string
+  routes                 array<object>
+
 ```
 gf provisioning get-policy-tree [flags]
 ```

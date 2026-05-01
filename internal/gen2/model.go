@@ -22,36 +22,20 @@ type Action struct {
 }
 
 type ResponseInfo struct {
-	TypeName      string // "AddTeamRoleOK"
-	HasPayload    bool
-	NumReturns    int  // 1=error, 2=resp+error, 3=resp+extra+error
-	ContainsFrame bool   // true if the payload type tree contains models.Frame (wire-format mismatch)
-	JSONSchema    string // pretty-printed JSON Schema (draft 2020-12) for the Payload; empty when unavailable
+	TypeName        string // "AddTeamRoleOK"
+	HasPayload      bool
+	NumReturns      int    // 1=error, 2=resp+error, 3=resp+extra+error
+	ContainsFrame   bool   // true if the payload type tree contains models.Frame (wire-format mismatch)
+	JSONSchema      string // pretty-printed JSON Schema (draft 2020-12) for the Payload; empty when unavailable
+	Annotations     string // typed field table mirroring JSONSchema; empty when the schema has no walkable properties
+	RootDescription string // schema's top-level description; carries the Frame-mismatch advisory when ContainsFrame is true
 }
 
 type BodyFieldInfo struct {
-	ModelType   string          // "models.AddTeamRoleCommand"
-	IsInterface bool            // true if ModelType is "interface{}"
-	Schema      *BodySchemaInfo // nil for interface{} bodies
-	JSONSchema  string          // pretty-printed JSON Schema (draft 2020-12); empty when unavailable
-}
-
-type BodySchemaInfo struct {
-	TypeName string        // e.g. "CreateTeamCommand"
-	Fields   []*ModelField
-}
-
-type ModelField struct {
-	JSONName     string        // from json tag, e.g. "email"
-	GoType       string        // display type, e.g. "string", "[]Permission"
-	JSONType     string        // resolved JSON type: "string", "number", "boolean", "any", "object"
-	IsRequired   bool          // from "// Required: true" comment
-	IsArray      bool          // true if field is a slice/array
-	IsMap        bool          // true if field is map[K]V
-	MapValueType string        // resolved JSON type for map values
-	EnumValues   []string      // from "// Enum: [val1 val2]" comment
-	Description  string        // field doc comment with go-swagger annotations stripped
-	NestedFields []*ModelField // 1-level expansion for struct types
+	ModelType   string // "models.AddTeamRoleCommand"
+	IsInterface bool   // true if ModelType is "interface{}"
+	JSONSchema  string // pretty-printed JSON Schema (draft 2020-12); empty when unavailable
+	Annotations string // typed field table mirroring JSONSchema; empty when the schema has no walkable properties
 }
 
 type Flag struct {

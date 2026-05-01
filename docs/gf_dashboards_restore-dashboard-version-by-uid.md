@@ -7,9 +7,22 @@ Restores a dashboard to a given dashboard version using UID
 Restores a dashboard to a given dashboard version using UID
 
 Body schema (RestoreDashboardVersionCommand):
-{
-  "version": number
-}
+  version  number
+
+Response schema (RestoreDashboardVersionByUIDOK.Payload):
+  folderUid  string  FolderUID The unique identifier (uid) of the folder the dashboard belongs to.
+  id         number  REQUIRED
+                     ID The unique identifier (id) of the created/updated dashboard.
+  status     string  REQUIRED
+                     Status status of the response.
+  title      string  REQUIRED
+                     Slug The slug of the dashboard.
+  uid        string  REQUIRED
+                     UID The unique identifier (uid) of the created/updated dashboard.
+  url        string  REQUIRED
+                     URL The relative URL for accessing the created/updated dashboard.
+  version    number  REQUIRED
+                     Version The version of the dashboard.
 
 ```
 gf dashboards restore-dashboard-version-by-uid [flags]
@@ -18,7 +31,7 @@ gf dashboards restore-dashboard-version-by-uid [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for restore-dashboard-version-by-uid

@@ -2,6 +2,13 @@
 
 Fetches data source resources
 
+### Synopsis
+
+Fetches data source resources
+
+Response schema (CallDatasourceResourceWithUIDOK.Payload):
+  message  string
+
 ```
 gf datasources call-datasource-resource [flags]
 ```

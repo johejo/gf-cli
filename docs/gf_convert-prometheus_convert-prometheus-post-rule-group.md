@@ -9,24 +9,24 @@ Converts a prometheus rule group into a grafana rule group and creates or update
 If the group already exists and was not imported from a Prometheus-compatible source initially, it will not be replaced and an error will be returned.
 
 Body schema (PrometheusRuleGroup):
-{
-  "interval": number,
-  "labels": {"key": string},
-  "limit": number,
-  "name": string,
-  "query_offset": string,
-  "rules": [
-    {
-      "alert": string,
-      "annotations": {"key": string},
-      "expr": string,
-      "for": string,
-      "keep_firing_for": string,
-      "labels": {"key": string},
-      "record": string
-    }
-  ]
-}
+  interval                 number
+  labels                   map<string, string>
+  limit                    number
+  name                     string
+  query_offset             string
+  rules                    array<object>
+  rules[].alert            string
+  rules[].annotations      map<string, string>
+  rules[].expr             string
+  rules[].for              string
+  rules[].keep_firing_for  string
+  rules[].labels           map<string, string>
+  rules[].record           string
+
+Response schema (ConvertPrometheusPostRuleGroupAccepted.Payload):
+  error      string
+  errorType  string
+  status     string
 
 ```
 gf convert-prometheus convert-prometheus-post-rule-group [flags]
@@ -35,7 +35,7 @@ gf convert-prometheus convert-prometheus-post-rule-group [flags]
 ### Options
 
 ```
-      --body string                                       Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                                       Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema                          Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema                      Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                                              help for convert-prometheus-post-rule-group

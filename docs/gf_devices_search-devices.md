@@ -2,6 +2,22 @@
 
 Lists all devices within the last 30 days
 
+### Synopsis
+
+Lists all devices within the last 30 days
+
+Response schema (SearchDevicesOK.Payload):
+  devices               array<object>
+  devices[].clientIp    string
+  devices[].createdAt   string
+  devices[].deviceId    string
+  devices[].lastSeenAt  string
+  devices[].updatedAt   string
+  devices[].userAgent   string
+  page                  number
+  perPage               number
+  totalCount            number
+
 ```
 gf devices search-devices [flags]
 ```

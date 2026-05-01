@@ -11,42 +11,45 @@ Available to org admins only and with a valid license.
 You need to have a permission with action `reports:send`.
 
 Body schema (CreateOrUpdateReport):
-{
-  "dashboards": [
-    {
-      "dashboard": object,  // models.ReportDashboardID
-      "reportVariables": any,
-      "timeRange": object  // models.ReportTimeRange
-    }
-  ],
-  "enableCsv": boolean,
-  "enableDashboardUrl": boolean,
-  "formats": [string],
-  "message": string,
-  "name": string,
-  "options": {
-    "layout": string,
-    "orientation": string,
-    "pdfCombineOneFile": boolean,
-    "pdfShowTemplateVariables": boolean,
-    "timeRange": object  // models.ReportTimeRange
-  },
-  "recipients": string,
-  "replyTo": string,
-  "scaleFactor": number,
-  "schedule": {
-    "dayOfMonth": string,
-    "endDate": string,
-    "frequency": string,
-    "intervalAmount": number,
-    "intervalFrequency": string,
-    "startDate": string,
-    "timeZone": string,
-    "workdaysOnly": boolean
-  },
-  "state": string,
-  "subject": string
-}
+  dashboards                        array<object>
+  dashboards[].dashboard            object
+  dashboards[].dashboard.id         number
+  dashboards[].dashboard.name       string
+  dashboards[].dashboard.uid        string
+  dashboards[].reportVariables      object
+  dashboards[].timeRange            object
+  dashboards[].timeRange.from       string
+  dashboards[].timeRange.to         string
+  enableCsv                         boolean
+  enableDashboardUrl                boolean
+  formats                           array<string>
+  message                           string
+  name                              string
+  options                           object
+  options.layout                    string
+  options.orientation               string
+  options.pdfCombineOneFile         boolean
+  options.pdfShowTemplateVariables  boolean
+  options.timeRange                 object
+  options.timeRange.from            string
+  options.timeRange.to              string
+  recipients                        string
+  replyTo                           string
+  scaleFactor                       number
+  schedule                          object
+  schedule.dayOfMonth               string
+  schedule.endDate                  string
+  schedule.frequency                string
+  schedule.intervalAmount           number
+  schedule.intervalFrequency        string
+  schedule.startDate                string
+  schedule.timeZone                 string
+  schedule.workdaysOnly             boolean
+  state                             string
+  subject                           string
+
+Response schema (SendTestEmailOK.Payload):
+  message  string
 
 ```
 gf reports send-test-email [flags]
@@ -55,7 +58,7 @@ gf reports send-test-email [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for send-test-email

@@ -56,9 +56,15 @@ var (
 		),
 {{- end }}
 {{- $bodySchema := actionBodySchema . }}
-{{- if $bodySchema }}
+{{- $responseSchema := actionResponseSchema . }}
+{{- if or $bodySchema $responseSchema }}
 		Annotations: map[string]string{
+{{- if $bodySchema }}
 			"bodySchema": {{ stringLiteral $bodySchema }},
+{{- end }}
+{{- if $responseSchema }}
+			"responseSchema": {{ stringLiteral $responseSchema }},
+{{- end }}
 		},
 {{- end }}
 		DisableAutoGenTag: true,

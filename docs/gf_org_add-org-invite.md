@@ -7,13 +7,13 @@ Adds invite
 Adds invite
 
 Body schema (AddInviteForm):
-{
-  "loginOrEmail": string,
-  "name": string,
-  "role": string,
-  "sendEmail": boolean
-}
-  role                     enum: None | Viewer | Editor | Admin
+  loginOrEmail  string
+  name          string
+  role          string   enum: None | Viewer | Editor | Admin
+  sendEmail     boolean
+
+Response schema (AddOrgInviteOK.Payload):
+  message  string
 
 ```
 gf org add-org-invite [flags]
@@ -22,7 +22,7 @@ gf org add-org-invite [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for add-org-invite

@@ -2,6 +2,15 @@
 
 Returns the prometheus remote write target
 
+### Synopsis
+
+Returns the prometheus remote write target
+
+Response schema (GetRecordingRuleWriteTargetOK.Payload):
+  data_source_uid    string
+  id                 string
+  remote_write_path  string
+
 ```
 gf recording-rules get-recording-rule-write-target [flags]
 ```

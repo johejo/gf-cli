@@ -2,6 +2,18 @@
 
 Gets a description of a resource s access control properties
 
+### Synopsis
+
+Gets a description of a resource s access control properties
+
+Response schema (GetResourceDescriptionOK.Payload):
+  assignments                  object
+  assignments.builtInRoles     boolean
+  assignments.serviceAccounts  boolean
+  assignments.teams            boolean
+  assignments.users            boolean
+  permissions                  array<string>
+
 ```
 gf access-control get-resource-description [flags]
 ```

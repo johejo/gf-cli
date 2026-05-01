@@ -8,6 +8,9 @@ Deletes user in current organization
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:remove` with scope `users:*`.
 
+Response schema (RemoveOrgUserOK.Payload):
+  message  string
+
 ```
 gf orgs remove-org-user [flags]
 ```

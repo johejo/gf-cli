@@ -15,6 +15,20 @@ Returns the current state of the LDAP background sync integration
 .PP
 You need to have a permission with action \fBldap.status:read\fR\&.
 
+.PP
+Response schema (GetSyncStatusOK.Payload):
+  enabled                       boolean
+  nextSync                      string
+  prevSync                      object
+  prevSync.Elapsed              number
+  prevSync.FailedUsers          array
+  prevSync.FailedUsers[].Error  string
+  prevSync.FailedUsers[].Login  string
+  prevSync.MissingUserIds       array
+  prevSync.Started              string
+  prevSync.UpdatedUserIds       array
+  schedule                      string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

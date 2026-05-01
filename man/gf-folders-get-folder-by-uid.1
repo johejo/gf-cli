@@ -12,6 +12,28 @@ gf-folders-get-folder-by-uid - Gets folder by uid
 .SH DESCRIPTION
 Gets folder by uid
 
+.PP
+Response schema (GetFolderByUIDOK.Payload):
+  accessControl  map
+  canAdmin       boolean
+  canDelete      boolean
+  canEdit        boolean
+  canSave        boolean
+  created        string
+  createdBy      string
+  hasAcl         boolean
+  id             number                Deprecated: use UID instead
+  managedBy      string
+  orgId          number
+  parentUid      string                only used if nested folders are enabled
+  parents        array         the parent folders starting from the root going down
+  title          string
+  uid            string
+  updated        string
+  updatedBy      string
+  url            string
+  version        number
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

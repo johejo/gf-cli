@@ -12,6 +12,50 @@ You need to have a permission with action `reports:read` with scope `reports:id:
 
 Requesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/
 
+Response schema (GetReportOK.Payload):
+  created                           string
+  dashboards                        array<object>
+  dashboards[].dashboard            object
+  dashboards[].dashboard.id         number
+  dashboards[].dashboard.name       string
+  dashboards[].dashboard.uid        string
+  dashboards[].reportVariables      object
+  dashboards[].timeRange            object
+  dashboards[].timeRange.from       string
+  dashboards[].timeRange.to         string
+  enableCsv                         boolean
+  enableDashboardUrl                boolean
+  formats                           array<string>
+  id                                number
+  message                           string
+  name                              string
+  options                           object
+  options.layout                    string
+  options.orientation               string
+  options.pdfCombineOneFile         boolean
+  options.pdfShowTemplateVariables  boolean
+  options.timeRange                 object
+  options.timeRange.from            string
+  options.timeRange.to              string
+  orgId                             number
+  recipients                        string
+  replyTo                           string
+  scaleFactor                       number
+  schedule                          object
+  schedule.dayOfMonth               string
+  schedule.endDate                  string
+  schedule.frequency                string
+  schedule.intervalAmount           number
+  schedule.intervalFrequency        string
+  schedule.startDate                string
+  schedule.timeZone                 string
+  schedule.workdaysOnly             boolean
+  state                             string
+  subject                           string
+  uid                               string
+  updated                           string
+  userId                            number
+
 ```
 gf reports get-report [flags]
 ```

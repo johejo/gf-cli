@@ -17,14 +17,16 @@ Updates one or more properties of an annotation that matches the specified ID. T
 
 .PP
 Body schema (PatchAnnotationsCmd):
-{
-  "data": any,  // models.JSON
-  "id": number,
-  "tags": [string],
-  "text": string,
-  "time": number,
-  "timeEnd": number
-}
+  data     object
+  id       number
+  tags     array
+  text     string
+  time     number
+  timeEnd  number
+
+.PP
+Response schema (PatchAnnotationOK.Payload):
+  message  string
 
 
 .SH OPTIONS
@@ -33,7 +35,7 @@ Body schema (PatchAnnotationsCmd):
 
 .PP
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

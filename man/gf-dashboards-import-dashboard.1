@@ -14,28 +14,40 @@ Imports dashboard
 
 .PP
 Body schema (ImportDashboardRequest):
-{
-  "dashboard": any,  // models.JSON
-  "folderId": number,
-  "folderUid": string,
-  "inputs": [
-    {
-      "name": string,
-      "pluginId": string,
-      "type": string,
-      "value": string
-    }
-  ],
-  "overwrite": boolean,
-  "path": string,
-  "pluginId": string
-}
-  folderId                 Deprecated: use FolderUID instead
+  dashboard          object
+  folderId           number         Deprecated: use FolderUID instead
+  folderUid          string
+  inputs             array
+  inputs[].name      string
+  inputs[].pluginId  string
+  inputs[].type      string
+  inputs[].value     string
+  overwrite          boolean
+  path               string
+  pluginId           string
+
+.PP
+Response schema (ImportDashboardOK.Payload):
+  dashboardId       number
+  description       string
+  folderId          number   Deprecated: use FolderUID instead
+  folderUid         string
+  imported          boolean
+  importedRevision  number
+  importedUri       string
+  importedUrl       string
+  path              string
+  pluginId          string
+  removed           boolean
+  revision          number
+  slug              string
+  title             string
+  uid               string
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

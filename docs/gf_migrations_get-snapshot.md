@@ -2,6 +2,31 @@
 
 Gets metadata about a snapshot including where it is in its processing and final results
 
+### Synopsis
+
+Gets metadata about a snapshot including where it is in its processing and final results
+
+Response schema (GetSnapshotOK.Payload):
+  created               string
+  finished              string
+  results               array<object>
+  results[].errorCode   string               enum: ALERT_RULES_QUOTA_REACHED | ALERT_RULES_GROUP_QUOTA_REACHED | DATASOURCE_NAME_CONFLICT | DATASOURCE_INVALID_URL | DATASOURCE_ALREADY_MANAGED | FOLDER_NAME_CONFLICT | DASHBOARD_ALREADY_MANAGED | LIBRARY_ELEMENT_NAME_CONFLICT | UNSUPPORTED_DATA_TYPE | RESOURCE_CONFLICT | UNEXPECTED_STATUS_CODE | INTERNAL_SERVICE_ERROR | GENERIC_ERROR
+  results[].message     string
+  results[].name        string
+  results[].parentName  string
+  results[].refId       string               REQUIRED
+  results[].status      string               REQUIRED
+                                             enum: OK | WARNING | ERROR | PENDING | UNKNOWN
+  results[].type        string               REQUIRED
+                                             enum: DASHBOARD | DATASOURCE | FOLDER | LIBRARY_ELEMENT | ALERT_RULE | ALERT_RULE_GROUP | CONTACT_POINT | NOTIFICATION_POLICY | NOTIFICATION_TEMPLATE | MUTE_TIMING | PLUGIN
+  sessionUid            string
+  stats                 object
+  stats.statuses        map<string, number>
+  stats.total           number
+  stats.types           map<string, number>
+  status                string               enum: INITIALIZING | CREATING | PENDING_UPLOAD | UPLOADING | PENDING_PROCESSING | PROCESSING | FINISHED | CANCELED | ERROR | UNKNOWN
+  uid                   string
+
 ```
 gf migrations get-snapshot [flags]
 ```

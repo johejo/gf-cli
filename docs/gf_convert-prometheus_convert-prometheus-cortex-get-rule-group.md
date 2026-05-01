@@ -2,6 +2,25 @@
 
 Gets a single rule group in prometheus compatible format if it was imported from a prometheus compatible source
 
+### Synopsis
+
+Gets a single rule group in prometheus compatible format if it was imported from a prometheus compatible source
+
+Response schema (ConvertPrometheusCortexGetRuleGroupOK.Payload):
+  interval                 number
+  labels                   map<string, string>
+  limit                    number
+  name                     string
+  query_offset             string
+  rules                    array<object>
+  rules[].alert            string
+  rules[].annotations      map<string, string>
+  rules[].expr             string
+  rules[].for              string
+  rules[].keep_firing_for  string
+  rules[].labels           map<string, string>
+  rules[].record           string
+
 ```
 gf convert-prometheus convert-prometheus-cortex-get-rule-group [flags]
 ```

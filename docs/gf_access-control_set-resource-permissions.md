@@ -9,16 +9,14 @@ Sets resource permissions
 Assigns permissions for a resource by a given type (`:resource`) and `:resourceID` to one or many assignment types. Allowed resources are `datasources`, `teams`, `dashboards`, `folders`, and `serviceaccounts`. Refer to the `/access-control/{resource}/description` endpoint for allowed Permissions.
 
 Body schema (SetPermissionsCommand):
-{
-  "permissions": [
-    {
-      "builtInRole": string,
-      "permission": string,
-      "teamId": number,
-      "userId": number
-    }
-  ]
-}
+  permissions                array<object>
+  permissions[].builtInRole  string
+  permissions[].permission   string
+  permissions[].teamId       number
+  permissions[].userId       number
+
+Response schema (SetResourcePermissionsOK.Payload):
+  message  string
 
 ```
 gf access-control set-resource-permissions [flags]
@@ -27,7 +25,7 @@ gf access-control set-resource-permissions [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for set-resource-permissions

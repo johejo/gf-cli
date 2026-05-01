@@ -9,14 +9,15 @@ Patches annotation
 Updates one or more properties of an annotation that matches the specified ID. This operation currently supports updating of the `text`, `tags`, `time` and `timeEnd` properties. This is available in Grafana 6.0.0-beta2 and above.
 
 Body schema (PatchAnnotationsCmd):
-{
-  "data": any,  // models.JSON
-  "id": number,
-  "tags": [string],
-  "text": string,
-  "time": number,
-  "timeEnd": number
-}
+  data     object
+  id       number
+  tags     array<string>
+  text     string
+  time     number
+  timeEnd  number
+
+Response schema (PatchAnnotationOK.Payload):
+  message  string
 
 ```
 gf annotations patch-annotation [flags]
@@ -26,7 +27,7 @@ gf annotations patch-annotation [flags]
 
 ```
       --annotation-id string           AnnotationID
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for patch-annotation

@@ -2,6 +2,22 @@
 
 Gets a mute timing
 
+### Synopsis
+
+Gets a mute timing
+
+Response schema (GetMuteTimingOK.Payload):
+  name                                 string
+  time_intervals                       array<object>
+  time_intervals[].days_of_month       array<string>
+  time_intervals[].location            string
+  time_intervals[].months              array<string>
+  time_intervals[].times               array<object>
+  time_intervals[].times[].end_time    string
+  time_intervals[].times[].start_time  string
+  time_intervals[].weekdays            array<string>
+  time_intervals[].years               array<string>
+
 ```
 gf provisioning get-mute-timing [flags]
 ```

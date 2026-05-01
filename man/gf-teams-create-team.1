@@ -14,16 +14,19 @@ Adds team
 
 .PP
 Body schema (CreateTeamCommand):
-{
-  "email": string,
-  "name": string
-}
-  name                     REQUIRED
+  email  string
+  name   string  REQUIRED
+
+.PP
+Response schema (CreateTeamOK.Payload):
+  message  string
+  teamId   number
+  uid      string
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

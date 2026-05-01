@@ -7,25 +7,18 @@ Updates an existing contact point
 Updates an existing contact point
 
 Body schema (EmbeddedContactPoint):
-{
-  "disableResolveMessage": boolean,
-  "name": string,
-  "provenance": string,
-  "settings": any,  // models.JSON
-  "type": string,
-  "uid": string
-}
-  name                     Name is used as grouping key in the UI. Contact points with the
-                           same name will be grouped in the UI.
-  provenance               provenance
-                           Read Only: true
-  settings                 REQUIRED
-  type                     REQUIRED
-                           enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
-  uid                      UID is the unique identifier of the contact point. The UID can be
-                           set by the user.
-                           Max Length: 40
-                           Min Length: 1
+  disableResolveMessage  boolean
+  name                   string   Name is used as grouping key in the UI. Contact points with the
+                                  same name will be grouped in the UI.
+  provenance             string   provenance
+                                  Read Only: true
+  settings               object   REQUIRED
+  type                   string   REQUIRED
+                                  enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
+  uid                    string   UID is the unique identifier of the contact point. The UID can be
+                                  set by the user.
+                                  Max Length: 40
+                                  Min Length: 1
 
 ```
 gf provisioning put-contactpoint [flags]
@@ -34,7 +27,7 @@ gf provisioning put-contactpoint [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for put-contactpoint

@@ -2,6 +2,110 @@
 
 Exports an alert rule in provisioning file format
 
+### Synopsis
+
+Exports an alert rule in provisioning file format
+
+Response schema (GetAlertRuleExportOK.Payload):
+  apiVersion                                                        number
+  contactPoints                                                     array<object>
+  contactPoints[].name                                              string
+  contactPoints[].orgId                                             number
+  contactPoints[].receivers                                         array<object>
+  contactPoints[].receivers[].disableResolveMessage                 boolean
+  contactPoints[].receivers[].settings                              object
+  contactPoints[].receivers[].type                                  string
+  contactPoints[].receivers[].uid                                   string
+  groups                                                            array<object>
+  groups[].folder                                                   string
+  groups[].interval                                                 string
+  groups[].name                                                     string
+  groups[].orgId                                                    number
+  groups[].rules                                                    array<object>
+  groups[].rules[].annotations                                      map<string, string>
+  groups[].rules[].condition                                        string
+  groups[].rules[].dashboardUid                                     string
+  groups[].rules[].data                                             array<object>
+  groups[].rules[].data[].datasourceUid                             string
+  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].queryType                                 string
+  groups[].rules[].data[].refId                                     string
+  groups[].rules[].data[].relativeTimeRange                         object
+  groups[].rules[].data[].relativeTimeRange.from                    number
+  groups[].rules[].data[].relativeTimeRange.to                      number
+  groups[].rules[].execErrState                                     string                enum: OK | Alerting | Error
+  groups[].rules[].for                                              string
+  groups[].rules[].isPaused                                         boolean
+  groups[].rules[].keepFiringFor                                    string
+  groups[].rules[].labels                                           map<string, string>
+  groups[].rules[].missing_series_evals_to_resolve                  number
+  groups[].rules[].noDataState                                      string                enum: Alerting | NoData | OK
+  groups[].rules[].notification_settings                            object
+  groups[].rules[].notification_settings.active_time_intervals      array<string>
+  groups[].rules[].notification_settings.group_by                   array<string>
+  groups[].rules[].notification_settings.group_interval             string
+  groups[].rules[].notification_settings.group_wait                 string
+  groups[].rules[].notification_settings.mute_time_intervals        array<string>
+  groups[].rules[].notification_settings.receiver                   string
+  groups[].rules[].notification_settings.repeat_interval            string
+  groups[].rules[].panelId                                          number
+  groups[].rules[].record                                           object
+  groups[].rules[].record.from                                      string
+  groups[].rules[].record.metric                                    string
+  groups[].rules[].record.targetDatasourceUid                       string
+  groups[].rules[].title                                            string
+  groups[].rules[].uid                                              string
+  muteTimes                                                         array<object>
+  muteTimes[].name                                                  string
+  muteTimes[].orgId                                                 number
+  muteTimes[].time_intervals                                        array<object>
+  muteTimes[].time_intervals[].name                                 string
+  muteTimes[].time_intervals[].time_intervals                       array<object>
+  muteTimes[].time_intervals[].time_intervals[].days_of_month       array<string>
+  muteTimes[].time_intervals[].time_intervals[].location            string
+  muteTimes[].time_intervals[].time_intervals[].months              array<string>
+  muteTimes[].time_intervals[].time_intervals[].times               array<object>
+  muteTimes[].time_intervals[].time_intervals[].times[].end_time    string
+  muteTimes[].time_intervals[].time_intervals[].times[].start_time  string
+  muteTimes[].time_intervals[].time_intervals[].weekdays            array<string>
+  muteTimes[].time_intervals[].time_intervals[].years               array<string>
+  policies                                                          array<object>
+  policies[].active_time_intervals                                  array<string>
+  policies[].continue                                               boolean
+  policies[].group_by                                               array<string>
+  policies[].group_interval                                         string
+  policies[].group_wait                                             string
+  policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].match_re                                               map<string, string>
+  policies[].matchers                                               array<object>
+  policies[].matchers[].isEqual                                     boolean
+  policies[].matchers[].isRegex                                     boolean               REQUIRED
+  policies[].matchers[].name                                        string                REQUIRED
+  policies[].matchers[].value                                       string                REQUIRED
+  policies[].mute_time_intervals                                    array<string>
+  policies[].object_matchers                                        array<array<string>>
+  policies[].orgId                                                  number
+  policies[].receiver                                               string
+  policies[].repeat_interval                                        string
+  policies[].routes                                                 array<object>
+  policies[].routes[].active_time_intervals                         array<string>
+  policies[].routes[].continue                                      boolean
+  policies[].routes[].group_by                                      array<string>
+  policies[].routes[].group_interval                                string
+  policies[].routes[].group_wait                                    string
+  policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].routes[].match_re                                      map<string, string>
+  policies[].routes[].matchers                                      array<object>
+  policies[].routes[].matchers[].isEqual                            boolean
+  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
+  policies[].routes[].matchers[].name                               string                REQUIRED
+  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].mute_time_intervals                           array<string>
+  policies[].routes[].object_matchers                               array<array<string>>
+  policies[].routes[].receiver                                      string
+  policies[].routes[].repeat_interval                               string
+  policies[].routes[].routes                                        array<object>
+
 ```
 gf provisioning get-alert-rule-export [flags]
 ```

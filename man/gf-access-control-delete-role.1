@@ -18,6 +18,10 @@ Delete a role with the given UID, and it’s permissions. If the role is assigne
 .PP
 You need to have a permission with action \fBroles:delete\fR and scope \fBpermissions:type:delegate\fR\&. \fBpermissions:type:delegate\fR scope ensures that users can only delete a custom role with the same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to delete a custom role which allows to do that.
 
+.PP
+Response schema (DeleteRoleOK.Payload):
+  message  string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

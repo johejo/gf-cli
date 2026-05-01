@@ -2,6 +2,30 @@
 
 Get (current authenticated user)
 
+### Synopsis
+
+Get (current authenticated user)
+
+Response schema (GetSignedInUserOK.Payload):
+  accessControl                   map<string, boolean>
+  authLabels                      array<string>
+  avatarUrl                       string
+  createdAt                       string
+  email                           string
+  id                              number
+  isDisabled                      boolean
+  isExternal                      boolean
+  isExternallySynced              boolean
+  isGrafanaAdmin                  boolean
+  isGrafanaAdminExternallySynced  boolean
+  isProvisioned                   boolean
+  login                           string
+  name                            string
+  orgId                           number
+  theme                           string
+  uid                             string
+  updatedAt                       string
+
 ```
 gf signed-in-user get-signed-in-user [flags]
 ```

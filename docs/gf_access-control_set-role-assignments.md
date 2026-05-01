@@ -11,11 +11,15 @@ Set role assignments for the role with the given UID.
 You need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate`, and `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate`.
 
 Body schema (SetRoleAssignmentsCommand):
-{
-  "service_accounts": [number],
-  "teams": [number],
-  "users": [number]
-}
+  service_accounts  array<number>
+  teams             array<number>
+  users             array<number>
+
+Response schema (SetRoleAssignmentsOK.Payload):
+  role_uid          string
+  service_accounts  array<number>
+  teams             array<number>
+  users             array<number>
 
 ```
 gf access-control set-role-assignments [flags]
@@ -24,7 +28,7 @@ gf access-control set-role-assignments [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for set-role-assignments

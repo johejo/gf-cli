@@ -2,6 +2,31 @@
 
 Gets folder by uid
 
+### Synopsis
+
+Gets folder by uid
+
+Response schema (GetFolderByUIDOK.Payload):
+  accessControl  map<string, boolean>
+  canAdmin       boolean
+  canDelete      boolean
+  canEdit        boolean
+  canSave        boolean
+  created        string
+  createdBy      string
+  hasAcl         boolean
+  id             number                Deprecated: use UID instead
+  managedBy      string
+  orgId          number
+  parentUid      string                only used if nested folders are enabled
+  parents        array<object>         the parent folders starting from the root going down
+  title          string
+  uid            string
+  updated        string
+  updatedBy      string
+  url            string
+  version        number
+
 ```
 gf folders get-folder-by-uid [flags]
 ```

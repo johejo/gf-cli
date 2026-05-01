@@ -8,6 +8,20 @@ Queries history search
 
 Returns a list of queries in the query history that matches the search criteria. Query history search supports pagination. Use the `limit` parameter to control the maximum number of queries returned; the default limit is 100. You can also use the `page` query parameter to fetch queries from any page other than the first one.
 
+Response schema (SearchQueriesOK.Payload):
+  result                               object
+  result.page                          number
+  result.perPage                       number
+  result.queryHistory                  array<object>
+  result.queryHistory[].comment        string
+  result.queryHistory[].createdAt      number
+  result.queryHistory[].createdBy      number
+  result.queryHistory[].datasourceUid  string
+  result.queryHistory[].queries        object
+  result.queryHistory[].starred        boolean
+  result.queryHistory[].uid            string
+  result.totalCount                    number
+
 ```
 gf query-history search-queries [flags]
 ```

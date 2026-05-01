@@ -2,6 +2,13 @@
 
 Removes external group
 
+### Synopsis
+
+Removes external group
+
+Response schema (RemoveTeamGroupAPIQueryOK.Payload):
+  message  string
+
 ```
 gf sync-team-groups remove-team-group-api-query [flags]
 ```

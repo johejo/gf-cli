@@ -2,6 +2,13 @@
 
 Sends a health check request to the plugin datasource identified by the UID
 
+### Synopsis
+
+Sends a health check request to the plugin datasource identified by the UID
+
+Response schema (CheckDatasourceHealthWithUIDOK.Payload):
+  message  string
+
 ```
 gf datasources check-datasource-health [flags]
 ```

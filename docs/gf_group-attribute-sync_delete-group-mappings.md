@@ -6,6 +6,9 @@
 
 Deletes mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental
 
+Response schema (DeleteGroupMappingsNoContent.Payload):
+  message  string
+
 ```
 gf group-attribute-sync delete-group-mappings [flags]
 ```

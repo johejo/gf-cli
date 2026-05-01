@@ -7,16 +7,25 @@ Set cache config for a single data source
 Set cache config for a single data source
 
 Body schema (CacheConfigSetter):
-{
-  "dataSourceID": number,
-  "dataSourceUID": string,
-  "enabled": boolean,
-  "ttlQueriesMs": number,
-  "ttlResourcesMs": number,
-  "useDefaultTTL": boolean
-}
-  ttlQueriesMs             TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
-  useDefaultTTL            If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini
+  dataSourceID    number
+  dataSourceUID   string
+  enabled         boolean
+  ttlQueriesMs    number   TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+  ttlResourcesMs  number
+  useDefaultTTL   boolean  If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini
+
+Response schema (SetDataSourceCacheConfigOK.Payload):
+  created         string
+  dataSourceID    number   Fields that can be set by the API caller - read/write
+  dataSourceUID   string
+  defaultTTLMs    number   These are returned by the HTTP API, but are managed internally - read-only
+                           Note: 'created' and 'updated' are special properties managed automatically by xorm, but we are setting them manually
+  enabled         boolean
+  message         string
+  ttlQueriesMs    number   TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+  ttlResourcesMs  number
+  updated         string
+  useDefaultTTL   boolean  If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini
 
 ```
 gf enterprise set-datasource-cache-config [flags]
@@ -25,7 +34,7 @@ gf enterprise set-datasource-cache-config [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --data-source-uid string         DataSourceUID
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API

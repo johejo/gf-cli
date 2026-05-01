@@ -2,6 +2,22 @@
 
 Gets a specific dashboard version using UID
 
+### Synopsis
+
+Gets a specific dashboard version using UID
+
+Response schema (GetDashboardVersionByUIDOK.Payload):
+  created        string
+  createdBy      string
+  dashboardId    number
+  data           object
+  id             number
+  message        string
+  parentVersion  number
+  restoredFrom   number
+  uid            string
+  version        number
+
 ```
 gf dashboards get-dashboard-version-by-uid [flags]
 ```

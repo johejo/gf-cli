@@ -5,159 +5,8 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
-	"os"
 	"testing"
 )
-
-func TestParseModelSchema(t *testing.T) {
-	baseDir := os.Getenv("GRAFANA_CLIENT_DIR")
-	if baseDir == "" {
-		t.Skip("GRAFANA_CLIENT_DIR not set")
-	}
-	schema, err := ParseModelSchema(baseDir, "models.CreateTeamCommand")
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Logf("TypeName: %s", schema.TypeName)
-	for _, f := range schema.Fields {
-		t.Logf("  %s %s required=%v description=%q", f.JSONName, f.GoType, f.IsRequired, f.Description)
-	}
-	if len(schema.Fields) == 0 {
-		t.Error("expected fields")
-	}
-}
-
-func TestFormatBodySchema(t *testing.T) {
-	schema := &BodySchemaInfo{
-		TypeName: "CreateTeamCommand",
-		Fields: []*ModelField{
-			{JSONName: "name", GoType: "string", IsRequired: true},
-			{JSONName: "email", GoType: "string"},
-		},
-	}
-	got := formatBodySchema(schema)
-	t.Log(got)
-	if got == "" {
-		t.Error("expected non-empty")
-	}
-}
-
-func TestFormatBodySchemaNestedFields(t *testing.T) {
-	schema := &BodySchemaInfo{
-		TypeName: "CreateReport",
-		Fields: []*ModelField{
-			{
-				JSONName: "options",
-				JSONType: "object",
-				NestedFields: []*ModelField{
-					{JSONName: "layout", JSONType: "string"},
-					{JSONName: "orientation", JSONType: "string"},
-				},
-			},
-			{
-				JSONName: "rules",
-				JSONType: "object",
-				IsArray:  true,
-				NestedFields: []*ModelField{
-					{JSONName: "alert", JSONType: "string"},
-					{JSONName: "expr", JSONType: "string"},
-				},
-			},
-		},
-	}
-
-	got := formatBodySchema(schema)
-	want := `Body schema (CreateReport):
-{
-  "options": {
-    "layout": string,
-    "orientation": string
-  },
-  "rules": [
-    {
-      "alert": string,
-      "expr": string
-    }
-  ]
-}`
-	if got != want {
-		t.Fatalf("formatBodySchema() =\n%s\nwant:\n%s", got, want)
-	}
-}
-
-func TestFormatBodySchemaMultiLineDescription(t *testing.T) {
-	schema := &BodySchemaInfo{
-		TypeName: "MetricRequest",
-		Fields: []*ModelField{
-			{
-				JSONName:   "queries",
-				JSONType:   "any",
-				IsArray:    true,
-				IsRequired: true,
-				Description: "queries.refId – Specifies an identifier of the query.\n" +
-					"queries.datasourceId – Specifies the data source to be queried.\n" +
-					"queries.maxDataPoints - Species maximum amount of data points.",
-			},
-		},
-	}
-
-	got := formatBodySchema(schema)
-	want := `Body schema (MetricRequest):
-{
-  "queries": [any]
-}
-  queries                  REQUIRED
-                           queries.refId – Specifies an identifier of the query.
-                           queries.datasourceId – Specifies the data source to be queried.
-                           queries.maxDataPoints - Species maximum amount of data points.`
-	if got != want {
-		t.Fatalf("formatBodySchema() =\n%s\nwant:\n%s", got, want)
-	}
-}
-
-func TestFormatBodySchemaGoTypeHint(t *testing.T) {
-	schema := &BodySchemaInfo{
-		TypeName: "CreateDashboardSnapshotCommand",
-		Fields: []*ModelField{
-			{JSONName: "dashboard", JSONType: "any", GoType: "Dashboard", IsRequired: true},
-			{JSONName: "relativeTimeRange", JSONType: "object", GoType: "RelativeTimeRange"},
-			{JSONName: "extra", JSONType: "any", GoType: ""},
-			{JSONName: "panels", JSONType: "any", IsArray: true, GoType: "[]Dashboard"},
-			{JSONName: "name", JSONType: "string", GoType: "string"},
-			{JSONName: "blob", JSONType: "any", GoType: "object"},
-			{JSONName: "freeform", JSONType: "any", GoType: "any"},
-			{JSONName: "labels", JSONType: "object", IsMap: true, MapValueType: "string", GoType: "map[string]Dashboard"},
-			{
-				JSONName: "nested",
-				JSONType: "object",
-				GoType:   "ExpandedStruct",
-				NestedFields: []*ModelField{
-					{JSONName: "inner", JSONType: "string"},
-				},
-			},
-		},
-	}
-
-	got := formatBodySchema(schema)
-	want := `Body schema (CreateDashboardSnapshotCommand):
-{
-  "dashboard": any,  // models.Dashboard
-  "relativeTimeRange": object,  // models.RelativeTimeRange
-  "extra": any,
-  "panels": [any],  // []models.Dashboard
-  "name": string,
-  "blob": any,
-  "freeform": any,
-  "labels": {"key": string},
-  "nested": {
-    "inner": string
-  }
-}
-  dashboard                REQUIRED`
-	if got != want {
-		t.Fatalf("formatBodySchema() =\n%s\nwant:\n%s", got, want)
-	}
-}
 
 func TestBuildBodyJSONSchema(t *testing.T) {
 	src := `package models
@@ -399,8 +248,135 @@ type Config struct {
 }
 
 func TestBuildBodyJSONSchemaInvalidModelType(t *testing.T) {
-	if _, err := BuildBodyJSONSchema("/does/not/matter", "NotAModel"); err == nil {
+	if _, _, err := BuildBodyJSONSchema("/does/not/matter", "NotAModel"); err == nil {
 		t.Fatal("expected error for non-models.* modelType")
+	}
+}
+
+func TestAnnotationsFromSchema(t *testing.T) {
+	src := `package models
+
+type Permission struct {
+	// Required: true
+	Action string ` + "`json:\"action\"`" + `
+	Scope  string ` + "`json:\"scope,omitempty\"`" + `
+}
+
+// CreateThing create thing
+type CreateThing struct {
+	// Required: true
+	Name string ` + "`json:\"name\"`" + `
+
+	// Email
+	// address of the user
+	Email *string ` + "`json:\"email,omitempty\"`" + `
+
+	// Enum: [active pending expired]
+	Status string ` + "`json:\"status\"`" + `
+
+	// Permissions
+	Permissions []*Permission ` + "`json:\"permissions,omitempty\"`" + `
+}
+`
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, "models.go", src, parser.ParseComments)
+	if err != nil {
+		t.Fatalf("parse: %v", err)
+	}
+	b := &jsonSchemaBuilder{files: []*ast.File{f}, visited: map[string]bool{}}
+	inner := b.structSchema("CreateThing")
+	if inner == nil {
+		t.Fatal("structSchema returned nil")
+	}
+	got := annotationsFromSchema(inner)
+	want := `  name                  string         REQUIRED
+  email                 string         Email
+                                       address of the user
+  status                string         enum: active | pending | expired
+  permissions           array<object>
+  permissions[].action  string         REQUIRED
+  permissions[].scope   string`
+	if got != want {
+		t.Fatalf("annotation mismatch\n got: %q\nwant: %q", got, want)
+	}
+}
+
+func TestRenderType(t *testing.T) {
+	t.Parallel()
+
+	scalarString := newOrderedObj()
+	scalarString.set("type", "string")
+
+	scalarBool := newOrderedObj()
+	scalarBool.set("type", "boolean")
+
+	arrayOfString := newOrderedObj()
+	arrayOfString.set("type", "array")
+	arrayOfString.set("items", scalarString)
+
+	objWithProps := newOrderedObj()
+	objWithProps.set("type", "object")
+	objWithProps.set("properties", newOrderedObj())
+
+	arrayOfObject := newOrderedObj()
+	arrayOfObject.set("type", "array")
+	arrayOfObject.set("items", objWithProps)
+
+	mapOfString := newOrderedObj()
+	mapOfString.set("type", "object")
+	mapOfString.set("additionalProperties", scalarString)
+
+	bareObject := newOrderedObj()
+	bareObject.set("type", "object")
+
+	bareArray := newOrderedObj()
+	bareArray.set("type", "array")
+
+	missingType := newOrderedObj()
+
+	tests := []struct {
+		name string
+		prop *orderedObj
+		want string
+	}{
+		{"scalar string", scalarString, "string"},
+		{"scalar boolean", scalarBool, "boolean"},
+		{"array of string", arrayOfString, "array<string>"},
+		{"array of object", arrayOfObject, "array<object>"},
+		{"object with properties", objWithProps, "object"},
+		{"map of string", mapOfString, "map<string, string>"},
+		{"bare object", bareObject, "object"},
+		{"bare array", bareArray, "array"},
+		{"missing type", missingType, "object"},
+		{"nil prop", nil, "object"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			if got := renderType(tt.prop); got != tt.want {
+				t.Fatalf("renderType(%s) = %q, want %q", tt.name, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRootDescription(t *testing.T) {
+	t.Parallel()
+
+	withDesc := newOrderedObj()
+	withDesc.set("description", "Response wire format differs from the Go type; consider --raw.")
+
+	withoutDesc := newOrderedObj()
+	withoutDesc.set("type", "object")
+
+	if got := rootDescription(withDesc); got != "Response wire format differs from the Go type; consider --raw." {
+		t.Errorf("rootDescription(withDesc) = %q, want advisory string", got)
+	}
+	if got := rootDescription(withoutDesc); got != "" {
+		t.Errorf("rootDescription(withoutDesc) = %q, want empty", got)
+	}
+	if got := rootDescription(nil); got != "" {
+		t.Errorf("rootDescription(nil) = %q, want empty", got)
 	}
 }
 

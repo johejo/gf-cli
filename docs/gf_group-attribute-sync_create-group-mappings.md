@@ -7,9 +7,10 @@
 Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental
 
 Body schema (GroupAttributes):
-{
-  "roles": [string]
-}
+  roles  array<string>
+
+Response schema (CreateGroupMappingsCreated.Payload):
+  message  string
 
 ```
 gf group-attribute-sync create-group-mappings [flags]
@@ -18,7 +19,7 @@ gf group-attribute-sync create-group-mappings [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
       --group-id string                GroupID

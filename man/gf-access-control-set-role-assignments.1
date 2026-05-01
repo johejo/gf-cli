@@ -20,16 +20,21 @@ You need to have a permission with action \fBteams.roles:add\fR and \fBteams.rol
 
 .PP
 Body schema (SetRoleAssignmentsCommand):
-{
-  "service_accounts": [number],
-  "teams": [number],
-  "users": [number]
-}
+  service_accounts  array
+  teams             array
+  users             array
+
+.PP
+Response schema (SetRoleAssignmentsOK.Payload):
+  role_uid          string
+  service_accounts  array
+  teams             array
+  users             array
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

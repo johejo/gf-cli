@@ -2,6 +2,16 @@
 
 Gets a cloud migration session by its uid
 
+### Synopsis
+
+Gets a cloud migration session by its uid
+
+Response schema (GetSessionOK.Payload):
+  created  string
+  slug     string
+  uid      string
+  updated  string
+
 ```
 gf migrations get-session [flags]
 ```

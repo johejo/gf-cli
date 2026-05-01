@@ -9,17 +9,14 @@ Updates permissions for a dashboard
 This operation will remove existing permissions if they’re not included in the request.
 
 Body schema (UpdateDashboardACLCommand):
-{
-  "items": [
-    {
-      "permission": number,
-      "role": string,
-      "teamId": number,
-      "userId": number
-    }
-  ]
-}
-  items[].role             enum: None | Viewer | Editor | Admin
+  items               array<object>
+  items[].permission  number
+  items[].role        string         enum: None | Viewer | Editor | Admin
+  items[].teamId      number
+  items[].userId      number
+
+Response schema (UpdateDashboardPermissionsByUIDOK.Payload):
+  message  string
 
 ```
 gf dashboards update-dashboard-permissions-by-uid [flags]
@@ -28,7 +25,7 @@ gf dashboards update-dashboard-permissions-by-uid [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for update-dashboard-permissions-by-uid

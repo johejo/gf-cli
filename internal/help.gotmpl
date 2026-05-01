@@ -13,3 +13,8 @@
 {{- with (index .Annotations "bodySchema") }}
 {{ . | trimTrailingWhitespaces }}
 {{ end -}}
+
+{{- /* Response schema, if the command carries one. */ -}}
+{{- with (index .Annotations "responseSchema") }}
+{{ . | trimTrailingWhitespaces }}
+{{ end -}}

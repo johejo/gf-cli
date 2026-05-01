@@ -2,6 +2,13 @@
 
 Deletes a correlation
 
+### Synopsis
+
+Deletes a correlation
+
+Response schema (DeleteCorrelationOK.Payload):
+  message  string
+
 ```
 gf datasources delete-correlation [flags]
 ```

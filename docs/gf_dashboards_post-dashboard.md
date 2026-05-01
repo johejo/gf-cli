@@ -9,17 +9,29 @@ Creates update dashboard
 Creates a new dashboard or updates an existing dashboard. Note: This endpoint is not intended for creating folders, use `POST /api/folders` for that.
 
 Body schema (SaveDashboardCommand):
-{
-  "UpdatedAt": string,
-  "dashboard": any,  // models.JSON
-  "folderId": number,
-  "folderUid": string,
-  "isFolder": boolean,
-  "message": string,
-  "overwrite": boolean,
-  "userId": number
-}
-  folderId                 Deprecated: use FolderUID instead
+  UpdatedAt  string
+  dashboard  object
+  folderId   number   Deprecated: use FolderUID instead
+  folderUid  string
+  isFolder   boolean
+  message    string
+  overwrite  boolean
+  userId     number
+
+Response schema (PostDashboardOK.Payload):
+  folderUid  string  FolderUID The unique identifier (uid) of the folder the dashboard belongs to.
+  id         number  REQUIRED
+                     ID The unique identifier (id) of the created/updated dashboard.
+  status     string  REQUIRED
+                     Status status of the response.
+  title      string  REQUIRED
+                     Slug The slug of the dashboard.
+  uid        string  REQUIRED
+                     UID The unique identifier (uid) of the created/updated dashboard.
+  url        string  REQUIRED
+                     URL The relative URL for accessing the created/updated dashboard.
+  version    number  REQUIRED
+                     Version The version of the dashboard.
 
 ```
 gf dashboards post-dashboard [flags]
@@ -28,7 +40,7 @@ gf dashboards post-dashboard [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for post-dashboard

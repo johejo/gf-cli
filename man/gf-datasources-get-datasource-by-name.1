@@ -15,6 +15,28 @@ Gets a single data source by name
 .PP
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: \fBdatasources:read\fR and scopes: \fBdatasources:*\fR, \fBdatasources:name:*\fR and \fBdatasources:name:test_datasource\fR (single data source).
 
+.PP
+Response schema (GetDataSourceByNameOK.Payload):
+  access            string
+  accessControl     map
+  basicAuth         boolean
+  basicAuthUser     string
+  database          string
+  id                number
+  isDefault         boolean
+  jsonData          object
+  name              string
+  orgId             number
+  readOnly          boolean
+  secureJsonFields  map
+  type              string
+  typeLogoUrl       string
+  uid               string
+  url               string
+  user              string
+  version           number
+  withCredentials   boolean
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

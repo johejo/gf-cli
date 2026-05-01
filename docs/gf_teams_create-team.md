@@ -7,11 +7,13 @@ Adds team
 Adds team
 
 Body schema (CreateTeamCommand):
-{
-  "email": string,
-  "name": string
-}
-  name                     REQUIRED
+  email  string
+  name   string  REQUIRED
+
+Response schema (CreateTeamOK.Payload):
+  message  string
+  teamId   number
+  uid      string
 
 ```
 gf teams create-team [flags]
@@ -20,7 +22,7 @@ gf teams create-team [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for create-team

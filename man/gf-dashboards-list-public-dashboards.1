@@ -12,6 +12,19 @@ gf-dashboards-list-public-dashboards - Get list of public dashboards
 .SH DESCRIPTION
 Get list of public dashboards
 
+.PP
+Response schema (ListPublicDashboardsOK.Payload):
+  page                             number
+  perPage                          number
+  publicDashboards                 array
+  publicDashboards[].accessToken   string
+  publicDashboards[].dashboardUid  string
+  publicDashboards[].isEnabled     boolean
+  publicDashboards[].slug          string
+  publicDashboards[].title         string
+  publicDashboards[].uid           string
+  totalCount                       number
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

@@ -2,6 +2,26 @@
 
 Get public dashboard by dashboardUid
 
+### Synopsis
+
+Get public dashboard by dashboardUid
+
+Response schema (GetPublicDashboardOK.Payload):
+  accessToken             string
+  annotationsEnabled      boolean
+  createdAt               string
+  createdBy               number
+  dashboardUid            string
+  isEnabled               boolean
+  recipients              array<object>
+  recipients[].recipient  string
+  recipients[].uid        string
+  share                   string
+  timeSelectionEnabled    boolean
+  uid                     string
+  updatedAt               string
+  updatedBy               number
+
 ```
 gf dashboards get-public-dashboard [flags]
 ```

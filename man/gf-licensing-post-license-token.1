@@ -17,14 +17,39 @@ You need to have a permission with action \fBlicensing:write\fR\&.
 
 .PP
 Body schema (DeleteTokenCommand):
-{
-  "instance": string
-}
+  instance  string
+
+.PP
+Response schema (PostLicenseTokenOK.Payload):
+  account                       string
+  anonymousRatio                number
+  company                       string
+  details_url                   string
+  exp                           number
+  iat                           number
+  included_users                number
+  iss                           string
+  jti                           string
+  lexp                          number
+  lic_exp_warn_days             number
+  lid                           string
+  limit_by                      string
+  max_concurrent_user_sessions  number
+  nbf                           number
+  prod                          array
+  slug                          string
+  status                        number
+  sub                           string
+  tok_exp_warn_days             number
+  trial                         boolean
+  trial_exp                     number
+  update_days                   number
+  usage_billing                 boolean
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

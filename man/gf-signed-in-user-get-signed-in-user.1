@@ -12,6 +12,27 @@ gf-signed-in-user-get-signed-in-user - Get (current authenticated user)
 .SH DESCRIPTION
 Get (current authenticated user)
 
+.PP
+Response schema (GetSignedInUserOK.Payload):
+  accessControl                   map
+  authLabels                      array
+  avatarUrl                       string
+  createdAt                       string
+  email                           string
+  id                              number
+  isDisabled                      boolean
+  isExternal                      boolean
+  isExternallySynced              boolean
+  isGrafanaAdmin                  boolean
+  isGrafanaAdminExternallySynced  boolean
+  isProvisioned                   boolean
+  login                           string
+  name                            string
+  orgId                           number
+  theme                           string
+  uid                             string
+  updatedAt                       string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

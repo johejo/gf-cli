@@ -6,6 +6,12 @@
 
 Lists groups that have mappings set this endpoint is behind the feature flag group attribute sync and is considered experimental
 
+Response schema (GetMappedGroupsOK.Payload):
+  groups             array<object>
+  groups[].groupID   string
+  groups[].mappings  object
+  total              number
+
 ```
 gf group-attribute-sync get-mapped-groups [flags]
 ```

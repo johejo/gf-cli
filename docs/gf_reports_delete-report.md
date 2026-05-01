@@ -12,6 +12,9 @@ You need to have a permission with action `reports.delete` with scope `reports:i
 
 Requesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/
 
+Response schema (DeleteReportOK.Payload):
+  message  string
+
 ```
 gf reports delete-report [flags]
 ```

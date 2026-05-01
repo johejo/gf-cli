@@ -17,7 +17,7 @@ gf licensing post-renew-license-token [flags]
 ### Options
 
 ```
-      --body string   Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string   Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
   -h, --help          help for post-renew-license-token
       --raw           Print the raw HTTP response body instead of the decoded payload
 ```

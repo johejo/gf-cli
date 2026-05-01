@@ -2,6 +2,15 @@
 
 Gets snapshot sharing settings
 
+### Synopsis
+
+Gets snapshot sharing settings
+
+Response schema (GetSharingOptionsOK.Payload):
+  externalEnabled       boolean
+  externalSnapshotName  string
+  externalSnapshotURL   string
+
 ```
 gf snapshots get-sharing-options [flags]
 ```

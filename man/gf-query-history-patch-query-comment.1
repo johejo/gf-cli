@@ -17,15 +17,23 @@ Updates comment for query in query history as specified by the UID.
 
 .PP
 Body schema (PatchQueryCommentInQueryHistoryCommand):
-{
-  "comment": string
-}
-  comment                  Updated comment
+  comment  string  Updated comment
+
+.PP
+Response schema (PatchQueryCommentOK.Payload):
+  result                object
+  result.comment        string
+  result.createdAt      number
+  result.createdBy      number
+  result.datasourceUid  string
+  result.queries        object
+  result.starred        boolean
+  result.uid            string
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

@@ -12,6 +12,19 @@ gf-provisioning-get-mute-timing - Gets a mute timing
 .SH DESCRIPTION
 Gets a mute timing
 
+.PP
+Response schema (GetMuteTimingOK.Payload):
+  name                                 string
+  time_intervals                       array
+  time_intervals[].days_of_month       array
+  time_intervals[].location            string
+  time_intervals[].months              array
+  time_intervals[].times               array
+  time_intervals[].times[].end_time    string
+  time_intervals[].times[].start_time  string
+  time_intervals[].weekdays            array
+  time_intervals[].years               array
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

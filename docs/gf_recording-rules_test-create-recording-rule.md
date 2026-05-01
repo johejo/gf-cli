@@ -7,19 +7,20 @@ Tests a recording rule
 Tests a recording rule
 
 Body schema (RecordingRuleJSON):
-{
-  "active": boolean,
-  "count": boolean,
-  "description": string,
-  "dest_data_source_uid": string,
-  "id": string,
-  "interval": number,
-  "name": string,
-  "prom_name": string,
-  "queries": [any],
-  "range": number,
-  "target_ref_id": string
-}
+  active                boolean
+  count                 boolean
+  description           string
+  dest_data_source_uid  string
+  id                    string
+  interval              number
+  name                  string
+  prom_name             string
+  queries               array<object>
+  range                 number
+  target_ref_id         string
+
+Response schema (TestCreateRecordingRuleOK.Payload):
+  message  string
 
 ```
 gf recording-rules test-create-recording-rule [flags]
@@ -28,7 +29,7 @@ gf recording-rules test-create-recording-rule [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for test-create-recording-rule

@@ -2,6 +2,24 @@
 
 Gets all existing versions for the dashboard using UID
 
+### Synopsis
+
+Gets all existing versions for the dashboard using UID
+
+Response schema (GetDashboardVersionsByUIDOK.Payload):
+  continueToken             string
+  versions                  array<object>
+  versions[].created        string
+  versions[].createdBy      string
+  versions[].dashboardId    number
+  versions[].data           object
+  versions[].id             number
+  versions[].message        string
+  versions[].parentVersion  number
+  versions[].restoredFrom   number
+  versions[].uid            string
+  versions[].version        number
+
 ```
 gf dashboards get-dashboard-versions-by-uid [flags]
 ```

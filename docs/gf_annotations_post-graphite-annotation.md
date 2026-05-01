@@ -9,12 +9,16 @@ Creates annotation in graphite format
 Creates an annotation by using Graphite-compatible event format. The `when` and `data` fields are optional. If `when` is not specified then the current time will be used as annotation’s timestamp. The `tags` field can also be in prior to Graphite `0.10.0` format (string with multiple tags being separated by a space).
 
 Body schema (PostGraphiteAnnotationsCmd):
-{
-  "data": string,
-  "tags": any,
-  "what": string,
-  "when": number
-}
+  data  string
+  tags  object
+  what  string
+  when  number
+
+Response schema (PostGraphiteAnnotationOK.Payload):
+  id       number  REQUIRED
+                   ID Identifier of the created annotation.
+  message  string  REQUIRED
+                   Message Message of the created annotation.
 
 ```
 gf annotations post-graphite-annotation [flags]
@@ -23,7 +27,7 @@ gf annotations post-graphite-annotation [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for post-graphite-annotation

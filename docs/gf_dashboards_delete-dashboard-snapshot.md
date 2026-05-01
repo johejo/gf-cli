@@ -2,6 +2,13 @@
 
 Deletes snapshot by key
 
+### Synopsis
+
+Deletes snapshot by key
+
+Response schema (DeleteDashboardSnapshotOK.Payload):
+  message  string
+
 ```
 gf dashboards delete-dashboard-snapshot [flags]
 ```

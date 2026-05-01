@@ -2,6 +2,15 @@
 
 Gets the resource dependencies graph for the current set of migratable resources
 
+### Synopsis
+
+Gets the resource dependencies graph for the current set of migratable resources
+
+Response schema (GetResourceDependenciesOK.Payload):
+  resourceDependencies                 array<object>
+  resourceDependencies[].dependencies  array<string>
+  resourceDependencies[].resourceType  string         enum: DASHBOARD | DATASOURCE | FOLDER | LIBRARY_ELEMENT | ALERT_RULE | ALERT_RULE_GROUP | CONTACT_POINT | NOTIFICATION_POLICY | NOTIFICATION_TEMPLATE | MUTE_TIMING | PLUGIN
+
 ```
 gf migrations get-resource-dependencies [flags]
 ```

@@ -8,6 +8,9 @@ Gets team roles
 
 You need to have a permission with action `teams.roles:read` and scope `teams:id:<team ID>`.
 
+Response schema (ListTeamRolesOK.Payload):
+  message  string
+
 ```
 gf access-control list-team-roles [flags]
 ```

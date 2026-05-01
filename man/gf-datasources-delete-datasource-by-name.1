@@ -15,6 +15,13 @@ Deletes an existing data source by name
 .PP
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: \fBdatasources:delete\fR and scopes: \fBdatasources:*\fR, \fBdatasources:name:*\fR and \fBdatasources:name:test_datasource\fR (single data source).
 
+.PP
+Response schema (DeleteDataSourceByNameOK.Payload):
+  id       number  REQUIRED
+                   ID Identifier of the deleted data source.
+  message  string  REQUIRED
+                   Message Message of the deleted dashboard.
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

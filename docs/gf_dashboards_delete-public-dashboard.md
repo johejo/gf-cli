@@ -2,6 +2,13 @@
 
 Delete public dashboard for a dashboard
 
+### Synopsis
+
+Delete public dashboard for a dashboard
+
+Response schema (DeletePublicDashboardOK.Payload):
+  message  string
+
 ```
 gf dashboards delete-public-dashboard [flags]
 ```

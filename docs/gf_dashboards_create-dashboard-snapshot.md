@@ -9,34 +9,31 @@ Whens creating a snapshot using the API you have to provide the full dashboard p
 Snapshot public mode should be enabled or authentication is required.
 
 Body schema (CreateDashboardSnapshotCommand):
-{
-  "apiVersion": string,
-  "dashboard": any,  // models.Unstructured
-  "deleteKey": string,
-  "expires": number,
-  "external": boolean,
-  "key": string,
-  "kind": string,
-  "name": string
-}
-  apiVersion               APIVersion defines the versioned schema of this representation of an object.
-                           Servers should convert recognized schemas to the latest internal value, and
-                           may reject unrecognized values.
-                           More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-                           +optional
-  dashboard                REQUIRED
-  deleteKey                Unique key used to delete the snapshot. It is different from the `key` so that only the creator can delete the snapshot. Required if `external` is `true`.
-  expires                  When the snapshot should expire in seconds in seconds. Default is never to expire.
-  external                 these are passed when storing an external snapshot ref
-                           Save the snapshot on an external server rather than locally.
-  key                      Define the unique key. Required if `external` is `true`.
-  kind                     Kind is a string value representing the REST resource this object represents.
-                           Servers may infer this from the endpoint the client submits requests to.
-                           Cannot be updated.
-                           In CamelCase.
-                           More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-                           +optional
-  name                     Snapshot name
+  apiVersion  string   APIVersion defines the versioned schema of this representation of an object.
+                       Servers should convert recognized schemas to the latest internal value, and
+                       may reject unrecognized values.
+                       More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+                       +optional
+  dashboard   object   REQUIRED
+  deleteKey   string   Unique key used to delete the snapshot. It is different from the `key` so that only the creator can delete the snapshot. Required if `external` is `true`.
+  expires     number   When the snapshot should expire in seconds in seconds. Default is never to expire.
+  external    boolean  these are passed when storing an external snapshot ref
+                       Save the snapshot on an external server rather than locally.
+  key         string   Define the unique key. Required if `external` is `true`.
+  kind        string   Kind is a string value representing the REST resource this object represents.
+                       Servers may infer this from the endpoint the client submits requests to.
+                       Cannot be updated.
+                       In CamelCase.
+                       More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                       +optional
+  name        string   Snapshot name
+
+Response schema (CreateDashboardSnapshotOK.Payload):
+  deleteKey  string  Unique key used to delete the snapshot. It is different from the key so that only the creator can delete the snapshot.
+  deleteUrl  string
+  id         number  Snapshot id
+  key        string  Unique key
+  url        string
 
 ```
 gf dashboards create-dashboard-snapshot [flags]
@@ -45,7 +42,7 @@ gf dashboards create-dashboard-snapshot [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for create-dashboard-snapshot

@@ -8,6 +8,9 @@ Enables user
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:enable` and scope `global.users:1` (userIDScope).
 
+Response schema (AdminEnableUserOK.Payload):
+  message  string
+
 ```
 gf admin-users admin-enable-user [flags]
 ```

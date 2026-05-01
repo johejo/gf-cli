@@ -11,24 +11,38 @@ Creates a new custom role and maps given permissions to that role. Note that rol
 You need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to create a custom role which allows to do that. This is done to prevent escalation of privileges.
 
 Body schema (CreateRoleForm):
-{
-  "description": string,
-  "displayName": string,
-  "global": boolean,
-  "group": string,
-  "hidden": boolean,
-  "name": string,
-  "permissions": [
-    {
-      "action": string,
-      "created": string,
-      "scope": string,
-      "updated": string
-    }
-  ],
-  "uid": string,
-  "version": number
-}
+  description            string
+  displayName            string
+  global                 boolean
+  group                  string
+  hidden                 boolean
+  name                   string
+  permissions            array<object>
+  permissions[].action   string
+  permissions[].created  string
+  permissions[].scope    string
+  permissions[].updated  string
+  uid                    string
+  version                number
+
+Response schema (CreateRoleCreated.Payload):
+  created                string         REQUIRED
+  delegatable            boolean
+  description            string         REQUIRED
+  displayName            string         REQUIRED
+  global                 boolean
+  group                  string         REQUIRED
+  hidden                 boolean
+  mapped                 boolean
+  name                   string         REQUIRED
+  permissions            array<object>
+  permissions[].action   string
+  permissions[].created  string
+  permissions[].scope    string
+  permissions[].updated  string
+  uid                    string         REQUIRED
+  updated                string         REQUIRED
+  version                number         REQUIRED
 
 ```
 gf access-control create-role [flags]
@@ -37,7 +51,7 @@ gf access-control create-role [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for create-role

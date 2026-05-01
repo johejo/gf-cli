@@ -8,6 +8,19 @@ Returns the current state of the LDAP background sync integration
 
 You need to have a permission with action `ldap.status:read`.
 
+Response schema (GetSyncStatusOK.Payload):
+  enabled                       boolean
+  nextSync                      string
+  prevSync                      object
+  prevSync.Elapsed              number
+  prevSync.FailedUsers          array<object>
+  prevSync.FailedUsers[].Error  string
+  prevSync.FailedUsers[].Login  string
+  prevSync.MissingUserIds       array<number>
+  prevSync.Started              string
+  prevSync.UpdatedUserIds       array<number>
+  schedule                      string
+
 ```
 gf ldap-debug get-sync-status [flags]
 ```

@@ -8,6 +8,9 @@ Removes team role
 
 You need to have a permission with action `teams.roles:remove` and scope `permissions:type:delegate`.
 
+Response schema (RemoveTeamRoleOK.Payload):
+  message  string
+
 ```
 gf access-control remove-team-role [flags]
 ```

@@ -15,6 +15,10 @@ Finds an user based on a username in LDAP this helps illustrate how would the pa
 .PP
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action \fBldap.user:read\fR\&.
 
+.PP
+Response schema (GetUserFromLDAPOK.Payload):
+  message  string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

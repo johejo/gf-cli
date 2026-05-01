@@ -2,6 +2,15 @@
 
 Converts the submitted rule groups into grafana managed rules
 
+### Synopsis
+
+Converts the submitted rule groups into grafana managed rules
+
+Response schema (ConvertPrometheusCortexPostRuleGroupsAccepted.Payload):
+  error      string
+  errorType  string
+  status     string
+
 ```
 gf convert-prometheus convert-prometheus-cortex-post-rule-groups [flags]
 ```

@@ -20,28 +20,54 @@ If you are running Grafana Enterprise and have Fine-grained access control enabl
 
 .PP
 Body schema (UpdateDataSourceCommand):
-{
-  "access": string,
-  "basicAuth": boolean,
-  "basicAuthUser": string,
-  "database": string,
-  "isDefault": boolean,
-  "jsonData": any,  // models.JSON
-  "name": string,
-  "secureJsonData": {"key": string},
-  "type": string,
-  "uid": string,
-  "url": string,
-  "user": string,
-  "version": number,
-  "withCredentials": boolean
-}
-  version                  The previous version -- used for optimistic locking
+  access           string
+  basicAuth        boolean
+  basicAuthUser    string
+  database         string
+  isDefault        boolean
+  jsonData         object
+  name             string
+  secureJsonData   map
+  type             string
+  uid              string
+  url              string
+  user             string
+  version          number               The previous version -- used for optimistic locking
+  withCredentials  boolean
+
+.PP
+Response schema (UpdateDataSourceByUIDOK.Payload):
+  datasource                   object                REQUIRED
+  datasource.access            string
+  datasource.accessControl     map
+  datasource.basicAuth         boolean
+  datasource.basicAuthUser     string
+  datasource.database          string
+  datasource.id                number
+  datasource.isDefault         boolean
+  datasource.jsonData          object
+  datasource.name              string
+  datasource.orgId             number
+  datasource.readOnly          boolean
+  datasource.secureJsonFields  map
+  datasource.type              string
+  datasource.typeLogoUrl       string
+  datasource.uid               string
+  datasource.url               string
+  datasource.user              string
+  datasource.version           number
+  datasource.withCredentials   boolean
+  id                           number                REQUIRED
+                                                     ID Identifier of the new data source.
+  message                      string                REQUIRED
+                                                     Message Message of the deleted dashboard.
+  name                         string                REQUIRED
+                                                     Name of the new data source.
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

@@ -9,9 +9,10 @@ Sets resource permissions for a built in role
 Assigns permissions for a resource by a given type (`:resource`) and `:resourceID` to a built-in role. Allowed resources are `datasources`, `teams`, `dashboards`, `folders`, and `serviceaccounts`. Refer to the `/access-control/{resource}/description` endpoint for allowed Permissions.
 
 Body schema (SetPermissionCommand):
-{
-  "permission": string
-}
+  permission  string
+
+Response schema (SetResourcePermissionsForBuiltInRoleOK.Payload):
+  message  string
 
 ```
 gf access-control set-resource-permissions-for-built-in-role [flags]
@@ -20,7 +21,7 @@ gf access-control set-resource-permissions-for-built-in-role [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --built-in-role string           BuiltInRole
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API

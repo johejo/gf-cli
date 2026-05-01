@@ -2,6 +2,16 @@
 
 Gets a notification template group
 
+### Synopsis
+
+Gets a notification template group
+
+Response schema (GetTemplateOK.Payload):
+  name        string
+  provenance  string
+  template    string
+  version     string
+
 ```
 gf provisioning get-template [flags]
 ```

@@ -7,23 +7,34 @@ Imports dashboard
 Imports dashboard
 
 Body schema (ImportDashboardRequest):
-{
-  "dashboard": any,  // models.JSON
-  "folderId": number,
-  "folderUid": string,
-  "inputs": [
-    {
-      "name": string,
-      "pluginId": string,
-      "type": string,
-      "value": string
-    }
-  ],
-  "overwrite": boolean,
-  "path": string,
-  "pluginId": string
-}
-  folderId                 Deprecated: use FolderUID instead
+  dashboard          object
+  folderId           number         Deprecated: use FolderUID instead
+  folderUid          string
+  inputs             array<object>
+  inputs[].name      string
+  inputs[].pluginId  string
+  inputs[].type      string
+  inputs[].value     string
+  overwrite          boolean
+  path               string
+  pluginId           string
+
+Response schema (ImportDashboardOK.Payload):
+  dashboardId       number
+  description       string
+  folderId          number   Deprecated: use FolderUID instead
+  folderUid         string
+  imported          boolean
+  importedRevision  number
+  importedUri       string
+  importedUrl       string
+  path              string
+  pluginId          string
+  removed           boolean
+  revision          number
+  slug              string
+  title             string
+  uid               string
 
 ```
 gf dashboards import-dashboard [flags]
@@ -32,7 +43,7 @@ gf dashboards import-dashboard [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for import-dashboard

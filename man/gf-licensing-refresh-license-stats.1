@@ -15,6 +15,13 @@ Refreshes license stats
 .PP
 You need to have a permission with action \fBlicensing:read\fR\&.
 
+.PP
+Response schema (RefreshLicenseStatsOK.Payload):
+  active_admins_and_editors  number
+  active_anonymous_devices   number
+  active_users               number
+  active_viewers             number
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

@@ -2,6 +2,13 @@
 
 Creates gcom access token
 
+### Synopsis
+
+Creates gcom access token
+
+Response schema (CreateCloudMigrationTokenOK.Payload):
+  token  string
+
 ```
 gf migrations create-cloud-migration-token [flags]
 ```

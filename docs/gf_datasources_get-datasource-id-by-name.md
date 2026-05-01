@@ -8,6 +8,10 @@ Gets data source Id by name
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).
 
+Response schema (GetDataSourceIDByNameOK.Payload):
+  id  number  REQUIRED
+              ID Identifier of the data source.
+
 ```
 gf datasources get-datasource-id-by-name [flags]
 ```

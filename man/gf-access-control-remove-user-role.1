@@ -18,6 +18,10 @@ Revoke a role from a user. For bulk updates consider Set user role assignments.
 .PP
 You need to have a permission with action \fBusers.roles:remove\fR and scope \fBpermissions:type:delegate\fR\&. \fBpermissions:type:delegate\fR scope ensures that users can only unassign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to unassign a role which will allow to do that. This is done to prevent escalation of privileges.
 
+.PP
+Response schema (RemoveUserRoleOK.Payload):
+  message  string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

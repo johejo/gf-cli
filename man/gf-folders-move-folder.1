@@ -14,14 +14,34 @@ Moves folder
 
 .PP
 Body schema (MoveFolderCommand):
-{
-  "parentUid": string
-}
+  parentUid  string
+
+.PP
+Response schema (MoveFolderOK.Payload):
+  accessControl  map
+  canAdmin       boolean
+  canDelete      boolean
+  canEdit        boolean
+  canSave        boolean
+  created        string
+  createdBy      string
+  hasAcl         boolean
+  id             number                Deprecated: use UID instead
+  managedBy      string
+  orgId          number
+  parentUid      string                only used if nested folders are enabled
+  parents        array         the parent folders starting from the root going down
+  title          string
+  uid            string
+  updated        string
+  updatedBy      string
+  url            string
+  version        number
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

@@ -11,20 +11,20 @@ Available to org admins only and with a valid or expired license.
 You need to have a permission with action `reports.settings:write`xx.
 
 Body schema (ReportSettings):
-{
-  "branding": {
-    "emailFooterLink": string,
-    "emailFooterMode": string,
-    "emailFooterText": string,
-    "emailLogoUrl": string,
-    "reportLogoUrl": string
-  },
-  "embeddedImageTheme": string,
-  "id": number,
-  "orgId": number,
-  "pdfTheme": string,
-  "userId": number
-}
+  branding                  object
+  branding.emailFooterLink  string
+  branding.emailFooterMode  string
+  branding.emailFooterText  string
+  branding.emailLogoUrl     string
+  branding.reportLogoUrl    string
+  embeddedImageTheme        string
+  id                        number
+  orgId                     number
+  pdfTheme                  string
+  userId                    number
+
+Response schema (SaveReportSettingsOK.Payload):
+  message  string
 
 ```
 gf reports save-report-settings [flags]
@@ -33,7 +33,7 @@ gf reports save-report-settings [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for save-report-settings

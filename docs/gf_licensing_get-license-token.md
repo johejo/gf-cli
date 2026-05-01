@@ -8,6 +8,32 @@ Gets license token
 
 You need to have a permission with action `licensing:read`.
 
+Response schema (GetLicenseTokenOK.Payload):
+  account                       string
+  anonymousRatio                number
+  company                       string
+  details_url                   string
+  exp                           number
+  iat                           number
+  included_users                number
+  iss                           string
+  jti                           string
+  lexp                          number
+  lic_exp_warn_days             number
+  lid                           string
+  limit_by                      string
+  max_concurrent_user_sessions  number
+  nbf                           number
+  prod                          array<string>
+  slug                          string
+  status                        number
+  sub                           string
+  tok_exp_warn_days             number
+  trial                         boolean
+  trial_exp                     number
+  update_days                   number
+  usage_billing                 boolean
+
 ```
 gf licensing get-license-token [flags]
 ```

@@ -2,6 +2,16 @@
 
 Lists search sorting options
 
+### Synopsis
+
+Lists search sorting options
+
+Response schema (ListSortOptionsOK.Payload):
+  description  string
+  displayName  string
+  meta         string
+  name         string
+
 ```
 gf search list-sort-options [flags]
 ```

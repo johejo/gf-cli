@@ -8,6 +8,9 @@ Stars a dashboard
 
 Stars the given Dashboard for the actual user.
 
+Response schema (StarDashboardByUIDOK.Payload):
+  message  string
+
 ```
 gf signed-in-user star-dashboard-by-uid [flags]
 ```

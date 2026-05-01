@@ -3,6 +3,7 @@ package main
 import (
 	"go/parser"
 	"go/token"
+	"strings"
 	"testing"
 )
 
@@ -189,12 +190,10 @@ func TestActionLongParts(t *testing.T) {
 func TestActionBodySchema(t *testing.T) {
 	t.Parallel()
 
-	schema := &BodySchemaInfo{
-		TypeName: "CreateTeamCommand",
-		Fields: []*ModelField{
-			{JSONName: "name", GoType: "string", JSONType: "string"},
-		},
-	}
+	const schema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateTeamCommand"
+}`
 
 	tests := []struct {
 		name    string
@@ -207,14 +206,26 @@ func TestActionBodySchema(t *testing.T) {
 			wantHas: false,
 		},
 		{
-			name:    "body field without schema",
-			act:     &Action{BodyField: &BodyFieldInfo{}},
+			name:    "body field without JSON schema",
+			act:     &Action{BodyField: &BodyFieldInfo{ModelType: "models.CreateTeamCommand"}},
 			wantHas: false,
 		},
 		{
-			name:    "body field with schema",
-			act:     &Action{BodyField: &BodyFieldInfo{Schema: schema}},
+			name: "body field with JSON schema",
+			act: &Action{BodyField: &BodyFieldInfo{
+				ModelType:   "models.CreateTeamCommand",
+				JSONSchema:  schema,
+				Annotations: "  name                     string         REQUIRED",
+			}},
 			wantHas: true,
+		},
+		{
+			name: "body field without annotations",
+			act: &Action{BodyField: &BodyFieldInfo{
+				ModelType:  "models.CreateTeamCommand",
+				JSONSchema: schema,
+			}},
+			wantHas: false,
 		},
 	}
 
@@ -229,6 +240,95 @@ func TestActionBodySchema(t *testing.T) {
 			if !tt.wantHas && got != "" {
 				t.Fatalf("actionBodySchema() = %q, want empty", got)
 			}
+			if tt.wantHas && !strings.HasPrefix(got, "Body schema (CreateTeamCommand):\n") {
+				t.Fatalf("actionBodySchema() = %q, want header prefix 'Body schema (CreateTeamCommand):\\n'", got)
+			}
 		})
+	}
+}
+
+func TestActionResponseSchema(t *testing.T) {
+	t.Parallel()
+
+	const schema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateTeamOK.Payload"
+}`
+
+	tests := []struct {
+		name    string
+		act     *Action
+		wantHas bool
+	}{
+		{
+			name:    "no response",
+			act:     &Action{},
+			wantHas: false,
+		},
+		{
+			name:    "response without JSON schema",
+			act:     &Action{Response: &ResponseInfo{TypeName: "CreateTeamOK"}},
+			wantHas: false,
+		},
+		{
+			name: "response with JSON schema",
+			act: &Action{Response: &ResponseInfo{
+				TypeName:    "CreateTeamOK",
+				JSONSchema:  schema,
+				Annotations: "  id                       integer        REQUIRED",
+			}},
+			wantHas: true,
+		},
+		{
+			name: "response with frame advisory only",
+			act: &Action{Response: &ResponseInfo{
+				TypeName:        "CreateTeamOK",
+				JSONSchema:      schema,
+				RootDescription: "Response wire format differs from the Go type; consider --raw.",
+			}},
+			wantHas: true,
+		},
+		{
+			name: "response without annotations or advisory",
+			act: &Action{Response: &ResponseInfo{
+				TypeName:   "CreateTeamOK",
+				JSONSchema: schema,
+			}},
+			wantHas: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := actionResponseSchema(tt.act)
+			if tt.wantHas && got == "" {
+				t.Fatalf("actionResponseSchema() = empty, want non-empty")
+			}
+			if !tt.wantHas && got != "" {
+				t.Fatalf("actionResponseSchema() = %q, want empty", got)
+			}
+			if tt.wantHas && !strings.HasPrefix(got, "Response schema (CreateTeamOK.Payload):\n") {
+				t.Fatalf("actionResponseSchema() = %q, want header prefix 'Response schema (CreateTeamOK.Payload):\\n'", got)
+			}
+		})
+	}
+}
+
+func TestActionResponseSchemaCombinedLayout(t *testing.T) {
+	t.Parallel()
+
+	act := &Action{Response: &ResponseInfo{
+		TypeName:        "QueryPublicDashboardOK",
+		JSONSchema:      `{"$schema":"https://json-schema.org/draft/2020-12/schema"}`,
+		Annotations:     "  results                  map<string, object>",
+		RootDescription: "Response wire format differs from the Go type; consider --raw.",
+	}}
+	want := "Response schema (QueryPublicDashboardOK.Payload):\n" +
+		"  Note: Response wire format differs from the Go type; consider --raw.\n" +
+		"  results                  map<string, object>"
+	if got := actionResponseSchema(act); got != want {
+		t.Fatalf("actionResponseSchema() =\n%s\nwant:\n%s", got, want)
 	}
 }

@@ -2,6 +2,18 @@
 
 Gets a list of snapshots for a session
 
+### Synopsis
+
+Gets a list of snapshots for a session
+
+Response schema (GetShapshotListOK.Payload):
+  snapshots               array<object>
+  snapshots[].created     string
+  snapshots[].finished    string
+  snapshots[].sessionUid  string
+  snapshots[].status      string         enum: INITIALIZING | CREATING | PENDING_UPLOAD | UPLOADING | PENDING_PROCESSING | PROCESSING | FINISHED | CANCELED | ERROR | UNKNOWN
+  snapshots[].uid         string
+
 ```
 gf migrations get-shapshot-list [flags]
 ```

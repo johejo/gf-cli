@@ -9,110 +9,6 @@ import (
 	"strings"
 )
 
-// ParseModelSchema parses a model struct from the models/ package and extracts
-// field metadata for displaying body schema in CLI help.
-func ParseModelSchema(baseDir string, modelType string) (*BodySchemaInfo, error) {
-	typeName := strings.TrimPrefix(modelType, "models.")
-	if typeName == modelType {
-		return nil, fmt.Errorf("unsupported model type: %s", modelType)
-	}
-
-	files, err := getModelParsedFiles(baseDir)
-	if err != nil {
-		return nil, err
-	}
-
-	fields, err := parseStructFields(files, typeName, true)
-	if err != nil {
-		return nil, err
-	}
-	return &BodySchemaInfo{
-		TypeName: typeName,
-		Fields:   fields,
-	}, nil
-}
-
-// parseStructFields extracts fields from a named struct.
-// If expand is true, nested model types are expanded 1 level.
-func parseStructFields(files []*ast.File, typeName string, expand bool) ([]*ModelField, error) {
-	for _, f := range files {
-		st := findStructType(f, typeName)
-		if st == nil {
-			continue
-		}
-		return extractModelFields(files, st, expand), nil
-	}
-	return nil, fmt.Errorf("struct %s not found in models package", typeName)
-}
-
-func extractModelFields(files []*ast.File, st *ast.StructType, expand bool) []*ModelField {
-	var fields []*ModelField
-	for _, field := range st.Fields.List {
-		if len(field.Names) == 0 {
-			continue
-		}
-		name := field.Names[0].Name
-		if !ast.IsExported(name) {
-			continue
-		}
-		jsonName := extractJSONName(field)
-		if jsonName == "" || jsonName == "-" {
-			continue
-		}
-
-		mf := &ModelField{
-			JSONName:    jsonName,
-			GoType:      resolveDisplayType(field.Type),
-			IsRequired:  hasRequiredAnnotation(field.Doc),
-			EnumValues:  extractEnumValues(field.Doc),
-			Description: extractDescription(field.Doc, jsonName),
-		}
-
-		classifyField(mf, field.Type, files, expand)
-		fields = append(fields, mf)
-	}
-	return fields
-}
-
-// classifyField resolves the JSON type, array/map flags, and nested fields.
-func classifyField(mf *ModelField, expr ast.Expr, files []*ast.File, expand bool) {
-	expr = unwrapPointer(expr)
-
-	switch t := expr.(type) {
-	case *ast.Ident:
-		if jt, ok := basicTypeToJSON(t.Name); ok {
-			mf.JSONType = jt
-		} else {
-			// Model type alias or struct in same package.
-			mf.JSONType = resolveModelTypeJSON(files, t.Name, mf, expand)
-		}
-	case *ast.SelectorExpr:
-		// e.g. strfmt.DateTime, models.Foo
-		selName := t.Sel.Name
-		if pkgIdent, ok := t.X.(*ast.Ident); ok && pkgIdent.Name == "strfmt" {
-			mf.JSONType = "string"
-			return
-		}
-		mf.JSONType = resolveModelTypeJSON(files, selName, mf, expand)
-	case *ast.ArrayType:
-		mf.IsArray = true
-		inner := &ModelField{}
-		classifyField(inner, t.Elt, files, expand)
-		mf.JSONType = inner.JSONType
-		mf.NestedFields = inner.NestedFields
-	case *ast.MapType:
-		mf.IsMap = true
-		mf.JSONType = "object"
-		valField := &ModelField{}
-		classifyField(valField, t.Value, files, false)
-		mf.MapValueType = valField.JSONType
-	case *ast.InterfaceType:
-		mf.JSONType = "any"
-	default:
-		mf.JSONType = "any"
-	}
-}
-
 func unwrapPointer(expr ast.Expr) ast.Expr {
 	for {
 		star, ok := expr.(*ast.StarExpr)
@@ -121,47 +17,6 @@ func unwrapPointer(expr ast.Expr) ast.Expr {
 		}
 		expr = star.X
 	}
-}
-
-// resolveModelTypeJSON tries to resolve a models-package type name.
-// If it's a type alias for a basic type, return the JSON type.
-// If it's a struct, optionally expand its fields.
-func resolveModelTypeJSON(files []*ast.File, typeName string, mf *ModelField, expand bool) string {
-	for _, f := range files {
-		for _, decl := range f.Decls {
-			gd, ok := decl.(*ast.GenDecl)
-			if !ok {
-				continue
-			}
-			for _, spec := range gd.Specs {
-				ts, ok := spec.(*ast.TypeSpec)
-				if !ok || ts.Name.Name != typeName {
-					continue
-				}
-				switch ut := ts.Type.(type) {
-				case *ast.Ident:
-					if jt, ok := basicTypeToJSON(ut.Name); ok {
-						return jt
-					}
-				case *ast.StructType:
-					if expand {
-						mf.NestedFields = extractModelFields(files, ut, false)
-					}
-					return "object"
-				case *ast.InterfaceType:
-					return "any"
-				case *ast.ArrayType:
-					mf.IsArray = true
-					inner := &ModelField{}
-					classifyField(inner, ut.Elt, files, false)
-					mf.JSONType = inner.JSONType
-					mf.NestedFields = inner.NestedFields
-					return inner.JSONType
-				}
-			}
-		}
-	}
-	return "object"
 }
 
 func basicTypeToJSON(name string) (string, bool) {
@@ -191,25 +46,6 @@ func extractJSONName(field *ast.Field) string {
 	}
 	name, _, _ := strings.Cut(jsonTag, ",")
 	return name
-}
-
-func resolveDisplayType(expr ast.Expr) string {
-	switch t := expr.(type) {
-	case *ast.Ident:
-		return t.Name
-	case *ast.StarExpr:
-		return resolveDisplayType(t.X)
-	case *ast.ArrayType:
-		return "[]" + resolveDisplayType(t.Elt)
-	case *ast.SelectorExpr:
-		return t.Sel.Name
-	case *ast.MapType:
-		return "map[" + resolveDisplayType(t.Key) + "]" + resolveDisplayType(t.Value)
-	case *ast.InterfaceType:
-		return "object"
-	default:
-		return "any"
-	}
 }
 
 func hasRequiredAnnotation(doc *ast.CommentGroup) bool {
@@ -314,185 +150,26 @@ func extractEnumValues(doc *ast.CommentGroup) []string {
 	return nil
 }
 
-// formatBodySchema produces a JSON template + field annotations.
-func formatBodySchema(schema *BodySchemaInfo) string {
-	if schema == nil || len(schema.Fields) == 0 {
-		return ""
-	}
-	var b strings.Builder
-	fmt.Fprintf(&b, "Body schema (%s):", schema.TypeName)
-	b.WriteByte('\n')
-	writeJSONTemplate(&b, schema.Fields, 2)
-
-	// Annotations for fields with metadata (required, enum).
-	if ann := formatAnnotations(schema.Fields, ""); ann != "" {
-		b.WriteByte('\n')
-		b.WriteString(ann)
-	}
-
-	return b.String()
-}
-
-func writeJSONTemplate(b *strings.Builder, fields []*ModelField, indent int) {
-	prefix := strings.Repeat(" ", indent)
-	b.WriteString("{\n")
-	for i, f := range fields {
-		b.WriteString(prefix)
-		fmt.Fprintf(b, `"%s": `, f.JSONName)
-		writeFieldPlaceholder(b, f, indent)
-		if i < len(fields)-1 {
-			b.WriteByte(',')
-		}
-		if hint := goTypeHint(f); hint != "" {
-			b.WriteString(hint)
-		}
-		b.WriteByte('\n')
-	}
-	b.WriteString(strings.Repeat(" ", max(0, indent-2)))
-	b.WriteByte('}')
-}
-
-// goTypeHint returns a trailing "  // models.X" comment for fields that render
-// as an opaque "any" or "object" token in the pseudo-JSON schema block. The Go
-// type name is preserved in ModelField.GoType but otherwise hidden by the
-// JSON-type collapse, leaving the user with no handle to look the type up.
-// Returns "" when the rendered placeholder is already self-describing (nested
-// struct expansion, map with inline value type) or when GoType adds no info
-// (primitive, literally "object"/"any").
-func goTypeHint(f *ModelField) string {
-	if f == nil || f.IsMap || len(f.NestedFields) > 0 {
-		return ""
-	}
-	if f.JSONType != "any" && f.JSONType != "object" {
-		return ""
-	}
-	if f.GoType == "" {
-		return ""
-	}
-	bare := f.GoType
-	depth := 0
-	for strings.HasPrefix(bare, "[]") {
-		bare = bare[2:]
-		depth++
-	}
-	if _, ok := basicTypeToJSON(bare); ok {
-		return ""
-	}
-	if bare == "object" || bare == "any" {
-		return ""
-	}
-	return "  // " + strings.Repeat("[]", depth) + "models." + bare
-}
-
-func writeFieldPlaceholder(b *strings.Builder, f *ModelField, indent int) {
-	if f.IsMap {
-		vt := f.MapValueType
-		if vt == "" {
-			vt = "any"
-		}
-		fmt.Fprintf(b, `{"key": %s}`, vt)
-		return
-	}
-
-	if f.IsArray && len(f.NestedFields) > 0 {
-		b.WriteString("[\n")
-		b.WriteString(strings.Repeat(" ", indent+2))
-		writeJSONTemplate(b, f.NestedFields, indent+4)
-		b.WriteByte('\n')
-		b.WriteString(strings.Repeat(" ", indent))
-		b.WriteByte(']')
-		return
-	}
-
-	if f.IsArray {
-		fmt.Fprintf(b, "[%s]", f.JSONType)
-		return
-	}
-
-	if len(f.NestedFields) > 0 {
-		writeJSONTemplate(b, f.NestedFields, indent+2)
-		return
-	}
-
-	b.WriteString(f.JSONType)
-}
-
-// annotationKeyWidth is the min-width of the key column on the first line of
-// each field's annotation. annotationFirstLineFormat and the continuation
-// indent are both derived from it so they stay in sync.
-const annotationKeyWidth = 24
-
-var (
-	annotationFirstLineFormat    = fmt.Sprintf("  %%-%ds %%s", annotationKeyWidth)
-	annotationContinuationIndent = strings.Repeat(" ", len("  ")+annotationKeyWidth+len(" "))
-)
-
-func formatAnnotations(fields []*ModelField, prefix string) string {
-	var lines []string
-	for _, f := range fields {
-		key := prefix + f.JSONName
-		var descParts []string
-		if f.Description != "" {
-			descParts = append(descParts, f.Description)
-		}
-		if len(f.EnumValues) > 0 {
-			descParts = append(descParts, "enum: "+strings.Join(f.EnumValues, " | "))
-		}
-		desc := strings.Join(descParts, ", ")
-
-		switch {
-		case f.IsRequired:
-			lines = append(lines, fmt.Sprintf(annotationFirstLineFormat, key, "REQUIRED"))
-			if desc != "" {
-				for cont := range strings.SplitSeq(desc, "\n") {
-					lines = append(lines, annotationContinuationIndent+cont)
-				}
-			}
-		case desc != "":
-			first := true
-			for line := range strings.SplitSeq(desc, "\n") {
-				if first {
-					lines = append(lines, fmt.Sprintf(annotationFirstLineFormat, key, line))
-					first = false
-					continue
-				}
-				lines = append(lines, annotationContinuationIndent+line)
-			}
-		}
-		// Recurse into nested fields for annotations.
-		if len(f.NestedFields) > 0 {
-			nestedPrefix := key
-			if f.IsArray {
-				nestedPrefix += "[]"
-			}
-			if ann := formatAnnotations(f.NestedFields, nestedPrefix+"."); ann != "" {
-				lines = append(lines, ann)
-			}
-		}
-	}
-	if len(lines) == 0 {
-		return ""
-	}
-	return strings.Join(lines, "\n")
-}
-
 // BuildJSONSchemaFromExpr returns a pretty-printed JSON Schema (draft 2020-12)
 // document describing an arbitrary Go type expression from the upstream client's
-// response package (e.g. *models.TeamDTO, []*models.TeamMemberDTO, map[string]any).
-// Used for response Payload fields, where the declared type is not always a
-// named struct in the models/ package.
+// response package (e.g. *models.TeamDTO, []*models.TeamMemberDTO, map[string]any),
+// along with a typed field table covering the same fields and the schema's
+// top-level description. Used for response Payload fields, where the declared
+// type is not always a named struct in the models/ package.
 //
-// When frameNote is true, a description field is added warning that the
-// response wire format differs from the Go type (models.Frame mismatch).
-func BuildJSONSchemaFromExpr(baseDir string, expr ast.Expr, title string, frameNote bool) (string, error) {
+// When frameNote is true, the schema's top-level description carries a warning
+// that the response wire format differs from the Go type (models.Frame mismatch);
+// the same string is returned separately so callers can surface it above the
+// field table without parsing the schema.
+func BuildJSONSchemaFromExpr(baseDir string, expr ast.Expr, title string, frameNote bool) (jsonSchema, annotations, rootDesc string, err error) {
 	files, err := getModelParsedFiles(baseDir)
 	if err != nil {
-		return "", err
+		return "", "", "", err
 	}
 	b := &jsonSchemaBuilder{files: files, visited: map[string]bool{}}
 	inner := b.fieldSchema(expr)
 	if inner == nil {
-		return "", fmt.Errorf("empty schema for %s", title)
+		return "", "", "", fmt.Errorf("empty schema for %s", title)
 	}
 	top := newOrderedObj()
 	top.set("$schema", "https://json-schema.org/draft/2020-12/schema")
@@ -507,28 +184,30 @@ func BuildJSONSchemaFromExpr(baseDir string, expr ast.Expr, title string, frameN
 	}
 	out, err := json.MarshalIndent(top, "", "  ")
 	if err != nil {
-		return "", err
+		return "", "", "", err
 	}
-	return string(out), nil
+	return string(out), annotationsFromSchema(top), rootDescription(top), nil
 }
 
 // BuildBodyJSONSchema returns a pretty-printed JSON Schema (draft 2020-12)
-// document describing the body struct referenced by modelType (e.g. "models.CreateTeamCommand").
-// The schema is derived by walking the Go AST of the models package with full-depth
-// recursion; self-referencing types are broken off with an opaque {"type": "object"}.
-func BuildBodyJSONSchema(baseDir string, modelType string) (string, error) {
+// document describing the body struct referenced by modelType (e.g.
+// "models.CreateTeamCommand"), along with a "REQUIRED / description / enum"
+// annotation table covering the same fields. The schema is derived by walking
+// the Go AST of the models package with full-depth recursion; self-referencing
+// types are broken off with an opaque {"type": "object"}.
+func BuildBodyJSONSchema(baseDir string, modelType string) (string, string, error) {
 	typeName := strings.TrimPrefix(modelType, "models.")
 	if typeName == modelType {
-		return "", fmt.Errorf("unsupported model type: %s", modelType)
+		return "", "", fmt.Errorf("unsupported model type: %s", modelType)
 	}
 	files, err := getModelParsedFiles(baseDir)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 	b := &jsonSchemaBuilder{files: files, visited: map[string]bool{}}
 	inner := b.structSchema(typeName)
 	if inner == nil {
-		return "", fmt.Errorf("struct %s not found in models package", typeName)
+		return "", "", fmt.Errorf("struct %s not found in models package", typeName)
 	}
 	top := newOrderedObj()
 	top.set("$schema", "https://json-schema.org/draft/2020-12/schema")
@@ -538,9 +217,213 @@ func BuildBodyJSONSchema(baseDir string, modelType string) (string, error) {
 	}
 	out, err := json.MarshalIndent(top, "", "  ")
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
-	return string(out), nil
+	return string(out), annotationsFromSchema(top), nil
+}
+
+// fieldRow buffers the data for a single property before width computation.
+// The walker collects rows in source order; annotationsFromSchema then sizes
+// the path and type columns to the longest values within the table.
+type fieldRow struct {
+	path     string
+	typ      string
+	required bool
+	desc     string // description joined with ", enum: ..." when both are present
+}
+
+// annotationsFromSchema walks an already-built JSON Schema object and emits a
+// scannable left-aligned table listing every property with its type and, when
+// present, REQUIRED / description / enum metadata. The walker recurses into
+// nested objects (joined with ".") and arrays of objects (parent path suffixed
+// with "[]"), but does not recurse into maps — the parent row already carries
+// "map<...>" so children would be redundant. Path and type column widths are
+// computed per-table from the longest entries (mirroring how cobra/pflag sizes
+// flag-help columns), so short tables stay tight and long paths don't overflow.
+func annotationsFromSchema(schema *orderedObj) string {
+	var rows []fieldRow
+	walkSchemaAnnotations(&rows, schema, "")
+	if len(rows) == 0 {
+		return ""
+	}
+	pathW, typeW := 0, 0
+	for _, r := range rows {
+		if len(r.path) > pathW {
+			pathW = len(r.path)
+		}
+		if len(r.typ) > typeW {
+			typeW = len(r.typ)
+		}
+	}
+	cont := strings.Repeat(" ", len("  ")+pathW+len("  ")+typeW+len("  "))
+	var lines []string
+	for _, r := range rows {
+		appendRowLines(&lines, r, pathW, typeW, cont)
+	}
+	return strings.Join(lines, "\n")
+}
+
+// rootDescription returns the schema's top-level "description" field, or "".
+// Used to surface the response Frame-mismatch advisory above the field table
+// without baking it into the table itself.
+func rootDescription(schema *orderedObj) string {
+	if schema == nil {
+		return ""
+	}
+	if v, ok := schema.values["description"].(string); ok {
+		return v
+	}
+	return ""
+}
+
+func walkSchemaAnnotations(rows *[]fieldRow, schema *orderedObj, prefix string) {
+	if schema == nil {
+		return
+	}
+	propsAny, ok := schema.values["properties"]
+	if !ok {
+		return
+	}
+	props, ok := propsAny.(*orderedObj)
+	if !ok {
+		return
+	}
+	required := requiredSet(schema)
+	for _, name := range props.keys {
+		prop, ok := props.values[name].(*orderedObj)
+		if !ok {
+			continue
+		}
+		path := prefix + name
+		*rows = append(*rows, collectFieldRow(path, prop, required[name]))
+		// Recurse into a nested object schema.
+		if _, ok := prop.values["properties"]; ok {
+			walkSchemaAnnotations(rows, prop, path+".")
+			continue
+		}
+		// Recurse into an array whose items are an object schema.
+		if itemsAny, ok := prop.values["items"]; ok {
+			if items, ok := itemsAny.(*orderedObj); ok {
+				if _, ok := items.values["properties"]; ok {
+					walkSchemaAnnotations(rows, items, path+"[].")
+				}
+			}
+		}
+	}
+}
+
+// renderType returns a short type label for a property schema, used in the
+// table's type column. Composite shapes are flattened so the column width
+// stays bounded: arrays as "array<inner>", maps as "map<string, value>", and
+// nested object structs as plain "object" (their children appear as their own
+// rows). Unknown shapes fall back to "object".
+func renderType(prop *orderedObj) string {
+	if prop == nil {
+		return "object"
+	}
+	t, _ := prop.values["type"].(string)
+	switch t {
+	case "string", "number", "boolean":
+		return t
+	case "array":
+		if itemsAny, ok := prop.values["items"]; ok {
+			if items, ok := itemsAny.(*orderedObj); ok {
+				return "array<" + renderType(items) + ">"
+			}
+		}
+		return "array"
+	case "object":
+		if addAny, ok := prop.values["additionalProperties"]; ok {
+			if add, ok := addAny.(*orderedObj); ok {
+				return "map<string, " + renderType(add) + ">"
+			}
+			return "map<string, object>"
+		}
+		return "object"
+	}
+	return "object"
+}
+
+func requiredSet(schema *orderedObj) map[string]bool {
+	out := map[string]bool{}
+	reqAny, ok := schema.values["required"]
+	if !ok {
+		return out
+	}
+	reqs, ok := reqAny.([]any)
+	if !ok {
+		return out
+	}
+	for _, r := range reqs {
+		if s, ok := r.(string); ok {
+			out[s] = true
+		}
+	}
+	return out
+}
+
+func collectFieldRow(path string, prop *orderedObj, required bool) fieldRow {
+	var descParts []string
+	if descAny, ok := prop.values["description"]; ok {
+		if s, ok := descAny.(string); ok && s != "" {
+			descParts = append(descParts, s)
+		}
+	}
+	if enumAny, ok := prop.values["enum"]; ok {
+		if vals, ok := enumAny.([]any); ok && len(vals) > 0 {
+			ss := make([]string, 0, len(vals))
+			for _, v := range vals {
+				if s, ok := v.(string); ok {
+					ss = append(ss, s)
+				}
+			}
+			if len(ss) > 0 {
+				descParts = append(descParts, "enum: "+strings.Join(ss, " | "))
+			}
+		}
+	}
+	return fieldRow{
+		path:     path,
+		typ:      renderType(prop),
+		required: required,
+		desc:     strings.Join(descParts, ", "),
+	}
+}
+
+func appendRowLines(lines *[]string, r fieldRow, pathW, typeW int, cont string) {
+	switch {
+	case r.required:
+		*lines = append(*lines, formatRow(r.path, r.typ, "REQUIRED", pathW, typeW))
+		if r.desc != "" {
+			for c := range strings.SplitSeq(r.desc, "\n") {
+				*lines = append(*lines, cont+c)
+			}
+		}
+	case r.desc != "":
+		first := true
+		for line := range strings.SplitSeq(r.desc, "\n") {
+			if first {
+				*lines = append(*lines, formatRow(r.path, r.typ, line, pathW, typeW))
+				first = false
+				continue
+			}
+			*lines = append(*lines, cont+line)
+		}
+	default:
+		*lines = append(*lines, formatRow(r.path, r.typ, "", pathW, typeW))
+	}
+}
+
+// formatRow lays out a single field row. Columns are separated by two spaces
+// so the boundary stays visible even when path is at the table's max width.
+// The metadata cell is omitted entirely when empty so plain rows do not carry
+// trailing whitespace; pathW/typeW pad the path and type columns so all rows
+// in the same table align.
+func formatRow(path, typ, meta string, pathW, typeW int) string {
+	if meta == "" {
+		return fmt.Sprintf("  %-*s  %s", pathW, path, typ)
+	}
+	return fmt.Sprintf("  %-*s  %-*s  %s", pathW, path, typeW, typ, meta)
 }
 
 type jsonSchemaBuilder struct {

@@ -2,6 +2,13 @@
 
 Deletes removes the rule from the registry and stops it
 
+### Synopsis
+
+Deletes removes the rule from the registry and stops it
+
+Response schema (DeleteRecordingRuleOK.Payload):
+  message  string
+
 ```
 gf recording-rules delete-recording-rule [flags]
 ```

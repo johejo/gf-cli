@@ -12,6 +12,25 @@ gf-teams-search-teams - Teams search with paging
 .SH DESCRIPTION
 Teams search with paging
 
+.PP
+Response schema (SearchTeamsOK.Payload):
+  page                   number
+  perPage                number
+  teams                  array
+  teams[].accessControl  map
+  teams[].avatarUrl      string
+  teams[].email          string
+  teams[].externalUID    string
+  teams[].id             number                REQUIRED
+                                               @deprecated Use UID instead
+  teams[].isProvisioned  boolean               REQUIRED
+  teams[].memberCount    number                REQUIRED
+  teams[].name           string                REQUIRED
+  teams[].orgId          number                REQUIRED
+  teams[].permission     number
+  teams[].uid            string                REQUIRED
+  totalCount             number
+
 
 .SH OPTIONS
 \fB--accesscontrol\fP[=false]

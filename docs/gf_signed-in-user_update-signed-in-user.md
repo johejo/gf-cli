@@ -7,12 +7,13 @@ Updates signed in user
 Updates signed in user
 
 Body schema (UpdateUserCommand):
-{
-  "email": string,
-  "login": string,
-  "name": string,
-  "theme": string
-}
+  email  string
+  login  string
+  name   string
+  theme  string
+
+Response schema (UpdateSignedInUserOK.Payload):
+  message  string
 
 ```
 gf signed-in-user update-signed-in-user [flags]
@@ -21,7 +22,7 @@ gf signed-in-user update-signed-in-user [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for update-signed-in-user

@@ -12,6 +12,12 @@ gf-convert-prometheus-convert-prometheus-cortex-delete-rule-group - Deletes a sp
 .SH DESCRIPTION
 Deletes a specific rule group if it was imported from a prometheus compatible source
 
+.PP
+Response schema (ConvertPrometheusCortexDeleteRuleGroupAccepted.Payload):
+  error      string
+  errorType  string
+  status     string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

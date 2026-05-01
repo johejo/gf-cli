@@ -11,11 +11,11 @@ Adds a global user to the current organization.
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.
 
 Body schema (AddOrgUserCommand):
-{
-  "loginOrEmail": string,
-  "role": string
-}
-  role                     enum: None | Viewer | Editor | Admin
+  loginOrEmail  string
+  role          string  enum: None | Viewer | Editor | Admin
+
+Response schema (AddOrgUserToCurrentOrgOK.Payload):
+  message  string
 
 ```
 gf org add-org-user-to-current-org [flags]
@@ -24,7 +24,7 @@ gf org add-org-user-to-current-org [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for add-org-user-to-current-org

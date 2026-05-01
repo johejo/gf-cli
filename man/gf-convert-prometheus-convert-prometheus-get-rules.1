@@ -12,6 +12,10 @@ gf-convert-prometheus-convert-prometheus-get-rules - Gets all grafana managed al
 .SH DESCRIPTION
 Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace
 
+.PP
+Response schema (ConvertPrometheusGetRulesOK.Payload):
+  Body  map>  in: body
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

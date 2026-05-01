@@ -12,6 +12,15 @@ gf-migrations-get-cloud-migration-token - Fetches the cloud migration token if i
 .SH DESCRIPTION
 Fetches the cloud migration token if it exists
 
+.PP
+Response schema (GetCloudMigrationTokenOK.Payload):
+  createdAt    string
+  displayName  string
+  expiresAt    string
+  firstUsedAt  string
+  id           string
+  lastUsedAt   string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

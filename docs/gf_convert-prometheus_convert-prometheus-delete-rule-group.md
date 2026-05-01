@@ -2,6 +2,15 @@
 
 Deletes a specific rule group if it was imported from a prometheus compatible source
 
+### Synopsis
+
+Deletes a specific rule group if it was imported from a prometheus compatible source
+
+Response schema (ConvertPrometheusDeleteRuleGroupAccepted.Payload):
+  error      string
+  errorType  string
+  status     string
+
 ```
 gf convert-prometheus convert-prometheus-delete-rule-group [flags]
 ```

@@ -18,14 +18,19 @@ Only works if users.allow_org_create
 
 .PP
 Body schema (CreateOrgCommand):
-{
-  "name": string
-}
+  name  string
+
+.PP
+Response schema (CreateOrgOK.Payload):
+  message  string  REQUIRED
+                   Message Message of the created org.
+  orgId    number  REQUIRED
+                   ID Identifier of the created org.
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

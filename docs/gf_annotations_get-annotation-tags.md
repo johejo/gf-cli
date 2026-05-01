@@ -8,6 +8,12 @@ Finds annotations tags
 
 Find all the event tags created in the annotations.
 
+Response schema (GetAnnotationTagsOK.Payload):
+  result               object
+  result.tags          array<object>
+  result.tags[].count  number
+  result.tags[].tag    string
+
 ```
 gf annotations get-annotation-tags [flags]
 ```

@@ -2,6 +2,15 @@
 
 Deletes all rule groups that were imported from prometheus compatible sources within the specified namespace
 
+### Synopsis
+
+Deletes all rule groups that were imported from prometheus compatible sources within the specified namespace
+
+Response schema (ConvertPrometheusDeleteNamespaceAccepted.Payload):
+  error      string
+  errorType  string
+  status     string
+
 ```
 gf convert-prometheus convert-prometheus-delete-namespace [flags]
 ```

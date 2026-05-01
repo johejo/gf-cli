@@ -7,41 +7,24 @@ Sets the notification policy tree
 Sets the notification policy tree
 
 Body schema (Route):
-{
-  "active_time_intervals": [string],
-  "continue": boolean,
-  "group_by": [string],
-  "group_interval": string,
-  "group_wait": string,
-  "match": {"key": string},
-  "match_re": object,  // models.MatchRegexps
-  "matchers": [object],  // models.Matchers
-  "mute_time_intervals": [string],
-  "object_matchers": [string],
-  "provenance": string,
-  "receiver": string,
-  "repeat_interval": string,
-  "routes": [
-    {
-      "active_time_intervals": [string],
-      "continue": boolean,
-      "group_by": [string],
-      "group_interval": string,
-      "group_wait": string,
-      "match": {"key": string},
-      "match_re": object,  // models.MatchRegexps
-      "matchers": [object],  // models.Matchers
-      "mute_time_intervals": [string],
-      "object_matchers": [string],
-      "provenance": string,
-      "receiver": string,
-      "repeat_interval": string,
-      "routes": [object]  // []models.Route
-    }
-  ]
-}
-  match                    Deprecated. Remove before v1.0 release.
-  routes[].match           Deprecated. Remove before v1.0 release.
+  active_time_intervals  array<string>
+  continue               boolean
+  group_by               array<string>
+  group_interval         string
+  group_wait             string
+  match                  map<string, string>   Deprecated. Remove before v1.0 release.
+  match_re               map<string, string>
+  matchers               array<object>
+  matchers[].isEqual     boolean
+  matchers[].isRegex     boolean               REQUIRED
+  matchers[].name        string                REQUIRED
+  matchers[].value       string                REQUIRED
+  mute_time_intervals    array<string>
+  object_matchers        array<array<string>>
+  provenance             string
+  receiver               string
+  repeat_interval        string
+  routes                 array<object>
 
 ```
 gf provisioning put-policy-tree [flags]
@@ -50,7 +33,7 @@ gf provisioning put-policy-tree [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for put-policy-tree

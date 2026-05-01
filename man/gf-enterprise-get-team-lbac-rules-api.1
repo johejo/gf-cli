@@ -12,6 +12,13 @@ gf-enterprise-get-team-lbac-rules-api - Retrieves l b a c rules for a team
 .SH DESCRIPTION
 Retrieves l b a c rules for a team
 
+.PP
+Response schema (GetTeamLBACRulesAPIOK.Payload):
+  rules            array
+  rules[].rules    array
+  rules[].teamId   string
+  rules[].teamUid  string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

@@ -9,10 +9,11 @@ Updates user quota
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.quotas:update` and scope `global.users:1` (userIDScope).
 
 Body schema (UpdateQuotaCmd):
-{
-  "limit": number,
-  "target": string
-}
+  limit   number
+  target  string
+
+Response schema (UpdateUserQuotaOK.Payload):
+  message  string
 
 ```
 gf quota update-user-quota [flags]
@@ -21,7 +22,7 @@ gf quota update-user-quota [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for update-user-quota

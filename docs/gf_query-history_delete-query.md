@@ -8,6 +8,10 @@ Deletes query in query history
 
 Deletes an existing query in query history as specified by the UID. This operation cannot be reverted.
 
+Response schema (DeleteQueryOK.Payload):
+  id       number
+  message  string
+
 ```
 gf query-history delete-query [flags]
 ```

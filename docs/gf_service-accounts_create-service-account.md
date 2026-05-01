@@ -11,12 +11,22 @@ Required permissions (See note in the [introduction](https://grafana.com/docs/gr
 Requires basic authentication and that the authenticated user is a Grafana Admin.
 
 Body schema (CreateServiceAccountForm):
-{
-  "isDisabled": boolean,
-  "name": string,
-  "role": string
-}
-  role                     enum: None | Viewer | Editor | Admin
+  isDisabled  boolean
+  name        string
+  role        string   enum: None | Viewer | Editor | Admin
+
+Response schema (CreateServiceAccountCreated.Payload):
+  accessControl  map<string, boolean>
+  avatarUrl      string
+  id             number
+  isDisabled     boolean
+  isExternal     boolean
+  login          string
+  name           string
+  orgId          number
+  role           string
+  tokens         number
+  uid            string
 
 ```
 gf service-accounts create-service-account [flags]
@@ -25,7 +35,7 @@ gf service-accounts create-service-account [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for create-service-account

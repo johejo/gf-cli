@@ -8,6 +8,9 @@ Deletes global user
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:delete` and scope `global.users:*`.
 
+Response schema (AdminDeleteUserOK.Payload):
+  message  string
+
 ```
 gf admin-users admin-delete-user [flags]
 ```

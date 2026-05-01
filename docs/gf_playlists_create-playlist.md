@@ -7,20 +7,21 @@ Creates playlist
 Creates playlist
 
 Body schema (CreatePlaylistCommand):
-{
-  "interval": string,
-  "items": [
-    {
-      "Id": number,
-      "PlaylistId": number,
-      "order": number,
-      "title": string,
-      "type": string,
-      "value": string
-    }
-  ],
-  "name": string
-}
+  interval            string
+  items               array<object>
+  items[].Id          number
+  items[].PlaylistId  number
+  items[].order       number
+  items[].title       string
+  items[].type        string
+  items[].value       string
+  name                string
+
+Response schema (CreatePlaylistOK.Payload):
+  id        number
+  interval  string
+  name      string
+  uid       string
 
 ```
 gf playlists create-playlist [flags]
@@ -29,7 +30,7 @@ gf playlists create-playlist [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for create-playlist

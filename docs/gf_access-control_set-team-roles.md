@@ -9,10 +9,11 @@ Updates team role
 You need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate` for each.
 
 Body schema (SetTeamRolesCommand):
-{
-  "includeHidden": boolean,
-  "roleUids": [string]
-}
+  includeHidden  boolean
+  roleUids       array<string>
+
+Response schema (SetTeamRolesOK.Payload):
+  message  string
 
 ```
 gf access-control set-team-roles [flags]
@@ -21,7 +22,7 @@ gf access-control set-team-roles [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for set-team-roles

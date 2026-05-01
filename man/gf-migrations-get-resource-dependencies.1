@@ -12,6 +12,12 @@ gf-migrations-get-resource-dependencies - Gets the resource dependencies graph f
 .SH DESCRIPTION
 Gets the resource dependencies graph for the current set of migratable resources
 
+.PP
+Response schema (GetResourceDependenciesOK.Payload):
+  resourceDependencies                 array
+  resourceDependencies[].dependencies  array
+  resourceDependencies[].resourceType  string         enum: DASHBOARD | DATASOURCE | FOLDER | LIBRARY_ELEMENT | ALERT_RULE | ALERT_RULE_GROUP | CONTACT_POINT | NOTIFICATION_POLICY | NOTIFICATION_TEMPLATE | MUTE_TIMING | PLUGIN
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

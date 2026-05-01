@@ -17,31 +17,43 @@ You need to have a permission with action \fBroles:write\fR and scope \fBpermiss
 
 .PP
 Body schema (UpdateRoleCommand):
-{
-  "description": string,
-  "displayName": string,
-  "global": boolean,
-  "group": string,
-  "hidden": boolean,
-  "name": string,
-  "permissions": [
-    {
-      "action": string,
-      "created": string,
-      "scope": string,
-      "updated": string
-    }
-  ],
-  "version": number
-}
-  description              REQUIRED
-  displayName              REQUIRED
-  group                    REQUIRED
+  description            string         REQUIRED
+  displayName            string         REQUIRED
+  global                 boolean
+  group                  string         REQUIRED
+  hidden                 boolean
+  name                   string
+  permissions            array
+  permissions[].action   string
+  permissions[].created  string
+  permissions[].scope    string
+  permissions[].updated  string
+  version                number
+
+.PP
+Response schema (UpdateRoleOK.Payload):
+  created                string         REQUIRED
+  delegatable            boolean
+  description            string         REQUIRED
+  displayName            string         REQUIRED
+  global                 boolean
+  group                  string         REQUIRED
+  hidden                 boolean
+  mapped                 boolean
+  name                   string         REQUIRED
+  permissions            array
+  permissions[].action   string
+  permissions[].created  string
+  permissions[].scope    string
+  permissions[].updated  string
+  uid                    string         REQUIRED
+  updated                string         REQUIRED
+  version                number         REQUIRED
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

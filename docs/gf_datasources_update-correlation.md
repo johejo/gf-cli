@@ -7,21 +7,40 @@ Updates a correlation
 Updates a correlation
 
 Body schema (UpdateCorrelationCommand):
-{
-  "config": {
-    "field": string,
-    "target": any,
-    "transformations": [object]  // []models.Transformation
-  },
-  "description": string,
-  "label": string,
-  "type": string
-}
-  config.field             Field used to attach the correlation link
-  config.target            Target data query
-  config.transformations   Source data transformations
-  description              Optional description of the correlation
-  label                    Optional label identifying the correlation
+  config                               object
+  config.field                         string         Field used to attach the correlation link
+  config.target                        object         Target data query
+  config.transformations               array<object>  Source data transformations
+  config.transformations[].expression  string
+  config.transformations[].field       string
+  config.transformations[].mapValue    string
+  config.transformations[].type        string         enum: regex | logfmt
+  description                          string         Optional description of the correlation
+  label                                string         Optional label identifying the correlation
+  type                                 string
+
+Response schema (UpdateCorrelationOK.Payload):
+  message                                     string
+  result                                      object
+  result.config                               object
+  result.config.field                         string         REQUIRED
+                                                             Field used to attach the correlation link
+  result.config.target                        object         REQUIRED
+                                                             Target data query
+  result.config.transformations               array<object>
+  result.config.transformations[].expression  string
+  result.config.transformations[].field       string
+  result.config.transformations[].mapValue    string
+  result.config.transformations[].type        string         enum: regex | logfmt
+  result.config.type                          string
+  result.description                          string         Description of the correlation
+  result.label                                string         Label identifying the correlation
+  result.orgId                                number         OrgID of the data source the correlation originates from
+  result.provisioned                          boolean        Provisioned True if the correlation was created during provisioning
+  result.sourceUID                            string         UID of the data source the correlation originates from
+  result.targetUID                            string         UID of the data source the correlation points to
+  result.type                                 string
+  result.uid                                  string         Unique identifier of the correlation
 
 ```
 gf datasources update-correlation [flags]
@@ -30,7 +49,7 @@ gf datasources update-correlation [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --correlation-uid string         CorrelationUID
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API

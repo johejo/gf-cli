@@ -12,6 +12,12 @@ gf-convert-prometheus-convert-prometheus-post-rule-groups - Converts the submitt
 .SH DESCRIPTION
 Converts the submitted rule groups into grafana managed rules
 
+.PP
+Response schema (ConvertPrometheusPostRuleGroupsAccepted.Payload):
+  error      string
+  errorType  string
+  status     string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

@@ -8,6 +8,12 @@ Refreshes license stats
 
 You need to have a permission with action `licensing:read`.
 
+Response schema (RefreshLicenseStatsOK.Payload):
+  active_admins_and_editors  number
+  active_anonymous_devices   number
+  active_users               number
+  active_viewers             number
+
 ```
 gf licensing refresh-license-stats [flags]
 ```

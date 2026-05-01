@@ -2,6 +2,30 @@
 
 Gets user by login or email
 
+### Synopsis
+
+Gets user by login or email
+
+Response schema (GetUserByLoginOrEmailOK.Payload):
+  accessControl                   map<string, boolean>
+  authLabels                      array<string>
+  avatarUrl                       string
+  createdAt                       string
+  email                           string
+  id                              number
+  isDisabled                      boolean
+  isExternal                      boolean
+  isExternallySynced              boolean
+  isGrafanaAdmin                  boolean
+  isGrafanaAdminExternallySynced  boolean
+  isProvisioned                   boolean
+  login                           string
+  name                            string
+  orgId                           number
+  theme                           string
+  uid                             string
+  updatedAt                       string
+
 ```
 gf users get-user-by-login-or-email [flags]
 ```

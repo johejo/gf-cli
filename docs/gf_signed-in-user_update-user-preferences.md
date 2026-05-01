@@ -9,25 +9,21 @@ Updates user preferences
 Omitting a key (`theme`, `homeDashboardUID`, `timezone`) will cause the current value to be replaced with the system default value.
 
 Body schema (UpdatePrefsCmd):
-{
-  "cookies": [string],
-  "homeDashboardId": number,
-  "homeDashboardUID": string,
-  "language": string,
-  "navbar": {
-    "bookmarkUrls": [string]
-  },
-  "queryHistory": {
-    "homeTab": string
-  },
-  "regionalFormat": string,
-  "theme": string,
-  "timezone": string,
-  "weekStart": string
-}
-  homeDashboardId          The numerical :id of a favorited dashboard
-  theme                    enum: light | dark | system
-  timezone                 enum: utc | browser
+  cookies               array<string>
+  homeDashboardId       number         The numerical :id of a favorited dashboard
+  homeDashboardUID      string
+  language              string
+  navbar                object
+  navbar.bookmarkUrls   array<string>
+  queryHistory          object
+  queryHistory.homeTab  string
+  regionalFormat        string
+  theme                 string         enum: light | dark | system
+  timezone              string         enum: utc | browser
+  weekStart             string
+
+Response schema (UpdateUserPreferencesOK.Payload):
+  message  string
 
 ```
 gf signed-in-user update-user-preferences [flags]
@@ -36,7 +32,7 @@ gf signed-in-user update-user-preferences [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for update-user-preferences

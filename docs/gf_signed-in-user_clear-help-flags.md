@@ -2,6 +2,14 @@
 
 Clears user help flag
 
+### Synopsis
+
+Clears user help flag
+
+Response schema (ClearHelpFlagsOK.Payload):
+  helpFlags1  number
+  message     string
+
 ```
 gf signed-in-user clear-help-flags [flags]
 ```

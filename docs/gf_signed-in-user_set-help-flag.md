@@ -2,6 +2,14 @@
 
 Sets user help flag
 
+### Synopsis
+
+Sets user help flag
+
+Response schema (SetHelpFlagOK.Payload):
+  helpFlags1  number
+  message     string
+
 ```
 gf signed-in-user set-help-flag [flags]
 ```

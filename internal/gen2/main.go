@@ -90,11 +90,13 @@ func main() {
 					act.Response.ContainsFrame = resp.ContainsFrame
 					if resp.HasPayload && resp.PayloadExpr != nil {
 						title := m.ReturnTypeName + ".Payload"
-						jsonSchema, err := BuildJSONSchemaFromExpr(baseDir, resp.PayloadExpr, title, resp.ContainsFrame)
+						jsonSchema, annotations, rootDesc, err := BuildJSONSchemaFromExpr(baseDir, resp.PayloadExpr, title, resp.ContainsFrame)
 						if err != nil {
 							log.Printf("warning: could not build response JSON Schema for %s.%s: %v", entry.PkgName, m.Name, err)
 						} else {
 							act.Response.JSONSchema = jsonSchema
+							act.Response.Annotations = annotations
+							act.Response.RootDescription = rootDesc
 						}
 					}
 				}
@@ -114,17 +116,12 @@ func main() {
 						IsInterface: pf.ModelType == "interface{}",
 					}
 					if !bfi.IsInterface && strings.HasPrefix(pf.ModelType, "models.") {
-						schema, err := ParseModelSchema(baseDir, pf.ModelType)
-						if err != nil {
-							log.Printf("warning: could not parse body schema for %s: %v", pf.ModelType, err)
-						} else {
-							bfi.Schema = schema
-						}
-						jsonSchema, err := BuildBodyJSONSchema(baseDir, pf.ModelType)
+						jsonSchema, annotations, err := BuildBodyJSONSchema(baseDir, pf.ModelType)
 						if err != nil {
 							log.Printf("warning: could not build JSON Schema for %s: %v", pf.ModelType, err)
 						} else {
 							bfi.JSONSchema = jsonSchema
+							bfi.Annotations = annotations
 						}
 					}
 					act.BodyField = bfi
@@ -163,12 +160,13 @@ func main() {
 
 	// Phase 6: Execute template
 	funcMap := template.FuncMap{
-		"flagFunc":         flagFunc,
-		"defaultValue":     defaultValue,
-		"flagHelp":         flagHelp,
-		"stringLiteral":    stringLiteral,
-		"actionLongParts":  actionLongParts,
-		"actionBodySchema": actionBodySchema,
+		"flagFunc":             flagFunc,
+		"defaultValue":         defaultValue,
+		"flagHelp":             flagHelp,
+		"stringLiteral":        stringLiteral,
+		"actionLongParts":      actionLongParts,
+		"actionBodySchema":     actionBodySchema,
+		"actionResponseSchema": actionResponseSchema,
 	}
 
 	t, err := template.New("gen").Funcs(funcMap).Parse(tmpl)
@@ -255,8 +253,7 @@ func defaultValue(typ string, fieldName string) string {
 // If doc is non-empty it takes precedence over the default.
 func flagHelp(fieldName string, doc string) string {
 	if fieldName == "Body" {
-		return `"Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). ` +
-			`The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema."` //nolint:goconst
+		return `"Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema."`
 	}
 	if doc != "" {
 		return fmt.Sprintf(`%q`, doc)
@@ -300,11 +297,41 @@ func actionLongParts(act *Action) []string {
 	return append([]string{act.Short}, longParts...)
 }
 
+// actionBodySchema returns the rendered "Body schema" help block for an action,
+// or "" when the action has no body or its body schema could not be derived.
+// The block is a header line followed by a typed field table; the strict
+// Draft 2020-12 JSON Schema is available via --describe-body-jsonschema.
 func actionBodySchema(act *Action) string {
-	if act.BodyField == nil || act.BodyField.Schema == nil {
+	if act == nil || act.BodyField == nil || act.BodyField.JSONSchema == "" {
 		return ""
 	}
-	return formatBodySchema(act.BodyField.Schema)
+	if act.BodyField.Annotations == "" {
+		return ""
+	}
+	typeName := strings.TrimPrefix(act.BodyField.ModelType, "models.")
+	return "Body schema (" + typeName + "):\n" + act.BodyField.Annotations
+}
+
+// actionResponseSchema returns the rendered "Response schema" help block for an
+// action, or "" when the response has no payload schema. The block is a header
+// line, an optional "Note:" line carrying the schema's top-level description
+// (used today only for the Frame-mismatch advisory), and a typed field table.
+// The strict JSON Schema is available via --describe-response-jsonschema.
+func actionResponseSchema(act *Action) string {
+	if act == nil || act.Response == nil || act.Response.JSONSchema == "" {
+		return ""
+	}
+	if act.Response.Annotations == "" && act.Response.RootDescription == "" {
+		return ""
+	}
+	out := "Response schema (" + act.Response.TypeName + ".Payload):"
+	if act.Response.RootDescription != "" {
+		out += "\n  Note: " + act.Response.RootDescription
+	}
+	if act.Response.Annotations != "" {
+		out += "\n" + act.Response.Annotations
+	}
+	return out
 }
 
 // helpDoc is the top-level shape of the --help-json output. It is a discovery

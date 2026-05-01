@@ -2,6 +2,16 @@
 
 Retrieves l b a c rules for a team
 
+### Synopsis
+
+Retrieves l b a c rules for a team
+
+Response schema (GetTeamLBACRulesAPIOK.Payload):
+  rules            array<object>
+  rules[].rules    array<string>
+  rules[].teamId   string
+  rules[].teamUid  string
+
 ```
 gf enterprise get-team-lbac-rules-api [flags]
 ```

@@ -8,6 +8,9 @@ Attempts to connect to all the configured LDAP servers and returns information o
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.status:read`.
 
+Response schema (GetLDAPStatusOK.Payload):
+  message  string
+
 ```
 gf admin-ldap get-ldap-status [flags]
 ```

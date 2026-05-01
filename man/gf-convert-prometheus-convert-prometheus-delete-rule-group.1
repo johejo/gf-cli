@@ -12,6 +12,12 @@ gf-convert-prometheus-convert-prometheus-delete-rule-group - Deletes a specific 
 .SH DESCRIPTION
 Deletes a specific rule group if it was imported from a prometheus compatible source
 
+.PP
+Response schema (ConvertPrometheusDeleteRuleGroupAccepted.Payload):
+  error      string
+  errorType  string
+  status     string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

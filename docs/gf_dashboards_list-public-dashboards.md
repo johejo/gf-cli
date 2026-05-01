@@ -2,6 +2,22 @@
 
 Get list of public dashboards
 
+### Synopsis
+
+Get list of public dashboards
+
+Response schema (ListPublicDashboardsOK.Payload):
+  page                             number
+  perPage                          number
+  publicDashboards                 array<object>
+  publicDashboards[].accessToken   string
+  publicDashboards[].dashboardUid  string
+  publicDashboards[].isEnabled     boolean
+  publicDashboards[].slug          string
+  publicDashboards[].title         string
+  publicDashboards[].uid           string
+  totalCount                       number
+
 ```
 gf dashboards list-public-dashboards [flags]
 ```

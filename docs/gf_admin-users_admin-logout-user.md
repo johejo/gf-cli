@@ -8,6 +8,9 @@ Logouts user revokes all auth tokens devices for the user user of issued auth to
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.logout` and scope `global.users:*`.
 
+Response schema (AdminLogoutUserOK.Payload):
+  message  string
+
 ```
 gf admin-users admin-logout-user [flags]
 ```

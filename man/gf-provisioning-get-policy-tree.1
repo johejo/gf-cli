@@ -12,6 +12,27 @@ gf-provisioning-get-policy-tree - Gets the notification policy tree
 .SH DESCRIPTION
 Gets the notification policy tree
 
+.PP
+Response schema (GetPolicyTreeOK.Payload):
+  active_time_intervals  array
+  continue               boolean
+  group_by               array
+  group_interval         string
+  group_wait             string
+  match                  map   Deprecated. Remove before v1.0 release.
+  match_re               map
+  matchers               array
+  matchers[].isEqual     boolean
+  matchers[].isRegex     boolean               REQUIRED
+  matchers[].name        string                REQUIRED
+  matchers[].value       string                REQUIRED
+  mute_time_intervals    array
+  object_matchers        array>
+  provenance             string
+  receiver               string
+  repeat_interval        string
+  routes                 array
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

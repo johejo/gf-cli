@@ -10,6 +10,9 @@ Required permissions (See note in the [introduction](https://grafana.com/docs/gr
 
 Requires basic authentication and that the authenticated user is a Grafana Admin.
 
+Response schema (DeleteTokenOK.Payload):
+  message  string
+
 ```
 gf service-accounts delete-token [flags]
 ```

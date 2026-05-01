@@ -8,6 +8,9 @@ Deletes snapshot by delete key
 
 Snapshot public mode should be enabled or authentication is required.
 
+Response schema (DeleteDashboardSnapshotByDeleteKeyOK.Payload):
+  message  string
+
 ```
 gf dashboards delete-dashboard-snapshot-by-delete-key [flags]
 ```

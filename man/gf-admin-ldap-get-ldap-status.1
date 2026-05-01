@@ -15,6 +15,10 @@ Attempts to connect to all the configured LDAP servers and returns information o
 .PP
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action \fBldap.status:read\fR\&.
 
+.PP
+Response schema (GetLDAPStatusOK.Payload):
+  message  string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

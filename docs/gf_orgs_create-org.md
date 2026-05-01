@@ -9,9 +9,13 @@ Creates organization
 Only works if [users.allow_org_create](https://grafana.com/docs/grafana/latest/administration/configuration/#allow_org_create) is set.
 
 Body schema (CreateOrgCommand):
-{
-  "name": string
-}
+  name  string
+
+Response schema (CreateOrgOK.Payload):
+  message  string  REQUIRED
+                   Message Message of the created org.
+  orgId    number  REQUIRED
+                   ID Identifier of the created org.
 
 ```
 gf orgs create-org [flags]
@@ -20,7 +24,7 @@ gf orgs create-org [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for create-org

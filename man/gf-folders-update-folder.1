@@ -14,21 +14,37 @@ Updates folder
 
 .PP
 Body schema (UpdateFolderCommand):
-{
-  "description": string,
-  "overwrite": boolean,
-  "title": string,
-  "version": number
-}
-  description              NewDescription it's an optional parameter used for overriding the existing folder description
-  overwrite                Overwrite only used by the legacy folder implementation
-  title                    NewTitle it's an optional parameter used for overriding the existing folder title
-  version                  Version only used by the legacy folder implementation
+  description  string   NewDescription it's an optional parameter used for overriding the existing folder description
+  overwrite    boolean  Overwrite only used by the legacy folder implementation
+  title        string   NewTitle it's an optional parameter used for overriding the existing folder title
+  version      number   Version only used by the legacy folder implementation
+
+.PP
+Response schema (UpdateFolderOK.Payload):
+  accessControl  map
+  canAdmin       boolean
+  canDelete      boolean
+  canEdit        boolean
+  canSave        boolean
+  created        string
+  createdBy      string
+  hasAcl         boolean
+  id             number                Deprecated: use UID instead
+  managedBy      string
+  orgId          number
+  parentUid      string                only used if nested folders are enabled
+  parents        array         the parent folders starting from the root going down
+  title          string
+  uid            string
+  updated        string
+  updatedBy      string
+  url            string
+  version        number
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

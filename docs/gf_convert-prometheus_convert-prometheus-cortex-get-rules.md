@@ -2,6 +2,13 @@
 
 Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace
 
+### Synopsis
+
+Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace
+
+Response schema (ConvertPrometheusCortexGetRulesOK.Payload):
+  Body  map<string, array<object>>  in: body
+
 ```
 gf convert-prometheus convert-prometheus-cortex-get-rules [flags]
 ```

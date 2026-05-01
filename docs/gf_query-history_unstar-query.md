@@ -8,6 +8,16 @@ Removes star to query in query history
 
 Removes star from query in query history as specified by the UID.
 
+Response schema (UnstarQueryOK.Payload):
+  result                object
+  result.comment        string
+  result.createdAt      number
+  result.createdBy      number
+  result.datasourceUid  string
+  result.queries        object
+  result.starred        boolean
+  result.uid            string
+
 ```
 gf query-history unstar-query [flags]
 ```

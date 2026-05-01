@@ -2,6 +2,23 @@
 
 Disable cache for a single data source
 
+### Synopsis
+
+Disable cache for a single data source
+
+Response schema (DisableDataSourceCacheOK.Payload):
+  created         string
+  dataSourceID    number   Fields that can be set by the API caller - read/write
+  dataSourceUID   string
+  defaultTTLMs    number   These are returned by the HTTP API, but are managed internally - read-only
+                           Note: 'created' and 'updated' are special properties managed automatically by xorm, but we are setting them manually
+  enabled         boolean
+  message         string
+  ttlQueriesMs    number   TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+  ttlResourcesMs  number
+  updated         string
+  useDefaultTTL   boolean  If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini
+
 ```
 gf enterprise disable-datasource-cache [flags]
 ```

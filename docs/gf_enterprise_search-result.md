@@ -10,6 +10,17 @@ Returns the result of the search through access-control role assignments.
 
 You need to have a permission with action `teams.roles:read` on scope `teams:*` and a permission with action `users.roles:read` on scope `users:*`.
 
+Response schema (SearchResultOK.Payload):
+  result              array<object>
+  result[].action     string
+  result[].basicRole  string
+  result[].orgId      number
+  result[].roleName   string
+  result[].scope      string
+  result[].teamId     number
+  result[].userId     number
+  result[].version    number
+
 ```
 gf enterprise search-result [flags]
 ```

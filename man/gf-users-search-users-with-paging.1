@@ -12,6 +12,25 @@ gf-users-search-users-with-paging - Gets users with paging
 .SH DESCRIPTION
 Gets users with paging
 
+.PP
+Response schema (SearchUsersWithPagingOK.Payload):
+  page                   number
+  perPage                number
+  totalCount             number
+  users                  array
+  users[].authLabels     array
+  users[].avatarUrl      string
+  users[].email          string
+  users[].id             number
+  users[].isAdmin        boolean
+  users[].isDisabled     boolean
+  users[].isProvisioned  boolean
+  users[].lastSeenAt     string
+  users[].lastSeenAtAge  string
+  users[].login          string
+  users[].name           string
+  users[].uid            string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

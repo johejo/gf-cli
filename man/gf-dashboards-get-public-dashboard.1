@@ -12,6 +12,23 @@ gf-dashboards-get-public-dashboard - Get public dashboard by dashboardUid
 .SH DESCRIPTION
 Get public dashboard by dashboardUid
 
+.PP
+Response schema (GetPublicDashboardOK.Payload):
+  accessToken             string
+  annotationsEnabled      boolean
+  createdAt               string
+  createdBy               number
+  dashboardUid            string
+  isEnabled               boolean
+  recipients              array
+  recipients[].recipient  string
+  recipients[].uid        string
+  share                   string
+  timeSelectionEnabled    boolean
+  uid                     string
+  updatedAt               string
+  updatedBy               number
+
 
 .SH OPTIONS
 \fB--dashboard-uid\fP=""

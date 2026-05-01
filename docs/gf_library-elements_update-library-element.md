@@ -9,24 +9,45 @@ Updates library element
 Updates an existing library element identified by uid.
 
 Body schema (PatchLibraryElementCommand):
-{
-  "folderId": number,
-  "folderUid": string,
-  "kind": number,
-  "model": any,
-  "name": string,
-  "uid": string,
-  "version": number
-}
-  folderId                 ID of the folder where the library element is stored.
-                           Deprecated: use FolderUID instead
-  folderUid                UID of the folder where the library element is stored.
-  kind                     Kind of element to create, Use 1 for library panels or 2 for c.
-                           Description:
-                           1 - library panels, enum: 1
-  model                    The JSON model for the library element.
-  name                     Name of the library element.
-  version                  Version of the library element you are updating.
+  folderId   number  ID of the folder where the library element is stored.
+                     Deprecated: use FolderUID instead
+  folderUid  string  UID of the folder where the library element is stored.
+  kind       number  Kind of element to create, Use 1 for library panels or 2 for c.
+                     Description:
+                     1 - library panels, enum: 1
+  model      object  The JSON model for the library element.
+  name       string  Name of the library element.
+  uid        string
+  version    number  Version of the library element you are updating.
+
+Response schema (UpdateLibraryElementOK.Payload):
+  result                           object
+  result.description               string
+  result.folderId                  number  Deprecated: use FolderUID instead
+  result.folderUid                 string
+  result.id                        number
+  result.kind                      number
+  result.meta                      object
+  result.meta.connectedDashboards  number
+  result.meta.created              string
+  result.meta.createdBy            object
+  result.meta.createdBy.avatarUrl  string
+  result.meta.createdBy.id         number
+  result.meta.createdBy.name       string
+  result.meta.folderName           string
+  result.meta.folderUid            string
+  result.meta.updated              string
+  result.meta.updatedBy            object
+  result.meta.updatedBy.avatarUrl  string
+  result.meta.updatedBy.id         number
+  result.meta.updatedBy.name       string
+  result.model                     object
+  result.name                      string
+  result.orgId                     number
+  result.schemaVersion             number
+  result.type                      string
+  result.uid                       string
+  result.version                   number
 
 ```
 gf library-elements update-library-element [flags]
@@ -35,7 +56,7 @@ gf library-elements update-library-element [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for update-library-element

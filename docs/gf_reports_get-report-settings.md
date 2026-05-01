@@ -10,6 +10,19 @@ Available to org admins only and with a valid or expired license.
 
 You need to have a permission with action `reports.settings:read`x.
 
+Response schema (GetReportSettingsOK.Payload):
+  branding                  object
+  branding.emailFooterLink  string
+  branding.emailFooterMode  string
+  branding.emailFooterText  string
+  branding.emailLogoUrl     string
+  branding.reportLogoUrl    string
+  embeddedImageTheme        string
+  id                        number
+  orgId                     number
+  pdfTheme                  string
+  userId                    number
+
 ```
 gf reports get-report-settings [flags]
 ```

@@ -9,10 +9,13 @@ Creates new token adds a token to a service account
 Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:write` scope: `serviceaccounts:id:1` (single service account)
 
 Body schema (AddServiceAccountTokenCommand):
-{
-  "name": string,
-  "secondsToLive": number
-}
+  name           string
+  secondsToLive  number
+
+Response schema (CreateTokenOK.Payload):
+  id    number
+  key   string
+  name  string
 
 ```
 gf service-accounts create-token [flags]
@@ -21,7 +24,7 @@ gf service-accounts create-token [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for create-token

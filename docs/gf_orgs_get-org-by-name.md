@@ -2,6 +2,21 @@
 
 Gets organization by name
 
+### Synopsis
+
+Gets organization by name
+
+Response schema (GetOrgByNameOK.Payload):
+  address           object
+  address.address1  string
+  address.address2  string
+  address.city      string
+  address.country   string
+  address.state     string
+  address.zipCode   string
+  id                number
+  name              string
+
 ```
 gf orgs get-org-by-name [flags]
 ```

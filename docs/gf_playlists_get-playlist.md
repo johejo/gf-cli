@@ -2,6 +2,16 @@
 
 Gets playlist
 
+### Synopsis
+
+Gets playlist
+
+Response schema (GetPlaylistOK.Payload):
+  id        number
+  interval  string
+  name      string
+  uid       string
+
 ```
 gf playlists get-playlist [flags]
 ```

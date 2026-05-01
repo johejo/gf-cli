@@ -8,6 +8,14 @@ Deletes dashboard by uid
 
 Will delete the dashboard given the specified unique identifier (uid).
 
+Response schema (DeleteDashboardByUIDOK.Payload):
+  message  string  REQUIRED
+                   Message Message of the deleted dashboard.
+  title    string  REQUIRED
+                   Title Title of the deleted dashboard.
+  uid      string  REQUIRED
+                   UID Identifier of the deleted dashboard.
+
 ```
 gf dashboards delete-dashboard-by-uid [flags]
 ```

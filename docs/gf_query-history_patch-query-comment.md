@@ -9,10 +9,17 @@ Updates comment for query in query history
 Updates comment for query in query history as specified by the UID.
 
 Body schema (PatchQueryCommentInQueryHistoryCommand):
-{
-  "comment": string
-}
-  comment                  Updated comment
+  comment  string  Updated comment
+
+Response schema (PatchQueryCommentOK.Payload):
+  result                object
+  result.comment        string
+  result.createdAt      number
+  result.createdBy      number
+  result.datasourceUid  string
+  result.queries        object
+  result.starred        boolean
+  result.uid            string
 
 ```
 gf query-history patch-query-comment [flags]
@@ -21,7 +28,7 @@ gf query-history patch-query-comment [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for patch-query-comment

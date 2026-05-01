@@ -12,6 +12,15 @@ gf-access-control-get-resource-description - Gets a description of a resource s 
 .SH DESCRIPTION
 Gets a description of a resource s access control properties
 
+.PP
+Response schema (GetResourceDescriptionOK.Payload):
+  assignments                  object
+  assignments.builtInRoles     boolean
+  assignments.serviceAccounts  boolean
+  assignments.teams            boolean
+  assignments.users            boolean
+  permissions                  array
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

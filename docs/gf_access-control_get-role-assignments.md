@@ -10,6 +10,12 @@ Get role assignments for the role with the given UID. Does not include role assi
 
 You need to have a permission with action `teams.roles:list` and scope `teams:id:*` and `users.roles:list` and scope `users:id:*`.
 
+Response schema (GetRoleAssignmentsOK.Payload):
+  role_uid          string
+  service_accounts  array<number>
+  teams             array<number>
+  users             array<number>
+
 ```
 gf access-control get-role-assignments [flags]
 ```

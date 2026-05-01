@@ -2,6 +2,17 @@
 
 Gets a list of all cloud migration sessions that have been created
 
+### Synopsis
+
+Gets a list of all cloud migration sessions that have been created
+
+Response schema (GetSessionListOK.Payload):
+  sessions            array<object>
+  sessions[].created  string
+  sessions[].slug     string
+  sessions[].uid      string
+  sessions[].updated  string
+
 ```
 gf migrations get-session-list [flags]
 ```

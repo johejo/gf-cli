@@ -18,6 +18,26 @@ Get a role for the given UID.
 .PP
 You need to have a permission with action \fBroles:read\fR and scope \fBroles:*\fR\&.
 
+.PP
+Response schema (GetRoleOK.Payload):
+  created                string         REQUIRED
+  delegatable            boolean
+  description            string         REQUIRED
+  displayName            string         REQUIRED
+  global                 boolean
+  group                  string         REQUIRED
+  hidden                 boolean
+  mapped                 boolean
+  name                   string         REQUIRED
+  permissions            array
+  permissions[].action   string
+  permissions[].created  string
+  permissions[].scope    string
+  permissions[].updated  string
+  uid                    string         REQUIRED
+  updated                string         REQUIRED
+  version                number         REQUIRED
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

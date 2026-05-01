@@ -8,6 +8,9 @@ Deletes an existing data source by UID
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:delete` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:kLtEtcRGk` (single data source).
 
+Response schema (DeleteDataSourceByUIDOK.Payload):
+  message  string
+
 ```
 gf datasources delete-datasource-by-uid [flags]
 ```

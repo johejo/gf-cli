@@ -15,6 +15,40 @@ Gets all library elements
 .PP
 Returns a list of all library elements the authenticated user has permission to view. Use the \fBperPage\fR query parameter to control the maximum number of library elements returned; the default limit is \fB100\fR\&. You can also use the \fBpage\fR query parameter to fetch library elements from any page other than the first one.
 
+.PP
+Response schema (GetLibraryElementsOK.Payload):
+  result                                      object
+  result.elements                             array
+  result.elements[].description               string
+  result.elements[].folderId                  number         Deprecated: use FolderUID instead
+  result.elements[].folderUid                 string
+  result.elements[].id                        number
+  result.elements[].kind                      number
+  result.elements[].meta                      object
+  result.elements[].meta.connectedDashboards  number
+  result.elements[].meta.created              string
+  result.elements[].meta.createdBy            object
+  result.elements[].meta.createdBy.avatarUrl  string
+  result.elements[].meta.createdBy.id         number
+  result.elements[].meta.createdBy.name       string
+  result.elements[].meta.folderName           string
+  result.elements[].meta.folderUid            string
+  result.elements[].meta.updated              string
+  result.elements[].meta.updatedBy            object
+  result.elements[].meta.updatedBy.avatarUrl  string
+  result.elements[].meta.updatedBy.id         number
+  result.elements[].meta.updatedBy.name       string
+  result.elements[].model                     object
+  result.elements[].name                      string
+  result.elements[].orgId                     number
+  result.elements[].schemaVersion             number
+  result.elements[].type                      string
+  result.elements[].uid                       string
+  result.elements[].version                   number
+  result.page                                 number
+  result.perPage                              number
+  result.totalCount                           number
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

@@ -8,6 +8,32 @@ Fetches grafana stats
 
 Only works with Basic Authentication (username and password). See introduction for an explanation. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `server:stats:read`.
 
+Response schema (AdminGetStatsOK.Payload):
+  activeAdmins         number
+  activeDevices        number
+  activeEditors        number
+  activeSessions       number
+  activeUsers          number
+  activeViewers        number
+  admins               number
+  alerts               number
+  dailyActiveAdmins    number
+  dailyActiveEditors   number
+  dailyActiveSessions  number
+  dailyActiveUsers     number
+  dailyActiveViewers   number
+  dashboards           number
+  datasources          number
+  editors              number
+  monthlyActiveUsers   number
+  orgs                 number
+  playlists            number
+  snapshots            number
+  stars                number
+  tags                 number
+  users                number
+  viewers              number
+
 ```
 gf admin admin-get-stats [flags]
 ```

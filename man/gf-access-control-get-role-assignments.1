@@ -18,6 +18,13 @@ Get role assignments for the role with the given UID. Does not include role assi
 .PP
 You need to have a permission with action \fBteams.roles:list\fR and scope \fBteams:id:*\fR and \fBusers.roles:list\fR and scope \fBusers:id:*\fR\&.
 
+.PP
+Response schema (GetRoleAssignmentsOK.Payload):
+  role_uid          string
+  service_accounts  array
+  teams             array
+  users             array
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

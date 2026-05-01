@@ -10,6 +10,9 @@ Delete a role with the given UID, and it’s permissions. If the role is assigne
 
 You need to have a permission with action `roles:delete` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only delete a custom role with the same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to delete a custom role which allows to do that.
 
+Response schema (DeleteRoleOK.Payload):
+  message  string
+
 ```
 gf access-control delete-role [flags]
 ```

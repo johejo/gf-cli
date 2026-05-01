@@ -94,9 +94,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AddTeamRoleCommand):
-{
-  "roleUid": string
-}`,
+  roleUid  string`,
+			"responseSchema": `Response schema (AddTeamRoleOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -177,10 +177,10 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AddUserRoleCommand):
-{
-  "global": boolean,
-  "roleUid": string
-}`,
+  global   boolean
+  roleUid  string`,
+			"responseSchema": `Response schema (AddUserRoleOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -362,24 +362,37 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateRoleForm):
-{
-  "description": string,
-  "displayName": string,
-  "global": boolean,
-  "group": string,
-  "hidden": boolean,
-  "name": string,
-  "permissions": [
-    {
-      "action": string,
-      "created": string,
-      "scope": string,
-      "updated": string
-    }
-  ],
-  "uid": string,
-  "version": number
-}`,
+  description            string
+  displayName            string
+  global                 boolean
+  group                  string
+  hidden                 boolean
+  name                   string
+  permissions            array<object>
+  permissions[].action   string
+  permissions[].created  string
+  permissions[].scope    string
+  permissions[].updated  string
+  uid                    string
+  version                number`,
+			"responseSchema": `Response schema (CreateRoleCreated.Payload):
+  created                string         REQUIRED
+  delegatable            boolean
+  description            string         REQUIRED
+  displayName            string         REQUIRED
+  global                 boolean
+  group                  string         REQUIRED
+  hidden                 boolean
+  mapped                 boolean
+  name                   string         REQUIRED
+  permissions            array<object>
+  permissions[].action   string
+  permissions[].created  string
+  permissions[].scope    string
+  permissions[].updated  string
+  uid                    string         REQUIRED
+  updated                string         REQUIRED
+  version                number         REQUIRED`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -444,6 +457,10 @@ var (
 			"Delete a role with the given UID, and it’s permissions. If the role is assigned to a built-in role, the deletion operation will fail, unless force query param is set to true, and in that case all assignments will also be deleted.",
 			"You need to have a permission with action `roles:delete` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only delete a custom role with the same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to delete a custom role which allows to do that.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteRoleOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlDeleteRoleFlag.DescribeResponseJSONSchema {
@@ -558,8 +575,17 @@ var (
   }
 }`
 	accessControlGetResourceDescriptionCmd = &cobra.Command{
-		Use:               "get-resource-description",
-		Short:             "Gets a description of a resource s access control properties",
+		Use:   "get-resource-description",
+		Short: "Gets a description of a resource s access control properties",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetResourceDescriptionOK.Payload):
+  assignments                  object
+  assignments.builtInRoles     boolean
+  assignments.serviceAccounts  boolean
+  assignments.teams            boolean
+  assignments.users            boolean
+  permissions                  array<string>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlGetResourceDescriptionFlag.DescribeResponseJSONSchema {
@@ -776,6 +802,26 @@ var (
 			"Get a role for the given UID.",
 			"You need to have a permission with action `roles:read` and scope `roles:*`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetRoleOK.Payload):
+  created                string         REQUIRED
+  delegatable            boolean
+  description            string         REQUIRED
+  displayName            string         REQUIRED
+  global                 boolean
+  group                  string         REQUIRED
+  hidden                 boolean
+  mapped                 boolean
+  name                   string         REQUIRED
+  permissions            array<object>
+  permissions[].action   string
+  permissions[].created  string
+  permissions[].scope    string
+  permissions[].updated  string
+  uid                    string         REQUIRED
+  updated                string         REQUIRED
+  version                number         REQUIRED`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlGetRoleFlag.DescribeResponseJSONSchema {
@@ -847,6 +893,13 @@ var (
 			"Get role assignments for the role with the given UID. Does not include role assignments mapped through group attribute sync.",
 			"You need to have a permission with action `teams.roles:list` and scope `teams:id:*` and `users.roles:list` and scope `users:id:*`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetRoleAssignmentsOK.Payload):
+  role_uid          string
+  service_accounts  array<number>
+  teams             array<number>
+  users             array<number>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlGetRoleAssignmentsFlag.DescribeResponseJSONSchema {
@@ -1020,6 +1073,10 @@ var (
 			"Gets team roles",
 			"You need to have a permission with action `teams.roles:read` and scope `teams:id:<team ID>`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ListTeamRolesOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlListTeamRolesFlag.DescribeResponseJSONSchema {
@@ -1169,12 +1226,10 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (RolesSearchQuery):
-{
-  "includeHidden": boolean,
-  "orgId": number,
-  "teamIds": [number],
-  "userIds": [number]
-}`,
+  includeHidden  boolean
+  orgId          number
+  teamIds        array<number>
+  userIds        array<number>`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -1454,12 +1509,10 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (RolesSearchQuery):
-{
-  "includeHidden": boolean,
-  "orgId": number,
-  "teamIds": [number],
-  "userIds": [number]
-}`,
+  includeHidden  boolean
+  orgId          number
+  teamIds        array<number>
+  userIds        array<number>`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -1523,6 +1576,10 @@ var (
 			"Removes team role",
 			"You need to have a permission with action `teams.roles:remove` and scope `permissions:type:delegate`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (RemoveTeamRoleOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlRemoveTeamRoleFlag.DescribeResponseJSONSchema {
@@ -1577,6 +1634,10 @@ var (
 			"Revoke a role from a user. For bulk updates consider Set user role assignments.",
 			"You need to have a permission with action `users.roles:remove` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only unassign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to unassign a role which will allow to do that. This is done to prevent escalation of privileges.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (RemoveUserRoleOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlRemoveUserRoleFlag.DescribeResponseJSONSchema {
@@ -1660,16 +1721,13 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (SetPermissionsCommand):
-{
-  "permissions": [
-    {
-      "builtInRole": string,
-      "permission": string,
-      "teamId": number,
-      "userId": number
-    }
-  ]
-}`,
+  permissions                array<object>
+  permissions[].builtInRole  string
+  permissions[].permission   string
+  permissions[].teamId       number
+  permissions[].userId       number`,
+			"responseSchema": `Response schema (SetResourcePermissionsOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -1747,9 +1805,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (SetPermissionCommand):
-{
-  "permission": string
-}`,
+  permission  string`,
+			"responseSchema": `Response schema (SetResourcePermissionsForBuiltInRoleOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -1828,9 +1886,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (SetPermissionCommand):
-{
-  "permission": string
-}`,
+  permission  string`,
+			"responseSchema": `Response schema (SetResourcePermissionsForTeamOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -1909,9 +1967,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (SetPermissionCommand):
-{
-  "permission": string
-}`,
+  permission  string`,
+			"responseSchema": `Response schema (SetResourcePermissionsForUserOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -2024,11 +2082,14 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (SetRoleAssignmentsCommand):
-{
-  "service_accounts": [number],
-  "teams": [number],
-  "users": [number]
-}`,
+  service_accounts  array<number>
+  teams             array<number>
+  users             array<number>`,
+			"responseSchema": `Response schema (SetRoleAssignmentsOK.Payload):
+  role_uid          string
+  service_accounts  array<number>
+  teams             array<number>
+  users             array<number>`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -2111,10 +2172,10 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (SetTeamRolesCommand):
-{
-  "includeHidden": boolean,
-  "roleUids": [string]
-}`,
+  includeHidden  boolean
+  roleUids       array<string>`,
+			"responseSchema": `Response schema (SetTeamRolesOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -2201,11 +2262,11 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (SetUserRolesCommand):
-{
-  "global": boolean,
-  "includeHidden": boolean,
-  "roleUids": [string]
-}`,
+  global         boolean
+  includeHidden  boolean
+  roleUids       array<string>`,
+			"responseSchema": `Response schema (SetUserRolesOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -2388,26 +2449,36 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateRoleCommand):
-{
-  "description": string,
-  "displayName": string,
-  "global": boolean,
-  "group": string,
-  "hidden": boolean,
-  "name": string,
-  "permissions": [
-    {
-      "action": string,
-      "created": string,
-      "scope": string,
-      "updated": string
-    }
-  ],
-  "version": number
-}
-  description              REQUIRED
-  displayName              REQUIRED
-  group                    REQUIRED`,
+  description            string         REQUIRED
+  displayName            string         REQUIRED
+  global                 boolean
+  group                  string         REQUIRED
+  hidden                 boolean
+  name                   string
+  permissions            array<object>
+  permissions[].action   string
+  permissions[].created  string
+  permissions[].scope    string
+  permissions[].updated  string
+  version                number`,
+			"responseSchema": `Response schema (UpdateRoleOK.Payload):
+  created                string         REQUIRED
+  delegatable            boolean
+  description            string         REQUIRED
+  displayName            string         REQUIRED
+  global                 boolean
+  group                  string         REQUIRED
+  hidden                 boolean
+  mapped                 boolean
+  name                   string         REQUIRED
+  permissions            array<object>
+  permissions[].action   string
+  permissions[].created  string
+  permissions[].scope    string
+  permissions[].updated  string
+  uid                    string         REQUIRED
+  updated                string         REQUIRED
+  version                number         REQUIRED`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -2641,8 +2712,16 @@ var (
   ]
 }`
 	accessControlProvisioningAdminProvisioningReloadAccessControlCmd = &cobra.Command{
-		Use:               "admin-provisioning-reload-access-control",
-		Short:             "Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol",
+		Use:   "admin-provisioning-reload-access-control",
+		Short: "Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (AdminProvisioningReloadAccessControlAccepted.Payload):
+  error    string  Error An optional detailed description of the actual error. Only included if running in developer mode.
+  message  string  REQUIRED
+                   a human readable version of the error
+  status   string  Status An optional status to denote the cause of the error.
+                   For example, a 412 Precondition Failed error may include additional information of why that error happened.`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if accessControlProvisioningAdminProvisioningReloadAccessControlFlag.DescribeResponseJSONSchema {
@@ -2824,6 +2903,33 @@ var (
 			"Fetches grafana stats",
 			"Only works with Basic Authentication (username and password). See introduction for an explanation. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `server:stats:read`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (AdminGetStatsOK.Payload):
+  activeAdmins         number
+  activeDevices        number
+  activeEditors        number
+  activeSessions       number
+  activeUsers          number
+  activeViewers        number
+  admins               number
+  alerts               number
+  dailyActiveAdmins    number
+  dailyActiveEditors   number
+  dailyActiveSessions  number
+  dailyActiveUsers     number
+  dailyActiveViewers   number
+  dashboards           number
+  datasources          number
+  editors              number
+  monthlyActiveUsers   number
+  orgs                 number
+  playlists            number
+  snapshots            number
+  stars                number
+  tags                 number
+  users                number
+  viewers              number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminAdminGetStatsFlag.DescribeResponseJSONSchema {
@@ -2889,6 +2995,10 @@ var (
 			"Attempts to connect to all the configured LDAP servers and returns information on whenever they re available or not",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.status:read`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetLDAPStatusOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminLdapGetLDAPStatusFlag.DescribeResponseJSONSchema {
@@ -2938,6 +3048,10 @@ var (
 			"Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when synced",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:read`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetUserFromLDAPOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminLdapGetUserFromLDAPFlag.DescribeResponseJSONSchema {
@@ -2990,6 +3104,10 @@ var (
 			"Enables a single grafana user to be synchronized against LDAP",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:sync`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (PostSyncUserWithLDAPOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminLdapPostSyncUserWithLDAPFlag.DescribeResponseJSONSchema {
@@ -3042,6 +3160,10 @@ var (
 			"Reloads the LDAP configuration",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.config:reload`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ReloadLDAPCfgOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminLdapReloadLDAPCfgFlag.DescribeResponseJSONSchema {
@@ -3117,6 +3239,10 @@ var (
 			"Reloads dashboard provisioning configurations",
 			"Reloads the provisioning config files for dashboards again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:dashboards`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (AdminProvisioningReloadDashboardsOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminProvisioningAdminProvisioningReloadDashboardsFlag.DescribeResponseJSONSchema {
@@ -3167,6 +3293,10 @@ var (
 			"Reloads datasource provisioning configurations",
 			"Reloads the provisioning config files for datasources again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:datasources`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (AdminProvisioningReloadDatasourcesOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminProvisioningAdminProvisioningReloadDatasourcesFlag.DescribeResponseJSONSchema {
@@ -3217,6 +3347,10 @@ var (
 			"Reloads plugin provisioning configurations",
 			"Reloads the provisioning config files for plugins again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:plugin`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (AdminProvisioningReloadPluginsOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminProvisioningAdminProvisioningReloadPluginsFlag.DescribeResponseJSONSchema {
@@ -3316,13 +3450,15 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AdminCreateUserForm):
-{
-  "email": string,
-  "login": string,
-  "name": string,
-  "orgId": number,
-  "password": string
-}`,
+  email     string
+  login     string
+  name      string
+  orgId     number
+  password  string`,
+			"responseSchema": `Response schema (AdminCreateUserOK.Payload):
+  id       number
+  message  string
+  uid      string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -3386,6 +3522,10 @@ var (
 			"Deletes global user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:delete` and scope `global.users:*`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (AdminDeleteUserOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminUsersAdminDeleteUserFlag.DescribeResponseJSONSchema {
@@ -3438,6 +3578,10 @@ var (
 			"Disables user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:disable` and scope `global.users:1` (userIDScope).",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (AdminDisableUserOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminUsersAdminDisableUserFlag.DescribeResponseJSONSchema {
@@ -3490,6 +3634,10 @@ var (
 			"Enables user",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:enable` and scope `global.users:1` (userIDScope).",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (AdminEnableUserOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminUsersAdminEnableUserFlag.DescribeResponseJSONSchema {
@@ -3635,6 +3783,10 @@ var (
 			"Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged in and will be required to authenticate again upon next activity",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.logout` and scope `global.users:*`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (AdminLogoutUserOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if adminUsersAdminLogoutUserFlag.DescribeResponseJSONSchema {
@@ -3699,9 +3851,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (RevokeAuthTokenCmd):
-{
-  "authTokenId": number
-}`,
+  authTokenId  number`,
+			"responseSchema": `Response schema (AdminRevokeUserAuthTokenOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -3778,9 +3930,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AdminUpdateUserPasswordForm):
-{
-  "password": string
-}`,
+  password  string`,
+			"responseSchema": `Response schema (AdminUpdateUserPasswordOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -3857,9 +4009,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AdminUpdateUserPermissionsForm):
-{
-  "isGrafanaAdmin": boolean
-}`,
+  isGrafanaAdmin  boolean`,
+			"responseSchema": `Response schema (AdminUpdateUserPermissionsOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -3999,6 +4151,13 @@ var (
 			"Finds annotations tags",
 			"Find all the event tags created in the annotations.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetAnnotationTagsOK.Payload):
+  result               object
+  result.tags          array<object>
+  result.tags[].count  number
+  result.tags[].tag    string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if annotationsGetAnnotationTagsFlag.DescribeResponseJSONSchema {
@@ -4191,12 +4350,12 @@ var (
 		Short: "Deletes multiple annotations",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (MassDeleteAnnotationsCmd):
-{
-  "annotationId": number,
-  "dashboardId": number,
-  "dashboardUID": string,
-  "panelId": number
-}`,
+  annotationId  number
+  dashboardId   number
+  dashboardUID  string
+  panelId       number`,
+			"responseSchema": `Response schema (MassDeleteAnnotationsOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -4288,14 +4447,14 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PatchAnnotationsCmd):
-{
-  "data": any,  // models.JSON
-  "id": number,
-  "tags": [string],
-  "text": string,
-  "time": number,
-  "timeEnd": number
-}`,
+  data     object
+  id       number
+  tags     array<string>
+  text     string
+  time     number
+  timeEnd  number`,
+			"responseSchema": `Response schema (PatchAnnotationOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -4406,17 +4565,19 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PostAnnotationsCmd):
-{
-  "dashboardId": number,
-  "dashboardUID": string,
-  "data": any,  // models.JSON
-  "panelId": number,
-  "tags": [string],
-  "text": string,
-  "time": number,
-  "timeEnd": number
-}
-  text                     REQUIRED`,
+  dashboardId   number
+  dashboardUID  string
+  data          object
+  panelId       number
+  tags          array<string>
+  text          string         REQUIRED
+  time          number
+  timeEnd       number`,
+			"responseSchema": `Response schema (PostAnnotationOK.Payload):
+  id       number  REQUIRED
+                   ID Identifier of the created annotation.
+  message  string  REQUIRED
+                   Message Message of the created annotation.`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -4508,12 +4669,15 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PostGraphiteAnnotationsCmd):
-{
-  "data": string,
-  "tags": any,
-  "what": string,
-  "when": number
-}`,
+  data  string
+  tags  object
+  what  string
+  when  number`,
+			"responseSchema": `Response schema (PostGraphiteAnnotationOK.Payload):
+  id       number  REQUIRED
+                   ID Identifier of the created annotation.
+  message  string  REQUIRED
+                   Message Message of the created annotation.`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -4605,14 +4769,14 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateAnnotationsCmd):
-{
-  "data": any,  // models.JSON
-  "id": number,
-  "tags": [string],
-  "text": string,
-  "time": number,
-  "timeEnd": number
-}`,
+  data     object
+  id       number
+  tags     array<string>
+  text     string
+  time     number
+  timeEnd  number`,
+			"responseSchema": `Response schema (UpdateAnnotationOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -4738,8 +4902,14 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusCortexDeleteNamespaceCmd = &cobra.Command{
-		Use:               "convert-prometheus-cortex-delete-namespace",
-		Short:             "Deletes all rule groups that were imported from prometheus compatible sources within the specified namespace",
+		Use:   "convert-prometheus-cortex-delete-namespace",
+		Short: "Deletes all rule groups that were imported from prometheus compatible sources within the specified namespace",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusCortexDeleteNamespaceAccepted.Payload):
+  error      string
+  errorType  string
+  status     string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusCortexDeleteNamespaceFlag.DescribeResponseJSONSchema {
@@ -4792,8 +4962,14 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusCortexDeleteRuleGroupCmd = &cobra.Command{
-		Use:               "convert-prometheus-cortex-delete-rule-group",
-		Short:             "Deletes a specific rule group if it was imported from a prometheus compatible source",
+		Use:   "convert-prometheus-cortex-delete-rule-group",
+		Short: "Deletes a specific rule group if it was imported from a prometheus compatible source",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusCortexDeleteRuleGroupAccepted.Payload):
+  error      string
+  errorType  string
+  status     string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag.DescribeResponseJSONSchema {
@@ -4903,8 +5079,12 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusCortexGetNamespaceCmd = &cobra.Command{
-		Use:               "convert-prometheus-cortex-get-namespace",
-		Short:             "Gets grafana managed alert rules that were imported from prometheus compatible sources for a specified namespace folder",
+		Use:   "convert-prometheus-cortex-get-namespace",
+		Short: "Gets grafana managed alert rules that were imported from prometheus compatible sources for a specified namespace folder",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusCortexGetNamespaceOK.Payload):
+  Body  map<string, array<object>>  in: body`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusCortexGetNamespaceFlag.DescribeResponseJSONSchema {
@@ -5001,8 +5181,24 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusCortexGetRuleGroupCmd = &cobra.Command{
-		Use:               "convert-prometheus-cortex-get-rule-group",
-		Short:             "Gets a single rule group in prometheus compatible format if it was imported from a prometheus compatible source",
+		Use:   "convert-prometheus-cortex-get-rule-group",
+		Short: "Gets a single rule group in prometheus compatible format if it was imported from a prometheus compatible source",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusCortexGetRuleGroupOK.Payload):
+  interval                 number
+  labels                   map<string, string>
+  limit                    number
+  name                     string
+  query_offset             string
+  rules                    array<object>
+  rules[].alert            string
+  rules[].annotations      map<string, string>
+  rules[].expr             string
+  rules[].for              string
+  rules[].keep_firing_for  string
+  rules[].labels           map<string, string>
+  rules[].record           string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusCortexGetRuleGroupFlag.DescribeResponseJSONSchema {
@@ -5112,8 +5308,12 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusCortexGetRulesCmd = &cobra.Command{
-		Use:               "convert-prometheus-cortex-get-rules",
-		Short:             "Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace",
+		Use:   "convert-prometheus-cortex-get-rules",
+		Short: "Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusCortexGetRulesOK.Payload):
+  Body  map<string, array<object>>  in: body`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusCortexGetRulesFlag.DescribeResponseJSONSchema {
@@ -5232,24 +5432,23 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PrometheusRuleGroup):
-{
-  "interval": number,
-  "labels": {"key": string},
-  "limit": number,
-  "name": string,
-  "query_offset": string,
-  "rules": [
-    {
-      "alert": string,
-      "annotations": {"key": string},
-      "expr": string,
-      "for": string,
-      "keep_firing_for": string,
-      "labels": {"key": string},
-      "record": string
-    }
-  ]
-}`,
+  interval                 number
+  labels                   map<string, string>
+  limit                    number
+  name                     string
+  query_offset             string
+  rules                    array<object>
+  rules[].alert            string
+  rules[].annotations      map<string, string>
+  rules[].expr             string
+  rules[].for              string
+  rules[].keep_firing_for  string
+  rules[].labels           map<string, string>
+  rules[].record           string`,
+			"responseSchema": `Response schema (ConvertPrometheusCortexPostRuleGroupAccepted.Payload):
+  error      string
+  errorType  string
+  status     string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -5320,8 +5519,14 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusCortexPostRuleGroupsCmd = &cobra.Command{
-		Use:               "convert-prometheus-cortex-post-rule-groups",
-		Short:             "Converts the submitted rule groups into grafana managed rules",
+		Use:   "convert-prometheus-cortex-post-rule-groups",
+		Short: "Converts the submitted rule groups into grafana managed rules",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusCortexPostRuleGroupsAccepted.Payload):
+  error      string
+  errorType  string
+  status     string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusCortexPostRuleGroupsFlag.DescribeResponseJSONSchema {
@@ -5372,8 +5577,14 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusDeleteNamespaceCmd = &cobra.Command{
-		Use:               "convert-prometheus-delete-namespace",
-		Short:             "Deletes all rule groups that were imported from prometheus compatible sources within the specified namespace",
+		Use:   "convert-prometheus-delete-namespace",
+		Short: "Deletes all rule groups that were imported from prometheus compatible sources within the specified namespace",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusDeleteNamespaceAccepted.Payload):
+  error      string
+  errorType  string
+  status     string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusDeleteNamespaceFlag.DescribeResponseJSONSchema {
@@ -5426,8 +5637,14 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusDeleteRuleGroupCmd = &cobra.Command{
-		Use:               "convert-prometheus-delete-rule-group",
-		Short:             "Deletes a specific rule group if it was imported from a prometheus compatible source",
+		Use:   "convert-prometheus-delete-rule-group",
+		Short: "Deletes a specific rule group if it was imported from a prometheus compatible source",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusDeleteRuleGroupAccepted.Payload):
+  error      string
+  errorType  string
+  status     string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusDeleteRuleGroupFlag.DescribeResponseJSONSchema {
@@ -5537,8 +5754,12 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusGetNamespaceCmd = &cobra.Command{
-		Use:               "convert-prometheus-get-namespace",
-		Short:             "Gets grafana managed alert rules that were imported from prometheus compatible sources for a specified namespace folder",
+		Use:   "convert-prometheus-get-namespace",
+		Short: "Gets grafana managed alert rules that were imported from prometheus compatible sources for a specified namespace folder",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusGetNamespaceOK.Payload):
+  Body  map<string, array<object>>  in: body`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusGetNamespaceFlag.DescribeResponseJSONSchema {
@@ -5635,8 +5856,24 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusGetRuleGroupCmd = &cobra.Command{
-		Use:               "convert-prometheus-get-rule-group",
-		Short:             "Gets a single rule group in prometheus compatible format if it was imported from a prometheus compatible source",
+		Use:   "convert-prometheus-get-rule-group",
+		Short: "Gets a single rule group in prometheus compatible format if it was imported from a prometheus compatible source",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusGetRuleGroupOK.Payload):
+  interval                 number
+  labels                   map<string, string>
+  limit                    number
+  name                     string
+  query_offset             string
+  rules                    array<object>
+  rules[].alert            string
+  rules[].annotations      map<string, string>
+  rules[].expr             string
+  rules[].for              string
+  rules[].keep_firing_for  string
+  rules[].labels           map<string, string>
+  rules[].record           string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusGetRuleGroupFlag.DescribeResponseJSONSchema {
@@ -5746,8 +5983,12 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusGetRulesCmd = &cobra.Command{
-		Use:               "convert-prometheus-get-rules",
-		Short:             "Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace",
+		Use:   "convert-prometheus-get-rules",
+		Short: "Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusGetRulesOK.Payload):
+  Body  map<string, array<object>>  in: body`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusGetRulesFlag.DescribeResponseJSONSchema {
@@ -5866,24 +6107,23 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PrometheusRuleGroup):
-{
-  "interval": number,
-  "labels": {"key": string},
-  "limit": number,
-  "name": string,
-  "query_offset": string,
-  "rules": [
-    {
-      "alert": string,
-      "annotations": {"key": string},
-      "expr": string,
-      "for": string,
-      "keep_firing_for": string,
-      "labels": {"key": string},
-      "record": string
-    }
-  ]
-}`,
+  interval                 number
+  labels                   map<string, string>
+  limit                    number
+  name                     string
+  query_offset             string
+  rules                    array<object>
+  rules[].alert            string
+  rules[].annotations      map<string, string>
+  rules[].expr             string
+  rules[].for              string
+  rules[].keep_firing_for  string
+  rules[].labels           map<string, string>
+  rules[].record           string`,
+			"responseSchema": `Response schema (ConvertPrometheusPostRuleGroupAccepted.Payload):
+  error      string
+  errorType  string
+  status     string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -5954,8 +6194,14 @@ var (
   }
 }`
 	convertPrometheusConvertPrometheusPostRuleGroupsCmd = &cobra.Command{
-		Use:               "convert-prometheus-post-rule-groups",
-		Short:             "Converts the submitted rule groups into grafana managed rules",
+		Use:   "convert-prometheus-post-rule-groups",
+		Short: "Converts the submitted rule groups into grafana managed rules",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ConvertPrometheusPostRuleGroupsAccepted.Payload):
+  error      string
+  errorType  string
+  status     string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if convertPrometheusConvertPrometheusPostRuleGroupsFlag.DescribeResponseJSONSchema {
@@ -6154,34 +6400,30 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateDashboardSnapshotCommand):
-{
-  "apiVersion": string,
-  "dashboard": any,  // models.Unstructured
-  "deleteKey": string,
-  "expires": number,
-  "external": boolean,
-  "key": string,
-  "kind": string,
-  "name": string
-}
-  apiVersion               APIVersion defines the versioned schema of this representation of an object.
-                           Servers should convert recognized schemas to the latest internal value, and
-                           may reject unrecognized values.
-                           More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-                           +optional
-  dashboard                REQUIRED
-  deleteKey                Unique key used to delete the snapshot. It is different from the ` + "`" + `key` + "`" + ` so that only the creator can delete the snapshot. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `.
-  expires                  When the snapshot should expire in seconds in seconds. Default is never to expire.
-  external                 these are passed when storing an external snapshot ref
-                           Save the snapshot on an external server rather than locally.
-  key                      Define the unique key. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `.
-  kind                     Kind is a string value representing the REST resource this object represents.
-                           Servers may infer this from the endpoint the client submits requests to.
-                           Cannot be updated.
-                           In CamelCase.
-                           More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-                           +optional
-  name                     Snapshot name`,
+  apiVersion  string   APIVersion defines the versioned schema of this representation of an object.
+                       Servers should convert recognized schemas to the latest internal value, and
+                       may reject unrecognized values.
+                       More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+                       +optional
+  dashboard   object   REQUIRED
+  deleteKey   string   Unique key used to delete the snapshot. It is different from the ` + "`" + `key` + "`" + ` so that only the creator can delete the snapshot. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `.
+  expires     number   When the snapshot should expire in seconds in seconds. Default is never to expire.
+  external    boolean  these are passed when storing an external snapshot ref
+                       Save the snapshot on an external server rather than locally.
+  key         string   Define the unique key. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `.
+  kind        string   Kind is a string value representing the REST resource this object represents.
+                       Servers may infer this from the endpoint the client submits requests to.
+                       Cannot be updated.
+                       In CamelCase.
+                       More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                       +optional
+  name        string   Snapshot name`,
+			"responseSchema": `Response schema (CreateDashboardSnapshotOK.Payload):
+  deleteKey  string  Unique key used to delete the snapshot. It is different from the key so that only the creator can delete the snapshot.
+  deleteUrl  string
+  id         number  Snapshot id
+  key        string  Unique key
+  url        string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -6312,14 +6554,27 @@ var (
 		Short: "Create public dashboard for a dashboard",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PublicDashboardDTO):
-{
-  "accessToken": string,
-  "annotationsEnabled": boolean,
-  "isEnabled": boolean,
-  "share": string,
-  "timeSelectionEnabled": boolean,
-  "uid": string
-}`,
+  accessToken           string
+  annotationsEnabled    boolean
+  isEnabled             boolean
+  share                 string
+  timeSelectionEnabled  boolean
+  uid                   string`,
+			"responseSchema": `Response schema (CreatePublicDashboardOK.Payload):
+  accessToken             string
+  annotationsEnabled      boolean
+  createdAt               string
+  createdBy               number
+  dashboardUid            string
+  isEnabled               boolean
+  recipients              array<object>
+  recipients[].recipient  string
+  recipients[].uid        string
+  share                   string
+  timeSelectionEnabled    boolean
+  uid                     string
+  updatedAt               string
+  updatedBy               number`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -6398,6 +6653,15 @@ var (
 			"Deletes dashboard by uid",
 			"Will delete the dashboard given the specified unique identifier (uid).",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteDashboardByUIDOK.Payload):
+  message  string  REQUIRED
+                   Message Message of the deleted dashboard.
+  title    string  REQUIRED
+                   Title Title of the deleted dashboard.
+  uid      string  REQUIRED
+                   UID Identifier of the deleted dashboard.`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsDeleteDashboardByUIDFlag.DescribeResponseJSONSchema {
@@ -6444,8 +6708,12 @@ var (
   }
 }`
 	dashboardsDeleteDashboardSnapshotCmd = &cobra.Command{
-		Use:               "delete-dashboard-snapshot",
-		Short:             "Deletes snapshot by key",
+		Use:   "delete-dashboard-snapshot",
+		Short: "Deletes snapshot by key",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteDashboardSnapshotOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsDeleteDashboardSnapshotFlag.DescribeResponseJSONSchema {
@@ -6498,6 +6766,10 @@ var (
 			"Deletes snapshot by delete key",
 			"Snapshot public mode should be enabled or authentication is required.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteDashboardSnapshotByDeleteKeyOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsDeleteDashboardSnapshotByDeleteKeyFlag.DescribeResponseJSONSchema {
@@ -6544,8 +6816,12 @@ var (
   }
 }`
 	dashboardsDeletePublicDashboardCmd = &cobra.Command{
-		Use:               "delete-public-dashboard",
-		Short:             "Delete public dashboard for a dashboard",
+		Use:   "delete-public-dashboard",
+		Short: "Delete public dashboard for a dashboard",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeletePublicDashboardOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsDeletePublicDashboardFlag.DescribeResponseJSONSchema {
@@ -6714,6 +6990,46 @@ var (
 			"Gets dashboard by uid",
 			"Will return the dashboard given the dashboard unique identifier (uid).",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetDashboardByUIDOK.Payload):
+  dashboard                                           object
+  meta                                                object
+  meta.annotationsPermissions                         object
+  meta.annotationsPermissions.dashboard               object
+  meta.annotationsPermissions.dashboard.canAdd        boolean
+  meta.annotationsPermissions.dashboard.canDelete     boolean
+  meta.annotationsPermissions.dashboard.canEdit       boolean
+  meta.annotationsPermissions.organization            object
+  meta.annotationsPermissions.organization.canAdd     boolean
+  meta.annotationsPermissions.organization.canDelete  boolean
+  meta.annotationsPermissions.organization.canEdit    boolean
+  meta.apiVersion                                     string
+  meta.canAdmin                                       boolean
+  meta.canDelete                                      boolean
+  meta.canEdit                                        boolean
+  meta.canSave                                        boolean
+  meta.canStar                                        boolean
+  meta.created                                        string
+  meta.createdBy                                      string
+  meta.expires                                        string
+  meta.folderId                                       number   Deprecated: use FolderUID instead
+  meta.folderTitle                                    string
+  meta.folderUid                                      string
+  meta.folderUrl                                      string
+  meta.hasAcl                                         boolean
+  meta.isFolder                                       boolean
+  meta.isSnapshot                                     boolean
+  meta.isStarred                                      boolean
+  meta.provisioned                                    boolean
+  meta.provisionedExternalId                          string
+  meta.publicDashboardEnabled                         boolean
+  meta.slug                                           string
+  meta.type                                           string
+  meta.updated                                        string
+  meta.updatedBy                                      string
+  meta.url                                            string
+  meta.version                                        number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsGetDashboardByUIDFlag.DescribeResponseJSONSchema {
@@ -6997,8 +7313,21 @@ var (
   }
 }`
 	dashboardsGetDashboardVersionByUIDCmd = &cobra.Command{
-		Use:               "get-dashboard-version-by-uid",
-		Short:             "Gets a specific dashboard version using UID",
+		Use:   "get-dashboard-version-by-uid",
+		Short: "Gets a specific dashboard version using UID",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetDashboardVersionByUIDOK.Payload):
+  created        string
+  createdBy      string
+  dashboardId    number
+  data           object
+  id             number
+  message        string
+  parentVersion  number
+  restoredFrom   number
+  uid            string
+  version        number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsGetDashboardVersionByUIDFlag.DescribeResponseJSONSchema {
@@ -7082,8 +7411,23 @@ var (
   }
 }`
 	dashboardsGetDashboardVersionsByUIDCmd = &cobra.Command{
-		Use:               "get-dashboard-versions-by-uid",
-		Short:             "Gets all existing versions for the dashboard using UID",
+		Use:   "get-dashboard-versions-by-uid",
+		Short: "Gets all existing versions for the dashboard using UID",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetDashboardVersionsByUIDOK.Payload):
+  continueToken             string
+  versions                  array<object>
+  versions[].created        string
+  versions[].createdBy      string
+  versions[].dashboardId    number
+  versions[].data           object
+  versions[].id             number
+  versions[].message        string
+  versions[].parentVersion  number
+  versions[].restoredFrom   number
+  versions[].uid            string
+  versions[].version        number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsGetDashboardVersionsByUIDFlag.DescribeResponseJSONSchema {
@@ -7385,8 +7729,25 @@ var (
   }
 }`
 	dashboardsGetPublicDashboardCmd = &cobra.Command{
-		Use:               "get-public-dashboard",
-		Short:             "Get public dashboard by dashboardUid",
+		Use:   "get-public-dashboard",
+		Short: "Get public dashboard by dashboardUid",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetPublicDashboardOK.Payload):
+  accessToken             string
+  annotationsEnabled      boolean
+  createdAt               string
+  createdBy               number
+  dashboardUid            string
+  isEnabled               boolean
+  recipients              array<object>
+  recipients[].recipient  string
+  recipients[].uid        string
+  share                   string
+  timeSelectionEnabled    boolean
+  uid                     string
+  updatedAt               string
+  updatedBy               number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsGetPublicDashboardFlag.DescribeResponseJSONSchema {
@@ -7524,23 +7885,33 @@ var (
 		Short: "Imports dashboard",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (ImportDashboardRequest):
-{
-  "dashboard": any,  // models.JSON
-  "folderId": number,
-  "folderUid": string,
-  "inputs": [
-    {
-      "name": string,
-      "pluginId": string,
-      "type": string,
-      "value": string
-    }
-  ],
-  "overwrite": boolean,
-  "path": string,
-  "pluginId": string
-}
-  folderId                 Deprecated: use FolderUID instead`,
+  dashboard          object
+  folderId           number         Deprecated: use FolderUID instead
+  folderUid          string
+  inputs             array<object>
+  inputs[].name      string
+  inputs[].pluginId  string
+  inputs[].type      string
+  inputs[].value     string
+  overwrite          boolean
+  path               string
+  pluginId           string`,
+			"responseSchema": `Response schema (ImportDashboardOK.Payload):
+  dashboardId       number
+  description       string
+  folderId          number   Deprecated: use FolderUID instead
+  folderUid         string
+  imported          boolean
+  importedRevision  number
+  importedUri       string
+  importedUrl       string
+  path              string
+  pluginId          string
+  removed           boolean
+  revision          number
+  slug              string
+  title             string
+  uid               string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -7672,8 +8043,21 @@ var (
   }
 }`
 	dashboardsListPublicDashboardsCmd = &cobra.Command{
-		Use:               "list-public-dashboards",
-		Short:             "Get list of public dashboards",
+		Use:   "list-public-dashboards",
+		Short: "Get list of public dashboards",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ListPublicDashboardsOK.Payload):
+  page                             number
+  perPage                          number
+  publicDashboards                 array<object>
+  publicDashboards[].accessToken   string
+  publicDashboards[].dashboardUid  string
+  publicDashboards[].isEnabled     boolean
+  publicDashboards[].slug          string
+  publicDashboards[].title         string
+  publicDashboards[].uid           string
+  totalCount                       number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsListPublicDashboardsFlag.DescribeResponseJSONSchema {
@@ -7789,17 +8173,28 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (SaveDashboardCommand):
-{
-  "UpdatedAt": string,
-  "dashboard": any,  // models.JSON
-  "folderId": number,
-  "folderUid": string,
-  "isFolder": boolean,
-  "message": string,
-  "overwrite": boolean,
-  "userId": number
-}
-  folderId                 Deprecated: use FolderUID instead`,
+  UpdatedAt  string
+  dashboard  object
+  folderId   number   Deprecated: use FolderUID instead
+  folderUid  string
+  isFolder   boolean
+  message    string
+  overwrite  boolean
+  userId     number`,
+			"responseSchema": `Response schema (PostDashboardOK.Payload):
+  folderUid  string  FolderUID The unique identifier (uid) of the folder the dashboard belongs to.
+  id         number  REQUIRED
+                     ID The unique identifier (id) of the created/updated dashboard.
+  status     string  REQUIRED
+                     Status status of the response.
+  title      string  REQUIRED
+                     Slug The slug of the dashboard.
+  uid        string  REQUIRED
+                     UID The unique identifier (uid) of the created/updated dashboard.
+  url        string  REQUIRED
+                     URL The relative URL for accessing the created/updated dashboard.
+  version    number  REQUIRED
+                     Version The version of the dashboard.`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -8360,8 +8755,13 @@ var (
   }
 }`
 	dashboardsQueryPublicDashboardCmd = &cobra.Command{
-		Use:               "query-public-dashboard",
-		Short:             "Get results for a given panel on a public dashboard",
+		Use:   "query-public-dashboard",
+		Short: "Get results for a given panel on a public dashboard",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (QueryPublicDashboardOK.Payload):
+  Note: Response wire format differs from the Go type; consider --raw.
+  results  map<string, object>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsQueryPublicDashboardFlag.DescribeResponseJSONSchema {
@@ -8456,9 +8856,21 @@ var (
 		Short: "Restores a dashboard to a given dashboard version using UID",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (RestoreDashboardVersionCommand):
-{
-  "version": number
-}`,
+  version  number`,
+			"responseSchema": `Response schema (RestoreDashboardVersionByUIDOK.Payload):
+  folderUid  string  FolderUID The unique identifier (uid) of the folder the dashboard belongs to.
+  id         number  REQUIRED
+                     ID The unique identifier (id) of the created/updated dashboard.
+  status     string  REQUIRED
+                     Status status of the response.
+  title      string  REQUIRED
+                     Slug The slug of the dashboard.
+  uid        string  REQUIRED
+                     UID The unique identifier (uid) of the created/updated dashboard.
+  url        string  REQUIRED
+                     URL The relative URL for accessing the created/updated dashboard.
+  version    number  REQUIRED
+                     Version The version of the dashboard.`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -8628,17 +9040,13 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateDashboardACLCommand):
-{
-  "items": [
-    {
-      "permission": number,
-      "role": string,
-      "teamId": number,
-      "userId": number
-    }
-  ]
-}
-  items[].role             enum: None | Viewer | Editor | Admin`,
+  items               array<object>
+  items[].permission  number
+  items[].role        string         enum: None | Viewer | Editor | Admin
+  items[].teamId      number
+  items[].userId      number`,
+			"responseSchema": `Response schema (UpdateDashboardPermissionsByUIDOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -8770,14 +9178,27 @@ var (
 		Short: "Update public dashboard for a dashboard",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PublicDashboardDTO):
-{
-  "accessToken": string,
-  "annotationsEnabled": boolean,
-  "isEnabled": boolean,
-  "share": string,
-  "timeSelectionEnabled": boolean,
-  "uid": string
-}`,
+  accessToken           string
+  annotationsEnabled    boolean
+  isEnabled             boolean
+  share                 string
+  timeSelectionEnabled  boolean
+  uid                   string`,
+			"responseSchema": `Response schema (UpdatePublicDashboardOK.Payload):
+  accessToken             string
+  annotationsEnabled      boolean
+  createdAt               string
+  createdBy               number
+  dashboardUid            string
+  isEnabled               boolean
+  recipients              array<object>
+  recipients[].recipient  string
+  recipients[].uid        string
+  share                   string
+  timeSelectionEnabled    boolean
+  uid                     string
+  updatedAt               string
+  updatedBy               number`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -8952,8 +9373,48 @@ var (
   }
 }`
 	dashboardsViewPublicDashboardCmd = &cobra.Command{
-		Use:               "view-public-dashboard",
-		Short:             "Get public dashboard for view",
+		Use:   "view-public-dashboard",
+		Short: "Get public dashboard for view",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ViewPublicDashboardOK.Payload):
+  dashboard                                           object
+  meta                                                object
+  meta.annotationsPermissions                         object
+  meta.annotationsPermissions.dashboard               object
+  meta.annotationsPermissions.dashboard.canAdd        boolean
+  meta.annotationsPermissions.dashboard.canDelete     boolean
+  meta.annotationsPermissions.dashboard.canEdit       boolean
+  meta.annotationsPermissions.organization            object
+  meta.annotationsPermissions.organization.canAdd     boolean
+  meta.annotationsPermissions.organization.canDelete  boolean
+  meta.annotationsPermissions.organization.canEdit    boolean
+  meta.apiVersion                                     string
+  meta.canAdmin                                       boolean
+  meta.canDelete                                      boolean
+  meta.canEdit                                        boolean
+  meta.canSave                                        boolean
+  meta.canStar                                        boolean
+  meta.created                                        string
+  meta.createdBy                                      string
+  meta.expires                                        string
+  meta.folderId                                       number   Deprecated: use FolderUID instead
+  meta.folderTitle                                    string
+  meta.folderUid                                      string
+  meta.folderUrl                                      string
+  meta.hasAcl                                         boolean
+  meta.isFolder                                       boolean
+  meta.isSnapshot                                     boolean
+  meta.isStarred                                      boolean
+  meta.provisioned                                    boolean
+  meta.provisionedExternalId                          string
+  meta.publicDashboardEnabled                         boolean
+  meta.slug                                           string
+  meta.type                                           string
+  meta.updated                                        string
+  meta.updatedBy                                      string
+  meta.url                                            string
+  meta.version                                        number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsViewPublicDashboardFlag.DescribeResponseJSONSchema {
@@ -9282,21 +9743,46 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AddDataSourceCommand):
-{
-  "access": string,
-  "basicAuth": boolean,
-  "basicAuthUser": string,
-  "database": string,
-  "isDefault": boolean,
-  "jsonData": any,  // models.JSON
-  "name": string,
-  "secureJsonData": {"key": string},
-  "type": string,
-  "uid": string,
-  "url": string,
-  "user": string,
-  "withCredentials": boolean
-}`,
+  access           string
+  basicAuth        boolean
+  basicAuthUser    string
+  database         string
+  isDefault        boolean
+  jsonData         object
+  name             string
+  secureJsonData   map<string, string>
+  type             string
+  uid              string
+  url              string
+  user             string
+  withCredentials  boolean`,
+			"responseSchema": `Response schema (AddDataSourceOK.Payload):
+  datasource                   object                REQUIRED
+  datasource.access            string
+  datasource.accessControl     map<string, boolean>
+  datasource.basicAuth         boolean
+  datasource.basicAuthUser     string
+  datasource.database          string
+  datasource.id                number
+  datasource.isDefault         boolean
+  datasource.jsonData          object
+  datasource.name              string
+  datasource.orgId             number
+  datasource.readOnly          boolean
+  datasource.secureJsonFields  map<string, boolean>
+  datasource.type              string
+  datasource.typeLogoUrl       string
+  datasource.uid               string
+  datasource.url               string
+  datasource.user              string
+  datasource.version           number
+  datasource.withCredentials   boolean
+  id                           number                REQUIRED
+                                                     ID Identifier of the new data source.
+  message                      string                REQUIRED
+                                                     Message Message of the deleted dashboard.
+  name                         string                REQUIRED
+                                                     Name of the new data source.`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -9354,8 +9840,12 @@ var (
   }
 }`
 	datasourcesCallDatasourceResourceCmd = &cobra.Command{
-		Use:               "call-datasource-resource",
-		Short:             "Fetches data source resources",
+		Use:   "call-datasource-resource",
+		Short: "Fetches data source resources",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (CallDatasourceResourceWithUIDOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesCallDatasourceResourceFlag.DescribeResponseJSONSchema {
@@ -9403,8 +9893,12 @@ var (
   }
 }`
 	datasourcesCheckDatasourceHealthCmd = &cobra.Command{
-		Use:               "check-datasource-health",
-		Short:             "Sends a health check request to the plugin datasource identified by the UID",
+		Use:   "check-datasource-health",
+		Short: "Sends a health check request to the plugin datasource identified by the UID",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (CheckDatasourceHealthWithUIDOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesCheckDatasourceHealthFlag.DescribeResponseJSONSchema {
@@ -9603,27 +10097,44 @@ var (
 		Short: "Adds correlation",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateCorrelationCommand):
-{
-  "config": {
-    "field": string,
-    "target": any,
-    "transformations": [object],  // models.Transformations
-    "type": string
-  },
-  "description": string,
-  "label": string,
-  "provisioned": boolean,
-  "targetUID": string,
-  "type": string
-}
-  config.field             REQUIRED
-                           Field used to attach the correlation link
-  config.target            REQUIRED
-                           Target data query
-  description              Optional description of the correlation
-  label                    Optional label identifying the correlation
-  provisioned              True if correlation was created with provisioning. This makes it read-only.
-  targetUID                Target data source UID to which the correlation is created. required if type = query`,
+  config                               object
+  config.field                         string         REQUIRED
+                                                      Field used to attach the correlation link
+  config.target                        object         REQUIRED
+                                                      Target data query
+  config.transformations               array<object>
+  config.transformations[].expression  string
+  config.transformations[].field       string
+  config.transformations[].mapValue    string
+  config.transformations[].type        string         enum: regex | logfmt
+  config.type                          string
+  description                          string         Optional description of the correlation
+  label                                string         Optional label identifying the correlation
+  provisioned                          boolean        True if correlation was created with provisioning. This makes it read-only.
+  targetUID                            string         Target data source UID to which the correlation is created. required if type = query
+  type                                 string`,
+			"responseSchema": `Response schema (CreateCorrelationOK.Payload):
+  message                                     string
+  result                                      object
+  result.config                               object
+  result.config.field                         string         REQUIRED
+                                                             Field used to attach the correlation link
+  result.config.target                        object         REQUIRED
+                                                             Target data query
+  result.config.transformations               array<object>
+  result.config.transformations[].expression  string
+  result.config.transformations[].field       string
+  result.config.transformations[].mapValue    string
+  result.config.transformations[].type        string         enum: regex | logfmt
+  result.config.type                          string
+  result.description                          string         Description of the correlation
+  result.label                                string         Label identifying the correlation
+  result.orgId                                number         OrgID of the data source the correlation originates from
+  result.provisioned                          boolean        Provisioned True if the correlation was created during provisioning
+  result.sourceUID                            string         UID of the data source the correlation originates from
+  result.targetUID                            string         UID of the data source the correlation points to
+  result.type                                 string
+  result.uid                                  string         Unique identifier of the correlation`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -9682,8 +10193,12 @@ var (
   }
 }`
 	datasourcesDeleteCorrelationCmd = &cobra.Command{
-		Use:               "delete-correlation",
-		Short:             "Deletes a correlation",
+		Use:   "delete-correlation",
+		Short: "Deletes a correlation",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteCorrelationOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesDeleteCorrelationFlag.DescribeResponseJSONSchema {
@@ -9746,6 +10261,13 @@ var (
 			"Deletes an existing data source by name",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:delete` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteDataSourceByNameOK.Payload):
+  id       number  REQUIRED
+                   ID Identifier of the deleted data source.
+  message  string  REQUIRED
+                   Message Message of the deleted dashboard.`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesDeleteDatasourceByNameFlag.DescribeResponseJSONSchema {
@@ -9798,6 +10320,10 @@ var (
 			"Deletes an existing data source by UID",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:delete` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:kLtEtcRGk` (single data source).",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteDataSourceByUIDOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesDeleteDatasourceByUIDFlag.DescribeResponseJSONSchema {
@@ -9915,8 +10441,30 @@ var (
   }
 }`
 	datasourcesGetCorrelationCmd = &cobra.Command{
-		Use:               "get-correlation",
-		Short:             "Gets a correlation",
+		Use:   "get-correlation",
+		Short: "Gets a correlation",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetCorrelationOK.Payload):
+  config                               object
+  config.field                         string         REQUIRED
+                                                      Field used to attach the correlation link
+  config.target                        object         REQUIRED
+                                                      Target data query
+  config.transformations               array<object>
+  config.transformations[].expression  string
+  config.transformations[].field       string
+  config.transformations[].mapValue    string
+  config.transformations[].type        string         enum: regex | logfmt
+  config.type                          string
+  description                          string         Description of the correlation
+  label                                string         Label identifying the correlation
+  orgId                                number         OrgID of the data source the correlation originates from
+  provisioned                          boolean        Provisioned True if the correlation was created during provisioning
+  sourceUID                            string         UID of the data source the correlation originates from
+  targetUID                            string         UID of the data source the correlation points to
+  type                                 string
+  uid                                  string         Unique identifier of the correlation`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesGetCorrelationFlag.DescribeResponseJSONSchema {
@@ -10274,6 +10822,28 @@ var (
 			"Gets a single data source by name",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetDataSourceByNameOK.Payload):
+  access            string
+  accessControl     map<string, boolean>
+  basicAuth         boolean
+  basicAuthUser     string
+  database          string
+  id                number
+  isDefault         boolean
+  jsonData          object
+  name              string
+  orgId             number
+  readOnly          boolean
+  secureJsonFields  map<string, boolean>
+  type              string
+  typeLogoUrl       string
+  uid               string
+  url               string
+  user              string
+  version           number
+  withCredentials   boolean`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesGetDatasourceByNameFlag.DescribeResponseJSONSchema {
@@ -10384,6 +10954,28 @@ var (
 			"Gets a single data source by UID",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:kLtEtcRGk` (single data source).",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetDataSourceByUIDOK.Payload):
+  access            string
+  accessControl     map<string, boolean>
+  basicAuth         boolean
+  basicAuthUser     string
+  database          string
+  id                number
+  isDefault         boolean
+  jsonData          object
+  name              string
+  orgId             number
+  readOnly          boolean
+  secureJsonFields  map<string, boolean>
+  type              string
+  typeLogoUrl       string
+  uid               string
+  url               string
+  user              string
+  version           number
+  withCredentials   boolean`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesGetDatasourceByUIDFlag.DescribeResponseJSONSchema {
@@ -10440,6 +11032,11 @@ var (
 			"Gets data source Id by name",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetDataSourceIDByNameOK.Payload):
+  id  number  REQUIRED
+              ID Identifier of the data source.`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if datasourcesGetDatasourceIDByNameFlag.DescribeResponseJSONSchema {
@@ -11118,21 +11715,19 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (MetricRequest):
-{
-  "debug": boolean,
-  "from": string,
-  "queries": [any],  // []models.JSON
-  "to": string
-}
-  from                     REQUIRED
-                           From Start time in epoch timestamps in milliseconds or relative using Grafana time units.
-  queries                  REQUIRED
-                           queries.refId – Specifies an identifier of the query. Is optional and default to “A”.
-                           queries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId.
-                           queries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100.
-                           queries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000.
-  to                       REQUIRED
-                           To End time in epoch timestamps in milliseconds or relative using Grafana time units.`,
+  debug    boolean
+  from     string         REQUIRED
+                          From Start time in epoch timestamps in milliseconds or relative using Grafana time units.
+  queries  array<object>  REQUIRED
+                          queries.refId – Specifies an identifier of the query. Is optional and default to “A”.
+                          queries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId.
+                          queries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100.
+                          queries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000.
+  to       string         REQUIRED
+                          To End time in epoch timestamps in milliseconds or relative using Grafana time units.`,
+			"responseSchema": `Response schema (QueryMetricsWithExpressionsOK.Payload):
+  Note: Response wire format differs from the Go type; consider --raw.
+  results  map<string, object>`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -11328,21 +11923,39 @@ var (
 		Short: "Updates a correlation",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateCorrelationCommand):
-{
-  "config": {
-    "field": string,
-    "target": any,
-    "transformations": [object]  // []models.Transformation
-  },
-  "description": string,
-  "label": string,
-  "type": string
-}
-  config.field             Field used to attach the correlation link
-  config.target            Target data query
-  config.transformations   Source data transformations
-  description              Optional description of the correlation
-  label                    Optional label identifying the correlation`,
+  config                               object
+  config.field                         string         Field used to attach the correlation link
+  config.target                        object         Target data query
+  config.transformations               array<object>  Source data transformations
+  config.transformations[].expression  string
+  config.transformations[].field       string
+  config.transformations[].mapValue    string
+  config.transformations[].type        string         enum: regex | logfmt
+  description                          string         Optional description of the correlation
+  label                                string         Optional label identifying the correlation
+  type                                 string`,
+			"responseSchema": `Response schema (UpdateCorrelationOK.Payload):
+  message                                     string
+  result                                      object
+  result.config                               object
+  result.config.field                         string         REQUIRED
+                                                             Field used to attach the correlation link
+  result.config.target                        object         REQUIRED
+                                                             Target data query
+  result.config.transformations               array<object>
+  result.config.transformations[].expression  string
+  result.config.transformations[].field       string
+  result.config.transformations[].mapValue    string
+  result.config.transformations[].type        string         enum: regex | logfmt
+  result.config.type                          string
+  result.description                          string         Description of the correlation
+  result.label                                string         Label identifying the correlation
+  result.orgId                                number         OrgID of the data source the correlation originates from
+  result.provisioned                          boolean        Provisioned True if the correlation was created during provisioning
+  result.sourceUID                            string         UID of the data source the correlation originates from
+  result.targetUID                            string         UID of the data source the correlation points to
+  result.type                                 string
+  result.uid                                  string         Unique identifier of the correlation`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -11543,23 +12156,47 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateDataSourceCommand):
-{
-  "access": string,
-  "basicAuth": boolean,
-  "basicAuthUser": string,
-  "database": string,
-  "isDefault": boolean,
-  "jsonData": any,  // models.JSON
-  "name": string,
-  "secureJsonData": {"key": string},
-  "type": string,
-  "uid": string,
-  "url": string,
-  "user": string,
-  "version": number,
-  "withCredentials": boolean
-}
-  version                  The previous version -- used for optimistic locking`,
+  access           string
+  basicAuth        boolean
+  basicAuthUser    string
+  database         string
+  isDefault        boolean
+  jsonData         object
+  name             string
+  secureJsonData   map<string, string>
+  type             string
+  uid              string
+  url              string
+  user             string
+  version          number               The previous version -- used for optimistic locking
+  withCredentials  boolean`,
+			"responseSchema": `Response schema (UpdateDataSourceByUIDOK.Payload):
+  datasource                   object                REQUIRED
+  datasource.access            string
+  datasource.accessControl     map<string, boolean>
+  datasource.basicAuth         boolean
+  datasource.basicAuthUser     string
+  datasource.database          string
+  datasource.id                number
+  datasource.isDefault         boolean
+  datasource.jsonData          object
+  datasource.name              string
+  datasource.orgId             number
+  datasource.readOnly          boolean
+  datasource.secureJsonFields  map<string, boolean>
+  datasource.type              string
+  datasource.typeLogoUrl       string
+  datasource.uid               string
+  datasource.url               string
+  datasource.user              string
+  datasource.version           number
+  datasource.withCredentials   boolean
+  id                           number                REQUIRED
+                                                     ID Identifier of the new data source.
+  message                      string                REQUIRED
+                                                     Message Message of the deleted dashboard.
+  name                         string                REQUIRED
+                                                     Name of the new data source.`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -11755,8 +12392,21 @@ var (
   }
 }`
 	devicesSearchDevicesCmd = &cobra.Command{
-		Use:               "search-devices",
-		Short:             "Lists all devices within the last 30 days",
+		Use:   "search-devices",
+		Short: "Lists all devices within the last 30 days",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (SearchDevicesOK.Payload):
+  devices               array<object>
+  devices[].clientIp    string
+  devices[].createdAt   string
+  devices[].deviceId    string
+  devices[].lastSeenAt  string
+  devices[].updatedAt   string
+  devices[].userAgent   string
+  page                  number
+  perPage               number
+  totalCount            number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if devicesSearchDevicesFlag.DescribeResponseJSONSchema {
@@ -11914,8 +12564,22 @@ var (
   }
 }`
 	enterpriseCleanDatasourceCacheCmd = &cobra.Command{
-		Use:               "clean-datasource-cache",
-		Short:             "Clean cache for a single data source",
+		Use:   "clean-datasource-cache",
+		Short: "Clean cache for a single data source",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (CleanDataSourceCacheOK.Payload):
+  created         string
+  dataSourceID    number   Fields that can be set by the API caller - read/write
+  dataSourceUID   string
+  defaultTTLMs    number   These are returned by the HTTP API, but are managed internally - read-only
+                           Note: 'created' and 'updated' are special properties managed automatically by xorm, but we are setting them manually
+  enabled         boolean
+  message         string
+  ttlQueriesMs    number   TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+  ttlResourcesMs  number
+  updated         string
+  useDefaultTTL   boolean  If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if enterpriseCleanDatasourceCacheFlag.DescribeResponseJSONSchema {
@@ -11993,8 +12657,22 @@ var (
   }
 }`
 	enterpriseDisableDatasourceCacheCmd = &cobra.Command{
-		Use:               "disable-datasource-cache",
-		Short:             "Disable cache for a single data source",
+		Use:   "disable-datasource-cache",
+		Short: "Disable cache for a single data source",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DisableDataSourceCacheOK.Payload):
+  created         string
+  dataSourceID    number   Fields that can be set by the API caller - read/write
+  dataSourceUID   string
+  defaultTTLMs    number   These are returned by the HTTP API, but are managed internally - read-only
+                           Note: 'created' and 'updated' are special properties managed automatically by xorm, but we are setting them manually
+  enabled         boolean
+  message         string
+  ttlQueriesMs    number   TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+  ttlResourcesMs  number
+  updated         string
+  useDefaultTTL   boolean  If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if enterpriseDisableDatasourceCacheFlag.DescribeResponseJSONSchema {
@@ -12072,8 +12750,22 @@ var (
   }
 }`
 	enterpriseEnableDatasourceCacheCmd = &cobra.Command{
-		Use:               "enable-datasource-cache",
-		Short:             "Enable cache for a single data source",
+		Use:   "enable-datasource-cache",
+		Short: "Enable cache for a single data source",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (EnableDataSourceCacheOK.Payload):
+  created         string
+  dataSourceID    number   Fields that can be set by the API caller - read/write
+  dataSourceUID   string
+  defaultTTLMs    number   These are returned by the HTTP API, but are managed internally - read-only
+                           Note: 'created' and 'updated' are special properties managed automatically by xorm, but we are setting them manually
+  enabled         boolean
+  message         string
+  ttlQueriesMs    number   TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+  ttlResourcesMs  number
+  updated         string
+  useDefaultTTL   boolean  If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if enterpriseEnableDatasourceCacheFlag.DescribeResponseJSONSchema {
@@ -12151,8 +12843,22 @@ var (
   }
 }`
 	enterpriseGetDatasourceCacheConfigCmd = &cobra.Command{
-		Use:               "get-datasource-cache-config",
-		Short:             "Get cache config for a single data source",
+		Use:   "get-datasource-cache-config",
+		Short: "Get cache config for a single data source",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetDataSourceCacheConfigOK.Payload):
+  created         string
+  dataSourceID    number   Fields that can be set by the API caller - read/write
+  dataSourceUID   string
+  defaultTTLMs    number   These are returned by the HTTP API, but are managed internally - read-only
+                           Note: 'created' and 'updated' are special properties managed automatically by xorm, but we are setting them manually
+  enabled         boolean
+  message         string
+  ttlQueriesMs    number   TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+  ttlResourcesMs  number
+  updated         string
+  useDefaultTTL   boolean  If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if enterpriseGetDatasourceCacheConfigFlag.DescribeResponseJSONSchema {
@@ -12216,8 +12922,15 @@ var (
   }
 }`
 	enterpriseGetTeamLBACRulesAPICmd = &cobra.Command{
-		Use:               "get-team-lbac-rules-api",
-		Short:             "Retrieves l b a c rules for a team",
+		Use:   "get-team-lbac-rules-api",
+		Short: "Retrieves l b a c rules for a team",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetTeamLBACRulesAPIOK.Payload):
+  rules            array<object>
+  rules[].rules    array<string>
+  rules[].teamId   string
+  rules[].teamUid  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if enterpriseGetTeamLBACRulesAPIFlag.DescribeResponseJSONSchema {
@@ -12300,6 +13013,18 @@ var (
 			"Returns the result of the search through access-control role assignments.",
 			"You need to have a permission with action `teams.roles:read` on scope `teams:*` and a permission with action `users.roles:read` on scope `users:*`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (SearchResultOK.Payload):
+  result              array<object>
+  result[].action     string
+  result[].basicRole  string
+  result[].orgId      number
+  result[].roleName   string
+  result[].scope      string
+  result[].teamId     number
+  result[].userId     number
+  result[].version    number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if enterpriseSearchResultFlag.DescribeResponseJSONSchema {
@@ -12406,16 +13131,24 @@ var (
 		Short: "Set cache config for a single data source",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CacheConfigSetter):
-{
-  "dataSourceID": number,
-  "dataSourceUID": string,
-  "enabled": boolean,
-  "ttlQueriesMs": number,
-  "ttlResourcesMs": number,
-  "useDefaultTTL": boolean
-}
-  ttlQueriesMs             TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
-  useDefaultTTL            If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini`,
+  dataSourceID    number
+  dataSourceUID   string
+  enabled         boolean
+  ttlQueriesMs    number   TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+  ttlResourcesMs  number
+  useDefaultTTL   boolean  If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini`,
+			"responseSchema": `Response schema (SetDataSourceCacheConfigOK.Payload):
+  created         string
+  dataSourceID    number   Fields that can be set by the API caller - read/write
+  dataSourceUID   string
+  defaultTTLMs    number   These are returned by the HTTP API, but are managed internally - read-only
+                           Note: 'created' and 'updated' are special properties managed automatically by xorm, but we are setting them manually
+  enabled         boolean
+  message         string
+  ttlQueriesMs    number   TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+  ttlResourcesMs  number
+  updated         string
+  useDefaultTTL   boolean  If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -12534,15 +13267,19 @@ var (
 		Short: "Updates l b a c rules for a team",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateTeamLBACCommand):
-{
-  "rules": [
-    {
-      "rules": [string],
-      "teamId": string,
-      "teamUid": string
-    }
-  ]
-}`,
+  rules            array<object>
+  rules[].rules    array<string>
+  rules[].teamId   string
+  rules[].teamUid  string`,
+			"responseSchema": `Response schema (UpdateTeamLBACRulesAPIOK.Payload):
+  id               number
+  message          string
+  name             string
+  rules            array<object>
+  rules[].rules    array<string>
+  rules[].teamId   string
+  rules[].teamUid  string
+  uid              string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -12741,12 +13478,30 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateFolderCommand):
-{
-  "description": string,
-  "parentUid": string,
-  "title": string,
-  "uid": string
-}`,
+  description  string
+  parentUid    string
+  title        string
+  uid          string`,
+			"responseSchema": `Response schema (CreateFolderOK.Payload):
+  accessControl  map<string, boolean>
+  canAdmin       boolean
+  canDelete      boolean
+  canEdit        boolean
+  canSave        boolean
+  created        string
+  createdBy      string
+  hasAcl         boolean
+  id             number                Deprecated: use UID instead
+  managedBy      string
+  orgId          number
+  parentUid      string                only used if nested folders are enabled
+  parents        array<object>         the parent folders starting from the root going down
+  title          string
+  uid            string
+  updated        string
+  updatedBy      string
+  url            string
+  version        number`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -12824,6 +13579,15 @@ var (
 			"Deletes folder",
 			"Deletes an existing folder identified by UID along with all dashboards (and their alerts) stored in the folder. This operation cannot be reverted. If nested folders are enabled then it also deletes all the subfolders.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteFolderOK.Payload):
+  id       number  REQUIRED
+                   ID Identifier of the deleted folder.
+  message  string  REQUIRED
+                   Message Message of the deleted folder.
+  title    string  REQUIRED
+                   Title of the deleted folder.`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if foldersDeleteFolderFlag.DescribeResponseJSONSchema {
@@ -12934,8 +13698,30 @@ var (
   }
 }`
 	foldersGetFolderByUIDCmd = &cobra.Command{
-		Use:               "get-folder-by-uid",
-		Short:             "Gets folder by uid",
+		Use:   "get-folder-by-uid",
+		Short: "Gets folder by uid",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetFolderByUIDOK.Payload):
+  accessControl  map<string, boolean>
+  canAdmin       boolean
+  canDelete      boolean
+  canEdit        boolean
+  canSave        boolean
+  created        string
+  createdBy      string
+  hasAcl         boolean
+  id             number                Deprecated: use UID instead
+  managedBy      string
+  orgId          number
+  parentUid      string                only used if nested folders are enabled
+  parents        array<object>         the parent folders starting from the root going down
+  title          string
+  uid            string
+  updated        string
+  updatedBy      string
+  url            string
+  version        number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if foldersGetFolderByUIDFlag.DescribeResponseJSONSchema {
@@ -13302,9 +14088,27 @@ var (
 		Short: "Moves folder",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (MoveFolderCommand):
-{
-  "parentUid": string
-}`,
+  parentUid  string`,
+			"responseSchema": `Response schema (MoveFolderOK.Payload):
+  accessControl  map<string, boolean>
+  canAdmin       boolean
+  canDelete      boolean
+  canEdit        boolean
+  canSave        boolean
+  created        string
+  createdBy      string
+  hasAcl         boolean
+  id             number                Deprecated: use UID instead
+  managedBy      string
+  orgId          number
+  parentUid      string                only used if nested folders are enabled
+  parents        array<object>         the parent folders starting from the root going down
+  title          string
+  uid            string
+  updated        string
+  updatedBy      string
+  url            string
+  version        number`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -13453,16 +14257,30 @@ var (
 		Short: "Updates folder",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateFolderCommand):
-{
-  "description": string,
-  "overwrite": boolean,
-  "title": string,
-  "version": number
-}
-  description              NewDescription it's an optional parameter used for overriding the existing folder description
-  overwrite                Overwrite only used by the legacy folder implementation
-  title                    NewTitle it's an optional parameter used for overriding the existing folder title
-  version                  Version only used by the legacy folder implementation`,
+  description  string   NewDescription it's an optional parameter used for overriding the existing folder description
+  overwrite    boolean  Overwrite only used by the legacy folder implementation
+  title        string   NewTitle it's an optional parameter used for overriding the existing folder title
+  version      number   Version only used by the legacy folder implementation`,
+			"responseSchema": `Response schema (UpdateFolderOK.Payload):
+  accessControl  map<string, boolean>
+  canAdmin       boolean
+  canDelete      boolean
+  canEdit        boolean
+  canSave        boolean
+  created        string
+  createdBy      string
+  hasAcl         boolean
+  id             number                Deprecated: use UID instead
+  managedBy      string
+  orgId          number
+  parentUid      string                only used if nested folders are enabled
+  parents        array<object>         the parent folders starting from the root going down
+  title          string
+  uid            string
+  updated        string
+  updatedBy      string
+  url            string
+  version        number`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -13558,17 +14376,13 @@ var (
 		Short: "Updates permissions for a folder this operation will remove existing permissions if they re not included in the request",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateDashboardACLCommand):
-{
-  "items": [
-    {
-      "permission": number,
-      "role": string,
-      "teamId": number,
-      "userId": number
-    }
-  ]
-}
-  items[].role             enum: None | Viewer | Editor | Admin`,
+  items               array<object>
+  items[].permission  number
+  items[].role        string         enum: None | Viewer | Editor | Admin
+  items[].teamId      number
+  items[].userId      number`,
+			"responseSchema": `Response schema (UpdateFolderPermissionsOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -13709,9 +14523,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (GroupAttributes):
-{
-  "roles": [string]
-}`,
+  roles  array<string>`,
+			"responseSchema": `Response schema (CreateGroupMappingsCreated.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -13774,6 +14588,10 @@ var (
 		Long: longHelp(
 			"Deletes mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteGroupMappingsNoContent.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if groupAttributeSyncDeleteGroupMappingsFlag.DescribeResponseJSONSchema {
@@ -13952,6 +14770,13 @@ var (
 		Long: longHelp(
 			"Lists groups that have mappings set this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetMappedGroupsOK.Payload):
+  groups             array<object>
+  groups[].groupID   string
+  groups[].mappings  object
+  total              number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if groupAttributeSyncGetMappedGroupsFlag.DescribeResponseJSONSchema {
@@ -14015,9 +14840,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (GroupAttributes):
-{
-  "roles": [string]
-}`,
+  roles  array<string>`,
+			"responseSchema": `Response schema (UpdateGroupMappingsCreated.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -14124,6 +14949,13 @@ var (
 		Long: longHelp(
 			"ApiHealthHandler will return ok if Grafana's web server is running and it can access the database. If the database cannot be accessed it will return http status code 503.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetHealthOK.Payload):
+  commit            string
+  database          string
+  enterpriseCommit  string
+  version           string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if healthGetHealthFlag.DescribeResponseJSONSchema {
@@ -14228,6 +15060,20 @@ var (
 			"Returns the current state of the LDAP background sync integration",
 			"You need to have a permission with action `ldap.status:read`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetSyncStatusOK.Payload):
+  enabled                       boolean
+  nextSync                      string
+  prevSync                      object
+  prevSync.Elapsed              number
+  prevSync.FailedUsers          array<object>
+  prevSync.FailedUsers[].Error  string
+  prevSync.FailedUsers[].Login  string
+  prevSync.MissingUserIds       array<number>
+  prevSync.Started              string
+  prevSync.UpdatedUserIds       array<number>
+  schedule                      string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if ldapDebugGetSyncStatusFlag.DescribeResponseJSONSchema {
@@ -14408,22 +15254,43 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateLibraryElementCommand):
-{
-  "folderId": number,
-  "folderUid": string,
-  "kind": number,
-  "model": any,
-  "name": string,
-  "uid": string
-}
-  folderId                 ID of the folder where the library element is stored.
-                           Deprecated: use FolderUID instead
-  folderUid                UID of the folder where the library element is stored.
-  kind                     Kind of element to create, Use 1 for library panels or 2 for c.
-                           Description:
-                           1 - library panels, enum: 1
-  model                    The JSON model for the library element.
-  name                     Name of the library element.`,
+  folderId   number  ID of the folder where the library element is stored.
+                     Deprecated: use FolderUID instead
+  folderUid  string  UID of the folder where the library element is stored.
+  kind       number  Kind of element to create, Use 1 for library panels or 2 for c.
+                     Description:
+                     1 - library panels, enum: 1
+  model      object  The JSON model for the library element.
+  name       string  Name of the library element.
+  uid        string`,
+			"responseSchema": `Response schema (CreateLibraryElementOK.Payload):
+  result                           object
+  result.description               string
+  result.folderId                  number  Deprecated: use FolderUID instead
+  result.folderUid                 string
+  result.id                        number
+  result.kind                      number
+  result.meta                      object
+  result.meta.connectedDashboards  number
+  result.meta.created              string
+  result.meta.createdBy            object
+  result.meta.createdBy.avatarUrl  string
+  result.meta.createdBy.id         number
+  result.meta.createdBy.name       string
+  result.meta.folderName           string
+  result.meta.folderUid            string
+  result.meta.updated              string
+  result.meta.updatedBy            object
+  result.meta.updatedBy.avatarUrl  string
+  result.meta.updatedBy.id         number
+  result.meta.updatedBy.name       string
+  result.model                     object
+  result.name                      string
+  result.orgId                     number
+  result.schemaVersion             number
+  result.type                      string
+  result.uid                       string
+  result.version                   number`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -14487,6 +15354,10 @@ var (
 			"Deletes library element",
 			"Deletes an existing library element as specified by the UID. This operation cannot be reverted. You cannot delete a library element that is connected. This operation cannot be reverted.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteLibraryElementByUIDOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if libraryElementsDeleteLibraryElementByUIDFlag.DescribeResponseJSONSchema {
@@ -14627,6 +15498,36 @@ var (
 			"Gets library element by name",
 			"Returns a library element with the given name.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetLibraryElementByNameOK.Payload):
+  result                             array<object>
+  result[].description               string
+  result[].folderId                  number         Deprecated: use FolderUID instead
+  result[].folderUid                 string
+  result[].id                        number
+  result[].kind                      number
+  result[].meta                      object
+  result[].meta.connectedDashboards  number
+  result[].meta.created              string
+  result[].meta.createdBy            object
+  result[].meta.createdBy.avatarUrl  string
+  result[].meta.createdBy.id         number
+  result[].meta.createdBy.name       string
+  result[].meta.folderName           string
+  result[].meta.folderUid            string
+  result[].meta.updated              string
+  result[].meta.updatedBy            object
+  result[].meta.updatedBy.avatarUrl  string
+  result[].meta.updatedBy.id         number
+  result[].meta.updatedBy.name       string
+  result[].model                     object
+  result[].name                      string
+  result[].orgId                     number
+  result[].schemaVersion             number
+  result[].type                      string
+  result[].uid                       string
+  result[].version                   number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if libraryElementsGetLibraryElementByNameFlag.DescribeResponseJSONSchema {
@@ -14764,6 +15665,36 @@ var (
 			"Gets library element by UID",
 			"Returns a library element with the given UID.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetLibraryElementByUIDOK.Payload):
+  result                           object
+  result.description               string
+  result.folderId                  number  Deprecated: use FolderUID instead
+  result.folderUid                 string
+  result.id                        number
+  result.kind                      number
+  result.meta                      object
+  result.meta.connectedDashboards  number
+  result.meta.created              string
+  result.meta.createdBy            object
+  result.meta.createdBy.avatarUrl  string
+  result.meta.createdBy.id         number
+  result.meta.createdBy.name       string
+  result.meta.folderName           string
+  result.meta.folderUid            string
+  result.meta.updated              string
+  result.meta.updatedBy            object
+  result.meta.updatedBy.avatarUrl  string
+  result.meta.updatedBy.id         number
+  result.meta.updatedBy.name       string
+  result.model                     object
+  result.name                      string
+  result.orgId                     number
+  result.schemaVersion             number
+  result.type                      string
+  result.uid                       string
+  result.version                   number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if libraryElementsGetLibraryElementByUIDFlag.DescribeResponseJSONSchema {
@@ -14854,6 +15785,20 @@ var (
 			"Gets library element connections",
 			"Returns a list of connections for a library element based on the UID specified.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetLibraryElementConnectionsOK.Payload):
+  result                        array<object>
+  result[].connectionId         number
+  result[].connectionUid        string
+  result[].created              string
+  result[].createdBy            object
+  result[].createdBy.avatarUrl  string
+  result[].createdBy.id         number
+  result[].createdBy.name       string
+  result[].elementId            number
+  result[].id                   number         Deprecated: this field will be removed in the future
+  result[].kind                 number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if libraryElementsGetLibraryElementConnectionsFlag.DescribeResponseJSONSchema {
@@ -15008,6 +15953,40 @@ var (
 			"Gets all library elements",
 			"Returns a list of all library elements the authenticated user has permission to view. Use the `perPage` query parameter to control the maximum number of library elements returned; the default limit is `100`. You can also use the `page` query parameter to fetch library elements from any page other than the first one.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetLibraryElementsOK.Payload):
+  result                                      object
+  result.elements                             array<object>
+  result.elements[].description               string
+  result.elements[].folderId                  number         Deprecated: use FolderUID instead
+  result.elements[].folderUid                 string
+  result.elements[].id                        number
+  result.elements[].kind                      number
+  result.elements[].meta                      object
+  result.elements[].meta.connectedDashboards  number
+  result.elements[].meta.created              string
+  result.elements[].meta.createdBy            object
+  result.elements[].meta.createdBy.avatarUrl  string
+  result.elements[].meta.createdBy.id         number
+  result.elements[].meta.createdBy.name       string
+  result.elements[].meta.folderName           string
+  result.elements[].meta.folderUid            string
+  result.elements[].meta.updated              string
+  result.elements[].meta.updatedBy            object
+  result.elements[].meta.updatedBy.avatarUrl  string
+  result.elements[].meta.updatedBy.id         number
+  result.elements[].meta.updatedBy.name       string
+  result.elements[].model                     object
+  result.elements[].name                      string
+  result.elements[].orgId                     number
+  result.elements[].schemaVersion             number
+  result.elements[].type                      string
+  result.elements[].uid                       string
+  result.elements[].version                   number
+  result.page                                 number
+  result.perPage                              number
+  result.totalCount                           number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if libraryElementsGetLibraryElementsFlag.DescribeResponseJSONSchema {
@@ -15190,24 +16169,44 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PatchLibraryElementCommand):
-{
-  "folderId": number,
-  "folderUid": string,
-  "kind": number,
-  "model": any,
-  "name": string,
-  "uid": string,
-  "version": number
-}
-  folderId                 ID of the folder where the library element is stored.
-                           Deprecated: use FolderUID instead
-  folderUid                UID of the folder where the library element is stored.
-  kind                     Kind of element to create, Use 1 for library panels or 2 for c.
-                           Description:
-                           1 - library panels, enum: 1
-  model                    The JSON model for the library element.
-  name                     Name of the library element.
-  version                  Version of the library element you are updating.`,
+  folderId   number  ID of the folder where the library element is stored.
+                     Deprecated: use FolderUID instead
+  folderUid  string  UID of the folder where the library element is stored.
+  kind       number  Kind of element to create, Use 1 for library panels or 2 for c.
+                     Description:
+                     1 - library panels, enum: 1
+  model      object  The JSON model for the library element.
+  name       string  Name of the library element.
+  uid        string
+  version    number  Version of the library element you are updating.`,
+			"responseSchema": `Response schema (UpdateLibraryElementOK.Payload):
+  result                           object
+  result.description               string
+  result.folderId                  number  Deprecated: use FolderUID instead
+  result.folderUid                 string
+  result.id                        number
+  result.kind                      number
+  result.meta                      object
+  result.meta.connectedDashboards  number
+  result.meta.created              string
+  result.meta.createdBy            object
+  result.meta.createdBy.avatarUrl  string
+  result.meta.createdBy.id         number
+  result.meta.createdBy.name       string
+  result.meta.folderName           string
+  result.meta.folderUid            string
+  result.meta.updated              string
+  result.meta.updatedBy            object
+  result.meta.updatedBy.avatarUrl  string
+  result.meta.updatedBy.id         number
+  result.meta.updatedBy.name       string
+  result.model                     object
+  result.name                      string
+  result.orgId                     number
+  result.schemaVersion             number
+  result.type                      string
+  result.uid                       string
+  result.version                   number`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -15349,9 +16348,13 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (DeleteTokenCommand):
-{
-  "instance": string
-}`,
+  instance  string`,
+			"responseSchema": `Response schema (DeleteLicenseTokenAccepted.Payload):
+  error    string  Error An optional detailed description of the actual error. Only included if running in developer mode.
+  message  string  REQUIRED
+                   a human readable version of the error
+  status   string  Status An optional status to denote the cause of the error.
+                   For example, a 412 Precondition Failed error may include additional information of why that error happened.`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -15557,6 +16560,33 @@ var (
 			"Gets license token",
 			"You need to have a permission with action `licensing:read`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetLicenseTokenOK.Payload):
+  account                       string
+  anonymousRatio                number
+  company                       string
+  details_url                   string
+  exp                           number
+  iat                           number
+  included_users                number
+  iss                           string
+  jti                           string
+  lexp                          number
+  lic_exp_warn_days             number
+  lid                           string
+  limit_by                      string
+  max_concurrent_user_sessions  number
+  nbf                           number
+  prod                          array<string>
+  slug                          string
+  status                        number
+  sub                           string
+  tok_exp_warn_days             number
+  trial                         boolean
+  trial_exp                     number
+  update_days                   number
+  usage_billing                 boolean`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if licensingGetLicenseTokenFlag.DescribeResponseJSONSchema {
@@ -15722,9 +16752,32 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (DeleteTokenCommand):
-{
-  "instance": string
-}`,
+  instance  string`,
+			"responseSchema": `Response schema (PostLicenseTokenOK.Payload):
+  account                       string
+  anonymousRatio                number
+  company                       string
+  details_url                   string
+  exp                           number
+  iat                           number
+  included_users                number
+  iss                           string
+  jti                           string
+  lexp                          number
+  lic_exp_warn_days             number
+  lid                           string
+  limit_by                      string
+  max_concurrent_user_sessions  number
+  nbf                           number
+  prod                          array<string>
+  slug                          string
+  status                        number
+  sub                           string
+  tok_exp_warn_days             number
+  trial                         boolean
+  trial_exp                     number
+  update_days                   number
+  usage_billing                 boolean`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -15839,6 +16892,13 @@ var (
 			"Refreshes license stats",
 			"You need to have a permission with action `licensing:read`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (RefreshLicenseStatsOK.Payload):
+  active_admins_and_editors  number
+  active_anonymous_devices   number
+  active_users               number
+  active_viewers             number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if licensingRefreshLicenseStatsFlag.DescribeResponseJSONSchema {
@@ -15961,8 +17021,12 @@ var (
   }
 }`
 	migrationsCreateCloudMigrationTokenCmd = &cobra.Command{
-		Use:               "create-cloud-migration-token",
-		Short:             "Creates gcom access token",
+		Use:   "create-cloud-migration-token",
+		Short: "Creates gcom access token",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (CreateCloudMigrationTokenOK.Payload):
+  token  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if migrationsCreateCloudMigrationTokenFlag.DescribeResponseJSONSchema {
@@ -16030,9 +17094,12 @@ var (
 		Short: "Creates a migration session",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CloudMigrationSessionRequestDTO):
-{
-  "authToken": string
-}`,
+  authToken  string`,
+			"responseSchema": `Response schema (CreateSessionOK.Payload):
+  created  string
+  slug     string
+  uid      string
+  updated  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -16111,9 +17178,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateSnapshotRequestDTO):
-{
-  "resourceTypes": [string]
-}`,
+  resourceTypes  array<string>`,
+			"responseSchema": `Response schema (CreateSnapshotOK.Payload):
+  uid  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -16253,8 +17320,17 @@ var (
   }
 }`
 	migrationsGetCloudMigrationTokenCmd = &cobra.Command{
-		Use:               "get-cloud-migration-token",
-		Short:             "Fetches the cloud migration token if it exists",
+		Use:   "get-cloud-migration-token",
+		Short: "Fetches the cloud migration token if it exists",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetCloudMigrationTokenOK.Payload):
+  createdAt    string
+  displayName  string
+  expiresAt    string
+  firstUsedAt  string
+  id           string
+  lastUsedAt   string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if migrationsGetCloudMigrationTokenFlag.DescribeResponseJSONSchema {
@@ -16326,8 +17402,14 @@ var (
   }
 }`
 	migrationsGetResourceDependenciesCmd = &cobra.Command{
-		Use:               "get-resource-dependencies",
-		Short:             "Gets the resource dependencies graph for the current set of migratable resources",
+		Use:   "get-resource-dependencies",
+		Short: "Gets the resource dependencies graph for the current set of migratable resources",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetResourceDependenciesOK.Payload):
+  resourceDependencies                 array<object>
+  resourceDependencies[].dependencies  array<string>
+  resourceDependencies[].resourceType  string         enum: DASHBOARD | DATASOURCE | FOLDER | LIBRARY_ELEMENT | ALERT_RULE | ALERT_RULE_GROUP | CONTACT_POINT | NOTIFICATION_POLICY | NOTIFICATION_TEMPLATE | MUTE_TIMING | PLUGIN`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if migrationsGetResourceDependenciesFlag.DescribeResponseJSONSchema {
@@ -16381,8 +17463,15 @@ var (
   }
 }`
 	migrationsGetSessionCmd = &cobra.Command{
-		Use:               "get-session",
-		Short:             "Gets a cloud migration session by its uid",
+		Use:   "get-session",
+		Short: "Gets a cloud migration session by its uid",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetSessionOK.Payload):
+  created  string
+  slug     string
+  uid      string
+  updated  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if migrationsGetSessionFlag.DescribeResponseJSONSchema {
@@ -16446,8 +17535,16 @@ var (
   }
 }`
 	migrationsGetSessionListCmd = &cobra.Command{
-		Use:               "get-session-list",
-		Short:             "Gets a list of all cloud migration sessions that have been created",
+		Use:   "get-session-list",
+		Short: "Gets a list of all cloud migration sessions that have been created",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetSessionListOK.Payload):
+  sessions            array<object>
+  sessions[].created  string
+  sessions[].slug     string
+  sessions[].uid      string
+  sessions[].updated  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if migrationsGetSessionListFlag.DescribeResponseJSONSchema {
@@ -16524,8 +17621,17 @@ var (
   }
 }`
 	migrationsGetShapshotListCmd = &cobra.Command{
-		Use:               "get-shapshot-list",
-		Short:             "Gets a list of snapshots for a session",
+		Use:   "get-shapshot-list",
+		Short: "Gets a list of snapshots for a session",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetShapshotListOK.Payload):
+  snapshots               array<object>
+  snapshots[].created     string
+  snapshots[].finished    string
+  snapshots[].sessionUid  string
+  snapshots[].status      string         enum: INITIALIZING | CREATING | PENDING_UPLOAD | UPLOADING | PENDING_PROCESSING | PROCESSING | FINISHED | CANCELED | ERROR | UNKNOWN
+  snapshots[].uid         string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if migrationsGetShapshotListFlag.DescribeResponseJSONSchema {
@@ -16688,8 +17794,30 @@ var (
   }
 }`
 	migrationsGetSnapshotCmd = &cobra.Command{
-		Use:               "get-snapshot",
-		Short:             "Gets metadata about a snapshot including where it is in its processing and final results",
+		Use:   "get-snapshot",
+		Short: "Gets metadata about a snapshot including where it is in its processing and final results",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetSnapshotOK.Payload):
+  created               string
+  finished              string
+  results               array<object>
+  results[].errorCode   string               enum: ALERT_RULES_QUOTA_REACHED | ALERT_RULES_GROUP_QUOTA_REACHED | DATASOURCE_NAME_CONFLICT | DATASOURCE_INVALID_URL | DATASOURCE_ALREADY_MANAGED | FOLDER_NAME_CONFLICT | DASHBOARD_ALREADY_MANAGED | LIBRARY_ELEMENT_NAME_CONFLICT | UNSUPPORTED_DATA_TYPE | RESOURCE_CONFLICT | UNEXPECTED_STATUS_CODE | INTERNAL_SERVICE_ERROR | GENERIC_ERROR
+  results[].message     string
+  results[].name        string
+  results[].parentName  string
+  results[].refId       string               REQUIRED
+  results[].status      string               REQUIRED
+                                             enum: OK | WARNING | ERROR | PENDING | UNKNOWN
+  results[].type        string               REQUIRED
+                                             enum: DASHBOARD | DATASOURCE | FOLDER | LIBRARY_ELEMENT | ALERT_RULE | ALERT_RULE_GROUP | CONTACT_POINT | NOTIFICATION_POLICY | NOTIFICATION_TEMPLATE | MUTE_TIMING | PLUGIN
+  sessionUid            string
+  stats                 object
+  stats.statuses        map<string, number>
+  stats.total           number
+  stats.types           map<string, number>
+  status                string               enum: INITIALIZING | CREATING | PENDING_UPLOAD | UPLOADING | PENDING_PROCESSING | PROCESSING | FINISHED | CANCELED | ERROR | UNKNOWN
+  uid                   string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if migrationsGetSnapshotFlag.DescribeResponseJSONSchema {
@@ -16883,13 +18011,12 @@ var (
 		Short: "Adds invite",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AddInviteForm):
-{
-  "loginOrEmail": string,
-  "name": string,
-  "role": string,
-  "sendEmail": boolean
-}
-  role                     enum: None | Viewer | Editor | Admin`,
+  loginOrEmail  string
+  name          string
+  role          string   enum: None | Viewer | Editor | Admin
+  sendEmail     boolean`,
+			"responseSchema": `Response schema (AddOrgInviteOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -16975,11 +18102,10 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AddOrgUserCommand):
-{
-  "loginOrEmail": string,
-  "role": string
-}
-  role                     enum: None | Viewer | Editor | Admin`,
+  loginOrEmail  string
+  role          string  enum: None | Viewer | Editor | Admin`,
+			"responseSchema": `Response schema (AddOrgUserToCurrentOrgOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -17063,8 +18189,20 @@ var (
   }
 }`
 	orgGetCurrentOrgCmd = &cobra.Command{
-		Use:               "get-current-org",
-		Short:             "Gets current organization",
+		Use:   "get-current-org",
+		Short: "Gets current organization",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetCurrentOrgOK.Payload):
+  address           object
+  address.address1  string
+  address.address2  string
+  address.city      string
+  address.country   string
+  address.state     string
+  address.zipCode   string
+  id                number
+  name              string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgGetCurrentOrgFlag.DescribeResponseJSONSchema {
@@ -17158,8 +18296,26 @@ var (
   }
 }`
 	orgGetOrgPreferencesCmd = &cobra.Command{
-		Use:               "get-org-preferences",
-		Short:             "Gets current org prefs",
+		Use:   "get-org-preferences",
+		Short: "Gets current org prefs",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetOrgPreferencesOK.Payload):
+  cookiePreferences              object
+  cookiePreferences.analytics    object
+  cookiePreferences.functional   object
+  cookiePreferences.performance  object
+  homeDashboardUID               string         UID for the home dashboard
+  language                       string         Selected language (beta)
+  navbar                         object
+  navbar.bookmarkUrls            array<string>
+  queryHistory                   object
+  queryHistory.homeTab           string         one of: '' | 'query' | 'starred';
+  regionalFormat                 string         Selected locale (beta)
+  theme                          string         light, dark, empty is default
+  timezone                       string         The timezone selection
+                                                TODO: this should use the timezone defined in common
+  weekStart                      string         day of the week (sunday, monday, etc)`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgGetOrgPreferencesFlag.DescribeResponseJSONSchema {
@@ -17533,25 +18689,20 @@ var (
 		Short: "Patches current org prefs",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PatchPrefsCmd):
-{
-  "cookies": [string],
-  "homeDashboardId": number,
-  "homeDashboardUID": string,
-  "language": string,
-  "navbar": {
-    "bookmarkUrls": [string]
-  },
-  "queryHistory": {
-    "homeTab": string
-  },
-  "regionalFormat": string,
-  "theme": string,
-  "timezone": string,
-  "weekStart": string
-}
-  homeDashboardId          The numerical :id of a favorited dashboard
-  theme                    enum: light | dark
-  timezone                 enum: utc | browser`,
+  cookies               array<string>
+  homeDashboardId       number         The numerical :id of a favorited dashboard
+  homeDashboardUID      string
+  language              string
+  navbar                object
+  navbar.bookmarkUrls   array<string>
+  queryHistory          object
+  queryHistory.homeTab  string
+  regionalFormat        string
+  theme                 string         enum: light | dark
+  timezone              string         enum: utc | browser
+  weekStart             string`,
+			"responseSchema": `Response schema (PatchOrgPreferencesOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -17615,6 +18766,10 @@ var (
 			"Deletes user in current organization",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:remove` with scope `users:*`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (RemoveOrgUserForCurrentOrgOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgRemoveOrgUserForCurrentOrgFlag.DescribeResponseJSONSchema {
@@ -17661,8 +18816,12 @@ var (
   }
 }`
 	orgRevokeInviteCmd = &cobra.Command{
-		Use:               "revoke-invite",
-		Short:             "Revokes invite",
+		Use:   "revoke-invite",
+		Short: "Revokes invite",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (RevokeInviteOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgRevokeInviteFlag.DescribeResponseJSONSchema {
@@ -17723,9 +18882,9 @@ var (
 		Short: "Updates current organization",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateOrgForm):
-{
-  "name": string
-}`,
+  name  string`,
+			"responseSchema": `Response schema (UpdateCurrentOrgOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -17812,14 +18971,14 @@ var (
 		Short: "Updates current organization s address",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateOrgAddressForm):
-{
-  "address1": string,
-  "address2": string,
-  "city": string,
-  "country": string,
-  "state": string,
-  "zipcode": string
-}`,
+  address1  string
+  address2  string
+  city      string
+  country   string
+  state     string
+  zipcode   string`,
+			"responseSchema": `Response schema (UpdateCurrentOrgAddressOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -17944,25 +19103,20 @@ var (
 		Short: "Updates current org prefs",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdatePrefsCmd):
-{
-  "cookies": [string],
-  "homeDashboardId": number,
-  "homeDashboardUID": string,
-  "language": string,
-  "navbar": {
-    "bookmarkUrls": [string]
-  },
-  "queryHistory": {
-    "homeTab": string
-  },
-  "regionalFormat": string,
-  "theme": string,
-  "timezone": string,
-  "weekStart": string
-}
-  homeDashboardId          The numerical :id of a favorited dashboard
-  theme                    enum: light | dark | system
-  timezone                 enum: utc | browser`,
+  cookies               array<string>
+  homeDashboardId       number         The numerical :id of a favorited dashboard
+  homeDashboardUID      string
+  language              string
+  navbar                object
+  navbar.bookmarkUrls   array<string>
+  queryHistory          object
+  queryHistory.homeTab  string
+  regionalFormat        string
+  theme                 string         enum: light | dark | system
+  timezone              string         enum: utc | browser
+  weekStart             string`,
+			"responseSchema": `Response schema (UpdateOrgPreferencesOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -18044,10 +19198,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateOrgUserCommand):
-{
-  "role": string
-}
-  role                     enum: None | Viewer | Editor | Admin`,
+  role  string  enum: None | Viewer | Editor | Admin`,
+			"responseSchema": `Response schema (UpdateOrgUserForCurrentOrgOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -18218,11 +19371,10 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AddOrgUserCommand):
-{
-  "loginOrEmail": string,
-  "role": string
-}
-  role                     enum: None | Viewer | Editor | Admin`,
+  loginOrEmail  string
+  role          string  enum: None | Viewer | Editor | Admin`,
+			"responseSchema": `Response schema (AddOrgUserOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -18308,9 +19460,12 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateOrgCommand):
-{
-  "name": string
-}`,
+  name  string`,
+			"responseSchema": `Response schema (CreateOrgOK.Payload):
+  message  string  REQUIRED
+                   Message Message of the created org.
+  orgId    number  REQUIRED
+                   ID Identifier of the created org.`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -18394,8 +19549,20 @@ var (
   }
 }`
 	orgsGetOrgByNameCmd = &cobra.Command{
-		Use:               "get-org-by-name",
-		Short:             "Gets organization by name",
+		Use:   "get-org-by-name",
+		Short: "Gets organization by name",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetOrgByNameOK.Payload):
+  address           object
+  address.address1  string
+  address.address2  string
+  address.city      string
+  address.country   string
+  address.state     string
+  address.zipCode   string
+  id                number
+  name              string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgsGetOrgByNameFlag.DescribeResponseJSONSchema {
@@ -18551,6 +19718,10 @@ var (
 			"Deletes user in current organization",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:remove` with scope `users:*`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (RemoveOrgUserOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgsRemoveOrgUserFlag.DescribeResponseJSONSchema {
@@ -18669,6 +19840,28 @@ var (
 			"Searches users in organization",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:read` with scope `users:*`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (SearchOrgUsersOK.Payload):
+  orgUsers                       array<object>
+  orgUsers[].accessControl       map<string, boolean>
+  orgUsers[].authLabels          array<string>
+  orgUsers[].avatarUrl           string
+  orgUsers[].email               string
+  orgUsers[].isDisabled          boolean
+  orgUsers[].isExternallySynced  boolean
+  orgUsers[].isProvisioned       boolean
+  orgUsers[].lastSeenAt          string
+  orgUsers[].lastSeenAtAge       string
+  orgUsers[].login               string
+  orgUsers[].name                string
+  orgUsers[].orgId               number
+  orgUsers[].role                string
+  orgUsers[].uid                 string
+  orgUsers[].userId              number
+  page                           number
+  perPage                        number
+  totalCount                     number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if orgsSearchOrgUsersFlag.DescribeResponseJSONSchema {
@@ -18786,9 +19979,9 @@ var (
 		Short: "Updates organization",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateOrgForm):
-{
-  "name": string
-}`,
+  name  string`,
+			"responseSchema": `Response schema (UpdateOrgOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -18876,14 +20069,14 @@ var (
 		Short: "Updates organization s address",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateOrgAddressForm):
-{
-  "address1": string,
-  "address2": string,
-  "city": string,
-  "country": string,
-  "state": string,
-  "zipcode": string
-}`,
+  address1  string
+  address2  string
+  city      string
+  country   string
+  state     string
+  zipcode   string`,
+			"responseSchema": `Response schema (UpdateOrgAddressOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -18966,10 +20159,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateOrgUserCommand):
-{
-  "role": string
-}
-  role                     enum: None | Viewer | Editor | Admin`,
+  role  string  enum: None | Viewer | Editor | Admin`,
+			"responseSchema": `Response schema (UpdateOrgUserOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -19152,20 +20344,20 @@ var (
 		Short: "Creates playlist",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreatePlaylistCommand):
-{
-  "interval": string,
-  "items": [
-    {
-      "Id": number,
-      "PlaylistId": number,
-      "order": number,
-      "title": string,
-      "type": string,
-      "value": string
-    }
-  ],
-  "name": string
-}`,
+  interval            string
+  items               array<object>
+  items[].Id          number
+  items[].PlaylistId  number
+  items[].order       number
+  items[].title       string
+  items[].type        string
+  items[].value       string
+  name                string`,
+			"responseSchema": `Response schema (CreatePlaylistOK.Payload):
+  id        number
+  interval  string
+  name      string
+  uid       string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -19223,8 +20415,12 @@ var (
   }
 }`
 	playlistsDeletePlaylistCmd = &cobra.Command{
-		Use:               "delete-playlist",
-		Short:             "Deletes playlist",
+		Use:   "delete-playlist",
+		Short: "Deletes playlist",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeletePlaylistOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if playlistsDeletePlaylistFlag.DescribeResponseJSONSchema {
@@ -19280,8 +20476,15 @@ var (
   }
 }`
 	playlistsGetPlaylistCmd = &cobra.Command{
-		Use:               "get-playlist",
-		Short:             "Gets playlist",
+		Use:   "get-playlist",
+		Short: "Gets playlist",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetPlaylistOK.Payload):
+  id        number
+  interval  string
+  name      string
+  uid       string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if playlistsGetPlaylistFlag.DescribeResponseJSONSchema {
@@ -19510,21 +20713,21 @@ var (
 		Short: "Updates playlist",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdatePlaylistCommand):
-{
-  "interval": string,
-  "items": [
-    {
-      "Id": number,
-      "PlaylistId": number,
-      "order": number,
-      "title": string,
-      "type": string,
-      "value": string
-    }
-  ],
-  "name": string,
-  "uid": string
-}`,
+  interval            string
+  items               array<object>
+  items[].Id          number
+  items[].PlaylistId  number
+  items[].order       number
+  items[].title       string
+  items[].type        string
+  items[].value       string
+  name                string
+  uid                 string`,
+			"responseSchema": `Response schema (UpdatePlaylistOK.Payload):
+  id        number
+  interval  string
+  name      string
+  uid       string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -20246,8 +21449,109 @@ var (
   }
 }`
 	provisioningExportMuteTimingCmd = &cobra.Command{
-		Use:               "export-mute-timing",
-		Short:             "Exports a mute timing in provisioning format",
+		Use:   "export-mute-timing",
+		Short: "Exports a mute timing in provisioning format",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ExportMuteTimingOK.Payload):
+  apiVersion                                                        number
+  contactPoints                                                     array<object>
+  contactPoints[].name                                              string
+  contactPoints[].orgId                                             number
+  contactPoints[].receivers                                         array<object>
+  contactPoints[].receivers[].disableResolveMessage                 boolean
+  contactPoints[].receivers[].settings                              object
+  contactPoints[].receivers[].type                                  string
+  contactPoints[].receivers[].uid                                   string
+  groups                                                            array<object>
+  groups[].folder                                                   string
+  groups[].interval                                                 string
+  groups[].name                                                     string
+  groups[].orgId                                                    number
+  groups[].rules                                                    array<object>
+  groups[].rules[].annotations                                      map<string, string>
+  groups[].rules[].condition                                        string
+  groups[].rules[].dashboardUid                                     string
+  groups[].rules[].data                                             array<object>
+  groups[].rules[].data[].datasourceUid                             string
+  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].queryType                                 string
+  groups[].rules[].data[].refId                                     string
+  groups[].rules[].data[].relativeTimeRange                         object
+  groups[].rules[].data[].relativeTimeRange.from                    number
+  groups[].rules[].data[].relativeTimeRange.to                      number
+  groups[].rules[].execErrState                                     string                enum: OK | Alerting | Error
+  groups[].rules[].for                                              string
+  groups[].rules[].isPaused                                         boolean
+  groups[].rules[].keepFiringFor                                    string
+  groups[].rules[].labels                                           map<string, string>
+  groups[].rules[].missing_series_evals_to_resolve                  number
+  groups[].rules[].noDataState                                      string                enum: Alerting | NoData | OK
+  groups[].rules[].notification_settings                            object
+  groups[].rules[].notification_settings.active_time_intervals      array<string>
+  groups[].rules[].notification_settings.group_by                   array<string>
+  groups[].rules[].notification_settings.group_interval             string
+  groups[].rules[].notification_settings.group_wait                 string
+  groups[].rules[].notification_settings.mute_time_intervals        array<string>
+  groups[].rules[].notification_settings.receiver                   string
+  groups[].rules[].notification_settings.repeat_interval            string
+  groups[].rules[].panelId                                          number
+  groups[].rules[].record                                           object
+  groups[].rules[].record.from                                      string
+  groups[].rules[].record.metric                                    string
+  groups[].rules[].record.targetDatasourceUid                       string
+  groups[].rules[].title                                            string
+  groups[].rules[].uid                                              string
+  muteTimes                                                         array<object>
+  muteTimes[].name                                                  string
+  muteTimes[].orgId                                                 number
+  muteTimes[].time_intervals                                        array<object>
+  muteTimes[].time_intervals[].name                                 string
+  muteTimes[].time_intervals[].time_intervals                       array<object>
+  muteTimes[].time_intervals[].time_intervals[].days_of_month       array<string>
+  muteTimes[].time_intervals[].time_intervals[].location            string
+  muteTimes[].time_intervals[].time_intervals[].months              array<string>
+  muteTimes[].time_intervals[].time_intervals[].times               array<object>
+  muteTimes[].time_intervals[].time_intervals[].times[].end_time    string
+  muteTimes[].time_intervals[].time_intervals[].times[].start_time  string
+  muteTimes[].time_intervals[].time_intervals[].weekdays            array<string>
+  muteTimes[].time_intervals[].time_intervals[].years               array<string>
+  policies                                                          array<object>
+  policies[].active_time_intervals                                  array<string>
+  policies[].continue                                               boolean
+  policies[].group_by                                               array<string>
+  policies[].group_interval                                         string
+  policies[].group_wait                                             string
+  policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].match_re                                               map<string, string>
+  policies[].matchers                                               array<object>
+  policies[].matchers[].isEqual                                     boolean
+  policies[].matchers[].isRegex                                     boolean               REQUIRED
+  policies[].matchers[].name                                        string                REQUIRED
+  policies[].matchers[].value                                       string                REQUIRED
+  policies[].mute_time_intervals                                    array<string>
+  policies[].object_matchers                                        array<array<string>>
+  policies[].orgId                                                  number
+  policies[].receiver                                               string
+  policies[].repeat_interval                                        string
+  policies[].routes                                                 array<object>
+  policies[].routes[].active_time_intervals                         array<string>
+  policies[].routes[].continue                                      boolean
+  policies[].routes[].group_by                                      array<string>
+  policies[].routes[].group_interval                                string
+  policies[].routes[].group_wait                                    string
+  policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].routes[].match_re                                      map<string, string>
+  policies[].routes[].matchers                                      array<object>
+  policies[].routes[].matchers[].isEqual                            boolean
+  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
+  policies[].routes[].matchers[].name                               string                REQUIRED
+  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].mute_time_intervals                           array<string>
+  policies[].routes[].object_matchers                               array<array<string>>
+  policies[].routes[].receiver                                      string
+  policies[].routes[].repeat_interval                               string
+  policies[].routes[].routes                                        array<object>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningExportMuteTimingFlag.DescribeResponseJSONSchema {
@@ -20748,8 +22052,109 @@ var (
   }
 }`
 	provisioningExportMuteTimingsCmd = &cobra.Command{
-		Use:               "export-mute-timings",
-		Short:             "Exports all mute timings in provisioning format",
+		Use:   "export-mute-timings",
+		Short: "Exports all mute timings in provisioning format",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ExportMuteTimingsOK.Payload):
+  apiVersion                                                        number
+  contactPoints                                                     array<object>
+  contactPoints[].name                                              string
+  contactPoints[].orgId                                             number
+  contactPoints[].receivers                                         array<object>
+  contactPoints[].receivers[].disableResolveMessage                 boolean
+  contactPoints[].receivers[].settings                              object
+  contactPoints[].receivers[].type                                  string
+  contactPoints[].receivers[].uid                                   string
+  groups                                                            array<object>
+  groups[].folder                                                   string
+  groups[].interval                                                 string
+  groups[].name                                                     string
+  groups[].orgId                                                    number
+  groups[].rules                                                    array<object>
+  groups[].rules[].annotations                                      map<string, string>
+  groups[].rules[].condition                                        string
+  groups[].rules[].dashboardUid                                     string
+  groups[].rules[].data                                             array<object>
+  groups[].rules[].data[].datasourceUid                             string
+  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].queryType                                 string
+  groups[].rules[].data[].refId                                     string
+  groups[].rules[].data[].relativeTimeRange                         object
+  groups[].rules[].data[].relativeTimeRange.from                    number
+  groups[].rules[].data[].relativeTimeRange.to                      number
+  groups[].rules[].execErrState                                     string                enum: OK | Alerting | Error
+  groups[].rules[].for                                              string
+  groups[].rules[].isPaused                                         boolean
+  groups[].rules[].keepFiringFor                                    string
+  groups[].rules[].labels                                           map<string, string>
+  groups[].rules[].missing_series_evals_to_resolve                  number
+  groups[].rules[].noDataState                                      string                enum: Alerting | NoData | OK
+  groups[].rules[].notification_settings                            object
+  groups[].rules[].notification_settings.active_time_intervals      array<string>
+  groups[].rules[].notification_settings.group_by                   array<string>
+  groups[].rules[].notification_settings.group_interval             string
+  groups[].rules[].notification_settings.group_wait                 string
+  groups[].rules[].notification_settings.mute_time_intervals        array<string>
+  groups[].rules[].notification_settings.receiver                   string
+  groups[].rules[].notification_settings.repeat_interval            string
+  groups[].rules[].panelId                                          number
+  groups[].rules[].record                                           object
+  groups[].rules[].record.from                                      string
+  groups[].rules[].record.metric                                    string
+  groups[].rules[].record.targetDatasourceUid                       string
+  groups[].rules[].title                                            string
+  groups[].rules[].uid                                              string
+  muteTimes                                                         array<object>
+  muteTimes[].name                                                  string
+  muteTimes[].orgId                                                 number
+  muteTimes[].time_intervals                                        array<object>
+  muteTimes[].time_intervals[].name                                 string
+  muteTimes[].time_intervals[].time_intervals                       array<object>
+  muteTimes[].time_intervals[].time_intervals[].days_of_month       array<string>
+  muteTimes[].time_intervals[].time_intervals[].location            string
+  muteTimes[].time_intervals[].time_intervals[].months              array<string>
+  muteTimes[].time_intervals[].time_intervals[].times               array<object>
+  muteTimes[].time_intervals[].time_intervals[].times[].end_time    string
+  muteTimes[].time_intervals[].time_intervals[].times[].start_time  string
+  muteTimes[].time_intervals[].time_intervals[].weekdays            array<string>
+  muteTimes[].time_intervals[].time_intervals[].years               array<string>
+  policies                                                          array<object>
+  policies[].active_time_intervals                                  array<string>
+  policies[].continue                                               boolean
+  policies[].group_by                                               array<string>
+  policies[].group_interval                                         string
+  policies[].group_wait                                             string
+  policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].match_re                                               map<string, string>
+  policies[].matchers                                               array<object>
+  policies[].matchers[].isEqual                                     boolean
+  policies[].matchers[].isRegex                                     boolean               REQUIRED
+  policies[].matchers[].name                                        string                REQUIRED
+  policies[].matchers[].value                                       string                REQUIRED
+  policies[].mute_time_intervals                                    array<string>
+  policies[].object_matchers                                        array<array<string>>
+  policies[].orgId                                                  number
+  policies[].receiver                                               string
+  policies[].repeat_interval                                        string
+  policies[].routes                                                 array<object>
+  policies[].routes[].active_time_intervals                         array<string>
+  policies[].routes[].continue                                      boolean
+  policies[].routes[].group_by                                      array<string>
+  policies[].routes[].group_interval                                string
+  policies[].routes[].group_wait                                    string
+  policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].routes[].match_re                                      map<string, string>
+  policies[].routes[].matchers                                      array<object>
+  policies[].routes[].matchers[].isEqual                            boolean
+  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
+  policies[].routes[].matchers[].name                               string                REQUIRED
+  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].mute_time_intervals                           array<string>
+  policies[].routes[].object_matchers                               array<array<string>>
+  policies[].routes[].receiver                                      string
+  policies[].routes[].repeat_interval                               string
+  policies[].routes[].routes                                        array<object>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningExportMuteTimingsFlag.DescribeResponseJSONSchema {
@@ -20976,8 +22381,78 @@ var (
   ]
 }`
 	provisioningGetAlertRuleCmd = &cobra.Command{
-		Use:               "get-alert-rule",
-		Short:             "Gets a specific alert rule by UID",
+		Use:   "get-alert-rule",
+		Short: "Gets a specific alert rule by UID",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetAlertRuleOK.Payload):
+  annotations                                  map<string, string>
+  condition                                    string               REQUIRED
+  data                                         array<object>        REQUIRED
+  data[].datasourceUid                         string               Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
+  data[].model                                 object               JSON is the raw JSON query and includes the above properties as well as custom properties.
+  data[].queryType                             string               QueryType is an optional identifier for the type of query.
+                                                                    It can be used to distinguish different types of queries.
+  data[].refId                                 string               RefID is the unique identifier of the query, set by the frontend call.
+  data[].relativeTimeRange                     object
+  data[].relativeTimeRange.from                number
+  data[].relativeTimeRange.to                  number
+  execErrState                                 string               REQUIRED
+                                                                    enum: OK | Alerting | Error
+  folderUID                                    string               REQUIRED
+  for                                          string               REQUIRED
+  id                                           number
+  isPaused                                     boolean
+  keep_firing_for                              string
+  labels                                       map<string, string>
+  missingSeriesEvalsToResolve                  number
+  noDataState                                  string               REQUIRED
+                                                                    enum: Alerting | NoData | OK
+  notification_settings                        object
+  notification_settings.active_time_intervals  array<string>        Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+                                                                    at the time that matches any interval.
+  notification_settings.group_by               array<string>        Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+                                                                    cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+                                                                    use the special value '...' as the sole label name.
+                                                                    This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+                                                                    you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+                                                                    Must include 'alertname' and 'grafana_folder' if not using '...'.
+  notification_settings.group_interval         string               Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+                                                                    which an initial notification has already been sent. (Usually ~5m or more.)
+  notification_settings.group_wait             string               Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+                                                                    inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  notification_settings.mute_time_intervals    array<string>        Override the times when notifications should be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+                                                                    otherwise acts normally.
+  notification_settings.receiver               string               REQUIRED
+                                                                    Name of the receiver to send notifications to.
+  notification_settings.repeat_interval        string               Override how long to wait before sending a notification again if it has already been sent successfully for an
+                                                                    alert. (Usually ~3h or more).
+                                                                    Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
+                                                                    Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+                                                                    occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
+  orgID                                        number               REQUIRED
+  provenance                                   string
+  record                                       object
+  record.from                                  string               REQUIRED
+                                                                    Which expression node should be used as the input for the recorded metric.
+  record.metric                                string               REQUIRED
+                                                                    Name of the recorded metric.
+  record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
+  ruleGroup                                    string               REQUIRED
+                                                                    rule group
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  title                                        string               REQUIRED
+                                                                    title
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  uid                                          string               uid
+                                                                    Max Length: 40
+                                                                    Min Length: 1
+  updated                                      string               updated
+                                                                    Read Only: true`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningGetAlertRuleFlag.DescribeResponseJSONSchema {
@@ -21476,8 +22951,109 @@ var (
   }
 }`
 	provisioningGetAlertRuleExportCmd = &cobra.Command{
-		Use:               "get-alert-rule-export",
-		Short:             "Exports an alert rule in provisioning file format",
+		Use:   "get-alert-rule-export",
+		Short: "Exports an alert rule in provisioning file format",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetAlertRuleExportOK.Payload):
+  apiVersion                                                        number
+  contactPoints                                                     array<object>
+  contactPoints[].name                                              string
+  contactPoints[].orgId                                             number
+  contactPoints[].receivers                                         array<object>
+  contactPoints[].receivers[].disableResolveMessage                 boolean
+  contactPoints[].receivers[].settings                              object
+  contactPoints[].receivers[].type                                  string
+  contactPoints[].receivers[].uid                                   string
+  groups                                                            array<object>
+  groups[].folder                                                   string
+  groups[].interval                                                 string
+  groups[].name                                                     string
+  groups[].orgId                                                    number
+  groups[].rules                                                    array<object>
+  groups[].rules[].annotations                                      map<string, string>
+  groups[].rules[].condition                                        string
+  groups[].rules[].dashboardUid                                     string
+  groups[].rules[].data                                             array<object>
+  groups[].rules[].data[].datasourceUid                             string
+  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].queryType                                 string
+  groups[].rules[].data[].refId                                     string
+  groups[].rules[].data[].relativeTimeRange                         object
+  groups[].rules[].data[].relativeTimeRange.from                    number
+  groups[].rules[].data[].relativeTimeRange.to                      number
+  groups[].rules[].execErrState                                     string                enum: OK | Alerting | Error
+  groups[].rules[].for                                              string
+  groups[].rules[].isPaused                                         boolean
+  groups[].rules[].keepFiringFor                                    string
+  groups[].rules[].labels                                           map<string, string>
+  groups[].rules[].missing_series_evals_to_resolve                  number
+  groups[].rules[].noDataState                                      string                enum: Alerting | NoData | OK
+  groups[].rules[].notification_settings                            object
+  groups[].rules[].notification_settings.active_time_intervals      array<string>
+  groups[].rules[].notification_settings.group_by                   array<string>
+  groups[].rules[].notification_settings.group_interval             string
+  groups[].rules[].notification_settings.group_wait                 string
+  groups[].rules[].notification_settings.mute_time_intervals        array<string>
+  groups[].rules[].notification_settings.receiver                   string
+  groups[].rules[].notification_settings.repeat_interval            string
+  groups[].rules[].panelId                                          number
+  groups[].rules[].record                                           object
+  groups[].rules[].record.from                                      string
+  groups[].rules[].record.metric                                    string
+  groups[].rules[].record.targetDatasourceUid                       string
+  groups[].rules[].title                                            string
+  groups[].rules[].uid                                              string
+  muteTimes                                                         array<object>
+  muteTimes[].name                                                  string
+  muteTimes[].orgId                                                 number
+  muteTimes[].time_intervals                                        array<object>
+  muteTimes[].time_intervals[].name                                 string
+  muteTimes[].time_intervals[].time_intervals                       array<object>
+  muteTimes[].time_intervals[].time_intervals[].days_of_month       array<string>
+  muteTimes[].time_intervals[].time_intervals[].location            string
+  muteTimes[].time_intervals[].time_intervals[].months              array<string>
+  muteTimes[].time_intervals[].time_intervals[].times               array<object>
+  muteTimes[].time_intervals[].time_intervals[].times[].end_time    string
+  muteTimes[].time_intervals[].time_intervals[].times[].start_time  string
+  muteTimes[].time_intervals[].time_intervals[].weekdays            array<string>
+  muteTimes[].time_intervals[].time_intervals[].years               array<string>
+  policies                                                          array<object>
+  policies[].active_time_intervals                                  array<string>
+  policies[].continue                                               boolean
+  policies[].group_by                                               array<string>
+  policies[].group_interval                                         string
+  policies[].group_wait                                             string
+  policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].match_re                                               map<string, string>
+  policies[].matchers                                               array<object>
+  policies[].matchers[].isEqual                                     boolean
+  policies[].matchers[].isRegex                                     boolean               REQUIRED
+  policies[].matchers[].name                                        string                REQUIRED
+  policies[].matchers[].value                                       string                REQUIRED
+  policies[].mute_time_intervals                                    array<string>
+  policies[].object_matchers                                        array<array<string>>
+  policies[].orgId                                                  number
+  policies[].receiver                                               string
+  policies[].repeat_interval                                        string
+  policies[].routes                                                 array<object>
+  policies[].routes[].active_time_intervals                         array<string>
+  policies[].routes[].continue                                      boolean
+  policies[].routes[].group_by                                      array<string>
+  policies[].routes[].group_interval                                string
+  policies[].routes[].group_wait                                    string
+  policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].routes[].match_re                                      map<string, string>
+  policies[].routes[].matchers                                      array<object>
+  policies[].routes[].matchers[].isEqual                            boolean
+  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
+  policies[].routes[].matchers[].name                               string                REQUIRED
+  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].mute_time_intervals                           array<string>
+  policies[].routes[].object_matchers                               array<array<string>>
+  policies[].routes[].receiver                                      string
+  policies[].routes[].repeat_interval                               string
+  policies[].routes[].routes                                        array<object>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningGetAlertRuleExportFlag.DescribeResponseJSONSchema {
@@ -21722,8 +23298,82 @@ var (
   }
 }`
 	provisioningGetAlertRuleGroupCmd = &cobra.Command{
-		Use:               "get-alert-rule-group",
-		Short:             "Gets a rule group",
+		Use:   "get-alert-rule-group",
+		Short: "Gets a rule group",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetAlertRuleGroupOK.Payload):
+  folderUid                                            string
+  interval                                             number
+  rules                                                array<object>
+  rules[].annotations                                  map<string, string>
+  rules[].condition                                    string               REQUIRED
+  rules[].data                                         array<object>        REQUIRED
+  rules[].data[].datasourceUid                         string               Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
+  rules[].data[].model                                 object               JSON is the raw JSON query and includes the above properties as well as custom properties.
+  rules[].data[].queryType                             string               QueryType is an optional identifier for the type of query.
+                                                                            It can be used to distinguish different types of queries.
+  rules[].data[].refId                                 string               RefID is the unique identifier of the query, set by the frontend call.
+  rules[].data[].relativeTimeRange                     object
+  rules[].data[].relativeTimeRange.from                number
+  rules[].data[].relativeTimeRange.to                  number
+  rules[].execErrState                                 string               REQUIRED
+                                                                            enum: OK | Alerting | Error
+  rules[].folderUID                                    string               REQUIRED
+  rules[].for                                          string               REQUIRED
+  rules[].id                                           number
+  rules[].isPaused                                     boolean
+  rules[].keep_firing_for                              string
+  rules[].labels                                       map<string, string>
+  rules[].missingSeriesEvalsToResolve                  number
+  rules[].noDataState                                  string               REQUIRED
+                                                                            enum: Alerting | NoData | OK
+  rules[].notification_settings                        object
+  rules[].notification_settings.active_time_intervals  array<string>        Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+                                                                            in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+                                                                            at the time that matches any interval.
+  rules[].notification_settings.group_by               array<string>        Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+                                                                            cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+                                                                            use the special value '...' as the sole label name.
+                                                                            This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+                                                                            you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+                                                                            Must include 'alertname' and 'grafana_folder' if not using '...'.
+  rules[].notification_settings.group_interval         string               Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+                                                                            which an initial notification has already been sent. (Usually ~5m or more.)
+  rules[].notification_settings.group_wait             string               Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+                                                                            inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  rules[].notification_settings.mute_time_intervals    array<string>        Override the times when notifications should be muted. These must match the name of a mute time interval defined
+                                                                            in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+                                                                            otherwise acts normally.
+  rules[].notification_settings.receiver               string               REQUIRED
+                                                                            Name of the receiver to send notifications to.
+  rules[].notification_settings.repeat_interval        string               Override how long to wait before sending a notification again if it has already been sent successfully for an
+                                                                            alert. (Usually ~3h or more).
+                                                                            Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
+                                                                            Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+                                                                            occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
+  rules[].orgID                                        number               REQUIRED
+  rules[].provenance                                   string
+  rules[].record                                       object
+  rules[].record.from                                  string               REQUIRED
+                                                                            Which expression node should be used as the input for the recorded metric.
+  rules[].record.metric                                string               REQUIRED
+                                                                            Name of the recorded metric.
+  rules[].record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
+  rules[].ruleGroup                                    string               REQUIRED
+                                                                            rule group
+                                                                            Max Length: 190
+                                                                            Min Length: 1
+  rules[].title                                        string               REQUIRED
+                                                                            title
+                                                                            Max Length: 190
+                                                                            Min Length: 1
+  rules[].uid                                          string               uid
+                                                                            Max Length: 40
+                                                                            Min Length: 1
+  rules[].updated                                      string               updated
+                                                                            Read Only: true
+  title                                                string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningGetAlertRuleGroupFlag.DescribeResponseJSONSchema {
@@ -22223,8 +23873,109 @@ var (
   }
 }`
 	provisioningGetAlertRuleGroupExportCmd = &cobra.Command{
-		Use:               "get-alert-rule-group-export",
-		Short:             "Exports an alert rule group in provisioning file format",
+		Use:   "get-alert-rule-group-export",
+		Short: "Exports an alert rule group in provisioning file format",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetAlertRuleGroupExportOK.Payload):
+  apiVersion                                                        number
+  contactPoints                                                     array<object>
+  contactPoints[].name                                              string
+  contactPoints[].orgId                                             number
+  contactPoints[].receivers                                         array<object>
+  contactPoints[].receivers[].disableResolveMessage                 boolean
+  contactPoints[].receivers[].settings                              object
+  contactPoints[].receivers[].type                                  string
+  contactPoints[].receivers[].uid                                   string
+  groups                                                            array<object>
+  groups[].folder                                                   string
+  groups[].interval                                                 string
+  groups[].name                                                     string
+  groups[].orgId                                                    number
+  groups[].rules                                                    array<object>
+  groups[].rules[].annotations                                      map<string, string>
+  groups[].rules[].condition                                        string
+  groups[].rules[].dashboardUid                                     string
+  groups[].rules[].data                                             array<object>
+  groups[].rules[].data[].datasourceUid                             string
+  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].queryType                                 string
+  groups[].rules[].data[].refId                                     string
+  groups[].rules[].data[].relativeTimeRange                         object
+  groups[].rules[].data[].relativeTimeRange.from                    number
+  groups[].rules[].data[].relativeTimeRange.to                      number
+  groups[].rules[].execErrState                                     string                enum: OK | Alerting | Error
+  groups[].rules[].for                                              string
+  groups[].rules[].isPaused                                         boolean
+  groups[].rules[].keepFiringFor                                    string
+  groups[].rules[].labels                                           map<string, string>
+  groups[].rules[].missing_series_evals_to_resolve                  number
+  groups[].rules[].noDataState                                      string                enum: Alerting | NoData | OK
+  groups[].rules[].notification_settings                            object
+  groups[].rules[].notification_settings.active_time_intervals      array<string>
+  groups[].rules[].notification_settings.group_by                   array<string>
+  groups[].rules[].notification_settings.group_interval             string
+  groups[].rules[].notification_settings.group_wait                 string
+  groups[].rules[].notification_settings.mute_time_intervals        array<string>
+  groups[].rules[].notification_settings.receiver                   string
+  groups[].rules[].notification_settings.repeat_interval            string
+  groups[].rules[].panelId                                          number
+  groups[].rules[].record                                           object
+  groups[].rules[].record.from                                      string
+  groups[].rules[].record.metric                                    string
+  groups[].rules[].record.targetDatasourceUid                       string
+  groups[].rules[].title                                            string
+  groups[].rules[].uid                                              string
+  muteTimes                                                         array<object>
+  muteTimes[].name                                                  string
+  muteTimes[].orgId                                                 number
+  muteTimes[].time_intervals                                        array<object>
+  muteTimes[].time_intervals[].name                                 string
+  muteTimes[].time_intervals[].time_intervals                       array<object>
+  muteTimes[].time_intervals[].time_intervals[].days_of_month       array<string>
+  muteTimes[].time_intervals[].time_intervals[].location            string
+  muteTimes[].time_intervals[].time_intervals[].months              array<string>
+  muteTimes[].time_intervals[].time_intervals[].times               array<object>
+  muteTimes[].time_intervals[].time_intervals[].times[].end_time    string
+  muteTimes[].time_intervals[].time_intervals[].times[].start_time  string
+  muteTimes[].time_intervals[].time_intervals[].weekdays            array<string>
+  muteTimes[].time_intervals[].time_intervals[].years               array<string>
+  policies                                                          array<object>
+  policies[].active_time_intervals                                  array<string>
+  policies[].continue                                               boolean
+  policies[].group_by                                               array<string>
+  policies[].group_interval                                         string
+  policies[].group_wait                                             string
+  policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].match_re                                               map<string, string>
+  policies[].matchers                                               array<object>
+  policies[].matchers[].isEqual                                     boolean
+  policies[].matchers[].isRegex                                     boolean               REQUIRED
+  policies[].matchers[].name                                        string                REQUIRED
+  policies[].matchers[].value                                       string                REQUIRED
+  policies[].mute_time_intervals                                    array<string>
+  policies[].object_matchers                                        array<array<string>>
+  policies[].orgId                                                  number
+  policies[].receiver                                               string
+  policies[].repeat_interval                                        string
+  policies[].routes                                                 array<object>
+  policies[].routes[].active_time_intervals                         array<string>
+  policies[].routes[].continue                                      boolean
+  policies[].routes[].group_by                                      array<string>
+  policies[].routes[].group_interval                                string
+  policies[].routes[].group_wait                                    string
+  policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].routes[].match_re                                      map<string, string>
+  policies[].routes[].matchers                                      array<object>
+  policies[].routes[].matchers[].isEqual                            boolean
+  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
+  policies[].routes[].matchers[].name                               string                REQUIRED
+  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].mute_time_intervals                           array<string>
+  policies[].routes[].object_matchers                               array<array<string>>
+  policies[].routes[].receiver                                      string
+  policies[].routes[].repeat_interval                               string
+  policies[].routes[].routes                                        array<object>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningGetAlertRuleGroupExportFlag.DescribeResponseJSONSchema {
@@ -22954,8 +24705,109 @@ var (
   }
 }`
 	provisioningGetAlertRulesExportCmd = &cobra.Command{
-		Use:               "get-alert-rules-export",
-		Short:             "Exports all alert rules in provisioning file format",
+		Use:   "get-alert-rules-export",
+		Short: "Exports all alert rules in provisioning file format",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetAlertRulesExportOK.Payload):
+  apiVersion                                                        number
+  contactPoints                                                     array<object>
+  contactPoints[].name                                              string
+  contactPoints[].orgId                                             number
+  contactPoints[].receivers                                         array<object>
+  contactPoints[].receivers[].disableResolveMessage                 boolean
+  contactPoints[].receivers[].settings                              object
+  contactPoints[].receivers[].type                                  string
+  contactPoints[].receivers[].uid                                   string
+  groups                                                            array<object>
+  groups[].folder                                                   string
+  groups[].interval                                                 string
+  groups[].name                                                     string
+  groups[].orgId                                                    number
+  groups[].rules                                                    array<object>
+  groups[].rules[].annotations                                      map<string, string>
+  groups[].rules[].condition                                        string
+  groups[].rules[].dashboardUid                                     string
+  groups[].rules[].data                                             array<object>
+  groups[].rules[].data[].datasourceUid                             string
+  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].queryType                                 string
+  groups[].rules[].data[].refId                                     string
+  groups[].rules[].data[].relativeTimeRange                         object
+  groups[].rules[].data[].relativeTimeRange.from                    number
+  groups[].rules[].data[].relativeTimeRange.to                      number
+  groups[].rules[].execErrState                                     string                enum: OK | Alerting | Error
+  groups[].rules[].for                                              string
+  groups[].rules[].isPaused                                         boolean
+  groups[].rules[].keepFiringFor                                    string
+  groups[].rules[].labels                                           map<string, string>
+  groups[].rules[].missing_series_evals_to_resolve                  number
+  groups[].rules[].noDataState                                      string                enum: Alerting | NoData | OK
+  groups[].rules[].notification_settings                            object
+  groups[].rules[].notification_settings.active_time_intervals      array<string>
+  groups[].rules[].notification_settings.group_by                   array<string>
+  groups[].rules[].notification_settings.group_interval             string
+  groups[].rules[].notification_settings.group_wait                 string
+  groups[].rules[].notification_settings.mute_time_intervals        array<string>
+  groups[].rules[].notification_settings.receiver                   string
+  groups[].rules[].notification_settings.repeat_interval            string
+  groups[].rules[].panelId                                          number
+  groups[].rules[].record                                           object
+  groups[].rules[].record.from                                      string
+  groups[].rules[].record.metric                                    string
+  groups[].rules[].record.targetDatasourceUid                       string
+  groups[].rules[].title                                            string
+  groups[].rules[].uid                                              string
+  muteTimes                                                         array<object>
+  muteTimes[].name                                                  string
+  muteTimes[].orgId                                                 number
+  muteTimes[].time_intervals                                        array<object>
+  muteTimes[].time_intervals[].name                                 string
+  muteTimes[].time_intervals[].time_intervals                       array<object>
+  muteTimes[].time_intervals[].time_intervals[].days_of_month       array<string>
+  muteTimes[].time_intervals[].time_intervals[].location            string
+  muteTimes[].time_intervals[].time_intervals[].months              array<string>
+  muteTimes[].time_intervals[].time_intervals[].times               array<object>
+  muteTimes[].time_intervals[].time_intervals[].times[].end_time    string
+  muteTimes[].time_intervals[].time_intervals[].times[].start_time  string
+  muteTimes[].time_intervals[].time_intervals[].weekdays            array<string>
+  muteTimes[].time_intervals[].time_intervals[].years               array<string>
+  policies                                                          array<object>
+  policies[].active_time_intervals                                  array<string>
+  policies[].continue                                               boolean
+  policies[].group_by                                               array<string>
+  policies[].group_interval                                         string
+  policies[].group_wait                                             string
+  policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].match_re                                               map<string, string>
+  policies[].matchers                                               array<object>
+  policies[].matchers[].isEqual                                     boolean
+  policies[].matchers[].isRegex                                     boolean               REQUIRED
+  policies[].matchers[].name                                        string                REQUIRED
+  policies[].matchers[].value                                       string                REQUIRED
+  policies[].mute_time_intervals                                    array<string>
+  policies[].object_matchers                                        array<array<string>>
+  policies[].orgId                                                  number
+  policies[].receiver                                               string
+  policies[].repeat_interval                                        string
+  policies[].routes                                                 array<object>
+  policies[].routes[].active_time_intervals                         array<string>
+  policies[].routes[].continue                                      boolean
+  policies[].routes[].group_by                                      array<string>
+  policies[].routes[].group_interval                                string
+  policies[].routes[].group_wait                                    string
+  policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].routes[].match_re                                      map<string, string>
+  policies[].routes[].matchers                                      array<object>
+  policies[].routes[].matchers[].isEqual                            boolean
+  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
+  policies[].routes[].matchers[].name                               string                REQUIRED
+  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].mute_time_intervals                           array<string>
+  policies[].routes[].object_matchers                               array<array<string>>
+  policies[].routes[].receiver                                      string
+  policies[].routes[].repeat_interval                               string
+  policies[].routes[].routes                                        array<object>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningGetAlertRulesExportFlag.DescribeResponseJSONSchema {
@@ -23549,8 +25401,109 @@ var (
   }
 }`
 	provisioningGetContactpointsExportCmd = &cobra.Command{
-		Use:               "get-contactpoints-export",
-		Short:             "Exports all contact points in provisioning file format",
+		Use:   "get-contactpoints-export",
+		Short: "Exports all contact points in provisioning file format",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetContactpointsExportOK.Payload):
+  apiVersion                                                        number
+  contactPoints                                                     array<object>
+  contactPoints[].name                                              string
+  contactPoints[].orgId                                             number
+  contactPoints[].receivers                                         array<object>
+  contactPoints[].receivers[].disableResolveMessage                 boolean
+  contactPoints[].receivers[].settings                              object
+  contactPoints[].receivers[].type                                  string
+  contactPoints[].receivers[].uid                                   string
+  groups                                                            array<object>
+  groups[].folder                                                   string
+  groups[].interval                                                 string
+  groups[].name                                                     string
+  groups[].orgId                                                    number
+  groups[].rules                                                    array<object>
+  groups[].rules[].annotations                                      map<string, string>
+  groups[].rules[].condition                                        string
+  groups[].rules[].dashboardUid                                     string
+  groups[].rules[].data                                             array<object>
+  groups[].rules[].data[].datasourceUid                             string
+  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].queryType                                 string
+  groups[].rules[].data[].refId                                     string
+  groups[].rules[].data[].relativeTimeRange                         object
+  groups[].rules[].data[].relativeTimeRange.from                    number
+  groups[].rules[].data[].relativeTimeRange.to                      number
+  groups[].rules[].execErrState                                     string                enum: OK | Alerting | Error
+  groups[].rules[].for                                              string
+  groups[].rules[].isPaused                                         boolean
+  groups[].rules[].keepFiringFor                                    string
+  groups[].rules[].labels                                           map<string, string>
+  groups[].rules[].missing_series_evals_to_resolve                  number
+  groups[].rules[].noDataState                                      string                enum: Alerting | NoData | OK
+  groups[].rules[].notification_settings                            object
+  groups[].rules[].notification_settings.active_time_intervals      array<string>
+  groups[].rules[].notification_settings.group_by                   array<string>
+  groups[].rules[].notification_settings.group_interval             string
+  groups[].rules[].notification_settings.group_wait                 string
+  groups[].rules[].notification_settings.mute_time_intervals        array<string>
+  groups[].rules[].notification_settings.receiver                   string
+  groups[].rules[].notification_settings.repeat_interval            string
+  groups[].rules[].panelId                                          number
+  groups[].rules[].record                                           object
+  groups[].rules[].record.from                                      string
+  groups[].rules[].record.metric                                    string
+  groups[].rules[].record.targetDatasourceUid                       string
+  groups[].rules[].title                                            string
+  groups[].rules[].uid                                              string
+  muteTimes                                                         array<object>
+  muteTimes[].name                                                  string
+  muteTimes[].orgId                                                 number
+  muteTimes[].time_intervals                                        array<object>
+  muteTimes[].time_intervals[].name                                 string
+  muteTimes[].time_intervals[].time_intervals                       array<object>
+  muteTimes[].time_intervals[].time_intervals[].days_of_month       array<string>
+  muteTimes[].time_intervals[].time_intervals[].location            string
+  muteTimes[].time_intervals[].time_intervals[].months              array<string>
+  muteTimes[].time_intervals[].time_intervals[].times               array<object>
+  muteTimes[].time_intervals[].time_intervals[].times[].end_time    string
+  muteTimes[].time_intervals[].time_intervals[].times[].start_time  string
+  muteTimes[].time_intervals[].time_intervals[].weekdays            array<string>
+  muteTimes[].time_intervals[].time_intervals[].years               array<string>
+  policies                                                          array<object>
+  policies[].active_time_intervals                                  array<string>
+  policies[].continue                                               boolean
+  policies[].group_by                                               array<string>
+  policies[].group_interval                                         string
+  policies[].group_wait                                             string
+  policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].match_re                                               map<string, string>
+  policies[].matchers                                               array<object>
+  policies[].matchers[].isEqual                                     boolean
+  policies[].matchers[].isRegex                                     boolean               REQUIRED
+  policies[].matchers[].name                                        string                REQUIRED
+  policies[].matchers[].value                                       string                REQUIRED
+  policies[].mute_time_intervals                                    array<string>
+  policies[].object_matchers                                        array<array<string>>
+  policies[].orgId                                                  number
+  policies[].receiver                                               string
+  policies[].repeat_interval                                        string
+  policies[].routes                                                 array<object>
+  policies[].routes[].active_time_intervals                         array<string>
+  policies[].routes[].continue                                      boolean
+  policies[].routes[].group_by                                      array<string>
+  policies[].routes[].group_interval                                string
+  policies[].routes[].group_wait                                    string
+  policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].routes[].match_re                                      map<string, string>
+  policies[].routes[].matchers                                      array<object>
+  policies[].routes[].matchers[].isEqual                            boolean
+  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
+  policies[].routes[].matchers[].name                               string                REQUIRED
+  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].mute_time_intervals                           array<string>
+  policies[].routes[].object_matchers                               array<array<string>>
+  policies[].routes[].receiver                                      string
+  policies[].routes[].repeat_interval                               string
+  policies[].routes[].routes                                        array<object>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningGetContactpointsExportFlag.DescribeResponseJSONSchema {
@@ -23649,8 +25602,21 @@ var (
   }
 }`
 	provisioningGetMuteTimingCmd = &cobra.Command{
-		Use:               "get-mute-timing",
-		Short:             "Gets a mute timing",
+		Use:   "get-mute-timing",
+		Short: "Gets a mute timing",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetMuteTimingOK.Payload):
+  name                                 string
+  time_intervals                       array<object>
+  time_intervals[].days_of_month       array<string>
+  time_intervals[].location            string
+  time_intervals[].months              array<string>
+  time_intervals[].times               array<object>
+  time_intervals[].times[].end_time    string
+  time_intervals[].times[].start_time  string
+  time_intervals[].weekdays            array<string>
+  time_intervals[].years               array<string>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningGetMuteTimingFlag.DescribeResponseJSONSchema {
@@ -23881,8 +25847,29 @@ var (
   }
 }`
 	provisioningGetPolicyTreeCmd = &cobra.Command{
-		Use:               "get-policy-tree",
-		Short:             "Gets the notification policy tree",
+		Use:   "get-policy-tree",
+		Short: "Gets the notification policy tree",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetPolicyTreeOK.Payload):
+  active_time_intervals  array<string>
+  continue               boolean
+  group_by               array<string>
+  group_interval         string
+  group_wait             string
+  match                  map<string, string>   Deprecated. Remove before v1.0 release.
+  match_re               map<string, string>
+  matchers               array<object>
+  matchers[].isEqual     boolean
+  matchers[].isRegex     boolean               REQUIRED
+  matchers[].name        string                REQUIRED
+  matchers[].value       string                REQUIRED
+  mute_time_intervals    array<string>
+  object_matchers        array<array<string>>
+  provenance             string
+  receiver               string
+  repeat_interval        string
+  routes                 array<object>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningGetPolicyTreeFlag.DescribeResponseJSONSchema {
@@ -24379,8 +26366,109 @@ var (
   }
 }`
 	provisioningGetPolicyTreeExportCmd = &cobra.Command{
-		Use:               "get-policy-tree-export",
-		Short:             "Exports the notification policy tree in provisioning file format",
+		Use:   "get-policy-tree-export",
+		Short: "Exports the notification policy tree in provisioning file format",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetPolicyTreeExportOK.Payload):
+  apiVersion                                                        number
+  contactPoints                                                     array<object>
+  contactPoints[].name                                              string
+  contactPoints[].orgId                                             number
+  contactPoints[].receivers                                         array<object>
+  contactPoints[].receivers[].disableResolveMessage                 boolean
+  contactPoints[].receivers[].settings                              object
+  contactPoints[].receivers[].type                                  string
+  contactPoints[].receivers[].uid                                   string
+  groups                                                            array<object>
+  groups[].folder                                                   string
+  groups[].interval                                                 string
+  groups[].name                                                     string
+  groups[].orgId                                                    number
+  groups[].rules                                                    array<object>
+  groups[].rules[].annotations                                      map<string, string>
+  groups[].rules[].condition                                        string
+  groups[].rules[].dashboardUid                                     string
+  groups[].rules[].data                                             array<object>
+  groups[].rules[].data[].datasourceUid                             string
+  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].queryType                                 string
+  groups[].rules[].data[].refId                                     string
+  groups[].rules[].data[].relativeTimeRange                         object
+  groups[].rules[].data[].relativeTimeRange.from                    number
+  groups[].rules[].data[].relativeTimeRange.to                      number
+  groups[].rules[].execErrState                                     string                enum: OK | Alerting | Error
+  groups[].rules[].for                                              string
+  groups[].rules[].isPaused                                         boolean
+  groups[].rules[].keepFiringFor                                    string
+  groups[].rules[].labels                                           map<string, string>
+  groups[].rules[].missing_series_evals_to_resolve                  number
+  groups[].rules[].noDataState                                      string                enum: Alerting | NoData | OK
+  groups[].rules[].notification_settings                            object
+  groups[].rules[].notification_settings.active_time_intervals      array<string>
+  groups[].rules[].notification_settings.group_by                   array<string>
+  groups[].rules[].notification_settings.group_interval             string
+  groups[].rules[].notification_settings.group_wait                 string
+  groups[].rules[].notification_settings.mute_time_intervals        array<string>
+  groups[].rules[].notification_settings.receiver                   string
+  groups[].rules[].notification_settings.repeat_interval            string
+  groups[].rules[].panelId                                          number
+  groups[].rules[].record                                           object
+  groups[].rules[].record.from                                      string
+  groups[].rules[].record.metric                                    string
+  groups[].rules[].record.targetDatasourceUid                       string
+  groups[].rules[].title                                            string
+  groups[].rules[].uid                                              string
+  muteTimes                                                         array<object>
+  muteTimes[].name                                                  string
+  muteTimes[].orgId                                                 number
+  muteTimes[].time_intervals                                        array<object>
+  muteTimes[].time_intervals[].name                                 string
+  muteTimes[].time_intervals[].time_intervals                       array<object>
+  muteTimes[].time_intervals[].time_intervals[].days_of_month       array<string>
+  muteTimes[].time_intervals[].time_intervals[].location            string
+  muteTimes[].time_intervals[].time_intervals[].months              array<string>
+  muteTimes[].time_intervals[].time_intervals[].times               array<object>
+  muteTimes[].time_intervals[].time_intervals[].times[].end_time    string
+  muteTimes[].time_intervals[].time_intervals[].times[].start_time  string
+  muteTimes[].time_intervals[].time_intervals[].weekdays            array<string>
+  muteTimes[].time_intervals[].time_intervals[].years               array<string>
+  policies                                                          array<object>
+  policies[].active_time_intervals                                  array<string>
+  policies[].continue                                               boolean
+  policies[].group_by                                               array<string>
+  policies[].group_interval                                         string
+  policies[].group_wait                                             string
+  policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].match_re                                               map<string, string>
+  policies[].matchers                                               array<object>
+  policies[].matchers[].isEqual                                     boolean
+  policies[].matchers[].isRegex                                     boolean               REQUIRED
+  policies[].matchers[].name                                        string                REQUIRED
+  policies[].matchers[].value                                       string                REQUIRED
+  policies[].mute_time_intervals                                    array<string>
+  policies[].object_matchers                                        array<array<string>>
+  policies[].orgId                                                  number
+  policies[].receiver                                               string
+  policies[].repeat_interval                                        string
+  policies[].routes                                                 array<object>
+  policies[].routes[].active_time_intervals                         array<string>
+  policies[].routes[].continue                                      boolean
+  policies[].routes[].group_by                                      array<string>
+  policies[].routes[].group_interval                                string
+  policies[].routes[].group_wait                                    string
+  policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
+  policies[].routes[].match_re                                      map<string, string>
+  policies[].routes[].matchers                                      array<object>
+  policies[].routes[].matchers[].isEqual                            boolean
+  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
+  policies[].routes[].matchers[].name                               string                REQUIRED
+  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].mute_time_intervals                           array<string>
+  policies[].routes[].object_matchers                               array<array<string>>
+  policies[].routes[].receiver                                      string
+  policies[].routes[].repeat_interval                               string
+  policies[].routes[].routes                                        array<object>`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningGetPolicyTreeExportFlag.DescribeResponseJSONSchema {
@@ -24434,8 +26522,15 @@ var (
   }
 }`
 	provisioningGetTemplateCmd = &cobra.Command{
-		Use:               "get-template",
-		Short:             "Gets a notification template group",
+		Use:   "get-template",
+		Short: "Gets a notification template group",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetTemplateOK.Payload):
+  name        string
+  provenance  string
+  template    string
+  version     string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if provisioningGetTemplateFlag.DescribeResponseJSONSchema {
@@ -24912,103 +27007,141 @@ var (
 		Short: "Creates a new alert rule",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (ProvisionedAlertRule):
-{
-  "annotations": {"key": string},
-  "condition": string,
-  "data": [
-    {
-      "datasourceUid": string,
-      "model": any,
-      "queryType": string,
-      "refId": string,
-      "relativeTimeRange": object  // models.RelativeTimeRange
-    }
-  ],
-  "execErrState": string,
-  "folderUID": string,
-  "for": string,
-  "id": number,
-  "isPaused": boolean,
-  "keep_firing_for": string,
-  "labels": {"key": string},
-  "missingSeriesEvalsToResolve": number,
-  "noDataState": string,
-  "notification_settings": {
-    "active_time_intervals": [string],
-    "group_by": [string],
-    "group_interval": string,
-    "group_wait": string,
-    "mute_time_intervals": [string],
-    "receiver": string,
-    "repeat_interval": string
-  },
-  "orgID": number,
-  "provenance": string,
-  "record": {
-    "from": string,
-    "metric": string,
-    "target_datasource_uid": string
-  },
-  "ruleGroup": string,
-  "title": string,
-  "uid": string,
-  "updated": string
-}
-  condition                REQUIRED
-  data                     REQUIRED
-  data[].datasourceUid     Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
-  data[].model             JSON is the raw JSON query and includes the above properties as well as custom properties.
-  data[].queryType         QueryType is an optional identifier for the type of query.
-                           It can be used to distinguish different types of queries.
-  data[].refId             RefID is the unique identifier of the query, set by the frontend call.
-  execErrState             REQUIRED
-                           enum: OK | Alerting | Error
-  folderUID                REQUIRED
-  for                      REQUIRED
-  noDataState              REQUIRED
-                           enum: Alerting | NoData | OK
-  notification_settings.active_time_intervals Override the times when notifications should not be muted. These must match the name of a mute time interval defined
-                           in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
-                           at the time that matches any interval.
-  notification_settings.group_by Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
-                           cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
-                           use the special value '...' as the sole label name.
-                           This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
-                           you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
-                           Must include 'alertname' and 'grafana_folder' if not using '...'.
-  notification_settings.group_interval Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
-                           which an initial notification has already been sent. (Usually ~5m or more.)
-  notification_settings.group_wait Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
-                           inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
-  notification_settings.mute_time_intervals Override the times when notifications should be muted. These must match the name of a mute time interval defined
-                           in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
-                           otherwise acts normally.
-  notification_settings.receiver REQUIRED
-                           Name of the receiver to send notifications to.
-  notification_settings.repeat_interval Override how long to wait before sending a notification again if it has already been sent successfully for an
-                           alert. (Usually ~3h or more).
-                           Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
-                           Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
-                           occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
-  orgID                    REQUIRED
-  record.from              REQUIRED
-                           Which expression node should be used as the input for the recorded metric.
-  record.metric            REQUIRED
-                           Name of the recorded metric.
-  record.target_datasource_uid Which data source should be used to write the output of the recording rule, specified by UID.
-  ruleGroup                REQUIRED
-                           rule group
-                           Max Length: 190
-                           Min Length: 1
-  title                    REQUIRED
-                           title
-                           Max Length: 190
-                           Min Length: 1
-  uid                      uid
-                           Max Length: 40
-                           Min Length: 1
-  updated                  updated
-                           Read Only: true`,
+  annotations                                  map<string, string>
+  condition                                    string               REQUIRED
+  data                                         array<object>        REQUIRED
+  data[].datasourceUid                         string               Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
+  data[].model                                 object               JSON is the raw JSON query and includes the above properties as well as custom properties.
+  data[].queryType                             string               QueryType is an optional identifier for the type of query.
+                                                                    It can be used to distinguish different types of queries.
+  data[].refId                                 string               RefID is the unique identifier of the query, set by the frontend call.
+  data[].relativeTimeRange                     object
+  data[].relativeTimeRange.from                number
+  data[].relativeTimeRange.to                  number
+  execErrState                                 string               REQUIRED
+                                                                    enum: OK | Alerting | Error
+  folderUID                                    string               REQUIRED
+  for                                          string               REQUIRED
+  id                                           number
+  isPaused                                     boolean
+  keep_firing_for                              string
+  labels                                       map<string, string>
+  missingSeriesEvalsToResolve                  number
+  noDataState                                  string               REQUIRED
+                                                                    enum: Alerting | NoData | OK
+  notification_settings                        object
+  notification_settings.active_time_intervals  array<string>        Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+                                                                    at the time that matches any interval.
+  notification_settings.group_by               array<string>        Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+                                                                    cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+                                                                    use the special value '...' as the sole label name.
+                                                                    This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+                                                                    you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+                                                                    Must include 'alertname' and 'grafana_folder' if not using '...'.
+  notification_settings.group_interval         string               Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+                                                                    which an initial notification has already been sent. (Usually ~5m or more.)
+  notification_settings.group_wait             string               Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+                                                                    inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  notification_settings.mute_time_intervals    array<string>        Override the times when notifications should be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+                                                                    otherwise acts normally.
+  notification_settings.receiver               string               REQUIRED
+                                                                    Name of the receiver to send notifications to.
+  notification_settings.repeat_interval        string               Override how long to wait before sending a notification again if it has already been sent successfully for an
+                                                                    alert. (Usually ~3h or more).
+                                                                    Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
+                                                                    Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+                                                                    occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
+  orgID                                        number               REQUIRED
+  provenance                                   string
+  record                                       object
+  record.from                                  string               REQUIRED
+                                                                    Which expression node should be used as the input for the recorded metric.
+  record.metric                                string               REQUIRED
+                                                                    Name of the recorded metric.
+  record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
+  ruleGroup                                    string               REQUIRED
+                                                                    rule group
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  title                                        string               REQUIRED
+                                                                    title
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  uid                                          string               uid
+                                                                    Max Length: 40
+                                                                    Min Length: 1
+  updated                                      string               updated
+                                                                    Read Only: true`,
+			"responseSchema": `Response schema (PostAlertRuleCreated.Payload):
+  annotations                                  map<string, string>
+  condition                                    string               REQUIRED
+  data                                         array<object>        REQUIRED
+  data[].datasourceUid                         string               Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
+  data[].model                                 object               JSON is the raw JSON query and includes the above properties as well as custom properties.
+  data[].queryType                             string               QueryType is an optional identifier for the type of query.
+                                                                    It can be used to distinguish different types of queries.
+  data[].refId                                 string               RefID is the unique identifier of the query, set by the frontend call.
+  data[].relativeTimeRange                     object
+  data[].relativeTimeRange.from                number
+  data[].relativeTimeRange.to                  number
+  execErrState                                 string               REQUIRED
+                                                                    enum: OK | Alerting | Error
+  folderUID                                    string               REQUIRED
+  for                                          string               REQUIRED
+  id                                           number
+  isPaused                                     boolean
+  keep_firing_for                              string
+  labels                                       map<string, string>
+  missingSeriesEvalsToResolve                  number
+  noDataState                                  string               REQUIRED
+                                                                    enum: Alerting | NoData | OK
+  notification_settings                        object
+  notification_settings.active_time_intervals  array<string>        Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+                                                                    at the time that matches any interval.
+  notification_settings.group_by               array<string>        Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+                                                                    cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+                                                                    use the special value '...' as the sole label name.
+                                                                    This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+                                                                    you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+                                                                    Must include 'alertname' and 'grafana_folder' if not using '...'.
+  notification_settings.group_interval         string               Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+                                                                    which an initial notification has already been sent. (Usually ~5m or more.)
+  notification_settings.group_wait             string               Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+                                                                    inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  notification_settings.mute_time_intervals    array<string>        Override the times when notifications should be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+                                                                    otherwise acts normally.
+  notification_settings.receiver               string               REQUIRED
+                                                                    Name of the receiver to send notifications to.
+  notification_settings.repeat_interval        string               Override how long to wait before sending a notification again if it has already been sent successfully for an
+                                                                    alert. (Usually ~3h or more).
+                                                                    Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
+                                                                    Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+                                                                    occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
+  orgID                                        number               REQUIRED
+  provenance                                   string
+  record                                       object
+  record.from                                  string               REQUIRED
+                                                                    Which expression node should be used as the input for the recorded metric.
+  record.metric                                string               REQUIRED
+                                                                    Name of the recorded metric.
+  record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
+  ruleGroup                                    string               REQUIRED
+                                                                    rule group
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  title                                        string               REQUIRED
+                                                                    title
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  uid                                          string               uid
+                                                                    Max Length: 40
+                                                                    Min Length: 1
+  updated                                      string               updated
+                                                                    Read Only: true`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -25161,25 +27294,31 @@ var (
 		Short: "Creates a contact point",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (EmbeddedContactPoint):
-{
-  "disableResolveMessage": boolean,
-  "name": string,
-  "provenance": string,
-  "settings": any,  // models.JSON
-  "type": string,
-  "uid": string
-}
-  name                     Name is used as grouping key in the UI. Contact points with the
-                           same name will be grouped in the UI.
-  provenance               provenance
-                           Read Only: true
-  settings                 REQUIRED
-  type                     REQUIRED
-                           enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
-  uid                      UID is the unique identifier of the contact point. The UID can be
-                           set by the user.
-                           Max Length: 40
-                           Min Length: 1`,
+  disableResolveMessage  boolean
+  name                   string   Name is used as grouping key in the UI. Contact points with the
+                                  same name will be grouped in the UI.
+  provenance             string   provenance
+                                  Read Only: true
+  settings               object   REQUIRED
+  type                   string   REQUIRED
+                                  enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
+  uid                    string   UID is the unique identifier of the contact point. The UID can be
+                                  set by the user.
+                                  Max Length: 40
+                                  Min Length: 1`,
+			"responseSchema": `Response schema (PostContactpointsAccepted.Payload):
+  disableResolveMessage  boolean
+  name                   string   Name is used as grouping key in the UI. Contact points with the
+                                  same name will be grouped in the UI.
+  provenance             string   provenance
+                                  Read Only: true
+  settings               object   REQUIRED
+  type                   string   REQUIRED
+                                  enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
+  uid                    string   UID is the unique identifier of the contact point. The UID can be
+                                  set by the user.
+                                  Max Length: 40
+                                  Min Length: 1`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -25350,19 +27489,27 @@ var (
 		Short: "Creates a new mute timing",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (MuteTimeInterval):
-{
-  "name": string,
-  "time_intervals": [
-    {
-      "days_of_month": [string],
-      "location": string,
-      "months": [string],
-      "times": [object],  // []models.TimeIntervalTimeRange
-      "weekdays": [string],
-      "years": [string]
-    }
-  ]
-}`,
+  name                                 string
+  time_intervals                       array<object>
+  time_intervals[].days_of_month       array<string>
+  time_intervals[].location            string
+  time_intervals[].months              array<string>
+  time_intervals[].times               array<object>
+  time_intervals[].times[].end_time    string
+  time_intervals[].times[].start_time  string
+  time_intervals[].weekdays            array<string>
+  time_intervals[].years               array<string>`,
+			"responseSchema": `Response schema (PostMuteTimingCreated.Payload):
+  name                                 string
+  time_intervals                       array<object>
+  time_intervals[].days_of_month       array<string>
+  time_intervals[].location            string
+  time_intervals[].months              array<string>
+  time_intervals[].times               array<object>
+  time_intervals[].times[].end_time    string
+  time_intervals[].times[].start_time  string
+  time_intervals[].weekdays            array<string>
+  time_intervals[].years               array<string>`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -25793,103 +27940,141 @@ var (
 		Short: "Updates an existing alert rule",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (ProvisionedAlertRule):
-{
-  "annotations": {"key": string},
-  "condition": string,
-  "data": [
-    {
-      "datasourceUid": string,
-      "model": any,
-      "queryType": string,
-      "refId": string,
-      "relativeTimeRange": object  // models.RelativeTimeRange
-    }
-  ],
-  "execErrState": string,
-  "folderUID": string,
-  "for": string,
-  "id": number,
-  "isPaused": boolean,
-  "keep_firing_for": string,
-  "labels": {"key": string},
-  "missingSeriesEvalsToResolve": number,
-  "noDataState": string,
-  "notification_settings": {
-    "active_time_intervals": [string],
-    "group_by": [string],
-    "group_interval": string,
-    "group_wait": string,
-    "mute_time_intervals": [string],
-    "receiver": string,
-    "repeat_interval": string
-  },
-  "orgID": number,
-  "provenance": string,
-  "record": {
-    "from": string,
-    "metric": string,
-    "target_datasource_uid": string
-  },
-  "ruleGroup": string,
-  "title": string,
-  "uid": string,
-  "updated": string
-}
-  condition                REQUIRED
-  data                     REQUIRED
-  data[].datasourceUid     Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
-  data[].model             JSON is the raw JSON query and includes the above properties as well as custom properties.
-  data[].queryType         QueryType is an optional identifier for the type of query.
-                           It can be used to distinguish different types of queries.
-  data[].refId             RefID is the unique identifier of the query, set by the frontend call.
-  execErrState             REQUIRED
-                           enum: OK | Alerting | Error
-  folderUID                REQUIRED
-  for                      REQUIRED
-  noDataState              REQUIRED
-                           enum: Alerting | NoData | OK
-  notification_settings.active_time_intervals Override the times when notifications should not be muted. These must match the name of a mute time interval defined
-                           in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
-                           at the time that matches any interval.
-  notification_settings.group_by Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
-                           cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
-                           use the special value '...' as the sole label name.
-                           This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
-                           you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
-                           Must include 'alertname' and 'grafana_folder' if not using '...'.
-  notification_settings.group_interval Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
-                           which an initial notification has already been sent. (Usually ~5m or more.)
-  notification_settings.group_wait Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
-                           inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
-  notification_settings.mute_time_intervals Override the times when notifications should be muted. These must match the name of a mute time interval defined
-                           in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
-                           otherwise acts normally.
-  notification_settings.receiver REQUIRED
-                           Name of the receiver to send notifications to.
-  notification_settings.repeat_interval Override how long to wait before sending a notification again if it has already been sent successfully for an
-                           alert. (Usually ~3h or more).
-                           Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
-                           Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
-                           occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
-  orgID                    REQUIRED
-  record.from              REQUIRED
-                           Which expression node should be used as the input for the recorded metric.
-  record.metric            REQUIRED
-                           Name of the recorded metric.
-  record.target_datasource_uid Which data source should be used to write the output of the recording rule, specified by UID.
-  ruleGroup                REQUIRED
-                           rule group
-                           Max Length: 190
-                           Min Length: 1
-  title                    REQUIRED
-                           title
-                           Max Length: 190
-                           Min Length: 1
-  uid                      uid
-                           Max Length: 40
-                           Min Length: 1
-  updated                  updated
-                           Read Only: true`,
+  annotations                                  map<string, string>
+  condition                                    string               REQUIRED
+  data                                         array<object>        REQUIRED
+  data[].datasourceUid                         string               Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
+  data[].model                                 object               JSON is the raw JSON query and includes the above properties as well as custom properties.
+  data[].queryType                             string               QueryType is an optional identifier for the type of query.
+                                                                    It can be used to distinguish different types of queries.
+  data[].refId                                 string               RefID is the unique identifier of the query, set by the frontend call.
+  data[].relativeTimeRange                     object
+  data[].relativeTimeRange.from                number
+  data[].relativeTimeRange.to                  number
+  execErrState                                 string               REQUIRED
+                                                                    enum: OK | Alerting | Error
+  folderUID                                    string               REQUIRED
+  for                                          string               REQUIRED
+  id                                           number
+  isPaused                                     boolean
+  keep_firing_for                              string
+  labels                                       map<string, string>
+  missingSeriesEvalsToResolve                  number
+  noDataState                                  string               REQUIRED
+                                                                    enum: Alerting | NoData | OK
+  notification_settings                        object
+  notification_settings.active_time_intervals  array<string>        Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+                                                                    at the time that matches any interval.
+  notification_settings.group_by               array<string>        Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+                                                                    cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+                                                                    use the special value '...' as the sole label name.
+                                                                    This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+                                                                    you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+                                                                    Must include 'alertname' and 'grafana_folder' if not using '...'.
+  notification_settings.group_interval         string               Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+                                                                    which an initial notification has already been sent. (Usually ~5m or more.)
+  notification_settings.group_wait             string               Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+                                                                    inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  notification_settings.mute_time_intervals    array<string>        Override the times when notifications should be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+                                                                    otherwise acts normally.
+  notification_settings.receiver               string               REQUIRED
+                                                                    Name of the receiver to send notifications to.
+  notification_settings.repeat_interval        string               Override how long to wait before sending a notification again if it has already been sent successfully for an
+                                                                    alert. (Usually ~3h or more).
+                                                                    Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
+                                                                    Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+                                                                    occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
+  orgID                                        number               REQUIRED
+  provenance                                   string
+  record                                       object
+  record.from                                  string               REQUIRED
+                                                                    Which expression node should be used as the input for the recorded metric.
+  record.metric                                string               REQUIRED
+                                                                    Name of the recorded metric.
+  record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
+  ruleGroup                                    string               REQUIRED
+                                                                    rule group
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  title                                        string               REQUIRED
+                                                                    title
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  uid                                          string               uid
+                                                                    Max Length: 40
+                                                                    Min Length: 1
+  updated                                      string               updated
+                                                                    Read Only: true`,
+			"responseSchema": `Response schema (PutAlertRuleOK.Payload):
+  annotations                                  map<string, string>
+  condition                                    string               REQUIRED
+  data                                         array<object>        REQUIRED
+  data[].datasourceUid                         string               Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
+  data[].model                                 object               JSON is the raw JSON query and includes the above properties as well as custom properties.
+  data[].queryType                             string               QueryType is an optional identifier for the type of query.
+                                                                    It can be used to distinguish different types of queries.
+  data[].refId                                 string               RefID is the unique identifier of the query, set by the frontend call.
+  data[].relativeTimeRange                     object
+  data[].relativeTimeRange.from                number
+  data[].relativeTimeRange.to                  number
+  execErrState                                 string               REQUIRED
+                                                                    enum: OK | Alerting | Error
+  folderUID                                    string               REQUIRED
+  for                                          string               REQUIRED
+  id                                           number
+  isPaused                                     boolean
+  keep_firing_for                              string
+  labels                                       map<string, string>
+  missingSeriesEvalsToResolve                  number
+  noDataState                                  string               REQUIRED
+                                                                    enum: Alerting | NoData | OK
+  notification_settings                        object
+  notification_settings.active_time_intervals  array<string>        Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+                                                                    at the time that matches any interval.
+  notification_settings.group_by               array<string>        Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+                                                                    cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+                                                                    use the special value '...' as the sole label name.
+                                                                    This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+                                                                    you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+                                                                    Must include 'alertname' and 'grafana_folder' if not using '...'.
+  notification_settings.group_interval         string               Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+                                                                    which an initial notification has already been sent. (Usually ~5m or more.)
+  notification_settings.group_wait             string               Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+                                                                    inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  notification_settings.mute_time_intervals    array<string>        Override the times when notifications should be muted. These must match the name of a mute time interval defined
+                                                                    in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+                                                                    otherwise acts normally.
+  notification_settings.receiver               string               REQUIRED
+                                                                    Name of the receiver to send notifications to.
+  notification_settings.repeat_interval        string               Override how long to wait before sending a notification again if it has already been sent successfully for an
+                                                                    alert. (Usually ~3h or more).
+                                                                    Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
+                                                                    Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+                                                                    occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
+  orgID                                        number               REQUIRED
+  provenance                                   string
+  record                                       object
+  record.from                                  string               REQUIRED
+                                                                    Which expression node should be used as the input for the recorded metric.
+  record.metric                                string               REQUIRED
+                                                                    Name of the recorded metric.
+  record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
+  ruleGroup                                    string               REQUIRED
+                                                                    rule group
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  title                                        string               REQUIRED
+                                                                    title
+                                                                    Max Length: 190
+                                                                    Min Length: 1
+  uid                                          string               uid
+                                                                    Max Length: 40
+                                                                    Min Length: 1
+  updated                                      string               updated
+                                                                    Read Only: true`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -26355,57 +28540,149 @@ var (
 		Short: "Creates or update alert rule group",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AlertRuleGroup):
-{
-  "folderUid": string,
-  "interval": number,
-  "rules": [
-    {
-      "annotations": {"key": string},
-      "condition": string,
-      "data": [object],  // []models.AlertQuery
-      "execErrState": string,
-      "folderUID": string,
-      "for": string,
-      "id": number,
-      "isPaused": boolean,
-      "keep_firing_for": string,
-      "labels": {"key": string},
-      "missingSeriesEvalsToResolve": number,
-      "noDataState": string,
-      "notification_settings": object,  // models.AlertRuleNotificationSettings
-      "orgID": number,
-      "provenance": string,
-      "record": object,  // models.Record
-      "ruleGroup": string,
-      "title": string,
-      "uid": string,
-      "updated": string
-    }
-  ],
-  "title": string
-}
-  rules[].condition        REQUIRED
-  rules[].data             REQUIRED
-  rules[].execErrState     REQUIRED
-                           enum: OK | Alerting | Error
-  rules[].folderUID        REQUIRED
-  rules[].for              REQUIRED
-  rules[].noDataState      REQUIRED
-                           enum: Alerting | NoData | OK
-  rules[].orgID            REQUIRED
-  rules[].ruleGroup        REQUIRED
-                           rule group
-                           Max Length: 190
-                           Min Length: 1
-  rules[].title            REQUIRED
-                           title
-                           Max Length: 190
-                           Min Length: 1
-  rules[].uid              uid
-                           Max Length: 40
-                           Min Length: 1
-  rules[].updated          updated
-                           Read Only: true`,
+  folderUid                                            string
+  interval                                             number
+  rules                                                array<object>
+  rules[].annotations                                  map<string, string>
+  rules[].condition                                    string               REQUIRED
+  rules[].data                                         array<object>        REQUIRED
+  rules[].data[].datasourceUid                         string               Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
+  rules[].data[].model                                 object               JSON is the raw JSON query and includes the above properties as well as custom properties.
+  rules[].data[].queryType                             string               QueryType is an optional identifier for the type of query.
+                                                                            It can be used to distinguish different types of queries.
+  rules[].data[].refId                                 string               RefID is the unique identifier of the query, set by the frontend call.
+  rules[].data[].relativeTimeRange                     object
+  rules[].data[].relativeTimeRange.from                number
+  rules[].data[].relativeTimeRange.to                  number
+  rules[].execErrState                                 string               REQUIRED
+                                                                            enum: OK | Alerting | Error
+  rules[].folderUID                                    string               REQUIRED
+  rules[].for                                          string               REQUIRED
+  rules[].id                                           number
+  rules[].isPaused                                     boolean
+  rules[].keep_firing_for                              string
+  rules[].labels                                       map<string, string>
+  rules[].missingSeriesEvalsToResolve                  number
+  rules[].noDataState                                  string               REQUIRED
+                                                                            enum: Alerting | NoData | OK
+  rules[].notification_settings                        object
+  rules[].notification_settings.active_time_intervals  array<string>        Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+                                                                            in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+                                                                            at the time that matches any interval.
+  rules[].notification_settings.group_by               array<string>        Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+                                                                            cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+                                                                            use the special value '...' as the sole label name.
+                                                                            This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+                                                                            you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+                                                                            Must include 'alertname' and 'grafana_folder' if not using '...'.
+  rules[].notification_settings.group_interval         string               Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+                                                                            which an initial notification has already been sent. (Usually ~5m or more.)
+  rules[].notification_settings.group_wait             string               Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+                                                                            inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  rules[].notification_settings.mute_time_intervals    array<string>        Override the times when notifications should be muted. These must match the name of a mute time interval defined
+                                                                            in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+                                                                            otherwise acts normally.
+  rules[].notification_settings.receiver               string               REQUIRED
+                                                                            Name of the receiver to send notifications to.
+  rules[].notification_settings.repeat_interval        string               Override how long to wait before sending a notification again if it has already been sent successfully for an
+                                                                            alert. (Usually ~3h or more).
+                                                                            Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
+                                                                            Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+                                                                            occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
+  rules[].orgID                                        number               REQUIRED
+  rules[].provenance                                   string
+  rules[].record                                       object
+  rules[].record.from                                  string               REQUIRED
+                                                                            Which expression node should be used as the input for the recorded metric.
+  rules[].record.metric                                string               REQUIRED
+                                                                            Name of the recorded metric.
+  rules[].record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
+  rules[].ruleGroup                                    string               REQUIRED
+                                                                            rule group
+                                                                            Max Length: 190
+                                                                            Min Length: 1
+  rules[].title                                        string               REQUIRED
+                                                                            title
+                                                                            Max Length: 190
+                                                                            Min Length: 1
+  rules[].uid                                          string               uid
+                                                                            Max Length: 40
+                                                                            Min Length: 1
+  rules[].updated                                      string               updated
+                                                                            Read Only: true
+  title                                                string`,
+			"responseSchema": `Response schema (PutAlertRuleGroupOK.Payload):
+  folderUid                                            string
+  interval                                             number
+  rules                                                array<object>
+  rules[].annotations                                  map<string, string>
+  rules[].condition                                    string               REQUIRED
+  rules[].data                                         array<object>        REQUIRED
+  rules[].data[].datasourceUid                         string               Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
+  rules[].data[].model                                 object               JSON is the raw JSON query and includes the above properties as well as custom properties.
+  rules[].data[].queryType                             string               QueryType is an optional identifier for the type of query.
+                                                                            It can be used to distinguish different types of queries.
+  rules[].data[].refId                                 string               RefID is the unique identifier of the query, set by the frontend call.
+  rules[].data[].relativeTimeRange                     object
+  rules[].data[].relativeTimeRange.from                number
+  rules[].data[].relativeTimeRange.to                  number
+  rules[].execErrState                                 string               REQUIRED
+                                                                            enum: OK | Alerting | Error
+  rules[].folderUID                                    string               REQUIRED
+  rules[].for                                          string               REQUIRED
+  rules[].id                                           number
+  rules[].isPaused                                     boolean
+  rules[].keep_firing_for                              string
+  rules[].labels                                       map<string, string>
+  rules[].missingSeriesEvalsToResolve                  number
+  rules[].noDataState                                  string               REQUIRED
+                                                                            enum: Alerting | NoData | OK
+  rules[].notification_settings                        object
+  rules[].notification_settings.active_time_intervals  array<string>        Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+                                                                            in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+                                                                            at the time that matches any interval.
+  rules[].notification_settings.group_by               array<string>        Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+                                                                            cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+                                                                            use the special value '...' as the sole label name.
+                                                                            This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+                                                                            you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+                                                                            Must include 'alertname' and 'grafana_folder' if not using '...'.
+  rules[].notification_settings.group_interval         string               Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+                                                                            which an initial notification has already been sent. (Usually ~5m or more.)
+  rules[].notification_settings.group_wait             string               Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+                                                                            inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+  rules[].notification_settings.mute_time_intervals    array<string>        Override the times when notifications should be muted. These must match the name of a mute time interval defined
+                                                                            in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+                                                                            otherwise acts normally.
+  rules[].notification_settings.receiver               string               REQUIRED
+                                                                            Name of the receiver to send notifications to.
+  rules[].notification_settings.repeat_interval        string               Override how long to wait before sending a notification again if it has already been sent successfully for an
+                                                                            alert. (Usually ~3h or more).
+                                                                            Note that this parameter is implicitly bound by Alertmanager's ` + "`" + `--data.retention` + "`" + ` configuration flag.
+                                                                            Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+                                                                            occurs first. ` + "`" + `repeat_interval` + "`" + ` should not be less than ` + "`" + `group_interval` + "`" + `.
+  rules[].orgID                                        number               REQUIRED
+  rules[].provenance                                   string
+  rules[].record                                       object
+  rules[].record.from                                  string               REQUIRED
+                                                                            Which expression node should be used as the input for the recorded metric.
+  rules[].record.metric                                string               REQUIRED
+                                                                            Name of the recorded metric.
+  rules[].record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
+  rules[].ruleGroup                                    string               REQUIRED
+                                                                            rule group
+                                                                            Max Length: 190
+                                                                            Min Length: 1
+  rules[].title                                        string               REQUIRED
+                                                                            title
+                                                                            Max Length: 190
+                                                                            Min Length: 1
+  rules[].uid                                          string               uid
+                                                                            Max Length: 40
+                                                                            Min Length: 1
+  rules[].updated                                      string               updated
+                                                                            Read Only: true
+  title                                                string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -26514,25 +28791,18 @@ var (
 		Short: "Updates an existing contact point",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (EmbeddedContactPoint):
-{
-  "disableResolveMessage": boolean,
-  "name": string,
-  "provenance": string,
-  "settings": any,  // models.JSON
-  "type": string,
-  "uid": string
-}
-  name                     Name is used as grouping key in the UI. Contact points with the
-                           same name will be grouped in the UI.
-  provenance               provenance
-                           Read Only: true
-  settings                 REQUIRED
-  type                     REQUIRED
-                           enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
-  uid                      UID is the unique identifier of the contact point. The UID can be
-                           set by the user.
-                           Max Length: 40
-                           Min Length: 1`,
+  disableResolveMessage  boolean
+  name                   string   Name is used as grouping key in the UI. Contact points with the
+                                  same name will be grouped in the UI.
+  provenance             string   provenance
+                                  Read Only: true
+  settings               object   REQUIRED
+  type                   string   REQUIRED
+                                  enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
+  uid                    string   UID is the unique identifier of the contact point. The UID can be
+                                  set by the user.
+                                  Max Length: 40
+                                  Min Length: 1`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -26704,19 +28974,27 @@ var (
 		Short: "Replaces an existing mute timing",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (MuteTimeInterval):
-{
-  "name": string,
-  "time_intervals": [
-    {
-      "days_of_month": [string],
-      "location": string,
-      "months": [string],
-      "times": [object],  // []models.TimeIntervalTimeRange
-      "weekdays": [string],
-      "years": [string]
-    }
-  ]
-}`,
+  name                                 string
+  time_intervals                       array<object>
+  time_intervals[].days_of_month       array<string>
+  time_intervals[].location            string
+  time_intervals[].months              array<string>
+  time_intervals[].times               array<object>
+  time_intervals[].times[].end_time    string
+  time_intervals[].times[].start_time  string
+  time_intervals[].weekdays            array<string>
+  time_intervals[].years               array<string>`,
+			"responseSchema": `Response schema (PutMuteTimingAccepted.Payload):
+  name                                 string
+  time_intervals                       array<object>
+  time_intervals[].days_of_month       array<string>
+  time_intervals[].location            string
+  time_intervals[].months              array<string>
+  time_intervals[].times               array<object>
+  time_intervals[].times[].end_time    string
+  time_intervals[].times[].start_time  string
+  time_intervals[].weekdays            array<string>
+  time_intervals[].years               array<string>`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -26870,41 +29148,24 @@ var (
 		Short: "Sets the notification policy tree",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (Route):
-{
-  "active_time_intervals": [string],
-  "continue": boolean,
-  "group_by": [string],
-  "group_interval": string,
-  "group_wait": string,
-  "match": {"key": string},
-  "match_re": object,  // models.MatchRegexps
-  "matchers": [object],  // models.Matchers
-  "mute_time_intervals": [string],
-  "object_matchers": [string],
-  "provenance": string,
-  "receiver": string,
-  "repeat_interval": string,
-  "routes": [
-    {
-      "active_time_intervals": [string],
-      "continue": boolean,
-      "group_by": [string],
-      "group_interval": string,
-      "group_wait": string,
-      "match": {"key": string},
-      "match_re": object,  // models.MatchRegexps
-      "matchers": [object],  // models.Matchers
-      "mute_time_intervals": [string],
-      "object_matchers": [string],
-      "provenance": string,
-      "receiver": string,
-      "repeat_interval": string,
-      "routes": [object]  // []models.Route
-    }
-  ]
-}
-  match                    Deprecated. Remove before v1.0 release.
-  routes[].match           Deprecated. Remove before v1.0 release.`,
+  active_time_intervals  array<string>
+  continue               boolean
+  group_by               array<string>
+  group_interval         string
+  group_wait             string
+  match                  map<string, string>   Deprecated. Remove before v1.0 release.
+  match_re               map<string, string>
+  matchers               array<object>
+  matchers[].isEqual     boolean
+  matchers[].isRegex     boolean               REQUIRED
+  matchers[].name        string                REQUIRED
+  matchers[].value       string                REQUIRED
+  mute_time_intervals    array<string>
+  object_matchers        array<array<string>>
+  provenance             string
+  receiver               string
+  repeat_interval        string
+  routes                 array<object>`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -26989,10 +29250,13 @@ var (
 		Short: "Updates an existing notification template group",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (NotificationTemplateContent):
-{
-  "template": string,
-  "version": string
-}`,
+  template  string
+  version   string`,
+			"responseSchema": `Response schema (PutTemplateAccepted.Payload):
+  name        string
+  provenance  string
+  template    string
+  version     string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -27332,12 +29596,17 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateQueryInQueryHistoryCommand):
-{
-  "datasourceUid": string,
-  "queries": any  // models.JSON
-}
-  datasourceUid            UID of the data source for which are queries stored.
-  queries                  REQUIRED`,
+  datasourceUid  string  UID of the data source for which are queries stored.
+  queries        object  REQUIRED`,
+			"responseSchema": `Response schema (CreateQueryOK.Payload):
+  result                object
+  result.comment        string
+  result.createdAt      number
+  result.createdBy      number
+  result.datasourceUid  string
+  result.queries        object
+  result.starred        boolean
+  result.uid            string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -27404,6 +29673,11 @@ var (
 			"Deletes query in query history",
 			"Deletes an existing query in query history as specified by the UID. This operation cannot be reverted.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteQueryOK.Payload):
+  id       number
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if queryHistoryDeleteQueryFlag.DescribeResponseJSONSchema {
@@ -27490,10 +29764,16 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PatchQueryCommentInQueryHistoryCommand):
-{
-  "comment": string
-}
-  comment                  Updated comment`,
+  comment  string  Updated comment`,
+			"responseSchema": `Response schema (PatchQueryCommentOK.Payload):
+  result                object
+  result.comment        string
+  result.createdAt      number
+  result.createdBy      number
+  result.datasourceUid  string
+  result.queries        object
+  result.starred        boolean
+  result.uid            string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -27596,6 +29876,21 @@ var (
 			"Queries history search",
 			"Returns a list of queries in the query history that matches the search criteria. Query history search supports pagination. Use the `limit` parameter to control the maximum number of queries returned; the default limit is 100. You can also use the `page` query parameter to fetch queries from any page other than the first one.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (SearchQueriesOK.Payload):
+  result                               object
+  result.page                          number
+  result.perPage                       number
+  result.queryHistory                  array<object>
+  result.queryHistory[].comment        string
+  result.queryHistory[].createdAt      number
+  result.queryHistory[].createdBy      number
+  result.queryHistory[].datasourceUid  string
+  result.queryHistory[].queries        object
+  result.queryHistory[].starred        boolean
+  result.queryHistory[].uid            string
+  result.totalCount                    number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if queryHistorySearchQueriesFlag.DescribeResponseJSONSchema {
@@ -27676,6 +29971,17 @@ var (
 			"Adds star to query in query history",
 			"Adds star to query in query history as specified by the UID.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (StarQueryOK.Payload):
+  result                object
+  result.comment        string
+  result.createdAt      number
+  result.createdBy      number
+  result.datasourceUid  string
+  result.queries        object
+  result.starred        boolean
+  result.uid            string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if queryHistoryStarQueryFlag.DescribeResponseJSONSchema {
@@ -27749,6 +30055,17 @@ var (
 			"Removes star to query in query history",
 			"Removes star from query in query history as specified by the UID.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (UnstarQueryOK.Payload):
+  result                object
+  result.comment        string
+  result.createdAt      number
+  result.createdBy      number
+  result.datasourceUid  string
+  result.queries        object
+  result.starred        boolean
+  result.uid            string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if queryHistoryUnstarQueryFlag.DescribeResponseJSONSchema {
@@ -28123,10 +30440,10 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateQuotaCmd):
-{
-  "limit": number,
-  "target": string
-}`,
+  limit   number
+  target  string`,
+			"responseSchema": `Response schema (UpdateOrgQuotaOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -28207,10 +30524,10 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateQuotaCmd):
-{
-  "limit": number,
-  "target": string
-}`,
+  limit   number
+  target  string`,
+			"responseSchema": `Response schema (UpdateUserQuotaOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -28387,19 +30704,29 @@ var (
 		Short: "Creates a recording rule that is then registered and started",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (RecordingRuleJSON):
-{
-  "active": boolean,
-  "count": boolean,
-  "description": string,
-  "dest_data_source_uid": string,
-  "id": string,
-  "interval": number,
-  "name": string,
-  "prom_name": string,
-  "queries": [any],
-  "range": number,
-  "target_ref_id": string
-}`,
+  active                boolean
+  count                 boolean
+  description           string
+  dest_data_source_uid  string
+  id                    string
+  interval              number
+  name                  string
+  prom_name             string
+  queries               array<object>
+  range                 number
+  target_ref_id         string`,
+			"responseSchema": `Response schema (CreateRecordingRuleOK.Payload):
+  active                boolean
+  count                 boolean
+  description           string
+  dest_data_source_uid  string
+  id                    string
+  interval              number
+  name                  string
+  prom_name             string
+  queries               array<object>
+  range                 number
+  target_ref_id         string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -28487,11 +30814,13 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PrometheusRemoteWriteTargetJSON):
-{
-  "data_source_uid": string,
-  "id": string,
-  "remote_write_path": string
-}`,
+  data_source_uid    string
+  id                 string
+  remote_write_path  string`,
+			"responseSchema": `Response schema (CreateRecordingRuleWriteTargetOK.Payload):
+  data_source_uid    string
+  id                 string
+  remote_write_path  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -28549,8 +30878,12 @@ var (
   }
 }`
 	recordingRulesDeleteRecordingRuleCmd = &cobra.Command{
-		Use:               "delete-recording-rule",
-		Short:             "Deletes removes the rule from the registry and stops it",
+		Use:   "delete-recording-rule",
+		Short: "Deletes removes the rule from the registry and stops it",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteRecordingRuleOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if recordingRulesDeleteRecordingRuleFlag.DescribeResponseJSONSchema {
@@ -28597,8 +30930,12 @@ var (
   }
 }`
 	recordingRulesDeleteRecordingRuleWriteTargetCmd = &cobra.Command{
-		Use:               "delete-recording-rule-write-target",
-		Short:             "Deletes the remote write target",
+		Use:   "delete-recording-rule-write-target",
+		Short: "Deletes the remote write target",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteRecordingRuleWriteTargetOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if recordingRulesDeleteRecordingRuleWriteTargetFlag.DescribeResponseJSONSchema {
@@ -28649,8 +30986,14 @@ var (
   }
 }`
 	recordingRulesGetRecordingRuleWriteTargetCmd = &cobra.Command{
-		Use:               "get-recording-rule-write-target",
-		Short:             "Returns the prometheus remote write target",
+		Use:   "get-recording-rule-write-target",
+		Short: "Returns the prometheus remote write target",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetRecordingRuleWriteTargetOK.Payload):
+  data_source_uid    string
+  id                 string
+  remote_write_path  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if recordingRulesGetRecordingRuleWriteTargetFlag.DescribeResponseJSONSchema {
@@ -28820,19 +31163,19 @@ var (
 		Short: "Tests a recording rule",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (RecordingRuleJSON):
-{
-  "active": boolean,
-  "count": boolean,
-  "description": string,
-  "dest_data_source_uid": string,
-  "id": string,
-  "interval": number,
-  "name": string,
-  "prom_name": string,
-  "queries": [any],
-  "range": number,
-  "target_ref_id": string
-}`,
+  active                boolean
+  count                 boolean
+  description           string
+  dest_data_source_uid  string
+  id                    string
+  interval              number
+  name                  string
+  prom_name             string
+  queries               array<object>
+  range                 number
+  target_ref_id         string`,
+			"responseSchema": `Response schema (TestCreateRecordingRuleOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -28966,19 +31309,29 @@ var (
 		Short: "Updates the active status of a rule",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (RecordingRuleJSON):
-{
-  "active": boolean,
-  "count": boolean,
-  "description": string,
-  "dest_data_source_uid": string,
-  "id": string,
-  "interval": number,
-  "name": string,
-  "prom_name": string,
-  "queries": [any],
-  "range": number,
-  "target_ref_id": string
-}`,
+  active                boolean
+  count                 boolean
+  description           string
+  dest_data_source_uid  string
+  id                    string
+  interval              number
+  name                  string
+  prom_name             string
+  queries               array<object>
+  range                 number
+  target_ref_id         string`,
+			"responseSchema": `Response schema (UpdateRecordingRuleOK.Payload):
+  active                boolean
+  count                 boolean
+  description           string
+  dest_data_source_uid  string
+  id                    string
+  interval              number
+  name                  string
+  prom_name             string
+  queries               array<object>
+  range                 number
+  target_ref_id         string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -29227,42 +31580,45 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateOrUpdateReport):
-{
-  "dashboards": [
-    {
-      "dashboard": object,  // models.ReportDashboardID
-      "reportVariables": any,
-      "timeRange": object  // models.ReportTimeRange
-    }
-  ],
-  "enableCsv": boolean,
-  "enableDashboardUrl": boolean,
-  "formats": [string],
-  "message": string,
-  "name": string,
-  "options": {
-    "layout": string,
-    "orientation": string,
-    "pdfCombineOneFile": boolean,
-    "pdfShowTemplateVariables": boolean,
-    "timeRange": object  // models.ReportTimeRange
-  },
-  "recipients": string,
-  "replyTo": string,
-  "scaleFactor": number,
-  "schedule": {
-    "dayOfMonth": string,
-    "endDate": string,
-    "frequency": string,
-    "intervalAmount": number,
-    "intervalFrequency": string,
-    "startDate": string,
-    "timeZone": string,
-    "workdaysOnly": boolean
-  },
-  "state": string,
-  "subject": string
-}`,
+  dashboards                        array<object>
+  dashboards[].dashboard            object
+  dashboards[].dashboard.id         number
+  dashboards[].dashboard.name       string
+  dashboards[].dashboard.uid        string
+  dashboards[].reportVariables      object
+  dashboards[].timeRange            object
+  dashboards[].timeRange.from       string
+  dashboards[].timeRange.to         string
+  enableCsv                         boolean
+  enableDashboardUrl                boolean
+  formats                           array<string>
+  message                           string
+  name                              string
+  options                           object
+  options.layout                    string
+  options.orientation               string
+  options.pdfCombineOneFile         boolean
+  options.pdfShowTemplateVariables  boolean
+  options.timeRange                 object
+  options.timeRange.from            string
+  options.timeRange.to              string
+  recipients                        string
+  replyTo                           string
+  scaleFactor                       number
+  schedule                          object
+  schedule.dayOfMonth               string
+  schedule.endDate                  string
+  schedule.frequency                string
+  schedule.intervalAmount           number
+  schedule.intervalFrequency        string
+  schedule.startDate                string
+  schedule.timeZone                 string
+  schedule.workdaysOnly             boolean
+  state                             string
+  subject                           string`,
+			"responseSchema": `Response schema (CreateReportOK.Payload):
+  id       number
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -29328,6 +31684,10 @@ var (
 			"You need to have a permission with action `reports.delete` with scope `reports:id:<report ID>`.",
 			"Requesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteReportOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if reportsDeleteReportFlag.DescribeResponseJSONSchema {
@@ -29521,6 +31881,51 @@ var (
 			"You need to have a permission with action `reports:read` with scope `reports:id:<report ID>`.",
 			"Requesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetReportOK.Payload):
+  created                           string
+  dashboards                        array<object>
+  dashboards[].dashboard            object
+  dashboards[].dashboard.id         number
+  dashboards[].dashboard.name       string
+  dashboards[].dashboard.uid        string
+  dashboards[].reportVariables      object
+  dashboards[].timeRange            object
+  dashboards[].timeRange.from       string
+  dashboards[].timeRange.to         string
+  enableCsv                         boolean
+  enableDashboardUrl                boolean
+  formats                           array<string>
+  id                                number
+  message                           string
+  name                              string
+  options                           object
+  options.layout                    string
+  options.orientation               string
+  options.pdfCombineOneFile         boolean
+  options.pdfShowTemplateVariables  boolean
+  options.timeRange                 object
+  options.timeRange.from            string
+  options.timeRange.to              string
+  orgId                             number
+  recipients                        string
+  replyTo                           string
+  scaleFactor                       number
+  schedule                          object
+  schedule.dayOfMonth               string
+  schedule.endDate                  string
+  schedule.frequency                string
+  schedule.intervalAmount           number
+  schedule.intervalFrequency        string
+  schedule.startDate                string
+  schedule.timeZone                 string
+  schedule.workdaysOnly             boolean
+  state                             string
+  subject                           string
+  uid                               string
+  updated                           string
+  userId                            number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if reportsGetReportFlag.DescribeResponseJSONSchema {
@@ -29606,6 +32011,20 @@ var (
 			"Available to org admins only and with a valid or expired license.",
 			"You need to have a permission with action `reports.settings:read`x.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetReportSettingsOK.Payload):
+  branding                  object
+  branding.emailFooterLink  string
+  branding.emailFooterMode  string
+  branding.emailFooterText  string
+  branding.emailLogoUrl     string
+  branding.reportLogoUrl    string
+  embeddedImageTheme        string
+  id                        number
+  orgId                     number
+  pdfTheme                  string
+  userId                    number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if reportsGetReportSettingsFlag.DescribeResponseJSONSchema {
@@ -30244,20 +32663,19 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (ReportSettings):
-{
-  "branding": {
-    "emailFooterLink": string,
-    "emailFooterMode": string,
-    "emailFooterText": string,
-    "emailLogoUrl": string,
-    "reportLogoUrl": string
-  },
-  "embeddedImageTheme": string,
-  "id": number,
-  "orgId": number,
-  "pdfTheme": string,
-  "userId": number
-}`,
+  branding                  object
+  branding.emailFooterLink  string
+  branding.emailFooterMode  string
+  branding.emailFooterText  string
+  branding.emailLogoUrl     string
+  branding.reportLogoUrl    string
+  embeddedImageTheme        string
+  id                        number
+  orgId                     number
+  pdfTheme                  string
+  userId                    number`,
+			"responseSchema": `Response schema (SaveReportSettingsOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -30344,14 +32762,11 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (ReportEmail):
-{
-  "emails": string,
-  "id": string,
-  "useEmailsFromReport": boolean
-}
-  emails                   Comma-separated list of emails to which to send the report to.
-  id                       Send the report to the emails specified in the report. Required if emails is not present.
-  useEmailsFromReport      Send the report to the emails specified in the report. Required if emails is not present.`,
+  emails               string   Comma-separated list of emails to which to send the report to.
+  id                   string   Send the report to the emails specified in the report. Required if emails is not present.
+  useEmailsFromReport  boolean  Send the report to the emails specified in the report. Required if emails is not present.`,
+			"responseSchema": `Response schema (SendReportOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -30549,42 +32964,44 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateOrUpdateReport):
-{
-  "dashboards": [
-    {
-      "dashboard": object,  // models.ReportDashboardID
-      "reportVariables": any,
-      "timeRange": object  // models.ReportTimeRange
-    }
-  ],
-  "enableCsv": boolean,
-  "enableDashboardUrl": boolean,
-  "formats": [string],
-  "message": string,
-  "name": string,
-  "options": {
-    "layout": string,
-    "orientation": string,
-    "pdfCombineOneFile": boolean,
-    "pdfShowTemplateVariables": boolean,
-    "timeRange": object  // models.ReportTimeRange
-  },
-  "recipients": string,
-  "replyTo": string,
-  "scaleFactor": number,
-  "schedule": {
-    "dayOfMonth": string,
-    "endDate": string,
-    "frequency": string,
-    "intervalAmount": number,
-    "intervalFrequency": string,
-    "startDate": string,
-    "timeZone": string,
-    "workdaysOnly": boolean
-  },
-  "state": string,
-  "subject": string
-}`,
+  dashboards                        array<object>
+  dashboards[].dashboard            object
+  dashboards[].dashboard.id         number
+  dashboards[].dashboard.name       string
+  dashboards[].dashboard.uid        string
+  dashboards[].reportVariables      object
+  dashboards[].timeRange            object
+  dashboards[].timeRange.from       string
+  dashboards[].timeRange.to         string
+  enableCsv                         boolean
+  enableDashboardUrl                boolean
+  formats                           array<string>
+  message                           string
+  name                              string
+  options                           object
+  options.layout                    string
+  options.orientation               string
+  options.pdfCombineOneFile         boolean
+  options.pdfShowTemplateVariables  boolean
+  options.timeRange                 object
+  options.timeRange.from            string
+  options.timeRange.to              string
+  recipients                        string
+  replyTo                           string
+  scaleFactor                       number
+  schedule                          object
+  schedule.dayOfMonth               string
+  schedule.endDate                  string
+  schedule.frequency                string
+  schedule.intervalAmount           number
+  schedule.intervalFrequency        string
+  schedule.startDate                string
+  schedule.timeZone                 string
+  schedule.workdaysOnly             boolean
+  state                             string
+  subject                           string`,
+			"responseSchema": `Response schema (SendTestEmailOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -30783,42 +33200,44 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateOrUpdateReport):
-{
-  "dashboards": [
-    {
-      "dashboard": object,  // models.ReportDashboardID
-      "reportVariables": any,
-      "timeRange": object  // models.ReportTimeRange
-    }
-  ],
-  "enableCsv": boolean,
-  "enableDashboardUrl": boolean,
-  "formats": [string],
-  "message": string,
-  "name": string,
-  "options": {
-    "layout": string,
-    "orientation": string,
-    "pdfCombineOneFile": boolean,
-    "pdfShowTemplateVariables": boolean,
-    "timeRange": object  // models.ReportTimeRange
-  },
-  "recipients": string,
-  "replyTo": string,
-  "scaleFactor": number,
-  "schedule": {
-    "dayOfMonth": string,
-    "endDate": string,
-    "frequency": string,
-    "intervalAmount": number,
-    "intervalFrequency": string,
-    "startDate": string,
-    "timeZone": string,
-    "workdaysOnly": boolean
-  },
-  "state": string,
-  "subject": string
-}`,
+  dashboards                        array<object>
+  dashboards[].dashboard            object
+  dashboards[].dashboard.id         number
+  dashboards[].dashboard.name       string
+  dashboards[].dashboard.uid        string
+  dashboards[].reportVariables      object
+  dashboards[].timeRange            object
+  dashboards[].timeRange.from       string
+  dashboards[].timeRange.to         string
+  enableCsv                         boolean
+  enableDashboardUrl                boolean
+  formats                           array<string>
+  message                           string
+  name                              string
+  options                           object
+  options.layout                    string
+  options.orientation               string
+  options.pdfCombineOneFile         boolean
+  options.pdfShowTemplateVariables  boolean
+  options.timeRange                 object
+  options.timeRange.from            string
+  options.timeRange.to              string
+  recipients                        string
+  replyTo                           string
+  scaleFactor                       number
+  schedule                          object
+  schedule.dayOfMonth               string
+  schedule.endDate                  string
+  schedule.frequency                string
+  schedule.intervalAmount           number
+  schedule.intervalFrequency        string
+  schedule.startDate                string
+  schedule.timeZone                 string
+  schedule.workdaysOnly             boolean
+  state                             string
+  subject                           string`,
+			"responseSchema": `Response schema (UpdateReportOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -31174,8 +33593,15 @@ var (
   }
 }`
 	searchListSortOptionsCmd = &cobra.Command{
-		Use:               "list-sort-options",
-		Short:             "Lists search sorting options",
+		Use:   "list-sort-options",
+		Short: "Lists search sorting options",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ListSortOptionsOK.Payload):
+  description  string
+  displayName  string
+  meta         string
+  name         string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if searchListSortOptionsFlag.DescribeResponseJSONSchema {
@@ -31432,12 +33858,21 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateServiceAccountForm):
-{
-  "isDisabled": boolean,
-  "name": string,
-  "role": string
-}
-  role                     enum: None | Viewer | Editor | Admin`,
+  isDisabled  boolean
+  name        string
+  role        string   enum: None | Viewer | Editor | Admin`,
+			"responseSchema": `Response schema (CreateServiceAccountCreated.Payload):
+  accessControl  map<string, boolean>
+  avatarUrl      string
+  id             number
+  isDisabled     boolean
+  isExternal     boolean
+  login          string
+  name           string
+  orgId          number
+  role           string
+  tokens         number
+  uid            string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -31522,10 +33957,12 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AddServiceAccountTokenCommand):
-{
-  "name": string,
-  "secondsToLive": number
-}`,
+  name           string
+  secondsToLive  number`,
+			"responseSchema": `Response schema (CreateTokenOK.Payload):
+  id    number
+  key   string
+  name  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -31590,6 +34027,10 @@ var (
 			"Deletes service account",
 			"Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:delete` scope: `serviceaccounts:id:1` (single service account)",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteServiceAccountOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if serviceAccountsDeleteServiceAccountFlag.DescribeResponseJSONSchema {
@@ -31643,6 +34084,10 @@ var (
 			"Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:write` scope: `serviceaccounts:id:1` (single service account)",
 			"Requires basic authentication and that the authenticated user is a Grafana Admin.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (DeleteTokenOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if serviceAccountsDeleteTokenFlag.DescribeResponseJSONSchema {
@@ -31806,6 +34251,20 @@ var (
 			"Gets single serviceaccount by Id",
 			"Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:read` scope: `serviceaccounts:id:1` (single service account)",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (RetrieveServiceAccountOK.Payload):
+  accessControl  map<string, boolean>
+  avatarUrl      string
+  id             number
+  isDisabled     boolean
+  isExternal     boolean
+  login          string
+  name           string
+  orgId          number
+  role           string
+  tokens         number
+  uid            string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if serviceAccountsRetrieveServiceAccountFlag.DescribeResponseJSONSchema {
@@ -31909,6 +34368,26 @@ var (
 			"Searches service accounts with paging",
 			"Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:read` scope: `serviceaccounts:*`",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (SearchOrgServiceAccountsWithPagingOK.Payload):
+  page                             number
+  perPage                          number
+  serviceAccounts                  array<object>
+  serviceAccounts[].accessControl  map<string, boolean>
+  serviceAccounts[].avatarUrl      string
+  serviceAccounts[].id             number
+  serviceAccounts[].isDisabled     boolean
+  serviceAccounts[].isExternal     boolean
+  serviceAccounts[].login          string
+  serviceAccounts[].name           string
+  serviceAccounts[].orgId          number
+  serviceAccounts[].role           string
+  serviceAccounts[].tokens         number
+  serviceAccounts[].uid            string
+  totalCount                       number                It can be used for pagination of the user list
+                                                         E.g. if totalCount is equal to 100 users and
+                                                         the perpage parameter is set to 10 then there are 10 pages of users.`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if serviceAccountsSearchOrgServiceAccountsWithPagingFlag.DescribeResponseJSONSchema {
@@ -32054,13 +34533,30 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateServiceAccountForm):
-{
-  "isDisabled": boolean,
-  "name": string,
-  "role": string,
-  "serviceAccountId": number
-}
-  role                     enum: None | Viewer | Editor | Admin`,
+  isDisabled        boolean
+  name              string
+  role              string   enum: None | Viewer | Editor | Admin
+  serviceAccountId  number`,
+			"responseSchema": `Response schema (UpdateServiceAccountOK.Payload):
+  id                            number
+  message                       string
+  name                          string
+  serviceaccount                object
+  serviceaccount.accessControl  map<string, boolean>
+  serviceaccount.avatarUrl      string
+  serviceaccount.createdAt      string
+  serviceaccount.id             number
+  serviceaccount.isDisabled     boolean
+  serviceaccount.isExternal     boolean
+  serviceaccount.login          string
+  serviceaccount.name           string
+  serviceaccount.orgId          number
+  serviceaccount.requiredBy     string
+  serviceaccount.role           string
+  serviceaccount.teams          array<string>
+  serviceaccount.tokens         number
+  serviceaccount.uid            string
+  serviceaccount.updatedAt      string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -32197,10 +34693,10 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (ChangeUserPasswordCommand):
-{
-  "newPassword": string,
-  "oldPassword": string
-}`,
+  newPassword  string
+  oldPassword  string`,
+			"responseSchema": `Response schema (ChangeUserPasswordOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -32261,8 +34757,13 @@ var (
   }
 }`
 	signedInUserClearHelpFlagsCmd = &cobra.Command{
-		Use:               "clear-help-flags",
-		Short:             "Clears user help flag",
+		Use:   "clear-help-flags",
+		Short: "Clears user help flag",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (ClearHelpFlagsOK.Payload):
+  helpFlags1  number
+  message     string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserClearHelpFlagsFlag.DescribeResponseJSONSchema {
@@ -32364,8 +34865,29 @@ var (
   }
 }`
 	signedInUserGetSignedInUserCmd = &cobra.Command{
-		Use:               "get-signed-in-user",
-		Short:             "Get (current authenticated user)",
+		Use:   "get-signed-in-user",
+		Short: "Get (current authenticated user)",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetSignedInUserOK.Payload):
+  accessControl                   map<string, boolean>
+  authLabels                      array<string>
+  avatarUrl                       string
+  createdAt                       string
+  email                           string
+  id                              number
+  isDisabled                      boolean
+  isExternal                      boolean
+  isExternallySynced              boolean
+  isGrafanaAdmin                  boolean
+  isGrafanaAdminExternallySynced  boolean
+  isProvisioned                   boolean
+  login                           string
+  name                            string
+  orgId                           number
+  theme                           string
+  uid                             string
+  updatedAt                       string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserGetSignedInUserFlag.DescribeResponseJSONSchema {
@@ -32711,8 +35233,26 @@ var (
   }
 }`
 	signedInUserGetUserPreferencesCmd = &cobra.Command{
-		Use:               "get-user-preferences",
-		Short:             "Gets user preferences",
+		Use:   "get-user-preferences",
+		Short: "Gets user preferences",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetUserPreferencesOK.Payload):
+  cookiePreferences              object
+  cookiePreferences.analytics    object
+  cookiePreferences.functional   object
+  cookiePreferences.performance  object
+  homeDashboardUID               string         UID for the home dashboard
+  language                       string         Selected language (beta)
+  navbar                         object
+  navbar.bookmarkUrls            array<string>
+  queryHistory                   object
+  queryHistory.homeTab           string         one of: '' | 'query' | 'starred';
+  regionalFormat                 string         Selected locale (beta)
+  theme                          string         light, dark, empty is default
+  timezone                       string         The timezone selection
+                                                TODO: this should use the timezone defined in common
+  weekStart                      string         day of the week (sunday, monday, etc)`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserGetUserPreferencesFlag.DescribeResponseJSONSchema {
@@ -32823,25 +35363,20 @@ var (
 		Short: "Patches user preferences",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PatchPrefsCmd):
-{
-  "cookies": [string],
-  "homeDashboardId": number,
-  "homeDashboardUID": string,
-  "language": string,
-  "navbar": {
-    "bookmarkUrls": [string]
-  },
-  "queryHistory": {
-    "homeTab": string
-  },
-  "regionalFormat": string,
-  "theme": string,
-  "timezone": string,
-  "weekStart": string
-}
-  homeDashboardId          The numerical :id of a favorited dashboard
-  theme                    enum: light | dark
-  timezone                 enum: utc | browser`,
+  cookies               array<string>
+  homeDashboardId       number         The numerical :id of a favorited dashboard
+  homeDashboardUID      string
+  language              string
+  navbar                object
+  navbar.bookmarkUrls   array<string>
+  queryHistory          object
+  queryHistory.homeTab  string
+  regionalFormat        string
+  theme                 string         enum: light | dark
+  timezone              string         enum: utc | browser
+  weekStart             string`,
+			"responseSchema": `Response schema (PatchUserPreferencesOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -32917,9 +35452,9 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (RevokeAuthTokenCmd):
-{
-  "authTokenId": number
-}`,
+  authTokenId  number`,
+			"responseSchema": `Response schema (RevokeUserAuthTokenOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -32980,8 +35515,13 @@ var (
   }
 }`
 	signedInUserSetHelpFlagCmd = &cobra.Command{
-		Use:               "set-help-flag",
-		Short:             "Sets user help flag",
+		Use:   "set-help-flag",
+		Short: "Sets user help flag",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (SetHelpFlagOK.Payload):
+  helpFlags1  number
+  message     string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserSetHelpFlagFlag.DescribeResponseJSONSchema {
@@ -33034,6 +35574,10 @@ var (
 			"Stars a dashboard",
 			"Stars the given Dashboard for the actual user.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (StarDashboardByUIDOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserStarDashboardByUIDFlag.DescribeResponseJSONSchema {
@@ -33086,6 +35630,10 @@ var (
 			"Unstars a dashboard",
 			"Deletes the starring of the given Dashboard for the actual user.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (UnstarDashboardByUIDOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserUnstarDashboardByUIDFlag.DescribeResponseJSONSchema {
@@ -33155,12 +35703,12 @@ var (
 		Short: "Updates signed in user",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateUserCommand):
-{
-  "email": string,
-  "login": string,
-  "name": string,
-  "theme": string
-}`,
+  email  string
+  login  string
+  name   string
+  theme  string`,
+			"responseSchema": `Response schema (UpdateSignedInUserOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -33289,25 +35837,20 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdatePrefsCmd):
-{
-  "cookies": [string],
-  "homeDashboardId": number,
-  "homeDashboardUID": string,
-  "language": string,
-  "navbar": {
-    "bookmarkUrls": [string]
-  },
-  "queryHistory": {
-    "homeTab": string
-  },
-  "regionalFormat": string,
-  "theme": string,
-  "timezone": string,
-  "weekStart": string
-}
-  homeDashboardId          The numerical :id of a favorited dashboard
-  theme                    enum: light | dark | system
-  timezone                 enum: utc | browser`,
+  cookies               array<string>
+  homeDashboardId       number         The numerical :id of a favorited dashboard
+  homeDashboardUID      string
+  language              string
+  navbar                object
+  navbar.bookmarkUrls   array<string>
+  queryHistory          object
+  queryHistory.homeTab  string
+  regionalFormat        string
+  theme                 string         enum: light | dark | system
+  timezone              string         enum: utc | browser
+  weekStart             string`,
+			"responseSchema": `Response schema (UpdateUserPreferencesOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -33371,6 +35914,10 @@ var (
 			"Switches user context for signed in user",
 			"Switch user context to the given organization.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (UserSetUsingOrgOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signedInUserUserSetUsingOrgFlag.DescribeResponseJSONSchema {
@@ -34063,6 +36610,221 @@ var (
 			"Gets JSON web key set j w k s with all the keys that can be used to verify tokens public keys",
 			"Required permissions None",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (RetrieveJWKSOK.Payload):
+  keys                                                        array<object>
+  keys[].Algorithm                                            string                Key algorithm, parsed from ` + "`" + `alg` + "`" + ` header.
+  keys[].CertificateThumbprintSHA1                            array<number>         X.509 certificate thumbprint (SHA-1), parsed from ` + "`" + `x5t` + "`" + ` header.
+  keys[].CertificateThumbprintSHA256                          array<number>         X.509 certificate thumbprint (SHA-256), parsed from ` + "`" + `x5t#S256` + "`" + ` header.
+  keys[].Certificates                                         array<object>         X.509 certificate chain, parsed from ` + "`" + `x5c` + "`" + ` header.
+  keys[].Certificates[].AuthorityKeyId                        array<number>
+  keys[].Certificates[].BasicConstraintsValid                 boolean               BasicConstraintsValid indicates whether IsCA, MaxPathLen,
+                                                                                    and MaxPathLenZero are valid.
+  keys[].Certificates[].CRLDistributionPoints                 array<string>
+  keys[].Certificates[].DNSNames                              array<string>         Subject Alternate Name values. (Note that these values may not be valid
+                                                                                    if invalid values were contained within a parsed certificate. For
+                                                                                    example, an element of DNSNames may not be a valid DNS domain name.)
+  keys[].Certificates[].EmailAddresses                        array<string>
+  keys[].Certificates[].ExcludedDNSDomains                    array<string>
+  keys[].Certificates[].ExcludedEmailAddresses                array<string>
+  keys[].Certificates[].ExcludedIPRanges                      array<object>
+  keys[].Certificates[].ExcludedIPRanges[].IP                 string
+  keys[].Certificates[].ExcludedIPRanges[].Mask               array<number>
+  keys[].Certificates[].ExcludedURIDomains                    array<string>
+  keys[].Certificates[].ExtKeyUsage                           array<number>
+  keys[].Certificates[].Extensions                            array<object>         Extensions contains raw X.509 extensions. When parsing certificates,
+                                                                                    this can be used to extract non-critical extensions that are not
+                                                                                    parsed by this package. When marshaling certificates, the Extensions
+                                                                                    field is ignored, see ExtraExtensions.
+  keys[].Certificates[].Extensions[].Critical                 boolean
+  keys[].Certificates[].Extensions[].Id                       array<number>
+  keys[].Certificates[].Extensions[].Value                    array<number>
+  keys[].Certificates[].ExtraExtensions                       array<object>         ExtraExtensions contains extensions to be copied, raw, into any
+                                                                                    marshaled certificates. Values override any extensions that would
+                                                                                    otherwise be produced based on the other fields. The ExtraExtensions
+                                                                                    field is not populated when parsing certificates, see Extensions.
+  keys[].Certificates[].ExtraExtensions[].Critical            boolean
+  keys[].Certificates[].ExtraExtensions[].Id                  array<number>
+  keys[].Certificates[].ExtraExtensions[].Value               array<number>
+  keys[].Certificates[].IPAddresses                           array<string>
+  keys[].Certificates[].InhibitAnyPolicy                      number                InhibitAnyPolicy and InhibitAnyPolicyZero indicate the presence and value
+                                                                                    of the inhibitAnyPolicy extension.
+                                                                                    The value of InhibitAnyPolicy indicates the number of additional
+                                                                                    certificates in the path after this certificate that may use the
+                                                                                    anyPolicy policy OID to indicate a match with any other policy.
+                                                                                    When parsing a certificate, a positive non-zero InhibitAnyPolicy means
+                                                                                    that the field was specified, -1 means it was unset, and
+                                                                                    InhibitAnyPolicyZero being true mean that the field was explicitly set to
+                                                                                    zero. The case of InhibitAnyPolicy==0 with InhibitAnyPolicyZero==false
+                                                                                    should be treated equivalent to -1 (unset).
+  keys[].Certificates[].InhibitAnyPolicyZero                  boolean               InhibitAnyPolicyZero indicates that InhibitAnyPolicy==0 should be
+                                                                                    interpreted as an actual maximum path length of zero. Otherwise, that
+                                                                                    combination is interpreted as InhibitAnyPolicy not being set.
+  keys[].Certificates[].InhibitPolicyMapping                  number                InhibitPolicyMapping and InhibitPolicyMappingZero indicate the presence
+                                                                                    and value of the inhibitPolicyMapping field of the policyConstraints
+                                                                                    extension.
+                                                                                    The value of InhibitPolicyMapping indicates the number of additional
+                                                                                    certificates in the path after this certificate that may use policy
+                                                                                    mapping.
+                                                                                    When parsing a certificate, a positive non-zero InhibitPolicyMapping
+                                                                                    means that the field was specified, -1 means it was unset, and
+                                                                                    InhibitPolicyMappingZero being true mean that the field was explicitly
+                                                                                    set to zero. The case of InhibitPolicyMapping==0 with
+                                                                                    InhibitPolicyMappingZero==false should be treated equivalent to -1
+                                                                                    (unset).
+  keys[].Certificates[].InhibitPolicyMappingZero              boolean               InhibitPolicyMappingZero indicates that InhibitPolicyMapping==0 should be
+                                                                                    interpreted as an actual maximum path length of zero. Otherwise, that
+                                                                                    combination is interpreted as InhibitAnyPolicy not being set.
+  keys[].Certificates[].IsCA                                  boolean
+  keys[].Certificates[].Issuer                                object
+  keys[].Certificates[].Issuer.Country                        array<string>
+  keys[].Certificates[].Issuer.ExtraNames                     array<object>         ExtraNames contains attributes to be copied, raw, into any marshaled
+                                                                                    distinguished names. Values override any attributes with the same OID.
+                                                                                    The ExtraNames field is not populated when parsing, see Names.
+  keys[].Certificates[].Issuer.ExtraNames[].Type              array<number>
+  keys[].Certificates[].Issuer.ExtraNames[].Value             object
+  keys[].Certificates[].Issuer.Locality                       array<string>
+  keys[].Certificates[].Issuer.Names                          array<object>         Names contains all parsed attributes. When parsing distinguished names,
+                                                                                    this can be used to extract non-standard attributes that are not parsed
+                                                                                    by this package. When marshaling to RDNSequences, the Names field is
+                                                                                    ignored, see ExtraNames.
+  keys[].Certificates[].Issuer.Names[].Type                   array<number>
+  keys[].Certificates[].Issuer.Names[].Value                  object
+  keys[].Certificates[].Issuer.SerialNumber                   string
+  keys[].Certificates[].Issuer.StreetAddress                  array<string>
+  keys[].Certificates[].IssuingCertificateURL                 array<string>
+  keys[].Certificates[].KeyUsage                              number
+  keys[].Certificates[].MaxPathLen                            number                MaxPathLen and MaxPathLenZero indicate the presence and
+                                                                                    value of the BasicConstraints' "pathLenConstraint".
+                                                                                    When parsing a certificate, a positive non-zero MaxPathLen
+                                                                                    means that the field was specified, -1 means it was unset,
+                                                                                    and MaxPathLenZero being true mean that the field was
+                                                                                    explicitly set to zero. The case of MaxPathLen==0 with MaxPathLenZero==false
+                                                                                    should be treated equivalent to -1 (unset).
+                                                                                    When generating a certificate, an unset pathLenConstraint
+                                                                                    can be requested with either MaxPathLen == -1 or using the
+                                                                                    zero value for both MaxPathLen and MaxPathLenZero.
+  keys[].Certificates[].MaxPathLenZero                        boolean               MaxPathLenZero indicates that BasicConstraintsValid==true
+                                                                                    and MaxPathLen==0 should be interpreted as an actual
+                                                                                    maximum path length of zero. Otherwise, that combination is
+                                                                                    interpreted as MaxPathLen not being set.
+  keys[].Certificates[].NotBefore                             string
+  keys[].Certificates[].OCSPServer                            array<string>         RFC 5280, 4.2.2.1 (Authority Information Access)
+  keys[].Certificates[].PermittedDNSDomains                   array<string>
+  keys[].Certificates[].PermittedDNSDomainsCritical           boolean               Name constraints
+  keys[].Certificates[].PermittedEmailAddresses               array<string>
+  keys[].Certificates[].PermittedIPRanges                     array<object>
+  keys[].Certificates[].PermittedIPRanges[].IP                string
+  keys[].Certificates[].PermittedIPRanges[].Mask              array<number>
+  keys[].Certificates[].PermittedURIDomains                   array<string>
+  keys[].Certificates[].Policies                              array<string>         Policies contains all policy identifiers included in the certificate.
+                                                                                    See CreateCertificate for context about how this field and the PolicyIdentifiers field
+                                                                                    interact.
+                                                                                    In Go 1.22, encoding/gob cannot handle and ignores this field.
+  keys[].Certificates[].PolicyIdentifiers                     array<array<number>>  PolicyIdentifiers contains asn1.ObjectIdentifiers, the components
+                                                                                    of which are limited to int32. If a certificate contains a policy which
+                                                                                    cannot be represented by asn1.ObjectIdentifier, it will not be included in
+                                                                                    PolicyIdentifiers, but will be present in Policies, which contains all parsed
+                                                                                    policy OIDs.
+                                                                                    See CreateCertificate for context about how this field and the Policies field
+                                                                                    interact.
+  keys[].Certificates[].PolicyMappings                        array<object>         PolicyMappings contains a list of policy mappings included in the certificate.
+  keys[].Certificates[].PolicyMappings[].IssuerDomainPolicy   string                IssuerDomainPolicy contains a policy OID the issuing certificate considers
+                                                                                    equivalent to SubjectDomainPolicy in the subject certificate.
+  keys[].Certificates[].PolicyMappings[].SubjectDomainPolicy  string                SubjectDomainPolicy contains a OID the issuing certificate considers
+                                                                                    equivalent to IssuerDomainPolicy in the subject certificate.
+  keys[].Certificates[].PublicKey                             object
+  keys[].Certificates[].PublicKeyAlgorithm                    number
+  keys[].Certificates[].Raw                                   array<number>
+  keys[].Certificates[].RawIssuer                             array<number>
+  keys[].Certificates[].RawSubject                            array<number>
+  keys[].Certificates[].RawSubjectPublicKeyInfo               array<number>
+  keys[].Certificates[].RawTBSCertificate                     array<number>
+  keys[].Certificates[].RequireExplicitPolicy                 number                RequireExplicitPolicy and RequireExplicitPolicyZero indicate the presence
+                                                                                    and value of the requireExplicitPolicy field of the policyConstraints
+                                                                                    extension.
+                                                                                    The value of RequireExplicitPolicy indicates the number of additional
+                                                                                    certificates in the path after this certificate before an explicit policy
+                                                                                    is required for the rest of the path. When an explicit policy is required,
+                                                                                    each subsequent certificate in the path must contain a required policy OID,
+                                                                                    or a policy OID which has been declared as equivalent through the policy
+                                                                                    mapping extension.
+                                                                                    When parsing a certificate, a positive non-zero RequireExplicitPolicy
+                                                                                    means that the field was specified, -1 means it was unset, and
+                                                                                    RequireExplicitPolicyZero being true mean that the field was explicitly
+                                                                                    set to zero. The case of RequireExplicitPolicy==0 with
+                                                                                    RequireExplicitPolicyZero==false should be treated equivalent to -1
+                                                                                    (unset).
+  keys[].Certificates[].RequireExplicitPolicyZero             boolean               RequireExplicitPolicyZero indicates that RequireExplicitPolicy==0 should be
+                                                                                    interpreted as an actual maximum path length of zero. Otherwise, that
+                                                                                    combination is interpreted as InhibitAnyPolicy not being set.
+  keys[].Certificates[].SerialNumber                          string
+  keys[].Certificates[].Signature                             array<number>
+  keys[].Certificates[].SignatureAlgorithm                    number
+  keys[].Certificates[].Subject                               object
+  keys[].Certificates[].Subject.Country                       array<string>
+  keys[].Certificates[].Subject.ExtraNames                    array<object>         ExtraNames contains attributes to be copied, raw, into any marshaled
+                                                                                    distinguished names. Values override any attributes with the same OID.
+                                                                                    The ExtraNames field is not populated when parsing, see Names.
+  keys[].Certificates[].Subject.ExtraNames[].Type             array<number>
+  keys[].Certificates[].Subject.ExtraNames[].Value            object
+  keys[].Certificates[].Subject.Locality                      array<string>
+  keys[].Certificates[].Subject.Names                         array<object>         Names contains all parsed attributes. When parsing distinguished names,
+                                                                                    this can be used to extract non-standard attributes that are not parsed
+                                                                                    by this package. When marshaling to RDNSequences, the Names field is
+                                                                                    ignored, see ExtraNames.
+  keys[].Certificates[].Subject.Names[].Type                  array<number>
+  keys[].Certificates[].Subject.Names[].Value                 object
+  keys[].Certificates[].Subject.SerialNumber                  string
+  keys[].Certificates[].Subject.StreetAddress                 array<string>
+  keys[].Certificates[].SubjectKeyId                          array<number>
+  keys[].Certificates[].URIs                                  array<object>
+  keys[].Certificates[].URIs[].ForceQuery                     boolean
+  keys[].Certificates[].URIs[].Fragment                       string
+  keys[].Certificates[].URIs[].Host                           string
+  keys[].Certificates[].URIs[].OmitHost                       boolean
+  keys[].Certificates[].URIs[].Opaque                         string
+  keys[].Certificates[].URIs[].Path                           string
+  keys[].Certificates[].URIs[].RawFragment                    string
+  keys[].Certificates[].URIs[].RawPath                        string
+  keys[].Certificates[].URIs[].RawQuery                       string
+  keys[].Certificates[].URIs[].Scheme                         string
+  keys[].Certificates[].URIs[].User                           object
+  keys[].Certificates[].UnhandledCriticalExtensions           array<array<number>>  UnhandledCriticalExtensions contains a list of extension IDs that
+                                                                                    were not (fully) processed when parsing. Verify will fail if this
+                                                                                    slice is non-empty, unless verification is delegated to an OS
+                                                                                    library which understands all the critical extensions.
+                                                                                    Users can access these extensions using Extensions and can remove
+                                                                                    elements from this slice if they believe that they have been
+                                                                                    handled.
+  keys[].Certificates[].UnknownExtKeyUsage                    array<array<number>>
+  keys[].Certificates[].Version                               number
+  keys[].CertificatesURL                                      object
+  keys[].CertificatesURL.ForceQuery                           boolean
+  keys[].CertificatesURL.Fragment                             string
+  keys[].CertificatesURL.Host                                 string
+  keys[].CertificatesURL.OmitHost                             boolean
+  keys[].CertificatesURL.Opaque                               string
+  keys[].CertificatesURL.Path                                 string
+  keys[].CertificatesURL.RawFragment                          string
+  keys[].CertificatesURL.RawPath                              string
+  keys[].CertificatesURL.RawQuery                             string
+  keys[].CertificatesURL.Scheme                               string
+  keys[].CertificatesURL.User                                 object
+  keys[].Key                                                  object                Key is the Go in-memory representation of this key. It must have one
+                                                                                    of these types:
+                                                                                    ed25519.PublicKey
+                                                                                    ed25519.PrivateKey
+                                                                                    ecdsa.PublicKey
+                                                                                    ecdsa.PrivateKey
+                                                                                    rsa.PublicKey
+                                                                                    rsa.PrivateKey
+                                                                                    []byte (a symmetric key)
+                                                                                    When marshaling this JSONWebKey into JSON, the "kty" header parameter
+                                                                                    will be automatically set based on the type of this field.
+  keys[].KeyID                                                string                Key identifier, parsed from ` + "`" + `kid` + "`" + ` header.
+  keys[].Use                                                  string                Key use, parsed from ` + "`" + `use` + "`" + ` header.`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if signingKeysRetrieveJWKSFlag.DescribeResponseJSONSchema {
@@ -34124,8 +36886,14 @@ var (
   }
 }`
 	snapshotsGetSharingOptionsCmd = &cobra.Command{
-		Use:               "get-sharing-options",
-		Short:             "Gets snapshot sharing settings",
+		Use:   "get-sharing-options",
+		Short: "Gets snapshot sharing settings",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetSharingOptionsOK.Payload):
+  externalEnabled       boolean
+  externalSnapshotName  string
+  externalSnapshotURL   string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if snapshotsGetSharingOptionsFlag.DescribeResponseJSONSchema {
@@ -34194,6 +36962,13 @@ var (
 			"Gets an s s o settings entry by key",
 			"You need to have a permission with action `settings:read` with scope `settings:auth.<provider>:*`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetProviderSettingsOK.Payload):
+  id        string
+  provider  string
+  settings  object
+  source    string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if ssoSettingsGetProviderSettingsFlag.DescribeResponseJSONSchema {
@@ -34307,6 +37082,10 @@ var (
 			"Removes the SSO Settings for a provider.",
 			"You need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.",
 		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (RemoveProviderSettingsNoContent.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if ssoSettingsRemoveProviderSettingsFlag.DescribeResponseJSONSchema {
@@ -34376,11 +37155,11 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateProviderSettingsParamsBody):
-{
-  "id": string,
-  "provider": string,
-  "settings": any
-}`,
+  id        string
+  provider  string
+  settings  object`,
+			"responseSchema": `Response schema (UpdateProviderSettingsNoContent.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -34481,9 +37260,9 @@ var (
 		Short: "Adds external group",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (TeamGroupMapping):
-{
-  "groupId": string
-}`,
+  groupId  string`,
+			"responseSchema": `Response schema (AddTeamGroupAPIOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -34602,8 +37381,12 @@ var (
   }
 }`
 	syncTeamGroupsRemoveTeamGroupAPIQueryCmd = &cobra.Command{
-		Use:               "remove-team-group-api-query",
-		Short:             "Removes external group",
+		Use:   "remove-team-group-api-query",
+		Short: "Removes external group",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (RemoveTeamGroupAPIQueryOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if syncTeamGroupsRemoveTeamGroupAPIQueryFlag.DescribeResponseJSONSchema {
@@ -34677,8 +37460,19 @@ var (
   }
 }`
 	syncTeamGroupsSearchTeamGroupsCmd = &cobra.Command{
-		Use:               "search-team-groups",
-		Short:             "Searches for team groups with optional filtering and pagination",
+		Use:   "search-team-groups",
+		Short: "Searches for team groups with optional filtering and pagination",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (SearchTeamGroupsOK.Payload):
+  page                  number
+  perPage               number
+  teamGroups            array<object>
+  teamGroups[].groupId  string
+  teamGroups[].orgId    number
+  teamGroups[].teamId   number
+  teamGroups[].uid      string
+  totalCount            number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if syncTeamGroupsSearchTeamGroupsFlag.DescribeResponseJSONSchema {
@@ -34780,10 +37574,9 @@ var (
 		Short: "Adds team member",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (AddTeamMemberCommand):
-{
-  "userId": number
-}
-  userId                   REQUIRED`,
+  userId  number  REQUIRED`,
+			"responseSchema": `Response schema (AddTeamMemberOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -34868,11 +37661,12 @@ var (
 		Short: "Adds team",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateTeamCommand):
-{
-  "email": string,
-  "name": string
-}
-  name                     REQUIRED`,
+  email  string
+  name   string  REQUIRED`,
+			"responseSchema": `Response schema (CreateTeamOK.Payload):
+  message  string
+  teamId   number
+  uid      string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -35069,8 +37863,26 @@ var (
   }
 }`
 	teamsGetTeamPreferencesCmd = &cobra.Command{
-		Use:               "get-team-preferences",
-		Short:             "Gets team preferences",
+		Use:   "get-team-preferences",
+		Short: "Gets team preferences",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetTeamPreferencesOK.Payload):
+  cookiePreferences              object
+  cookiePreferences.analytics    object
+  cookiePreferences.functional   object
+  cookiePreferences.performance  object
+  homeDashboardUID               string         UID for the home dashboard
+  language                       string         Selected language (beta)
+  navbar                         object
+  navbar.bookmarkUrls            array<string>
+  queryHistory                   object
+  queryHistory.homeTab           string         one of: '' | 'query' | 'starred';
+  regionalFormat                 string         Selected locale (beta)
+  theme                          string         light, dark, empty is default
+  timezone                       string         The timezone selection
+                                                TODO: this should use the timezone defined in common
+  weekStart                      string         day of the week (sunday, monday, etc)`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if teamsGetTeamPreferencesFlag.DescribeResponseJSONSchema {
@@ -35117,8 +37929,12 @@ var (
   }
 }`
 	teamsRemoveTeamMemberCmd = &cobra.Command{
-		Use:               "remove-team-member",
-		Short:             "Removes member from team",
+		Use:   "remove-team-member",
+		Short: "Removes member from team",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (RemoveTeamMemberOK.Payload):
+  message  string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if teamsRemoveTeamMemberFlag.DescribeResponseJSONSchema {
@@ -35225,8 +38041,27 @@ var (
   }
 }`
 	teamsSearchTeamsCmd = &cobra.Command{
-		Use:               "search-teams",
-		Short:             "Teams search with paging",
+		Use:   "search-teams",
+		Short: "Teams search with paging",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (SearchTeamsOK.Payload):
+  page                   number
+  perPage                number
+  teams                  array<object>
+  teams[].accessControl  map<string, boolean>
+  teams[].avatarUrl      string
+  teams[].email          string
+  teams[].externalUID    string
+  teams[].id             number                REQUIRED
+                                               @deprecated Use UID instead
+  teams[].isProvisioned  boolean               REQUIRED
+  teams[].memberCount    number                REQUIRED
+  teams[].name           string                REQUIRED
+  teams[].orgId          number                REQUIRED
+  teams[].permission     number
+  teams[].uid            string                REQUIRED
+  totalCount             number`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if teamsSearchTeamsFlag.DescribeResponseJSONSchema {
@@ -35305,10 +38140,10 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (SetTeamMembershipsCommand):
-{
-  "admins": [string],
-  "members": [string]
-}`,
+  admins   array<string>
+  members  array<string>`,
+			"responseSchema": `Response schema (SetTeamMembershipsOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -35384,10 +38219,10 @@ var (
 		Short: "Updates team",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateTeamCommand):
-{
-  "email": string,
-  "name": string
-}`,
+  email  string
+  name   string`,
+			"responseSchema": `Response schema (UpdateTeamOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -35460,9 +38295,9 @@ var (
 		Short: "Updates team member",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateTeamMemberCommand):
-{
-  "permission": number
-}`,
+  permission  number`,
+			"responseSchema": `Response schema (UpdateTeamMemberOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -35589,25 +38424,20 @@ var (
 		Short: "Updates team preferences",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdatePrefsCmd):
-{
-  "cookies": [string],
-  "homeDashboardId": number,
-  "homeDashboardUID": string,
-  "language": string,
-  "navbar": {
-    "bookmarkUrls": [string]
-  },
-  "queryHistory": {
-    "homeTab": string
-  },
-  "regionalFormat": string,
-  "theme": string,
-  "timezone": string,
-  "weekStart": string
-}
-  homeDashboardId          The numerical :id of a favorited dashboard
-  theme                    enum: light | dark | system
-  timezone                 enum: utc | browser`,
+  cookies               array<string>
+  homeDashboardId       number         The numerical :id of a favorited dashboard
+  homeDashboardUID      string
+  language              string
+  navbar                object
+  navbar.bookmarkUrls   array<string>
+  queryHistory          object
+  queryHistory.homeTab  string
+  regionalFormat        string
+  theme                 string         enum: light | dark | system
+  timezone              string         enum: utc | browser
+  weekStart             string`,
+			"responseSchema": `Response schema (UpdateTeamPreferencesOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -35843,8 +38673,29 @@ var (
   }
 }`
 	usersGetUserByLoginOrEmailCmd = &cobra.Command{
-		Use:               "get-user-by-login-or-email",
-		Short:             "Gets user by login or email",
+		Use:   "get-user-by-login-or-email",
+		Short: "Gets user by login or email",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetUserByLoginOrEmailOK.Payload):
+  accessControl                   map<string, boolean>
+  authLabels                      array<string>
+  avatarUrl                       string
+  createdAt                       string
+  email                           string
+  id                              number
+  isDisabled                      boolean
+  isExternal                      boolean
+  isExternallySynced              boolean
+  isGrafanaAdmin                  boolean
+  isGrafanaAdminExternallySynced  boolean
+  isProvisioned                   boolean
+  login                           string
+  name                            string
+  orgId                           number
+  theme                           string
+  uid                             string
+  updatedAt                       string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if usersGetUserByLoginOrEmailFlag.DescribeResponseJSONSchema {
@@ -36200,8 +39051,27 @@ var (
   }
 }`
 	usersSearchUsersWithPagingCmd = &cobra.Command{
-		Use:               "search-users-with-paging",
-		Short:             "Gets users with paging",
+		Use:   "search-users-with-paging",
+		Short: "Gets users with paging",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (SearchUsersWithPagingOK.Payload):
+  page                   number
+  perPage                number
+  totalCount             number
+  users                  array<object>
+  users[].authLabels     array<string>
+  users[].avatarUrl      string
+  users[].email          string
+  users[].id             number
+  users[].isAdmin        boolean
+  users[].isDisabled     boolean
+  users[].isProvisioned  boolean
+  users[].lastSeenAt     string
+  users[].lastSeenAtAge  string
+  users[].login          string
+  users[].name           string
+  users[].uid            string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if usersSearchUsersWithPagingFlag.DescribeResponseJSONSchema {
@@ -36273,12 +39143,12 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateUserCommand):
-{
-  "email": string,
-  "login": string,
-  "name": string,
-  "theme": string
-}`,
+  email  string
+  login  string
+  name   string
+  theme  string`,
+			"responseSchema": `Response schema (UpdateUserOK.Payload):
+  message  string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -36366,7 +39236,7 @@ func longHelp(parts ...string) string {
 
 func init() {
 	rootCmd.AddCommand(accessControlCmd)
-	accessControlAddTeamRoleCmd.Flags().StringVar(&accessControlAddTeamRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlAddTeamRoleCmd.Flags().StringVar(&accessControlAddTeamRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlAddTeamRoleCmd.MarkFlagRequired("body")
 	accessControlAddTeamRoleCmd.Flags().Int64Var(&accessControlAddTeamRoleFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlAddTeamRoleCmd.MarkFlagRequired("team-id")
@@ -36374,7 +39244,7 @@ func init() {
 	accessControlAddTeamRoleCmd.Flags().BoolVar(&accessControlAddTeamRoleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlAddTeamRoleCmd.Flags().BoolVar(&accessControlAddTeamRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlAddTeamRoleCmd)
-	accessControlAddUserRoleCmd.Flags().StringVar(&accessControlAddUserRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlAddUserRoleCmd.Flags().StringVar(&accessControlAddUserRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlAddUserRoleCmd.MarkFlagRequired("body")
 	accessControlAddUserRoleCmd.Flags().Int64Var(&accessControlAddUserRoleFlag.UserID, "user-id", 0, "UserID")
 	accessControlAddUserRoleCmd.MarkFlagRequired("user-id")
@@ -36382,7 +39252,7 @@ func init() {
 	accessControlAddUserRoleCmd.Flags().BoolVar(&accessControlAddUserRoleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlAddUserRoleCmd.Flags().BoolVar(&accessControlAddUserRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlAddUserRoleCmd)
-	accessControlCreateRoleCmd.Flags().StringVar(&accessControlCreateRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlCreateRoleCmd.Flags().StringVar(&accessControlCreateRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlCreateRoleCmd.MarkFlagRequired("body")
 	accessControlCreateRoleCmd.Flags().BoolVar(&accessControlCreateRoleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlCreateRoleCmd.Flags().BoolVar(&accessControlCreateRoleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36430,7 +39300,7 @@ func init() {
 	accessControlListTeamRolesCmd.Flags().BoolVar(&accessControlListTeamRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlListTeamRolesCmd.Flags().BoolVar(&accessControlListTeamRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlListTeamRolesCmd)
-	accessControlListTeamsRolesCmd.Flags().StringVar(&accessControlListTeamsRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlListTeamsRolesCmd.Flags().StringVar(&accessControlListTeamsRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlListTeamsRolesCmd.MarkFlagRequired("body")
 	accessControlListTeamsRolesCmd.Flags().BoolVar(&accessControlListTeamsRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlListTeamsRolesCmd.Flags().BoolVar(&accessControlListTeamsRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36441,7 +39311,7 @@ func init() {
 	accessControlListUserRolesCmd.Flags().BoolVar(&accessControlListUserRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlListUserRolesCmd.Flags().BoolVar(&accessControlListUserRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlListUserRolesCmd)
-	accessControlListUsersRolesCmd.Flags().StringVar(&accessControlListUsersRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlListUsersRolesCmd.Flags().StringVar(&accessControlListUsersRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlListUsersRolesCmd.MarkFlagRequired("body")
 	accessControlListUsersRolesCmd.Flags().BoolVar(&accessControlListUsersRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	accessControlListUsersRolesCmd.Flags().BoolVar(&accessControlListUsersRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36462,7 +39332,7 @@ func init() {
 	accessControlRemoveUserRoleCmd.Flags().BoolVar(&accessControlRemoveUserRoleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlRemoveUserRoleCmd.Flags().BoolVar(&accessControlRemoveUserRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlRemoveUserRoleCmd)
-	accessControlSetResourcePermissionsCmd.Flags().StringVar(&accessControlSetResourcePermissionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlSetResourcePermissionsCmd.Flags().StringVar(&accessControlSetResourcePermissionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetResourcePermissionsCmd.MarkFlagRequired("body")
 	accessControlSetResourcePermissionsCmd.Flags().StringVar(&accessControlSetResourcePermissionsFlag.Resource, "resource", "", "Resource")
 	accessControlSetResourcePermissionsCmd.MarkFlagRequired("resource")
@@ -36472,7 +39342,7 @@ func init() {
 	accessControlSetResourcePermissionsCmd.Flags().BoolVar(&accessControlSetResourcePermissionsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetResourcePermissionsCmd.Flags().BoolVar(&accessControlSetResourcePermissionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsCmd)
-	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().StringVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().StringVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.MarkFlagRequired("body")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().StringVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.BuiltInRole, "built-in-role", "", "BuiltInRole")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.MarkFlagRequired("built-in-role")
@@ -36484,7 +39354,7 @@ func init() {
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetResourcePermissionsForBuiltInRoleCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForBuiltInRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForBuiltInRoleCmd)
-	accessControlSetResourcePermissionsForTeamCmd.Flags().StringVar(&accessControlSetResourcePermissionsForTeamFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlSetResourcePermissionsForTeamCmd.Flags().StringVar(&accessControlSetResourcePermissionsForTeamFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetResourcePermissionsForTeamCmd.MarkFlagRequired("body")
 	accessControlSetResourcePermissionsForTeamCmd.Flags().StringVar(&accessControlSetResourcePermissionsForTeamFlag.Resource, "resource", "", "Resource")
 	accessControlSetResourcePermissionsForTeamCmd.MarkFlagRequired("resource")
@@ -36496,7 +39366,7 @@ func init() {
 	accessControlSetResourcePermissionsForTeamCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForTeamFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetResourcePermissionsForTeamCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForTeamFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForTeamCmd)
-	accessControlSetResourcePermissionsForUserCmd.Flags().StringVar(&accessControlSetResourcePermissionsForUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlSetResourcePermissionsForUserCmd.Flags().StringVar(&accessControlSetResourcePermissionsForUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetResourcePermissionsForUserCmd.MarkFlagRequired("body")
 	accessControlSetResourcePermissionsForUserCmd.Flags().StringVar(&accessControlSetResourcePermissionsForUserFlag.Resource, "resource", "", "Resource")
 	accessControlSetResourcePermissionsForUserCmd.MarkFlagRequired("resource")
@@ -36508,7 +39378,7 @@ func init() {
 	accessControlSetResourcePermissionsForUserCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForUserFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetResourcePermissionsForUserCmd.Flags().BoolVar(&accessControlSetResourcePermissionsForUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetResourcePermissionsForUserCmd)
-	accessControlSetRoleAssignmentsCmd.Flags().StringVar(&accessControlSetRoleAssignmentsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlSetRoleAssignmentsCmd.Flags().StringVar(&accessControlSetRoleAssignmentsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetRoleAssignmentsCmd.MarkFlagRequired("body")
 	accessControlSetRoleAssignmentsCmd.Flags().StringVar(&accessControlSetRoleAssignmentsFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlSetRoleAssignmentsCmd.MarkFlagRequired("role-uid")
@@ -36516,7 +39386,7 @@ func init() {
 	accessControlSetRoleAssignmentsCmd.Flags().BoolVar(&accessControlSetRoleAssignmentsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetRoleAssignmentsCmd.Flags().BoolVar(&accessControlSetRoleAssignmentsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetRoleAssignmentsCmd)
-	accessControlSetTeamRolesCmd.Flags().StringVar(&accessControlSetTeamRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlSetTeamRolesCmd.Flags().StringVar(&accessControlSetTeamRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetTeamRolesCmd.MarkFlagRequired("body")
 	accessControlSetTeamRolesCmd.Flags().Int64Var(&accessControlSetTeamRolesFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlSetTeamRolesCmd.MarkFlagRequired("team-id")
@@ -36524,7 +39394,7 @@ func init() {
 	accessControlSetTeamRolesCmd.Flags().BoolVar(&accessControlSetTeamRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetTeamRolesCmd.Flags().BoolVar(&accessControlSetTeamRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetTeamRolesCmd)
-	accessControlSetUserRolesCmd.Flags().StringVar(&accessControlSetUserRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlSetUserRolesCmd.Flags().StringVar(&accessControlSetUserRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetUserRolesCmd.MarkFlagRequired("body")
 	accessControlSetUserRolesCmd.Flags().Int64Var(&accessControlSetUserRolesFlag.UserID, "user-id", 0, "UserID")
 	accessControlSetUserRolesCmd.MarkFlagRequired("user-id")
@@ -36532,7 +39402,7 @@ func init() {
 	accessControlSetUserRolesCmd.Flags().BoolVar(&accessControlSetUserRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlSetUserRolesCmd.Flags().BoolVar(&accessControlSetUserRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlSetUserRolesCmd)
-	accessControlUpdateRoleCmd.Flags().StringVar(&accessControlUpdateRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	accessControlUpdateRoleCmd.Flags().StringVar(&accessControlUpdateRoleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlUpdateRoleCmd.MarkFlagRequired("body")
 	accessControlUpdateRoleCmd.Flags().StringVar(&accessControlUpdateRoleFlag.RoleUID, "role-uid", "", "RoleUID")
 	accessControlUpdateRoleCmd.MarkFlagRequired("role-uid")
@@ -36579,7 +39449,7 @@ func init() {
 	adminProvisioningAdminProvisioningReloadPluginsCmd.Flags().BoolVar(&adminProvisioningAdminProvisioningReloadPluginsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminProvisioningCmd.AddCommand(adminProvisioningAdminProvisioningReloadPluginsCmd)
 	rootCmd.AddCommand(adminUsersCmd)
-	adminUsersAdminCreateUserCmd.Flags().StringVar(&adminUsersAdminCreateUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	adminUsersAdminCreateUserCmd.Flags().StringVar(&adminUsersAdminCreateUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	adminUsersAdminCreateUserCmd.MarkFlagRequired("body")
 	adminUsersAdminCreateUserCmd.Flags().BoolVar(&adminUsersAdminCreateUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	adminUsersAdminCreateUserCmd.Flags().BoolVar(&adminUsersAdminCreateUserFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36610,7 +39480,7 @@ func init() {
 	adminUsersAdminLogoutUserCmd.Flags().BoolVar(&adminUsersAdminLogoutUserFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	adminUsersAdminLogoutUserCmd.Flags().BoolVar(&adminUsersAdminLogoutUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminLogoutUserCmd)
-	adminUsersAdminRevokeUserAuthTokenCmd.Flags().StringVar(&adminUsersAdminRevokeUserAuthTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	adminUsersAdminRevokeUserAuthTokenCmd.Flags().StringVar(&adminUsersAdminRevokeUserAuthTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	adminUsersAdminRevokeUserAuthTokenCmd.MarkFlagRequired("body")
 	adminUsersAdminRevokeUserAuthTokenCmd.Flags().Int64Var(&adminUsersAdminRevokeUserAuthTokenFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminRevokeUserAuthTokenCmd.MarkFlagRequired("user-id")
@@ -36618,7 +39488,7 @@ func init() {
 	adminUsersAdminRevokeUserAuthTokenCmd.Flags().BoolVar(&adminUsersAdminRevokeUserAuthTokenFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	adminUsersAdminRevokeUserAuthTokenCmd.Flags().BoolVar(&adminUsersAdminRevokeUserAuthTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminRevokeUserAuthTokenCmd)
-	adminUsersAdminUpdateUserPasswordCmd.Flags().StringVar(&adminUsersAdminUpdateUserPasswordFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	adminUsersAdminUpdateUserPasswordCmd.Flags().StringVar(&adminUsersAdminUpdateUserPasswordFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	adminUsersAdminUpdateUserPasswordCmd.MarkFlagRequired("body")
 	adminUsersAdminUpdateUserPasswordCmd.Flags().Int64Var(&adminUsersAdminUpdateUserPasswordFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminUpdateUserPasswordCmd.MarkFlagRequired("user-id")
@@ -36626,7 +39496,7 @@ func init() {
 	adminUsersAdminUpdateUserPasswordCmd.Flags().BoolVar(&adminUsersAdminUpdateUserPasswordFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	adminUsersAdminUpdateUserPasswordCmd.Flags().BoolVar(&adminUsersAdminUpdateUserPasswordFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminUsersCmd.AddCommand(adminUsersAdminUpdateUserPasswordCmd)
-	adminUsersAdminUpdateUserPermissionsCmd.Flags().StringVar(&adminUsersAdminUpdateUserPermissionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	adminUsersAdminUpdateUserPermissionsCmd.Flags().StringVar(&adminUsersAdminUpdateUserPermissionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	adminUsersAdminUpdateUserPermissionsCmd.MarkFlagRequired("body")
 	adminUsersAdminUpdateUserPermissionsCmd.Flags().Int64Var(&adminUsersAdminUpdateUserPermissionsFlag.UserID, "user-id", 0, "UserID")
 	adminUsersAdminUpdateUserPermissionsCmd.MarkFlagRequired("user-id")
@@ -36656,7 +39526,7 @@ func init() {
 	annotationsGetAnnotationsCmd.Flags().BoolVar(&annotationsGetAnnotationsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	annotationsGetAnnotationsCmd.Flags().BoolVar(&annotationsGetAnnotationsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsGetAnnotationsCmd)
-	annotationsMassDeleteAnnotationsCmd.Flags().StringVar(&annotationsMassDeleteAnnotationsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	annotationsMassDeleteAnnotationsCmd.Flags().StringVar(&annotationsMassDeleteAnnotationsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	annotationsMassDeleteAnnotationsCmd.MarkFlagRequired("body")
 	annotationsMassDeleteAnnotationsCmd.Flags().BoolVar(&annotationsMassDeleteAnnotationsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsMassDeleteAnnotationsCmd.Flags().BoolVar(&annotationsMassDeleteAnnotationsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36664,19 +39534,19 @@ func init() {
 	annotationsCmd.AddCommand(annotationsMassDeleteAnnotationsCmd)
 	annotationsPatchAnnotationCmd.Flags().StringVar(&annotationsPatchAnnotationFlag.AnnotationID, "annotation-id", "", "AnnotationID")
 	annotationsPatchAnnotationCmd.MarkFlagRequired("annotation-id")
-	annotationsPatchAnnotationCmd.Flags().StringVar(&annotationsPatchAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	annotationsPatchAnnotationCmd.Flags().StringVar(&annotationsPatchAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	annotationsPatchAnnotationCmd.MarkFlagRequired("body")
 	annotationsPatchAnnotationCmd.Flags().BoolVar(&annotationsPatchAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsPatchAnnotationCmd.Flags().BoolVar(&annotationsPatchAnnotationFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	annotationsPatchAnnotationCmd.Flags().BoolVar(&annotationsPatchAnnotationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsPatchAnnotationCmd)
-	annotationsPostAnnotationCmd.Flags().StringVar(&annotationsPostAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	annotationsPostAnnotationCmd.Flags().StringVar(&annotationsPostAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	annotationsPostAnnotationCmd.MarkFlagRequired("body")
 	annotationsPostAnnotationCmd.Flags().BoolVar(&annotationsPostAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsPostAnnotationCmd.Flags().BoolVar(&annotationsPostAnnotationFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	annotationsPostAnnotationCmd.Flags().BoolVar(&annotationsPostAnnotationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	annotationsCmd.AddCommand(annotationsPostAnnotationCmd)
-	annotationsPostGraphiteAnnotationCmd.Flags().StringVar(&annotationsPostGraphiteAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	annotationsPostGraphiteAnnotationCmd.Flags().StringVar(&annotationsPostGraphiteAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	annotationsPostGraphiteAnnotationCmd.MarkFlagRequired("body")
 	annotationsPostGraphiteAnnotationCmd.Flags().BoolVar(&annotationsPostGraphiteAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsPostGraphiteAnnotationCmd.Flags().BoolVar(&annotationsPostGraphiteAnnotationFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36684,7 +39554,7 @@ func init() {
 	annotationsCmd.AddCommand(annotationsPostGraphiteAnnotationCmd)
 	annotationsUpdateAnnotationCmd.Flags().StringVar(&annotationsUpdateAnnotationFlag.AnnotationID, "annotation-id", "", "AnnotationID")
 	annotationsUpdateAnnotationCmd.MarkFlagRequired("annotation-id")
-	annotationsUpdateAnnotationCmd.Flags().StringVar(&annotationsUpdateAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	annotationsUpdateAnnotationCmd.Flags().StringVar(&annotationsUpdateAnnotationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	annotationsUpdateAnnotationCmd.MarkFlagRequired("body")
 	annotationsUpdateAnnotationCmd.Flags().BoolVar(&annotationsUpdateAnnotationFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	annotationsUpdateAnnotationCmd.Flags().BoolVar(&annotationsUpdateAnnotationFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36718,7 +39588,7 @@ func init() {
 	convertPrometheusConvertPrometheusCortexGetRulesCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexGetRulesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	convertPrometheusConvertPrometheusCortexGetRulesCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusCortexGetRulesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusCortexGetRulesCmd)
-	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.MarkFlagRequired("body")
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusCortexPostRuleGroupCmd.MarkFlagRequired("namespace-title")
@@ -36762,7 +39632,7 @@ func init() {
 	convertPrometheusConvertPrometheusGetRulesCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusGetRulesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	convertPrometheusConvertPrometheusGetRulesCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusGetRulesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusGetRulesCmd)
-	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.MarkFlagRequired("body")
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.Flags().StringVar(&convertPrometheusConvertPrometheusPostRuleGroupFlag.NamespaceTitle, "namespace-title", "", "NamespaceTitle")
 	convertPrometheusConvertPrometheusPostRuleGroupCmd.MarkFlagRequired("namespace-title")
@@ -36780,13 +39650,13 @@ func init() {
 	convertPrometheusConvertPrometheusPostRuleGroupsCmd.Flags().BoolVar(&convertPrometheusConvertPrometheusPostRuleGroupsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	convertPrometheusCmd.AddCommand(convertPrometheusConvertPrometheusPostRuleGroupsCmd)
 	rootCmd.AddCommand(dashboardsCmd)
-	dashboardsCreateDashboardSnapshotCmd.Flags().StringVar(&dashboardsCreateDashboardSnapshotFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	dashboardsCreateDashboardSnapshotCmd.Flags().StringVar(&dashboardsCreateDashboardSnapshotFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsCreateDashboardSnapshotCmd.MarkFlagRequired("body")
 	dashboardsCreateDashboardSnapshotCmd.Flags().BoolVar(&dashboardsCreateDashboardSnapshotFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsCreateDashboardSnapshotCmd.Flags().BoolVar(&dashboardsCreateDashboardSnapshotFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsCreateDashboardSnapshotCmd.Flags().BoolVar(&dashboardsCreateDashboardSnapshotFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsCreateDashboardSnapshotCmd)
-	dashboardsCreatePublicDashboardCmd.Flags().StringVar(&dashboardsCreatePublicDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	dashboardsCreatePublicDashboardCmd.Flags().StringVar(&dashboardsCreatePublicDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsCreatePublicDashboardCmd.MarkFlagRequired("body")
 	dashboardsCreatePublicDashboardCmd.Flags().StringVar(&dashboardsCreatePublicDashboardFlag.DashboardUID, "dashboard-uid", "", "DashboardUID")
 	dashboardsCreatePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
@@ -36860,7 +39730,7 @@ func init() {
 	dashboardsGetPublicDashboardCmd.Flags().BoolVar(&dashboardsGetPublicDashboardFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsGetPublicDashboardCmd.Flags().BoolVar(&dashboardsGetPublicDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsGetPublicDashboardCmd)
-	dashboardsImportDashboardCmd.Flags().StringVar(&dashboardsImportDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	dashboardsImportDashboardCmd.Flags().StringVar(&dashboardsImportDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsImportDashboardCmd.MarkFlagRequired("body")
 	dashboardsImportDashboardCmd.Flags().BoolVar(&dashboardsImportDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsImportDashboardCmd.Flags().BoolVar(&dashboardsImportDashboardFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36872,7 +39742,7 @@ func init() {
 	dashboardsListPublicDashboardsCmd.Flags().BoolVar(&dashboardsListPublicDashboardsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsListPublicDashboardsCmd.Flags().BoolVar(&dashboardsListPublicDashboardsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsListPublicDashboardsCmd)
-	dashboardsPostDashboardCmd.Flags().StringVar(&dashboardsPostDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	dashboardsPostDashboardCmd.Flags().StringVar(&dashboardsPostDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsPostDashboardCmd.MarkFlagRequired("body")
 	dashboardsPostDashboardCmd.Flags().BoolVar(&dashboardsPostDashboardFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	dashboardsPostDashboardCmd.Flags().BoolVar(&dashboardsPostDashboardFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36885,7 +39755,7 @@ func init() {
 	dashboardsQueryPublicDashboardCmd.Flags().BoolVar(&dashboardsQueryPublicDashboardFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsQueryPublicDashboardCmd.Flags().BoolVar(&dashboardsQueryPublicDashboardFlag.Raw, "raw", true, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsQueryPublicDashboardCmd)
-	dashboardsRestoreDashboardVersionByUIDCmd.Flags().StringVar(&dashboardsRestoreDashboardVersionByUIDFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	dashboardsRestoreDashboardVersionByUIDCmd.Flags().StringVar(&dashboardsRestoreDashboardVersionByUIDFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("body")
 	dashboardsRestoreDashboardVersionByUIDCmd.Flags().StringVar(&dashboardsRestoreDashboardVersionByUIDFlag.UID, "uid", "", "UID")
 	dashboardsRestoreDashboardVersionByUIDCmd.MarkFlagRequired("uid")
@@ -36898,7 +39768,7 @@ func init() {
 	dashboardsSearchDashboardSnapshotsCmd.Flags().BoolVar(&dashboardsSearchDashboardSnapshotsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsSearchDashboardSnapshotsCmd.Flags().BoolVar(&dashboardsSearchDashboardSnapshotsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsSearchDashboardSnapshotsCmd)
-	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().StringVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().StringVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("body")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().StringVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.UID, "uid", "", "UID")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.MarkFlagRequired("uid")
@@ -36906,7 +39776,7 @@ func init() {
 	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().BoolVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	dashboardsUpdateDashboardPermissionsByUIDCmd.Flags().BoolVar(&dashboardsUpdateDashboardPermissionsByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsUpdateDashboardPermissionsByUIDCmd)
-	dashboardsUpdatePublicDashboardCmd.Flags().StringVar(&dashboardsUpdatePublicDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	dashboardsUpdatePublicDashboardCmd.Flags().StringVar(&dashboardsUpdatePublicDashboardFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("body")
 	dashboardsUpdatePublicDashboardCmd.Flags().StringVar(&dashboardsUpdatePublicDashboardFlag.DashboardUID, "dashboard-uid", "", "DashboardUID")
 	dashboardsUpdatePublicDashboardCmd.MarkFlagRequired("dashboard-uid")
@@ -36922,7 +39792,7 @@ func init() {
 	dashboardsViewPublicDashboardCmd.Flags().BoolVar(&dashboardsViewPublicDashboardFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	dashboardsCmd.AddCommand(dashboardsViewPublicDashboardCmd)
 	rootCmd.AddCommand(datasourcesCmd)
-	datasourcesAddDatasourceCmd.Flags().StringVar(&datasourcesAddDatasourceFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	datasourcesAddDatasourceCmd.Flags().StringVar(&datasourcesAddDatasourceFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	datasourcesAddDatasourceCmd.MarkFlagRequired("body")
 	datasourcesAddDatasourceCmd.Flags().BoolVar(&datasourcesAddDatasourceFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	datasourcesAddDatasourceCmd.Flags().BoolVar(&datasourcesAddDatasourceFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -36940,7 +39810,7 @@ func init() {
 	datasourcesCheckDatasourceHealthCmd.Flags().BoolVar(&datasourcesCheckDatasourceHealthFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	datasourcesCheckDatasourceHealthCmd.Flags().BoolVar(&datasourcesCheckDatasourceHealthFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesCheckDatasourceHealthCmd)
-	datasourcesCreateCorrelationCmd.Flags().StringVar(&datasourcesCreateCorrelationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	datasourcesCreateCorrelationCmd.Flags().StringVar(&datasourcesCreateCorrelationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	datasourcesCreateCorrelationCmd.MarkFlagRequired("body")
 	datasourcesCreateCorrelationCmd.Flags().StringVar(&datasourcesCreateCorrelationFlag.SourceUID, "source-uid", "", "SourceUID")
 	datasourcesCreateCorrelationCmd.MarkFlagRequired("source-uid")
@@ -37002,13 +39872,13 @@ func init() {
 	datasourcesGetDatasourcesCmd.Flags().BoolVar(&datasourcesGetDatasourcesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	datasourcesGetDatasourcesCmd.Flags().BoolVar(&datasourcesGetDatasourcesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesGetDatasourcesCmd)
-	datasourcesQueryMetricsWithExpressionsCmd.Flags().StringVar(&datasourcesQueryMetricsWithExpressionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	datasourcesQueryMetricsWithExpressionsCmd.Flags().StringVar(&datasourcesQueryMetricsWithExpressionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	datasourcesQueryMetricsWithExpressionsCmd.MarkFlagRequired("body")
 	datasourcesQueryMetricsWithExpressionsCmd.Flags().BoolVar(&datasourcesQueryMetricsWithExpressionsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	datasourcesQueryMetricsWithExpressionsCmd.Flags().BoolVar(&datasourcesQueryMetricsWithExpressionsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	datasourcesQueryMetricsWithExpressionsCmd.Flags().BoolVar(&datasourcesQueryMetricsWithExpressionsFlag.Raw, "raw", true, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesQueryMetricsWithExpressionsCmd)
-	datasourcesUpdateCorrelationCmd.Flags().StringVar(&datasourcesUpdateCorrelationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	datasourcesUpdateCorrelationCmd.Flags().StringVar(&datasourcesUpdateCorrelationFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	datasourcesUpdateCorrelationCmd.MarkFlagRequired("body")
 	datasourcesUpdateCorrelationCmd.Flags().StringVar(&datasourcesUpdateCorrelationFlag.CorrelationUID, "correlation-uid", "", "CorrelationUID")
 	datasourcesUpdateCorrelationCmd.MarkFlagRequired("correlation-uid")
@@ -37018,7 +39888,7 @@ func init() {
 	datasourcesUpdateCorrelationCmd.Flags().BoolVar(&datasourcesUpdateCorrelationFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	datasourcesUpdateCorrelationCmd.Flags().BoolVar(&datasourcesUpdateCorrelationFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	datasourcesCmd.AddCommand(datasourcesUpdateCorrelationCmd)
-	datasourcesUpdateDatasourceByUIDCmd.Flags().StringVar(&datasourcesUpdateDatasourceByUIDFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	datasourcesUpdateDatasourceByUIDCmd.Flags().StringVar(&datasourcesUpdateDatasourceByUIDFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	datasourcesUpdateDatasourceByUIDCmd.MarkFlagRequired("body")
 	datasourcesUpdateDatasourceByUIDCmd.Flags().StringVar(&datasourcesUpdateDatasourceByUIDFlag.UID, "uid", "", "UID")
 	datasourcesUpdateDatasourceByUIDCmd.MarkFlagRequired("uid")
@@ -37062,7 +39932,7 @@ func init() {
 	enterpriseSearchResultCmd.Flags().BoolVar(&enterpriseSearchResultFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	enterpriseSearchResultCmd.Flags().BoolVar(&enterpriseSearchResultFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseSearchResultCmd)
-	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	enterpriseSetDatasourceCacheConfigCmd.MarkFlagRequired("body")
 	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseSetDatasourceCacheConfigCmd.MarkFlagRequired("data-source-uid")
@@ -37070,7 +39940,7 @@ func init() {
 	enterpriseSetDatasourceCacheConfigCmd.Flags().BoolVar(&enterpriseSetDatasourceCacheConfigFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	enterpriseSetDatasourceCacheConfigCmd.Flags().BoolVar(&enterpriseSetDatasourceCacheConfigFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseSetDatasourceCacheConfigCmd)
-	enterpriseUpdateTeamLBACRulesAPICmd.Flags().StringVar(&enterpriseUpdateTeamLBACRulesAPIFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	enterpriseUpdateTeamLBACRulesAPICmd.Flags().StringVar(&enterpriseUpdateTeamLBACRulesAPIFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	enterpriseUpdateTeamLBACRulesAPICmd.MarkFlagRequired("body")
 	enterpriseUpdateTeamLBACRulesAPICmd.Flags().StringVar(&enterpriseUpdateTeamLBACRulesAPIFlag.UID, "uid", "", "UID")
 	enterpriseUpdateTeamLBACRulesAPICmd.MarkFlagRequired("uid")
@@ -37079,7 +39949,7 @@ func init() {
 	enterpriseUpdateTeamLBACRulesAPICmd.Flags().BoolVar(&enterpriseUpdateTeamLBACRulesAPIFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseUpdateTeamLBACRulesAPICmd)
 	rootCmd.AddCommand(foldersCmd)
-	foldersCreateFolderCmd.Flags().StringVar(&foldersCreateFolderFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	foldersCreateFolderCmd.Flags().StringVar(&foldersCreateFolderFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	foldersCreateFolderCmd.MarkFlagRequired("body")
 	foldersCreateFolderCmd.Flags().BoolVar(&foldersCreateFolderFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	foldersCreateFolderCmd.Flags().BoolVar(&foldersCreateFolderFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37113,7 +39983,7 @@ func init() {
 	foldersGetFoldersCmd.Flags().BoolVar(&foldersGetFoldersFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	foldersGetFoldersCmd.Flags().BoolVar(&foldersGetFoldersFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersGetFoldersCmd)
-	foldersMoveFolderCmd.Flags().StringVar(&foldersMoveFolderFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	foldersMoveFolderCmd.Flags().StringVar(&foldersMoveFolderFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	foldersMoveFolderCmd.MarkFlagRequired("body")
 	foldersMoveFolderCmd.Flags().StringVar(&foldersMoveFolderFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersMoveFolderCmd.MarkFlagRequired("folder-uid")
@@ -37121,7 +39991,7 @@ func init() {
 	foldersMoveFolderCmd.Flags().BoolVar(&foldersMoveFolderFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	foldersMoveFolderCmd.Flags().BoolVar(&foldersMoveFolderFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersMoveFolderCmd)
-	foldersUpdateFolderCmd.Flags().StringVar(&foldersUpdateFolderFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	foldersUpdateFolderCmd.Flags().StringVar(&foldersUpdateFolderFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	foldersUpdateFolderCmd.MarkFlagRequired("body")
 	foldersUpdateFolderCmd.Flags().StringVar(&foldersUpdateFolderFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersUpdateFolderCmd.MarkFlagRequired("folder-uid")
@@ -37129,7 +39999,7 @@ func init() {
 	foldersUpdateFolderCmd.Flags().BoolVar(&foldersUpdateFolderFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	foldersUpdateFolderCmd.Flags().BoolVar(&foldersUpdateFolderFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersUpdateFolderCmd)
-	foldersUpdateFolderPermissionsCmd.Flags().StringVar(&foldersUpdateFolderPermissionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	foldersUpdateFolderPermissionsCmd.Flags().StringVar(&foldersUpdateFolderPermissionsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	foldersUpdateFolderPermissionsCmd.MarkFlagRequired("body")
 	foldersUpdateFolderPermissionsCmd.Flags().StringVar(&foldersUpdateFolderPermissionsFlag.FolderUID, "folder-uid", "", "FolderUID")
 	foldersUpdateFolderPermissionsCmd.MarkFlagRequired("folder-uid")
@@ -37138,7 +40008,7 @@ func init() {
 	foldersUpdateFolderPermissionsCmd.Flags().BoolVar(&foldersUpdateFolderPermissionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	foldersCmd.AddCommand(foldersUpdateFolderPermissionsCmd)
 	rootCmd.AddCommand(groupAttributeSyncCmd)
-	groupAttributeSyncCreateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncCreateGroupMappingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	groupAttributeSyncCreateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncCreateGroupMappingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	groupAttributeSyncCreateGroupMappingsCmd.MarkFlagRequired("body")
 	groupAttributeSyncCreateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncCreateGroupMappingsFlag.GroupID, "group-id", "", "GroupID")
 	groupAttributeSyncCreateGroupMappingsCmd.MarkFlagRequired("group-id")
@@ -37159,7 +40029,7 @@ func init() {
 	groupAttributeSyncGetMappedGroupsCmd.Flags().BoolVar(&groupAttributeSyncGetMappedGroupsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	groupAttributeSyncGetMappedGroupsCmd.Flags().BoolVar(&groupAttributeSyncGetMappedGroupsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	groupAttributeSyncCmd.AddCommand(groupAttributeSyncGetMappedGroupsCmd)
-	groupAttributeSyncUpdateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncUpdateGroupMappingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	groupAttributeSyncUpdateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncUpdateGroupMappingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	groupAttributeSyncUpdateGroupMappingsCmd.MarkFlagRequired("body")
 	groupAttributeSyncUpdateGroupMappingsCmd.Flags().StringVar(&groupAttributeSyncUpdateGroupMappingsFlag.GroupID, "group-id", "", "GroupID")
 	groupAttributeSyncUpdateGroupMappingsCmd.MarkFlagRequired("group-id")
@@ -37176,7 +40046,7 @@ func init() {
 	ldapDebugGetSyncStatusCmd.Flags().BoolVar(&ldapDebugGetSyncStatusFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ldapDebugCmd.AddCommand(ldapDebugGetSyncStatusCmd)
 	rootCmd.AddCommand(libraryElementsCmd)
-	libraryElementsCreateLibraryElementCmd.Flags().StringVar(&libraryElementsCreateLibraryElementFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	libraryElementsCreateLibraryElementCmd.Flags().StringVar(&libraryElementsCreateLibraryElementFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	libraryElementsCreateLibraryElementCmd.MarkFlagRequired("body")
 	libraryElementsCreateLibraryElementCmd.Flags().BoolVar(&libraryElementsCreateLibraryElementFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	libraryElementsCreateLibraryElementCmd.Flags().BoolVar(&libraryElementsCreateLibraryElementFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37213,7 +40083,7 @@ func init() {
 	libraryElementsGetLibraryElementsCmd.Flags().BoolVar(&libraryElementsGetLibraryElementsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	libraryElementsGetLibraryElementsCmd.Flags().BoolVar(&libraryElementsGetLibraryElementsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsGetLibraryElementsCmd)
-	libraryElementsUpdateLibraryElementCmd.Flags().StringVar(&libraryElementsUpdateLibraryElementFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	libraryElementsUpdateLibraryElementCmd.Flags().StringVar(&libraryElementsUpdateLibraryElementFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	libraryElementsUpdateLibraryElementCmd.MarkFlagRequired("body")
 	libraryElementsUpdateLibraryElementCmd.Flags().StringVar(&libraryElementsUpdateLibraryElementFlag.LibraryElementUID, "library-element-uid", "", "LibraryElementUID")
 	libraryElementsUpdateLibraryElementCmd.MarkFlagRequired("library-element-uid")
@@ -37222,7 +40092,7 @@ func init() {
 	libraryElementsUpdateLibraryElementCmd.Flags().BoolVar(&libraryElementsUpdateLibraryElementFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsUpdateLibraryElementCmd)
 	rootCmd.AddCommand(licensingCmd)
-	licensingDeleteLicenseTokenCmd.Flags().StringVar(&licensingDeleteLicenseTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	licensingDeleteLicenseTokenCmd.Flags().StringVar(&licensingDeleteLicenseTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	licensingDeleteLicenseTokenCmd.MarkFlagRequired("body")
 	licensingDeleteLicenseTokenCmd.Flags().BoolVar(&licensingDeleteLicenseTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	licensingDeleteLicenseTokenCmd.Flags().BoolVar(&licensingDeleteLicenseTokenFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37237,13 +40107,13 @@ func init() {
 	licensingCmd.AddCommand(licensingGetLicenseTokenCmd)
 	licensingGetStatusCmd.Flags().BoolVar(&licensingGetStatusFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingGetStatusCmd)
-	licensingPostLicenseTokenCmd.Flags().StringVar(&licensingPostLicenseTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	licensingPostLicenseTokenCmd.Flags().StringVar(&licensingPostLicenseTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	licensingPostLicenseTokenCmd.MarkFlagRequired("body")
 	licensingPostLicenseTokenCmd.Flags().BoolVar(&licensingPostLicenseTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	licensingPostLicenseTokenCmd.Flags().BoolVar(&licensingPostLicenseTokenFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	licensingPostLicenseTokenCmd.Flags().BoolVar(&licensingPostLicenseTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingPostLicenseTokenCmd)
-	licensingPostRenewLicenseTokenCmd.Flags().StringVar(&licensingPostRenewLicenseTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	licensingPostRenewLicenseTokenCmd.Flags().StringVar(&licensingPostRenewLicenseTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	licensingPostRenewLicenseTokenCmd.MarkFlagRequired("body")
 	licensingPostRenewLicenseTokenCmd.Flags().BoolVar(&licensingPostRenewLicenseTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	licensingCmd.AddCommand(licensingPostRenewLicenseTokenCmd)
@@ -37260,13 +40130,13 @@ func init() {
 	migrationsCreateCloudMigrationTokenCmd.Flags().BoolVar(&migrationsCreateCloudMigrationTokenFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	migrationsCreateCloudMigrationTokenCmd.Flags().BoolVar(&migrationsCreateCloudMigrationTokenFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsCreateCloudMigrationTokenCmd)
-	migrationsCreateSessionCmd.Flags().StringVar(&migrationsCreateSessionFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	migrationsCreateSessionCmd.Flags().StringVar(&migrationsCreateSessionFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	migrationsCreateSessionCmd.MarkFlagRequired("body")
 	migrationsCreateSessionCmd.Flags().BoolVar(&migrationsCreateSessionFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	migrationsCreateSessionCmd.Flags().BoolVar(&migrationsCreateSessionFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	migrationsCreateSessionCmd.Flags().BoolVar(&migrationsCreateSessionFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsCreateSessionCmd)
-	migrationsCreateSnapshotCmd.Flags().StringVar(&migrationsCreateSnapshotFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	migrationsCreateSnapshotCmd.Flags().StringVar(&migrationsCreateSnapshotFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	migrationsCreateSnapshotCmd.MarkFlagRequired("body")
 	migrationsCreateSnapshotCmd.Flags().StringVar(&migrationsCreateSnapshotFlag.UID, "uid", "", "UID of a session")
 	migrationsCreateSnapshotCmd.MarkFlagRequired("uid")
@@ -37323,13 +40193,13 @@ func init() {
 	migrationsUploadSnapshotCmd.Flags().BoolVar(&migrationsUploadSnapshotFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	migrationsCmd.AddCommand(migrationsUploadSnapshotCmd)
 	rootCmd.AddCommand(orgCmd)
-	orgAddOrgInviteCmd.Flags().StringVar(&orgAddOrgInviteFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgAddOrgInviteCmd.Flags().StringVar(&orgAddOrgInviteFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgAddOrgInviteCmd.MarkFlagRequired("body")
 	orgAddOrgInviteCmd.Flags().BoolVar(&orgAddOrgInviteFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgAddOrgInviteCmd.Flags().BoolVar(&orgAddOrgInviteFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgAddOrgInviteCmd.Flags().BoolVar(&orgAddOrgInviteFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgAddOrgInviteCmd)
-	orgAddOrgUserToCurrentOrgCmd.Flags().StringVar(&orgAddOrgUserToCurrentOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgAddOrgUserToCurrentOrgCmd.Flags().StringVar(&orgAddOrgUserToCurrentOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgAddOrgUserToCurrentOrgCmd.MarkFlagRequired("body")
 	orgAddOrgUserToCurrentOrgCmd.Flags().BoolVar(&orgAddOrgUserToCurrentOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgAddOrgUserToCurrentOrgCmd.Flags().BoolVar(&orgAddOrgUserToCurrentOrgFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37354,7 +40224,7 @@ func init() {
 	orgGetPendingOrgInvitesCmd.Flags().BoolVar(&orgGetPendingOrgInvitesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgGetPendingOrgInvitesCmd.Flags().BoolVar(&orgGetPendingOrgInvitesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgGetPendingOrgInvitesCmd)
-	orgPatchOrgPreferencesCmd.Flags().StringVar(&orgPatchOrgPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgPatchOrgPreferencesCmd.Flags().StringVar(&orgPatchOrgPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgPatchOrgPreferencesCmd.MarkFlagRequired("body")
 	orgPatchOrgPreferencesCmd.Flags().BoolVar(&orgPatchOrgPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgPatchOrgPreferencesCmd.Flags().BoolVar(&orgPatchOrgPreferencesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37370,25 +40240,25 @@ func init() {
 	orgRevokeInviteCmd.Flags().BoolVar(&orgRevokeInviteFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgRevokeInviteCmd.Flags().BoolVar(&orgRevokeInviteFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgRevokeInviteCmd)
-	orgUpdateCurrentOrgCmd.Flags().StringVar(&orgUpdateCurrentOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgUpdateCurrentOrgCmd.Flags().StringVar(&orgUpdateCurrentOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgUpdateCurrentOrgCmd.MarkFlagRequired("body")
 	orgUpdateCurrentOrgCmd.Flags().BoolVar(&orgUpdateCurrentOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgUpdateCurrentOrgCmd.Flags().BoolVar(&orgUpdateCurrentOrgFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgUpdateCurrentOrgCmd.Flags().BoolVar(&orgUpdateCurrentOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateCurrentOrgCmd)
-	orgUpdateCurrentOrgAddressCmd.Flags().StringVar(&orgUpdateCurrentOrgAddressFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgUpdateCurrentOrgAddressCmd.Flags().StringVar(&orgUpdateCurrentOrgAddressFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgUpdateCurrentOrgAddressCmd.MarkFlagRequired("body")
 	orgUpdateCurrentOrgAddressCmd.Flags().BoolVar(&orgUpdateCurrentOrgAddressFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgUpdateCurrentOrgAddressCmd.Flags().BoolVar(&orgUpdateCurrentOrgAddressFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgUpdateCurrentOrgAddressCmd.Flags().BoolVar(&orgUpdateCurrentOrgAddressFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateCurrentOrgAddressCmd)
-	orgUpdateOrgPreferencesCmd.Flags().StringVar(&orgUpdateOrgPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgUpdateOrgPreferencesCmd.Flags().StringVar(&orgUpdateOrgPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgUpdateOrgPreferencesCmd.MarkFlagRequired("body")
 	orgUpdateOrgPreferencesCmd.Flags().BoolVar(&orgUpdateOrgPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgUpdateOrgPreferencesCmd.Flags().BoolVar(&orgUpdateOrgPreferencesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgUpdateOrgPreferencesCmd.Flags().BoolVar(&orgUpdateOrgPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateOrgPreferencesCmd)
-	orgUpdateOrgUserForCurrentOrgCmd.Flags().StringVar(&orgUpdateOrgUserForCurrentOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgUpdateOrgUserForCurrentOrgCmd.Flags().StringVar(&orgUpdateOrgUserForCurrentOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgUpdateOrgUserForCurrentOrgCmd.MarkFlagRequired("body")
 	orgUpdateOrgUserForCurrentOrgCmd.Flags().Int64Var(&orgUpdateOrgUserForCurrentOrgFlag.UserID, "user-id", 0, "UserID")
 	orgUpdateOrgUserForCurrentOrgCmd.MarkFlagRequired("user-id")
@@ -37397,7 +40267,7 @@ func init() {
 	orgUpdateOrgUserForCurrentOrgCmd.Flags().BoolVar(&orgUpdateOrgUserForCurrentOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgCmd.AddCommand(orgUpdateOrgUserForCurrentOrgCmd)
 	rootCmd.AddCommand(orgsCmd)
-	orgsAddOrgUserCmd.Flags().StringVar(&orgsAddOrgUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgsAddOrgUserCmd.Flags().StringVar(&orgsAddOrgUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgsAddOrgUserCmd.MarkFlagRequired("body")
 	orgsAddOrgUserCmd.Flags().Int64Var(&orgsAddOrgUserFlag.OrgID, "org-id", 0, "OrgID")
 	orgsAddOrgUserCmd.MarkFlagRequired("org-id")
@@ -37405,7 +40275,7 @@ func init() {
 	orgsAddOrgUserCmd.Flags().BoolVar(&orgsAddOrgUserFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgsAddOrgUserCmd.Flags().BoolVar(&orgsAddOrgUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsAddOrgUserCmd)
-	orgsCreateOrgCmd.Flags().StringVar(&orgsCreateOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgsCreateOrgCmd.Flags().StringVar(&orgsCreateOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgsCreateOrgCmd.MarkFlagRequired("body")
 	orgsCreateOrgCmd.Flags().BoolVar(&orgsCreateOrgFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	orgsCreateOrgCmd.Flags().BoolVar(&orgsCreateOrgFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37440,7 +40310,7 @@ func init() {
 	orgsSearchOrgsCmd.Flags().BoolVar(&orgsSearchOrgsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgsSearchOrgsCmd.Flags().BoolVar(&orgsSearchOrgsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsSearchOrgsCmd)
-	orgsUpdateOrgCmd.Flags().StringVar(&orgsUpdateOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgsUpdateOrgCmd.Flags().StringVar(&orgsUpdateOrgFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgsUpdateOrgCmd.MarkFlagRequired("body")
 	orgsUpdateOrgCmd.Flags().Int64Var(&orgsUpdateOrgFlag.OrgID, "org-id", 0, "OrgID")
 	orgsUpdateOrgCmd.MarkFlagRequired("org-id")
@@ -37448,7 +40318,7 @@ func init() {
 	orgsUpdateOrgCmd.Flags().BoolVar(&orgsUpdateOrgFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgsUpdateOrgCmd.Flags().BoolVar(&orgsUpdateOrgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsUpdateOrgCmd)
-	orgsUpdateOrgAddressCmd.Flags().StringVar(&orgsUpdateOrgAddressFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgsUpdateOrgAddressCmd.Flags().StringVar(&orgsUpdateOrgAddressFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgsUpdateOrgAddressCmd.MarkFlagRequired("body")
 	orgsUpdateOrgAddressCmd.Flags().Int64Var(&orgsUpdateOrgAddressFlag.OrgID, "org-id", 0, "OrgID")
 	orgsUpdateOrgAddressCmd.MarkFlagRequired("org-id")
@@ -37456,7 +40326,7 @@ func init() {
 	orgsUpdateOrgAddressCmd.Flags().BoolVar(&orgsUpdateOrgAddressFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	orgsUpdateOrgAddressCmd.Flags().BoolVar(&orgsUpdateOrgAddressFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsUpdateOrgAddressCmd)
-	orgsUpdateOrgUserCmd.Flags().StringVar(&orgsUpdateOrgUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	orgsUpdateOrgUserCmd.Flags().StringVar(&orgsUpdateOrgUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	orgsUpdateOrgUserCmd.MarkFlagRequired("body")
 	orgsUpdateOrgUserCmd.Flags().Int64Var(&orgsUpdateOrgUserFlag.OrgID, "org-id", 0, "OrgID")
 	orgsUpdateOrgUserCmd.MarkFlagRequired("org-id")
@@ -37467,7 +40337,7 @@ func init() {
 	orgsUpdateOrgUserCmd.Flags().BoolVar(&orgsUpdateOrgUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	orgsCmd.AddCommand(orgsUpdateOrgUserCmd)
 	rootCmd.AddCommand(playlistsCmd)
-	playlistsCreatePlaylistCmd.Flags().StringVar(&playlistsCreatePlaylistFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	playlistsCreatePlaylistCmd.Flags().StringVar(&playlistsCreatePlaylistFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	playlistsCreatePlaylistCmd.MarkFlagRequired("body")
 	playlistsCreatePlaylistCmd.Flags().BoolVar(&playlistsCreatePlaylistFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	playlistsCreatePlaylistCmd.Flags().BoolVar(&playlistsCreatePlaylistFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37493,7 +40363,7 @@ func init() {
 	playlistsSearchPlaylistsCmd.Flags().BoolVar(&playlistsSearchPlaylistsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	playlistsSearchPlaylistsCmd.Flags().BoolVar(&playlistsSearchPlaylistsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	playlistsCmd.AddCommand(playlistsSearchPlaylistsCmd)
-	playlistsUpdatePlaylistCmd.Flags().StringVar(&playlistsUpdatePlaylistFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	playlistsUpdatePlaylistCmd.Flags().StringVar(&playlistsUpdatePlaylistFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	playlistsUpdatePlaylistCmd.MarkFlagRequired("body")
 	playlistsUpdatePlaylistCmd.Flags().StringVar(&playlistsUpdatePlaylistFlag.UID, "uid", "", "UID")
 	playlistsUpdatePlaylistCmd.MarkFlagRequired("uid")
@@ -37613,28 +40483,28 @@ func init() {
 	provisioningGetTemplatesCmd.Flags().BoolVar(&provisioningGetTemplatesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningGetTemplatesCmd.Flags().BoolVar(&provisioningGetTemplatesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningGetTemplatesCmd)
-	provisioningPostAlertRuleCmd.Flags().StringVar(&provisioningPostAlertRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	provisioningPostAlertRuleCmd.Flags().StringVar(&provisioningPostAlertRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPostAlertRuleCmd.MarkFlagRequired("body")
 	provisioningPostAlertRuleCmd.Flags().StringVar(&provisioningPostAlertRuleFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPostAlertRuleCmd.Flags().BoolVar(&provisioningPostAlertRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningPostAlertRuleCmd.Flags().BoolVar(&provisioningPostAlertRuleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPostAlertRuleCmd.Flags().BoolVar(&provisioningPostAlertRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPostAlertRuleCmd)
-	provisioningPostContactpointsCmd.Flags().StringVar(&provisioningPostContactpointsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	provisioningPostContactpointsCmd.Flags().StringVar(&provisioningPostContactpointsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPostContactpointsCmd.MarkFlagRequired("body")
 	provisioningPostContactpointsCmd.Flags().StringVar(&provisioningPostContactpointsFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPostContactpointsCmd.Flags().BoolVar(&provisioningPostContactpointsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningPostContactpointsCmd.Flags().BoolVar(&provisioningPostContactpointsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPostContactpointsCmd.Flags().BoolVar(&provisioningPostContactpointsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPostContactpointsCmd)
-	provisioningPostMuteTimingCmd.Flags().StringVar(&provisioningPostMuteTimingFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	provisioningPostMuteTimingCmd.Flags().StringVar(&provisioningPostMuteTimingFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPostMuteTimingCmd.MarkFlagRequired("body")
 	provisioningPostMuteTimingCmd.Flags().StringVar(&provisioningPostMuteTimingFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPostMuteTimingCmd.Flags().BoolVar(&provisioningPostMuteTimingFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningPostMuteTimingCmd.Flags().BoolVar(&provisioningPostMuteTimingFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPostMuteTimingCmd.Flags().BoolVar(&provisioningPostMuteTimingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPostMuteTimingCmd)
-	provisioningPutAlertRuleCmd.Flags().StringVar(&provisioningPutAlertRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	provisioningPutAlertRuleCmd.Flags().StringVar(&provisioningPutAlertRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutAlertRuleCmd.MarkFlagRequired("body")
 	provisioningPutAlertRuleCmd.Flags().StringVar(&provisioningPutAlertRuleFlag.UID, "uid", "", "Alert rule UID")
 	provisioningPutAlertRuleCmd.MarkFlagRequired("uid")
@@ -37643,7 +40513,7 @@ func init() {
 	provisioningPutAlertRuleCmd.Flags().BoolVar(&provisioningPutAlertRuleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPutAlertRuleCmd.Flags().BoolVar(&provisioningPutAlertRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutAlertRuleCmd)
-	provisioningPutAlertRuleGroupCmd.Flags().StringVar(&provisioningPutAlertRuleGroupFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	provisioningPutAlertRuleGroupCmd.Flags().StringVar(&provisioningPutAlertRuleGroupFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutAlertRuleGroupCmd.MarkFlagRequired("body")
 	provisioningPutAlertRuleGroupCmd.Flags().StringVar(&provisioningPutAlertRuleGroupFlag.FolderUID, "folder-uid", "", "FolderUID")
 	provisioningPutAlertRuleGroupCmd.MarkFlagRequired("folder-uid")
@@ -37654,7 +40524,7 @@ func init() {
 	provisioningPutAlertRuleGroupCmd.Flags().BoolVar(&provisioningPutAlertRuleGroupFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPutAlertRuleGroupCmd.Flags().BoolVar(&provisioningPutAlertRuleGroupFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutAlertRuleGroupCmd)
-	provisioningPutContactpointCmd.Flags().StringVar(&provisioningPutContactpointFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	provisioningPutContactpointCmd.Flags().StringVar(&provisioningPutContactpointFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutContactpointCmd.MarkFlagRequired("body")
 	provisioningPutContactpointCmd.Flags().StringVar(&provisioningPutContactpointFlag.UID, "uid", "", "UID is the contact point unique identifier")
 	provisioningPutContactpointCmd.MarkFlagRequired("uid")
@@ -37663,7 +40533,7 @@ func init() {
 	provisioningPutContactpointCmd.Flags().BoolVar(&provisioningPutContactpointFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPutContactpointCmd.Flags().BoolVar(&provisioningPutContactpointFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutContactpointCmd)
-	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutMuteTimingCmd.MarkFlagRequired("body")
 	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutMuteTimingCmd.Flags().StringVar(&provisioningPutMuteTimingFlag.Name, "name", "", "Mute timing name")
@@ -37672,14 +40542,14 @@ func init() {
 	provisioningPutMuteTimingCmd.Flags().BoolVar(&provisioningPutMuteTimingFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPutMuteTimingCmd.Flags().BoolVar(&provisioningPutMuteTimingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutMuteTimingCmd)
-	provisioningPutPolicyTreeCmd.Flags().StringVar(&provisioningPutPolicyTreeFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	provisioningPutPolicyTreeCmd.Flags().StringVar(&provisioningPutPolicyTreeFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutPolicyTreeCmd.MarkFlagRequired("body")
 	provisioningPutPolicyTreeCmd.Flags().StringVar(&provisioningPutPolicyTreeFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutPolicyTreeCmd.Flags().BoolVar(&provisioningPutPolicyTreeFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	provisioningPutPolicyTreeCmd.Flags().BoolVar(&provisioningPutPolicyTreeFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	provisioningPutPolicyTreeCmd.Flags().BoolVar(&provisioningPutPolicyTreeFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningPutPolicyTreeCmd)
-	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	provisioningPutTemplateCmd.MarkFlagRequired("body")
 	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.XDisableProvenance, "x-disable-provenance", "", "XDisableProvenance")
 	provisioningPutTemplateCmd.Flags().StringVar(&provisioningPutTemplateFlag.Name, "name", "", "Template group name")
@@ -37692,7 +40562,7 @@ func init() {
 	provisioningResetPolicyTreeCmd.Flags().BoolVar(&provisioningResetPolicyTreeFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	provisioningCmd.AddCommand(provisioningResetPolicyTreeCmd)
 	rootCmd.AddCommand(queryHistoryCmd)
-	queryHistoryCreateQueryCmd.Flags().StringVar(&queryHistoryCreateQueryFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	queryHistoryCreateQueryCmd.Flags().StringVar(&queryHistoryCreateQueryFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	queryHistoryCreateQueryCmd.MarkFlagRequired("body")
 	queryHistoryCreateQueryCmd.Flags().BoolVar(&queryHistoryCreateQueryFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	queryHistoryCreateQueryCmd.Flags().BoolVar(&queryHistoryCreateQueryFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37703,7 +40573,7 @@ func init() {
 	queryHistoryDeleteQueryCmd.Flags().BoolVar(&queryHistoryDeleteQueryFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	queryHistoryDeleteQueryCmd.Flags().BoolVar(&queryHistoryDeleteQueryFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	queryHistoryCmd.AddCommand(queryHistoryDeleteQueryCmd)
-	queryHistoryPatchQueryCommentCmd.Flags().StringVar(&queryHistoryPatchQueryCommentFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	queryHistoryPatchQueryCommentCmd.Flags().StringVar(&queryHistoryPatchQueryCommentFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	queryHistoryPatchQueryCommentCmd.MarkFlagRequired("body")
 	queryHistoryPatchQueryCommentCmd.Flags().StringVar(&queryHistoryPatchQueryCommentFlag.QueryHistoryUID, "query-history-uid", "", "QueryHistoryUID")
 	queryHistoryPatchQueryCommentCmd.MarkFlagRequired("query-history-uid")
@@ -37750,7 +40620,7 @@ func init() {
 	quotaGetUserQuotasCmd.Flags().BoolVar(&quotaGetUserQuotasFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	quotaGetUserQuotasCmd.Flags().BoolVar(&quotaGetUserQuotasFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaGetUserQuotasCmd)
-	quotaUpdateOrgQuotaCmd.Flags().StringVar(&quotaUpdateOrgQuotaFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	quotaUpdateOrgQuotaCmd.Flags().StringVar(&quotaUpdateOrgQuotaFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	quotaUpdateOrgQuotaCmd.MarkFlagRequired("body")
 	quotaUpdateOrgQuotaCmd.Flags().Int64Var(&quotaUpdateOrgQuotaFlag.OrgID, "org-id", 0, "OrgID")
 	quotaUpdateOrgQuotaCmd.MarkFlagRequired("org-id")
@@ -37760,7 +40630,7 @@ func init() {
 	quotaUpdateOrgQuotaCmd.Flags().BoolVar(&quotaUpdateOrgQuotaFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	quotaUpdateOrgQuotaCmd.Flags().BoolVar(&quotaUpdateOrgQuotaFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaUpdateOrgQuotaCmd)
-	quotaUpdateUserQuotaCmd.Flags().StringVar(&quotaUpdateUserQuotaFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	quotaUpdateUserQuotaCmd.Flags().StringVar(&quotaUpdateUserQuotaFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	quotaUpdateUserQuotaCmd.MarkFlagRequired("body")
 	quotaUpdateUserQuotaCmd.Flags().StringVar(&quotaUpdateUserQuotaFlag.QuotaTarget, "quota-target", "", "QuotaTarget")
 	quotaUpdateUserQuotaCmd.MarkFlagRequired("quota-target")
@@ -37771,13 +40641,13 @@ func init() {
 	quotaUpdateUserQuotaCmd.Flags().BoolVar(&quotaUpdateUserQuotaFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	quotaCmd.AddCommand(quotaUpdateUserQuotaCmd)
 	rootCmd.AddCommand(recordingRulesCmd)
-	recordingRulesCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	recordingRulesCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	recordingRulesCreateRecordingRuleCmd.MarkFlagRequired("body")
 	recordingRulesCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	recordingRulesCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesCreateRecordingRuleCmd)
-	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().StringVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	recordingRulesCreateRecordingRuleWriteTargetCmd.MarkFlagRequired("body")
 	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesCreateRecordingRuleWriteTargetCmd.Flags().BoolVar(&recordingRulesCreateRecordingRuleWriteTargetFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37797,20 +40667,20 @@ func init() {
 	recordingRulesListRecordingRulesCmd.Flags().BoolVar(&recordingRulesListRecordingRulesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	recordingRulesListRecordingRulesCmd.Flags().BoolVar(&recordingRulesListRecordingRulesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesListRecordingRulesCmd)
-	recordingRulesTestCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesTestCreateRecordingRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	recordingRulesTestCreateRecordingRuleCmd.Flags().StringVar(&recordingRulesTestCreateRecordingRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	recordingRulesTestCreateRecordingRuleCmd.MarkFlagRequired("body")
 	recordingRulesTestCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesTestCreateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesTestCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesTestCreateRecordingRuleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	recordingRulesTestCreateRecordingRuleCmd.Flags().BoolVar(&recordingRulesTestCreateRecordingRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesTestCreateRecordingRuleCmd)
-	recordingRulesUpdateRecordingRuleCmd.Flags().StringVar(&recordingRulesUpdateRecordingRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	recordingRulesUpdateRecordingRuleCmd.Flags().StringVar(&recordingRulesUpdateRecordingRuleFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	recordingRulesUpdateRecordingRuleCmd.MarkFlagRequired("body")
 	recordingRulesUpdateRecordingRuleCmd.Flags().BoolVar(&recordingRulesUpdateRecordingRuleFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	recordingRulesUpdateRecordingRuleCmd.Flags().BoolVar(&recordingRulesUpdateRecordingRuleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	recordingRulesUpdateRecordingRuleCmd.Flags().BoolVar(&recordingRulesUpdateRecordingRuleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	recordingRulesCmd.AddCommand(recordingRulesUpdateRecordingRuleCmd)
 	rootCmd.AddCommand(reportsCmd)
-	reportsCreateReportCmd.Flags().StringVar(&reportsCreateReportFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	reportsCreateReportCmd.Flags().StringVar(&reportsCreateReportFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	reportsCreateReportCmd.MarkFlagRequired("body")
 	reportsCreateReportCmd.Flags().BoolVar(&reportsCreateReportFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsCreateReportCmd.Flags().BoolVar(&reportsCreateReportFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37854,25 +40724,25 @@ func init() {
 	reportsRenderReportPDFsCmd.Flags().BoolVar(&reportsRenderReportPDFsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	reportsRenderReportPDFsCmd.Flags().BoolVar(&reportsRenderReportPDFsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsRenderReportPDFsCmd)
-	reportsSaveReportSettingsCmd.Flags().StringVar(&reportsSaveReportSettingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	reportsSaveReportSettingsCmd.Flags().StringVar(&reportsSaveReportSettingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	reportsSaveReportSettingsCmd.MarkFlagRequired("body")
 	reportsSaveReportSettingsCmd.Flags().BoolVar(&reportsSaveReportSettingsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsSaveReportSettingsCmd.Flags().BoolVar(&reportsSaveReportSettingsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	reportsSaveReportSettingsCmd.Flags().BoolVar(&reportsSaveReportSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsSaveReportSettingsCmd)
-	reportsSendReportCmd.Flags().StringVar(&reportsSendReportFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	reportsSendReportCmd.Flags().StringVar(&reportsSendReportFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	reportsSendReportCmd.MarkFlagRequired("body")
 	reportsSendReportCmd.Flags().BoolVar(&reportsSendReportFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsSendReportCmd.Flags().BoolVar(&reportsSendReportFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	reportsSendReportCmd.Flags().BoolVar(&reportsSendReportFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsSendReportCmd)
-	reportsSendTestEmailCmd.Flags().StringVar(&reportsSendTestEmailFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	reportsSendTestEmailCmd.Flags().StringVar(&reportsSendTestEmailFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	reportsSendTestEmailCmd.MarkFlagRequired("body")
 	reportsSendTestEmailCmd.Flags().BoolVar(&reportsSendTestEmailFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	reportsSendTestEmailCmd.Flags().BoolVar(&reportsSendTestEmailFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	reportsSendTestEmailCmd.Flags().BoolVar(&reportsSendTestEmailFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	reportsCmd.AddCommand(reportsSendTestEmailCmd)
-	reportsUpdateReportCmd.Flags().StringVar(&reportsUpdateReportFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	reportsUpdateReportCmd.Flags().StringVar(&reportsUpdateReportFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	reportsUpdateReportCmd.MarkFlagRequired("body")
 	reportsUpdateReportCmd.Flags().Int64Var(&reportsUpdateReportFlag.ID, "id", 0, "ID")
 	reportsUpdateReportCmd.MarkFlagRequired("id")
@@ -37921,13 +40791,13 @@ func init() {
 	searchSearchCmd.Flags().BoolVar(&searchSearchFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	searchCmd.AddCommand(searchSearchCmd)
 	rootCmd.AddCommand(serviceAccountsCmd)
-	serviceAccountsCreateServiceAccountCmd.Flags().StringVar(&serviceAccountsCreateServiceAccountFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	serviceAccountsCreateServiceAccountCmd.Flags().StringVar(&serviceAccountsCreateServiceAccountFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	serviceAccountsCreateServiceAccountCmd.MarkFlagRequired("body")
 	serviceAccountsCreateServiceAccountCmd.Flags().BoolVar(&serviceAccountsCreateServiceAccountFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	serviceAccountsCreateServiceAccountCmd.Flags().BoolVar(&serviceAccountsCreateServiceAccountFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	serviceAccountsCreateServiceAccountCmd.Flags().BoolVar(&serviceAccountsCreateServiceAccountFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsCreateServiceAccountCmd)
-	serviceAccountsCreateTokenCmd.Flags().StringVar(&serviceAccountsCreateTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	serviceAccountsCreateTokenCmd.Flags().StringVar(&serviceAccountsCreateTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	serviceAccountsCreateTokenCmd.MarkFlagRequired("body")
 	serviceAccountsCreateTokenCmd.Flags().Int64Var(&serviceAccountsCreateTokenFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsCreateTokenCmd.MarkFlagRequired("service-account-id")
@@ -37965,7 +40835,7 @@ func init() {
 	serviceAccountsSearchOrgServiceAccountsWithPagingCmd.Flags().BoolVar(&serviceAccountsSearchOrgServiceAccountsWithPagingFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	serviceAccountsSearchOrgServiceAccountsWithPagingCmd.Flags().BoolVar(&serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsSearchOrgServiceAccountsWithPagingCmd)
-	serviceAccountsUpdateServiceAccountCmd.Flags().StringVar(&serviceAccountsUpdateServiceAccountFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	serviceAccountsUpdateServiceAccountCmd.Flags().StringVar(&serviceAccountsUpdateServiceAccountFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	serviceAccountsUpdateServiceAccountCmd.MarkFlagRequired("body")
 	serviceAccountsUpdateServiceAccountCmd.Flags().Int64Var(&serviceAccountsUpdateServiceAccountFlag.ServiceAccountID, "service-account-id", 0, "ServiceAccountID")
 	serviceAccountsUpdateServiceAccountCmd.MarkFlagRequired("service-account-id")
@@ -37974,7 +40844,7 @@ func init() {
 	serviceAccountsUpdateServiceAccountCmd.Flags().BoolVar(&serviceAccountsUpdateServiceAccountFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	serviceAccountsCmd.AddCommand(serviceAccountsUpdateServiceAccountCmd)
 	rootCmd.AddCommand(signedInUserCmd)
-	signedInUserChangeUserPasswordCmd.Flags().StringVar(&signedInUserChangeUserPasswordFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	signedInUserChangeUserPasswordCmd.Flags().StringVar(&signedInUserChangeUserPasswordFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	signedInUserChangeUserPasswordCmd.MarkFlagRequired("body")
 	signedInUserChangeUserPasswordCmd.Flags().BoolVar(&signedInUserChangeUserPasswordFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserChangeUserPasswordCmd.Flags().BoolVar(&signedInUserChangeUserPasswordFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -37998,13 +40868,13 @@ func init() {
 	signedInUserGetUserPreferencesCmd.Flags().BoolVar(&signedInUserGetUserPreferencesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	signedInUserGetUserPreferencesCmd.Flags().BoolVar(&signedInUserGetUserPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserGetUserPreferencesCmd)
-	signedInUserPatchUserPreferencesCmd.Flags().StringVar(&signedInUserPatchUserPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	signedInUserPatchUserPreferencesCmd.Flags().StringVar(&signedInUserPatchUserPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	signedInUserPatchUserPreferencesCmd.MarkFlagRequired("body")
 	signedInUserPatchUserPreferencesCmd.Flags().BoolVar(&signedInUserPatchUserPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserPatchUserPreferencesCmd.Flags().BoolVar(&signedInUserPatchUserPreferencesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	signedInUserPatchUserPreferencesCmd.Flags().BoolVar(&signedInUserPatchUserPreferencesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserPatchUserPreferencesCmd)
-	signedInUserRevokeUserAuthTokenCmd.Flags().StringVar(&signedInUserRevokeUserAuthTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	signedInUserRevokeUserAuthTokenCmd.Flags().StringVar(&signedInUserRevokeUserAuthTokenFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	signedInUserRevokeUserAuthTokenCmd.MarkFlagRequired("body")
 	signedInUserRevokeUserAuthTokenCmd.Flags().BoolVar(&signedInUserRevokeUserAuthTokenFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserRevokeUserAuthTokenCmd.Flags().BoolVar(&signedInUserRevokeUserAuthTokenFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -38025,13 +40895,13 @@ func init() {
 	signedInUserUnstarDashboardByUIDCmd.Flags().BoolVar(&signedInUserUnstarDashboardByUIDFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	signedInUserUnstarDashboardByUIDCmd.Flags().BoolVar(&signedInUserUnstarDashboardByUIDFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserUnstarDashboardByUIDCmd)
-	signedInUserUpdateSignedInUserCmd.Flags().StringVar(&signedInUserUpdateSignedInUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	signedInUserUpdateSignedInUserCmd.Flags().StringVar(&signedInUserUpdateSignedInUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	signedInUserUpdateSignedInUserCmd.MarkFlagRequired("body")
 	signedInUserUpdateSignedInUserCmd.Flags().BoolVar(&signedInUserUpdateSignedInUserFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserUpdateSignedInUserCmd.Flags().BoolVar(&signedInUserUpdateSignedInUserFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	signedInUserUpdateSignedInUserCmd.Flags().BoolVar(&signedInUserUpdateSignedInUserFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	signedInUserCmd.AddCommand(signedInUserUpdateSignedInUserCmd)
-	signedInUserUpdateUserPreferencesCmd.Flags().StringVar(&signedInUserUpdateUserPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	signedInUserUpdateUserPreferencesCmd.Flags().StringVar(&signedInUserUpdateUserPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	signedInUserUpdateUserPreferencesCmd.MarkFlagRequired("body")
 	signedInUserUpdateUserPreferencesCmd.Flags().BoolVar(&signedInUserUpdateUserPreferencesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	signedInUserUpdateUserPreferencesCmd.Flags().BoolVar(&signedInUserUpdateUserPreferencesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -38064,7 +40934,7 @@ func init() {
 	ssoSettingsRemoveProviderSettingsCmd.Flags().BoolVar(&ssoSettingsRemoveProviderSettingsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	ssoSettingsRemoveProviderSettingsCmd.Flags().BoolVar(&ssoSettingsRemoveProviderSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ssoSettingsCmd.AddCommand(ssoSettingsRemoveProviderSettingsCmd)
-	ssoSettingsUpdateProviderSettingsCmd.Flags().StringVar(&ssoSettingsUpdateProviderSettingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	ssoSettingsUpdateProviderSettingsCmd.Flags().StringVar(&ssoSettingsUpdateProviderSettingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	ssoSettingsUpdateProviderSettingsCmd.MarkFlagRequired("body")
 	ssoSettingsUpdateProviderSettingsCmd.Flags().StringVar(&ssoSettingsUpdateProviderSettingsFlag.Key, "key", "", "Key")
 	ssoSettingsUpdateProviderSettingsCmd.MarkFlagRequired("key")
@@ -38073,7 +40943,7 @@ func init() {
 	ssoSettingsUpdateProviderSettingsCmd.Flags().BoolVar(&ssoSettingsUpdateProviderSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ssoSettingsCmd.AddCommand(ssoSettingsUpdateProviderSettingsCmd)
 	rootCmd.AddCommand(syncTeamGroupsCmd)
-	syncTeamGroupsAddTeamGroupAPICmd.Flags().StringVar(&syncTeamGroupsAddTeamGroupAPIFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	syncTeamGroupsAddTeamGroupAPICmd.Flags().StringVar(&syncTeamGroupsAddTeamGroupAPIFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	syncTeamGroupsAddTeamGroupAPICmd.MarkFlagRequired("body")
 	syncTeamGroupsAddTeamGroupAPICmd.Flags().Int64Var(&syncTeamGroupsAddTeamGroupAPIFlag.TeamID, "team-id", 0, "TeamID")
 	syncTeamGroupsAddTeamGroupAPICmd.MarkFlagRequired("team-id")
@@ -38102,7 +40972,7 @@ func init() {
 	syncTeamGroupsSearchTeamGroupsCmd.Flags().BoolVar(&syncTeamGroupsSearchTeamGroupsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	syncTeamGroupsCmd.AddCommand(syncTeamGroupsSearchTeamGroupsCmd)
 	rootCmd.AddCommand(teamsCmd)
-	teamsAddTeamMemberCmd.Flags().StringVar(&teamsAddTeamMemberFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	teamsAddTeamMemberCmd.Flags().StringVar(&teamsAddTeamMemberFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsAddTeamMemberCmd.MarkFlagRequired("body")
 	teamsAddTeamMemberCmd.Flags().StringVar(&teamsAddTeamMemberFlag.TeamID, "team-id", "", "TeamID")
 	teamsAddTeamMemberCmd.MarkFlagRequired("team-id")
@@ -38110,7 +40980,7 @@ func init() {
 	teamsAddTeamMemberCmd.Flags().BoolVar(&teamsAddTeamMemberFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	teamsAddTeamMemberCmd.Flags().BoolVar(&teamsAddTeamMemberFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsAddTeamMemberCmd)
-	teamsCreateTeamCmd.Flags().StringVar(&teamsCreateTeamFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	teamsCreateTeamCmd.Flags().StringVar(&teamsCreateTeamFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsCreateTeamCmd.MarkFlagRequired("body")
 	teamsCreateTeamCmd.Flags().BoolVar(&teamsCreateTeamFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	teamsCreateTeamCmd.Flags().BoolVar(&teamsCreateTeamFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -38142,7 +41012,7 @@ func init() {
 	teamsSearchTeamsCmd.Flags().BoolVar(&teamsSearchTeamsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	teamsSearchTeamsCmd.Flags().BoolVar(&teamsSearchTeamsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsSearchTeamsCmd)
-	teamsSetTeamMembershipsCmd.Flags().StringVar(&teamsSetTeamMembershipsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	teamsSetTeamMembershipsCmd.Flags().StringVar(&teamsSetTeamMembershipsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsSetTeamMembershipsCmd.MarkFlagRequired("body")
 	teamsSetTeamMembershipsCmd.Flags().StringVar(&teamsSetTeamMembershipsFlag.TeamID, "team-id", "", "TeamID")
 	teamsSetTeamMembershipsCmd.MarkFlagRequired("team-id")
@@ -38150,7 +41020,7 @@ func init() {
 	teamsSetTeamMembershipsCmd.Flags().BoolVar(&teamsSetTeamMembershipsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	teamsSetTeamMembershipsCmd.Flags().BoolVar(&teamsSetTeamMembershipsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsSetTeamMembershipsCmd)
-	teamsUpdateTeamCmd.Flags().StringVar(&teamsUpdateTeamFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	teamsUpdateTeamCmd.Flags().StringVar(&teamsUpdateTeamFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsUpdateTeamCmd.MarkFlagRequired("body")
 	teamsUpdateTeamCmd.Flags().StringVar(&teamsUpdateTeamFlag.TeamID, "team-id", "", "TeamID")
 	teamsUpdateTeamCmd.MarkFlagRequired("team-id")
@@ -38158,7 +41028,7 @@ func init() {
 	teamsUpdateTeamCmd.Flags().BoolVar(&teamsUpdateTeamFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	teamsUpdateTeamCmd.Flags().BoolVar(&teamsUpdateTeamFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsUpdateTeamCmd)
-	teamsUpdateTeamMemberCmd.Flags().StringVar(&teamsUpdateTeamMemberFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	teamsUpdateTeamMemberCmd.Flags().StringVar(&teamsUpdateTeamMemberFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsUpdateTeamMemberCmd.MarkFlagRequired("body")
 	teamsUpdateTeamMemberCmd.Flags().StringVar(&teamsUpdateTeamMemberFlag.TeamID, "team-id", "", "TeamID")
 	teamsUpdateTeamMemberCmd.MarkFlagRequired("team-id")
@@ -38168,7 +41038,7 @@ func init() {
 	teamsUpdateTeamMemberCmd.Flags().BoolVar(&teamsUpdateTeamMemberFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	teamsUpdateTeamMemberCmd.Flags().BoolVar(&teamsUpdateTeamMemberFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	teamsCmd.AddCommand(teamsUpdateTeamMemberCmd)
-	teamsUpdateTeamPreferencesCmd.Flags().StringVar(&teamsUpdateTeamPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	teamsUpdateTeamPreferencesCmd.Flags().StringVar(&teamsUpdateTeamPreferencesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	teamsUpdateTeamPreferencesCmd.MarkFlagRequired("body")
 	teamsUpdateTeamPreferencesCmd.Flags().StringVar(&teamsUpdateTeamPreferencesFlag.TeamID, "team-id", "", "TeamID")
 	teamsUpdateTeamPreferencesCmd.MarkFlagRequired("team-id")
@@ -38203,7 +41073,7 @@ func init() {
 	usersSearchUsersWithPagingCmd.Flags().BoolVar(&usersSearchUsersWithPagingFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	usersSearchUsersWithPagingCmd.Flags().BoolVar(&usersSearchUsersWithPagingFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	usersCmd.AddCommand(usersSearchUsersWithPagingCmd)
-	usersUpdateUserCmd.Flags().StringVar(&usersUpdateUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.")
+	usersUpdateUserCmd.Flags().StringVar(&usersUpdateUserFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	usersUpdateUserCmd.MarkFlagRequired("body")
 	usersUpdateUserCmd.Flags().Int64Var(&usersUpdateUserFlag.UserID, "user-id", 0, "UserID")
 	usersUpdateUserCmd.MarkFlagRequired("user-id")

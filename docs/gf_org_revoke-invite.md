@@ -2,6 +2,13 @@
 
 Revokes invite
 
+### Synopsis
+
+Revokes invite
+
+Response schema (RevokeInviteOK.Payload):
+  message  string
+
 ```
 gf org revoke-invite [flags]
 ```

@@ -17,17 +17,22 @@ Creates an annotation by using Graphite-compatible event format. The \fBwhen\fR 
 
 .PP
 Body schema (PostGraphiteAnnotationsCmd):
-{
-  "data": string,
-  "tags": any,
-  "what": string,
-  "when": number
-}
+  data  string
+  tags  object
+  what  string
+  when  number
+
+.PP
+Response schema (PostGraphiteAnnotationOK.Payload):
+  id       number  REQUIRED
+                   ID Identifier of the created annotation.
+  message  string  REQUIRED
+                   Message Message of the created annotation.
 
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]

@@ -7,14 +7,28 @@ Update public dashboard for a dashboard
 Update public dashboard for a dashboard
 
 Body schema (PublicDashboardDTO):
-{
-  "accessToken": string,
-  "annotationsEnabled": boolean,
-  "isEnabled": boolean,
-  "share": string,
-  "timeSelectionEnabled": boolean,
-  "uid": string
-}
+  accessToken           string
+  annotationsEnabled    boolean
+  isEnabled             boolean
+  share                 string
+  timeSelectionEnabled  boolean
+  uid                   string
+
+Response schema (UpdatePublicDashboardOK.Payload):
+  accessToken             string
+  annotationsEnabled      boolean
+  createdAt               string
+  createdBy               number
+  dashboardUid            string
+  isEnabled               boolean
+  recipients              array<object>
+  recipients[].recipient  string
+  recipients[].uid        string
+  share                   string
+  timeSelectionEnabled    boolean
+  uid                     string
+  updatedAt               string
+  updatedBy               number
 
 ```
 gf dashboards update-public-dashboard [flags]
@@ -23,7 +37,7 @@ gf dashboards update-public-dashboard [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --dashboard-uid string           DashboardUID
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API

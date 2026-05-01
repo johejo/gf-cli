@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"strings"
 
 	"github.com/johejo/gf-cli/internal"
 	"github.com/spf13/cobra"
@@ -10,9 +11,10 @@ import (
 
 func main() {
 	cmd := internal.RootCmd()
-	// The body schema is carried on Annotations so --help can render it after
-	// the Flags block. cobra/doc only renders Long, so splice it back in here.
-	inlineBodySchema(cmd)
+	// Body and Response schemas are carried on Annotations so --help can
+	// render them after the Flags block. cobra/doc only renders Long, so
+	// splice them back in here.
+	inlineSchemas(cmd)
 	if err := doc.GenMarkdownTree(cmd, "./docs"); err != nil {
 		log.Fatal(err)
 	}
@@ -21,21 +23,33 @@ func main() {
 	}
 }
 
-func inlineBodySchema(cmd *cobra.Command) {
-	if schema := cmd.Annotations["bodySchema"]; schema != "" {
+func inlineSchemas(cmd *cobra.Command) {
+	body := cmd.Annotations["bodySchema"]
+	response := cmd.Annotations["responseSchema"]
+	if body != "" || response != "" {
 		// cobra/doc renders Synopsis from Long. Mirror the pre-change shape
 		// where Short was the lead paragraph so body-only commands keep their
 		// one-line summary above the schema.
+		var lead string
 		switch {
 		case cmd.Long != "":
-			cmd.Long = cmd.Long + "\n\n" + schema
+			lead = cmd.Long
 		case cmd.Short != "":
-			cmd.Long = cmd.Short + "\n\n" + schema
-		default:
-			cmd.Long = schema
+			lead = cmd.Short
 		}
+		parts := make([]string, 0, 3)
+		if lead != "" {
+			parts = append(parts, lead)
+		}
+		if body != "" {
+			parts = append(parts, body)
+		}
+		if response != "" {
+			parts = append(parts, response)
+		}
+		cmd.Long = strings.Join(parts, "\n\n")
 	}
 	for _, c := range cmd.Commands() {
-		inlineBodySchema(c)
+		inlineSchemas(c)
 	}
 }

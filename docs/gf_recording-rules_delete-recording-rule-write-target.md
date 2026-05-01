@@ -2,6 +2,13 @@
 
 Deletes the remote write target
 
+### Synopsis
+
+Deletes the remote write target
+
+Response schema (DeleteRecordingRuleWriteTargetOK.Payload):
+  message  string
+
 ```
 gf recording-rules delete-recording-rule-write-target [flags]
 ```

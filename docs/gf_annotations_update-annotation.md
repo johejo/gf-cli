@@ -9,14 +9,15 @@ Updates annotation
 Updates all properties of an annotation that matches the specified id. To only update certain property, consider using the Patch Annotation operation.
 
 Body schema (UpdateAnnotationsCmd):
-{
-  "data": any,  // models.JSON
-  "id": number,
-  "tags": [string],
-  "text": string,
-  "time": number,
-  "timeEnd": number
-}
+  data     object
+  id       number
+  tags     array<string>
+  text     string
+  time     number
+  timeEnd  number
+
+Response schema (UpdateAnnotationOK.Payload):
+  message  string
 
 ```
 gf annotations update-annotation [flags]
@@ -26,7 +27,7 @@ gf annotations update-annotation [flags]
 
 ```
       --annotation-id string           AnnotationID
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for update-annotation

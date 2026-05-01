@@ -11,11 +11,12 @@ Update the user’s role assignments to match the provided set of UIDs. This wil
 You need to have a permission with action `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate` for each. `permissions:type:delegate`  scope ensures that users can only assign or unassign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign or unassign a role which will allow to do that. This is done to prevent escalation of privileges.
 
 Body schema (SetUserRolesCommand):
-{
-  "global": boolean,
-  "includeHidden": boolean,
-  "roleUids": [string]
-}
+  global         boolean
+  includeHidden  boolean
+  roleUids       array<string>
+
+Response schema (SetUserRolesOK.Payload):
+  message  string
 
 ```
 gf access-control set-user-roles [flags]
@@ -24,7 +25,7 @@ gf access-control set-user-roles [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block is a type reference; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for set-user-roles

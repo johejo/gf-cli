@@ -2,6 +2,13 @@
 
 Gets grafana managed alert rules that were imported from prometheus compatible sources for a specified namespace folder
 
+### Synopsis
+
+Gets grafana managed alert rules that were imported from prometheus compatible sources for a specified namespace folder
+
+Response schema (ConvertPrometheusCortexGetNamespaceOK.Payload):
+  Body  map<string, array<object>>  in: body
+
 ```
 gf convert-prometheus convert-prometheus-cortex-get-namespace [flags]
 ```

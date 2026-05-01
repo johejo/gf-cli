@@ -8,6 +8,9 @@ Unstars a dashboard
 
 Deletes the starring of the given Dashboard for the actual user.
 
+Response schema (UnstarDashboardByUIDOK.Payload):
+  message  string
+
 ```
 gf signed-in-user unstar-dashboard-by-uid [flags]
 ```

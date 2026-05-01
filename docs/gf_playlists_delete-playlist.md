@@ -2,6 +2,13 @@
 
 Deletes playlist
 
+### Synopsis
+
+Deletes playlist
+
+Response schema (DeletePlaylistOK.Payload):
+  message  string
+
 ```
 gf playlists delete-playlist [flags]
 ```

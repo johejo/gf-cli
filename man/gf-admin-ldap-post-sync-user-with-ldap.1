@@ -15,6 +15,10 @@ Enables a single grafana user to be synchronized against LDAP
 .PP
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action \fBldap.user:sync\fR\&.
 
+.PP
+Response schema (PostSyncUserWithLDAPOK.Payload):
+  message  string
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

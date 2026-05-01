@@ -8,6 +8,19 @@ Gets library element connections
 
 Returns a list of connections for a library element based on the UID specified.
 
+Response schema (GetLibraryElementConnectionsOK.Payload):
+  result                        array<object>
+  result[].connectionId         number
+  result[].connectionUid        string
+  result[].created              string
+  result[].createdBy            object
+  result[].createdBy.avatarUrl  string
+  result[].createdBy.id         number
+  result[].createdBy.name       string
+  result[].elementId            number
+  result[].id                   number         Deprecated: this field will be removed in the future
+  result[].kind                 number
+
 ```
 gf library-elements get-library-element-connections [flags]
 ```

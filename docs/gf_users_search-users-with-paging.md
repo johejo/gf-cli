@@ -2,6 +2,28 @@
 
 Gets users with paging
 
+### Synopsis
+
+Gets users with paging
+
+Response schema (SearchUsersWithPagingOK.Payload):
+  page                   number
+  perPage                number
+  totalCount             number
+  users                  array<object>
+  users[].authLabels     array<string>
+  users[].avatarUrl      string
+  users[].email          string
+  users[].id             number
+  users[].isAdmin        boolean
+  users[].isDisabled     boolean
+  users[].isProvisioned  boolean
+  users[].lastSeenAt     string
+  users[].lastSeenAtAge  string
+  users[].login          string
+  users[].name           string
+  users[].uid            string
+
 ```
 gf users search-users-with-paging [flags]
 ```

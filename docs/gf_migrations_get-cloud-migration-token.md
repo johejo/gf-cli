@@ -2,6 +2,18 @@
 
 Fetches the cloud migration token if it exists
 
+### Synopsis
+
+Fetches the cloud migration token if it exists
+
+Response schema (GetCloudMigrationTokenOK.Payload):
+  createdAt    string
+  displayName  string
+  expiresAt    string
+  firstUsedAt  string
+  id           string
+  lastUsedAt   string
+
 ```
 gf migrations get-cloud-migration-token [flags]
 ```

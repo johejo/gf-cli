@@ -2,6 +2,17 @@
 
 Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol
 
+### Synopsis
+
+Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol
+
+Response schema (AdminProvisioningReloadAccessControlAccepted.Payload):
+  error    string  Error An optional detailed description of the actual error. Only included if running in developer mode.
+  message  string  REQUIRED
+                   a human readable version of the error
+  status   string  Status An optional status to denote the cause of the error.
+                   For example, a 412 Precondition Failed error may include additional information of why that error happened.
+
 ```
 gf access-control-provisioning admin-provisioning-reload-access-control [flags]
 ```
