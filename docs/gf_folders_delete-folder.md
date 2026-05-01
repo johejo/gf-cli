@@ -1,6 +1,12 @@
 ## gf folders delete-folder
 
+Deletes folder
 
+### Synopsis
+
+Deletes folder
+
+Deletes an existing folder identified by UID along with all dashboards (and their alerts) stored in the folder. This operation cannot be reverted. If nested folders are enabled then it also deletes all the subfolders.
 
 ```
 gf folders delete-folder [flags]

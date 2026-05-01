@@ -1,6 +1,6 @@
 ## gf provisioning delete-template
 
-
+Deletes a notification template group
 
 ```
 gf provisioning delete-template [flags]

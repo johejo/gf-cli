@@ -1,8 +1,12 @@
 ## gf access-control set-resource-permissions-for-team
 
-
+Sets resource permissions for a team
 
 ### Synopsis
+
+Sets resource permissions for a team
+
+Assigns permissions for a resource by a given type (`:resource`) and `:resourceID` to a team. Allowed resources are `datasources`, `teams`, `dashboards`, `folders`, and `serviceaccounts`. Refer to the `/access-control/{resource}/description` endpoint for allowed Permissions.
 
 Body schema (SetPermissionCommand):
 {

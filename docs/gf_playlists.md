@@ -31,6 +31,6 @@ gf playlists [flags]
 * [gf playlists delete-playlist](gf_playlists_delete-playlist.md)	 - Deletes playlist
 * [gf playlists get-playlist](gf_playlists_get-playlist.md)	 - Gets playlist
 * [gf playlists get-playlist-items](gf_playlists_get-playlist-items.md)	 - Gets playlist items
-* [gf playlists search-playlists](gf_playlists_search-playlists.md)	 - 
+* [gf playlists search-playlists](gf_playlists_search-playlists.md)	 - Gets playlists
 * [gf playlists update-playlist](gf_playlists_update-playlist.md)	 - Updates playlist
 

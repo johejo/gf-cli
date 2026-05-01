@@ -1,8 +1,8 @@
 .nh
-.TH "GF-ORGS-UPDATE-ORG-USER" "1" "Apr 2026" "" ""
+.TH "GF-ORGS-UPDATE-ORG-USER" "1" "May 2026" "" ""
 
 .SH NAME
-gf-orgs-update-org-user -
+gf-orgs-update-org-user - Updates users in organization
 
 
 .SH SYNOPSIS
@@ -10,6 +10,12 @@ gf-orgs-update-org-user -
 
 
 .SH DESCRIPTION
+Updates users in organization
+
+.PP
+If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: \fBorg.users.role:update\fR with scope \fBusers:*\fR\&.
+
+.PP
 Body schema (UpdateOrgUserCommand):
 {
   "role": string

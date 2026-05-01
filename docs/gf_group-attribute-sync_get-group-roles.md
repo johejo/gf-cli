@@ -1,5 +1,9 @@
 ## gf group-attribute-sync get-group-roles
 
+
+
+### Synopsis
+
 Gets roles mapped to a group this endpoint is behind the feature flag group attribute sync and is considered experimental
 
 ```

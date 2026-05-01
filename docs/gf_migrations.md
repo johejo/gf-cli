@@ -37,7 +37,7 @@ gf migrations [flags]
 * [gf migrations get-resource-dependencies](gf_migrations_get-resource-dependencies.md)	 - Gets the resource dependencies graph for the current set of migratable resources
 * [gf migrations get-session](gf_migrations_get-session.md)	 - Gets a cloud migration session by its uid
 * [gf migrations get-session-list](gf_migrations_get-session-list.md)	 - Gets a list of all cloud migration sessions that have been created
-* [gf migrations get-shapshot-list](gf_migrations_get-shapshot-list.md)	 - 
-* [gf migrations get-snapshot](gf_migrations_get-snapshot.md)	 - 
+* [gf migrations get-shapshot-list](gf_migrations_get-shapshot-list.md)	 - Gets a list of snapshots for a session
+* [gf migrations get-snapshot](gf_migrations_get-snapshot.md)	 - Gets metadata about a snapshot including where it is in its processing and final results
 * [gf migrations upload-snapshot](gf_migrations_upload-snapshot.md)	 - Uploads a snapshot to the grafana migration service for processing
 

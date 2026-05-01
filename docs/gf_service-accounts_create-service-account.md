@@ -1,8 +1,14 @@
 ## gf service-accounts create-service-account
 
-
+Creates service account
 
 ### Synopsis
+
+Creates service account
+
+Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:write` scope: `serviceaccounts:*`
+
+Requires basic authentication and that the authenticated user is a Grafana Admin.
 
 Body schema (CreateServiceAccountForm):
 {

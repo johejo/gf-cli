@@ -32,6 +32,6 @@ gf library-elements [flags]
 * [gf library-elements get-library-element-by-name](gf_library-elements_get-library-element-by-name.md)	 - Gets library element by name
 * [gf library-elements get-library-element-by-uid](gf_library-elements_get-library-element-by-uid.md)	 - Gets library element by UID
 * [gf library-elements get-library-element-connections](gf_library-elements_get-library-element-connections.md)	 - Gets library element connections
-* [gf library-elements get-library-elements](gf_library-elements_get-library-elements.md)	 - 
+* [gf library-elements get-library-elements](gf_library-elements_get-library-elements.md)	 - Gets all library elements
 * [gf library-elements update-library-element](gf_library-elements_update-library-element.md)	 - Updates library element
 

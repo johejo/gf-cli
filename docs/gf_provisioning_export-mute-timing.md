@@ -1,6 +1,6 @@
 ## gf provisioning export-mute-timing
 
-
+Exports a mute timing in provisioning format
 
 ```
 gf provisioning export-mute-timing [flags]

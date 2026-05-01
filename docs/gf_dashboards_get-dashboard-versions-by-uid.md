@@ -1,6 +1,6 @@
 ## gf dashboards get-dashboard-versions-by-uid
 
-
+Gets all existing versions for the dashboard using UID
 
 ```
 gf dashboards get-dashboard-versions-by-uid [flags]

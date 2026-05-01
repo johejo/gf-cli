@@ -1,8 +1,10 @@
 ## gf dashboards update-public-dashboard
 
-
+Update public dashboard for a dashboard
 
 ### Synopsis
+
+Update public dashboard for a dashboard
 
 Body schema (PublicDashboardDTO):
 {

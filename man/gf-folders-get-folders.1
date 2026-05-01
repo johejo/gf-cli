@@ -1,8 +1,8 @@
 .nh
-.TH "GF-FOLDERS-GET-FOLDERS" "1" "Apr 2026" "" ""
+.TH "GF-FOLDERS-GET-FOLDERS" "1" "May 2026" "" ""
 
 .SH NAME
-gf-folders-get-folders -
+gf-folders-get-folders - Gets all folders
 
 
 .SH SYNOPSIS
@@ -10,6 +10,11 @@ gf-folders-get-folders -
 
 
 .SH DESCRIPTION
+Gets all folders
+
+.PP
+It returns all folders that the authenticated user has permission to view. If nested folders are enabled, it expects an additional query parameter with the parent folder UID and returns the immediate subfolders that the authenticated user has permission to view. If the parameter is not supplied then it returns immediate subfolders under the root that the authenticated user has permission to view.
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

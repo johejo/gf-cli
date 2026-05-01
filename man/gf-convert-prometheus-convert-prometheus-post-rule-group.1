@@ -1,8 +1,8 @@
 .nh
-.TH "GF-CONVERT-PROMETHEUS-CONVERT-PROMETHEUS-POST-RULE-GROUP" "1" "Apr 2026" "" ""
+.TH "GF-CONVERT-PROMETHEUS-CONVERT-PROMETHEUS-POST-RULE-GROUP" "1" "May 2026" "" ""
 
 .SH NAME
-gf-convert-prometheus-convert-prometheus-post-rule-group -
+gf-convert-prometheus-convert-prometheus-post-rule-group - Converts a prometheus rule group into a grafana rule group and creates or updates it within the specified namespace
 
 
 .SH SYNOPSIS
@@ -10,6 +10,12 @@ gf-convert-prometheus-convert-prometheus-post-rule-group -
 
 
 .SH DESCRIPTION
+Converts a prometheus rule group into a grafana rule group and creates or updates it within the specified namespace
+
+.PP
+If the group already exists and was not imported from a Prometheus-compatible source initially, it will not be replaced and an error will be returned.
+
+.PP
 Body schema (PrometheusRuleGroup):
 {
   "interval": number,

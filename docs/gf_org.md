@@ -31,8 +31,8 @@ gf org [flags]
 * [gf org add-org-user-to-current-org](gf_org_add-org-user-to-current-org.md)	 - Adds a new user to the current organization
 * [gf org get-current-org](gf_org_get-current-org.md)	 - Gets current organization
 * [gf org get-org-preferences](gf_org_get-org-preferences.md)	 - Gets current org prefs
-* [gf org get-org-users-for-current-org](gf_org_get-org-users-for-current-org.md)	 - 
-* [gf org get-org-users-for-current-org-lookup](gf_org_get-org-users-for-current-org-lookup.md)	 - 
+* [gf org get-org-users-for-current-org](gf_org_get-org-users-for-current-org.md)	 - Gets all users within the current organization
+* [gf org get-org-users-for-current-org-lookup](gf_org_get-org-users-for-current-org-lookup.md)	 - Gets all users within the current organization lookup
 * [gf org get-pending-org-invites](gf_org_get-pending-org-invites.md)	 - Gets pending invites
 * [gf org patch-org-preferences](gf_org_patch-org-preferences.md)	 - Patches current org prefs
 * [gf org remove-org-user-for-current-org](gf_org_remove-org-user-for-current-org.md)	 - Deletes user in current organization

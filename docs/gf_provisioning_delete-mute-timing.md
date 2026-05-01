@@ -1,6 +1,6 @@
 ## gf provisioning delete-mute-timing
 
-
+Deletes a mute timing
 
 ```
 gf provisioning delete-mute-timing [flags]

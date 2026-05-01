@@ -1,8 +1,10 @@
 ## gf provisioning put-template
 
-
+Updates an existing notification template group
 
 ### Synopsis
+
+Updates an existing notification template group
 
 Body schema (NotificationTemplateContent):
 {

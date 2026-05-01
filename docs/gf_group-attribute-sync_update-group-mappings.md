@@ -1,6 +1,6 @@
 ## gf group-attribute-sync update-group-mappings
 
-Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental
+
 
 ### Synopsis
 

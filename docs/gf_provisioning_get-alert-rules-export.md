@@ -1,6 +1,6 @@
 ## gf provisioning get-alert-rules-export
 
-
+Exports all alert rules in provisioning file format
 
 ```
 gf provisioning get-alert-rules-export [flags]

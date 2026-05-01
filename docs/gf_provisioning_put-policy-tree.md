@@ -1,8 +1,10 @@
 ## gf provisioning put-policy-tree
 
-
+Sets the notification policy tree
 
 ### Synopsis
+
+Sets the notification policy tree
 
 Body schema (Route):
 {

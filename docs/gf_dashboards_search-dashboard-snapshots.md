@@ -1,6 +1,6 @@
 ## gf dashboards search-dashboard-snapshots
 
-
+Lists snapshots
 
 ```
 gf dashboards search-dashboard-snapshots [flags]

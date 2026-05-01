@@ -64,8 +64,11 @@ func init() {
 	rootCmd.PersistentFlags().Int64Var(&rootCmdFlag.orgID, "org-id", 0, "Organization ID (env: GF_ORG_ID)")
 	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.debug, "debug", false, "Enable debug logging (env: GF_DEBUG)")
 	// --help-json is registered as a root-only flag (not persistent) so it does
-	// not appear on every subcommand's --help. Agents filter the output with jq.
-	rootCmd.Flags().BoolVar(&rootCmdFlag.helpJSON, "help-json", false, "Print the full CLI schema (flags, body, response) as JSON and exit")
+	// not appear on every subcommand's --help. The output is a discovery index
+	// (no JSON Schemas); agents fetch full body/response schemas via the
+	// per-subcommand --describe-body-jsonschema / --describe-response-jsonschema
+	// flags.
+	rootCmd.Flags().BoolVar(&rootCmdFlag.helpJSON, "help-json", false, "Print the CLI schema index (commands, flags, body/response model types) as JSON and exit. Use --describe-body-jsonschema / --describe-response-jsonschema on a subcommand for the full JSON Schema.")
 }
 
 func runRoot(cmd *cobra.Command, args []string) error {

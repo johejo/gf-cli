@@ -1,5 +1,9 @@
 ## gf group-attribute-sync get-mapped-groups
 
+
+
+### Synopsis
+
 Lists groups that have mappings set this endpoint is behind the feature flag group attribute sync and is considered experimental
 
 ```

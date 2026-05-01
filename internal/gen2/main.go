@@ -307,9 +307,12 @@ func actionBodySchema(act *Action) string {
 	return formatBodySchema(act.BodyField.Schema)
 }
 
-// helpDoc is the top-level shape of the --help-json output. It is intentionally
-// flat-keyed by "<service> <action>" (the invocation string minus "gf ") so
-// agents can do O(1) lookup with .commands[name] instead of walking a tree.
+// helpDoc is the top-level shape of the --help-json output. It is a discovery
+// index, not a full schema dump: body/response carry the model type names but
+// not the JSON Schemas, which are available per-command via the
+// --describe-body-jsonschema / --describe-response-jsonschema flags. The map
+// is flat-keyed by "<service> <action>" (the invocation string minus "gf ")
+// so agents can do O(1) lookup with .commands[name] instead of walking a tree.
 type helpDoc struct {
 	Version  string                       `json:"version"`
 	Commands map[string]*helpActionOutput `json:"commands"`
@@ -333,15 +336,13 @@ type helpFlagOutput struct {
 }
 
 type helpBodyOutput struct {
-	ModelType  string          `json:"modelType"`
-	JSONSchema json.RawMessage `json:"jsonSchema,omitempty"`
+	ModelType string `json:"modelType"`
 }
 
 type helpResponseOutput struct {
-	TypeName      string          `json:"typeName,omitempty"`
-	HasPayload    bool            `json:"hasPayload"`
-	ContainsFrame bool            `json:"containsFrame"`
-	JSONSchema    json.RawMessage `json:"jsonSchema,omitempty"`
+	TypeName      string `json:"typeName,omitempty"`
+	HasPayload    bool   `json:"hasPayload"`
+	ContainsFrame bool   `json:"containsFrame"`
 }
 
 // buildHelpJSON returns an indented JSON document summarising the whole CLI
@@ -379,22 +380,14 @@ func buildHelpJSON(services []*Service) (string, error) {
 				out.Flags = []helpFlagOutput{}
 			}
 			if act.BodyField != nil {
-				b := &helpBodyOutput{ModelType: act.BodyField.ModelType}
-				if act.BodyField.JSONSchema != "" {
-					b.JSONSchema = json.RawMessage(act.BodyField.JSONSchema)
-				}
-				out.Body = b
+				out.Body = &helpBodyOutput{ModelType: act.BodyField.ModelType}
 			}
 			if act.Response != nil && act.Response.HasPayload {
-				r := &helpResponseOutput{
+				out.Response = &helpResponseOutput{
 					TypeName:      act.Response.TypeName,
 					HasPayload:    true,
 					ContainsFrame: act.Response.ContainsFrame,
 				}
-				if act.Response.JSONSchema != "" {
-					r.JSONSchema = json.RawMessage(act.Response.JSONSchema)
-				}
-				out.Response = r
 			}
 			doc.Commands[key] = out
 		}

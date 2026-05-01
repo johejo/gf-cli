@@ -30,6 +30,6 @@ gf saml [flags]
 * [gf saml get-metadata](gf_saml_get-metadata.md)	 - Its exposes the s p grafana s metadata for the Id p s consumption
 * [gf saml get-saml-logout](gf_saml_get-saml-logout.md)	 - Gets logout initiates single logout process
 * [gf saml get-slo](gf_saml_get-slo.md)	 - Its performs single logout s l o callback
-* [gf saml post-acs](gf_saml_post-acs.md)	 - 
-* [gf saml post-slo](gf_saml_post-slo.md)	 - 
+* [gf saml post-acs](gf_saml_post-acs.md)	 - Its performs assertion consumer service a c s
+* [gf saml post-slo](gf_saml_post-slo.md)	 - Its performs single logout s l o callback
 

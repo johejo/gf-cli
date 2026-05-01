@@ -1,6 +1,6 @@
 ## gf provisioning delete-alert-rule
 
-
+Deletes a specific alert rule by UID
 
 ```
 gf provisioning delete-alert-rule [flags]

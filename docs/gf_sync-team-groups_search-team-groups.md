@@ -1,6 +1,6 @@
 ## gf sync-team-groups search-team-groups
 
-
+Searches for team groups with optional filtering and pagination
 
 ```
 gf sync-team-groups search-team-groups [flags]

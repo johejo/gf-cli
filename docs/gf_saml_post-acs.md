@@ -1,6 +1,6 @@
 ## gf saml post-acs
 
-
+Its performs assertion consumer service a c s
 
 ```
 gf saml post-acs [flags]

@@ -1,5 +1,9 @@
 ## gf health get-health
 
+
+
+### Synopsis
+
 ApiHealthHandler will return ok if Grafana's web server is running and it can access the database. If the database cannot be accessed it will return http status code 503.
 
 ```

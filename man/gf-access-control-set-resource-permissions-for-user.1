@@ -1,8 +1,8 @@
 .nh
-.TH "GF-ACCESS-CONTROL-SET-RESOURCE-PERMISSIONS-FOR-USER" "1" "Apr 2026" "" ""
+.TH "GF-ACCESS-CONTROL-SET-RESOURCE-PERMISSIONS-FOR-USER" "1" "May 2026" "" ""
 
 .SH NAME
-gf-access-control-set-resource-permissions-for-user -
+gf-access-control-set-resource-permissions-for-user - Sets resource permissions for a user
 
 
 .SH SYNOPSIS
@@ -10,6 +10,12 @@ gf-access-control-set-resource-permissions-for-user -
 
 
 .SH DESCRIPTION
+Sets resource permissions for a user
+
+.PP
+Assigns permissions for a resource by a given type (\fB:resource\fR) and \fB:resourceID\fR to a user or a service account. Allowed resources are \fBdatasources\fR, \fBteams\fR, \fBdashboards\fR, \fBfolders\fR, and \fBserviceaccounts\fR\&. Refer to the \fB/access-control/{resource}/description\fR endpoint for allowed Permissions.
+
+.PP
 Body schema (SetPermissionCommand):
 {
   "permission": string

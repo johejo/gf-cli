@@ -1,6 +1,12 @@
 ## gf reports render-report-cs-vs
 
+Downloads a CSV report
 
+### Synopsis
+
+Downloads a CSV report
+
+Available to all users and with a valid license.
 
 ```
 gf reports render-report-cs-vs [flags]

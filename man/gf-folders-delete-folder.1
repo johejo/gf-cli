@@ -1,8 +1,8 @@
 .nh
-.TH "GF-FOLDERS-DELETE-FOLDER" "1" "Apr 2026" "" ""
+.TH "GF-FOLDERS-DELETE-FOLDER" "1" "May 2026" "" ""
 
 .SH NAME
-gf-folders-delete-folder -
+gf-folders-delete-folder - Deletes folder
 
 
 .SH SYNOPSIS
@@ -10,6 +10,11 @@ gf-folders-delete-folder -
 
 
 .SH DESCRIPTION
+Deletes folder
+
+.PP
+Deletes an existing folder identified by UID along with all dashboards (and their alerts) stored in the folder. This operation cannot be reverted. If nested folders are enabled then it also deletes all the subfolders.
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

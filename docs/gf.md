@@ -19,7 +19,7 @@ gf [flags]
       --basic-user-username string   Basic authentication username (env: GF_BASIC_AUTH_PASSWORD)
       --debug                        Enable debug logging (env: GF_DEBUG)
   -h, --help                         help for gf
-      --help-json                    Print the full CLI schema (flags, body, response) as JSON and exit
+      --help-json                    Print the CLI schema index (commands, flags, body/response model types) as JSON and exit. Use --describe-body-jsonschema / --describe-response-jsonschema on a subcommand for the full JSON Schema.
       --host string                  Grafana server host (env: GF_HOST) (default "localhost:3000")
       --org-id int                   Organization ID (env: GF_ORG_ID)
 ```

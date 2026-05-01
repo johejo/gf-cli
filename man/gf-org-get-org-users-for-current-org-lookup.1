@@ -1,8 +1,8 @@
 .nh
-.TH "GF-ORG-GET-ORG-USERS-FOR-CURRENT-ORG-LOOKUP" "1" "Apr 2026" "" ""
+.TH "GF-ORG-GET-ORG-USERS-FOR-CURRENT-ORG-LOOKUP" "1" "May 2026" "" ""
 
 .SH NAME
-gf-org-get-org-users-for-current-org-lookup -
+gf-org-get-org-users-for-current-org-lookup - Gets all users within the current organization lookup
 
 
 .SH SYNOPSIS
@@ -10,6 +10,11 @@ gf-org-get-org-users-for-current-org-lookup -
 
 
 .SH DESCRIPTION
+Gets all users within the current organization lookup
+
+.PP
+Returns all org users within the current organization, but with less detailed information. Accessible to users with org admin role, admin in any folder or admin of any team. Mainly used by Grafana UI for providing list of users when adding team members and when editing folder/dashboard permissions.
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

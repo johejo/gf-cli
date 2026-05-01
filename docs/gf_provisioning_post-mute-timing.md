@@ -1,8 +1,10 @@
 ## gf provisioning post-mute-timing
 
-
+Creates a new mute timing
 
 ### Synopsis
+
+Creates a new mute timing
 
 Body schema (MuteTimeInterval):
 {

@@ -1,6 +1,6 @@
 ## gf datasources get-correlations
 
-
+Gets all correlations
 
 ```
 gf datasources get-correlations [flags]

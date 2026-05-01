@@ -28,5 +28,5 @@ gf search [flags]
 
 * [gf](gf.md)	 - CLI for Grafana API
 * [gf search list-sort-options](gf_search_list-sort-options.md)	 - Lists search sorting options
-* [gf search search](gf_search_search.md)	 - 
+* [gf search search](gf_search_search.md)	 - Search API
 

@@ -1,8 +1,12 @@
 ## gf access-control set-resource-permissions
 
-
+Sets resource permissions
 
 ### Synopsis
+
+Sets resource permissions
+
+Assigns permissions for a resource by a given type (`:resource`) and `:resourceID` to one or many assignment types. Allowed resources are `datasources`, `teams`, `dashboards`, `folders`, and `serviceaccounts`. Refer to the `/access-control/{resource}/description` endpoint for allowed Permissions.
 
 Body schema (SetPermissionsCommand):
 {

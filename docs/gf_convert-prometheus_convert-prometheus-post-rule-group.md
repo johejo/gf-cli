@@ -1,8 +1,12 @@
 ## gf convert-prometheus convert-prometheus-post-rule-group
 
-
+Converts a prometheus rule group into a grafana rule group and creates or updates it within the specified namespace
 
 ### Synopsis
+
+Converts a prometheus rule group into a grafana rule group and creates or updates it within the specified namespace
+
+If the group already exists and was not imported from a Prometheus-compatible source initially, it will not be replaced and an error will be returned.
 
 Body schema (PrometheusRuleGroup):
 {

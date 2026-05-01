@@ -1,6 +1,12 @@
 ## gf users search-users
 
+Gets users
 
+### Synopsis
+
+Gets users
+
+Returns all users that the authenticated user has permission to view, admin permission required.
 
 ```
 gf users search-users [flags]

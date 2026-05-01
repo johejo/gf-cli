@@ -1,6 +1,6 @@
 ## gf orgs search-orgs
 
-
+Searches all organizations
 
 ```
 gf orgs search-orgs [flags]

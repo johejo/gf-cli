@@ -1,6 +1,6 @@
 ## gf migrations get-shapshot-list
 
-
+Gets a list of snapshots for a session
 
 ```
 gf migrations get-shapshot-list [flags]

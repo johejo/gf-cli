@@ -1,6 +1,6 @@
 ## gf provisioning get-contactpoints-export
 
-
+Exports all contact points in provisioning file format
 
 ```
 gf provisioning get-contactpoints-export [flags]

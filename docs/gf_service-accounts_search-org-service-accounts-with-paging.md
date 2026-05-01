@@ -1,6 +1,12 @@
 ## gf service-accounts search-org-service-accounts-with-paging
 
+Searches service accounts with paging
 
+### Synopsis
+
+Searches service accounts with paging
+
+Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:read` scope: `serviceaccounts:*`
 
 ```
 gf service-accounts search-org-service-accounts-with-paging [flags]

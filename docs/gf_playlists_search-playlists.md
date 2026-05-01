@@ -1,6 +1,6 @@
 ## gf playlists search-playlists
 
-
+Gets playlists
 
 ```
 gf playlists search-playlists [flags]

@@ -1,6 +1,6 @@
 ## gf sync-team-groups remove-team-group-api-query
 
-
+Removes external group
 
 ```
 gf sync-team-groups remove-team-group-api-query [flags]

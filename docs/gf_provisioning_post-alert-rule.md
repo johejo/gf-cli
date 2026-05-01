@@ -1,8 +1,10 @@
 ## gf provisioning post-alert-rule
 
-
+Creates a new alert rule
 
 ### Synopsis
+
+Creates a new alert rule
 
 Body schema (ProvisionedAlertRule):
 {

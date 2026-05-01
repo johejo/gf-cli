@@ -1,6 +1,12 @@
 ## gf library-elements get-library-elements
 
+Gets all library elements
 
+### Synopsis
+
+Gets all library elements
+
+Returns a list of all library elements the authenticated user has permission to view. Use the `perPage` query parameter to control the maximum number of library elements returned; the default limit is `100`. You can also use the `page` query parameter to fetch library elements from any page other than the first one.
 
 ```
 gf library-elements get-library-elements [flags]

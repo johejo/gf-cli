@@ -1,6 +1,12 @@
 ## gf org get-org-users-for-current-org-lookup
 
+Gets all users within the current organization lookup
 
+### Synopsis
+
+Gets all users within the current organization lookup
+
+Returns all org users within the current organization, but with less detailed information. Accessible to users with org admin role, admin in any folder or admin of any team. Mainly used by Grafana UI for providing list of users when adding team members and when editing folder/dashboard permissions.
 
 ```
 gf org get-org-users-for-current-org-lookup [flags]

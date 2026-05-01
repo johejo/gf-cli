@@ -1,8 +1,8 @@
 .nh
-.TH "GF-LIBRARY-ELEMENTS-GET-LIBRARY-ELEMENTS" "1" "Apr 2026" "" ""
+.TH "GF-LIBRARY-ELEMENTS-GET-LIBRARY-ELEMENTS" "1" "May 2026" "" ""
 
 .SH NAME
-gf-library-elements-get-library-elements -
+gf-library-elements-get-library-elements - Gets all library elements
 
 
 .SH SYNOPSIS
@@ -10,6 +10,11 @@ gf-library-elements-get-library-elements -
 
 
 .SH DESCRIPTION
+Gets all library elements
+
+.PP
+Returns a list of all library elements the authenticated user has permission to view. Use the \fBperPage\fR query parameter to control the maximum number of library elements returned; the default limit is \fB100\fR\&. You can also use the \fBpage\fR query parameter to fetch library elements from any page other than the first one.
+
 
 .SH OPTIONS
 \fB--describe-response-jsonschema\fP[=false]

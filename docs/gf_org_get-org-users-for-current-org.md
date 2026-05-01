@@ -1,6 +1,12 @@
 ## gf org get-org-users-for-current-org
 
+Gets all users within the current organization
 
+### Synopsis
+
+Gets all users within the current organization
+
+Returns all org users within the current organization. Accessible to users with org admin role. If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:read` with scope `users:*`.
 
 ```
 gf org get-org-users-for-current-org [flags]

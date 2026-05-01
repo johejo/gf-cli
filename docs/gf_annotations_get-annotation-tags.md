@@ -1,6 +1,12 @@
 ## gf annotations get-annotation-tags
 
+Finds annotations tags
 
+### Synopsis
+
+Finds annotations tags
+
+Find all the event tags created in the annotations.
 
 ```
 gf annotations get-annotation-tags [flags]

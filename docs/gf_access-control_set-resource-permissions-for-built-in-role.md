@@ -1,8 +1,12 @@
 ## gf access-control set-resource-permissions-for-built-in-role
 
-
+Sets resource permissions for a built in role
 
 ### Synopsis
+
+Sets resource permissions for a built in role
+
+Assigns permissions for a resource by a given type (`:resource`) and `:resourceID` to a built-in role. Allowed resources are `datasources`, `teams`, `dashboards`, `folders`, and `serviceaccounts`. Refer to the `/access-control/{resource}/description` endpoint for allowed Permissions.
 
 Body schema (SetPermissionCommand):
 {

@@ -34,8 +34,8 @@ gf reports [flags]
 * [gf reports get-reports](gf_reports_get-reports.md)	 - Lists reports
 * [gf reports get-reports-by-dashboard-uid](gf_reports_get-reports-by-dashboard-uid.md)	 - Lists reports by dashboard uid
 * [gf reports get-settings-image](gf_reports_get-settings-image.md)	 - Gets custom branding report image
-* [gf reports render-report-cs-vs](gf_reports_render-report-cs-vs.md)	 - 
-* [gf reports render-report-pd-fs](gf_reports_render-report-pd-fs.md)	 - 
+* [gf reports render-report-cs-vs](gf_reports_render-report-cs-vs.md)	 - Downloads a CSV report
+* [gf reports render-report-pd-fs](gf_reports_render-report-pd-fs.md)	 - Renders report for multiple dashboards
 * [gf reports save-report-settings](gf_reports_save-report-settings.md)	 - Saves settings
 * [gf reports send-report](gf_reports_send-report.md)	 - Sends a report
 * [gf reports send-test-email](gf_reports_send-test-email.md)	 - Sends test report via email

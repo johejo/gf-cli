@@ -1,8 +1,10 @@
 ## gf teams update-team-member
 
-
+Updates team member
 
 ### Synopsis
+
+Updates team member
 
 Body schema (UpdateTeamMemberCommand):
 {

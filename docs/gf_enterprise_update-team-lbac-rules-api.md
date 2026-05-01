@@ -1,8 +1,10 @@
 ## gf enterprise update-team-lbac-rules-api
 
-
+Updates l b a c rules for a team
 
 ### Synopsis
+
+Updates l b a c rules for a team
 
 Body schema (UpdateTeamLBACCommand):
 {

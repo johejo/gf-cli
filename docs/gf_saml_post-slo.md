@@ -1,6 +1,12 @@
 ## gf saml post-slo
 
+Its performs single logout s l o callback
 
+### Synopsis
+
+Its performs single logout s l o callback
+
+There might be two possible requests: 1. Logout response (callback) when Grafana initiates single logout and IdP returns response to logout request. 2. Logout request when another SP initiates single logout and IdP sends logout request to the Grafana, or in case of IdP-initiated logout.
 
 ```
 gf saml post-slo [flags]

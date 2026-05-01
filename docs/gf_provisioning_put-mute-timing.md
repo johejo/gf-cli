@@ -1,8 +1,10 @@
 ## gf provisioning put-mute-timing
 
-
+Replaces an existing mute timing
 
 ### Synopsis
+
+Replaces an existing mute timing
 
 Body schema (MuteTimeInterval):
 {

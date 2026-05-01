@@ -1,8 +1,10 @@
 ## gf provisioning put-alert-rule-group
 
-
+Creates or update alert rule group
 
 ### Synopsis
+
+Creates or update alert rule group
 
 Body schema (AlertRuleGroup):
 {

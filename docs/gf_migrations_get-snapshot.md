@@ -1,6 +1,6 @@
 ## gf migrations get-snapshot
 
-
+Gets metadata about a snapshot including where it is in its processing and final results
 
 ```
 gf migrations get-snapshot [flags]

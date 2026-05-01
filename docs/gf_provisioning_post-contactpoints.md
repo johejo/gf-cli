@@ -1,8 +1,10 @@
 ## gf provisioning post-contactpoints
 
-
+Creates a contact point
 
 ### Synopsis
+
+Creates a contact point
 
 Body schema (EmbeddedContactPoint):
 {

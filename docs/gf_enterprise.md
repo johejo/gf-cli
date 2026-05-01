@@ -34,5 +34,5 @@ gf enterprise [flags]
 * [gf enterprise get-team-lbac-rules-api](gf_enterprise_get-team-lbac-rules-api.md)	 - Retrieves l b a c rules for a team
 * [gf enterprise search-result](gf_enterprise_search-result.md)	 - Debugs permissions
 * [gf enterprise set-datasource-cache-config](gf_enterprise_set-datasource-cache-config.md)	 - Set cache config for a single data source
-* [gf enterprise update-team-lbac-rules-api](gf_enterprise_update-team-lbac-rules-api.md)	 - 
+* [gf enterprise update-team-lbac-rules-api](gf_enterprise_update-team-lbac-rules-api.md)	 - Updates l b a c rules for a team
 

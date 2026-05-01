@@ -1,6 +1,6 @@
 ## gf provisioning get-contactpoints
 
-
+Gets all the contact points
 
 ```
 gf provisioning get-contactpoints [flags]

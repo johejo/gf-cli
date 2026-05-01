@@ -1,6 +1,12 @@
 ## gf reports render-report-pd-fs
 
+Renders report for multiple dashboards
 
+### Synopsis
+
+Renders report for multiple dashboards
+
+Available to all users and with a valid license.
 
 ```
 gf reports render-report-pd-fs [flags]

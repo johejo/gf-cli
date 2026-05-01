@@ -1,8 +1,10 @@
 ## gf datasources update-correlation
 
-
+Updates a correlation
 
 ### Synopsis
+
+Updates a correlation
 
 Body schema (UpdateCorrelationCommand):
 {

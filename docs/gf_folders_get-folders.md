@@ -1,6 +1,12 @@
 ## gf folders get-folders
 
+Gets all folders
 
+### Synopsis
+
+Gets all folders
+
+It returns all folders that the authenticated user has permission to view. If nested folders are enabled, it expects an additional query parameter with the parent folder UID and returns the immediate subfolders that the authenticated user has permission to view. If the parameter is not supplied then it returns immediate subfolders under the root that the authenticated user has permission to view.
 
 ```
 gf folders get-folders [flags]

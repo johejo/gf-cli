@@ -1,8 +1,8 @@
 .nh
-.TH "GF-QUERY-HISTORY-SEARCH-QUERIES" "1" "Apr 2026" "" ""
+.TH "GF-QUERY-HISTORY-SEARCH-QUERIES" "1" "May 2026" "" ""
 
 .SH NAME
-gf-query-history-search-queries -
+gf-query-history-search-queries - Queries history search
 
 
 .SH SYNOPSIS
@@ -10,6 +10,11 @@ gf-query-history-search-queries -
 
 
 .SH DESCRIPTION
+Queries history search
+
+.PP
+Returns a list of queries in the query history that matches the search criteria. Query history search supports pagination. Use the \fBlimit\fR parameter to control the maximum number of queries returned; the default limit is 100. You can also use the \fBpage\fR query parameter to fetch queries from any page other than the first one.
+
 
 .SH OPTIONS
 \fB--datasource-uid\fP=[]

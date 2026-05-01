@@ -1,8 +1,8 @@
 .nh
-.TH "GF-QUOTA-UPDATE-USER-QUOTA" "1" "Apr 2026" "" ""
+.TH "GF-QUOTA-UPDATE-USER-QUOTA" "1" "May 2026" "" ""
 
 .SH NAME
-gf-quota-update-user-quota -
+gf-quota-update-user-quota - Updates user quota
 
 
 .SH SYNOPSIS
@@ -10,6 +10,12 @@ gf-quota-update-user-quota -
 
 
 .SH DESCRIPTION
+Updates user quota
+
+.PP
+If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action \fBusers.quotas:update\fR and scope \fBglobal.users:1\fR (userIDScope).
+
+.PP
 Body schema (UpdateQuotaCmd):
 {
   "limit": number,

@@ -28,11 +28,11 @@ gf folders [flags]
 
 * [gf](gf.md)	 - CLI for Grafana API
 * [gf folders create-folder](gf_folders_create-folder.md)	 - Creates folder
-* [gf folders delete-folder](gf_folders_delete-folder.md)	 - 
+* [gf folders delete-folder](gf_folders_delete-folder.md)	 - Deletes folder
 * [gf folders get-folder-by-uid](gf_folders_get-folder-by-uid.md)	 - Gets folder by uid
 * [gf folders get-folder-descendant-counts](gf_folders_get-folder-descendant-counts.md)	 - Gets the count of each descendant of a folder by kind the folder is identified by UID
 * [gf folders get-folder-permission-list](gf_folders_get-folder-permission-list.md)	 - Gets all existing permissions for the folder with the given uid
-* [gf folders get-folders](gf_folders_get-folders.md)	 - 
+* [gf folders get-folders](gf_folders_get-folders.md)	 - Gets all folders
 * [gf folders move-folder](gf_folders_move-folder.md)	 - Moves folder
 * [gf folders update-folder](gf_folders_update-folder.md)	 - Updates folder
 * [gf folders update-folder-permissions](gf_folders_update-folder-permissions.md)	 - Updates permissions for a folder this operation will remove existing permissions if they re not included in the request

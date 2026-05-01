@@ -1,8 +1,8 @@
 .nh
-.TH "GF-SAML-POST-SLO" "1" "Apr 2026" "" ""
+.TH "GF-SAML-POST-SLO" "1" "May 2026" "" ""
 
 .SH NAME
-gf-saml-post-slo -
+gf-saml-post-slo - Its performs single logout s l o callback
 
 
 .SH SYNOPSIS
@@ -10,6 +10,11 @@ gf-saml-post-slo -
 
 
 .SH DESCRIPTION
+Its performs single logout s l o callback
+
+.PP
+There might be two possible requests: 1. Logout response (callback) when Grafana initiates single logout and IdP returns response to logout request. 2. Logout request when another SP initiates single logout and IdP sends logout request to the Grafana, or in case of IdP-initiated logout.
+
 
 .SH OPTIONS
 \fB-h\fP, \fB--help\fP[=false]

@@ -1,8 +1,8 @@
 .nh
-.TH "GF-ACCESS-CONTROL-LIST-ROLES" "1" "Apr 2026" "" ""
+.TH "GF-ACCESS-CONTROL-LIST-ROLES" "1" "May 2026" "" ""
 
 .SH NAME
-gf-access-control-list-roles -
+gf-access-control-list-roles - Gets all roles
 
 
 .SH SYNOPSIS
@@ -10,6 +10,17 @@ gf-access-control-list-roles -
 
 
 .SH DESCRIPTION
+Gets all roles
+
+.PP
+Gets all existing roles. The response contains all global and organization local roles, for the organization which user is signed in.
+
+.PP
+You need to have a permission with action \fBroles:read\fR and scope \fBroles:*\fR\&.
+
+.PP
+The \fBdelegatable\fR flag reduces the set of roles to only those for which the signed-in user has permissions to assign.
+
 
 .SH OPTIONS
 \fB--delegatable\fP[=false]

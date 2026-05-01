@@ -1,6 +1,12 @@
 ## gf annotations get-annotations
 
+Finds annotations
 
+### Synopsis
+
+Finds annotations
+
+Starting in Grafana v6.4 regions annotations are now returned in one entity that now includes the timeEnd property.
 
 ```
 gf annotations get-annotations [flags]

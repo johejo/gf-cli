@@ -31,6 +31,6 @@ gf quota [flags]
 * [gf quota get-org-quota](gf_quota_get-org-quota.md)	 - Fetches organization quota
 * [gf quota get-user-quota](gf_quota_get-user-quota.md)	 - Fetches user quota
 * [gf quota get-user-quotas](gf_quota_get-user-quotas.md)	 - Fetches user quota
-* [gf quota update-org-quota](gf_quota_update-org-quota.md)	 - 
-* [gf quota update-user-quota](gf_quota_update-user-quota.md)	 - 
+* [gf quota update-org-quota](gf_quota_update-org-quota.md)	 - Updates user quota
+* [gf quota update-user-quota](gf_quota_update-user-quota.md)	 - Updates user quota
 

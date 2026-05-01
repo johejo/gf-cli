@@ -1,8 +1,10 @@
 ## gf provisioning put-contactpoint
 
-
+Updates an existing contact point
 
 ### Synopsis
+
+Updates an existing contact point
 
 Body schema (EmbeddedContactPoint):
 {

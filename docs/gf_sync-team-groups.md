@@ -29,6 +29,6 @@ gf sync-team-groups [flags]
 * [gf](gf.md)	 - CLI for Grafana API
 * [gf sync-team-groups add-team-group-api](gf_sync-team-groups_add-team-group-api.md)	 - Adds external group
 * [gf sync-team-groups get-team-groups-api](gf_sync-team-groups_get-team-groups-api.md)	 - Gets external groups
-* [gf sync-team-groups remove-team-group-api-query](gf_sync-team-groups_remove-team-group-api-query.md)	 - 
-* [gf sync-team-groups search-team-groups](gf_sync-team-groups_search-team-groups.md)	 - 
+* [gf sync-team-groups remove-team-group-api-query](gf_sync-team-groups_remove-team-group-api-query.md)	 - Removes external group
+* [gf sync-team-groups search-team-groups](gf_sync-team-groups_search-team-groups.md)	 - Searches for team groups with optional filtering and pagination
 

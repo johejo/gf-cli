@@ -27,8 +27,8 @@ gf annotations [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf annotations get-annotation-tags](gf_annotations_get-annotation-tags.md)	 - 
-* [gf annotations get-annotations](gf_annotations_get-annotations.md)	 - 
+* [gf annotations get-annotation-tags](gf_annotations_get-annotation-tags.md)	 - Finds annotations tags
+* [gf annotations get-annotations](gf_annotations_get-annotations.md)	 - Finds annotations
 * [gf annotations mass-delete-annotations](gf_annotations_mass-delete-annotations.md)	 - Deletes multiple annotations
 * [gf annotations patch-annotation](gf_annotations_patch-annotation.md)	 - Patches annotation
 * [gf annotations post-annotation](gf_annotations_post-annotation.md)	 - Creates annotation

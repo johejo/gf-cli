@@ -1,6 +1,6 @@
 ## gf teams search-teams
 
-
+Teams search with paging
 
 ```
 gf teams search-teams [flags]

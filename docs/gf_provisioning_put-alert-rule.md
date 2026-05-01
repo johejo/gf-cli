@@ -1,8 +1,10 @@
 ## gf provisioning put-alert-rule
 
-
+Updates an existing alert rule
 
 ### Synopsis
+
+Updates an existing alert rule
 
 Body schema (ProvisionedAlertRule):
 {

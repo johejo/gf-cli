@@ -1,8 +1,12 @@
 ## gf quota update-user-quota
 
-
+Updates user quota
 
 ### Synopsis
+
+Updates user quota
+
+If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.quotas:update` and scope `global.users:1` (userIDScope).
 
 Body schema (UpdateQuotaCmd):
 {

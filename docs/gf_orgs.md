@@ -33,8 +33,8 @@ gf orgs [flags]
 * [gf orgs get-org-users](gf_orgs_get-org-users.md)	 - Gets users in organization
 * [gf orgs remove-org-user](gf_orgs_remove-org-user.md)	 - Deletes user in current organization
 * [gf orgs search-org-users](gf_orgs_search-org-users.md)	 - Searches users in organization
-* [gf orgs search-orgs](gf_orgs_search-orgs.md)	 - 
+* [gf orgs search-orgs](gf_orgs_search-orgs.md)	 - Searches all organizations
 * [gf orgs update-org](gf_orgs_update-org.md)	 - Updates organization
 * [gf orgs update-org-address](gf_orgs_update-org-address.md)	 - Updates organization s address
-* [gf orgs update-org-user](gf_orgs_update-org-user.md)	 - 
+* [gf orgs update-org-user](gf_orgs_update-org-user.md)	 - Updates users in organization
 

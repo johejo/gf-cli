@@ -27,12 +27,12 @@ gf service-accounts [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf service-accounts create-service-account](gf_service-accounts_create-service-account.md)	 - 
-* [gf service-accounts create-token](gf_service-accounts_create-token.md)	 - 
+* [gf service-accounts create-service-account](gf_service-accounts_create-service-account.md)	 - Creates service account
+* [gf service-accounts create-token](gf_service-accounts_create-token.md)	 - Creates new token adds a token to a service account
 * [gf service-accounts delete-service-account](gf_service-accounts_delete-service-account.md)	 - Deletes service account
 * [gf service-accounts delete-token](gf_service-accounts_delete-token.md)	 - Deletes token deletes service account tokens
 * [gf service-accounts list-tokens](gf_service-accounts_list-tokens.md)	 - Gets service account tokens
 * [gf service-accounts retrieve-service-account](gf_service-accounts_retrieve-service-account.md)	 - Gets single serviceaccount by Id
-* [gf service-accounts search-org-service-accounts-with-paging](gf_service-accounts_search-org-service-accounts-with-paging.md)	 - 
-* [gf service-accounts update-service-account](gf_service-accounts_update-service-account.md)	 - 
+* [gf service-accounts search-org-service-accounts-with-paging](gf_service-accounts_search-org-service-accounts-with-paging.md)	 - Searches service accounts with paging
+* [gf service-accounts update-service-account](gf_service-accounts_update-service-account.md)	 - Updates service account
 

@@ -1,5 +1,9 @@
 ## gf dashboards interpolate-dashboard
 
+
+
+### Synopsis
+
 Interpolates dashboard this is an experimental endpoint under dashboard library or suggested dashboards feature flags and is subject to change
 
 ```
