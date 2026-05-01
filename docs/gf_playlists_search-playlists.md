@@ -2,6 +2,12 @@
 
 Gets playlists
 
+### Synopsis
+
+Gets playlists
+
+Please refer to [new API](?api=playlist.grafana.app-v1).
+
 ```
 gf playlists search-playlists [flags]
 ```

@@ -6,46 +6,46 @@ Gets dashboard by uid
 
 Gets dashboard by uid
 
+Optional query parameter `apiVersion` selects the Kubernetes API version used to load the dashboard first (for example `v1beta1`). If that request fails, the default version is used instead. When omitted, only the default is used.
+
 Will return the dashboard given the dashboard unique identifier (uid).
 
+Use: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}
+
 Response schema (GetDashboardByUIDOK.Payload):
-  dashboard                                           object
-  meta                                                object
-  meta.annotationsPermissions                         object
-  meta.annotationsPermissions.dashboard               object
-  meta.annotationsPermissions.dashboard.canAdd        boolean
-  meta.annotationsPermissions.dashboard.canDelete     boolean
-  meta.annotationsPermissions.dashboard.canEdit       boolean
-  meta.annotationsPermissions.organization            object
-  meta.annotationsPermissions.organization.canAdd     boolean
-  meta.annotationsPermissions.organization.canDelete  boolean
-  meta.annotationsPermissions.organization.canEdit    boolean
-  meta.apiVersion                                     string
-  meta.canAdmin                                       boolean
-  meta.canDelete                                      boolean
-  meta.canEdit                                        boolean
-  meta.canSave                                        boolean
-  meta.canStar                                        boolean
-  meta.created                                        string
-  meta.createdBy                                      string
-  meta.expires                                        string
-  meta.folderId                                       number   Deprecated: use FolderUID instead
-  meta.folderTitle                                    string
-  meta.folderUid                                      string
-  meta.folderUrl                                      string
-  meta.hasAcl                                         boolean
-  meta.isFolder                                       boolean
-  meta.isSnapshot                                     boolean
-  meta.isStarred                                      boolean
-  meta.provisioned                                    boolean
-  meta.provisionedExternalId                          string
-  meta.publicDashboardEnabled                         boolean
-  meta.slug                                           string
-  meta.type                                           string
-  meta.updated                                        string
-  meta.updatedBy                                      string
-  meta.url                                            string
-  meta.version                                        number
+  dashboard                                        object
+  meta                                             object
+  meta.annotationsPermissions                      object
+  meta.annotationsPermissions.dashboard            object
+  meta.annotationsPermissions.dashboard.canAdd     boolean
+  meta.annotationsPermissions.dashboard.canDelete  boolean
+  meta.annotationsPermissions.dashboard.canEdit    boolean
+  meta.apiVersion                                  string
+  meta.canAdmin                                    boolean
+  meta.canDelete                                   boolean
+  meta.canEdit                                     boolean
+  meta.canSave                                     boolean
+  meta.canStar                                     boolean
+  meta.created                                     string
+  meta.createdBy                                   string
+  meta.expires                                     string
+  meta.folderId                                    number   Deprecated: use FolderUID instead
+  meta.folderTitle                                 string
+  meta.folderUid                                   string
+  meta.folderUrl                                   string
+  meta.hasAcl                                      boolean
+  meta.isFolder                                    boolean
+  meta.isSnapshot                                  boolean
+  meta.isStarred                                   boolean
+  meta.provisioned                                 boolean
+  meta.provisionedExternalId                       string
+  meta.publicDashboardEnabled                      boolean
+  meta.slug                                        string
+  meta.type                                        string
+  meta.updated                                     string
+  meta.updatedBy                                   string
+  meta.url                                         string
+  meta.version                                     number
 
 ```
 gf dashboards get-dashboard-by-uid [flags]

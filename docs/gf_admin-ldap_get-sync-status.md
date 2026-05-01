@@ -1,4 +1,4 @@
-## gf ldap-debug get-sync-status
+## gf admin-ldap get-sync-status
 
 Returns the current state of the LDAP background sync integration
 
@@ -22,7 +22,7 @@ Response schema (GetSyncStatusOK.Payload):
   schedule                      string
 
 ```
-gf ldap-debug get-sync-status [flags]
+gf admin-ldap get-sync-status [flags]
 ```
 
 ### Options
@@ -47,5 +47,5 @@ gf ldap-debug get-sync-status [flags]
 
 ### SEE ALSO
 
-* [gf ldap-debug](gf_ldap-debug.md)	 - Ldap debug API
+* [gf admin-ldap](gf_admin-ldap.md)	 - Admin ldap API
 

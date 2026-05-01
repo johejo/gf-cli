@@ -13,6 +13,9 @@ gf-dashboards-restore-dashboard-version-by-uid - Restores a dashboard to a given
 Restores a dashboard to a given dashboard version using UID
 
 .PP
+This API will be removed when /apis/dashboards.grafana.app/v1 is released. You can restore a dashboard by reading it from history, then creating it again.
+
+.PP
 Body schema (RestoreDashboardVersionCommand):
   version  number
 

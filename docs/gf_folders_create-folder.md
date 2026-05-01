@@ -8,6 +8,8 @@ Creates folder
 
 If nested folders are enabled then it additionally expects the parent folder UID.
 
+Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}
+
 Body schema (CreateFolderCommand):
   description  string
   parentUid    string

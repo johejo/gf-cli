@@ -1,4 +1,4 @@
-## gf access-control-provisioning admin-provisioning-reload-access-control
+## gf admin-provisioning admin-provisioning-reload-access-control
 
 Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol
 
@@ -14,7 +14,7 @@ Response schema (AdminProvisioningReloadAccessControlAccepted.Payload):
                    For example, a 412 Precondition Failed error may include additional information of why that error happened.
 
 ```
-gf access-control-provisioning admin-provisioning-reload-access-control [flags]
+gf admin-provisioning admin-provisioning-reload-access-control [flags]
 ```
 
 ### Options
@@ -39,5 +39,5 @@ gf access-control-provisioning admin-provisioning-reload-access-control [flags]
 
 ### SEE ALSO
 
-* [gf access-control-provisioning](gf_access-control-provisioning.md)	 - Access control provisioning API
+* [gf admin-provisioning](gf_admin-provisioning.md)	 - Admin provisioning API
 

@@ -6,6 +6,8 @@ Updates playlist
 
 Updates playlist
 
+Please refer to [new API](?api=playlist.grafana.app-v1).
+
 Body schema (UpdatePlaylistCommand):
   interval            string
   items               array<object>

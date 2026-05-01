@@ -8,6 +8,8 @@ Deletes dashboard by uid
 
 Will delete the dashboard given the specified unique identifier (uid).
 
+Use: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}
+
 Response schema (DeleteDashboardByUIDOK.Payload):
   message  string  REQUIRED
                    Message Message of the deleted dashboard.

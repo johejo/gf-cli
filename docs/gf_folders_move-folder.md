@@ -6,6 +6,8 @@ Moves folder
 
 Moves folder
 
+Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}, Changing the parent folder annotation
+
 Body schema (MoveFolderCommand):
   parentUid  string
 

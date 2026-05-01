@@ -62,18 +62,9 @@ Body schema (ProvisionedAlertRule):
                                                                     Name of the recorded metric.
   record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
   ruleGroup                                    string               REQUIRED
-                                                                    rule group
-                                                                    Max Length: 190
-                                                                    Min Length: 1
   title                                        string               REQUIRED
-                                                                    title
-                                                                    Max Length: 190
-                                                                    Min Length: 1
-  uid                                          string               uid
-                                                                    Max Length: 40
-                                                                    Min Length: 1
-  updated                                      string               updated
-                                                                    Read Only: true
+  uid                                          string
+  updated                                      string
 
 Response schema (PostAlertRuleCreated.Payload):
   annotations                                  map<string, string>
@@ -131,18 +122,9 @@ Response schema (PostAlertRuleCreated.Payload):
                                                                     Name of the recorded metric.
   record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
   ruleGroup                                    string               REQUIRED
-                                                                    rule group
-                                                                    Max Length: 190
-                                                                    Min Length: 1
   title                                        string               REQUIRED
-                                                                    title
-                                                                    Max Length: 190
-                                                                    Min Length: 1
-  uid                                          string               uid
-                                                                    Max Length: 40
-                                                                    Min Length: 1
-  updated                                      string               updated
-                                                                    Read Only: true
+  uid                                          string
+  updated                                      string
 
 ```
 gf provisioning post-alert-rule [flags]

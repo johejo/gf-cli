@@ -2,20 +2,6 @@
 
 Searches for team groups with optional filtering and pagination
 
-### Synopsis
-
-Searches for team groups with optional filtering and pagination
-
-Response schema (SearchTeamGroupsOK.Payload):
-  page                  number
-  perPage               number
-  teamGroups            array<object>
-  teamGroups[].groupId  string
-  teamGroups[].orgId    number
-  teamGroups[].teamId   number
-  teamGroups[].uid      string
-  totalCount            number
-
 ```
 gf sync-team-groups search-team-groups [flags]
 ```

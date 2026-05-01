@@ -6,6 +6,8 @@ Creates playlist
 
 Creates playlist
 
+Please refer to [new API](?api=playlist.grafana.app-v1).
+
 Body schema (CreatePlaylistCommand):
   interval            string
   items               array<object>

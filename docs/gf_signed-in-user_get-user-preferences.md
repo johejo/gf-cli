@@ -7,21 +7,17 @@ Gets user preferences
 Gets user preferences
 
 Response schema (GetUserPreferencesOK.Payload):
-  cookiePreferences              object
-  cookiePreferences.analytics    object
-  cookiePreferences.functional   object
-  cookiePreferences.performance  object
-  homeDashboardUID               string         UID for the home dashboard
-  language                       string         Selected language (beta)
-  navbar                         object
-  navbar.bookmarkUrls            array<string>
-  queryHistory                   object
-  queryHistory.homeTab           string         one of: '' | 'query' | 'starred';
-  regionalFormat                 string         Selected locale (beta)
-  theme                          string         light, dark, empty is default
-  timezone                       string         The timezone selection
-                                                TODO: this should use the timezone defined in common
-  weekStart                      string         day of the week (sunday, monday, etc)
+  homeDashboardUID      string         UID for the home dashboard
+  language              string         Selected language (beta)
+  navbar                object
+  navbar.bookmarkUrls   array<string>
+  queryHistory          object
+  queryHistory.homeTab  string         one of: '' | 'query' | 'starred';
+  regionalFormat        string         Selected locale (beta)
+  theme                 string         light, dark, empty is default
+  timezone              string         The timezone selection
+                                       TODO: this should use the timezone defined in common
+  weekStart             string         day of the week (sunday, monday, etc)
 
 ```
 gf signed-in-user get-user-preferences [flags]

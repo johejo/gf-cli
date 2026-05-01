@@ -175,18 +175,7 @@ Response schema (RetrieveJWKSOK.Payload):
   keys[].Certificates[].Subject.SerialNumber                  string
   keys[].Certificates[].Subject.StreetAddress                 array<string>
   keys[].Certificates[].SubjectKeyId                          array<number>
-  keys[].Certificates[].URIs                                  array<object>
-  keys[].Certificates[].URIs[].ForceQuery                     boolean
-  keys[].Certificates[].URIs[].Fragment                       string
-  keys[].Certificates[].URIs[].Host                           string
-  keys[].Certificates[].URIs[].OmitHost                       boolean
-  keys[].Certificates[].URIs[].Opaque                         string
-  keys[].Certificates[].URIs[].Path                           string
-  keys[].Certificates[].URIs[].RawFragment                    string
-  keys[].Certificates[].URIs[].RawPath                        string
-  keys[].Certificates[].URIs[].RawQuery                       string
-  keys[].Certificates[].URIs[].Scheme                         string
-  keys[].Certificates[].URIs[].User                           object
+  keys[].Certificates[].URIs                                  array<string>
   keys[].Certificates[].UnhandledCriticalExtensions           array<array<number>>  UnhandledCriticalExtensions contains a list of extension IDs that
                                                                                     were not (fully) processed when parsing. Verify will fail if this
                                                                                     slice is non-empty, unless verification is delegated to an OS
@@ -196,18 +185,7 @@ Response schema (RetrieveJWKSOK.Payload):
                                                                                     handled.
   keys[].Certificates[].UnknownExtKeyUsage                    array<array<number>>
   keys[].Certificates[].Version                               number
-  keys[].CertificatesURL                                      object
-  keys[].CertificatesURL.ForceQuery                           boolean
-  keys[].CertificatesURL.Fragment                             string
-  keys[].CertificatesURL.Host                                 string
-  keys[].CertificatesURL.OmitHost                             boolean
-  keys[].CertificatesURL.Opaque                               string
-  keys[].CertificatesURL.Path                                 string
-  keys[].CertificatesURL.RawFragment                          string
-  keys[].CertificatesURL.RawPath                              string
-  keys[].CertificatesURL.RawQuery                             string
-  keys[].CertificatesURL.Scheme                               string
-  keys[].CertificatesURL.User                                 object
+  keys[].CertificatesURL                                      string
   keys[].Key                                                  object                Key is the Go in-memory representation of this key. It must have one
                                                                                     of these types:
                                                                                     ed25519.PublicKey

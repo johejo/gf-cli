@@ -8,24 +8,24 @@ Gets a correlation
 
 Response schema (GetCorrelationOK.Payload):
   config                               object
-  config.field                         string         REQUIRED
-                                                      Field used to attach the correlation link
-  config.target                        object         REQUIRED
-                                                      Target data query
+  config.field                         string               REQUIRED
+                                                            Field used to attach the correlation link
+  config.target                        map<string, object>  REQUIRED
+                                                            Target data query
   config.transformations               array<object>
   config.transformations[].expression  string
   config.transformations[].field       string
   config.transformations[].mapValue    string
-  config.transformations[].type        string         enum: regex | logfmt
+  config.transformations[].type        string               enum: regex | logfmt
   config.type                          string
-  description                          string         Description of the correlation
-  label                                string         Label identifying the correlation
-  orgId                                number         OrgID of the data source the correlation originates from
-  provisioned                          boolean        Provisioned True if the correlation was created during provisioning
-  sourceUID                            string         UID of the data source the correlation originates from
-  targetUID                            string         UID of the data source the correlation points to
+  description                          string               Description of the correlation
+  label                                string               Label identifying the correlation
+  orgId                                number               OrgID of the data source the correlation originates from
+  provisioned                          boolean              Provisioned True if the correlation was created during provisioning
+  sourceUID                            string               UID of the data source the correlation originates from
+  targetUID                            string               UID of the data source the correlation points to
   type                                 string
-  uid                                  string         Unique identifier of the correlation
+  uid                                  string               Unique identifier of the correlation
 
 ```
 gf datasources get-correlation [flags]

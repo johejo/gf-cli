@@ -15,7 +15,7 @@ Body schema (RecordingRuleJSON):
   interval              number
   name                  string
   prom_name             string
-  queries               array<object>
+  queries               array<map<string, object>>
   range                 number
   target_ref_id         string
 

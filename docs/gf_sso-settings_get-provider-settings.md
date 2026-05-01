@@ -11,7 +11,7 @@ You need to have a permission with action `settings:read` with scope `settings:a
 Response schema (GetProviderSettingsOK.Payload):
   id        string
   provider  string
-  settings  object
+  settings  map<string, object>
   source    string
 
 ```

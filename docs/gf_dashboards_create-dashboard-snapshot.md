@@ -13,7 +13,6 @@ Body schema (CreateDashboardSnapshotCommand):
                        Servers should convert recognized schemas to the latest internal value, and
                        may reject unrecognized values.
                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-                       +optional
   dashboard   object   REQUIRED
   deleteKey   string   Unique key used to delete the snapshot. It is different from the `key` so that only the creator can delete the snapshot. Required if `external` is `true`.
   expires     number   When the snapshot should expire in seconds in seconds. Default is never to expire.
@@ -25,7 +24,6 @@ Body schema (CreateDashboardSnapshotCommand):
                        Cannot be updated.
                        In CamelCase.
                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-                       +optional
   name        string   Snapshot name
 
 Response schema (CreateDashboardSnapshotOK.Payload):

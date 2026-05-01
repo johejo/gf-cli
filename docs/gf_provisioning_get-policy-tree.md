@@ -15,10 +15,9 @@ Response schema (GetPolicyTreeOK.Payload):
   match                  map<string, string>   Deprecated. Remove before v1.0 release.
   match_re               map<string, string>
   matchers               array<object>
-  matchers[].isEqual     boolean
-  matchers[].isRegex     boolean               REQUIRED
-  matchers[].name        string                REQUIRED
-  matchers[].value       string                REQUIRED
+  matchers[].Name        string
+  matchers[].Type        number
+  matchers[].Value       string
   mute_time_intervals    array<string>
   object_matchers        array<array<string>>
   provenance             string

@@ -301,6 +301,161 @@ type CreateThing struct {
 	}
 }
 
+func TestExtractEnumValues(t *testing.T) {
+	t.Parallel()
+
+	src := `package models
+
+type T struct {
+	// Enum: [active pending expired]
+	A string ` + "`json:\"a\"`" + `
+
+	// Enum: ["None","Viewer","Editor","Admin"]
+	B string ` + "`json:\"b\"`" + `
+
+	// Enum: [[expired active pending]]
+	C string ` + "`json:\"c\"`" + `
+
+	// Enum: [1]
+	D int64 ` + "`json:\"d\"`" + `
+
+	// Enum: ["regex","logfmt"]
+	E string ` + "`json:\"e\"`" + `
+
+	// no enum
+	F string ` + "`json:\"f\"`" + `
+}
+`
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, "t.go", src, parser.ParseComments)
+	if err != nil {
+		t.Fatalf("parse: %v", err)
+	}
+	st := findStructType(f, "T")
+	if st == nil {
+		t.Fatal("struct T not found")
+	}
+	got := make(map[string][]string)
+	for _, field := range st.Fields.List {
+		got[field.Names[0].Name] = extractEnumValues(field.Doc)
+	}
+	want := map[string][]string{
+		"A": {"active", "pending", "expired"},
+		"B": {"None", "Viewer", "Editor", "Admin"},
+		"C": {"expired", "active", "pending"},
+		"D": {"1"},
+		"E": {"regex", "logfmt"},
+		"F": nil,
+	}
+	for k, w := range want {
+		g := got[k]
+		if len(g) != len(w) {
+			t.Errorf("%s: got %v, want %v", k, g, w)
+			continue
+		}
+		for i := range w {
+			if g[i] != w[i] {
+				t.Errorf("%s[%d]: got %q, want %q", k, i, g[i], w[i])
+			}
+		}
+	}
+}
+
+func TestBuildBodyJSONSchemaEmbeddedAllOf(t *testing.T) {
+	src := `package models
+
+type AllOf0 struct {
+	Dashboard string ` + "`json:\"dashboard,omitempty\"`" + `
+}
+
+type AllOf1 struct {
+	Meta string ` + "`json:\"meta,omitempty\"`" + `
+
+	// Required: true
+	Title string ` + "`json:\"title\"`" + `
+}
+
+type Combined struct {
+	AllOf0
+	AllOf1
+}
+`
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, "models.go", src, parser.ParseComments)
+	if err != nil {
+		t.Fatalf("parse: %v", err)
+	}
+	b := &jsonSchemaBuilder{files: []*ast.File{f}, visited: map[string]bool{}}
+	out, err := jsonIndent(b.structSchema("Combined"))
+	if err != nil {
+		t.Fatalf("marshal: %v", err)
+	}
+	want := `{
+  "type": "object",
+  "properties": {
+    "dashboard": {
+      "type": "string"
+    },
+    "meta": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}`
+	if string(out) != want {
+		t.Fatalf("schema mismatch\n got: %s\nwant: %s", out, want)
+	}
+}
+
+func TestBuildBodyJSONSchemaTypedEnum(t *testing.T) {
+	src := `package models
+
+type T struct {
+	// Enum: [1]
+	Kind int64 ` + "`json:\"kind,omitempty\"`" + `
+
+	// Enum: ["a","b"]
+	Mode string ` + "`json:\"mode,omitempty\"`" + `
+}
+`
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, "models.go", src, parser.ParseComments)
+	if err != nil {
+		t.Fatalf("parse: %v", err)
+	}
+	b := &jsonSchemaBuilder{files: []*ast.File{f}, visited: map[string]bool{}}
+	out, err := jsonIndent(b.structSchema("T"))
+	if err != nil {
+		t.Fatalf("marshal: %v", err)
+	}
+	want := `{
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "number",
+      "enum": [
+        1
+      ]
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "a",
+        "b"
+      ]
+    }
+  }
+}`
+	if string(out) != want {
+		t.Fatalf("schema mismatch\n got: %s\nwant: %s", out, want)
+	}
+}
+
 func TestRenderType(t *testing.T) {
 	t.Parallel()
 

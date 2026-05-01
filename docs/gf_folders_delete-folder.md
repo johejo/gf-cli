@@ -8,6 +8,8 @@ Deletes folder
 
 Deletes an existing folder identified by UID along with all dashboards (and their alerts) stored in the folder. This operation cannot be reverted. If nested folders are enabled then it also deletes all the subfolders.
 
+Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}
+
 Response schema (DeleteFolderOK.Payload):
   id       number  REQUIRED
                    ID Identifier of the deleted folder.

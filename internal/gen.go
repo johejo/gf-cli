@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/grafana/grafana-openapi-client-go/client/access_control"
-	"github.com/grafana/grafana-openapi-client-go/client/access_control_provisioning"
 	"github.com/grafana/grafana-openapi-client-go/client/admin"
 	"github.com/grafana/grafana-openapi-client-go/client/admin_ldap"
 	"github.com/grafana/grafana-openapi-client-go/client/admin_provisioning"
@@ -19,7 +18,6 @@ import (
 	"github.com/grafana/grafana-openapi-client-go/client/folders"
 	"github.com/grafana/grafana-openapi-client-go/client/group_attribute_sync"
 	"github.com/grafana/grafana-openapi-client-go/client/health"
-	"github.com/grafana/grafana-openapi-client-go/client/ldap_debug"
 	"github.com/grafana/grafana-openapi-client-go/client/library_elements"
 	"github.com/grafana/grafana-openapi-client-go/client/licensing"
 	"github.com/grafana/grafana-openapi-client-go/client/migrations"
@@ -273,9 +271,6 @@ var (
     },
     "uid": {
       "type": "string"
-    },
-    "version": {
-      "type": "number"
     }
   }
 }`
@@ -373,8 +368,7 @@ var (
   permissions[].created  string
   permissions[].scope    string
   permissions[].updated  string
-  uid                    string
-  version                number`,
+  uid                    string`,
 			"responseSchema": `Response schema (CreateRoleCreated.Payload):
   created                string         REQUIRED
   delegatable            boolean
@@ -1036,6 +1030,7 @@ var (
 				&access_control.ListRolesParams{
 					Delegatable:   &accessControlListRolesFlag.Delegatable,
 					IncludeHidden: &accessControlListRolesFlag.IncludeHidden,
+					TargetOrgID:   &accessControlListRolesFlag.TargetOrgID,
 				},
 			)
 			if accessControlListRolesFlag.Raw && hasRawResponse() {
@@ -1089,9 +1084,10 @@ var (
 			if err != nil {
 				return err
 			}
-			resp, err := api.AccessControl.ListTeamRolesWithParams(
+			resp, err := api.AccessControl.ListTeamRoles(
 				&access_control.ListTeamRolesParams{
-					TeamID: accessControlListTeamRolesFlag.TeamID,
+					TargetOrgID: &accessControlListTeamRolesFlag.TargetOrgID,
+					TeamID:      accessControlListTeamRolesFlag.TeamID,
 				},
 			)
 			if accessControlListTeamRolesFlag.Raw && hasRawResponse() {
@@ -1372,9 +1368,11 @@ var (
 			if err != nil {
 				return err
 			}
-			resp, err := api.AccessControl.ListUserRolesWithParams(
+			resp, err := api.AccessControl.ListUserRoles(
 				&access_control.ListUserRolesParams{
-					UserID: accessControlListUserRolesFlag.UserID,
+					IncludeHidden: &accessControlListUserRolesFlag.IncludeHidden,
+					TargetOrgID:   &accessControlListUserRolesFlag.TargetOrgID,
+					UserID:        accessControlListUserRolesFlag.UserID,
 				},
 			)
 			if accessControlListUserRolesFlag.Raw && hasRawResponse() {
@@ -2199,10 +2197,11 @@ var (
 			if err := body.Validate(nil); err != nil {
 				return fmt.Errorf("body validation failed: %w", err)
 			}
-			resp, err := api.AccessControl.SetTeamRolesWithParams(
+			resp, err := api.AccessControl.SetTeamRoles(
 				&access_control.SetTeamRolesParams{
-					Body:   &body,
-					TeamID: accessControlSetTeamRolesFlag.TeamID,
+					Body:        &body,
+					TargetOrgID: &accessControlSetTeamRolesFlag.TargetOrgID,
+					TeamID:      accessControlSetTeamRolesFlag.TeamID,
 				},
 			)
 			if accessControlSetTeamRolesFlag.Raw && hasRawResponse() {
@@ -2290,10 +2289,11 @@ var (
 			if err := body.Validate(nil); err != nil {
 				return fmt.Errorf("body validation failed: %w", err)
 			}
-			resp, err := api.AccessControl.SetUserRolesWithParams(
+			resp, err := api.AccessControl.SetUserRoles(
 				&access_control.SetUserRolesParams{
-					Body:   &body,
-					UserID: accessControlSetUserRolesFlag.UserID,
+					Body:        &body,
+					TargetOrgID: &accessControlSetUserRolesFlag.TargetOrgID,
+					UserID:      accessControlSetUserRolesFlag.UserID,
 				},
 			)
 			if accessControlSetUserRolesFlag.Raw && hasRawResponse() {
@@ -2356,9 +2356,6 @@ var (
           }
         }
       }
-    },
-    "version": {
-      "type": "number"
     }
   },
   "required": [
@@ -2459,8 +2456,7 @@ var (
   permissions[].action   string
   permissions[].created  string
   permissions[].scope    string
-  permissions[].updated  string
-  version                number`,
+  permissions[].updated  string`,
 			"responseSchema": `Response schema (UpdateRoleOK.Payload):
   created                string         REQUIRED
   delegatable            boolean
@@ -2581,10 +2577,12 @@ var (
 	accessControlListRolesFlag = struct {
 		Delegatable                bool
 		IncludeHidden              bool
+		TargetOrgID                int64
 		DescribeResponseJSONSchema bool
 		Raw                        bool
 	}{}
 	accessControlListTeamRolesFlag = struct {
+		TargetOrgID                int64
 		TeamID                     int64
 		DescribeResponseJSONSchema bool
 		Raw                        bool
@@ -2596,6 +2594,8 @@ var (
 		Raw                        bool
 	}{}
 	accessControlListUserRolesFlag = struct {
+		IncludeHidden              bool
+		TargetOrgID                int64
 		UserID                     int64
 		DescribeResponseJSONSchema bool
 		Raw                        bool
@@ -2663,6 +2663,7 @@ var (
 	}{}
 	accessControlSetTeamRolesFlag = struct {
 		Body                       string
+		TargetOrgID                int64
 		TeamID                     int64
 		DescribeBodyJSONSchema     bool
 		DescribeResponseJSONSchema bool
@@ -2670,6 +2671,7 @@ var (
 	}{}
 	accessControlSetUserRolesFlag = struct {
 		Body                       string
+		TargetOrgID                int64
 		UserID                     int64
 		DescribeBodyJSONSchema     bool
 		DescribeResponseJSONSchema bool
@@ -2679,83 +2681,6 @@ var (
 		Body                       string
 		RoleUID                    string
 		DescribeBodyJSONSchema     bool
-		DescribeResponseJSONSchema bool
-		Raw                        bool
-	}{}
-	accessControlProvisioningCmd = &cobra.Command{
-		Use:               "access-control-provisioning",
-		Short:             "Access control provisioning API",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	accessControlProvisioningAdminProvisioningReloadAccessControlResponseJSONSchema = `{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "AdminProvisioningReloadAccessControlAccepted.Payload",
-  "type": "object",
-  "properties": {
-    "error": {
-      "type": "string",
-      "description": "Error An optional detailed description of the actual error. Only included if running in developer mode."
-    },
-    "message": {
-      "type": "string",
-      "description": "a human readable version of the error"
-    },
-    "status": {
-      "type": "string",
-      "description": "Status An optional status to denote the cause of the error.\nFor example, a 412 Precondition Failed error may include additional information of why that error happened."
-    }
-  },
-  "required": [
-    "message"
-  ]
-}`
-	accessControlProvisioningAdminProvisioningReloadAccessControlCmd = &cobra.Command{
-		Use:   "admin-provisioning-reload-access-control",
-		Short: "Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol",
-		Annotations: map[string]string{
-			"responseSchema": `Response schema (AdminProvisioningReloadAccessControlAccepted.Payload):
-  error    string  Error An optional detailed description of the actual error. Only included if running in developer mode.
-  message  string  REQUIRED
-                   a human readable version of the error
-  status   string  Status An optional status to denote the cause of the error.
-                   For example, a 412 Precondition Failed error may include additional information of why that error happened.`,
-		},
-		DisableAutoGenTag: true,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
-			if accessControlProvisioningAdminProvisioningReloadAccessControlFlag.DescribeResponseJSONSchema {
-				describeResponseJSONSchema(accessControlProvisioningAdminProvisioningReloadAccessControlResponseJSONSchema)
-			}
-			return nil
-		},
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.AccessControlProvisioning.AdminProvisioningReloadAccessControlWithParams(
-				&access_control_provisioning.AdminProvisioningReloadAccessControlParams{},
-			)
-			if accessControlProvisioningAdminProvisioningReloadAccessControlFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
-				}
-				return err
-			}
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	accessControlProvisioningAdminProvisioningReloadAccessControlFlag = struct {
 		DescribeResponseJSONSchema bool
 		Raw                        bool
 	}{}
@@ -3032,6 +2957,113 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	adminLdapGetSyncStatusResponseJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GetSyncStatusOK.Payload",
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "type": "boolean"
+    },
+    "nextSync": {
+      "type": "string"
+    },
+    "prevSync": {
+      "type": "object",
+      "properties": {
+        "Elapsed": {
+          "type": "number"
+        },
+        "FailedUsers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Error": {
+                "type": "string"
+              },
+              "Login": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "MissingUserIds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "Started": {
+          "type": "string"
+        },
+        "UpdatedUserIds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "schedule": {
+      "type": "string"
+    }
+  }
+}`
+	adminLdapGetSyncStatusCmd = &cobra.Command{
+		Use:   "get-sync-status",
+		Short: "Returns the current state of the LDAP background sync integration",
+		Long: longHelp(
+			"Returns the current state of the LDAP background sync integration",
+			"You need to have a permission with action `ldap.status:read`.",
+		),
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetSyncStatusOK.Payload):
+  enabled                       boolean
+  nextSync                      string
+  prevSync                      object
+  prevSync.Elapsed              number
+  prevSync.FailedUsers          array<object>
+  prevSync.FailedUsers[].Error  string
+  prevSync.FailedUsers[].Login  string
+  prevSync.MissingUserIds       array<number>
+  prevSync.Started              string
+  prevSync.UpdatedUserIds       array<number>
+  schedule                      string`,
+		},
+		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if adminLdapGetSyncStatusFlag.DescribeResponseJSONSchema {
+				describeResponseJSONSchema(adminLdapGetSyncStatusResponseJSONSchema)
+			}
+			return nil
+		},
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.AdminLDAP.GetSyncStatusWithParams(
+				&admin_ldap.GetSyncStatusParams{},
+			)
+			if adminLdapGetSyncStatusFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
 	adminLdapGetUserFromLDAPResponseJSONSchema = `{
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "GetUserFromLDAPOK.Payload",
@@ -3143,16 +3175,6 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
-	adminLdapReloadLDAPCfgResponseJSONSchema = `{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "ReloadLDAPCfgOK.Payload",
-  "type": "object",
-  "properties": {
-    "message": {
-      "type": "string"
-    }
-  }
-}`
 	adminLdapReloadLDAPCfgCmd = &cobra.Command{
 		Use:   "reload-ldap-cfg",
 		Short: "Reloads the LDAP configuration",
@@ -3160,23 +3182,13 @@ var (
 			"Reloads the LDAP configuration",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.config:reload`.",
 		),
-		Annotations: map[string]string{
-			"responseSchema": `Response schema (ReloadLDAPCfgOK.Payload):
-  message  string`,
-		},
 		DisableAutoGenTag: true,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
-			if adminLdapReloadLDAPCfgFlag.DescribeResponseJSONSchema {
-				describeResponseJSONSchema(adminLdapReloadLDAPCfgResponseJSONSchema)
-			}
-			return nil
-		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			api, err := gfClient()
 			if err != nil {
 				return err
 			}
-			resp, err := api.AdminLDAP.ReloadLDAPCfgWithParams(
+			err = api.AdminLDAP.ReloadLDAPCfgWithParams(
 				&admin_ldap.ReloadLDAPCfgParams{},
 			)
 			if adminLdapReloadLDAPCfgFlag.Raw && hasRawResponse() {
@@ -3194,10 +3206,15 @@ var (
 				}
 				return err
 			}
-			return printPayload(resp.GetPayload())
+			fmt.Println("{}")
+			return nil
 		},
 	}
 	adminLdapGetLDAPStatusFlag = struct {
+		DescribeResponseJSONSchema bool
+		Raw                        bool
+	}{}
+	adminLdapGetSyncStatusFlag = struct {
 		DescribeResponseJSONSchema bool
 		Raw                        bool
 	}{}
@@ -3212,8 +3229,7 @@ var (
 		Raw                        bool
 	}{}
 	adminLdapReloadLDAPCfgFlag = struct {
-		DescribeResponseJSONSchema bool
-		Raw                        bool
+		Raw bool
 	}{}
 	adminProvisioningCmd = &cobra.Command{
 		Use:               "admin-provisioning",
@@ -3221,6 +3237,72 @@ var (
 		DisableAutoGenTag: true,
 		Args:              cobra.NoArgs,
 		Run:               failIfEmptyArgs,
+	}
+	adminProvisioningAdminProvisioningReloadAccessControlResponseJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AdminProvisioningReloadAccessControlAccepted.Payload",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error An optional detailed description of the actual error. Only included if running in developer mode."
+    },
+    "message": {
+      "type": "string",
+      "description": "a human readable version of the error"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status An optional status to denote the cause of the error.\nFor example, a 412 Precondition Failed error may include additional information of why that error happened."
+    }
+  },
+  "required": [
+    "message"
+  ]
+}`
+	adminProvisioningAdminProvisioningReloadAccessControlCmd = &cobra.Command{
+		Use:   "admin-provisioning-reload-access-control",
+		Short: "Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (AdminProvisioningReloadAccessControlAccepted.Payload):
+  error    string  Error An optional detailed description of the actual error. Only included if running in developer mode.
+  message  string  REQUIRED
+                   a human readable version of the error
+  status   string  Status An optional status to denote the cause of the error.
+                   For example, a 412 Precondition Failed error may include additional information of why that error happened.`,
+		},
+		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if adminProvisioningAdminProvisioningReloadAccessControlFlag.DescribeResponseJSONSchema {
+				describeResponseJSONSchema(adminProvisioningAdminProvisioningReloadAccessControlResponseJSONSchema)
+			}
+			return nil
+		},
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			resp, err := api.AdminProvisioning.AdminProvisioningReloadAccessControlWithParams(
+				&admin_provisioning.AdminProvisioningReloadAccessControlParams{},
+			)
+			if adminProvisioningAdminProvisioningReloadAccessControlFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
 	}
 	adminProvisioningAdminProvisioningReloadDashboardsResponseJSONSchema = `{
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -3384,6 +3466,10 @@ var (
 			return printPayload(resp.GetPayload())
 		},
 	}
+	adminProvisioningAdminProvisioningReloadAccessControlFlag = struct {
+		DescribeResponseJSONSchema bool
+		Raw                        bool
+	}{}
 	adminProvisioningAdminProvisioningReloadDashboardsFlag = struct {
 		DescribeResponseJSONSchema bool
 		Raw                        bool
@@ -4220,7 +4306,9 @@ var (
       "dashboardUID": {
         "type": "string"
       },
-      "data": {},
+      "data": {
+        "type": "object"
+      },
       "email": {
         "type": "string"
       },
@@ -4259,6 +4347,9 @@ var (
       },
       "userId": {
         "type": "number"
+      },
+      "userUID": {
+        "type": "string"
       }
     }
   }
@@ -4407,7 +4498,9 @@ var (
   "title": "PatchAnnotationsCmd",
   "type": "object",
   "properties": {
-    "data": {},
+    "data": {
+      "type": "object"
+    },
     "id": {
       "type": "number"
     },
@@ -4513,7 +4606,9 @@ var (
     "dashboardUID": {
       "type": "string"
     },
-    "data": {},
+    "data": {
+      "type": "object"
+    },
     "panelId": {
       "type": "number"
     },
@@ -4632,7 +4727,9 @@ var (
     "data": {
       "type": "string"
     },
-    "tags": {},
+    "tags": {
+      "type": "object"
+    },
     "what": {
       "type": "string"
     },
@@ -4729,7 +4826,9 @@ var (
   "title": "UpdateAnnotationsCmd",
   "type": "object",
   "properties": {
-    "data": {},
+    "data": {
+      "type": "object"
+    },
     "id": {
       "type": "number"
     },
@@ -6335,9 +6434,11 @@ var (
   "properties": {
     "apiVersion": {
       "type": "string",
-      "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources\n+optional"
+      "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
     },
-    "dashboard": {},
+    "dashboard": {
+      "type": "object"
+    },
     "deleteKey": {
       "type": "string",
       "description": "Unique key used to delete the snapshot. It is different from the ` + "`" + `key` + "`" + ` so that only the creator can delete the snapshot. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `."
@@ -6356,7 +6457,7 @@ var (
     },
     "kind": {
       "type": "string",
-      "description": "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds\n+optional"
+      "description": "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
     },
     "name": {
       "type": "string",
@@ -6404,7 +6505,6 @@ var (
                        Servers should convert recognized schemas to the latest internal value, and
                        may reject unrecognized values.
                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-                       +optional
   dashboard   object   REQUIRED
   deleteKey   string   Unique key used to delete the snapshot. It is different from the ` + "`" + `key` + "`" + ` so that only the creator can delete the snapshot. Required if ` + "`" + `external` + "`" + ` is ` + "`" + `true` + "`" + `.
   expires     number   When the snapshot should expire in seconds in seconds. Default is never to expire.
@@ -6416,7 +6516,6 @@ var (
                        Cannot be updated.
                        In CamelCase.
                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-                       +optional
   name        string   Snapshot name`,
 			"responseSchema": `Response schema (CreateDashboardSnapshotOK.Payload):
   deleteKey  string  Unique key used to delete the snapshot. It is different from the key so that only the creator can delete the snapshot.
@@ -6652,6 +6751,7 @@ var (
 		Long: longHelp(
 			"Deletes dashboard by uid",
 			"Will delete the dashboard given the specified unique identifier (uid).",
+			"Use: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}",
 		),
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (DeleteDashboardByUIDOK.Payload):
@@ -6863,7 +6963,9 @@ var (
   "title": "GetDashboardByUIDOK.Payload",
   "type": "object",
   "properties": {
-    "dashboard": {},
+    "dashboard": {
+      "type": "object"
+    },
     "meta": {
       "type": "object",
       "properties": {
@@ -6871,20 +6973,6 @@ var (
           "type": "object",
           "properties": {
             "dashboard": {
-              "type": "object",
-              "properties": {
-                "canAdd": {
-                  "type": "boolean"
-                },
-                "canDelete": {
-                  "type": "boolean"
-                },
-                "canEdit": {
-                  "type": "boolean"
-                }
-              }
-            },
-            "organization": {
               "type": "object",
               "properties": {
                 "canAdd": {
@@ -6988,47 +7076,45 @@ var (
 		Short: "Gets dashboard by uid",
 		Long: longHelp(
 			"Gets dashboard by uid",
+			"Optional query parameter `apiVersion` selects the Kubernetes API version used to load the dashboard first (for example `v1beta1`). If that request fails, the default version is used instead. When omitted, only the default is used.",
 			"Will return the dashboard given the dashboard unique identifier (uid).",
+			"Use: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}",
 		),
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (GetDashboardByUIDOK.Payload):
-  dashboard                                           object
-  meta                                                object
-  meta.annotationsPermissions                         object
-  meta.annotationsPermissions.dashboard               object
-  meta.annotationsPermissions.dashboard.canAdd        boolean
-  meta.annotationsPermissions.dashboard.canDelete     boolean
-  meta.annotationsPermissions.dashboard.canEdit       boolean
-  meta.annotationsPermissions.organization            object
-  meta.annotationsPermissions.organization.canAdd     boolean
-  meta.annotationsPermissions.organization.canDelete  boolean
-  meta.annotationsPermissions.organization.canEdit    boolean
-  meta.apiVersion                                     string
-  meta.canAdmin                                       boolean
-  meta.canDelete                                      boolean
-  meta.canEdit                                        boolean
-  meta.canSave                                        boolean
-  meta.canStar                                        boolean
-  meta.created                                        string
-  meta.createdBy                                      string
-  meta.expires                                        string
-  meta.folderId                                       number   Deprecated: use FolderUID instead
-  meta.folderTitle                                    string
-  meta.folderUid                                      string
-  meta.folderUrl                                      string
-  meta.hasAcl                                         boolean
-  meta.isFolder                                       boolean
-  meta.isSnapshot                                     boolean
-  meta.isStarred                                      boolean
-  meta.provisioned                                    boolean
-  meta.provisionedExternalId                          string
-  meta.publicDashboardEnabled                         boolean
-  meta.slug                                           string
-  meta.type                                           string
-  meta.updated                                        string
-  meta.updatedBy                                      string
-  meta.url                                            string
-  meta.version                                        number`,
+  dashboard                                        object
+  meta                                             object
+  meta.annotationsPermissions                      object
+  meta.annotationsPermissions.dashboard            object
+  meta.annotationsPermissions.dashboard.canAdd     boolean
+  meta.annotationsPermissions.dashboard.canDelete  boolean
+  meta.annotationsPermissions.dashboard.canEdit    boolean
+  meta.apiVersion                                  string
+  meta.canAdmin                                    boolean
+  meta.canDelete                                   boolean
+  meta.canEdit                                     boolean
+  meta.canSave                                     boolean
+  meta.canStar                                     boolean
+  meta.created                                     string
+  meta.createdBy                                   string
+  meta.expires                                     string
+  meta.folderId                                    number   Deprecated: use FolderUID instead
+  meta.folderTitle                                 string
+  meta.folderUid                                   string
+  meta.folderUrl                                   string
+  meta.hasAcl                                      boolean
+  meta.isFolder                                    boolean
+  meta.isSnapshot                                  boolean
+  meta.isStarred                                   boolean
+  meta.provisioned                                 boolean
+  meta.provisionedExternalId                       string
+  meta.publicDashboardEnabled                      boolean
+  meta.slug                                        string
+  meta.type                                        string
+  meta.updated                                     string
+  meta.updatedBy                                   string
+  meta.url                                         string
+  meta.version                                     number`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -7155,8 +7241,12 @@ var (
   }
 }`
 	dashboardsGetDashboardPermissionsListByUIDCmd = &cobra.Command{
-		Use:               "get-dashboard-permissions-list-by-uid",
-		Short:             "Gets all existing permissions for the given dashboard",
+		Use:   "get-dashboard-permissions-list-by-uid",
+		Short: "Gets all existing permissions for the given dashboard",
+		Long: longHelp(
+			"Gets all existing permissions for the given dashboard",
+			"Use: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}/access",
+		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsGetDashboardPermissionsListByUIDFlag.DescribeResponseJSONSchema {
@@ -7243,7 +7333,7 @@ var (
 }`
 	dashboardsGetDashboardTagsCmd = &cobra.Command{
 		Use:               "get-dashboard-tags",
-		Short:             "Gets all dashboards tags of an organisation",
+		Short:             "Gets all dashboards tags of an organization",
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsGetDashboardTagsFlag.DescribeResponseJSONSchema {
@@ -7291,7 +7381,9 @@ var (
     "dashboardId": {
       "type": "number"
     },
-    "data": {},
+    "data": {
+      "type": "object"
+    },
     "id": {
       "type": "number"
     },
@@ -7386,7 +7478,9 @@ var (
           "dashboardId": {
             "type": "number"
           },
-          "data": {},
+          "data": {
+            "type": "object"
+          },
           "id": {
             "type": "number"
           },
@@ -7469,11 +7563,158 @@ var (
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "GetHomeDashboardOK.Payload",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "dashboard": {
+      "type": "object"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "annotationsPermissions": {
+          "type": "object",
+          "properties": {
+            "dashboard": {
+              "type": "object",
+              "properties": {
+                "canAdd": {
+                  "type": "boolean"
+                },
+                "canDelete": {
+                  "type": "boolean"
+                },
+                "canEdit": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "apiVersion": {
+          "type": "string"
+        },
+        "canAdmin": {
+          "type": "boolean"
+        },
+        "canDelete": {
+          "type": "boolean"
+        },
+        "canEdit": {
+          "type": "boolean"
+        },
+        "canSave": {
+          "type": "boolean"
+        },
+        "canStar": {
+          "type": "boolean"
+        },
+        "created": {
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "expires": {
+          "type": "string"
+        },
+        "folderId": {
+          "type": "number",
+          "description": "Deprecated: use FolderUID instead"
+        },
+        "folderTitle": {
+          "type": "string"
+        },
+        "folderUid": {
+          "type": "string"
+        },
+        "folderUrl": {
+          "type": "string"
+        },
+        "hasAcl": {
+          "type": "boolean"
+        },
+        "isFolder": {
+          "type": "boolean"
+        },
+        "isSnapshot": {
+          "type": "boolean"
+        },
+        "isStarred": {
+          "type": "boolean"
+        },
+        "provisioned": {
+          "type": "boolean"
+        },
+        "provisionedExternalId": {
+          "type": "string"
+        },
+        "publicDashboardEnabled": {
+          "type": "boolean"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "updated": {
+          "type": "string"
+        },
+        "updatedBy": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "version": {
+          "type": "number"
+        }
+      }
+    },
+    "redirectUri": {
+      "type": "string"
+    }
+  }
 }`
 	dashboardsGetHomeDashboardCmd = &cobra.Command{
-		Use:               "get-home-dashboard",
-		Short:             "Gets home dashboard",
+		Use:   "get-home-dashboard",
+		Short: "NOTE: the home dashboard is configured in preferences.  This API will be removed in G13",
+		Annotations: map[string]string{
+			"responseSchema": `Response schema (GetHomeDashboardOK.Payload):
+  dashboard                                        object
+  meta                                             object
+  meta.annotationsPermissions                      object
+  meta.annotationsPermissions.dashboard            object
+  meta.annotationsPermissions.dashboard.canAdd     boolean
+  meta.annotationsPermissions.dashboard.canDelete  boolean
+  meta.annotationsPermissions.dashboard.canEdit    boolean
+  meta.apiVersion                                  string
+  meta.canAdmin                                    boolean
+  meta.canDelete                                   boolean
+  meta.canEdit                                     boolean
+  meta.canSave                                     boolean
+  meta.canStar                                     boolean
+  meta.created                                     string
+  meta.createdBy                                   string
+  meta.expires                                     string
+  meta.folderId                                    number   Deprecated: use FolderUID instead
+  meta.folderTitle                                 string
+  meta.folderUid                                   string
+  meta.folderUrl                                   string
+  meta.hasAcl                                      boolean
+  meta.isFolder                                    boolean
+  meta.isSnapshot                                  boolean
+  meta.isStarred                                   boolean
+  meta.provisioned                                 boolean
+  meta.provisionedExternalId                       string
+  meta.publicDashboardEnabled                      boolean
+  meta.slug                                        string
+  meta.type                                        string
+  meta.updated                                     string
+  meta.updatedBy                                   string
+  meta.url                                         string
+  meta.version                                     number
+  redirectUri                                      string`,
+		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if dashboardsGetHomeDashboardFlag.DescribeResponseJSONSchema {
@@ -7788,7 +8029,9 @@ var (
   "title": "ImportDashboardRequest",
   "type": "object",
   "properties": {
-    "dashboard": {},
+    "dashboard": {
+      "type": "object"
+    },
     "folderId": {
       "type": "number",
       "description": "Deprecated: use FolderUID instead"
@@ -7960,7 +8203,8 @@ var (
 	}
 	dashboardsInterpolateDashboardResponseJSONSchema = `{
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "InterpolateDashboardOK.Payload"
+  "title": "InterpolateDashboardOK.Payload",
+  "type": "object"
 }`
 	dashboardsInterpolateDashboardCmd = &cobra.Command{
 		Use: "interpolate-dashboard",
@@ -8099,7 +8343,9 @@ var (
     "UpdatedAt": {
       "type": "string"
     },
-    "dashboard": {},
+    "dashboard": {
+      "type": "object"
+    },
     "folderId": {
       "type": "number",
       "description": "Deprecated: use FolderUID instead"
@@ -8170,6 +8416,7 @@ var (
 		Long: longHelp(
 			"Creates update dashboard",
 			"Creates a new dashboard or updates an existing dashboard. Note: This endpoint is not intended for creating folders, use `POST /api/folders` for that.",
+			"Use: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards",
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (SaveDashboardCommand):
@@ -8273,9 +8520,17 @@ var (
                         "type": "object",
                         "properties": {
                           "color": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "object"
+                            },
                             "description": "Map values to a display color\nNOTE: this interface is under development in the frontend... so simple map for now"
                           },
                           "custom": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "object"
+                            },
                             "description": "Panel Specific Values"
                           },
                           "decimals": {
@@ -8315,8 +8570,12 @@ var (
                                     "datasourceUid": {
                                       "type": "string"
                                     },
-                                    "panelsState": {},
-                                    "query": {},
+                                    "panelsState": {
+                                      "type": "object"
+                                    },
+                                    "query": {
+                                      "type": "object"
+                                    },
                                     "timeRange": {
                                       "type": "object",
                                       "properties": {
@@ -8365,7 +8624,9 @@ var (
                           },
                           "mappings": {
                             "type": "array",
-                            "items": {}
+                            "items": {
+                              "type": "object"
+                            }
                           },
                           "max": {
                             "type": "number"
@@ -8477,6 +8738,7 @@ var (
                       "description": "Channel is the path to a stream in grafana live that has real-time updates for this data."
                     },
                     "custom": {
+                      "type": "object",
                       "description": "Custom datasource specific values."
                     },
                     "dataTopic": {
@@ -8530,9 +8792,17 @@ var (
                         "type": "object",
                         "properties": {
                           "color": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "object"
+                            },
                             "description": "Map values to a display color\nNOTE: this interface is under development in the frontend... so simple map for now"
                           },
                           "custom": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "object"
+                            },
                             "description": "Panel Specific Values"
                           },
                           "decimals": {
@@ -8572,8 +8842,12 @@ var (
                                     "datasourceUid": {
                                       "type": "string"
                                     },
-                                    "panelsState": {},
-                                    "query": {},
+                                    "panelsState": {
+                                      "type": "object"
+                                    },
+                                    "query": {
+                                      "type": "object"
+                                    },
                                     "timeRange": {
                                       "type": "object",
                                       "properties": {
@@ -8622,7 +8896,9 @@ var (
                           },
                           "mappings": {
                             "type": "array",
-                            "items": {}
+                            "items": {
+                              "type": "object"
+                            }
                           },
                           "max": {
                             "type": "number"
@@ -8854,6 +9130,10 @@ var (
 	dashboardsRestoreDashboardVersionByUIDCmd = &cobra.Command{
 		Use:   "restore-dashboard-version-by-uid",
 		Short: "Restores a dashboard to a given dashboard version using UID",
+		Long: longHelp(
+			"Restores a dashboard to a given dashboard version using UID",
+			"This API will be removed when /apis/dashboards.grafana.app/v1 is released. You can restore a dashboard by reading it from history, then creating it again.",
+		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (RestoreDashboardVersionCommand):
   version  number`,
@@ -9252,7 +9532,9 @@ var (
   "title": "ViewPublicDashboardOK.Payload",
   "type": "object",
   "properties": {
-    "dashboard": {},
+    "dashboard": {
+      "type": "object"
+    },
     "meta": {
       "type": "object",
       "properties": {
@@ -9260,20 +9542,6 @@ var (
           "type": "object",
           "properties": {
             "dashboard": {
-              "type": "object",
-              "properties": {
-                "canAdd": {
-                  "type": "boolean"
-                },
-                "canDelete": {
-                  "type": "boolean"
-                },
-                "canEdit": {
-                  "type": "boolean"
-                }
-              }
-            },
-            "organization": {
               "type": "object",
               "properties": {
                 "canAdd": {
@@ -9377,43 +9645,39 @@ var (
 		Short: "Get public dashboard for view",
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (ViewPublicDashboardOK.Payload):
-  dashboard                                           object
-  meta                                                object
-  meta.annotationsPermissions                         object
-  meta.annotationsPermissions.dashboard               object
-  meta.annotationsPermissions.dashboard.canAdd        boolean
-  meta.annotationsPermissions.dashboard.canDelete     boolean
-  meta.annotationsPermissions.dashboard.canEdit       boolean
-  meta.annotationsPermissions.organization            object
-  meta.annotationsPermissions.organization.canAdd     boolean
-  meta.annotationsPermissions.organization.canDelete  boolean
-  meta.annotationsPermissions.organization.canEdit    boolean
-  meta.apiVersion                                     string
-  meta.canAdmin                                       boolean
-  meta.canDelete                                      boolean
-  meta.canEdit                                        boolean
-  meta.canSave                                        boolean
-  meta.canStar                                        boolean
-  meta.created                                        string
-  meta.createdBy                                      string
-  meta.expires                                        string
-  meta.folderId                                       number   Deprecated: use FolderUID instead
-  meta.folderTitle                                    string
-  meta.folderUid                                      string
-  meta.folderUrl                                      string
-  meta.hasAcl                                         boolean
-  meta.isFolder                                       boolean
-  meta.isSnapshot                                     boolean
-  meta.isStarred                                      boolean
-  meta.provisioned                                    boolean
-  meta.provisionedExternalId                          string
-  meta.publicDashboardEnabled                         boolean
-  meta.slug                                           string
-  meta.type                                           string
-  meta.updated                                        string
-  meta.updatedBy                                      string
-  meta.url                                            string
-  meta.version                                        number`,
+  dashboard                                        object
+  meta                                             object
+  meta.annotationsPermissions                      object
+  meta.annotationsPermissions.dashboard            object
+  meta.annotationsPermissions.dashboard.canAdd     boolean
+  meta.annotationsPermissions.dashboard.canDelete  boolean
+  meta.annotationsPermissions.dashboard.canEdit    boolean
+  meta.apiVersion                                  string
+  meta.canAdmin                                    boolean
+  meta.canDelete                                   boolean
+  meta.canEdit                                     boolean
+  meta.canSave                                     boolean
+  meta.canStar                                     boolean
+  meta.created                                     string
+  meta.createdBy                                   string
+  meta.expires                                     string
+  meta.folderId                                    number   Deprecated: use FolderUID instead
+  meta.folderTitle                                 string
+  meta.folderUid                                   string
+  meta.folderUrl                                   string
+  meta.hasAcl                                      boolean
+  meta.isFolder                                    boolean
+  meta.isSnapshot                                  boolean
+  meta.isStarred                                   boolean
+  meta.provisioned                                 boolean
+  meta.provisionedExternalId                       string
+  meta.publicDashboardEnabled                      boolean
+  meta.slug                                        string
+  meta.type                                        string
+  meta.updated                                     string
+  meta.updatedBy                                   string
+  meta.url                                         string
+  meta.version                                     number`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -9615,7 +9879,9 @@ var (
     "isDefault": {
       "type": "boolean"
     },
-    "jsonData": {},
+    "jsonData": {
+      "type": "object"
+    },
     "name": {
       "type": "string"
     },
@@ -9674,7 +9940,9 @@ var (
         "isDefault": {
           "type": "boolean"
         },
-        "jsonData": {},
+        "jsonData": {
+          "type": "object"
+        },
         "name": {
           "type": "string"
         },
@@ -9947,6 +10215,10 @@ var (
           "description": "Field used to attach the correlation link"
         },
         "target": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
           "description": "Target data query"
         },
         "transformations": {
@@ -10022,6 +10294,10 @@ var (
               "description": "Field used to attach the correlation link"
             },
             "target": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              },
               "description": "Target data query"
             },
             "transformations": {
@@ -10098,43 +10374,43 @@ var (
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateCorrelationCommand):
   config                               object
-  config.field                         string         REQUIRED
-                                                      Field used to attach the correlation link
-  config.target                        object         REQUIRED
-                                                      Target data query
+  config.field                         string               REQUIRED
+                                                            Field used to attach the correlation link
+  config.target                        map<string, object>  REQUIRED
+                                                            Target data query
   config.transformations               array<object>
   config.transformations[].expression  string
   config.transformations[].field       string
   config.transformations[].mapValue    string
-  config.transformations[].type        string         enum: regex | logfmt
+  config.transformations[].type        string               enum: regex | logfmt
   config.type                          string
-  description                          string         Optional description of the correlation
-  label                                string         Optional label identifying the correlation
-  provisioned                          boolean        True if correlation was created with provisioning. This makes it read-only.
-  targetUID                            string         Target data source UID to which the correlation is created. required if type = query
+  description                          string               Optional description of the correlation
+  label                                string               Optional label identifying the correlation
+  provisioned                          boolean              True if correlation was created with provisioning. This makes it read-only.
+  targetUID                            string               Target data source UID to which the correlation is created. required if type = query
   type                                 string`,
 			"responseSchema": `Response schema (CreateCorrelationOK.Payload):
   message                                     string
   result                                      object
   result.config                               object
-  result.config.field                         string         REQUIRED
-                                                             Field used to attach the correlation link
-  result.config.target                        object         REQUIRED
-                                                             Target data query
+  result.config.field                         string               REQUIRED
+                                                                   Field used to attach the correlation link
+  result.config.target                        map<string, object>  REQUIRED
+                                                                   Target data query
   result.config.transformations               array<object>
   result.config.transformations[].expression  string
   result.config.transformations[].field       string
   result.config.transformations[].mapValue    string
-  result.config.transformations[].type        string         enum: regex | logfmt
+  result.config.transformations[].type        string               enum: regex | logfmt
   result.config.type                          string
-  result.description                          string         Description of the correlation
-  result.label                                string         Label identifying the correlation
-  result.orgId                                number         OrgID of the data source the correlation originates from
-  result.provisioned                          boolean        Provisioned True if the correlation was created during provisioning
-  result.sourceUID                            string         UID of the data source the correlation originates from
-  result.targetUID                            string         UID of the data source the correlation points to
+  result.description                          string               Description of the correlation
+  result.label                                string               Label identifying the correlation
+  result.orgId                                number               OrgID of the data source the correlation originates from
+  result.provisioned                          boolean              Provisioned True if the correlation was created during provisioning
+  result.sourceUID                            string               UID of the data source the correlation originates from
+  result.targetUID                            string               UID of the data source the correlation points to
   result.type                                 string
-  result.uid                                  string         Unique identifier of the correlation`,
+  result.uid                                  string               Unique identifier of the correlation`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -10256,9 +10532,9 @@ var (
 }`
 	datasourcesDeleteDatasourceByNameCmd = &cobra.Command{
 		Use:   "delete-datasource-by-name",
-		Short: "Deletes an existing data source by name",
+		Short: "Deletes an existing data source by name this function will be removed in the future",
 		Long: longHelp(
-			"Deletes an existing data source by name",
+			"Deletes an existing data source by name this function will be removed in the future",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:delete` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		),
 		Annotations: map[string]string{
@@ -10372,6 +10648,10 @@ var (
           "description": "Field used to attach the correlation link"
         },
         "target": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
           "description": "Target data query"
         },
         "transformations": {
@@ -10446,24 +10726,24 @@ var (
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (GetCorrelationOK.Payload):
   config                               object
-  config.field                         string         REQUIRED
-                                                      Field used to attach the correlation link
-  config.target                        object         REQUIRED
-                                                      Target data query
+  config.field                         string               REQUIRED
+                                                            Field used to attach the correlation link
+  config.target                        map<string, object>  REQUIRED
+                                                            Target data query
   config.transformations               array<object>
   config.transformations[].expression  string
   config.transformations[].field       string
   config.transformations[].mapValue    string
-  config.transformations[].type        string         enum: regex | logfmt
+  config.transformations[].type        string               enum: regex | logfmt
   config.type                          string
-  description                          string         Description of the correlation
-  label                                string         Label identifying the correlation
-  orgId                                number         OrgID of the data source the correlation originates from
-  provisioned                          boolean        Provisioned True if the correlation was created during provisioning
-  sourceUID                            string         UID of the data source the correlation originates from
-  targetUID                            string         UID of the data source the correlation points to
+  description                          string               Description of the correlation
+  label                                string               Label identifying the correlation
+  orgId                                number               OrgID of the data source the correlation originates from
+  provisioned                          boolean              Provisioned True if the correlation was created during provisioning
+  sourceUID                            string               UID of the data source the correlation originates from
+  targetUID                            string               UID of the data source the correlation points to
   type                                 string
-  uid                                  string         Unique identifier of the correlation`,
+  uid                                  string               Unique identifier of the correlation`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -10516,6 +10796,10 @@ var (
             "description": "Field used to attach the correlation link"
           },
           "target": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Target data query"
           },
           "transformations": {
@@ -10640,6 +10924,10 @@ var (
             "description": "Field used to attach the correlation link"
           },
           "target": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Target data query"
           },
           "transformations": {
@@ -10776,7 +11064,9 @@ var (
     "isDefault": {
       "type": "boolean"
     },
-    "jsonData": {},
+    "jsonData": {
+      "type": "object"
+    },
     "name": {
       "type": "string"
     },
@@ -10817,9 +11107,9 @@ var (
 }`
 	datasourcesGetDatasourceByNameCmd = &cobra.Command{
 		Use:   "get-datasource-by-name",
-		Short: "Gets a single data source by name",
+		Short: "Gets a single data source by name this function will be removed in the future",
 		Long: longHelp(
-			"Gets a single data source by name",
+			"Gets a single data source by name this function will be removed in the future",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		),
 		Annotations: map[string]string{
@@ -10908,7 +11198,9 @@ var (
     "isDefault": {
       "type": "boolean"
     },
-    "jsonData": {},
+    "jsonData": {
+      "type": "object"
+    },
     "name": {
       "type": "string"
     },
@@ -11027,9 +11319,9 @@ var (
 }`
 	datasourcesGetDatasourceIDByNameCmd = &cobra.Command{
 		Use:   "get-datasource-id-by-name",
-		Short: "Gets data source Id by name",
+		Short: "Gets data source Id by name this function will be removed in the future",
 		Long: longHelp(
-			"Gets data source Id by name",
+			"Gets data source Id by name this function will be removed in the future",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
 		),
 		Annotations: map[string]string{
@@ -11094,7 +11386,9 @@ var (
       "isDefault": {
         "type": "boolean"
       },
-      "jsonData": {},
+      "jsonData": {
+        "type": "object"
+      },
       "name": {
         "type": "string"
       },
@@ -11179,7 +11473,9 @@ var (
     },
     "queries": {
       "type": "array",
-      "items": {},
+      "items": {
+        "type": "object"
+      },
       "description": "queries.refId – Specifies an identifier of the query. Is optional and default to “A”.\nqueries.datasourceId – Specifies the data source to be queried. Each query in the request must have an unique datasourceId.\nqueries.maxDataPoints - Species maximum amount of data points that dashboard panel can render. Is optional and default to 100.\nqueries.intervalMs - Specifies the time interval in milliseconds of time series. Is optional and defaults to 1000."
     },
     "to": {
@@ -11225,9 +11521,17 @@ var (
                         "type": "object",
                         "properties": {
                           "color": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "object"
+                            },
                             "description": "Map values to a display color\nNOTE: this interface is under development in the frontend... so simple map for now"
                           },
                           "custom": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "object"
+                            },
                             "description": "Panel Specific Values"
                           },
                           "decimals": {
@@ -11267,8 +11571,12 @@ var (
                                     "datasourceUid": {
                                       "type": "string"
                                     },
-                                    "panelsState": {},
-                                    "query": {},
+                                    "panelsState": {
+                                      "type": "object"
+                                    },
+                                    "query": {
+                                      "type": "object"
+                                    },
                                     "timeRange": {
                                       "type": "object",
                                       "properties": {
@@ -11317,7 +11625,9 @@ var (
                           },
                           "mappings": {
                             "type": "array",
-                            "items": {}
+                            "items": {
+                              "type": "object"
+                            }
                           },
                           "max": {
                             "type": "number"
@@ -11429,6 +11739,7 @@ var (
                       "description": "Channel is the path to a stream in grafana live that has real-time updates for this data."
                     },
                     "custom": {
+                      "type": "object",
                       "description": "Custom datasource specific values."
                     },
                     "dataTopic": {
@@ -11482,9 +11793,17 @@ var (
                         "type": "object",
                         "properties": {
                           "color": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "object"
+                            },
                             "description": "Map values to a display color\nNOTE: this interface is under development in the frontend... so simple map for now"
                           },
                           "custom": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "object"
+                            },
                             "description": "Panel Specific Values"
                           },
                           "decimals": {
@@ -11524,8 +11843,12 @@ var (
                                     "datasourceUid": {
                                       "type": "string"
                                     },
-                                    "panelsState": {},
-                                    "query": {},
+                                    "panelsState": {
+                                      "type": "object"
+                                    },
+                                    "query": {
+                                      "type": "object"
+                                    },
                                     "timeRange": {
                                       "type": "object",
                                       "properties": {
@@ -11574,7 +11897,9 @@ var (
                           },
                           "mappings": {
                             "type": "array",
-                            "items": {}
+                            "items": {
+                              "type": "object"
+                            }
                           },
                           "max": {
                             "type": "number"
@@ -11787,6 +12112,10 @@ var (
           "description": "Field used to attach the correlation link"
         },
         "target": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          },
           "description": "Target data query"
         },
         "transformations": {
@@ -11848,6 +12177,10 @@ var (
               "description": "Field used to attach the correlation link"
             },
             "target": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              },
               "description": "Target data query"
             },
             "transformations": {
@@ -11924,38 +12257,38 @@ var (
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateCorrelationCommand):
   config                               object
-  config.field                         string         Field used to attach the correlation link
-  config.target                        object         Target data query
-  config.transformations               array<object>  Source data transformations
+  config.field                         string               Field used to attach the correlation link
+  config.target                        map<string, object>  Target data query
+  config.transformations               array<object>        Source data transformations
   config.transformations[].expression  string
   config.transformations[].field       string
   config.transformations[].mapValue    string
-  config.transformations[].type        string         enum: regex | logfmt
-  description                          string         Optional description of the correlation
-  label                                string         Optional label identifying the correlation
+  config.transformations[].type        string               enum: regex | logfmt
+  description                          string               Optional description of the correlation
+  label                                string               Optional label identifying the correlation
   type                                 string`,
 			"responseSchema": `Response schema (UpdateCorrelationOK.Payload):
   message                                     string
   result                                      object
   result.config                               object
-  result.config.field                         string         REQUIRED
-                                                             Field used to attach the correlation link
-  result.config.target                        object         REQUIRED
-                                                             Target data query
+  result.config.field                         string               REQUIRED
+                                                                   Field used to attach the correlation link
+  result.config.target                        map<string, object>  REQUIRED
+                                                                   Target data query
   result.config.transformations               array<object>
   result.config.transformations[].expression  string
   result.config.transformations[].field       string
   result.config.transformations[].mapValue    string
-  result.config.transformations[].type        string         enum: regex | logfmt
+  result.config.transformations[].type        string               enum: regex | logfmt
   result.config.type                          string
-  result.description                          string         Description of the correlation
-  result.label                                string         Label identifying the correlation
-  result.orgId                                number         OrgID of the data source the correlation originates from
-  result.provisioned                          boolean        Provisioned True if the correlation was created during provisioning
-  result.sourceUID                            string         UID of the data source the correlation originates from
-  result.targetUID                            string         UID of the data source the correlation points to
+  result.description                          string               Description of the correlation
+  result.label                                string               Label identifying the correlation
+  result.orgId                                number               OrgID of the data source the correlation originates from
+  result.provisioned                          boolean              Provisioned True if the correlation was created during provisioning
+  result.sourceUID                            string               UID of the data source the correlation originates from
+  result.targetUID                            string               UID of the data source the correlation points to
   result.type                                 string
-  result.uid                                  string         Unique identifier of the correlation`,
+  result.uid                                  string               Unique identifier of the correlation`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -12024,7 +12357,9 @@ var (
     "isDefault": {
       "type": "boolean"
     },
-    "jsonData": {},
+    "jsonData": {
+      "type": "object"
+    },
     "name": {
       "type": "string"
     },
@@ -12087,7 +12422,9 @@ var (
         "isDefault": {
           "type": "boolean"
         },
-        "jsonData": {},
+        "jsonData": {
+          "type": "object"
+        },
         "name": {
           "type": "string"
         },
@@ -12685,9 +13022,10 @@ var (
 			if err != nil {
 				return err
 			}
-			resp, err := api.Enterprise.DisableDataSourceCacheWithParams(
+			resp, err := api.Enterprise.DisableDataSourceCache(
 				&enterprise.DisableDataSourceCacheParams{
-					DataSourceUID: enterpriseDisableDatasourceCacheFlag.DataSourceUID,
+					DataSourceType: &enterpriseDisableDatasourceCacheFlag.DataSourceType,
+					DataSourceUID:  enterpriseDisableDatasourceCacheFlag.DataSourceUID,
 				},
 			)
 			if enterpriseDisableDatasourceCacheFlag.Raw && hasRawResponse() {
@@ -12778,9 +13116,10 @@ var (
 			if err != nil {
 				return err
 			}
-			resp, err := api.Enterprise.EnableDataSourceCacheWithParams(
+			resp, err := api.Enterprise.EnableDataSourceCache(
 				&enterprise.EnableDataSourceCacheParams{
-					DataSourceUID: enterpriseEnableDatasourceCacheFlag.DataSourceUID,
+					DataSourceType: &enterpriseEnableDatasourceCacheFlag.DataSourceType,
+					DataSourceUID:  enterpriseEnableDatasourceCacheFlag.DataSourceUID,
 				},
 			)
 			if enterpriseEnableDatasourceCacheFlag.Raw && hasRawResponse() {
@@ -12871,9 +13210,10 @@ var (
 			if err != nil {
 				return err
 			}
-			resp, err := api.Enterprise.GetDataSourceCacheConfigWithParams(
+			resp, err := api.Enterprise.GetDataSourceCacheConfig(
 				&enterprise.GetDataSourceCacheConfigParams{
-					DataSourceUID: enterpriseGetDatasourceCacheConfigFlag.DataSourceUID,
+					DataSourceType: &enterpriseGetDatasourceCacheConfigFlag.DataSourceType,
+					DataSourceUID:  enterpriseGetDatasourceCacheConfigFlag.DataSourceUID,
 				},
 			)
 			if enterpriseGetDatasourceCacheConfigFlag.Raw && hasRawResponse() {
@@ -12949,98 +13289,6 @@ var (
 				},
 			)
 			if enterpriseGetTeamLBACRulesAPIFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
-				}
-				return err
-			}
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	enterpriseSearchResultResponseJSONSchema = `{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "SearchResultOK.Payload",
-  "type": "object",
-  "properties": {
-    "result": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string"
-          },
-          "basicRole": {
-            "type": "string"
-          },
-          "orgId": {
-            "type": "number"
-          },
-          "roleName": {
-            "type": "string"
-          },
-          "scope": {
-            "type": "string"
-          },
-          "teamId": {
-            "type": "number"
-          },
-          "userId": {
-            "type": "number"
-          },
-          "version": {
-            "type": "number"
-          }
-        }
-      }
-    }
-  }
-}`
-	enterpriseSearchResultCmd = &cobra.Command{
-		Use:   "search-result",
-		Short: "Debugs permissions",
-		Long: longHelp(
-			"Debugs permissions",
-			"Returns the result of the search through access-control role assignments.",
-			"You need to have a permission with action `teams.roles:read` on scope `teams:*` and a permission with action `users.roles:read` on scope `users:*`.",
-		),
-		Annotations: map[string]string{
-			"responseSchema": `Response schema (SearchResultOK.Payload):
-  result              array<object>
-  result[].action     string
-  result[].basicRole  string
-  result[].orgId      number
-  result[].roleName   string
-  result[].scope      string
-  result[].teamId     number
-  result[].userId     number
-  result[].version    number`,
-		},
-		DisableAutoGenTag: true,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
-			if enterpriseSearchResultFlag.DescribeResponseJSONSchema {
-				describeResponseJSONSchema(enterpriseSearchResultResponseJSONSchema)
-			}
-			return nil
-		},
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.Enterprise.SearchResultWithParams(
-				&enterprise.SearchResultParams{},
-			)
-			if enterpriseSearchResultFlag.Raw && hasRawResponse() {
 				if perr := printRawResponse(); perr != nil {
 					return perr
 				}
@@ -13172,10 +13420,11 @@ var (
 			if err := body.Validate(nil); err != nil {
 				return fmt.Errorf("body validation failed: %w", err)
 			}
-			resp, err := api.Enterprise.SetDataSourceCacheConfigWithParams(
+			resp, err := api.Enterprise.SetDataSourceCacheConfig(
 				&enterprise.SetDataSourceCacheConfigParams{
-					Body:          &body,
-					DataSourceUID: enterpriseSetDatasourceCacheConfigFlag.DataSourceUID,
+					Body:           &body,
+					DataSourceType: &enterpriseSetDatasourceCacheConfigFlag.DataSourceType,
+					DataSourceUID:  enterpriseSetDatasourceCacheConfigFlag.DataSourceUID,
 				},
 			)
 			if enterpriseSetDatasourceCacheConfigFlag.Raw && hasRawResponse() {
@@ -13333,16 +13582,19 @@ var (
 		Raw                        bool
 	}{}
 	enterpriseDisableDatasourceCacheFlag = struct {
+		DataSourceType             string
 		DataSourceUID              string
 		DescribeResponseJSONSchema bool
 		Raw                        bool
 	}{}
 	enterpriseEnableDatasourceCacheFlag = struct {
+		DataSourceType             string
 		DataSourceUID              string
 		DescribeResponseJSONSchema bool
 		Raw                        bool
 	}{}
 	enterpriseGetDatasourceCacheConfigFlag = struct {
+		DataSourceType             string
 		DataSourceUID              string
 		DescribeResponseJSONSchema bool
 		Raw                        bool
@@ -13352,12 +13604,9 @@ var (
 		DescribeResponseJSONSchema bool
 		Raw                        bool
 	}{}
-	enterpriseSearchResultFlag = struct {
-		DescribeResponseJSONSchema bool
-		Raw                        bool
-	}{}
 	enterpriseSetDatasourceCacheConfigFlag = struct {
 		Body                       string
+		DataSourceType             string
 		DataSourceUID              string
 		DescribeBodyJSONSchema     bool
 		DescribeResponseJSONSchema bool
@@ -13475,6 +13724,7 @@ var (
 		Long: longHelp(
 			"Creates folder",
 			"If nested folders are enabled then it additionally expects the parent folder UID.",
+			"Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreateFolderCommand):
@@ -13578,6 +13828,7 @@ var (
 		Long: longHelp(
 			"Deletes folder",
 			"Deletes an existing folder identified by UID along with all dashboards (and their alerts) stored in the folder. This operation cannot be reverted. If nested folders are enabled then it also deletes all the subfolders.",
+			"Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
 		),
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (DeleteFolderOK.Payload):
@@ -13700,6 +13951,10 @@ var (
 	foldersGetFolderByUIDCmd = &cobra.Command{
 		Use:   "get-folder-by-uid",
 		Short: "Gets folder by uid",
+		Long: longHelp(
+			"Gets folder by uid",
+			"Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
+		),
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (GetFolderByUIDOK.Payload):
   accessControl  map<string, boolean>
@@ -13766,8 +14021,12 @@ var (
   }
 }`
 	foldersGetFolderDescendantCountsCmd = &cobra.Command{
-		Use:               "get-folder-descendant-counts",
-		Short:             "Gets the count of each descendant of a folder by kind the folder is identified by UID",
+		Use:   "get-folder-descendant-counts",
+		Short: "Gets the count of each descendant of a folder by kind the folder is identified by UID",
+		Long: longHelp(
+			"Gets the count of each descendant of a folder by kind the folder is identified by UID",
+			"Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
+		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if foldersGetFolderDescendantCountsFlag.DescribeResponseJSONSchema {
@@ -13961,6 +14220,7 @@ var (
 		Long: longHelp(
 			"Gets all folders",
 			"It returns all folders that the authenticated user has permission to view. If nested folders are enabled, it expects an additional query parameter with the parent folder UID and returns the immediate subfolders that the authenticated user has permission to view. If the parameter is not supplied then it returns immediate subfolders under the root that the authenticated user has permission to view.",
+			"Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders",
 		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -14086,6 +14346,10 @@ var (
 	foldersMoveFolderCmd = &cobra.Command{
 		Use:   "move-folder",
 		Short: "Moves folder",
+		Long: longHelp(
+			"Moves folder",
+			"Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}, Changing the parent folder annotation",
+		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (MoveFolderCommand):
   parentUid  string`,
@@ -14255,6 +14519,10 @@ var (
 	foldersUpdateFolderCmd = &cobra.Command{
 		Use:   "update-folder",
 		Short: "Updates folder",
+		Long: longHelp(
+			"Updates folder",
+			"Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
+		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdateFolderCommand):
   description  string   NewDescription it's an optional parameter used for overriding the existing folder description
@@ -14756,7 +15024,9 @@ var (
           "groupID": {
             "type": "string"
           },
-          "mappings": {}
+          "mappings": {
+            "type": "object"
+          }
         }
       }
     },
@@ -14930,6 +15200,9 @@ var (
   "title": "GetHealthOK.Payload",
   "type": "object",
   "properties": {
+    "apiserver": {
+      "type": "string"
+    },
     "commit": {
       "type": "string"
     },
@@ -14951,6 +15224,7 @@ var (
 		),
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (GetHealthOK.Payload):
+  apiserver         string
   commit            string
   database          string
   enterpriseCommit  string
@@ -14993,124 +15267,6 @@ var (
 		DescribeResponseJSONSchema bool
 		Raw                        bool
 	}{}
-	ldapDebugCmd = &cobra.Command{
-		Use:               "ldap-debug",
-		Short:             "Ldap debug API",
-		DisableAutoGenTag: true,
-		Args:              cobra.NoArgs,
-		Run:               failIfEmptyArgs,
-	}
-	ldapDebugGetSyncStatusResponseJSONSchema = `{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "GetSyncStatusOK.Payload",
-  "type": "object",
-  "properties": {
-    "enabled": {
-      "type": "boolean"
-    },
-    "nextSync": {
-      "type": "string"
-    },
-    "prevSync": {
-      "type": "object",
-      "properties": {
-        "Elapsed": {
-          "type": "number"
-        },
-        "FailedUsers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "Error": {
-                "type": "string"
-              },
-              "Login": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "MissingUserIds": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        },
-        "Started": {
-          "type": "string"
-        },
-        "UpdatedUserIds": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        }
-      }
-    },
-    "schedule": {
-      "type": "string"
-    }
-  }
-}`
-	ldapDebugGetSyncStatusCmd = &cobra.Command{
-		Use:   "get-sync-status",
-		Short: "Returns the current state of the LDAP background sync integration",
-		Long: longHelp(
-			"Returns the current state of the LDAP background sync integration",
-			"You need to have a permission with action `ldap.status:read`.",
-		),
-		Annotations: map[string]string{
-			"responseSchema": `Response schema (GetSyncStatusOK.Payload):
-  enabled                       boolean
-  nextSync                      string
-  prevSync                      object
-  prevSync.Elapsed              number
-  prevSync.FailedUsers          array<object>
-  prevSync.FailedUsers[].Error  string
-  prevSync.FailedUsers[].Login  string
-  prevSync.MissingUserIds       array<number>
-  prevSync.Started              string
-  prevSync.UpdatedUserIds       array<number>
-  schedule                      string`,
-		},
-		DisableAutoGenTag: true,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
-			if ldapDebugGetSyncStatusFlag.DescribeResponseJSONSchema {
-				describeResponseJSONSchema(ldapDebugGetSyncStatusResponseJSONSchema)
-			}
-			return nil
-		},
-		RunE: func(cmd *cobra.Command, args []string) error {
-			api, err := gfClient()
-			if err != nil {
-				return err
-			}
-			resp, err := api.LDAPDebug.GetSyncStatusWithParams(
-				&ldap_debug.GetSyncStatusParams{},
-			)
-			if ldapDebugGetSyncStatusFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
-				}
-				return err
-			}
-			if err != nil {
-				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
-						return err
-					}
-					return err
-				}
-				return err
-			}
-			return printPayload(resp.GetPayload())
-		},
-	}
-	ldapDebugGetSyncStatusFlag = struct {
-		DescribeResponseJSONSchema bool
-		Raw                        bool
-	}{}
 	libraryElementsCmd = &cobra.Command{
 		Use:               "library-elements",
 		Short:             "Library elements API",
@@ -15133,12 +15289,13 @@ var (
     },
     "kind": {
       "type": "number",
-      "description": "Kind of element to create, Use 1 for library panels or 2 for c.\nDescription:\n1 - library panels",
+      "description": "Kind of element to create, Use 1 for library panels or 2 for c.\n1 - library panels",
       "enum": [
-        "1"
+        1
       ]
     },
     "model": {
+      "type": "object",
       "description": "The JSON model for the library element."
     },
     "name": {
@@ -15222,7 +15379,9 @@ var (
             }
           }
         },
-        "model": {},
+        "model": {
+          "type": "object"
+        },
         "name": {
           "type": "string"
         },
@@ -15258,7 +15417,6 @@ var (
                      Deprecated: use FolderUID instead
   folderUid  string  UID of the folder where the library element is stored.
   kind       number  Kind of element to create, Use 1 for library panels or 2 for c.
-                     Description:
                      1 - library panels, enum: 1
   model      object  The JSON model for the library element.
   name       string  Name of the library element.
@@ -15467,7 +15625,9 @@ var (
               }
             }
           },
-          "model": {},
+          "model": {
+            "type": "object"
+          },
           "name": {
             "type": "string"
           },
@@ -15635,7 +15795,9 @@ var (
             }
           }
         },
-        "model": {},
+        "model": {
+          "type": "object"
+        },
         "name": {
           "type": "string"
         },
@@ -15911,7 +16073,9 @@ var (
                   }
                 }
               },
-              "model": {},
+              "model": {
+                "type": "object"
+              },
               "name": {
                 "type": "string"
               },
@@ -16001,14 +16165,15 @@ var (
 			}
 			resp, err := api.LibraryElements.GetLibraryElements(
 				&library_elements.GetLibraryElementsParams{
-					ExcludeUID:    &libraryElementsGetLibraryElementsFlag.ExcludeUID,
-					FolderFilter:  &libraryElementsGetLibraryElementsFlag.FolderFilter,
-					Kind:          &libraryElementsGetLibraryElementsFlag.Kind,
-					Page:          &libraryElementsGetLibraryElementsFlag.Page,
-					PerPage:       &libraryElementsGetLibraryElementsFlag.PerPage,
-					SearchString:  &libraryElementsGetLibraryElementsFlag.SearchString,
-					SortDirection: &libraryElementsGetLibraryElementsFlag.SortDirection,
-					TypeFilter:    &libraryElementsGetLibraryElementsFlag.TypeFilter,
+					ExcludeUID:       &libraryElementsGetLibraryElementsFlag.ExcludeUID,
+					FolderFilter:     &libraryElementsGetLibraryElementsFlag.FolderFilter,
+					FolderFilterUIDs: &libraryElementsGetLibraryElementsFlag.FolderFilterUIDs,
+					Kind:             &libraryElementsGetLibraryElementsFlag.Kind,
+					Page:             &libraryElementsGetLibraryElementsFlag.Page,
+					PerPage:          &libraryElementsGetLibraryElementsFlag.PerPage,
+					SearchString:     &libraryElementsGetLibraryElementsFlag.SearchString,
+					SortDirection:    &libraryElementsGetLibraryElementsFlag.SortDirection,
+					TypeFilter:       &libraryElementsGetLibraryElementsFlag.TypeFilter,
 				},
 			)
 			if libraryElementsGetLibraryElementsFlag.Raw && hasRawResponse() {
@@ -16044,12 +16209,13 @@ var (
     },
     "kind": {
       "type": "number",
-      "description": "Kind of element to create, Use 1 for library panels or 2 for c.\nDescription:\n1 - library panels",
+      "description": "Kind of element to create, Use 1 for library panels or 2 for c.\n1 - library panels",
       "enum": [
-        "1"
+        1
       ]
     },
     "model": {
+      "type": "object",
       "description": "The JSON model for the library element."
     },
     "name": {
@@ -16137,7 +16303,9 @@ var (
             }
           }
         },
-        "model": {},
+        "model": {
+          "type": "object"
+        },
         "name": {
           "type": "string"
         },
@@ -16173,7 +16341,6 @@ var (
                      Deprecated: use FolderUID instead
   folderUid  string  UID of the folder where the library element is stored.
   kind       number  Kind of element to create, Use 1 for library panels or 2 for c.
-                     Description:
                      1 - library panels, enum: 1
   model      object  The JSON model for the library element.
   name       string  Name of the library element.
@@ -16283,6 +16450,7 @@ var (
 	libraryElementsGetLibraryElementsFlag = struct {
 		ExcludeUID                 string
 		FolderFilter               string
+		FolderFilterUIDs           string
 		Kind                       int64
 		Page                       int64
 		PerPage                    int64
@@ -16838,7 +17006,7 @@ var (
 			if err != nil {
 				return err
 			}
-			var body interface{}
+			var body any
 			if err := getBodyParam(licensingPostRenewLicenseTokenFlag.Body, &body); err != nil {
 				return err
 			}
@@ -18241,14 +18409,6 @@ var (
   "title": "GetOrgPreferencesOK.Payload",
   "type": "object",
   "properties": {
-    "cookiePreferences": {
-      "type": "object",
-      "properties": {
-        "analytics": {},
-        "functional": {},
-        "performance": {}
-      }
-    },
     "homeDashboardUID": {
       "type": "string",
       "description": "UID for the home dashboard"
@@ -18300,21 +18460,17 @@ var (
 		Short: "Gets current org prefs",
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (GetOrgPreferencesOK.Payload):
-  cookiePreferences              object
-  cookiePreferences.analytics    object
-  cookiePreferences.functional   object
-  cookiePreferences.performance  object
-  homeDashboardUID               string         UID for the home dashboard
-  language                       string         Selected language (beta)
-  navbar                         object
-  navbar.bookmarkUrls            array<string>
-  queryHistory                   object
-  queryHistory.homeTab           string         one of: '' | 'query' | 'starred';
-  regionalFormat                 string         Selected locale (beta)
-  theme                          string         light, dark, empty is default
-  timezone                       string         The timezone selection
-                                                TODO: this should use the timezone defined in common
-  weekStart                      string         day of the week (sunday, monday, etc)`,
+  homeDashboardUID      string         UID for the home dashboard
+  language              string         Selected language (beta)
+  navbar                object
+  navbar.bookmarkUrls   array<string>
+  queryHistory          object
+  queryHistory.homeTab  string         one of: '' | 'query' | 'starred';
+  regionalFormat        string         Selected locale (beta)
+  theme                 string         light, dark, empty is default
+  timezone              string         The timezone selection
+                                       TODO: this should use the timezone defined in common
+  weekStart             string         day of the week (sunday, monday, etc)`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -18369,6 +18525,9 @@ var (
         }
       },
       "avatarUrl": {
+        "type": "string"
+      },
+      "created": {
         "type": "string"
       },
       "email": {
@@ -18617,12 +18776,6 @@ var (
   "title": "PatchPrefsCmd",
   "type": "object",
   "properties": {
-    "cookies": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
     "homeDashboardId": {
       "type": "number",
       "description": "The numerical :id of a favorited dashboard"
@@ -18664,10 +18817,7 @@ var (
     },
     "timezone": {
       "type": "string",
-      "enum": [
-        "utc",
-        "browser"
-      ]
+      "description": "Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string"
     },
     "weekStart": {
       "type": "string"
@@ -18689,7 +18839,6 @@ var (
 		Short: "Patches current org prefs",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PatchPrefsCmd):
-  cookies               array<string>
   homeDashboardId       number         The numerical :id of a favorited dashboard
   homeDashboardUID      string
   language              string
@@ -18699,7 +18848,7 @@ var (
   queryHistory.homeTab  string
   regionalFormat        string
   theme                 string         enum: light | dark
-  timezone              string         enum: utc | browser
+  timezone              string         Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
   weekStart             string`,
 			"responseSchema": `Response schema (PatchOrgPreferencesOK.Payload):
   message  string`,
@@ -19030,12 +19179,6 @@ var (
   "title": "UpdatePrefsCmd",
   "type": "object",
   "properties": {
-    "cookies": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
     "homeDashboardId": {
       "type": "number",
       "description": "The numerical :id of a favorited dashboard"
@@ -19078,10 +19221,7 @@ var (
     },
     "timezone": {
       "type": "string",
-      "enum": [
-        "utc",
-        "browser"
-      ]
+      "description": "Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string"
     },
     "weekStart": {
       "type": "string"
@@ -19103,7 +19243,6 @@ var (
 		Short: "Updates current org prefs",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdatePrefsCmd):
-  cookies               array<string>
   homeDashboardId       number         The numerical :id of a favorited dashboard
   homeDashboardUID      string
   language              string
@@ -19113,7 +19252,7 @@ var (
   queryHistory.homeTab  string
   regionalFormat        string
   theme                 string         enum: light | dark | system
-  timezone              string         enum: utc | browser
+  timezone              string         Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
   weekStart             string`,
 			"responseSchema": `Response schema (UpdateOrgPreferencesOK.Payload):
   message  string`,
@@ -19620,6 +19759,9 @@ var (
       "avatarUrl": {
         "type": "string"
       },
+      "created": {
+        "type": "string"
+      },
       "email": {
         "type": "string"
       },
@@ -19783,6 +19925,9 @@ var (
           "avatarUrl": {
             "type": "string"
           },
+          "created": {
+            "type": "string"
+          },
           "email": {
             "type": "string"
           },
@@ -19846,6 +19991,7 @@ var (
   orgUsers[].accessControl       map<string, boolean>
   orgUsers[].authLabels          array<string>
   orgUsers[].avatarUrl           string
+  orgUsers[].created             string
   orgUsers[].email               string
   orgUsers[].isDisabled          boolean
   orgUsers[].isExternallySynced  boolean
@@ -20342,6 +20488,10 @@ var (
 	playlistsCreatePlaylistCmd = &cobra.Command{
 		Use:   "create-playlist",
 		Short: "Creates playlist",
+		Long: longHelp(
+			"Creates playlist",
+			"Please refer to [new API](?api=playlist.grafana.app-v1).",
+		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (CreatePlaylistCommand):
   interval            string
@@ -20417,6 +20567,10 @@ var (
 	playlistsDeletePlaylistCmd = &cobra.Command{
 		Use:   "delete-playlist",
 		Short: "Deletes playlist",
+		Long: longHelp(
+			"Deletes playlist",
+			"Please refer to [new API](?api=playlist.grafana.app-v1).",
+		),
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (DeletePlaylistOK.Payload):
   message  string`,
@@ -20478,6 +20632,10 @@ var (
 	playlistsGetPlaylistCmd = &cobra.Command{
 		Use:   "get-playlist",
 		Short: "Gets playlist",
+		Long: longHelp(
+			"Gets playlist",
+			"Please refer to [new API](?api=playlist.grafana.app-v1).",
+		),
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (GetPlaylistOK.Payload):
   id        number
@@ -20549,8 +20707,12 @@ var (
   }
 }`
 	playlistsGetPlaylistItemsCmd = &cobra.Command{
-		Use:               "get-playlist-items",
-		Short:             "Gets playlist items",
+		Use:   "get-playlist-items",
+		Short: "Gets playlist items",
+		Long: longHelp(
+			"Gets playlist items",
+			"Please refer to [new API](?api=playlist.grafana.app-v1) instead (items are included in the playlist spec).",
+		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if playlistsGetPlaylistItemsFlag.DescribeResponseJSONSchema {
@@ -20609,8 +20771,12 @@ var (
   }
 }`
 	playlistsSearchPlaylistsCmd = &cobra.Command{
-		Use:               "search-playlists",
-		Short:             "Gets playlists",
+		Use:   "search-playlists",
+		Short: "Gets playlists",
+		Long: longHelp(
+			"Gets playlists",
+			"Please refer to [new API](?api=playlist.grafana.app-v1).",
+		),
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if playlistsSearchPlaylistsFlag.DescribeResponseJSONSchema {
@@ -20711,6 +20877,10 @@ var (
 	playlistsUpdatePlaylistCmd = &cobra.Command{
 		Use:   "update-playlist",
 		Short: "Updates playlist",
+		Long: longHelp(
+			"Updates playlist",
+			"Please refer to [new API](?api=playlist.grafana.app-v1).",
+		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdatePlaylistCommand):
   interval            string
@@ -21013,7 +21183,9 @@ var (
                 "disableResolveMessage": {
                   "type": "boolean"
                 },
-                "settings": {},
+                "settings": {
+                  "type": "object"
+                },
                 "type": {
                   "type": "string"
                 },
@@ -21068,7 +21240,12 @@ var (
                       "datasourceUid": {
                         "type": "string"
                       },
-                      "model": {},
+                      "model": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "object"
+                        }
+                      },
                       "queryType": {
                         "type": "string"
                       },
@@ -21305,24 +21482,16 @@ var (
             "items": {
               "type": "object",
               "properties": {
-                "isEqual": {
-                  "type": "boolean"
-                },
-                "isRegex": {
-                  "type": "boolean"
-                },
-                "name": {
+                "Name": {
                   "type": "string"
                 },
-                "value": {
+                "Type": {
+                  "type": "number"
+                },
+                "Value": {
                   "type": "string"
                 }
-              },
-              "required": [
-                "isRegex",
-                "name",
-                "value"
-              ]
+              }
             }
           },
           "mute_time_intervals": {
@@ -21393,24 +21562,16 @@ var (
                   "items": {
                     "type": "object",
                     "properties": {
-                      "isEqual": {
-                        "type": "boolean"
-                      },
-                      "isRegex": {
-                        "type": "boolean"
-                      },
-                      "name": {
+                      "Name": {
                         "type": "string"
                       },
-                      "value": {
+                      "Type": {
+                        "type": "number"
+                      },
+                      "Value": {
                         "type": "string"
                       }
-                    },
-                    "required": [
-                      "isRegex",
-                      "name",
-                      "value"
-                    ]
+                    }
                   }
                 },
                 "mute_time_intervals": {
@@ -21473,7 +21634,7 @@ var (
   groups[].rules[].dashboardUid                                     string
   groups[].rules[].data                                             array<object>
   groups[].rules[].data[].datasourceUid                             string
-  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].model                                     map<string, object>
   groups[].rules[].data[].queryType                                 string
   groups[].rules[].data[].refId                                     string
   groups[].rules[].data[].relativeTimeRange                         object
@@ -21524,10 +21685,9 @@ var (
   policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].match_re                                               map<string, string>
   policies[].matchers                                               array<object>
-  policies[].matchers[].isEqual                                     boolean
-  policies[].matchers[].isRegex                                     boolean               REQUIRED
-  policies[].matchers[].name                                        string                REQUIRED
-  policies[].matchers[].value                                       string                REQUIRED
+  policies[].matchers[].Name                                        string
+  policies[].matchers[].Type                                        number
+  policies[].matchers[].Value                                       string
   policies[].mute_time_intervals                                    array<string>
   policies[].object_matchers                                        array<array<string>>
   policies[].orgId                                                  number
@@ -21542,10 +21702,9 @@ var (
   policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].routes[].match_re                                      map<string, string>
   policies[].routes[].matchers                                      array<object>
-  policies[].routes[].matchers[].isEqual                            boolean
-  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
-  policies[].routes[].matchers[].name                               string                REQUIRED
-  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].matchers[].Name                               string
+  policies[].routes[].matchers[].Type                               number
+  policies[].routes[].matchers[].Value                              string
   policies[].routes[].mute_time_intervals                           array<string>
   policies[].routes[].object_matchers                               array<array<string>>
   policies[].routes[].receiver                                      string
@@ -21616,7 +21775,9 @@ var (
                 "disableResolveMessage": {
                   "type": "boolean"
                 },
-                "settings": {},
+                "settings": {
+                  "type": "object"
+                },
                 "type": {
                   "type": "string"
                 },
@@ -21671,7 +21832,12 @@ var (
                       "datasourceUid": {
                         "type": "string"
                       },
-                      "model": {},
+                      "model": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "object"
+                        }
+                      },
                       "queryType": {
                         "type": "string"
                       },
@@ -21908,24 +22074,16 @@ var (
             "items": {
               "type": "object",
               "properties": {
-                "isEqual": {
-                  "type": "boolean"
-                },
-                "isRegex": {
-                  "type": "boolean"
-                },
-                "name": {
+                "Name": {
                   "type": "string"
                 },
-                "value": {
+                "Type": {
+                  "type": "number"
+                },
+                "Value": {
                   "type": "string"
                 }
-              },
-              "required": [
-                "isRegex",
-                "name",
-                "value"
-              ]
+              }
             }
           },
           "mute_time_intervals": {
@@ -21996,24 +22154,16 @@ var (
                   "items": {
                     "type": "object",
                     "properties": {
-                      "isEqual": {
-                        "type": "boolean"
-                      },
-                      "isRegex": {
-                        "type": "boolean"
-                      },
-                      "name": {
+                      "Name": {
                         "type": "string"
                       },
-                      "value": {
+                      "Type": {
+                        "type": "number"
+                      },
+                      "Value": {
                         "type": "string"
                       }
-                    },
-                    "required": [
-                      "isRegex",
-                      "name",
-                      "value"
-                    ]
+                    }
                   }
                 },
                 "mute_time_intervals": {
@@ -22076,7 +22226,7 @@ var (
   groups[].rules[].dashboardUid                                     string
   groups[].rules[].data                                             array<object>
   groups[].rules[].data[].datasourceUid                             string
-  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].model                                     map<string, object>
   groups[].rules[].data[].queryType                                 string
   groups[].rules[].data[].refId                                     string
   groups[].rules[].data[].relativeTimeRange                         object
@@ -22127,10 +22277,9 @@ var (
   policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].match_re                                               map<string, string>
   policies[].matchers                                               array<object>
-  policies[].matchers[].isEqual                                     boolean
-  policies[].matchers[].isRegex                                     boolean               REQUIRED
-  policies[].matchers[].name                                        string                REQUIRED
-  policies[].matchers[].value                                       string                REQUIRED
+  policies[].matchers[].Name                                        string
+  policies[].matchers[].Type                                        number
+  policies[].matchers[].Value                                       string
   policies[].mute_time_intervals                                    array<string>
   policies[].object_matchers                                        array<array<string>>
   policies[].orgId                                                  number
@@ -22145,10 +22294,9 @@ var (
   policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].routes[].match_re                                      map<string, string>
   policies[].routes[].matchers                                      array<object>
-  policies[].routes[].matchers[].isEqual                            boolean
-  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
-  policies[].routes[].matchers[].name                               string                REQUIRED
-  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].matchers[].Name                               string
+  policies[].routes[].matchers[].Type                               number
+  policies[].routes[].matchers[].Value                              string
   policies[].routes[].mute_time_intervals                           array<string>
   policies[].routes[].object_matchers                               array<array<string>>
   policies[].routes[].receiver                                      string
@@ -22215,6 +22363,7 @@ var (
             "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
           },
           "model": {
+            "type": "object",
             "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
           },
           "queryType": {
@@ -22352,20 +22501,16 @@ var (
       ]
     },
     "ruleGroup": {
-      "type": "string",
-      "description": "rule group\nMax Length: 190\nMin Length: 1"
+      "type": "string"
     },
     "title": {
-      "type": "string",
-      "description": "title\nMax Length: 190\nMin Length: 1"
+      "type": "string"
     },
     "uid": {
-      "type": "string",
-      "description": "uid\nMax Length: 40\nMin Length: 1"
+      "type": "string"
     },
     "updated": {
-      "type": "string",
-      "description": "updated\nRead Only: true"
+      "type": "string"
     }
   },
   "required": [
@@ -22440,18 +22585,9 @@ var (
                                                                     Name of the recorded metric.
   record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
   ruleGroup                                    string               REQUIRED
-                                                                    rule group
-                                                                    Max Length: 190
-                                                                    Min Length: 1
   title                                        string               REQUIRED
-                                                                    title
-                                                                    Max Length: 190
-                                                                    Min Length: 1
-  uid                                          string               uid
-                                                                    Max Length: 40
-                                                                    Min Length: 1
-  updated                                      string               updated
-                                                                    Read Only: true`,
+  uid                                          string
+  updated                                      string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -22515,7 +22651,9 @@ var (
                 "disableResolveMessage": {
                   "type": "boolean"
                 },
-                "settings": {},
+                "settings": {
+                  "type": "object"
+                },
                 "type": {
                   "type": "string"
                 },
@@ -22570,7 +22708,12 @@ var (
                       "datasourceUid": {
                         "type": "string"
                       },
-                      "model": {},
+                      "model": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "object"
+                        }
+                      },
                       "queryType": {
                         "type": "string"
                       },
@@ -22807,24 +22950,16 @@ var (
             "items": {
               "type": "object",
               "properties": {
-                "isEqual": {
-                  "type": "boolean"
-                },
-                "isRegex": {
-                  "type": "boolean"
-                },
-                "name": {
+                "Name": {
                   "type": "string"
                 },
-                "value": {
+                "Type": {
+                  "type": "number"
+                },
+                "Value": {
                   "type": "string"
                 }
-              },
-              "required": [
-                "isRegex",
-                "name",
-                "value"
-              ]
+              }
             }
           },
           "mute_time_intervals": {
@@ -22895,24 +23030,16 @@ var (
                   "items": {
                     "type": "object",
                     "properties": {
-                      "isEqual": {
-                        "type": "boolean"
-                      },
-                      "isRegex": {
-                        "type": "boolean"
-                      },
-                      "name": {
+                      "Name": {
                         "type": "string"
                       },
-                      "value": {
+                      "Type": {
+                        "type": "number"
+                      },
+                      "Value": {
                         "type": "string"
                       }
-                    },
-                    "required": [
-                      "isRegex",
-                      "name",
-                      "value"
-                    ]
+                    }
                   }
                 },
                 "mute_time_intervals": {
@@ -22975,7 +23102,7 @@ var (
   groups[].rules[].dashboardUid                                     string
   groups[].rules[].data                                             array<object>
   groups[].rules[].data[].datasourceUid                             string
-  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].model                                     map<string, object>
   groups[].rules[].data[].queryType                                 string
   groups[].rules[].data[].refId                                     string
   groups[].rules[].data[].relativeTimeRange                         object
@@ -23026,10 +23153,9 @@ var (
   policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].match_re                                               map<string, string>
   policies[].matchers                                               array<object>
-  policies[].matchers[].isEqual                                     boolean
-  policies[].matchers[].isRegex                                     boolean               REQUIRED
-  policies[].matchers[].name                                        string                REQUIRED
-  policies[].matchers[].value                                       string                REQUIRED
+  policies[].matchers[].Name                                        string
+  policies[].matchers[].Type                                        number
+  policies[].matchers[].Value                                       string
   policies[].mute_time_intervals                                    array<string>
   policies[].object_matchers                                        array<array<string>>
   policies[].orgId                                                  number
@@ -23044,10 +23170,9 @@ var (
   policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].routes[].match_re                                      map<string, string>
   policies[].routes[].matchers                                      array<object>
-  policies[].routes[].matchers[].isEqual                            boolean
-  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
-  policies[].routes[].matchers[].name                               string                REQUIRED
-  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].matchers[].Name                               string
+  policies[].routes[].matchers[].Type                               number
+  policies[].routes[].matchers[].Value                              string
   policies[].routes[].mute_time_intervals                           array<string>
   policies[].routes[].object_matchers                               array<array<string>>
   policies[].routes[].receiver                                      string
@@ -23126,6 +23251,7 @@ var (
                   "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
                 },
                 "model": {
+                  "type": "object",
                   "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
                 },
                 "queryType": {
@@ -23263,20 +23389,16 @@ var (
             ]
           },
           "ruleGroup": {
-            "type": "string",
-            "description": "rule group\nMax Length: 190\nMin Length: 1"
+            "type": "string"
           },
           "title": {
-            "type": "string",
-            "description": "title\nMax Length: 190\nMin Length: 1"
+            "type": "string"
           },
           "uid": {
-            "type": "string",
-            "description": "uid\nMax Length: 40\nMin Length: 1"
+            "type": "string"
           },
           "updated": {
-            "type": "string",
-            "description": "updated\nRead Only: true"
+            "type": "string"
           }
         },
         "required": [
@@ -23360,18 +23482,9 @@ var (
                                                                             Name of the recorded metric.
   rules[].record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
   rules[].ruleGroup                                    string               REQUIRED
-                                                                            rule group
-                                                                            Max Length: 190
-                                                                            Min Length: 1
   rules[].title                                        string               REQUIRED
-                                                                            title
-                                                                            Max Length: 190
-                                                                            Min Length: 1
-  rules[].uid                                          string               uid
-                                                                            Max Length: 40
-                                                                            Min Length: 1
-  rules[].updated                                      string               updated
-                                                                            Read Only: true
+  rules[].uid                                          string
+  rules[].updated                                      string
   title                                                string`,
 		},
 		DisableAutoGenTag: true,
@@ -23437,7 +23550,9 @@ var (
                 "disableResolveMessage": {
                   "type": "boolean"
                 },
-                "settings": {},
+                "settings": {
+                  "type": "object"
+                },
                 "type": {
                   "type": "string"
                 },
@@ -23492,7 +23607,12 @@ var (
                       "datasourceUid": {
                         "type": "string"
                       },
-                      "model": {},
+                      "model": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "object"
+                        }
+                      },
                       "queryType": {
                         "type": "string"
                       },
@@ -23729,24 +23849,16 @@ var (
             "items": {
               "type": "object",
               "properties": {
-                "isEqual": {
-                  "type": "boolean"
-                },
-                "isRegex": {
-                  "type": "boolean"
-                },
-                "name": {
+                "Name": {
                   "type": "string"
                 },
-                "value": {
+                "Type": {
+                  "type": "number"
+                },
+                "Value": {
                   "type": "string"
                 }
-              },
-              "required": [
-                "isRegex",
-                "name",
-                "value"
-              ]
+              }
             }
           },
           "mute_time_intervals": {
@@ -23817,24 +23929,16 @@ var (
                   "items": {
                     "type": "object",
                     "properties": {
-                      "isEqual": {
-                        "type": "boolean"
-                      },
-                      "isRegex": {
-                        "type": "boolean"
-                      },
-                      "name": {
+                      "Name": {
                         "type": "string"
                       },
-                      "value": {
+                      "Type": {
+                        "type": "number"
+                      },
+                      "Value": {
                         "type": "string"
                       }
-                    },
-                    "required": [
-                      "isRegex",
-                      "name",
-                      "value"
-                    ]
+                    }
                   }
                 },
                 "mute_time_intervals": {
@@ -23897,7 +24001,7 @@ var (
   groups[].rules[].dashboardUid                                     string
   groups[].rules[].data                                             array<object>
   groups[].rules[].data[].datasourceUid                             string
-  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].model                                     map<string, object>
   groups[].rules[].data[].queryType                                 string
   groups[].rules[].data[].refId                                     string
   groups[].rules[].data[].relativeTimeRange                         object
@@ -23948,10 +24052,9 @@ var (
   policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].match_re                                               map<string, string>
   policies[].matchers                                               array<object>
-  policies[].matchers[].isEqual                                     boolean
-  policies[].matchers[].isRegex                                     boolean               REQUIRED
-  policies[].matchers[].name                                        string                REQUIRED
-  policies[].matchers[].value                                       string                REQUIRED
+  policies[].matchers[].Name                                        string
+  policies[].matchers[].Type                                        number
+  policies[].matchers[].Value                                       string
   policies[].mute_time_intervals                                    array<string>
   policies[].object_matchers                                        array<array<string>>
   policies[].orgId                                                  number
@@ -23966,10 +24069,9 @@ var (
   policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].routes[].match_re                                      map<string, string>
   policies[].routes[].matchers                                      array<object>
-  policies[].routes[].matchers[].isEqual                            boolean
-  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
-  policies[].routes[].matchers[].name                               string                REQUIRED
-  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].matchers[].Name                               string
+  policies[].routes[].matchers[].Type                               number
+  policies[].routes[].matchers[].Value                              string
   policies[].routes[].mute_time_intervals                           array<string>
   policies[].routes[].object_matchers                               array<array<string>>
   policies[].routes[].receiver                                      string
@@ -24040,6 +24142,7 @@ var (
               "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
             },
             "model": {
+              "type": "object",
               "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
             },
             "queryType": {
@@ -24177,20 +24280,16 @@ var (
         ]
       },
       "ruleGroup": {
-        "type": "string",
-        "description": "rule group\nMax Length: 190\nMin Length: 1"
+        "type": "string"
       },
       "title": {
-        "type": "string",
-        "description": "title\nMax Length: 190\nMin Length: 1"
+        "type": "string"
       },
       "uid": {
-        "type": "string",
-        "description": "uid\nMax Length: 40\nMin Length: 1"
+        "type": "string"
       },
       "updated": {
-        "type": "string",
-        "description": "updated\nRead Only: true"
+        "type": "string"
       }
     },
     "required": [
@@ -24269,7 +24368,9 @@ var (
                 "disableResolveMessage": {
                   "type": "boolean"
                 },
-                "settings": {},
+                "settings": {
+                  "type": "object"
+                },
                 "type": {
                   "type": "string"
                 },
@@ -24324,7 +24425,12 @@ var (
                       "datasourceUid": {
                         "type": "string"
                       },
-                      "model": {},
+                      "model": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "object"
+                        }
+                      },
                       "queryType": {
                         "type": "string"
                       },
@@ -24561,24 +24667,16 @@ var (
             "items": {
               "type": "object",
               "properties": {
-                "isEqual": {
-                  "type": "boolean"
-                },
-                "isRegex": {
-                  "type": "boolean"
-                },
-                "name": {
+                "Name": {
                   "type": "string"
                 },
-                "value": {
+                "Type": {
+                  "type": "number"
+                },
+                "Value": {
                   "type": "string"
                 }
-              },
-              "required": [
-                "isRegex",
-                "name",
-                "value"
-              ]
+              }
             }
           },
           "mute_time_intervals": {
@@ -24649,24 +24747,16 @@ var (
                   "items": {
                     "type": "object",
                     "properties": {
-                      "isEqual": {
-                        "type": "boolean"
-                      },
-                      "isRegex": {
-                        "type": "boolean"
-                      },
-                      "name": {
+                      "Name": {
                         "type": "string"
                       },
-                      "value": {
+                      "Type": {
+                        "type": "number"
+                      },
+                      "Value": {
                         "type": "string"
                       }
-                    },
-                    "required": [
-                      "isRegex",
-                      "name",
-                      "value"
-                    ]
+                    }
                   }
                 },
                 "mute_time_intervals": {
@@ -24729,7 +24819,7 @@ var (
   groups[].rules[].dashboardUid                                     string
   groups[].rules[].data                                             array<object>
   groups[].rules[].data[].datasourceUid                             string
-  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].model                                     map<string, object>
   groups[].rules[].data[].queryType                                 string
   groups[].rules[].data[].refId                                     string
   groups[].rules[].data[].relativeTimeRange                         object
@@ -24780,10 +24870,9 @@ var (
   policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].match_re                                               map<string, string>
   policies[].matchers                                               array<object>
-  policies[].matchers[].isEqual                                     boolean
-  policies[].matchers[].isRegex                                     boolean               REQUIRED
-  policies[].matchers[].name                                        string                REQUIRED
-  policies[].matchers[].value                                       string                REQUIRED
+  policies[].matchers[].Name                                        string
+  policies[].matchers[].Type                                        number
+  policies[].matchers[].Value                                       string
   policies[].mute_time_intervals                                    array<string>
   policies[].object_matchers                                        array<array<string>>
   policies[].orgId                                                  number
@@ -24798,10 +24887,9 @@ var (
   policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].routes[].match_re                                      map<string, string>
   policies[].routes[].matchers                                      array<object>
-  policies[].routes[].matchers[].isEqual                            boolean
-  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
-  policies[].routes[].matchers[].name                               string                REQUIRED
-  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].matchers[].Name                               string
+  policies[].routes[].matchers[].Type                               number
+  policies[].routes[].matchers[].Value                              string
   policies[].routes[].mute_time_intervals                           array<string>
   policies[].routes[].object_matchers                               array<array<string>>
   policies[].routes[].receiver                                      string
@@ -24862,10 +24950,11 @@ var (
         "description": "Name is used as grouping key in the UI. Contact points with the\nsame name will be grouped in the UI."
       },
       "provenance": {
-        "type": "string",
-        "description": "provenance\nRead Only: true"
+        "type": "string"
       },
-      "settings": {},
+      "settings": {
+        "type": "object"
+      },
       "type": {
         "type": "string",
         "enum": [
@@ -24891,7 +24980,7 @@ var (
       },
       "uid": {
         "type": "string",
-        "description": "UID is the unique identifier of the contact point. The UID can be\nset by the user.\nMax Length: 40\nMin Length: 1"
+        "description": "UID is the unique identifier of the contact point. The UID can be\nset by the user."
       }
     },
     "required": [
@@ -24965,7 +25054,9 @@ var (
                 "disableResolveMessage": {
                   "type": "boolean"
                 },
-                "settings": {},
+                "settings": {
+                  "type": "object"
+                },
                 "type": {
                   "type": "string"
                 },
@@ -25020,7 +25111,12 @@ var (
                       "datasourceUid": {
                         "type": "string"
                       },
-                      "model": {},
+                      "model": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "object"
+                        }
+                      },
                       "queryType": {
                         "type": "string"
                       },
@@ -25257,24 +25353,16 @@ var (
             "items": {
               "type": "object",
               "properties": {
-                "isEqual": {
-                  "type": "boolean"
-                },
-                "isRegex": {
-                  "type": "boolean"
-                },
-                "name": {
+                "Name": {
                   "type": "string"
                 },
-                "value": {
+                "Type": {
+                  "type": "number"
+                },
+                "Value": {
                   "type": "string"
                 }
-              },
-              "required": [
-                "isRegex",
-                "name",
-                "value"
-              ]
+              }
             }
           },
           "mute_time_intervals": {
@@ -25345,24 +25433,16 @@ var (
                   "items": {
                     "type": "object",
                     "properties": {
-                      "isEqual": {
-                        "type": "boolean"
-                      },
-                      "isRegex": {
-                        "type": "boolean"
-                      },
-                      "name": {
+                      "Name": {
                         "type": "string"
                       },
-                      "value": {
+                      "Type": {
+                        "type": "number"
+                      },
+                      "Value": {
                         "type": "string"
                       }
-                    },
-                    "required": [
-                      "isRegex",
-                      "name",
-                      "value"
-                    ]
+                    }
                   }
                 },
                 "mute_time_intervals": {
@@ -25425,7 +25505,7 @@ var (
   groups[].rules[].dashboardUid                                     string
   groups[].rules[].data                                             array<object>
   groups[].rules[].data[].datasourceUid                             string
-  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].model                                     map<string, object>
   groups[].rules[].data[].queryType                                 string
   groups[].rules[].data[].refId                                     string
   groups[].rules[].data[].relativeTimeRange                         object
@@ -25476,10 +25556,9 @@ var (
   policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].match_re                                               map<string, string>
   policies[].matchers                                               array<object>
-  policies[].matchers[].isEqual                                     boolean
-  policies[].matchers[].isRegex                                     boolean               REQUIRED
-  policies[].matchers[].name                                        string                REQUIRED
-  policies[].matchers[].value                                       string                REQUIRED
+  policies[].matchers[].Name                                        string
+  policies[].matchers[].Type                                        number
+  policies[].matchers[].Value                                       string
   policies[].mute_time_intervals                                    array<string>
   policies[].object_matchers                                        array<array<string>>
   policies[].orgId                                                  number
@@ -25494,10 +25573,9 @@ var (
   policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].routes[].match_re                                      map<string, string>
   policies[].routes[].matchers                                      array<object>
-  policies[].routes[].matchers[].isEqual                            boolean
-  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
-  policies[].routes[].matchers[].name                               string                REQUIRED
-  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].matchers[].Name                               string
+  policies[].routes[].matchers[].Type                               number
+  policies[].routes[].matchers[].Value                              string
   policies[].routes[].mute_time_intervals                           array<string>
   policies[].routes[].object_matchers                               array<array<string>>
   policies[].routes[].receiver                                      string
@@ -25794,24 +25872,16 @@ var (
       "items": {
         "type": "object",
         "properties": {
-          "isEqual": {
-            "type": "boolean"
-          },
-          "isRegex": {
-            "type": "boolean"
-          },
-          "name": {
+          "Name": {
             "type": "string"
           },
-          "value": {
+          "Type": {
+            "type": "number"
+          },
+          "Value": {
             "type": "string"
           }
-        },
-        "required": [
-          "isRegex",
-          "name",
-          "value"
-        ]
+        }
       }
     },
     "mute_time_intervals": {
@@ -25859,10 +25929,9 @@ var (
   match                  map<string, string>   Deprecated. Remove before v1.0 release.
   match_re               map<string, string>
   matchers               array<object>
-  matchers[].isEqual     boolean
-  matchers[].isRegex     boolean               REQUIRED
-  matchers[].name        string                REQUIRED
-  matchers[].value       string                REQUIRED
+  matchers[].Name        string
+  matchers[].Type        number
+  matchers[].Value       string
   mute_time_intervals    array<string>
   object_matchers        array<array<string>>
   provenance             string
@@ -25930,7 +25999,9 @@ var (
                 "disableResolveMessage": {
                   "type": "boolean"
                 },
-                "settings": {},
+                "settings": {
+                  "type": "object"
+                },
                 "type": {
                   "type": "string"
                 },
@@ -25985,7 +26056,12 @@ var (
                       "datasourceUid": {
                         "type": "string"
                       },
-                      "model": {},
+                      "model": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "object"
+                        }
+                      },
                       "queryType": {
                         "type": "string"
                       },
@@ -26222,24 +26298,16 @@ var (
             "items": {
               "type": "object",
               "properties": {
-                "isEqual": {
-                  "type": "boolean"
-                },
-                "isRegex": {
-                  "type": "boolean"
-                },
-                "name": {
+                "Name": {
                   "type": "string"
                 },
-                "value": {
+                "Type": {
+                  "type": "number"
+                },
+                "Value": {
                   "type": "string"
                 }
-              },
-              "required": [
-                "isRegex",
-                "name",
-                "value"
-              ]
+              }
             }
           },
           "mute_time_intervals": {
@@ -26310,24 +26378,16 @@ var (
                   "items": {
                     "type": "object",
                     "properties": {
-                      "isEqual": {
-                        "type": "boolean"
-                      },
-                      "isRegex": {
-                        "type": "boolean"
-                      },
-                      "name": {
+                      "Name": {
                         "type": "string"
                       },
-                      "value": {
+                      "Type": {
+                        "type": "number"
+                      },
+                      "Value": {
                         "type": "string"
                       }
-                    },
-                    "required": [
-                      "isRegex",
-                      "name",
-                      "value"
-                    ]
+                    }
                   }
                 },
                 "mute_time_intervals": {
@@ -26390,7 +26450,7 @@ var (
   groups[].rules[].dashboardUid                                     string
   groups[].rules[].data                                             array<object>
   groups[].rules[].data[].datasourceUid                             string
-  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].model                                     map<string, object>
   groups[].rules[].data[].queryType                                 string
   groups[].rules[].data[].refId                                     string
   groups[].rules[].data[].relativeTimeRange                         object
@@ -26441,10 +26501,9 @@ var (
   policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].match_re                                               map<string, string>
   policies[].matchers                                               array<object>
-  policies[].matchers[].isEqual                                     boolean
-  policies[].matchers[].isRegex                                     boolean               REQUIRED
-  policies[].matchers[].name                                        string                REQUIRED
-  policies[].matchers[].value                                       string                REQUIRED
+  policies[].matchers[].Name                                        string
+  policies[].matchers[].Type                                        number
+  policies[].matchers[].Value                                       string
   policies[].mute_time_intervals                                    array<string>
   policies[].object_matchers                                        array<array<string>>
   policies[].orgId                                                  number
@@ -26459,10 +26518,9 @@ var (
   policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].routes[].match_re                                      map<string, string>
   policies[].routes[].matchers                                      array<object>
-  policies[].routes[].matchers[].isEqual                            boolean
-  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
-  policies[].routes[].matchers[].name                               string                REQUIRED
-  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].matchers[].Name                               string
+  policies[].routes[].matchers[].Type                               number
+  policies[].routes[].matchers[].Value                              string
   policies[].routes[].mute_time_intervals                           array<string>
   policies[].routes[].object_matchers                               array<array<string>>
   policies[].routes[].receiver                                      string
@@ -26648,6 +26706,7 @@ var (
             "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
           },
           "model": {
+            "type": "object",
             "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
           },
           "queryType": {
@@ -26785,20 +26844,16 @@ var (
       ]
     },
     "ruleGroup": {
-      "type": "string",
-      "description": "rule group\nMax Length: 190\nMin Length: 1"
+      "type": "string"
     },
     "title": {
-      "type": "string",
-      "description": "title\nMax Length: 190\nMin Length: 1"
+      "type": "string"
     },
     "uid": {
-      "type": "string",
-      "description": "uid\nMax Length: 40\nMin Length: 1"
+      "type": "string"
     },
     "updated": {
-      "type": "string",
-      "description": "updated\nRead Only: true"
+      "type": "string"
     }
   },
   "required": [
@@ -26837,6 +26892,7 @@ var (
             "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
           },
           "model": {
+            "type": "object",
             "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
           },
           "queryType": {
@@ -26974,20 +27030,16 @@ var (
       ]
     },
     "ruleGroup": {
-      "type": "string",
-      "description": "rule group\nMax Length: 190\nMin Length: 1"
+      "type": "string"
     },
     "title": {
-      "type": "string",
-      "description": "title\nMax Length: 190\nMin Length: 1"
+      "type": "string"
     },
     "uid": {
-      "type": "string",
-      "description": "uid\nMax Length: 40\nMin Length: 1"
+      "type": "string"
     },
     "updated": {
-      "type": "string",
-      "description": "updated\nRead Only: true"
+      "type": "string"
     }
   },
   "required": [
@@ -27062,18 +27114,9 @@ var (
                                                                     Name of the recorded metric.
   record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
   ruleGroup                                    string               REQUIRED
-                                                                    rule group
-                                                                    Max Length: 190
-                                                                    Min Length: 1
   title                                        string               REQUIRED
-                                                                    title
-                                                                    Max Length: 190
-                                                                    Min Length: 1
-  uid                                          string               uid
-                                                                    Max Length: 40
-                                                                    Min Length: 1
-  updated                                      string               updated
-                                                                    Read Only: true`,
+  uid                                          string
+  updated                                      string`,
 			"responseSchema": `Response schema (PostAlertRuleCreated.Payload):
   annotations                                  map<string, string>
   condition                                    string               REQUIRED
@@ -27130,18 +27173,9 @@ var (
                                                                     Name of the recorded metric.
   record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
   ruleGroup                                    string               REQUIRED
-                                                                    rule group
-                                                                    Max Length: 190
-                                                                    Min Length: 1
   title                                        string               REQUIRED
-                                                                    title
-                                                                    Max Length: 190
-                                                                    Min Length: 1
-  uid                                          string               uid
-                                                                    Max Length: 40
-                                                                    Min Length: 1
-  updated                                      string               updated
-                                                                    Read Only: true`,
+  uid                                          string
+  updated                                      string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -27202,10 +27236,11 @@ var (
       "description": "Name is used as grouping key in the UI. Contact points with the\nsame name will be grouped in the UI."
     },
     "provenance": {
-      "type": "string",
-      "description": "provenance\nRead Only: true"
+      "type": "string"
     },
-    "settings": {},
+    "settings": {
+      "type": "object"
+    },
     "type": {
       "type": "string",
       "enum": [
@@ -27231,7 +27266,7 @@ var (
     },
     "uid": {
       "type": "string",
-      "description": "UID is the unique identifier of the contact point. The UID can be\nset by the user.\nMax Length: 40\nMin Length: 1"
+      "description": "UID is the unique identifier of the contact point. The UID can be\nset by the user."
     }
   },
   "required": [
@@ -27252,10 +27287,11 @@ var (
       "description": "Name is used as grouping key in the UI. Contact points with the\nsame name will be grouped in the UI."
     },
     "provenance": {
-      "type": "string",
-      "description": "provenance\nRead Only: true"
+      "type": "string"
     },
-    "settings": {},
+    "settings": {
+      "type": "object"
+    },
     "type": {
       "type": "string",
       "enum": [
@@ -27281,7 +27317,7 @@ var (
     },
     "uid": {
       "type": "string",
-      "description": "UID is the unique identifier of the contact point. The UID can be\nset by the user.\nMax Length: 40\nMin Length: 1"
+      "description": "UID is the unique identifier of the contact point. The UID can be\nset by the user."
     }
   },
   "required": [
@@ -27297,28 +27333,22 @@ var (
   disableResolveMessage  boolean
   name                   string   Name is used as grouping key in the UI. Contact points with the
                                   same name will be grouped in the UI.
-  provenance             string   provenance
-                                  Read Only: true
+  provenance             string
   settings               object   REQUIRED
   type                   string   REQUIRED
                                   enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
   uid                    string   UID is the unique identifier of the contact point. The UID can be
-                                  set by the user.
-                                  Max Length: 40
-                                  Min Length: 1`,
+                                  set by the user.`,
 			"responseSchema": `Response schema (PostContactpointsAccepted.Payload):
   disableResolveMessage  boolean
   name                   string   Name is used as grouping key in the UI. Contact points with the
                                   same name will be grouped in the UI.
-  provenance             string   provenance
-                                  Read Only: true
+  provenance             string
   settings               object   REQUIRED
   type                   string   REQUIRED
                                   enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
   uid                    string   UID is the unique identifier of the contact point. The UID can be
-                                  set by the user.
-                                  Max Length: 40
-                                  Min Length: 1`,
+                                  set by the user.`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -27581,6 +27611,7 @@ var (
             "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
           },
           "model": {
+            "type": "object",
             "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
           },
           "queryType": {
@@ -27718,20 +27749,16 @@ var (
       ]
     },
     "ruleGroup": {
-      "type": "string",
-      "description": "rule group\nMax Length: 190\nMin Length: 1"
+      "type": "string"
     },
     "title": {
-      "type": "string",
-      "description": "title\nMax Length: 190\nMin Length: 1"
+      "type": "string"
     },
     "uid": {
-      "type": "string",
-      "description": "uid\nMax Length: 40\nMin Length: 1"
+      "type": "string"
     },
     "updated": {
-      "type": "string",
-      "description": "updated\nRead Only: true"
+      "type": "string"
     }
   },
   "required": [
@@ -27770,6 +27797,7 @@ var (
             "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
           },
           "model": {
+            "type": "object",
             "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
           },
           "queryType": {
@@ -27907,20 +27935,16 @@ var (
       ]
     },
     "ruleGroup": {
-      "type": "string",
-      "description": "rule group\nMax Length: 190\nMin Length: 1"
+      "type": "string"
     },
     "title": {
-      "type": "string",
-      "description": "title\nMax Length: 190\nMin Length: 1"
+      "type": "string"
     },
     "uid": {
-      "type": "string",
-      "description": "uid\nMax Length: 40\nMin Length: 1"
+      "type": "string"
     },
     "updated": {
-      "type": "string",
-      "description": "updated\nRead Only: true"
+      "type": "string"
     }
   },
   "required": [
@@ -27995,18 +28019,9 @@ var (
                                                                     Name of the recorded metric.
   record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
   ruleGroup                                    string               REQUIRED
-                                                                    rule group
-                                                                    Max Length: 190
-                                                                    Min Length: 1
   title                                        string               REQUIRED
-                                                                    title
-                                                                    Max Length: 190
-                                                                    Min Length: 1
-  uid                                          string               uid
-                                                                    Max Length: 40
-                                                                    Min Length: 1
-  updated                                      string               updated
-                                                                    Read Only: true`,
+  uid                                          string
+  updated                                      string`,
 			"responseSchema": `Response schema (PutAlertRuleOK.Payload):
   annotations                                  map<string, string>
   condition                                    string               REQUIRED
@@ -28063,18 +28078,9 @@ var (
                                                                     Name of the recorded metric.
   record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
   ruleGroup                                    string               REQUIRED
-                                                                    rule group
-                                                                    Max Length: 190
-                                                                    Min Length: 1
   title                                        string               REQUIRED
-                                                                    title
-                                                                    Max Length: 190
-                                                                    Min Length: 1
-  uid                                          string               uid
-                                                                    Max Length: 40
-                                                                    Min Length: 1
-  updated                                      string               updated
-                                                                    Read Only: true`,
+  uid                                          string
+  updated                                      string`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -28158,6 +28164,7 @@ var (
                   "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
                 },
                 "model": {
+                  "type": "object",
                   "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
                 },
                 "queryType": {
@@ -28295,20 +28302,16 @@ var (
             ]
           },
           "ruleGroup": {
-            "type": "string",
-            "description": "rule group\nMax Length: 190\nMin Length: 1"
+            "type": "string"
           },
           "title": {
-            "type": "string",
-            "description": "title\nMax Length: 190\nMin Length: 1"
+            "type": "string"
           },
           "uid": {
-            "type": "string",
-            "description": "uid\nMax Length: 40\nMin Length: 1"
+            "type": "string"
           },
           "updated": {
-            "type": "string",
-            "description": "updated\nRead Only: true"
+            "type": "string"
           }
         },
         "required": [
@@ -28364,6 +28367,7 @@ var (
                   "description": "Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation."
                 },
                 "model": {
+                  "type": "object",
                   "description": "JSON is the raw JSON query and includes the above properties as well as custom properties."
                 },
                 "queryType": {
@@ -28501,20 +28505,16 @@ var (
             ]
           },
           "ruleGroup": {
-            "type": "string",
-            "description": "rule group\nMax Length: 190\nMin Length: 1"
+            "type": "string"
           },
           "title": {
-            "type": "string",
-            "description": "title\nMax Length: 190\nMin Length: 1"
+            "type": "string"
           },
           "uid": {
-            "type": "string",
-            "description": "uid\nMax Length: 40\nMin Length: 1"
+            "type": "string"
           },
           "updated": {
-            "type": "string",
-            "description": "updated\nRead Only: true"
+            "type": "string"
           }
         },
         "required": [
@@ -28598,18 +28598,9 @@ var (
                                                                             Name of the recorded metric.
   rules[].record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
   rules[].ruleGroup                                    string               REQUIRED
-                                                                            rule group
-                                                                            Max Length: 190
-                                                                            Min Length: 1
   rules[].title                                        string               REQUIRED
-                                                                            title
-                                                                            Max Length: 190
-                                                                            Min Length: 1
-  rules[].uid                                          string               uid
-                                                                            Max Length: 40
-                                                                            Min Length: 1
-  rules[].updated                                      string               updated
-                                                                            Read Only: true
+  rules[].uid                                          string
+  rules[].updated                                      string
   title                                                string`,
 			"responseSchema": `Response schema (PutAlertRuleGroupOK.Payload):
   folderUid                                            string
@@ -28670,18 +28661,9 @@ var (
                                                                             Name of the recorded metric.
   rules[].record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
   rules[].ruleGroup                                    string               REQUIRED
-                                                                            rule group
-                                                                            Max Length: 190
-                                                                            Min Length: 1
   rules[].title                                        string               REQUIRED
-                                                                            title
-                                                                            Max Length: 190
-                                                                            Min Length: 1
-  rules[].uid                                          string               uid
-                                                                            Max Length: 40
-                                                                            Min Length: 1
-  rules[].updated                                      string               updated
-                                                                            Read Only: true
+  rules[].uid                                          string
+  rules[].updated                                      string
   title                                                string`,
 		},
 		DisableAutoGenTag: true,
@@ -28745,10 +28727,11 @@ var (
       "description": "Name is used as grouping key in the UI. Contact points with the\nsame name will be grouped in the UI."
     },
     "provenance": {
-      "type": "string",
-      "description": "provenance\nRead Only: true"
+      "type": "string"
     },
-    "settings": {},
+    "settings": {
+      "type": "object"
+    },
     "type": {
       "type": "string",
       "enum": [
@@ -28774,7 +28757,7 @@ var (
     },
     "uid": {
       "type": "string",
-      "description": "UID is the unique identifier of the contact point. The UID can be\nset by the user.\nMax Length: 40\nMin Length: 1"
+      "description": "UID is the unique identifier of the contact point. The UID can be\nset by the user."
     }
   },
   "required": [
@@ -28784,7 +28767,8 @@ var (
 }`
 	provisioningPutContactpointResponseJSONSchema = `{
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "PutContactpointAccepted.Payload"
+  "title": "PutContactpointAccepted.Payload",
+  "type": "object"
 }`
 	provisioningPutContactpointCmd = &cobra.Command{
 		Use:   "put-contactpoint",
@@ -28794,15 +28778,12 @@ var (
   disableResolveMessage  boolean
   name                   string   Name is used as grouping key in the UI. Contact points with the
                                   same name will be grouped in the UI.
-  provenance             string   provenance
-                                  Read Only: true
+  provenance             string
   settings               object   REQUIRED
   type                   string   REQUIRED
                                   enum: alertmanager | dingding | discord | email | googlechat | kafka | line | opsgenie | pagerduty | pushover | sensugo | slack | teams | telegram | threema | victorops | webhook | wecom
   uid                    string   UID is the unique identifier of the contact point. The UID can be
-                                  set by the user.
-                                  Max Length: 40
-                                  Min Length: 1`,
+                                  set by the user.`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -29087,24 +29068,16 @@ var (
       "items": {
         "type": "object",
         "properties": {
-          "isEqual": {
-            "type": "boolean"
-          },
-          "isRegex": {
-            "type": "boolean"
-          },
-          "name": {
+          "Name": {
             "type": "string"
           },
-          "value": {
+          "Type": {
+            "type": "number"
+          },
+          "Value": {
             "type": "string"
           }
-        },
-        "required": [
-          "isRegex",
-          "name",
-          "value"
-        ]
+        }
       }
     },
     "mute_time_intervals": {
@@ -29141,7 +29114,8 @@ var (
 }`
 	provisioningPutPolicyTreeResponseJSONSchema = `{
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "PutPolicyTreeAccepted.Payload"
+  "title": "PutPolicyTreeAccepted.Payload",
+  "type": "object"
 }`
 	provisioningPutPolicyTreeCmd = &cobra.Command{
 		Use:   "put-policy-tree",
@@ -29156,10 +29130,9 @@ var (
   match                  map<string, string>   Deprecated. Remove before v1.0 release.
   match_re               map<string, string>
   matchers               array<object>
-  matchers[].isEqual     boolean
-  matchers[].isRegex     boolean               REQUIRED
-  matchers[].name        string                REQUIRED
-  matchers[].value       string                REQUIRED
+  matchers[].Name        string
+  matchers[].Type        number
+  matchers[].Value       string
   mute_time_intervals    array<string>
   object_matchers        array<array<string>>
   provenance             string
@@ -29307,7 +29280,8 @@ var (
 	}
 	provisioningResetPolicyTreeResponseJSONSchema = `{
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "ResetPolicyTreeAccepted.Payload"
+  "title": "ResetPolicyTreeAccepted.Payload",
+  "type": "object"
 }`
 	provisioningResetPolicyTreeCmd = &cobra.Command{
 		Use:               "reset-policy-tree",
@@ -29550,7 +29524,9 @@ var (
       "type": "string",
       "description": "UID of the data source for which are queries stored."
     },
-    "queries": {}
+    "queries": {
+      "type": "object"
+    }
   },
   "required": [
     "queries"
@@ -29576,7 +29552,9 @@ var (
         "datasourceUid": {
           "type": "string"
         },
-        "queries": {},
+        "queries": {
+          "type": "object"
+        },
         "starred": {
           "type": "boolean"
         },
@@ -29744,7 +29722,9 @@ var (
         "datasourceUid": {
           "type": "string"
         },
-        "queries": {},
+        "queries": {
+          "type": "object"
+        },
         "starred": {
           "type": "boolean"
         },
@@ -29852,7 +29832,9 @@ var (
               "datasourceUid": {
                 "type": "string"
               },
-              "queries": {},
+              "queries": {
+                "type": "object"
+              },
               "starred": {
                 "type": "boolean"
               },
@@ -29953,7 +29935,9 @@ var (
         "datasourceUid": {
           "type": "string"
         },
-        "queries": {},
+        "queries": {
+          "type": "object"
+        },
         "starred": {
           "type": "boolean"
         },
@@ -30037,7 +30021,9 @@ var (
         "datasourceUid": {
           "type": "string"
         },
-        "queries": {},
+        "queries": {
+          "type": "object"
+        },
         "starred": {
           "type": "boolean"
         },
@@ -30648,7 +30634,12 @@ var (
     },
     "queries": {
       "type": "array",
-      "items": {}
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        }
+      }
     },
     "range": {
       "type": "number"
@@ -30689,7 +30680,12 @@ var (
     },
     "queries": {
       "type": "array",
-      "items": {}
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        }
+      }
     },
     "range": {
       "type": "number"
@@ -30712,7 +30708,7 @@ var (
   interval              number
   name                  string
   prom_name             string
-  queries               array<object>
+  queries               array<map<string, object>>
   range                 number
   target_ref_id         string`,
 			"responseSchema": `Response schema (CreateRecordingRuleOK.Payload):
@@ -30724,7 +30720,7 @@ var (
   interval              number
   name                  string
   prom_name             string
-  queries               array<object>
+  queries               array<map<string, object>>
   range                 number
   target_ref_id         string`,
 		},
@@ -31060,7 +31056,12 @@ var (
       },
       "queries": {
         "type": "array",
-        "items": {}
+        "items": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
       },
       "range": {
         "type": "number"
@@ -31138,7 +31139,12 @@ var (
     },
     "queries": {
       "type": "array",
-      "items": {}
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        }
+      }
     },
     "range": {
       "type": "number"
@@ -31171,7 +31177,7 @@ var (
   interval              number
   name                  string
   prom_name             string
-  queries               array<object>
+  queries               array<map<string, object>>
   range                 number
   target_ref_id         string`,
 			"responseSchema": `Response schema (TestCreateRecordingRuleOK.Payload):
@@ -31253,7 +31259,12 @@ var (
     },
     "queries": {
       "type": "array",
-      "items": {}
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        }
+      }
     },
     "range": {
       "type": "number"
@@ -31294,7 +31305,12 @@ var (
     },
     "queries": {
       "type": "array",
-      "items": {}
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        }
+      }
     },
     "range": {
       "type": "number"
@@ -31317,7 +31333,7 @@ var (
   interval              number
   name                  string
   prom_name             string
-  queries               array<object>
+  queries               array<map<string, object>>
   range                 number
   target_ref_id         string`,
 			"responseSchema": `Response schema (UpdateRecordingRuleOK.Payload):
@@ -31329,7 +31345,7 @@ var (
   interval              number
   name                  string
   prom_name             string
-  queries               array<object>
+  queries               array<map<string, object>>
   range                 number
   target_ref_id         string`,
 		},
@@ -31450,7 +31466,9 @@ var (
               }
             }
           },
-          "reportVariables": {},
+          "reportVariables": {
+            "type": "object"
+          },
           "timeRange": {
             "type": "object",
             "properties": {
@@ -31486,6 +31504,9 @@ var (
     "options": {
       "type": "object",
       "properties": {
+        "csvEncoding": {
+          "type": "string"
+        },
         "layout": {
           "type": "string"
         },
@@ -31595,6 +31616,7 @@ var (
   message                           string
   name                              string
   options                           object
+  options.csvEncoding               string
   options.layout                    string
   options.orientation               string
   options.pdfCombineOneFile         boolean
@@ -31750,7 +31772,9 @@ var (
               }
             }
           },
-          "reportVariables": {},
+          "reportVariables": {
+            "type": "object"
+          },
           "timeRange": {
             "type": "object",
             "properties": {
@@ -31789,6 +31813,9 @@ var (
     "options": {
       "type": "object",
       "properties": {
+        "csvEncoding": {
+          "type": "string"
+        },
         "layout": {
           "type": "string"
         },
@@ -31900,6 +31927,7 @@ var (
   message                           string
   name                              string
   options                           object
+  options.csvEncoding               string
   options.layout                    string
   options.orientation               string
   options.pdfCombineOneFile         boolean
@@ -31989,14 +32017,52 @@ var (
     "embeddedImageTheme": {
       "type": "string"
     },
+    "footerFontFamily": {
+      "type": "string"
+    },
+    "footerItems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "type": "string"
+          },
+          "fontSize": {
+            "type": "string"
+          },
+          "fontStyle": {
+            "type": "string"
+          },
+          "fontWeight": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "id": {
       "type": "number"
     },
     "orgId": {
       "type": "number"
     },
+    "pdfDashboardTitleEnabled": {
+      "type": "boolean"
+    },
+    "pdfHeaderEnabled": {
+      "type": "boolean"
+    },
     "pdfTheme": {
       "type": "string"
+    },
+    "pdfTimeRangeEnabled": {
+      "type": "boolean"
     },
     "userId": {
       "type": "number"
@@ -32020,9 +32086,20 @@ var (
   branding.emailLogoUrl     string
   branding.reportLogoUrl    string
   embeddedImageTheme        string
+  footerFontFamily          string
+  footerItems               array<object>
+  footerItems[].color       string
+  footerItems[].fontSize    string
+  footerItems[].fontStyle   string
+  footerItems[].fontWeight  string
+  footerItems[].type        string
+  footerItems[].value       string
   id                        number
   orgId                     number
+  pdfDashboardTitleEnabled  boolean
+  pdfHeaderEnabled          boolean
   pdfTheme                  string
+  pdfTimeRangeEnabled       boolean
   userId                    number`,
 		},
 		DisableAutoGenTag: true,
@@ -32087,7 +32164,9 @@ var (
                 }
               }
             },
-            "reportVariables": {},
+            "reportVariables": {
+              "type": "object"
+            },
             "timeRange": {
               "type": "object",
               "properties": {
@@ -32126,6 +32205,9 @@ var (
       "options": {
         "type": "object",
         "properties": {
+          "csvEncoding": {
+            "type": "string"
+          },
           "layout": {
             "type": "string"
           },
@@ -32280,7 +32362,9 @@ var (
                 }
               }
             },
-            "reportVariables": {},
+            "reportVariables": {
+              "type": "object"
+            },
             "timeRange": {
               "type": "object",
               "properties": {
@@ -32319,6 +32403,9 @@ var (
       "options": {
         "type": "object",
         "properties": {
+          "csvEncoding": {
+            "type": "string"
+          },
           "layout": {
             "type": "string"
           },
@@ -32497,7 +32584,7 @@ var (
 	}
 	reportsRenderReportCSVsResponseJSONSchema = `{
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "RenderReportCSVsOK.Payload",
+  "title": "RenderReportCsvsOK.Payload",
   "type": "array",
   "items": {
     "type": "number"
@@ -32548,7 +32635,7 @@ var (
 	}
 	reportsRenderReportPDFsResponseJSONSchema = `{
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "RenderReportPDFsOK.Payload",
+  "title": "RenderReportPdfsOK.Payload",
   "type": "array",
   "items": {
     "type": "number"
@@ -32629,14 +32716,52 @@ var (
     "embeddedImageTheme": {
       "type": "string"
     },
+    "footerFontFamily": {
+      "type": "string"
+    },
+    "footerItems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "type": "string"
+          },
+          "fontSize": {
+            "type": "string"
+          },
+          "fontStyle": {
+            "type": "string"
+          },
+          "fontWeight": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "id": {
       "type": "number"
     },
     "orgId": {
       "type": "number"
     },
+    "pdfDashboardTitleEnabled": {
+      "type": "boolean"
+    },
+    "pdfHeaderEnabled": {
+      "type": "boolean"
+    },
     "pdfTheme": {
       "type": "string"
+    },
+    "pdfTimeRangeEnabled": {
+      "type": "boolean"
     },
     "userId": {
       "type": "number"
@@ -32670,9 +32795,20 @@ var (
   branding.emailLogoUrl     string
   branding.reportLogoUrl    string
   embeddedImageTheme        string
+  footerFontFamily          string
+  footerItems               array<object>
+  footerItems[].color       string
+  footerItems[].fontSize    string
+  footerItems[].fontStyle   string
+  footerItems[].fontWeight  string
+  footerItems[].type        string
+  footerItems[].value       string
   id                        number
   orgId                     number
+  pdfDashboardTitleEnabled  boolean
+  pdfHeaderEnabled          boolean
   pdfTheme                  string
+  pdfTimeRangeEnabled       boolean
   userId                    number`,
 			"responseSchema": `Response schema (SaveReportSettingsOK.Payload):
   message  string`,
@@ -32837,7 +32973,9 @@ var (
               }
             }
           },
-          "reportVariables": {},
+          "reportVariables": {
+            "type": "object"
+          },
           "timeRange": {
             "type": "object",
             "properties": {
@@ -32873,6 +33011,9 @@ var (
     "options": {
       "type": "object",
       "properties": {
+        "csvEncoding": {
+          "type": "string"
+        },
         "layout": {
           "type": "string"
         },
@@ -32979,6 +33120,7 @@ var (
   message                           string
   name                              string
   options                           object
+  options.csvEncoding               string
   options.layout                    string
   options.orientation               string
   options.pdfCombineOneFile         boolean
@@ -33072,7 +33214,9 @@ var (
               }
             }
           },
-          "reportVariables": {},
+          "reportVariables": {
+            "type": "object"
+          },
           "timeRange": {
             "type": "object",
             "properties": {
@@ -33108,6 +33252,9 @@ var (
     "options": {
       "type": "object",
       "properties": {
+        "csvEncoding": {
+          "type": "string"
+        },
         "layout": {
           "type": "string"
         },
@@ -33215,6 +33362,7 @@ var (
   message                           string
   name                              string
   options                           object
+  options.csvEncoding               string
   options.layout                    string
   options.orientation               string
   options.pdfCombineOneFile         boolean
@@ -35178,14 +35326,6 @@ var (
   "title": "GetUserPreferencesOK.Payload",
   "type": "object",
   "properties": {
-    "cookiePreferences": {
-      "type": "object",
-      "properties": {
-        "analytics": {},
-        "functional": {},
-        "performance": {}
-      }
-    },
     "homeDashboardUID": {
       "type": "string",
       "description": "UID for the home dashboard"
@@ -35237,21 +35377,17 @@ var (
 		Short: "Gets user preferences",
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (GetUserPreferencesOK.Payload):
-  cookiePreferences              object
-  cookiePreferences.analytics    object
-  cookiePreferences.functional   object
-  cookiePreferences.performance  object
-  homeDashboardUID               string         UID for the home dashboard
-  language                       string         Selected language (beta)
-  navbar                         object
-  navbar.bookmarkUrls            array<string>
-  queryHistory                   object
-  queryHistory.homeTab           string         one of: '' | 'query' | 'starred';
-  regionalFormat                 string         Selected locale (beta)
-  theme                          string         light, dark, empty is default
-  timezone                       string         The timezone selection
-                                                TODO: this should use the timezone defined in common
-  weekStart                      string         day of the week (sunday, monday, etc)`,
+  homeDashboardUID      string         UID for the home dashboard
+  language              string         Selected language (beta)
+  navbar                object
+  navbar.bookmarkUrls   array<string>
+  queryHistory          object
+  queryHistory.homeTab  string         one of: '' | 'query' | 'starred';
+  regionalFormat        string         Selected locale (beta)
+  theme                 string         light, dark, empty is default
+  timezone              string         The timezone selection
+                                       TODO: this should use the timezone defined in common
+  weekStart             string         day of the week (sunday, monday, etc)`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -35291,12 +35427,6 @@ var (
   "title": "PatchPrefsCmd",
   "type": "object",
   "properties": {
-    "cookies": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
     "homeDashboardId": {
       "type": "number",
       "description": "The numerical :id of a favorited dashboard"
@@ -35338,10 +35468,7 @@ var (
     },
     "timezone": {
       "type": "string",
-      "enum": [
-        "utc",
-        "browser"
-      ]
+      "description": "Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string"
     },
     "weekStart": {
       "type": "string"
@@ -35363,7 +35490,6 @@ var (
 		Short: "Patches user preferences",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (PatchPrefsCmd):
-  cookies               array<string>
   homeDashboardId       number         The numerical :id of a favorited dashboard
   homeDashboardUID      string
   language              string
@@ -35373,7 +35499,7 @@ var (
   queryHistory.homeTab  string
   regionalFormat        string
   theme                 string         enum: light | dark
-  timezone              string         enum: utc | browser
+  timezone              string         Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
   weekStart             string`,
 			"responseSchema": `Response schema (PatchUserPreferencesOK.Payload):
   message  string`,
@@ -35760,12 +35886,6 @@ var (
   "title": "UpdatePrefsCmd",
   "type": "object",
   "properties": {
-    "cookies": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
     "homeDashboardId": {
       "type": "number",
       "description": "The numerical :id of a favorited dashboard"
@@ -35808,10 +35928,7 @@ var (
     },
     "timezone": {
       "type": "string",
-      "enum": [
-        "utc",
-        "browser"
-      ]
+      "description": "Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string"
     },
     "weekStart": {
       "type": "string"
@@ -35837,7 +35954,6 @@ var (
 		),
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdatePrefsCmd):
-  cookies               array<string>
   homeDashboardId       number         The numerical :id of a favorited dashboard
   homeDashboardUID      string
   language              string
@@ -35847,7 +35963,7 @@ var (
   queryHistory.homeTab  string
   regionalFormat        string
   theme                 string         enum: light | dark | system
-  timezone              string         enum: utc | browser
+  timezone              string         Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
   weekStart             string`,
 			"responseSchema": `Response schema (UpdateUserPreferencesOK.Payload):
   message  string`,
@@ -36230,7 +36346,9 @@ var (
                               "type": "number"
                             }
                           },
-                          "Value": {}
+                          "Value": {
+                            "type": "object"
+                          }
                         }
                       },
                       "description": "ExtraNames contains attributes to be copied, raw, into any marshaled\ndistinguished names. Values override any attributes with the same OID.\nThe ExtraNames field is not populated when parsing, see Names."
@@ -36252,7 +36370,9 @@ var (
                               "type": "number"
                             }
                           },
-                          "Value": {}
+                          "Value": {
+                            "type": "object"
+                          }
                         }
                       },
                       "description": "Names contains all parsed attributes. When parsing distinguished names,\nthis can be used to extract non-standard attributes that are not parsed\nby this package. When marshaling to RDNSequences, the Names field is\nignored, see ExtraNames."
@@ -36368,7 +36488,9 @@ var (
                   },
                   "description": "PolicyMappings contains a list of policy mappings included in the certificate."
                 },
-                "PublicKey": {},
+                "PublicKey": {
+                  "type": "object"
+                },
                 "PublicKeyAlgorithm": {
                   "type": "number"
                 },
@@ -36442,7 +36564,9 @@ var (
                               "type": "number"
                             }
                           },
-                          "Value": {}
+                          "Value": {
+                            "type": "object"
+                          }
                         }
                       },
                       "description": "ExtraNames contains attributes to be copied, raw, into any marshaled\ndistinguished names. Values override any attributes with the same OID.\nThe ExtraNames field is not populated when parsing, see Names."
@@ -36464,7 +36588,9 @@ var (
                               "type": "number"
                             }
                           },
-                          "Value": {}
+                          "Value": {
+                            "type": "object"
+                          }
                         }
                       },
                       "description": "Names contains all parsed attributes. When parsing distinguished names,\nthis can be used to extract non-standard attributes that are not parsed\nby this package. When marshaling to RDNSequences, the Names field is\nignored, see ExtraNames."
@@ -36489,40 +36615,7 @@ var (
                 "URIs": {
                   "type": "array",
                   "items": {
-                    "type": "object",
-                    "properties": {
-                      "ForceQuery": {
-                        "type": "boolean"
-                      },
-                      "Fragment": {
-                        "type": "string"
-                      },
-                      "Host": {
-                        "type": "string"
-                      },
-                      "OmitHost": {
-                        "type": "boolean"
-                      },
-                      "Opaque": {
-                        "type": "string"
-                      },
-                      "Path": {
-                        "type": "string"
-                      },
-                      "RawFragment": {
-                        "type": "string"
-                      },
-                      "RawPath": {
-                        "type": "string"
-                      },
-                      "RawQuery": {
-                        "type": "string"
-                      },
-                      "Scheme": {
-                        "type": "string"
-                      },
-                      "User": {}
-                    }
+                    "type": "string"
                   }
                 },
                 "UnhandledCriticalExtensions": {
@@ -36552,42 +36645,10 @@ var (
             "description": "X.509 certificate chain, parsed from ` + "`" + `x5c` + "`" + ` header."
           },
           "CertificatesURL": {
-            "type": "object",
-            "properties": {
-              "ForceQuery": {
-                "type": "boolean"
-              },
-              "Fragment": {
-                "type": "string"
-              },
-              "Host": {
-                "type": "string"
-              },
-              "OmitHost": {
-                "type": "boolean"
-              },
-              "Opaque": {
-                "type": "string"
-              },
-              "Path": {
-                "type": "string"
-              },
-              "RawFragment": {
-                "type": "string"
-              },
-              "RawPath": {
-                "type": "string"
-              },
-              "RawQuery": {
-                "type": "string"
-              },
-              "Scheme": {
-                "type": "string"
-              },
-              "User": {}
-            }
+            "type": "string"
           },
           "Key": {
+            "type": "object",
             "description": "Key is the Go in-memory representation of this key. It must have one\nof these types:\ned25519.PublicKey\ned25519.PrivateKey\necdsa.PublicKey\necdsa.PrivateKey\nrsa.PublicKey\nrsa.PrivateKey\n[]byte (a symmetric key)\nWhen marshaling this JSONWebKey into JSON, the \"kty\" header parameter\nwill be automatically set based on the type of this field."
           },
           "KeyID": {
@@ -36778,18 +36839,7 @@ var (
   keys[].Certificates[].Subject.SerialNumber                  string
   keys[].Certificates[].Subject.StreetAddress                 array<string>
   keys[].Certificates[].SubjectKeyId                          array<number>
-  keys[].Certificates[].URIs                                  array<object>
-  keys[].Certificates[].URIs[].ForceQuery                     boolean
-  keys[].Certificates[].URIs[].Fragment                       string
-  keys[].Certificates[].URIs[].Host                           string
-  keys[].Certificates[].URIs[].OmitHost                       boolean
-  keys[].Certificates[].URIs[].Opaque                         string
-  keys[].Certificates[].URIs[].Path                           string
-  keys[].Certificates[].URIs[].RawFragment                    string
-  keys[].Certificates[].URIs[].RawPath                        string
-  keys[].Certificates[].URIs[].RawQuery                       string
-  keys[].Certificates[].URIs[].Scheme                         string
-  keys[].Certificates[].URIs[].User                           object
+  keys[].Certificates[].URIs                                  array<string>
   keys[].Certificates[].UnhandledCriticalExtensions           array<array<number>>  UnhandledCriticalExtensions contains a list of extension IDs that
                                                                                     were not (fully) processed when parsing. Verify will fail if this
                                                                                     slice is non-empty, unless verification is delegated to an OS
@@ -36799,18 +36849,7 @@ var (
                                                                                     handled.
   keys[].Certificates[].UnknownExtKeyUsage                    array<array<number>>
   keys[].Certificates[].Version                               number
-  keys[].CertificatesURL                                      object
-  keys[].CertificatesURL.ForceQuery                           boolean
-  keys[].CertificatesURL.Fragment                             string
-  keys[].CertificatesURL.Host                                 string
-  keys[].CertificatesURL.OmitHost                             boolean
-  keys[].CertificatesURL.Opaque                               string
-  keys[].CertificatesURL.Path                                 string
-  keys[].CertificatesURL.RawFragment                          string
-  keys[].CertificatesURL.RawPath                              string
-  keys[].CertificatesURL.RawQuery                             string
-  keys[].CertificatesURL.Scheme                               string
-  keys[].CertificatesURL.User                                 object
+  keys[].CertificatesURL                                      string
   keys[].Key                                                  object                Key is the Go in-memory representation of this key. It must have one
                                                                                     of these types:
                                                                                     ed25519.PublicKey
@@ -36949,7 +36988,12 @@ var (
     "provider": {
       "type": "string"
     },
-    "settings": {},
+    "settings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
     "source": {
       "type": "string"
     }
@@ -36966,7 +37010,7 @@ var (
 			"responseSchema": `Response schema (GetProviderSettingsOK.Payload):
   id        string
   provider  string
-  settings  object
+  settings  map<string, object>
   source    string`,
 		},
 		DisableAutoGenTag: true,
@@ -37017,7 +37061,12 @@ var (
       "provider": {
         "type": "string"
       },
-      "settings": {},
+      "settings": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        }
+      },
       "source": {
         "type": "string"
       }
@@ -37047,6 +37096,89 @@ var (
 				&sso_settings.ListAllProvidersSettingsParams{},
 			)
 			if ssoSettingsListAllProvidersSettingsFlag.Raw && hasRawResponse() {
+				if perr := printRawResponse(); perr != nil {
+					return perr
+				}
+				return err
+			}
+			if err != nil {
+				if pe, ok := err.(getPayloadError); ok {
+					if err := printPayload(pe.GetPayload()); err != nil {
+						return err
+					}
+					return err
+				}
+				return err
+			}
+			return printPayload(resp.GetPayload())
+		},
+	}
+	ssoSettingsPatchProviderSettingsBodyJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PatchProviderSettingsParamsBody",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    }
+  }
+}`
+	ssoSettingsPatchProviderSettingsResponseJSONSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PatchProviderSettingsNoContent.Payload",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string"
+    }
+  }
+}`
+	ssoSettingsPatchProviderSettingsCmd = &cobra.Command{
+		Use:   "patch-provider-settings",
+		Short: "Patches s s o settings",
+		Long: longHelp(
+			"Patches s s o settings",
+			"Partially updates the SSO Settings for a provider. Only provided fields are updated.",
+			"You need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.",
+		),
+		Annotations: map[string]string{
+			"bodySchema": `Body schema (PatchProviderSettingsParamsBody):
+  settings  map<string, object>`,
+			"responseSchema": `Response schema (PatchProviderSettingsNoContent.Payload):
+  message  string`,
+		},
+		DisableAutoGenTag: true,
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if ssoSettingsPatchProviderSettingsFlag.DescribeBodyJSONSchema {
+				describeBodyJSONSchema(ssoSettingsPatchProviderSettingsBodyJSONSchema)
+			}
+			if ssoSettingsPatchProviderSettingsFlag.DescribeResponseJSONSchema {
+				describeResponseJSONSchema(ssoSettingsPatchProviderSettingsResponseJSONSchema)
+			}
+			return nil
+		},
+		RunE: func(cmd *cobra.Command, args []string) error {
+			api, err := gfClient()
+			if err != nil {
+				return err
+			}
+			var body models.PatchProviderSettingsParamsBody
+			if err := getBodyParam(ssoSettingsPatchProviderSettingsFlag.Body, &body); err != nil {
+				return err
+			}
+			if err := body.Validate(nil); err != nil {
+				return fmt.Errorf("body validation failed: %w", err)
+			}
+			resp, err := api.SsoSettings.PatchProviderSettingsWithParams(
+				&sso_settings.PatchProviderSettingsParams{
+					Body: &body,
+					Key:  ssoSettingsPatchProviderSettingsFlag.Key,
+				},
+			)
+			if ssoSettingsPatchProviderSettingsFlag.Raw && hasRawResponse() {
 				if perr := printRawResponse(); perr != nil {
 					return perr
 				}
@@ -37132,7 +37264,12 @@ var (
     "provider": {
       "type": "string"
     },
-    "settings": {}
+    "settings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    }
   }
 }`
 	ssoSettingsUpdateProviderSettingsResponseJSONSchema = `{
@@ -37157,7 +37294,7 @@ var (
 			"bodySchema": `Body schema (UpdateProviderSettingsParamsBody):
   id        string
   provider  string
-  settings  object`,
+  settings  map<string, object>`,
 			"responseSchema": `Response schema (UpdateProviderSettingsNoContent.Payload):
   message  string`,
 		},
@@ -37213,6 +37350,13 @@ var (
 		Raw                        bool
 	}{}
 	ssoSettingsListAllProvidersSettingsFlag = struct {
+		DescribeResponseJSONSchema bool
+		Raw                        bool
+	}{}
+	ssoSettingsPatchProviderSettingsFlag = struct {
+		Body                       string
+		Key                        string
+		DescribeBodyJSONSchema     bool
 		DescribeResponseJSONSchema bool
 		Raw                        bool
 	}{}
@@ -37326,6 +37470,9 @@ var (
       "teamId": {
         "type": "number"
       },
+      "teamUid": {
+        "type": "string"
+      },
       "uid": {
         "type": "string"
       }
@@ -37426,53 +37573,48 @@ var (
 	syncTeamGroupsSearchTeamGroupsResponseJSONSchema = `{
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "SearchTeamGroupsOK.Payload",
-  "type": "object",
-  "properties": {
-    "page": {
-      "type": "number"
-    },
-    "perPage": {
-      "type": "number"
-    },
-    "teamGroups": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "groupId": {
-            "type": "string"
-          },
-          "orgId": {
-            "type": "number"
-          },
-          "teamId": {
-            "type": "number"
-          },
-          "uid": {
-            "type": "string"
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "page": {
+        "type": "number"
+      },
+      "perPage": {
+        "type": "number"
+      },
+      "teamGroups": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "groupId": {
+              "type": "string"
+            },
+            "orgId": {
+              "type": "number"
+            },
+            "teamId": {
+              "type": "number"
+            },
+            "teamUid": {
+              "type": "string"
+            },
+            "uid": {
+              "type": "string"
+            }
           }
         }
+      },
+      "totalCount": {
+        "type": "number"
       }
-    },
-    "totalCount": {
-      "type": "number"
     }
   }
 }`
 	syncTeamGroupsSearchTeamGroupsCmd = &cobra.Command{
-		Use:   "search-team-groups",
-		Short: "Searches for team groups with optional filtering and pagination",
-		Annotations: map[string]string{
-			"responseSchema": `Response schema (SearchTeamGroupsOK.Payload):
-  page                  number
-  perPage               number
-  teamGroups            array<object>
-  teamGroups[].groupId  string
-  teamGroups[].orgId    number
-  teamGroups[].teamId   number
-  teamGroups[].uid      string
-  totalCount            number`,
-		},
+		Use:               "search-team-groups",
+		Short:             "Searches for team groups with optional filtering and pagination",
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if syncTeamGroupsSearchTeamGroupsFlag.DescribeResponseJSONSchema {
@@ -37514,19 +37656,19 @@ var (
 	}
 	syncTeamGroupsAddTeamGroupAPIFlag = struct {
 		Body                       string
-		TeamID                     int64
+		TeamID                     string
 		DescribeBodyJSONSchema     bool
 		DescribeResponseJSONSchema bool
 		Raw                        bool
 	}{}
 	syncTeamGroupsGetTeamGroupsAPIFlag = struct {
-		TeamID                     int64
+		TeamID                     string
 		DescribeResponseJSONSchema bool
 		Raw                        bool
 	}{}
 	syncTeamGroupsRemoveTeamGroupAPIQueryFlag = struct {
 		GroupID                    string
-		TeamID                     int64
+		TeamID                     string
 		DescribeResponseJSONSchema bool
 		Raw                        bool
 	}{}
@@ -37808,14 +37950,6 @@ var (
   "title": "GetTeamPreferencesOK.Payload",
   "type": "object",
   "properties": {
-    "cookiePreferences": {
-      "type": "object",
-      "properties": {
-        "analytics": {},
-        "functional": {},
-        "performance": {}
-      }
-    },
     "homeDashboardUID": {
       "type": "string",
       "description": "UID for the home dashboard"
@@ -37867,21 +38001,17 @@ var (
 		Short: "Gets team preferences",
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (GetTeamPreferencesOK.Payload):
-  cookiePreferences              object
-  cookiePreferences.analytics    object
-  cookiePreferences.functional   object
-  cookiePreferences.performance  object
-  homeDashboardUID               string         UID for the home dashboard
-  language                       string         Selected language (beta)
-  navbar                         object
-  navbar.bookmarkUrls            array<string>
-  queryHistory                   object
-  queryHistory.homeTab           string         one of: '' | 'query' | 'starred';
-  regionalFormat                 string         Selected locale (beta)
-  theme                          string         light, dark, empty is default
-  timezone                       string         The timezone selection
-                                                TODO: this should use the timezone defined in common
-  weekStart                      string         day of the week (sunday, monday, etc)`,
+  homeDashboardUID      string         UID for the home dashboard
+  language              string         Selected language (beta)
+  navbar                object
+  navbar.bookmarkUrls   array<string>
+  queryHistory          object
+  queryHistory.homeTab  string         one of: '' | 'query' | 'starred';
+  regionalFormat        string         Selected locale (beta)
+  theme                 string         light, dark, empty is default
+  timezone              string         The timezone selection
+                                       TODO: this should use the timezone defined in common
+  weekStart             string         day of the week (sunday, monday, etc)`,
 		},
 		DisableAutoGenTag: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -38351,12 +38481,6 @@ var (
   "title": "UpdatePrefsCmd",
   "type": "object",
   "properties": {
-    "cookies": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
     "homeDashboardId": {
       "type": "number",
       "description": "The numerical :id of a favorited dashboard"
@@ -38399,10 +38523,7 @@ var (
     },
     "timezone": {
       "type": "string",
-      "enum": [
-        "utc",
-        "browser"
-      ]
+      "description": "Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string"
     },
     "weekStart": {
       "type": "string"
@@ -38424,7 +38545,6 @@ var (
 		Short: "Updates team preferences",
 		Annotations: map[string]string{
 			"bodySchema": `Body schema (UpdatePrefsCmd):
-  cookies               array<string>
   homeDashboardId       number         The numerical :id of a favorited dashboard
   homeDashboardUID      string
   language              string
@@ -38434,7 +38554,7 @@ var (
   queryHistory.homeTab  string
   regionalFormat        string
   theme                 string         enum: light | dark | system
-  timezone              string         enum: utc | browser
+  timezone              string         Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
   weekStart             string`,
 			"responseSchema": `Response schema (UpdateTeamPreferencesOK.Payload):
   message  string`,
@@ -38911,6 +39031,9 @@ var (
       "avatarUrl": {
         "type": "string"
       },
+      "created": {
+        "type": "string"
+      },
       "email": {
         "type": "string"
       },
@@ -39015,6 +39138,9 @@ var (
           "avatarUrl": {
             "type": "string"
           },
+          "created": {
+            "type": "string"
+          },
           "email": {
             "type": "string"
           },
@@ -39061,6 +39187,7 @@ var (
   users                  array<object>
   users[].authLabels     array<string>
   users[].avatarUrl      string
+  users[].created        string
   users[].email          string
   users[].id             number
   users[].isAdmin        boolean
@@ -39292,9 +39419,11 @@ func init() {
 	accessControlCmd.AddCommand(accessControlGetRoleAssignmentsCmd)
 	accessControlListRolesCmd.Flags().BoolVar(&accessControlListRolesFlag.Delegatable, "delegatable", false, "Delegatable")
 	accessControlListRolesCmd.Flags().BoolVar(&accessControlListRolesFlag.IncludeHidden, "include-hidden", false, "IncludeHidden")
+	accessControlListRolesCmd.Flags().Int64Var(&accessControlListRolesFlag.TargetOrgID, "target-org-id", 0, "TargetOrgID")
 	accessControlListRolesCmd.Flags().BoolVar(&accessControlListRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlListRolesCmd.Flags().BoolVar(&accessControlListRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlListRolesCmd)
+	accessControlListTeamRolesCmd.Flags().Int64Var(&accessControlListTeamRolesFlag.TargetOrgID, "target-org-id", 0, "TargetOrgID")
 	accessControlListTeamRolesCmd.Flags().Int64Var(&accessControlListTeamRolesFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlListTeamRolesCmd.MarkFlagRequired("team-id")
 	accessControlListTeamRolesCmd.Flags().BoolVar(&accessControlListTeamRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -39306,6 +39435,8 @@ func init() {
 	accessControlListTeamsRolesCmd.Flags().BoolVar(&accessControlListTeamsRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlListTeamsRolesCmd.Flags().BoolVar(&accessControlListTeamsRolesFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlListTeamsRolesCmd)
+	accessControlListUserRolesCmd.Flags().BoolVar(&accessControlListUserRolesFlag.IncludeHidden, "include-hidden", false, "IncludeHidden")
+	accessControlListUserRolesCmd.Flags().Int64Var(&accessControlListUserRolesFlag.TargetOrgID, "target-org-id", 0, "TargetOrgID")
 	accessControlListUserRolesCmd.Flags().Int64Var(&accessControlListUserRolesFlag.UserID, "user-id", 0, "UserID")
 	accessControlListUserRolesCmd.MarkFlagRequired("user-id")
 	accessControlListUserRolesCmd.Flags().BoolVar(&accessControlListUserRolesFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -39388,6 +39519,7 @@ func init() {
 	accessControlCmd.AddCommand(accessControlSetRoleAssignmentsCmd)
 	accessControlSetTeamRolesCmd.Flags().StringVar(&accessControlSetTeamRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetTeamRolesCmd.MarkFlagRequired("body")
+	accessControlSetTeamRolesCmd.Flags().Int64Var(&accessControlSetTeamRolesFlag.TargetOrgID, "target-org-id", 0, "TargetOrgID")
 	accessControlSetTeamRolesCmd.Flags().Int64Var(&accessControlSetTeamRolesFlag.TeamID, "team-id", 0, "TeamID")
 	accessControlSetTeamRolesCmd.MarkFlagRequired("team-id")
 	accessControlSetTeamRolesCmd.Flags().BoolVar(&accessControlSetTeamRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
@@ -39396,6 +39528,7 @@ func init() {
 	accessControlCmd.AddCommand(accessControlSetTeamRolesCmd)
 	accessControlSetUserRolesCmd.Flags().StringVar(&accessControlSetUserRolesFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	accessControlSetUserRolesCmd.MarkFlagRequired("body")
+	accessControlSetUserRolesCmd.Flags().Int64Var(&accessControlSetUserRolesFlag.TargetOrgID, "target-org-id", 0, "TargetOrgID")
 	accessControlSetUserRolesCmd.Flags().Int64Var(&accessControlSetUserRolesFlag.UserID, "user-id", 0, "UserID")
 	accessControlSetUserRolesCmd.MarkFlagRequired("user-id")
 	accessControlSetUserRolesCmd.Flags().BoolVar(&accessControlSetUserRolesFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
@@ -39410,10 +39543,6 @@ func init() {
 	accessControlUpdateRoleCmd.Flags().BoolVar(&accessControlUpdateRoleFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	accessControlUpdateRoleCmd.Flags().BoolVar(&accessControlUpdateRoleFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	accessControlCmd.AddCommand(accessControlUpdateRoleCmd)
-	rootCmd.AddCommand(accessControlProvisioningCmd)
-	accessControlProvisioningAdminProvisioningReloadAccessControlCmd.Flags().BoolVar(&accessControlProvisioningAdminProvisioningReloadAccessControlFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
-	accessControlProvisioningAdminProvisioningReloadAccessControlCmd.Flags().BoolVar(&accessControlProvisioningAdminProvisioningReloadAccessControlFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
-	accessControlProvisioningCmd.AddCommand(accessControlProvisioningAdminProvisioningReloadAccessControlCmd)
 	rootCmd.AddCommand(adminCmd)
 	adminAdminGetSettingsCmd.Flags().BoolVar(&adminAdminGetSettingsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	adminAdminGetSettingsCmd.Flags().BoolVar(&adminAdminGetSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
@@ -39425,6 +39554,9 @@ func init() {
 	adminLdapGetLDAPStatusCmd.Flags().BoolVar(&adminLdapGetLDAPStatusFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	adminLdapGetLDAPStatusCmd.Flags().BoolVar(&adminLdapGetLDAPStatusFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminLdapCmd.AddCommand(adminLdapGetLDAPStatusCmd)
+	adminLdapGetSyncStatusCmd.Flags().BoolVar(&adminLdapGetSyncStatusFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
+	adminLdapGetSyncStatusCmd.Flags().BoolVar(&adminLdapGetSyncStatusFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
+	adminLdapCmd.AddCommand(adminLdapGetSyncStatusCmd)
 	adminLdapGetUserFromLDAPCmd.Flags().StringVar(&adminLdapGetUserFromLDAPFlag.UserName, "user-name", "", "UserName")
 	adminLdapGetUserFromLDAPCmd.MarkFlagRequired("user-name")
 	adminLdapGetUserFromLDAPCmd.Flags().BoolVar(&adminLdapGetUserFromLDAPFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -39435,10 +39567,12 @@ func init() {
 	adminLdapPostSyncUserWithLDAPCmd.Flags().BoolVar(&adminLdapPostSyncUserWithLDAPFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	adminLdapPostSyncUserWithLDAPCmd.Flags().BoolVar(&adminLdapPostSyncUserWithLDAPFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminLdapCmd.AddCommand(adminLdapPostSyncUserWithLDAPCmd)
-	adminLdapReloadLDAPCfgCmd.Flags().BoolVar(&adminLdapReloadLDAPCfgFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	adminLdapReloadLDAPCfgCmd.Flags().BoolVar(&adminLdapReloadLDAPCfgFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminLdapCmd.AddCommand(adminLdapReloadLDAPCfgCmd)
 	rootCmd.AddCommand(adminProvisioningCmd)
+	adminProvisioningAdminProvisioningReloadAccessControlCmd.Flags().BoolVar(&adminProvisioningAdminProvisioningReloadAccessControlFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
+	adminProvisioningAdminProvisioningReloadAccessControlCmd.Flags().BoolVar(&adminProvisioningAdminProvisioningReloadAccessControlFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
+	adminProvisioningCmd.AddCommand(adminProvisioningAdminProvisioningReloadAccessControlCmd)
 	adminProvisioningAdminProvisioningReloadDashboardsCmd.Flags().BoolVar(&adminProvisioningAdminProvisioningReloadDashboardsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	adminProvisioningAdminProvisioningReloadDashboardsCmd.Flags().BoolVar(&adminProvisioningAdminProvisioningReloadDashboardsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	adminProvisioningCmd.AddCommand(adminProvisioningAdminProvisioningReloadDashboardsCmd)
@@ -39909,16 +40043,19 @@ func init() {
 	enterpriseCleanDatasourceCacheCmd.Flags().BoolVar(&enterpriseCleanDatasourceCacheFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	enterpriseCleanDatasourceCacheCmd.Flags().BoolVar(&enterpriseCleanDatasourceCacheFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseCleanDatasourceCacheCmd)
+	enterpriseDisableDatasourceCacheCmd.Flags().StringVar(&enterpriseDisableDatasourceCacheFlag.DataSourceType, "data-source-type", "", "DataSourceType")
 	enterpriseDisableDatasourceCacheCmd.Flags().StringVar(&enterpriseDisableDatasourceCacheFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseDisableDatasourceCacheCmd.MarkFlagRequired("data-source-uid")
 	enterpriseDisableDatasourceCacheCmd.Flags().BoolVar(&enterpriseDisableDatasourceCacheFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	enterpriseDisableDatasourceCacheCmd.Flags().BoolVar(&enterpriseDisableDatasourceCacheFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseDisableDatasourceCacheCmd)
+	enterpriseEnableDatasourceCacheCmd.Flags().StringVar(&enterpriseEnableDatasourceCacheFlag.DataSourceType, "data-source-type", "", "DataSourceType")
 	enterpriseEnableDatasourceCacheCmd.Flags().StringVar(&enterpriseEnableDatasourceCacheFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseEnableDatasourceCacheCmd.MarkFlagRequired("data-source-uid")
 	enterpriseEnableDatasourceCacheCmd.Flags().BoolVar(&enterpriseEnableDatasourceCacheFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	enterpriseEnableDatasourceCacheCmd.Flags().BoolVar(&enterpriseEnableDatasourceCacheFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseEnableDatasourceCacheCmd)
+	enterpriseGetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseGetDatasourceCacheConfigFlag.DataSourceType, "data-source-type", "", "DataSourceType")
 	enterpriseGetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseGetDatasourceCacheConfigFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseGetDatasourceCacheConfigCmd.MarkFlagRequired("data-source-uid")
 	enterpriseGetDatasourceCacheConfigCmd.Flags().BoolVar(&enterpriseGetDatasourceCacheConfigFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -39929,11 +40066,9 @@ func init() {
 	enterpriseGetTeamLBACRulesAPICmd.Flags().BoolVar(&enterpriseGetTeamLBACRulesAPIFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	enterpriseGetTeamLBACRulesAPICmd.Flags().BoolVar(&enterpriseGetTeamLBACRulesAPIFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	enterpriseCmd.AddCommand(enterpriseGetTeamLBACRulesAPICmd)
-	enterpriseSearchResultCmd.Flags().BoolVar(&enterpriseSearchResultFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
-	enterpriseSearchResultCmd.Flags().BoolVar(&enterpriseSearchResultFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
-	enterpriseCmd.AddCommand(enterpriseSearchResultCmd)
 	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	enterpriseSetDatasourceCacheConfigCmd.MarkFlagRequired("body")
+	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.DataSourceType, "data-source-type", "", "DataSourceType")
 	enterpriseSetDatasourceCacheConfigCmd.Flags().StringVar(&enterpriseSetDatasourceCacheConfigFlag.DataSourceUID, "data-source-uid", "", "DataSourceUID")
 	enterpriseSetDatasourceCacheConfigCmd.MarkFlagRequired("data-source-uid")
 	enterpriseSetDatasourceCacheConfigCmd.Flags().BoolVar(&enterpriseSetDatasourceCacheConfigFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
@@ -40041,10 +40176,6 @@ func init() {
 	healthGetHealthCmd.Flags().BoolVar(&healthGetHealthFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	healthGetHealthCmd.Flags().BoolVar(&healthGetHealthFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	healthCmd.AddCommand(healthGetHealthCmd)
-	rootCmd.AddCommand(ldapDebugCmd)
-	ldapDebugGetSyncStatusCmd.Flags().BoolVar(&ldapDebugGetSyncStatusFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
-	ldapDebugGetSyncStatusCmd.Flags().BoolVar(&ldapDebugGetSyncStatusFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
-	ldapDebugCmd.AddCommand(ldapDebugGetSyncStatusCmd)
 	rootCmd.AddCommand(libraryElementsCmd)
 	libraryElementsCreateLibraryElementCmd.Flags().StringVar(&libraryElementsCreateLibraryElementFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	libraryElementsCreateLibraryElementCmd.MarkFlagRequired("body")
@@ -40073,7 +40204,8 @@ func init() {
 	libraryElementsGetLibraryElementConnectionsCmd.Flags().BoolVar(&libraryElementsGetLibraryElementConnectionsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	libraryElementsCmd.AddCommand(libraryElementsGetLibraryElementConnectionsCmd)
 	libraryElementsGetLibraryElementsCmd.Flags().StringVar(&libraryElementsGetLibraryElementsFlag.ExcludeUID, "exclude-uid", "", "Element UID to exclude from search results.")
-	libraryElementsGetLibraryElementsCmd.Flags().StringVar(&libraryElementsGetLibraryElementsFlag.FolderFilter, "folder-filter", "", "A comma separated list of folder ID(s) to filter the elements by.")
+	libraryElementsGetLibraryElementsCmd.Flags().StringVar(&libraryElementsGetLibraryElementsFlag.FolderFilter, "folder-filter", "", "A comma separated list of folder ID(s) to filter the elements by. Deprecated: Use FolderFilterUIDs instead.")
+	libraryElementsGetLibraryElementsCmd.Flags().StringVar(&libraryElementsGetLibraryElementsFlag.FolderFilterUIDs, "folder-filter-uids", "", "A comma separated list of folder UID(s) to filter the elements by.")
 	libraryElementsGetLibraryElementsCmd.Flags().Int64Var(&libraryElementsGetLibraryElementsFlag.Kind, "kind", 0, "Kind of element to search for.")
 	libraryElementsGetLibraryElementsCmd.Flags().Int64Var(&libraryElementsGetLibraryElementsFlag.Page, "page", 0, "The page for a set of records, given that only perPage records are returned at a time. Numbering starts at 1. Default: 1")
 	libraryElementsGetLibraryElementsCmd.Flags().Int64Var(&libraryElementsGetLibraryElementsFlag.PerPage, "per-page", 0, "The number of results per page. Default: 100")
@@ -40929,6 +41061,14 @@ func init() {
 	ssoSettingsListAllProvidersSettingsCmd.Flags().BoolVar(&ssoSettingsListAllProvidersSettingsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	ssoSettingsListAllProvidersSettingsCmd.Flags().BoolVar(&ssoSettingsListAllProvidersSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	ssoSettingsCmd.AddCommand(ssoSettingsListAllProvidersSettingsCmd)
+	ssoSettingsPatchProviderSettingsCmd.Flags().StringVar(&ssoSettingsPatchProviderSettingsFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
+	ssoSettingsPatchProviderSettingsCmd.MarkFlagRequired("body")
+	ssoSettingsPatchProviderSettingsCmd.Flags().StringVar(&ssoSettingsPatchProviderSettingsFlag.Key, "key", "", "Key")
+	ssoSettingsPatchProviderSettingsCmd.MarkFlagRequired("key")
+	ssoSettingsPatchProviderSettingsCmd.Flags().BoolVar(&ssoSettingsPatchProviderSettingsFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
+	ssoSettingsPatchProviderSettingsCmd.Flags().BoolVar(&ssoSettingsPatchProviderSettingsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
+	ssoSettingsPatchProviderSettingsCmd.Flags().BoolVar(&ssoSettingsPatchProviderSettingsFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
+	ssoSettingsCmd.AddCommand(ssoSettingsPatchProviderSettingsCmd)
 	ssoSettingsRemoveProviderSettingsCmd.Flags().StringVar(&ssoSettingsRemoveProviderSettingsFlag.Key, "key", "", "Key")
 	ssoSettingsRemoveProviderSettingsCmd.MarkFlagRequired("key")
 	ssoSettingsRemoveProviderSettingsCmd.Flags().BoolVar(&ssoSettingsRemoveProviderSettingsFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
@@ -40945,19 +41085,19 @@ func init() {
 	rootCmd.AddCommand(syncTeamGroupsCmd)
 	syncTeamGroupsAddTeamGroupAPICmd.Flags().StringVar(&syncTeamGroupsAddTeamGroupAPIFlag.Body, "body", "", "Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.")
 	syncTeamGroupsAddTeamGroupAPICmd.MarkFlagRequired("body")
-	syncTeamGroupsAddTeamGroupAPICmd.Flags().Int64Var(&syncTeamGroupsAddTeamGroupAPIFlag.TeamID, "team-id", 0, "TeamID")
+	syncTeamGroupsAddTeamGroupAPICmd.Flags().StringVar(&syncTeamGroupsAddTeamGroupAPIFlag.TeamID, "team-id", "", "TeamID")
 	syncTeamGroupsAddTeamGroupAPICmd.MarkFlagRequired("team-id")
 	syncTeamGroupsAddTeamGroupAPICmd.Flags().BoolVar(&syncTeamGroupsAddTeamGroupAPIFlag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 	syncTeamGroupsAddTeamGroupAPICmd.Flags().BoolVar(&syncTeamGroupsAddTeamGroupAPIFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	syncTeamGroupsAddTeamGroupAPICmd.Flags().BoolVar(&syncTeamGroupsAddTeamGroupAPIFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	syncTeamGroupsCmd.AddCommand(syncTeamGroupsAddTeamGroupAPICmd)
-	syncTeamGroupsGetTeamGroupsAPICmd.Flags().Int64Var(&syncTeamGroupsGetTeamGroupsAPIFlag.TeamID, "team-id", 0, "TeamID")
+	syncTeamGroupsGetTeamGroupsAPICmd.Flags().StringVar(&syncTeamGroupsGetTeamGroupsAPIFlag.TeamID, "team-id", "", "TeamID")
 	syncTeamGroupsGetTeamGroupsAPICmd.MarkFlagRequired("team-id")
 	syncTeamGroupsGetTeamGroupsAPICmd.Flags().BoolVar(&syncTeamGroupsGetTeamGroupsAPIFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	syncTeamGroupsGetTeamGroupsAPICmd.Flags().BoolVar(&syncTeamGroupsGetTeamGroupsAPIFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")
 	syncTeamGroupsCmd.AddCommand(syncTeamGroupsGetTeamGroupsAPICmd)
 	syncTeamGroupsRemoveTeamGroupAPIQueryCmd.Flags().StringVar(&syncTeamGroupsRemoveTeamGroupAPIQueryFlag.GroupID, "group-id", "", "GroupID")
-	syncTeamGroupsRemoveTeamGroupAPIQueryCmd.Flags().Int64Var(&syncTeamGroupsRemoveTeamGroupAPIQueryFlag.TeamID, "team-id", 0, "TeamID")
+	syncTeamGroupsRemoveTeamGroupAPIQueryCmd.Flags().StringVar(&syncTeamGroupsRemoveTeamGroupAPIQueryFlag.TeamID, "team-id", "", "TeamID")
 	syncTeamGroupsRemoveTeamGroupAPIQueryCmd.MarkFlagRequired("team-id")
 	syncTeamGroupsRemoveTeamGroupAPIQueryCmd.Flags().BoolVar(&syncTeamGroupsRemoveTeamGroupAPIQueryFlag.DescribeResponseJSONSchema, "describe-response-jsonschema", false, "Print the JSON Schema of the response payload and exit without calling the API")
 	syncTeamGroupsRemoveTeamGroupAPIQueryCmd.Flags().BoolVar(&syncTeamGroupsRemoveTeamGroupAPIQueryFlag.Raw, "raw", false, "Print the raw HTTP response body instead of the decoded payload")

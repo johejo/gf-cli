@@ -13,6 +13,7 @@ Response schema (SearchOrgUsersOK.Payload):
   orgUsers[].accessControl       map<string, boolean>
   orgUsers[].authLabels          array<string>
   orgUsers[].avatarUrl           string
+  orgUsers[].created             string
   orgUsers[].email               string
   orgUsers[].isDisabled          boolean
   orgUsers[].isExternallySynced  boolean

@@ -29,6 +29,7 @@ gf sso-settings [flags]
 * [gf](gf.md)	 - CLI for Grafana API
 * [gf sso-settings get-provider-settings](gf_sso-settings_get-provider-settings.md)	 - Gets an s s o settings entry by key
 * [gf sso-settings list-all-providers-settings](gf_sso-settings_list-all-providers-settings.md)	 - Lists all s s o settings entries
+* [gf sso-settings patch-provider-settings](gf_sso-settings_patch-provider-settings.md)	 - Patches s s o settings
 * [gf sso-settings remove-provider-settings](gf_sso-settings_remove-provider-settings.md)	 - Removes s s o settings
 * [gf sso-settings update-provider-settings](gf_sso-settings_update-provider-settings.md)	 - Updates s s o settings
 

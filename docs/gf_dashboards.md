@@ -36,10 +36,10 @@ gf dashboards [flags]
 * [gf dashboards get-dashboard-by-uid](gf_dashboards_get-dashboard-by-uid.md)	 - Gets dashboard by uid
 * [gf dashboards get-dashboard-permissions-list-by-uid](gf_dashboards_get-dashboard-permissions-list-by-uid.md)	 - Gets all existing permissions for the given dashboard
 * [gf dashboards get-dashboard-snapshot](gf_dashboards_get-dashboard-snapshot.md)	 - Gets snapshot by key
-* [gf dashboards get-dashboard-tags](gf_dashboards_get-dashboard-tags.md)	 - Gets all dashboards tags of an organisation
+* [gf dashboards get-dashboard-tags](gf_dashboards_get-dashboard-tags.md)	 - Gets all dashboards tags of an organization
 * [gf dashboards get-dashboard-version-by-uid](gf_dashboards_get-dashboard-version-by-uid.md)	 - Gets a specific dashboard version using UID
 * [gf dashboards get-dashboard-versions-by-uid](gf_dashboards_get-dashboard-versions-by-uid.md)	 - Gets all existing versions for the dashboard using UID
-* [gf dashboards get-home-dashboard](gf_dashboards_get-home-dashboard.md)	 - Gets home dashboard
+* [gf dashboards get-home-dashboard](gf_dashboards_get-home-dashboard.md)	 - NOTE: the home dashboard is configured in preferences.  This API will be removed in G13
 * [gf dashboards get-public-annotations](gf_dashboards_get-public-annotations.md)	 - Get annotations for a public dashboard
 * [gf dashboards get-public-dashboard](gf_dashboards_get-public-dashboard.md)	 - Get public dashboard by dashboardUid
 * [gf dashboards import-dashboard](gf_dashboards_import-dashboard.md)	 - Imports dashboard

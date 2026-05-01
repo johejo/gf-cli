@@ -32,7 +32,6 @@ gf enterprise [flags]
 * [gf enterprise enable-datasource-cache](gf_enterprise_enable-datasource-cache.md)	 - Enable cache for a single data source
 * [gf enterprise get-datasource-cache-config](gf_enterprise_get-datasource-cache-config.md)	 - Get cache config for a single data source
 * [gf enterprise get-team-lbac-rules-api](gf_enterprise_get-team-lbac-rules-api.md)	 - Retrieves l b a c rules for a team
-* [gf enterprise search-result](gf_enterprise_search-result.md)	 - Debugs permissions
 * [gf enterprise set-datasource-cache-config](gf_enterprise_set-datasource-cache-config.md)	 - Set cache config for a single data source
 * [gf enterprise update-team-lbac-rules-api](gf_enterprise_update-team-lbac-rules-api.md)	 - Updates l b a c rules for a team
 

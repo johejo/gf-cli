@@ -7,7 +7,6 @@ Updates team preferences
 Updates team preferences
 
 Body schema (UpdatePrefsCmd):
-  cookies               array<string>
   homeDashboardId       number         The numerical :id of a favorited dashboard
   homeDashboardUID      string
   language              string
@@ -17,7 +16,7 @@ Body schema (UpdatePrefsCmd):
   queryHistory.homeTab  string
   regionalFormat        string
   theme                 string         enum: light | dark | system
-  timezone              string         enum: utc | browser
+  timezone              string         Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
   weekStart             string
 
 Response schema (UpdateTeamPreferencesOK.Payload):

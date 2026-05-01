@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"go/ast"
 	"reflect"
+	"strconv"
 	"strings"
 )
 
@@ -110,12 +111,21 @@ func normalizeForCompare(s string) string {
 	return b.String()
 }
 
+// isAnnotationLine reports whether a doc line is a go-swagger schema-annotation
+// header that should be stripped from descriptions. Note `Description:` is
+// itself a marker: go-swagger emits it on its own line and the lines that
+// follow are the field's description body — so we strip the marker but keep
+// the body via extractDescription's default path.
 func isAnnotationLine(s string) bool {
 	for _, p := range []string{
 		"Required:", "Enum:", "Format:", "Pattern:",
-		"Minimum:", "Maximum:", "MinLength:", "MaxLength:",
-		"MinItems:", "MaxItems:", "UniqueItems:",
-		"Example:", "Default:", "MultipleOf:",
+		"Minimum:", "Maximum:",
+		"MinLength:", "MaxLength:", "Min Length:", "Max Length:",
+		"MinItems:", "MaxItems:", "Min Items:", "Max Items:",
+		"UniqueItems:", "Unique Items:",
+		"Example:", "Default:", "MultipleOf:", "Multiple Of:",
+		"Description:", "Read Only:", "ReadOnly:",
+		"+optional",
 	} {
 		if strings.HasPrefix(s, p) {
 			return true
@@ -144,6 +154,20 @@ func extractEnumValues(doc *ast.CommentGroup) []string {
 		inner = strings.Trim(inner, "[]")
 		if inner == "" {
 			continue
+		}
+		// go-swagger emits quoted, comma-separated values for string enums
+		// (`"a","b","c"`); older versions used whitespace separation (`a b c`).
+		if strings.Contains(inner, `"`) {
+			var out []string
+			for p := range strings.SplitSeq(inner, ",") {
+				p = strings.TrimSpace(p)
+				if unq, err := strconv.Unquote(p); err == nil {
+					out = append(out, unq)
+				} else if p != "" {
+					out = append(out, p)
+				}
+			}
+			return out
 		}
 		return strings.Fields(inner)
 	}
@@ -373,13 +397,9 @@ func collectFieldRow(path string, prop *orderedObj, required bool) fieldRow {
 		if vals, ok := enumAny.([]any); ok && len(vals) > 0 {
 			ss := make([]string, 0, len(vals))
 			for _, v := range vals {
-				if s, ok := v.(string); ok {
-					ss = append(ss, s)
-				}
+				ss = append(ss, formatEnumValue(v))
 			}
-			if len(ss) > 0 {
-				descParts = append(descParts, "enum: "+strings.Join(ss, " | "))
-			}
+			descParts = append(descParts, "enum: "+strings.Join(ss, " | "))
 		}
 	}
 	return fieldRow{
@@ -448,6 +468,14 @@ func (b *jsonSchemaBuilder) structSchema(typeName string) *orderedObj {
 	var required []string
 	for _, field := range st.Fields.List {
 		if len(field.Names) == 0 {
+			// Anonymous embedded field: go-swagger renders OpenAPI `allOf`
+			// composition as embedded structs; inline the embedded type's
+			// properties/required into this schema.
+			if name := embeddedTypeName(field.Type); name != "" {
+				if inner := b.structSchema(name); inner != nil {
+					mergeStructInto(props, &required, inner)
+				}
+			}
 			continue
 		}
 		name := field.Names[0].Name
@@ -463,7 +491,7 @@ func (b *jsonSchemaBuilder) structSchema(typeName string) *orderedObj {
 			prop.set("description", desc)
 		}
 		if enums := extractEnumValues(field.Doc); len(enums) > 0 {
-			prop.set("enum", stringsToAny(enums))
+			prop.set("enum", coerceEnumValues(prop, enums))
 		}
 		props.set(jsonName, prop)
 		if hasRequiredAnnotation(field.Doc) {
@@ -477,6 +505,65 @@ func (b *jsonSchemaBuilder) structSchema(typeName string) *orderedObj {
 		out.set("required", stringsToAny(required))
 	}
 	return out
+}
+
+func embeddedTypeName(expr ast.Expr) string {
+	switch t := unwrapPointer(expr).(type) {
+	case *ast.Ident:
+		return t.Name
+	case *ast.SelectorExpr:
+		return t.Sel.Name
+	}
+	return ""
+}
+
+func formatEnumValue(v any) string {
+	if s, ok := v.(string); ok {
+		return s
+	}
+	return fmt.Sprint(v)
+}
+
+// coerceEnumValues types the enum values to match the property's JSON Schema
+// "type" so validators don't reject e.g. {"type":"number","enum":["1"]}.
+// Unparseable numeric values are dropped rather than emitted as strings,
+// which would produce a heterogeneous (silently invalid) enum array.
+func coerceEnumValues(prop *orderedObj, vals []string) []any {
+	typ, _ := prop.values["type"].(string)
+	if typ == "number" || typ == "integer" {
+		out := make([]any, 0, len(vals))
+		for _, v := range vals {
+			if n, err := strconv.ParseFloat(v, 64); err == nil {
+				out = append(out, n)
+			}
+		}
+		return out
+	}
+	return stringsToAny(vals)
+}
+
+func mergeStructInto(props *orderedObj, required *[]string, inner *orderedObj) {
+	innerProps, ok := inner.values["properties"].(*orderedObj)
+	if ok {
+		for _, k := range innerProps.keys {
+			if _, exists := props.values[k]; !exists {
+				props.set(k, innerProps.values[k])
+			}
+		}
+	}
+	innerReq, ok := inner.values["required"].([]any)
+	if ok {
+		seen := map[string]bool{}
+		for _, r := range *required {
+			seen[r] = true
+		}
+		for _, r := range innerReq {
+			if s, ok := r.(string); ok && !seen[s] {
+				*required = append(*required, s)
+				seen[s] = true
+			}
+		}
+	}
 }
 
 func (b *jsonSchemaBuilder) fieldSchema(expr ast.Expr) *orderedObj {

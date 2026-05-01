@@ -2,6 +2,12 @@
 
 Gets the count of each descendant of a folder by kind the folder is identified by UID
 
+### Synopsis
+
+Gets the count of each descendant of a folder by kind the folder is identified by UID
+
+Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}
+
 ```
 gf folders get-folder-descendant-counts [flags]
 ```

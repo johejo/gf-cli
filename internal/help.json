@@ -188,6 +188,11 @@
           "name": "include-hidden",
           "type": "bool",
           "required": false
+        },
+        {
+          "name": "target-org-id",
+          "type": "int64",
+          "required": false
         }
       ],
       "response": {
@@ -202,6 +207,11 @@
       "short": "Gets team roles",
       "long": "You need to have a permission with action `teams.roles:read` and scope `teams:id:\u003cteam ID\u003e`.",
       "flags": [
+        {
+          "name": "target-org-id",
+          "type": "int64",
+          "required": false
+        },
         {
           "name": "team-id",
           "type": "int64",
@@ -235,6 +245,16 @@
       "short": "Lists roles assigned to a user",
       "long": "Lists the roles that have been directly assigned to a given user. The list does not include built-in roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.\n\nYou need to have a permission with action `users.roles:read` and scope `users:id:\u003cuser ID\u003e`.",
       "flags": [
+        {
+          "name": "include-hidden",
+          "type": "bool",
+          "required": false
+        },
+        {
+          "name": "target-org-id",
+          "type": "int64",
+          "required": false
+        },
         {
           "name": "user-id",
           "type": "int64",
@@ -461,6 +481,11 @@
       "long": "You need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate` for each.",
       "flags": [
         {
+          "name": "target-org-id",
+          "type": "int64",
+          "required": false
+        },
+        {
           "name": "team-id",
           "type": "int64",
           "required": true
@@ -481,6 +506,11 @@
       "short": "Sets user role assignments",
       "long": "Update the user’s role assignments to match the provided set of UIDs. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user. Roles mapped through group attribute sync are not impacted. If you want to add or remove a single role, consider using Add a user role assignment or Remove a user role assignment instead.\n\nYou need to have a permission with action `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate` for each. `permissions:type:delegate`  scope ensures that users can only assign or unassign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign or unassign a role which will allow to do that. This is done to prevent escalation of privileges.",
       "flags": [
+        {
+          "name": "target-org-id",
+          "type": "int64",
+          "required": false
+        },
         {
           "name": "user-id",
           "type": "int64",
@@ -517,17 +547,6 @@
         "containsFrame": false
       }
     },
-    "access-control-provisioning admin-provisioning-reload-access-control": {
-      "service": "access-control-provisioning",
-      "action": "admin-provisioning-reload-access-control",
-      "short": "Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol",
-      "flags": [],
-      "response": {
-        "typeName": "AdminProvisioningReloadAccessControlAccepted",
-        "hasPayload": true,
-        "containsFrame": false
-      }
-    },
     "admin admin-get-settings": {
       "service": "admin",
       "action": "admin-get-settings",
@@ -560,6 +579,18 @@
       "flags": [],
       "response": {
         "typeName": "GetLDAPStatusOK",
+        "hasPayload": true,
+        "containsFrame": false
+      }
+    },
+    "admin-ldap get-sync-status": {
+      "service": "admin-ldap",
+      "action": "get-sync-status",
+      "short": "Returns the current state of the LDAP background sync integration",
+      "long": "You need to have a permission with action `ldap.status:read`.",
+      "flags": [],
+      "response": {
+        "typeName": "GetSyncStatusOK",
         "hasPayload": true,
         "containsFrame": false
       }
@@ -604,9 +635,15 @@
       "action": "reload-ldap-cfg",
       "short": "Reloads the LDAP configuration",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.config:reload`.",
+      "flags": []
+    },
+    "admin-provisioning admin-provisioning-reload-access-control": {
+      "service": "admin-provisioning",
+      "action": "admin-provisioning-reload-access-control",
+      "short": "Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol",
       "flags": [],
       "response": {
-        "typeName": "ReloadLDAPCfgOK",
+        "typeName": "AdminProvisioningReloadAccessControlAccepted",
         "hasPayload": true,
         "containsFrame": false
       }
@@ -1350,7 +1387,7 @@
       "service": "dashboards",
       "action": "delete-dashboard-by-uid",
       "short": "Deletes dashboard by uid",
-      "long": "Will delete the dashboard given the specified unique identifier (uid).",
+      "long": "Will delete the dashboard given the specified unique identifier (uid).\n\nUse: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}",
       "flags": [
         {
           "name": "uid",
@@ -1425,7 +1462,7 @@
       "service": "dashboards",
       "action": "get-dashboard-by-uid",
       "short": "Gets dashboard by uid",
-      "long": "Will return the dashboard given the dashboard unique identifier (uid).",
+      "long": "Optional query parameter `apiVersion` selects the Kubernetes API version used to load the dashboard first (for example `v1beta1`). If that request fails, the default version is used instead. When omitted, only the default is used.\n\nWill return the dashboard given the dashboard unique identifier (uid).\n\nUse: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}",
       "flags": [
         {
           "name": "uid",
@@ -1443,6 +1480,7 @@
       "service": "dashboards",
       "action": "get-dashboard-permissions-list-by-uid",
       "short": "Gets all existing permissions for the given dashboard",
+      "long": "Use: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}/access",
       "flags": [
         {
           "name": "uid",
@@ -1471,7 +1509,7 @@
     "dashboards get-dashboard-tags": {
       "service": "dashboards",
       "action": "get-dashboard-tags",
-      "short": "Gets all dashboards tags of an organisation",
+      "short": "Gets all dashboards tags of an organization",
       "flags": [],
       "response": {
         "typeName": "GetDashboardTagsOK",
@@ -1533,7 +1571,7 @@
     "dashboards get-home-dashboard": {
       "service": "dashboards",
       "action": "get-home-dashboard",
-      "short": "Gets home dashboard",
+      "short": "NOTE: the home dashboard is configured in preferences.  This API will be removed in G13",
       "flags": [],
       "response": {
         "typeName": "GetHomeDashboardOK",
@@ -1615,7 +1653,7 @@
       "service": "dashboards",
       "action": "post-dashboard",
       "short": "Creates update dashboard",
-      "long": "Creates a new dashboard or updates an existing dashboard. Note: This endpoint is not intended for creating folders, use `POST /api/folders` for that.",
+      "long": "Creates a new dashboard or updates an existing dashboard. Note: This endpoint is not intended for creating folders, use `POST /api/folders` for that.\n\nUse: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards",
       "flags": [],
       "body": {
         "modelType": "models.SaveDashboardCommand"
@@ -1652,6 +1690,7 @@
       "service": "dashboards",
       "action": "restore-dashboard-version-by-uid",
       "short": "Restores a dashboard to a given dashboard version using UID",
+      "long": "This API will be removed when /apis/dashboards.grafana.app/v1 is released. You can restore a dashboard by reading it from history, then creating it again.",
       "flags": [
         {
           "name": "uid",
@@ -1854,7 +1893,7 @@
     "datasources delete-datasource-by-name": {
       "service": "datasources",
       "action": "delete-datasource-by-name",
-      "short": "Deletes an existing data source by name",
+      "short": "Deletes an existing data source by name this function will be removed in the future",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:delete` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
       "flags": [
         {
@@ -1959,7 +1998,7 @@
     "datasources get-datasource-by-name": {
       "service": "datasources",
       "action": "get-datasource-by-name",
-      "short": "Gets a single data source by name",
+      "short": "Gets a single data source by name this function will be removed in the future",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
       "flags": [
         {
@@ -1995,7 +2034,7 @@
     "datasources get-datasource-id-by-name": {
       "service": "datasources",
       "action": "get-datasource-id-by-name",
-      "short": "Gets data source Id by name",
+      "short": "Gets data source Id by name this function will be removed in the future",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
       "flags": [
         {
@@ -2128,6 +2167,11 @@
       "short": "Disable cache for a single data source",
       "flags": [
         {
+          "name": "data-source-type",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "data-source-uid",
           "type": "string",
           "required": true
@@ -2145,6 +2189,11 @@
       "short": "Enable cache for a single data source",
       "flags": [
         {
+          "name": "data-source-type",
+          "type": "string",
+          "required": false
+        },
+        {
           "name": "data-source-uid",
           "type": "string",
           "required": true
@@ -2161,6 +2210,11 @@
       "action": "get-datasource-cache-config",
       "short": "Get cache config for a single data source",
       "flags": [
+        {
+          "name": "data-source-type",
+          "type": "string",
+          "required": false
+        },
         {
           "name": "data-source-uid",
           "type": "string",
@@ -2190,23 +2244,16 @@
         "containsFrame": false
       }
     },
-    "enterprise search-result": {
-      "service": "enterprise",
-      "action": "search-result",
-      "short": "Debugs permissions",
-      "long": "Returns the result of the search through access-control role assignments.\n\nYou need to have a permission with action `teams.roles:read` on scope `teams:*` and a permission with action `users.roles:read` on scope `users:*`.",
-      "flags": [],
-      "response": {
-        "typeName": "SearchResultOK",
-        "hasPayload": true,
-        "containsFrame": false
-      }
-    },
     "enterprise set-datasource-cache-config": {
       "service": "enterprise",
       "action": "set-datasource-cache-config",
       "short": "Set cache config for a single data source",
       "flags": [
+        {
+          "name": "data-source-type",
+          "type": "string",
+          "required": false
+        },
         {
           "name": "data-source-uid",
           "type": "string",
@@ -2246,7 +2293,7 @@
       "service": "folders",
       "action": "create-folder",
       "short": "Creates folder",
-      "long": "If nested folders are enabled then it additionally expects the parent folder UID.",
+      "long": "If nested folders are enabled then it additionally expects the parent folder UID.\n\nUse: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
       "flags": [],
       "body": {
         "modelType": "models.CreateFolderCommand"
@@ -2261,7 +2308,7 @@
       "service": "folders",
       "action": "delete-folder",
       "short": "Deletes folder",
-      "long": "Deletes an existing folder identified by UID along with all dashboards (and their alerts) stored in the folder. This operation cannot be reverted. If nested folders are enabled then it also deletes all the subfolders.",
+      "long": "Deletes an existing folder identified by UID along with all dashboards (and their alerts) stored in the folder. This operation cannot be reverted. If nested folders are enabled then it also deletes all the subfolders.\n\nUse: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
       "flags": [
         {
           "name": "folder-uid",
@@ -2285,6 +2332,7 @@
       "service": "folders",
       "action": "get-folder-by-uid",
       "short": "Gets folder by uid",
+      "long": "Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
       "flags": [
         {
           "name": "folder-uid",
@@ -2302,6 +2350,7 @@
       "service": "folders",
       "action": "get-folder-descendant-counts",
       "short": "Gets the count of each descendant of a folder by kind the folder is identified by UID",
+      "long": "Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
       "flags": [
         {
           "name": "folder-uid",
@@ -2336,7 +2385,7 @@
       "service": "folders",
       "action": "get-folders",
       "short": "Gets all folders",
-      "long": "It returns all folders that the authenticated user has permission to view. If nested folders are enabled, it expects an additional query parameter with the parent folder UID and returns the immediate subfolders that the authenticated user has permission to view. If the parameter is not supplied then it returns immediate subfolders under the root that the authenticated user has permission to view.",
+      "long": "It returns all folders that the authenticated user has permission to view. If nested folders are enabled, it expects an additional query parameter with the parent folder UID and returns the immediate subfolders that the authenticated user has permission to view. If the parameter is not supplied then it returns immediate subfolders under the root that the authenticated user has permission to view.\n\nUse: /apis/folder.grafana.app/v1/namespaces/{ns}/folders",
       "flags": [
         {
           "name": "limit",
@@ -2373,6 +2422,7 @@
       "service": "folders",
       "action": "move-folder",
       "short": "Moves folder",
+      "long": "Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}, Changing the parent folder annotation",
       "flags": [
         {
           "name": "folder-uid",
@@ -2393,6 +2443,7 @@
       "service": "folders",
       "action": "update-folder",
       "short": "Updates folder",
+      "long": "Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
       "flags": [
         {
           "name": "folder-uid",
@@ -2525,18 +2576,6 @@
         "containsFrame": false
       }
     },
-    "ldap-debug get-sync-status": {
-      "service": "ldap-debug",
-      "action": "get-sync-status",
-      "short": "Returns the current state of the LDAP background sync integration",
-      "long": "You need to have a permission with action `ldap.status:read`.",
-      "flags": [],
-      "response": {
-        "typeName": "GetSyncStatusOK",
-        "hasPayload": true,
-        "containsFrame": false
-      }
-    },
     "library-elements create-library-element": {
       "service": "library-elements",
       "action": "create-library-element",
@@ -2640,7 +2679,13 @@
           "name": "folder-filter",
           "type": "string",
           "required": false,
-          "doc": "A comma separated list of folder ID(s) to filter the elements by."
+          "doc": "A comma separated list of folder ID(s) to filter the elements by. Deprecated: Use FolderFilterUIDs instead."
+        },
+        {
+          "name": "folder-filter-uids",
+          "type": "string",
+          "required": false,
+          "doc": "A comma separated list of folder UID(s) to filter the elements by."
         },
         {
           "name": "kind",
@@ -2775,7 +2820,7 @@
       "long": "Manually ask license issuer for a new token. Available in Grafana Enterprise v7.4+.\n\nYou need to have a permission with action `licensing:write`.",
       "flags": [],
       "body": {
-        "modelType": "interface{}"
+        "modelType": "any"
       }
     },
     "licensing refresh-license-stats": {
@@ -3480,6 +3525,7 @@
       "service": "playlists",
       "action": "create-playlist",
       "short": "Creates playlist",
+      "long": "Please refer to [new API](?api=playlist.grafana.app-v1).",
       "flags": [],
       "body": {
         "modelType": "models.CreatePlaylistCommand"
@@ -3494,6 +3540,7 @@
       "service": "playlists",
       "action": "delete-playlist",
       "short": "Deletes playlist",
+      "long": "Please refer to [new API](?api=playlist.grafana.app-v1).",
       "flags": [
         {
           "name": "uid",
@@ -3511,6 +3558,7 @@
       "service": "playlists",
       "action": "get-playlist",
       "short": "Gets playlist",
+      "long": "Please refer to [new API](?api=playlist.grafana.app-v1).",
       "flags": [
         {
           "name": "uid",
@@ -3528,6 +3576,7 @@
       "service": "playlists",
       "action": "get-playlist-items",
       "short": "Gets playlist items",
+      "long": "Please refer to [new API](?api=playlist.grafana.app-v1) instead (items are included in the playlist spec).",
       "flags": [
         {
           "name": "uid",
@@ -3545,6 +3594,7 @@
       "service": "playlists",
       "action": "search-playlists",
       "short": "Gets playlists",
+      "long": "Please refer to [new API](?api=playlist.grafana.app-v1).",
       "flags": [
         {
           "name": "limit",
@@ -3568,6 +3618,7 @@
       "service": "playlists",
       "action": "update-playlist",
       "short": "Updates playlist",
+      "long": "Please refer to [new API](?api=playlist.grafana.app-v1).",
       "flags": [
         {
           "name": "uid",
@@ -4737,7 +4788,7 @@
         }
       ],
       "response": {
-        "typeName": "RenderReportCSVsOK",
+        "typeName": "RenderReportCsvsOK",
         "hasPayload": true,
         "containsFrame": false
       }
@@ -4780,7 +4831,7 @@
         }
       ],
       "response": {
-        "typeName": "RenderReportPDFsOK",
+        "typeName": "RenderReportPdfsOK",
         "hasPayload": true,
         "containsFrame": false
       }
@@ -5447,6 +5498,27 @@
         "containsFrame": false
       }
     },
+    "sso-settings patch-provider-settings": {
+      "service": "sso-settings",
+      "action": "patch-provider-settings",
+      "short": "Patches s s o settings",
+      "long": "Partially updates the SSO Settings for a provider. Only provided fields are updated.\n\nYou need to have a permission with action `settings:write` and scope `settings:auth.\u003cprovider\u003e:*`.",
+      "flags": [
+        {
+          "name": "key",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "body": {
+        "modelType": "models.PatchProviderSettingsParamsBody"
+      },
+      "response": {
+        "typeName": "PatchProviderSettingsNoContent",
+        "hasPayload": true,
+        "containsFrame": false
+      }
+    },
     "sso-settings remove-provider-settings": {
       "service": "sso-settings",
       "action": "remove-provider-settings",
@@ -5493,7 +5565,7 @@
       "flags": [
         {
           "name": "team-id",
-          "type": "int64",
+          "type": "string",
           "required": true
         }
       ],
@@ -5513,7 +5585,7 @@
       "flags": [
         {
           "name": "team-id",
-          "type": "int64",
+          "type": "string",
           "required": true
         }
       ],
@@ -5535,7 +5607,7 @@
         },
         {
           "name": "team-id",
-          "type": "int64",
+          "type": "string",
           "required": true
         }
       ],

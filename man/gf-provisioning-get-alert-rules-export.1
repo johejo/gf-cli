@@ -34,7 +34,7 @@ Response schema (GetAlertRulesExportOK.Payload):
   groups[].rules[].dashboardUid                                     string
   groups[].rules[].data                                             array
   groups[].rules[].data[].datasourceUid                             string
-  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].model                                     map
   groups[].rules[].data[].queryType                                 string
   groups[].rules[].data[].refId                                     string
   groups[].rules[].data[].relativeTimeRange                         object
@@ -85,10 +85,9 @@ Response schema (GetAlertRulesExportOK.Payload):
   policies[].match                                                  map   Deprecated. Remove before v1.0 release.
   policies[].match_re                                               map
   policies[].matchers                                               array
-  policies[].matchers[].isEqual                                     boolean
-  policies[].matchers[].isRegex                                     boolean               REQUIRED
-  policies[].matchers[].name                                        string                REQUIRED
-  policies[].matchers[].value                                       string                REQUIRED
+  policies[].matchers[].Name                                        string
+  policies[].matchers[].Type                                        number
+  policies[].matchers[].Value                                       string
   policies[].mute_time_intervals                                    array
   policies[].object_matchers                                        array>
   policies[].orgId                                                  number
@@ -103,10 +102,9 @@ Response schema (GetAlertRulesExportOK.Payload):
   policies[].routes[].match                                         map   Deprecated. Remove before v1.0 release.
   policies[].routes[].match_re                                      map
   policies[].routes[].matchers                                      array
-  policies[].routes[].matchers[].isEqual                            boolean
-  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
-  policies[].routes[].matchers[].name                               string                REQUIRED
-  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].matchers[].Name                               string
+  policies[].routes[].matchers[].Type                               number
+  policies[].routes[].matchers[].Value                              string
   policies[].routes[].mute_time_intervals                           array
   policies[].routes[].object_matchers                               array>
   policies[].routes[].receiver                                      string

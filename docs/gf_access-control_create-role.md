@@ -23,7 +23,6 @@ Body schema (CreateRoleForm):
   permissions[].scope    string
   permissions[].updated  string
   uid                    string
-  version                number
 
 Response schema (CreateRoleCreated.Payload):
   created                string         REQUIRED

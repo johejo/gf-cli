@@ -6,6 +6,8 @@ Gets folder by uid
 
 Gets folder by uid
 
+Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}
+
 Response schema (GetFolderByUIDOK.Payload):
   accessControl  map<string, boolean>
   canAdmin       boolean

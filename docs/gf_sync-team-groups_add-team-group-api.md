@@ -24,7 +24,7 @@ gf sync-team-groups add-team-group-api [flags]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for add-team-group-api
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --team-id int                    TeamID
+      --team-id string                 TeamID
 ```
 
 ### Options inherited from parent commands

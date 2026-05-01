@@ -7,6 +7,7 @@
 ApiHealthHandler will return ok if Grafana's web server is running and it can access the database. If the database cannot be accessed it will return http status code 503.
 
 Response schema (GetHealthOK.Payload):
+  apiserver         string
   commit            string
   database          string
   enterpriseCommit  string

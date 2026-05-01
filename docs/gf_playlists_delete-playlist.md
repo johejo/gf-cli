@@ -6,6 +6,8 @@ Deletes playlist
 
 Deletes playlist
 
+Please refer to [new API](?api=playlist.grafana.app-v1).
+
 Response schema (DeletePlaylistOK.Payload):
   message  string
 

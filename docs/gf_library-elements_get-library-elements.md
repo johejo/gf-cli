@@ -50,7 +50,8 @@ gf library-elements get-library-elements [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
       --exclude-uid string             Element UID to exclude from search results.
-      --folder-filter string           A comma separated list of folder ID(s) to filter the elements by.
+      --folder-filter string           A comma separated list of folder ID(s) to filter the elements by. Deprecated: Use FolderFilterUIDs instead.
+      --folder-filter-uids string      A comma separated list of folder UID(s) to filter the elements by.
   -h, --help                           help for get-library-elements
       --kind int                       Kind of element to search for.
       --page int                       The page for a set of records, given that only perPage records are returned at a time. Numbering starts at 1. Default: 1

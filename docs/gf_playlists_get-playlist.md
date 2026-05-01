@@ -6,6 +6,8 @@ Gets playlist
 
 Gets playlist
 
+Please refer to [new API](?api=playlist.grafana.app-v1).
+
 Response schema (GetPlaylistOK.Payload):
   id        number
   interval  string

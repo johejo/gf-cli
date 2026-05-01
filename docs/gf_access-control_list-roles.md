@@ -24,6 +24,7 @@ gf access-control list-roles [flags]
   -h, --help                           help for list-roles
       --include-hidden                 IncludeHidden
       --raw                            Print the raw HTTP response body instead of the decoded payload
+      --target-org-id int              TargetOrgID
 ```
 
 ### Options inherited from parent commands

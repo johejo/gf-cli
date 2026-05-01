@@ -1,34 +1,33 @@
 .nh
-.TH "GF-ENTERPRISE-SEARCH-RESULT" "1" "May 2026" "" ""
+.TH "GF-ADMIN-LDAP-GET-SYNC-STATUS" "1" "May 2026" "" ""
 
 .SH NAME
-gf-enterprise-search-result - Debugs permissions
+gf-admin-ldap-get-sync-status - Returns the current state of the LDAP background sync integration
 
 
 .SH SYNOPSIS
-\fBgf enterprise search-result [flags]\fP
+\fBgf admin-ldap get-sync-status [flags]\fP
 
 
 .SH DESCRIPTION
-Debugs permissions
+Returns the current state of the LDAP background sync integration
 
 .PP
-Returns the result of the search through access-control role assignments.
+You need to have a permission with action \fBldap.status:read\fR\&.
 
 .PP
-You need to have a permission with action \fBteams.roles:read\fR on scope \fBteams:*\fR and a permission with action \fBusers.roles:read\fR on scope \fBusers:*\fR\&.
-
-.PP
-Response schema (SearchResultOK.Payload):
-  result              array
-  result[].action     string
-  result[].basicRole  string
-  result[].orgId      number
-  result[].roleName   string
-  result[].scope      string
-  result[].teamId     number
-  result[].userId     number
-  result[].version    number
+Response schema (GetSyncStatusOK.Payload):
+  enabled                       boolean
+  nextSync                      string
+  prevSync                      object
+  prevSync.Elapsed              number
+  prevSync.FailedUsers          array
+  prevSync.FailedUsers[].Error  string
+  prevSync.FailedUsers[].Login  string
+  prevSync.MissingUserIds       array
+  prevSync.Started              string
+  prevSync.UpdatedUserIds       array
+  schedule                      string
 
 
 .SH OPTIONS
@@ -37,7 +36,7 @@ Response schema (SearchResultOK.Payload):
 
 .PP
 \fB-h\fP, \fB--help\fP[=false]
-	help for search-result
+	help for get-sync-status
 
 .PP
 \fB--raw\fP[=false]
@@ -74,4 +73,4 @@ Response schema (SearchResultOK.Payload):
 
 
 .SH SEE ALSO
-\fBgf-enterprise(1)\fP
+\fBgf-admin-ldap(1)\fP

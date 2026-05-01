@@ -27,7 +27,6 @@ gf [flags]
 ### SEE ALSO
 
 * [gf access-control](gf_access-control.md)	 - Access control API
-* [gf access-control-provisioning](gf_access-control-provisioning.md)	 - Access control provisioning API
 * [gf admin](gf_admin.md)	 - Admin API
 * [gf admin-ldap](gf_admin-ldap.md)	 - Admin ldap API
 * [gf admin-provisioning](gf_admin-provisioning.md)	 - Admin provisioning API
@@ -41,7 +40,6 @@ gf [flags]
 * [gf folders](gf_folders.md)	 - Folders API
 * [gf group-attribute-sync](gf_group-attribute-sync.md)	 - Group attribute sync API
 * [gf health](gf_health.md)	 - Health API
-* [gf ldap-debug](gf_ldap-debug.md)	 - Ldap debug API
 * [gf library-elements](gf_library-elements.md)	 - Library elements API
 * [gf licensing](gf_licensing.md)	 - Licensing API
 * [gf migrations](gf_migrations.md)	 - Migrations API

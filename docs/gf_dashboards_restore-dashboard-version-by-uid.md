@@ -6,6 +6,8 @@ Restores a dashboard to a given dashboard version using UID
 
 Restores a dashboard to a given dashboard version using UID
 
+This API will be removed when /apis/dashboards.grafana.app/v1 is released. You can restore a dashboard by reading it from history, then creating it again.
+
 Body schema (RestoreDashboardVersionCommand):
   version  number
 

@@ -7,7 +7,6 @@ Patches user preferences
 Patches user preferences
 
 Body schema (PatchPrefsCmd):
-  cookies               array<string>
   homeDashboardId       number         The numerical :id of a favorited dashboard
   homeDashboardUID      string
   language              string
@@ -17,7 +16,7 @@ Body schema (PatchPrefsCmd):
   queryHistory.homeTab  string
   regionalFormat        string
   theme                 string         enum: light | dark
-  timezone              string         enum: utc | browser
+  timezone              string         Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
   weekStart             string
 
 Response schema (PatchUserPreferencesOK.Payload):

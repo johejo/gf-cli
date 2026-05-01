@@ -1,10 +1,10 @@
 ## gf datasources get-datasource-by-name
 
-Gets a single data source by name
+Gets a single data source by name this function will be removed in the future
 
 ### Synopsis
 
-Gets a single data source by name
+Gets a single data source by name this function will be removed in the future
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).
 

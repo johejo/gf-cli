@@ -6,6 +6,8 @@ Updates folder
 
 Updates folder
 
+Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}
+
 Body schema (UpdateFolderCommand):
   description  string   NewDescription it's an optional parameter used for overriding the existing folder description
   overwrite    boolean  Overwrite only used by the legacy folder implementation

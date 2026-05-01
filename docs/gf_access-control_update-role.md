@@ -20,7 +20,6 @@ Body schema (UpdateRoleCommand):
   permissions[].created  string
   permissions[].scope    string
   permissions[].updated  string
-  version                number
 
 Response schema (UpdateRoleOK.Payload):
   created                string         REQUIRED

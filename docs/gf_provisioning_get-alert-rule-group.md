@@ -65,18 +65,9 @@ Response schema (GetAlertRuleGroupOK.Payload):
                                                                             Name of the recorded metric.
   rules[].record.target_datasource_uid                 string               Which data source should be used to write the output of the recording rule, specified by UID.
   rules[].ruleGroup                                    string               REQUIRED
-                                                                            rule group
-                                                                            Max Length: 190
-                                                                            Min Length: 1
   rules[].title                                        string               REQUIRED
-                                                                            title
-                                                                            Max Length: 190
-                                                                            Min Length: 1
-  rules[].uid                                          string               uid
-                                                                            Max Length: 40
-                                                                            Min Length: 1
-  rules[].updated                                      string               updated
-                                                                            Read Only: true
+  rules[].uid                                          string
+  rules[].updated                                      string
   title                                                string
 
 ```

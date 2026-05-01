@@ -1,39 +1,23 @@
-## gf recording-rules create-recording-rule
+## gf sso-settings patch-provider-settings
 
-Creates a recording rule that is then registered and started
+Patches s s o settings
 
 ### Synopsis
 
-Creates a recording rule that is then registered and started
+Patches s s o settings
 
-Body schema (RecordingRuleJSON):
-  active                boolean
-  count                 boolean
-  description           string
-  dest_data_source_uid  string
-  id                    string
-  interval              number
-  name                  string
-  prom_name             string
-  queries               array<map<string, object>>
-  range                 number
-  target_ref_id         string
+Partially updates the SSO Settings for a provider. Only provided fields are updated.
 
-Response schema (CreateRecordingRuleOK.Payload):
-  active                boolean
-  count                 boolean
-  description           string
-  dest_data_source_uid  string
-  id                    string
-  interval              number
-  name                  string
-  prom_name             string
-  queries               array<map<string, object>>
-  range                 number
-  target_ref_id         string
+You need to have a permission with action `settings:write` and scope `settings:auth.<provider>:*`.
+
+Body schema (PatchProviderSettingsParamsBody):
+  settings  map<string, object>
+
+Response schema (PatchProviderSettingsNoContent.Payload):
+  message  string
 
 ```
-gf recording-rules create-recording-rule [flags]
+gf sso-settings patch-provider-settings [flags]
 ```
 
 ### Options
@@ -42,7 +26,8 @@ gf recording-rules create-recording-rule [flags]
       --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
-  -h, --help                           help for create-recording-rule
+  -h, --help                           help for patch-provider-settings
+      --key string                     Key
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
@@ -60,5 +45,5 @@ gf recording-rules create-recording-rule [flags]
 
 ### SEE ALSO
 
-* [gf recording-rules](gf_recording-rules.md)	 - Recording rules API
+* [gf sso-settings](gf_sso-settings.md)	 - Sso settings API
 

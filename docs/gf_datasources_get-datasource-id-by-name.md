@@ -1,10 +1,10 @@
 ## gf datasources get-datasource-id-by-name
 
-Gets data source Id by name
+Gets data source Id by name this function will be removed in the future
 
 ### Synopsis
 
-Gets data source Id by name
+Gets data source Id by name this function will be removed in the future
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).
 

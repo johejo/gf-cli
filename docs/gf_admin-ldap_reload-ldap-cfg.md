@@ -8,9 +8,6 @@ Reloads the LDAP configuration
 
 If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.config:reload`.
 
-Response schema (ReloadLDAPCfgOK.Payload):
-  message  string
-
 ```
 gf admin-ldap reload-ldap-cfg [flags]
 ```
@@ -18,9 +15,8 @@ gf admin-ldap reload-ldap-cfg [flags]
 ### Options
 
 ```
-      --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
-  -h, --help                           help for reload-ldap-cfg
-      --raw                            Print the raw HTTP response body instead of the decoded payload
+  -h, --help   help for reload-ldap-cfg
+      --raw    Print the raw HTTP response body instead of the decoded payload
 ```
 
 ### Options inherited from parent commands

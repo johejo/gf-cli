@@ -13,7 +13,7 @@ You need to have a permission with action `settings:write` and scope `settings:a
 Body schema (UpdateProviderSettingsParamsBody):
   id        string
   provider  string
-  settings  object
+  settings  map<string, object>
 
 Response schema (UpdateProviderSettingsNoContent.Payload):
   message  string

@@ -13,6 +13,7 @@ Response schema (SearchUsersWithPagingOK.Payload):
   users                  array<object>
   users[].authLabels     array<string>
   users[].avatarUrl      string
+  users[].created        string
   users[].email          string
   users[].id             number
   users[].isAdmin        boolean

@@ -28,6 +28,7 @@ Body schema (CreateOrUpdateReport):
   message                           string
   name                              string
   options                           object
+  options.csvEncoding               string
   options.layout                    string
   options.orientation               string
   options.pdfCombineOneFile         boolean

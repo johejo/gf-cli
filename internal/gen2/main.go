@@ -113,7 +113,7 @@ func main() {
 				if pf.IsBody {
 					bfi := &BodyFieldInfo{
 						ModelType:   pf.ModelType,
-						IsInterface: pf.ModelType == "interface{}",
+						IsInterface: pf.ModelType == "interface{}" || pf.ModelType == "any",
 					}
 					if !bfi.IsInterface && strings.HasPrefix(pf.ModelType, "models.") {
 						jsonSchema, annotations, err := BuildBodyJSONSchema(baseDir, pf.ModelType)

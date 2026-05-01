@@ -2,6 +2,12 @@
 
 Gets playlist items
 
+### Synopsis
+
+Gets playlist items
+
+Please refer to [new API](?api=playlist.grafana.app-v1) instead (items are included in the playlist spec).
+
 ```
 gf playlists get-playlist-items [flags]
 ```

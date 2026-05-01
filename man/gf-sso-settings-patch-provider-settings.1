@@ -1,33 +1,29 @@
 .nh
-.TH "GF-SIGNED-IN-USER-PATCH-USER-PREFERENCES" "1" "May 2026" "" ""
+.TH "GF-SSO-SETTINGS-PATCH-PROVIDER-SETTINGS" "1" "May 2026" "" ""
 
 .SH NAME
-gf-signed-in-user-patch-user-preferences - Patches user preferences
+gf-sso-settings-patch-provider-settings - Patches s s o settings
 
 
 .SH SYNOPSIS
-\fBgf signed-in-user patch-user-preferences [flags]\fP
+\fBgf sso-settings patch-provider-settings [flags]\fP
 
 
 .SH DESCRIPTION
-Patches user preferences
+Patches s s o settings
 
 .PP
-Body schema (PatchPrefsCmd):
-  homeDashboardId       number         The numerical :id of a favorited dashboard
-  homeDashboardUID      string
-  language              string
-  navbar                object
-  navbar.bookmarkUrls   array
-  queryHistory          object
-  queryHistory.homeTab  string
-  regionalFormat        string
-  theme                 string         enum: light | dark
-  timezone              string         Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
-  weekStart             string
+Partially updates the SSO Settings for a provider. Only provided fields are updated.
 
 .PP
-Response schema (PatchUserPreferencesOK.Payload):
+You need to have a permission with action \fBsettings:write\fR and scope \fBsettings:auth.<provider>:*\fR\&.
+
+.PP
+Body schema (PatchProviderSettingsParamsBody):
+  settings  map
+
+.PP
+Response schema (PatchProviderSettingsNoContent.Payload):
   message  string
 
 
@@ -45,7 +41,11 @@ Response schema (PatchUserPreferencesOK.Payload):
 
 .PP
 \fB-h\fP, \fB--help\fP[=false]
-	help for patch-user-preferences
+	help for patch-provider-settings
+
+.PP
+\fB--key\fP=""
+	Key
 
 .PP
 \fB--raw\fP[=false]
@@ -82,4 +82,4 @@ Response schema (PatchUserPreferencesOK.Payload):
 
 
 .SH SEE ALSO
-\fBgf-signed-in-user(1)\fP
+\fBgf-sso-settings(1)\fP

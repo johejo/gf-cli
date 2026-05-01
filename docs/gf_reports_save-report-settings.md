@@ -18,9 +18,20 @@ Body schema (ReportSettings):
   branding.emailLogoUrl     string
   branding.reportLogoUrl    string
   embeddedImageTheme        string
+  footerFontFamily          string
+  footerItems               array<object>
+  footerItems[].color       string
+  footerItems[].fontSize    string
+  footerItems[].fontStyle   string
+  footerItems[].fontWeight  string
+  footerItems[].type        string
+  footerItems[].value       string
   id                        number
   orgId                     number
+  pdfDashboardTitleEnabled  boolean
+  pdfHeaderEnabled          boolean
   pdfTheme                  string
+  pdfTimeRangeEnabled       boolean
   userId                    number
 
 Response schema (SaveReportSettingsOK.Payload):

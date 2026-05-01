@@ -9,7 +9,6 @@ Updates user preferences
 Omitting a key (`theme`, `homeDashboardUID`, `timezone`) will cause the current value to be replaced with the system default value.
 
 Body schema (UpdatePrefsCmd):
-  cookies               array<string>
   homeDashboardId       number         The numerical :id of a favorited dashboard
   homeDashboardUID      string
   language              string
@@ -19,7 +18,7 @@ Body schema (UpdatePrefsCmd):
   queryHistory.homeTab  string
   regionalFormat        string
   theme                 string         enum: light | dark | system
-  timezone              string         enum: utc | browser
+  timezone              string         Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
   weekStart             string
 
 Response schema (UpdateUserPreferencesOK.Payload):

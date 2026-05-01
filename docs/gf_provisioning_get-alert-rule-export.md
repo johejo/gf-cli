@@ -27,7 +27,7 @@ Response schema (GetAlertRuleExportOK.Payload):
   groups[].rules[].dashboardUid                                     string
   groups[].rules[].data                                             array<object>
   groups[].rules[].data[].datasourceUid                             string
-  groups[].rules[].data[].model                                     object
+  groups[].rules[].data[].model                                     map<string, object>
   groups[].rules[].data[].queryType                                 string
   groups[].rules[].data[].refId                                     string
   groups[].rules[].data[].relativeTimeRange                         object
@@ -78,10 +78,9 @@ Response schema (GetAlertRuleExportOK.Payload):
   policies[].match                                                  map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].match_re                                               map<string, string>
   policies[].matchers                                               array<object>
-  policies[].matchers[].isEqual                                     boolean
-  policies[].matchers[].isRegex                                     boolean               REQUIRED
-  policies[].matchers[].name                                        string                REQUIRED
-  policies[].matchers[].value                                       string                REQUIRED
+  policies[].matchers[].Name                                        string
+  policies[].matchers[].Type                                        number
+  policies[].matchers[].Value                                       string
   policies[].mute_time_intervals                                    array<string>
   policies[].object_matchers                                        array<array<string>>
   policies[].orgId                                                  number
@@ -96,10 +95,9 @@ Response schema (GetAlertRuleExportOK.Payload):
   policies[].routes[].match                                         map<string, string>   Deprecated. Remove before v1.0 release.
   policies[].routes[].match_re                                      map<string, string>
   policies[].routes[].matchers                                      array<object>
-  policies[].routes[].matchers[].isEqual                            boolean
-  policies[].routes[].matchers[].isRegex                            boolean               REQUIRED
-  policies[].routes[].matchers[].name                               string                REQUIRED
-  policies[].routes[].matchers[].value                              string                REQUIRED
+  policies[].routes[].matchers[].Name                               string
+  policies[].routes[].matchers[].Type                               number
+  policies[].routes[].matchers[].Value                              string
   policies[].routes[].mute_time_intervals                           array<string>
   policies[].routes[].object_matchers                               array<array<string>>
   policies[].routes[].receiver                                      string

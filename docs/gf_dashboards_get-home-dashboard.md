@@ -1,6 +1,46 @@
 ## gf dashboards get-home-dashboard
 
-Gets home dashboard
+NOTE: the home dashboard is configured in preferences.  This API will be removed in G13
+
+### Synopsis
+
+NOTE: the home dashboard is configured in preferences.  This API will be removed in G13
+
+Response schema (GetHomeDashboardOK.Payload):
+  dashboard                                        object
+  meta                                             object
+  meta.annotationsPermissions                      object
+  meta.annotationsPermissions.dashboard            object
+  meta.annotationsPermissions.dashboard.canAdd     boolean
+  meta.annotationsPermissions.dashboard.canDelete  boolean
+  meta.annotationsPermissions.dashboard.canEdit    boolean
+  meta.apiVersion                                  string
+  meta.canAdmin                                    boolean
+  meta.canDelete                                   boolean
+  meta.canEdit                                     boolean
+  meta.canSave                                     boolean
+  meta.canStar                                     boolean
+  meta.created                                     string
+  meta.createdBy                                   string
+  meta.expires                                     string
+  meta.folderId                                    number   Deprecated: use FolderUID instead
+  meta.folderTitle                                 string
+  meta.folderUid                                   string
+  meta.folderUrl                                   string
+  meta.hasAcl                                      boolean
+  meta.isFolder                                    boolean
+  meta.isSnapshot                                  boolean
+  meta.isStarred                                   boolean
+  meta.provisioned                                 boolean
+  meta.provisionedExternalId                       string
+  meta.publicDashboardEnabled                      boolean
+  meta.slug                                        string
+  meta.type                                        string
+  meta.updated                                     string
+  meta.updatedBy                                   string
+  meta.url                                         string
+  meta.version                                     number
+  redirectUri                                      string
 
 ```
 gf dashboards get-home-dashboard [flags]

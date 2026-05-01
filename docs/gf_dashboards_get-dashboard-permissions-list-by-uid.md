@@ -2,6 +2,12 @@
 
 Gets all existing permissions for the given dashboard
 
+### Synopsis
+
+Gets all existing permissions for the given dashboard
+
+Use: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}/access
+
 ```
 gf dashboards get-dashboard-permissions-list-by-uid [flags]
 ```
