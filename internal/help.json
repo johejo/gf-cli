@@ -2101,6 +2101,7 @@
         "typeName": "QueryPublicDashboardOK",
         "hasPayload": true,
         "containsFrame": true,
+        "note": "Response wire format differs from the Go type; consider --raw.",
         "hasJSONSchema": true
       }
     },
@@ -2584,6 +2585,7 @@
         "typeName": "QueryMetricsWithExpressionsOK",
         "hasPayload": true,
         "containsFrame": true,
+        "note": "Response wire format differs from the Go type; consider --raw.",
         "hasJSONSchema": true
       }
     },

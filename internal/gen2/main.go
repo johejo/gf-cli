@@ -495,6 +495,10 @@ type helpFlagOutput struct {
 // "response" — see helpDoc's comment for the agent contract. DefaultRule,
 // when set, is a JSON-path-style expression evaluated against the per-action
 // block ("response.containsFrame" → bool); when empty, the default is false.
+// When DefaultRule fires (e.g. response.containsFrame is true and --raw flips
+// default-on), the per-action response block also carries a human-readable
+// "note" explaining why; agents should surface that string rather than
+// re-deriving the wording.
 type helpCommonFlag struct {
 	Name        string `json:"name"`
 	Type        string `json:"type"`
@@ -516,6 +520,12 @@ type helpResponseOutput struct {
 	TypeName      string `json:"typeName,omitempty"`
 	HasPayload    bool   `json:"hasPayload"`
 	ContainsFrame bool   `json:"containsFrame"`
+	// Note mirrors the schema's top-level "description" (set by
+	// BuildJSONSchemaFromExpr when ContainsFrame is true) so JSON consumers see
+	// the same advisory the human --help renders above the field table. 1:1
+	// with ContainsFrame today; sourced from Response.RootDescription so the
+	// two surfaces stay in sync from a single field.
+	Note string `json:"note,omitempty"`
 	// HasJSONSchema is true iff --describe-response-jsonschema is registered
 	// for this action. Mirrors HasPayload in practice but tracks the flag's
 	// real gate (Response.JSONSchema != "") in case schema construction failed.
@@ -598,6 +608,7 @@ func buildHelpJSON(services []*Service) (string, error) {
 					TypeName:      act.Response.TypeName,
 					HasPayload:    true,
 					ContainsFrame: act.Response.ContainsFrame,
+					Note:          act.Response.RootDescription,
 					HasJSONSchema: act.Response.JSONSchema != "",
 				}
 			}

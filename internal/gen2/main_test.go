@@ -169,6 +169,22 @@ func TestBuildHelpJSON_CommonFlags(t *testing.T) {
 			expectDescribeBody: false,
 			expectDescribeResp: false,
 		},
+		{
+			key: "svc frame-response",
+			act: &Action{
+				CmdName: "frame-response",
+				Response: &ResponseInfo{
+					TypeName:        "FrameOK",
+					HasPayload:      true,
+					ContainsFrame:   true,
+					JSONSchema:      "{}",
+					RootDescription: "Response wire format differs from the Go type; consider --raw.",
+				},
+			},
+			expectRaw:          true,
+			expectDescribeBody: false,
+			expectDescribeResp: true,
+		},
 	}
 
 	svc := &Service{CmdName: "svc", Actions: make([]*Action, 0, len(fakes))}
@@ -260,6 +276,33 @@ func TestBuildHelpJSON_CommonFlags(t *testing.T) {
 			t.Errorf("%s: predicted (raw=%v body=%v resp=%v), want (raw=%v body=%v resp=%v)",
 				f.key, gotRaw, gotBody, gotResp, f.expectRaw, f.expectDescribeBody, f.expectDescribeResp)
 		}
+	}
+
+	// response.note round-trips Response.RootDescription: present iff the
+	// upstream signal is set (today, iff ContainsFrame is true). This is what
+	// the agent contract documented above promises about the field.
+	const frameNote = "Response wire format differs from the Go type; consider --raw."
+	for _, f := range fakes {
+		c, ok := doc.Commands[f.key]
+		if !ok {
+			continue
+		}
+		wantNote := ""
+		if f.act.Response != nil {
+			wantNote = f.act.Response.RootDescription
+		}
+		var gotNote string
+		if c.Response != nil {
+			gotNote = c.Response.Note
+		}
+		if gotNote != wantNote {
+			t.Errorf("%s: response.note: got %q, want %q", f.key, gotNote, wantNote)
+		}
+	}
+	// Sanity-check the frame-response fake actually carries the canonical text;
+	// without this the empty-vs-empty case above would silently pass.
+	if c, ok := doc.Commands["svc frame-response"]; !ok || c.Response == nil || c.Response.Note != frameNote {
+		t.Errorf("svc frame-response: response.note must equal %q (got %+v)", frameNote, c)
 	}
 }
 
