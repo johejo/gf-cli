@@ -253,7 +253,7 @@ func defaultValue(typ string, fieldName string) string {
 // If doc is non-empty it takes precedence over the default.
 func flagHelp(fieldName string, doc string) string {
 	if fieldName == "Body" {
-		return `"Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block above lists fields and types; use --describe-body-jsonschema for a strict JSON Schema."`
+		return `"Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema."`
 	}
 	if doc != "" {
 		return fmt.Sprintf(`%q`, doc)
