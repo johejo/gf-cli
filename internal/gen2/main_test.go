@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"go/parser"
 	"go/token"
 	"testing"
@@ -108,6 +109,157 @@ func TestDefaultValue(t *testing.T) {
 				t.Errorf("defaultValue(%q, %q, %q) = %q, want %q", tt.typ, tt.fieldName, tt.parsed, got, tt.want)
 			}
 		})
+	}
+}
+
+func TestBuildHelpJSON_CommonFlags(t *testing.T) {
+	// Four fakes covering the gating matrix that gen.gotmpl applies for the
+	// universal flags. The asserted-registered set per fake is what gen.gotmpl
+	// would actually emit (computed directly from BodyField/Response state),
+	// and we verify the agent contract derived from commonFlags + per-action
+	// hasJSONSchema reproduces the same set.
+	type fake struct {
+		key                string
+		act                *Action
+		expectRaw          bool // always true today, kept explicit to catch contract drift
+		expectDescribeBody bool
+		expectDescribeResp bool
+	}
+	fakes := []fake{
+		{
+			key: "svc body-and-response",
+			act: &Action{
+				CmdName:    "body-and-response",
+				HTTPMethod: "POST",
+				BodyField:  &BodyFieldInfo{ModelType: "models.Foo", JSONSchema: "{}"},
+				Response:   &ResponseInfo{TypeName: "FooOK", HasPayload: true, JSONSchema: "{}"},
+			},
+			expectRaw:          true,
+			expectDescribeBody: true,
+			expectDescribeResp: true,
+		},
+		{
+			key: "svc body-no-schema",
+			act: &Action{
+				CmdName:   "body-no-schema",
+				BodyField: &BodyFieldInfo{ModelType: "any", IsInterface: true},
+				Response:  &ResponseInfo{TypeName: "BarOK", HasPayload: true, JSONSchema: "{}"},
+			},
+			expectRaw:          true,
+			expectDescribeBody: false,
+			expectDescribeResp: true,
+		},
+		{
+			key: "svc response-only",
+			act: &Action{
+				CmdName:  "response-only",
+				Response: &ResponseInfo{TypeName: "BazOK", HasPayload: true, JSONSchema: "{}"},
+			},
+			expectRaw:          true,
+			expectDescribeBody: false,
+			expectDescribeResp: true,
+		},
+		{
+			key: "svc neither",
+			act: &Action{
+				CmdName:  "neither",
+				Response: &ResponseInfo{NumReturns: 1},
+			},
+			expectRaw:          true,
+			expectDescribeBody: false,
+			expectDescribeResp: false,
+		},
+	}
+
+	svc := &Service{CmdName: "svc", Actions: make([]*Action, 0, len(fakes))}
+	for _, f := range fakes {
+		svc.Actions = append(svc.Actions, f.act)
+	}
+	raw, err := buildHelpJSON([]*Service{svc})
+	if err != nil {
+		t.Fatalf("buildHelpJSON: %v", err)
+	}
+	var doc helpDoc
+	if err := json.Unmarshal([]byte(raw), &doc); err != nil {
+		t.Fatalf("unmarshal: %v", err)
+	}
+
+	// commonFlags presence and shape.
+	if got, want := len(doc.CommonFlags), 3; got != want {
+		t.Fatalf("commonFlags length: got %d, want %d", got, want)
+	}
+	wantNames := map[string]string{
+		"raw":                          "always",
+		"describe-body-jsonschema":     "body",
+		"describe-response-jsonschema": "response",
+	}
+	seenNames := map[string]bool{}
+	for _, cf := range doc.CommonFlags {
+		want, ok := wantNames[cf.Name]
+		if !ok {
+			t.Errorf("unexpected commonFlag name %q", cf.Name)
+			continue
+		}
+		if cf.AppliesWhen != want {
+			t.Errorf("commonFlag %q appliesWhen: got %q, want %q", cf.Name, cf.AppliesWhen, want)
+		}
+		if cf.Type != "bool" {
+			t.Errorf("commonFlag %q type: got %q, want \"bool\"", cf.Name, cf.Type)
+		}
+		seenNames[cf.Name] = true
+	}
+	for n := range wantNames {
+		if !seenNames[n] {
+			t.Errorf("commonFlag %q missing", n)
+		}
+	}
+	// raw must carry the per-action default rule; the others must not.
+	for _, cf := range doc.CommonFlags {
+		switch cf.Name {
+		case "raw":
+			if cf.DefaultRule != "response.containsFrame" {
+				t.Errorf("raw defaultRule: got %q, want %q", cf.DefaultRule, "response.containsFrame")
+			}
+		default:
+			if cf.DefaultRule != "" {
+				t.Errorf("%s defaultRule: got %q, want empty", cf.Name, cf.DefaultRule)
+			}
+		}
+	}
+
+	// Agent contract: predict the registered flag set per command from the
+	// commonFlags + per-action body/response, then compare against the gate
+	// expressed in gen.gotmpl (encoded above as expect*).
+	predict := func(c *helpActionOutput) (raw, body, resp bool) {
+		for _, cf := range doc.CommonFlags {
+			switch cf.AppliesWhen {
+			case "always":
+				if cf.Name == "raw" {
+					raw = true
+				}
+			case "body":
+				if cf.Name == "describe-body-jsonschema" && c.Body != nil && c.Body.HasJSONSchema {
+					body = true
+				}
+			case "response":
+				if cf.Name == "describe-response-jsonschema" && c.Response != nil && c.Response.HasJSONSchema {
+					resp = true
+				}
+			}
+		}
+		return
+	}
+	for _, f := range fakes {
+		c, ok := doc.Commands[f.key]
+		if !ok {
+			t.Errorf("command %q missing from output", f.key)
+			continue
+		}
+		gotRaw, gotBody, gotResp := predict(c)
+		if gotRaw != f.expectRaw || gotBody != f.expectDescribeBody || gotResp != f.expectDescribeResp {
+			t.Errorf("%s: predicted (raw=%v body=%v resp=%v), want (raw=%v body=%v resp=%v)",
+				f.key, gotRaw, gotBody, gotResp, f.expectRaw, f.expectDescribeBody, f.expectDescribeResp)
+		}
 	}
 }
 

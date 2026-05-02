@@ -193,6 +193,10 @@ func init() {
 	{{ $svc.VarName }}{{ $act.VarName }}Cmd.MarkFlagRequired("{{ .Name }}")
 {{- end }}
 {{- end }}
+{{- /* The three universal flags below are also described in --help-json via */ -}}
+{{- /* the `commonFlags` slice in internal/gen2/main.go. When you add, remove, */ -}}
+{{- /* or rename one here, update that slice (and its agent contract comment */ -}}
+{{- /* on helpDoc) so the JSON discovery index stays accurate. */ -}}
 {{- if and .BodyField (ne .BodyField.JSONSchema "") }}
 	{{ $svc.VarName }}{{ $act.VarName }}Cmd.Flags().BoolVar(&{{ $svc.VarName }}{{ $act.VarName }}Flag.DescribeBodyJSONSchema, "describe-body-jsonschema", false, "Print the JSON Schema of the request body and exit without calling the API")
 {{- end }}

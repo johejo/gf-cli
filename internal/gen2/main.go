@@ -448,9 +448,19 @@ func actionResponseSchema(act *Action) string {
 // --describe-body-jsonschema / --describe-response-jsonschema flags. The map
 // is flat-keyed by "<service> <action>" (the invocation string minus "gf ")
 // so agents can do O(1) lookup with .commands[name] instead of walking a tree.
+//
+// CommonFlags lists the universal flags that gen.gotmpl wires onto every
+// (or schema-bearing) action; per-action Flags only carries OpenAPI params,
+// so without this block an agent reading --help-json would never see --raw
+// or the --describe-*-jsonschema flags. AppliesWhen ties each common flag
+// to a presence rule the agent can check against the per-action JSON:
+//   - "always":   registered on every command.
+//   - "body":     registered iff command.body != null && command.body.hasJSONSchema.
+//   - "response": registered iff command.response != null && command.response.hasJSONSchema.
 type helpDoc struct {
-	Version  string                       `json:"version"`
-	Commands map[string]*helpActionOutput `json:"commands"`
+	Version     string                       `json:"version"`
+	CommonFlags []helpCommonFlag             `json:"commonFlags"`
+	Commands    map[string]*helpActionOutput `json:"commands"`
 }
 
 type helpActionOutput struct {
@@ -480,14 +490,62 @@ type helpFlagOutput struct {
 	Default string `json:"default,omitempty"`
 }
 
+// helpCommonFlag describes a flag wired onto commands by gen.gotmpl rather
+// than by the OpenAPI param model. AppliesWhen is one of "always", "body",
+// "response" — see helpDoc's comment for the agent contract. DefaultRule,
+// when set, is a JSON-path-style expression evaluated against the per-action
+// block ("response.containsFrame" → bool); when empty, the default is false.
+type helpCommonFlag struct {
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+	Doc         string `json:"doc,omitempty"`
+	AppliesWhen string `json:"appliesWhen"`
+	DefaultRule string `json:"defaultRule,omitempty"`
+}
+
 type helpBodyOutput struct {
 	ModelType string `json:"modelType"`
+	// HasJSONSchema is true iff --describe-body-jsonschema is registered for
+	// this action. The flag is gated on a non-empty BodyField.JSONSchema, which
+	// is empty for interface{}/any-typed bodies — body block is still emitted
+	// in that case so agents can see modelType, but the flag is absent.
+	HasJSONSchema bool `json:"hasJSONSchema"`
 }
 
 type helpResponseOutput struct {
 	TypeName      string `json:"typeName,omitempty"`
 	HasPayload    bool   `json:"hasPayload"`
 	ContainsFrame bool   `json:"containsFrame"`
+	// HasJSONSchema is true iff --describe-response-jsonschema is registered
+	// for this action. Mirrors HasPayload in practice but tracks the flag's
+	// real gate (Response.JSONSchema != "") in case schema construction failed.
+	HasJSONSchema bool `json:"hasJSONSchema"`
+}
+
+// commonFlags is the canonical descriptor for the universal flags wired in
+// gen.gotmpl. MUST stay in sync with the BoolVar registrations in
+// gen.gotmpl (the --describe-*-jsonschema and --raw lines). Adding a flag
+// here without adding it there (or vice versa) will mislead agent consumers.
+var commonFlags = []helpCommonFlag{
+	{
+		Name:        "raw",
+		Type:        "bool",
+		Doc:         "Print the raw HTTP response body instead of the decoded payload",
+		AppliesWhen: "always",
+		DefaultRule: "response.containsFrame",
+	},
+	{
+		Name:        "describe-body-jsonschema",
+		Type:        "bool",
+		Doc:         "Print the JSON Schema of the request body and exit without calling the API",
+		AppliesWhen: "body",
+	},
+	{
+		Name:        "describe-response-jsonschema",
+		Type:        "bool",
+		Doc:         "Print the JSON Schema of the response payload and exit without calling the API",
+		AppliesWhen: "response",
+	},
 }
 
 // buildHelpJSON returns an indented JSON document summarising the whole CLI
@@ -496,8 +554,9 @@ type helpResponseOutput struct {
 // printing so --help-json output is single-line.
 func buildHelpJSON(services []*Service) (string, error) {
 	doc := &helpDoc{
-		Version:  "gf-help-json/1",
-		Commands: make(map[string]*helpActionOutput, 256),
+		Version:     "gf-help-json/1",
+		CommonFlags: commonFlags,
+		Commands:    make(map[string]*helpActionOutput, 256),
 	}
 	for _, svc := range services {
 		for _, act := range svc.Actions {
@@ -529,13 +588,17 @@ func buildHelpJSON(services []*Service) (string, error) {
 				out.Flags = []helpFlagOutput{}
 			}
 			if act.BodyField != nil {
-				out.Body = &helpBodyOutput{ModelType: act.BodyField.ModelType}
+				out.Body = &helpBodyOutput{
+					ModelType:     act.BodyField.ModelType,
+					HasJSONSchema: act.BodyField.JSONSchema != "",
+				}
 			}
 			if act.Response != nil && act.Response.HasPayload {
 				out.Response = &helpResponseOutput{
 					TypeName:      act.Response.TypeName,
 					HasPayload:    true,
 					ContainsFrame: act.Response.ContainsFrame,
+					HasJSONSchema: act.Response.JSONSchema != "",
 				}
 			}
 			doc.Commands[key] = out
