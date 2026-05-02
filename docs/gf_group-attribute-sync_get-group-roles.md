@@ -14,7 +14,7 @@ gf group-attribute-sync get-group-roles [flags]
 
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
-      --group-id string                GroupID
+      --group-id string                GroupID [required]
   -h, --help                           help for get-group-roles
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```

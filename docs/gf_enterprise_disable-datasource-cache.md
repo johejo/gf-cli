@@ -27,7 +27,7 @@ gf enterprise disable-datasource-cache [flags]
 
 ```
       --data-source-type string        DataSourceType
-      --data-source-uid string         DataSourceUID
+      --data-source-uid string         DataSourceUID [required]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for disable-datasource-cache
       --raw                            Print the raw HTTP response body instead of the decoded payload

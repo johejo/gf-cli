@@ -24,12 +24,12 @@ gf provisioning put-contactpoint [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema. [required]
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for put-contactpoint
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --uid string                     UID is the contact point unique identifier
+      --uid string                     UID is the contact point unique identifier [required]
       --x-disable-provenance string    XDisableProvenance
 ```
 

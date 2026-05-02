@@ -26,7 +26,7 @@ gf folders delete-folder [flags]
 
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
-      --folder-uid string              FolderUID
+      --folder-uid string              FolderUID [required]
       --force-delete-rules true        If true any Grafana 8 Alerts under this folder will be deleted. Set to `false` so that the request will fail if the folder contains any Grafana 8 Alerts.
   -h, --help                           help for delete-folder
       --raw                            Print the raw HTTP response body instead of the decoded payload

@@ -66,7 +66,7 @@ gf reports get-report [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-report
-      --id int                         ID
+      --id int                         ID [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

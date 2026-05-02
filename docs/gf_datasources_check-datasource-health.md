@@ -19,7 +19,7 @@ gf datasources check-datasource-health [flags]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for check-datasource-health
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --uid string                     UID
+      --uid string                     UID [required]
 ```
 
 ### Options inherited from parent commands

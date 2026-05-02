@@ -10,7 +10,7 @@ gf dashboards get-dashboard-snapshot [flags]
 
 ```
   -h, --help         help for get-dashboard-snapshot
-      --key string   Key
+      --key string   Key [required]
       --raw          Print the raw HTTP response body instead of the decoded payload
 ```
 

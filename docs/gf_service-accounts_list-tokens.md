@@ -20,7 +20,7 @@ gf service-accounts list-tokens [flags]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for list-tokens
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --service-account-id int         ServiceAccountID
+      --service-account-id int         ServiceAccountID [required]
 ```
 
 ### Options inherited from parent commands

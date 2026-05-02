@@ -19,9 +19,9 @@ gf convert-prometheus convert-prometheus-delete-rule-group [flags]
 
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
-      --group string                   Group
+      --group string                   Group [required]
   -h, --help                           help for convert-prometheus-delete-rule-group
-      --namespace-title string         NamespaceTitle
+      --namespace-title string         NamespaceTitle [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

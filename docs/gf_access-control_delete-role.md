@@ -25,7 +25,7 @@ gf access-control delete-role [flags]
       --global                         Global
   -h, --help                           help for delete-role
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --role-uid string                RoleUID
+      --role-uid string                RoleUID [required]
 ```
 
 ### Options inherited from parent commands

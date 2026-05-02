@@ -18,7 +18,7 @@ gf org revoke-invite [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for revoke-invite
-      --invitation-code string         InvitationCode
+      --invitation-code string         InvitationCode [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

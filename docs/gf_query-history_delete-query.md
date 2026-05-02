@@ -21,7 +21,7 @@ gf query-history delete-query [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for delete-query
-      --query-history-uid string       QueryHistoryUID
+      --query-history-uid string       QueryHistoryUID [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

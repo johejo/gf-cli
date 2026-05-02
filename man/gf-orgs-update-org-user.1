@@ -26,7 +26,7 @@ Response schema (UpdateOrgUserOK.Payload):
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema. [required]
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]
@@ -42,7 +42,7 @@ Response schema (UpdateOrgUserOK.Payload):
 
 .PP
 \fB--org-id\fP=0
-	OrgID
+	OrgID [required]
 
 .PP
 \fB--raw\fP[=false]
@@ -50,7 +50,7 @@ Response schema (UpdateOrgUserOK.Payload):
 
 .PP
 \fB--user-id\fP=0
-	UserID
+	UserID [required]
 
 
 .SH OPTIONS INHERITED FROM PARENT COMMANDS

@@ -11,7 +11,7 @@ gf migrations delete-session [flags]
 ```
   -h, --help         help for delete-session
       --raw          Print the raw HTTP response body instead of the decoded payload
-      --uid string   UID of a migration session
+      --uid string   UID of a migration session [required]
 ```
 
 ### Options inherited from parent commands

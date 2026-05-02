@@ -39,7 +39,7 @@ gf orgs search-org-users [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for search-org-users
-      --org-id int                     OrgID
+      --org-id int                     OrgID [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

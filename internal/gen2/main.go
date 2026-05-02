@@ -251,14 +251,22 @@ func defaultValue(typ string, fieldName string) string {
 
 // flagHelp returns a quoted help string for a flag.
 // If doc is non-empty it takes precedence over the default.
-func flagHelp(fieldName string, doc string) string {
-	if fieldName == "Body" {
-		return `"Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{\"foo\": \"bar\"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema."`
+// When isRequired is true, " [required]" is appended so the textual --help
+// output distinguishes required flags (cobra/pflag does not show this by default).
+func flagHelp(fieldName string, doc string, isRequired bool) string {
+	var s string
+	switch {
+	case fieldName == "Body":
+		s = `Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.`
+	case doc != "":
+		s = doc
+	default:
+		s = fieldName
 	}
-	if doc != "" {
-		return fmt.Sprintf(`%q`, doc)
+	if isRequired {
+		s += " [required]"
 	}
-	return fmt.Sprintf(`%q`, fieldName)
+	return fmt.Sprintf(`%q`, s)
 }
 
 // stringLiteral returns a readable Go string literal for generated help text.

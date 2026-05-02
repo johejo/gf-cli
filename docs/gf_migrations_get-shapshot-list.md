@@ -27,7 +27,7 @@ gf migrations get-shapshot-list [flags]
       --page int                       Page is used for pagination with limit Default: 1
       --raw                            Print the raw HTTP response body instead of the decoded payload
       --sort string                    Sort with value latest to return results sorted in descending order.
-      --uid string                     Session UID of a session
+      --uid string                     Session UID of a session [required]
 ```
 
 ### Options inherited from parent commands

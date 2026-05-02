@@ -20,7 +20,7 @@ gf signed-in-user user-set-using-org [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for user-set-using-org
-      --org-id int                     OrgID
+      --org-id int                     OrgID [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

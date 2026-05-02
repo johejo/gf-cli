@@ -46,7 +46,7 @@ gf library-elements get-library-element-by-uid [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-library-element-by-uid
-      --library-element-uid string     LibraryElementUID
+      --library-element-uid string     LibraryElementUID [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

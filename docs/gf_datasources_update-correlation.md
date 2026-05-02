@@ -49,13 +49,13 @@ gf datasources update-correlation [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
-      --correlation-uid string         CorrelationUID
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema. [required]
+      --correlation-uid string         CorrelationUID [required]
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for update-correlation
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --source-uid string              SourceUID
+      --source-uid string              SourceUID [required]
 ```
 
 ### Options inherited from parent commands

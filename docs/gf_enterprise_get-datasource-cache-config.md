@@ -27,7 +27,7 @@ gf enterprise get-datasource-cache-config [flags]
 
 ```
       --data-source-type string        DataSourceType
-      --data-source-uid string         DataSourceUID
+      --data-source-uid string         DataSourceUID [required]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-datasource-cache-config
       --raw                            Print the raw HTTP response body instead of the decoded payload

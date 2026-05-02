@@ -18,7 +18,7 @@ gf dashboards delete-dashboard-snapshot-by-delete-key [flags]
 ### Options
 
 ```
-      --delete-key string              DeleteKey
+      --delete-key string              DeleteKey [required]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for delete-dashboard-snapshot-by-delete-key
       --raw                            Print the raw HTTP response body instead of the decoded payload

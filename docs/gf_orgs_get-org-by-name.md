@@ -26,7 +26,7 @@ gf orgs get-org-by-name [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-org-by-name
-      --org-name string                OrgName
+      --org-name string                OrgName [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

@@ -21,14 +21,14 @@ gf access-control set-resource-permissions-for-built-in-role [flags]
 ### Options
 
 ```
-      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
-      --built-in-role string           BuiltInRole
+      --body string                    Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema. [required]
+      --built-in-role string           BuiltInRole [required]
       --describe-body-jsonschema       Print the JSON Schema of the request body and exit without calling the API
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for set-resource-permissions-for-built-in-role
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --resource string                Resource
-      --resource-id string             ResourceID
+      --resource string                Resource [required]
+      --resource-id string             ResourceID [required]
 ```
 
 ### Options inherited from parent commands

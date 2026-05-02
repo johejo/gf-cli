@@ -42,8 +42,8 @@ gf migrations get-snapshot [flags]
       --result-page int                ResultPage is used for pagination with ResultLimit Default: 1
       --result-sort-column string      ResultSortColumn can be used to override the default system sort. Valid values are "name", "resource_type", and "status". Default: "default"
       --result-sort-order string       ResultSortOrder is used with ResultSortColumn. Valid values are ASC and DESC. Default: "ASC"
-      --snapshot-uid string            UID of a snapshot
-      --uid string                     Session UID of a session
+      --snapshot-uid string            UID of a snapshot [required]
+      --uid string                     Session UID of a session [required]
 ```
 
 ### Options inherited from parent commands

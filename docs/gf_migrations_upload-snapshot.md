@@ -11,8 +11,8 @@ gf migrations upload-snapshot [flags]
 ```
   -h, --help                  help for upload-snapshot
       --raw                   Print the raw HTTP response body instead of the decoded payload
-      --snapshot-uid string   UID of a snapshot
-      --uid string            Session UID of a session
+      --snapshot-uid string   UID of a snapshot [required]
+      --uid string            Session UID of a session [required]
 ```
 
 ### Options inherited from parent commands

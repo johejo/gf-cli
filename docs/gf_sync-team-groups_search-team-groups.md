@@ -16,7 +16,7 @@ gf sync-team-groups search-team-groups [flags]
       --perpage int                    Number of items per page Default: 1000 (default 1000)
       --query string                   If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded.
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --team-id int                    TeamID
+      --team-id int                    TeamID [required]
 ```
 
 ### Options inherited from parent commands

@@ -9,8 +9,8 @@ gf provisioning delete-alert-rule-group [flags]
 ### Options
 
 ```
-      --folder-uid string   FolderUID
-      --group string        Group
+      --folder-uid string   FolderUID [required]
+      --group string        Group [required]
   -h, --help                help for delete-alert-rule-group
       --raw                 Print the raw HTTP response body instead of the decoded payload
 ```

@@ -53,11 +53,11 @@ Response schema (UpdateCorrelationOK.Payload):
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema. [required]
 
 .PP
 \fB--correlation-uid\fP=""
-	CorrelationUID
+	CorrelationUID [required]
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]
@@ -77,7 +77,7 @@ Response schema (UpdateCorrelationOK.Payload):
 
 .PP
 \fB--source-uid\fP=""
-	SourceUID
+	SourceUID [required]
 
 
 .SH OPTIONS INHERITED FROM PARENT COMMANDS

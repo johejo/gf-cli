@@ -21,7 +21,7 @@ gf datasources get-datasource-id-by-name [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-datasource-id-by-name
-      --name string                    Name
+      --name string                    Name [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

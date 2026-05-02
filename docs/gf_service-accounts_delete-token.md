@@ -23,8 +23,8 @@ gf service-accounts delete-token [flags]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for delete-token
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --service-account-id int         ServiceAccountID
-      --token-id int                   TokenID
+      --service-account-id int         ServiceAccountID [required]
+      --token-id int                   TokenID [required]
 ```
 
 ### Options inherited from parent commands

@@ -37,7 +37,7 @@ gf folders get-folder-by-uid [flags]
 
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
-      --folder-uid string              FolderUID
+      --folder-uid string              FolderUID [required]
   -h, --help                           help for get-folder-by-uid
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```

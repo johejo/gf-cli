@@ -11,7 +11,7 @@ gf provisioning delete-contactpoints [flags]
 ```
   -h, --help         help for delete-contactpoints
       --raw          Print the raw HTTP response body instead of the decoded payload
-      --uid string   UID is the contact point unique identifier
+      --uid string   UID is the contact point unique identifier [required]
 ```
 
 ### Options inherited from parent commands

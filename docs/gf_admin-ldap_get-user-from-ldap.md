@@ -21,7 +21,7 @@ gf admin-ldap get-user-from-ldap [flags]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-user-from-ldap
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --user-name string               UserName
+      --user-name string               UserName [required]
 ```
 
 ### Options inherited from parent commands

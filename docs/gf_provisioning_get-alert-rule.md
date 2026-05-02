@@ -76,7 +76,7 @@ gf provisioning get-alert-rule [flags]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-alert-rule
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --uid string                     Alert rule UID
+      --uid string                     Alert rule UID [required]
 ```
 
 ### Options inherited from parent commands

@@ -21,7 +21,7 @@ gf provisioning get-template [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-template
-      --name string                    Template group name
+      --name string                    Template group name [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

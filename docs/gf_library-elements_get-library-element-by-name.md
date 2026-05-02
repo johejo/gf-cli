@@ -46,7 +46,7 @@ gf library-elements get-library-element-by-name [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-library-element-by-name
-      --library-element-name string    LibraryElementName
+      --library-element-name string    LibraryElementName [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

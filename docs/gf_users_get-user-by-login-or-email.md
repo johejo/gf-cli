@@ -35,7 +35,7 @@ gf users get-user-by-login-or-email [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-user-by-login-or-email
-      --login-or-email string          loginOrEmail of the user
+      --login-or-email string          loginOrEmail of the user [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

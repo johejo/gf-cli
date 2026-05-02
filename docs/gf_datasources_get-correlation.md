@@ -34,11 +34,11 @@ gf datasources get-correlation [flags]
 ### Options
 
 ```
-      --correlation-uid string         CorrelationUID
+      --correlation-uid string         CorrelationUID [required]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-correlation
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --source-uid string              SourceUID
+      --source-uid string              SourceUID [required]
 ```
 
 ### Options inherited from parent commands

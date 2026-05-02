@@ -18,7 +18,7 @@ gf admin-users admin-get-user-auth-tokens [flags]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for admin-get-user-auth-tokens
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --user-id int                    UserID
+      --user-id int                    UserID [required]
 ```
 
 ### Options inherited from parent commands

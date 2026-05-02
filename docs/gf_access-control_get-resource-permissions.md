@@ -12,8 +12,8 @@ gf access-control get-resource-permissions [flags]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-resource-permissions
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --resource string                Resource
-      --resource-id string             ResourceID
+      --resource string                Resource [required]
+      --resource-id string             ResourceID [required]
 ```
 
 ### Options inherited from parent commands

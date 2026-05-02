@@ -11,7 +11,7 @@ gf provisioning delete-alert-rule [flags]
 ```
   -h, --help                          help for delete-alert-rule
       --raw                           Print the raw HTTP response body instead of the decoded payload
-      --uid string                    Alert rule UID
+      --uid string                    Alert rule UID [required]
       --x-disable-provenance string   XDisableProvenance
 ```
 

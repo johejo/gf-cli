@@ -22,7 +22,7 @@ gf access-control list-user-roles [flags]
       --include-hidden                 IncludeHidden
       --raw                            Print the raw HTTP response body instead of the decoded payload
       --target-org-id int              TargetOrgID
-      --user-id int                    UserID
+      --user-id int                    UserID [required]
 ```
 
 ### Options inherited from parent commands

@@ -137,7 +137,7 @@ Response schema (PutAlertRuleOK.Payload):
 
 .SH OPTIONS
 \fB--body\fP=""
-	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema.
+	Request body JSON or path to a JSON file (e.g. --body=/path/to/body.json, --body='{"foo": "bar"}'). The 'Body schema' block below lists fields and types; use --describe-body-jsonschema for a strict JSON Schema. [required]
 
 .PP
 \fB--describe-body-jsonschema\fP[=false]
@@ -157,7 +157,7 @@ Response schema (PutAlertRuleOK.Payload):
 
 .PP
 \fB--uid\fP=""
-	Alert rule UID
+	Alert rule UID [required]
 
 .PP
 \fB--x-disable-provenance\fP=""

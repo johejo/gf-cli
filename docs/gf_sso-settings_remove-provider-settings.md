@@ -22,7 +22,7 @@ gf sso-settings remove-provider-settings [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for remove-provider-settings
-      --key string                     Key
+      --key string                     Key [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

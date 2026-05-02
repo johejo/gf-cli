@@ -188,7 +188,7 @@ func init() {
 {{- range .Actions }}
 {{- $act := . }}
 {{- range .Flags }}
-	{{ $svc.VarName }}{{ $act.VarName }}Cmd.Flags().{{ flagFunc .Type .FieldName }}(&{{ $svc.VarName }}{{ $act.VarName }}Flag.{{ .FieldName }}, "{{ .Name }}", {{ defaultValue .Type .FieldName }}, {{ flagHelp .FieldName .Doc }})
+	{{ $svc.VarName }}{{ $act.VarName }}Cmd.Flags().{{ flagFunc .Type .FieldName }}(&{{ $svc.VarName }}{{ $act.VarName }}Flag.{{ .FieldName }}, "{{ .Name }}", {{ defaultValue .Type .FieldName }}, {{ flagHelp .FieldName .Doc .IsRequired }})
 {{- if .IsRequired }}
 	{{ $svc.VarName }}{{ $act.VarName }}Cmd.MarkFlagRequired("{{ .Name }}")
 {{- end }}

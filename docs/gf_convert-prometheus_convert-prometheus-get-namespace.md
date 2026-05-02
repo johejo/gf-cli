@@ -18,7 +18,7 @@ gf convert-prometheus convert-prometheus-get-namespace [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for convert-prometheus-get-namespace
-      --namespace-title string         NamespaceTitle
+      --namespace-title string         NamespaceTitle [required]
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 
