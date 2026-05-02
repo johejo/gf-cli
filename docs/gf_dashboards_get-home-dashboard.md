@@ -1,10 +1,12 @@
 ## gf dashboards get-home-dashboard
 
-NOTE: the home dashboard is configured in preferences.  This API will be removed in G13
+NOTE: the home dashboard is configured in preferences.
 
 ### Synopsis
 
-NOTE: the home dashboard is configured in preferences.  This API will be removed in G13
+NOTE: the home dashboard is configured in preferences.
+
+This API will be removed in G13
 
 Response schema (GetHomeDashboardOK.Payload):
   dashboard                                        object

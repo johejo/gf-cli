@@ -27,5 +27,5 @@ gf health [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf health get-health](gf_health_get-health.md)	 - 
+* [gf health get-health](gf_health_get-health.md)	 - ApiHealthHandler will return ok if Grafana's web server is running and it can access the database.
 

@@ -27,7 +27,7 @@ gf dashboards [flags]
 ### SEE ALSO
 
 * [gf](gf.md)	 - CLI for Grafana API
-* [gf dashboards create-dashboard-snapshot](gf_dashboards_create-dashboard-snapshot.md)	 - 
+* [gf dashboards create-dashboard-snapshot](gf_dashboards_create-dashboard-snapshot.md)	 - Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this
 * [gf dashboards create-public-dashboard](gf_dashboards_create-public-dashboard.md)	 - Create public dashboard for a dashboard
 * [gf dashboards delete-dashboard-by-uid](gf_dashboards_delete-dashboard-by-uid.md)	 - Deletes dashboard by uid
 * [gf dashboards delete-dashboard-snapshot](gf_dashboards_delete-dashboard-snapshot.md)	 - Deletes snapshot by key
@@ -39,11 +39,11 @@ gf dashboards [flags]
 * [gf dashboards get-dashboard-tags](gf_dashboards_get-dashboard-tags.md)	 - Gets all dashboards tags of an organization
 * [gf dashboards get-dashboard-version-by-uid](gf_dashboards_get-dashboard-version-by-uid.md)	 - Gets a specific dashboard version using UID
 * [gf dashboards get-dashboard-versions-by-uid](gf_dashboards_get-dashboard-versions-by-uid.md)	 - Gets all existing versions for the dashboard using UID
-* [gf dashboards get-home-dashboard](gf_dashboards_get-home-dashboard.md)	 - NOTE: the home dashboard is configured in preferences.  This API will be removed in G13
+* [gf dashboards get-home-dashboard](gf_dashboards_get-home-dashboard.md)	 - NOTE: the home dashboard is configured in preferences.
 * [gf dashboards get-public-annotations](gf_dashboards_get-public-annotations.md)	 - Get annotations for a public dashboard
 * [gf dashboards get-public-dashboard](gf_dashboards_get-public-dashboard.md)	 - Get public dashboard by dashboardUid
 * [gf dashboards import-dashboard](gf_dashboards_import-dashboard.md)	 - Imports dashboard
-* [gf dashboards interpolate-dashboard](gf_dashboards_interpolate-dashboard.md)	 - 
+* [gf dashboards interpolate-dashboard](gf_dashboards_interpolate-dashboard.md)	 - Interpolates dashboard this is an experimental endpoint under dashboard library or suggested dashboards feature flags
 * [gf dashboards list-public-dashboards](gf_dashboards_list-public-dashboards.md)	 - Get list of public dashboards
 * [gf dashboards post-dashboard](gf_dashboards_post-dashboard.md)	 - Creates update dashboard
 * [gf dashboards query-public-dashboard](gf_dashboards_query-public-dashboard.md)	 - Get results for a given panel on a public dashboard

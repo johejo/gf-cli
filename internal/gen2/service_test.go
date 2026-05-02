@@ -253,6 +253,39 @@ func TestActionLongParts(t *testing.T) {
 				"Second long paragraph.",
 			},
 		},
+		{
+			name: "drops short when first long paragraph is a truncation extension",
+			act: &Action{
+				Short: "Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
+				Long:  "Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental.\n\nUse with care.",
+			},
+			want: []string{
+				"Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental.",
+				"Use with care.",
+			},
+		},
+		{
+			name: "drops short when first long paragraph differs only by an interior synonym",
+			act: &Action{
+				Short: "Adds a new user to the current organization",
+				Long:  "Adds a global user to the current organization.\n\nIf you are running Grafana Enterprise and have Fine-grained access control enabled.",
+			},
+			want: []string{
+				"Adds a global user to the current organization.",
+				"If you are running Grafana Enterprise and have Fine-grained access control enabled.",
+			},
+		},
+		{
+			name: "keeps short when first long paragraph carries different lead",
+			act: &Action{
+				Short: "Teams that the actual user is member of",
+				Long:  "Return a list of all teams that the current user is member of.",
+			},
+			want: []string{
+				"Teams that the actual user is member of",
+				"Return a list of all teams that the current user is member of.",
+			},
+		},
 	}
 
 	for _, tt := range tests {

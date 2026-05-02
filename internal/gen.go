@@ -351,7 +351,6 @@ var (
 		Use:   "create-role",
 		Short: "Creates a new custom role",
 		Long: longHelp(
-			"Creates a new custom role",
 			"Creates a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed Roles can’t be created.",
 			"You need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to create a custom role which allows to do that. This is done to prevent escalation of privileges.",
 		),
@@ -3078,7 +3077,6 @@ var (
 		Use:   "get-user-from-ldap",
 		Short: "Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when",
 		Long: longHelp(
-			"Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when",
 			"Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when synced",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:read`.",
 		),
@@ -3869,7 +3867,6 @@ var (
 		Use:   "admin-logout-user",
 		Short: "Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged",
 		Long: longHelp(
-			"Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged",
 			"Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged in and will be required to authenticate again upon next activity",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.logout` and scope `global.users:*`.",
 		),
@@ -6501,7 +6498,6 @@ var (
 		Use:   "create-dashboard-snapshot",
 		Short: "Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this",
 		Long: longHelp(
-			"Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this",
 			"Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI",
 			"Snapshot public mode should be enabled or authentication is required.",
 		),
@@ -8220,7 +8216,6 @@ var (
 		Use:   "interpolate-dashboard",
 		Short: "Interpolates dashboard this is an experimental endpoint under dashboard library or suggested dashboards feature flags",
 		Long: longHelp(
-			"Interpolates dashboard this is an experimental endpoint under dashboard library or suggested dashboards feature flags",
 			"Interpolates dashboard this is an experimental endpoint under dashboard library or suggested dashboards feature flags and is subject to change",
 		),
 		DisableAutoGenTag: true,
@@ -14800,7 +14795,6 @@ var (
 		Use:   "create-group-mappings",
 		Short: "Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 		Long: longHelp(
-			"Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 			"Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
 		Annotations: map[string]string{
@@ -14869,7 +14863,6 @@ var (
 		Use:   "delete-group-mappings",
 		Short: "Deletes mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 		Long: longHelp(
-			"Deletes mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 			"Deletes mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
 		Annotations: map[string]string{
@@ -14991,7 +14984,6 @@ var (
 		Use:   "get-group-roles",
 		Short: "Gets roles mapped to a group this endpoint is behind the feature flag group attribute sync and is considered",
 		Long: longHelp(
-			"Gets roles mapped to a group this endpoint is behind the feature flag group attribute sync and is considered",
 			"Gets roles mapped to a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
 		DisableAutoGenTag: true,
@@ -15057,7 +15049,6 @@ var (
 		Use:   "get-mapped-groups",
 		Short: "Lists groups that have mappings set this endpoint is behind the feature flag group attribute sync and is considered",
 		Long: longHelp(
-			"Lists groups that have mappings set this endpoint is behind the feature flag group attribute sync and is considered",
 			"Lists groups that have mappings set this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
 		Annotations: map[string]string{
@@ -15127,7 +15118,6 @@ var (
 		Use:   "update-group-mappings",
 		Short: "Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 		Long: longHelp(
-			"Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 			"Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
 		Annotations: map[string]string{
@@ -18288,7 +18278,6 @@ var (
 		Use:   "add-org-user-to-current-org",
 		Short: "Adds a new user to the current organization",
 		Long: longHelp(
-			"Adds a new user to the current organization",
 			"Adds a global user to the current organization.",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.",
 		),
@@ -19528,7 +19517,6 @@ var (
 		Use:   "add-org-user",
 		Short: "Adds a new user to the current organization",
 		Long: longHelp(
-			"Adds a new user to the current organization",
 			"Adds a global user to the current organization.",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.",
 		),
@@ -29593,7 +29581,6 @@ var (
 		Use:   "create-query",
 		Short: "Adds query to query history",
 		Long: longHelp(
-			"Adds query to query history",
 			"Adds new query to query history.",
 		),
 		Annotations: map[string]string{
@@ -29763,7 +29750,6 @@ var (
 		Use:   "patch-query-comment",
 		Short: "Updates comment for query in query history",
 		Long: longHelp(
-			"Updates comment for query in query history",
 			"Updates comment for query in query history as specified by the UID.",
 		),
 		Annotations: map[string]string{
@@ -29976,7 +29962,6 @@ var (
 		Use:   "star-query",
 		Short: "Adds star to query in query history",
 		Long: longHelp(
-			"Adds star to query in query history",
 			"Adds star to query in query history as specified by the UID.",
 		),
 		Annotations: map[string]string{

@@ -11,6 +11,7 @@ import (
 	"os"
 	"strings"
 	"text/template"
+	"unicode"
 )
 
 //go:embed gen.gotmpl
@@ -331,7 +332,77 @@ func actionLongParts(act *Action) []string {
 	if act.Short == "" {
 		return longParts
 	}
+	if nearlyDuplicateHelp(act.Short, longParts[0]) {
+		return longParts
+	}
 	return append([]string{act.Short}, longParts...)
+}
+
+// nearlyDuplicateHelp reports whether a and b carry essentially the same help
+// content. Catches two flavours of upstream redundancy: Short truncated as a
+// prefix of the first Long paragraph, and OpenAPI summary/description pairs
+// that differ by an interior synonym ("new user" vs "global user").
+//
+// The Jaccard threshold was calibrated against a sweep of internal/help.json:
+// it accepts every clear duplicate down to 0.78 and rejects the closest
+// genuine non-duplicate at 0.54 (signed-in-user get-signed-in-user-team-list).
+// One known borderline case (library-elements create-library-element, 0.60)
+// stays un-deduped; lowering further would start eating real content.
+const helpDupJaccardThreshold = 0.7
+
+func nearlyDuplicateHelp(a, b string) bool {
+	na, nb := normalizeHelpText(a), normalizeHelpText(b)
+	if na == "" || nb == "" {
+		return false
+	}
+	// Pad with spaces so substring containment respects word boundaries
+	// (otherwise "set up" would match inside "reset upstream").
+	pa, pb := " "+na+" ", " "+nb+" "
+	if strings.Contains(pa, pb) || strings.Contains(pb, pa) {
+		return true
+	}
+	return jaccardWords(na, nb) >= helpDupJaccardThreshold
+}
+
+func normalizeHelpText(s string) string {
+	var b strings.Builder
+	b.Grow(len(s))
+	prevSpace := true
+	for _, r := range s {
+		switch {
+		case unicode.IsSpace(r), unicode.IsPunct(r):
+			if !prevSpace {
+				b.WriteByte(' ')
+				prevSpace = true
+			}
+		default:
+			b.WriteRune(unicode.ToLower(r))
+			prevSpace = false
+		}
+	}
+	return strings.TrimSpace(b.String())
+}
+
+func jaccardWords(a, b string) float64 {
+	set := func(s string) map[string]struct{} {
+		m := make(map[string]struct{})
+		for w := range strings.FieldsSeq(s) {
+			m[w] = struct{}{}
+		}
+		return m
+	}
+	A, B := set(a), set(b)
+	if len(A) == 0 || len(B) == 0 {
+		return 0
+	}
+	inter := 0
+	for w := range A {
+		if _, ok := B[w]; ok {
+			inter++
+		}
+	}
+	union := len(A) + len(B) - inter
+	return float64(inter) / float64(union)
 }
 
 // actionBodySchema returns the rendered "Body schema" help block for an action,

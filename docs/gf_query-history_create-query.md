@@ -4,8 +4,6 @@ Adds query to query history
 
 ### Synopsis
 
-Adds query to query history
-
 Adds new query to query history.
 
 Body schema (CreateQueryInQueryHistoryCommand):

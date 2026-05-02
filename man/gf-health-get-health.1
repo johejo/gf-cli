@@ -2,7 +2,7 @@
 .TH "GF-HEALTH-GET-HEALTH" "1" "May 2026" "" ""
 
 .SH NAME
-gf-health-get-health -
+gf-health-get-health - ApiHealthHandler will return ok if Grafana's web server is running and it can access the database.
 
 
 .SH SYNOPSIS
@@ -10,7 +10,10 @@ gf-health-get-health -
 
 
 .SH DESCRIPTION
-ApiHealthHandler will return ok if Grafana's web server is running and it can access the database. If the database cannot be accessed it will return http status code 503.
+ApiHealthHandler will return ok if Grafana's web server is running and it can access the database.
+
+.PP
+If the database cannot be accessed it will return http status code 503.
 
 .PP
 Response schema (GetHealthOK.Payload):

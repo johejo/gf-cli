@@ -4,8 +4,6 @@ Updates comment for query in query history
 
 ### Synopsis
 
-Updates comment for query in query history
-
 Updates comment for query in query history as specified by the UID.
 
 Body schema (PatchQueryCommentInQueryHistoryCommand):

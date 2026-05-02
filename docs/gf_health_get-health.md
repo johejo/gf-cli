@@ -1,10 +1,12 @@
 ## gf health get-health
 
-
+ApiHealthHandler will return ok if Grafana's web server is running and it can access the database.
 
 ### Synopsis
 
-ApiHealthHandler will return ok if Grafana's web server is running and it can access the database. If the database cannot be accessed it will return http status code 503.
+ApiHealthHandler will return ok if Grafana's web server is running and it can access the database.
+
+If the database cannot be accessed it will return http status code 503.
 
 Response schema (GetHealthOK.Payload):
   apiserver         string

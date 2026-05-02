@@ -29,7 +29,7 @@ gf admin-ldap [flags]
 * [gf](gf.md)	 - CLI for Grafana API
 * [gf admin-ldap get-ldap-status](gf_admin-ldap_get-ldap-status.md)	 - Attempts to connect to all the configured LDAP servers and returns information on whenever they re available or not
 * [gf admin-ldap get-sync-status](gf_admin-ldap_get-sync-status.md)	 - Returns the current state of the LDAP background sync integration
-* [gf admin-ldap get-user-from-ldap](gf_admin-ldap_get-user-from-ldap.md)	 - 
+* [gf admin-ldap get-user-from-ldap](gf_admin-ldap_get-user-from-ldap.md)	 - Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when
 * [gf admin-ldap post-sync-user-with-ldap](gf_admin-ldap_post-sync-user-with-ldap.md)	 - Enables a single grafana user to be synchronized against LDAP
 * [gf admin-ldap reload-ldap-cfg](gf_admin-ldap_reload-ldap-cfg.md)	 - Reloads the LDAP configuration
 

@@ -1,6 +1,6 @@
 ## gf admin-users admin-logout-user
 
-
+Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged
 
 ### Synopsis
 
