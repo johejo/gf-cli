@@ -3075,8 +3075,10 @@ var (
   }
 }`
 	adminLdapGetUserFromLDAPCmd = &cobra.Command{
-		Use: "get-user-from-ldap",
+		Use:   "get-user-from-ldap",
+		Short: "Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when",
 		Long: longHelp(
+			"Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when",
 			"Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when synced",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:read`.",
 		),
@@ -3864,8 +3866,10 @@ var (
   }
 }`
 	adminUsersAdminLogoutUserCmd = &cobra.Command{
-		Use: "admin-logout-user",
+		Use:   "admin-logout-user",
+		Short: "Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged",
 		Long: longHelp(
+			"Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged",
 			"Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged in and will be required to authenticate again upon next activity",
 			"If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.logout` and scope `global.users:*`.",
 		),
@@ -6494,8 +6498,10 @@ var (
   }
 }`
 	dashboardsCreateDashboardSnapshotCmd = &cobra.Command{
-		Use: "create-dashboard-snapshot",
+		Use:   "create-dashboard-snapshot",
+		Short: "Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this",
 		Long: longHelp(
+			"Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this",
 			"Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI",
 			"Snapshot public mode should be enabled or authentication is required.",
 		),
@@ -7677,7 +7683,11 @@ var (
 }`
 	dashboardsGetHomeDashboardCmd = &cobra.Command{
 		Use:   "get-home-dashboard",
-		Short: "NOTE: the home dashboard is configured in preferences.  This API will be removed in G13",
+		Short: "NOTE: the home dashboard is configured in preferences.",
+		Long: longHelp(
+			"NOTE: the home dashboard is configured in preferences.",
+			"This API will be removed in G13",
+		),
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (GetHomeDashboardOK.Payload):
   dashboard                                        object
@@ -8207,8 +8217,10 @@ var (
   "type": "object"
 }`
 	dashboardsInterpolateDashboardCmd = &cobra.Command{
-		Use: "interpolate-dashboard",
+		Use:   "interpolate-dashboard",
+		Short: "Interpolates dashboard this is an experimental endpoint under dashboard library or suggested dashboards feature flags",
 		Long: longHelp(
+			"Interpolates dashboard this is an experimental endpoint under dashboard library or suggested dashboards feature flags",
 			"Interpolates dashboard this is an experimental endpoint under dashboard library or suggested dashboards feature flags and is subject to change",
 		),
 		DisableAutoGenTag: true,
@@ -14785,8 +14797,10 @@ var (
   }
 }`
 	groupAttributeSyncCreateGroupMappingsCmd = &cobra.Command{
-		Use: "create-group-mappings",
+		Use:   "create-group-mappings",
+		Short: "Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 		Long: longHelp(
+			"Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 			"Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
 		Annotations: map[string]string{
@@ -14852,8 +14866,10 @@ var (
   }
 }`
 	groupAttributeSyncDeleteGroupMappingsCmd = &cobra.Command{
-		Use: "delete-group-mappings",
+		Use:   "delete-group-mappings",
+		Short: "Deletes mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 		Long: longHelp(
+			"Deletes mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 			"Deletes mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
 		Annotations: map[string]string{
@@ -14972,8 +14988,10 @@ var (
   }
 }`
 	groupAttributeSyncGetGroupRolesCmd = &cobra.Command{
-		Use: "get-group-roles",
+		Use:   "get-group-roles",
+		Short: "Gets roles mapped to a group this endpoint is behind the feature flag group attribute sync and is considered",
 		Long: longHelp(
+			"Gets roles mapped to a group this endpoint is behind the feature flag group attribute sync and is considered",
 			"Gets roles mapped to a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
 		DisableAutoGenTag: true,
@@ -15036,8 +15054,10 @@ var (
   }
 }`
 	groupAttributeSyncGetMappedGroupsCmd = &cobra.Command{
-		Use: "get-mapped-groups",
+		Use:   "get-mapped-groups",
+		Short: "Lists groups that have mappings set this endpoint is behind the feature flag group attribute sync and is considered",
 		Long: longHelp(
+			"Lists groups that have mappings set this endpoint is behind the feature flag group attribute sync and is considered",
 			"Lists groups that have mappings set this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
 		Annotations: map[string]string{
@@ -15104,8 +15124,10 @@ var (
   }
 }`
 	groupAttributeSyncUpdateGroupMappingsCmd = &cobra.Command{
-		Use: "update-group-mappings",
+		Use:   "update-group-mappings",
+		Short: "Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 		Long: longHelp(
+			"Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
 			"Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
 		),
 		Annotations: map[string]string{
@@ -15218,9 +15240,11 @@ var (
   }
 }`
 	healthGetHealthCmd = &cobra.Command{
-		Use: "get-health",
+		Use:   "get-health",
+		Short: "ApiHealthHandler will return ok if Grafana's web server is running and it can access the database.",
 		Long: longHelp(
-			"ApiHealthHandler will return ok if Grafana's web server is running and it can access the database. If the database cannot be accessed it will return http status code 503.",
+			"ApiHealthHandler will return ok if Grafana's web server is running and it can access the database.",
+			"If the database cannot be accessed it will return http status code 503.",
 		),
 		Annotations: map[string]string{
 			"responseSchema": `Response schema (GetHealthOK.Payload):

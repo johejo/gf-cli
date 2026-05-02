@@ -6,6 +6,7 @@ import (
 	"go/parser"
 	"go/token"
 	"path/filepath"
+	"strconv"
 	"strings"
 )
 
@@ -16,6 +17,8 @@ type MethodInfo struct {
 	NumReturns     int    // number of return values
 	Short          string // single-line summary extracted from the non-WithParams implementation
 	Long           string // detailed help extracted from the non-WithParams implementation
+	HTTPMethod     string // "GET", "POST", ... extracted from runtime.ClientOperation in the WithParams implementation; "" if not found
+	HTTPPath       string // OpenAPI path pattern, e.g. "/admin/ldap/{user_name}"; "" if not found
 }
 
 // ParseService parses a ClientService interface from <baseDir>/client/<pkgName>/<pkgName>_client.go
@@ -86,6 +89,8 @@ func ParseService(baseDir string, pkgName string) (string, []*MethodInfo, error)
 			doc = docMap[name]
 		}
 
+		httpMethod, httpPath := extractOperationInfo(f, name)
+
 		methods = append(methods, &MethodInfo{
 			Name:           name,
 			ParamsTypeName: paramsTypeName,
@@ -93,9 +98,73 @@ func ParseService(baseDir string, pkgName string) (string, []*MethodInfo, error)
 			NumReturns:     numReturns,
 			Short:          doc.Short,
 			Long:           doc.Long,
+			HTTPMethod:     httpMethod,
+			HTTPPath:       httpPath,
 		})
 	}
 	return short, methods, nil
+}
+
+// extractOperationInfo finds the WithParams implementation method and reads
+// the HTTP Method and PathPattern from its runtime.ClientOperation literal.
+// go-swagger emits this composite literal in every WithParams body, e.g.:
+//
+//	op := &runtime.ClientOperation{
+//	    ID:          "getUserFromLDAP",
+//	    Method:      "GET",
+//	    PathPattern: "/admin/ldap/{user_name}",
+//	    ...
+//	}
+//
+// Returns ("", "") if the method or fields are not found.
+func extractOperationInfo(f *ast.File, withParamsName string) (httpMethod, httpPath string) {
+	for _, decl := range f.Decls {
+		fd, ok := decl.(*ast.FuncDecl)
+		if !ok || fd.Recv == nil || fd.Name.Name != withParamsName || fd.Body == nil {
+			continue
+		}
+		ast.Inspect(fd.Body, func(n ast.Node) bool {
+			ue, ok := n.(*ast.UnaryExpr)
+			if !ok || ue.Op != token.AND {
+				return true
+			}
+			cl, ok := ue.X.(*ast.CompositeLit)
+			if !ok {
+				return true
+			}
+			sel, ok := cl.Type.(*ast.SelectorExpr)
+			if !ok || sel.Sel.Name != "ClientOperation" {
+				return true
+			}
+			for _, elt := range cl.Elts {
+				kv, ok := elt.(*ast.KeyValueExpr)
+				if !ok {
+					continue
+				}
+				key, ok := kv.Key.(*ast.Ident)
+				if !ok {
+					continue
+				}
+				lit, ok := kv.Value.(*ast.BasicLit)
+				if !ok || lit.Kind != token.STRING {
+					continue
+				}
+				s, err := strconv.Unquote(lit.Value)
+				if err != nil {
+					continue
+				}
+				switch key.Name {
+				case "Method":
+					httpMethod = s
+				case "PathPattern":
+					httpPath = s
+				}
+			}
+			return false
+		})
+		return httpMethod, httpPath
+	}
+	return "", ""
 }
 
 // extractServiceShort reads the doc comment on the Client struct
@@ -235,9 +304,10 @@ func docFirstWord(s string) string {
 	return s
 }
 
-// shortMaxLen is the upper bound on a generated Short. Anything longer is
-// treated as upstream prose that leaked into the OpenAPI summary slot;
-// Short is cleared and the text is promoted into Long instead.
+// shortMaxLen is the upper bound on a generated Short. When the joined first
+// paragraph exceeds it we still produce a Short by splitting at the first
+// sentence boundary or, failing that, truncating at a word boundary; the full
+// paragraph is preserved in Long so no information is lost in --help.
 const shortMaxLen = 120
 
 // splitDoc cleans a go-swagger doc comment and returns short and long help text.
@@ -245,12 +315,22 @@ const shortMaxLen = 120
 //
 //	"CreateDashboardSnapshot whens creating a snapshot using the API...\n\nSnapshot public mode should be enabled..."
 //
-// The first word is typically the method name repeated; we strip it and split on paragraph boundaries.
+// The first word is typically the method name repeated; we strip it and split
+// on paragraph boundaries.
 //
-// When the first paragraph spans multiple source lines or exceeds shortMaxLen
-// after the strip, the upstream OpenAPI summary almost certainly leaked a
-// description into the summary slot. We then suppress Short and promote the
-// paragraph into Long so agent listings don't surface a broken one-liner.
+// The joined first paragraph (after method-name strip + capitalize) is mapped
+// to Short by these rules, in order:
+//
+//  1. If a sentence boundary ". " appears within shortMaxLen, the first
+//     sentence (with trailing period) is Short and the remainder of the
+//     paragraph becomes the first Long paragraph.
+//  2. Else if the whole paragraph fits in shortMaxLen, it is Short with no
+//     first-paragraph Long entry.
+//  3. Else the paragraph is truncated at the last word boundary <= shortMaxLen
+//     for Short; the untruncated paragraph still goes into Long.
+//
+// The intent is that subcommand listings always carry a usable summary even
+// when the upstream OpenAPI summary slot was filled with multi-sentence prose.
 func splitDoc(s string) MethodDoc {
 	s = strings.TrimSpace(s)
 	if s == "" {
@@ -263,12 +343,11 @@ func splitDoc(s string) MethodDoc {
 	}
 
 	first := capitalizeFirst(paragraphs[0].Text)
-	var short string
+	short, firstLong := summarizeFirstParagraph(first)
+
 	longParagraphs := make([]string, 0, len(paragraphs))
-	if paragraphs[0].MultiLine || len(first) > shortMaxLen {
-		longParagraphs = append(longParagraphs, first)
-	} else {
-		short = first
+	if firstLong != "" {
+		longParagraphs = append(longParagraphs, firstLong)
 	}
 	for _, p := range paragraphs[1:] {
 		longParagraphs = append(longParagraphs, p.Text)
@@ -278,6 +357,53 @@ func splitDoc(s string) MethodDoc {
 		Short: short,
 		Long:  strings.Join(longParagraphs, "\n\n"),
 	}
+}
+
+// summarizeFirstParagraph applies the splitDoc rules to a single paragraph,
+// returning (short, firstLongParagraph). firstLongParagraph is "" when the
+// whole paragraph already fits in shortMaxLen and need not be repeated in Long.
+func summarizeFirstParagraph(p string) (short, firstLong string) {
+	if p == "" {
+		return "", ""
+	}
+	if sentence, rest, ok := splitFirstSentence(p, shortMaxLen); ok {
+		return sentence, rest
+	}
+	if len(p) <= shortMaxLen {
+		return p, ""
+	}
+	return truncateAtWord(p, shortMaxLen), p
+}
+
+// splitFirstSentence returns the first sentence of s (terminated by ". ") and
+// the remainder, when the first sentence (including its trailing period) fits
+// within max. Returns ok=false when there is no usable boundary.
+func splitFirstSentence(s string, max int) (sentence, rest string, ok bool) {
+	idx := strings.Index(s, ". ")
+	if idx < 0 {
+		return "", "", false
+	}
+	sentence = s[:idx+1] // include the period
+	if len(sentence) > max {
+		return "", "", false
+	}
+	rest = strings.TrimSpace(s[idx+2:])
+	return sentence, rest, true
+}
+
+// truncateAtWord truncates s to at most max bytes, breaking at the last
+// whitespace boundary that fits. If no whitespace boundary is found within
+// max, it falls back to a hard byte cut at max so the caller still gets a
+// non-empty Short.
+func truncateAtWord(s string, max int) string {
+	if len(s) <= max {
+		return s
+	}
+	cut := strings.LastIndexAny(s[:max], " \t")
+	if cut <= 0 {
+		return s[:max]
+	}
+	return strings.TrimRight(s[:cut], " \t")
 }
 
 type docParagraph struct {

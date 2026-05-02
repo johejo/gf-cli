@@ -6,11 +6,14 @@
       "action": "add-team-role",
       "short": "Adds team role",
       "long": "You need to have a permission with action `teams.roles:add` and scope `permissions:type:delegate`.",
+      "httpMethod": "POST",
+      "httpPath": "/access-control/teams/{teamId}/roles",
       "flags": [
         {
           "name": "team-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -27,11 +30,14 @@
       "action": "add-user-role",
       "short": "Adds a user role assignment",
       "long": "Assign a role to a specific user. For bulk updates consider Set user role assignments.\n\nYou need to have a permission with action `users.roles:add` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only assign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign a role which will allow to do that. This is done to prevent escalation of privileges.",
+      "httpMethod": "POST",
+      "httpPath": "/access-control/users/{userId}/roles",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -48,6 +54,8 @@
       "action": "create-role",
       "short": "Creates a new custom role",
       "long": "Creates a new custom role and maps given permissions to that role. Note that roles with the same prefix as Fixed Roles can’t be created.\n\nYou need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to create a custom role which allows to do that. This is done to prevent escalation of privileges.",
+      "httpMethod": "POST",
+      "httpPath": "/access-control/roles",
       "flags": [],
       "body": {
         "modelType": "models.CreateRoleForm"
@@ -63,21 +71,26 @@
       "action": "delete-role",
       "short": "Deletes a custom role",
       "long": "Delete a role with the given UID, and it’s permissions. If the role is assigned to a built-in role, the deletion operation will fail, unless force query param is set to true, and in that case all assignments will also be deleted.\n\nYou need to have a permission with action `roles:delete` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only delete a custom role with the same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to delete a custom role which allows to do that.",
+      "httpMethod": "DELETE",
+      "httpPath": "/access-control/roles/{roleUID}",
       "flags": [
         {
           "name": "force",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "global",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "role-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -91,6 +104,8 @@
       "action": "get-access-control-status",
       "short": "Gets status",
       "long": "Returns an indicator to check if fine-grained access control is enabled or not.\n\nYou need to have a permission with action `status:accesscontrol` and scope `services:accesscontrol`.",
+      "httpMethod": "GET",
+      "httpPath": "/access-control/status",
       "flags": [],
       "response": {
         "typeName": "GetAccessControlStatusOK",
@@ -102,11 +117,14 @@
       "service": "access-control",
       "action": "get-resource-description",
       "short": "Gets a description of a resource s access control properties",
+      "httpMethod": "GET",
+      "httpPath": "/access-control/{resource}/description",
       "flags": [
         {
           "name": "resource",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -119,16 +137,20 @@
       "service": "access-control",
       "action": "get-resource-permissions",
       "short": "Gets permissions for a resource",
+      "httpMethod": "GET",
+      "httpPath": "/access-control/{resource}/{resourceID}",
       "flags": [
         {
           "name": "resource",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "resource-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -142,11 +164,14 @@
       "action": "get-role",
       "short": "Gets a role",
       "long": "Get a role for the given UID.\n\nYou need to have a permission with action `roles:read` and scope `roles:*`.",
+      "httpMethod": "GET",
+      "httpPath": "/access-control/roles/{roleUID}",
       "flags": [
         {
           "name": "role-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -160,11 +185,14 @@
       "action": "get-role-assignments",
       "short": "Gets role assignments",
       "long": "Get role assignments for the role with the given UID. Does not include role assignments mapped through group attribute sync.\n\nYou need to have a permission with action `teams.roles:list` and scope `teams:id:*` and `users.roles:list` and scope `users:id:*`.",
+      "httpMethod": "GET",
+      "httpPath": "/access-control/roles/{roleUID}/assignments",
       "flags": [
         {
           "name": "role-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -178,21 +206,26 @@
       "action": "list-roles",
       "short": "Gets all roles",
       "long": "Gets all existing roles. The response contains all global and organization local roles, for the organization which user is signed in.\n\nYou need to have a permission with action `roles:read` and scope `roles:*`.\n\nThe `delegatable` flag reduces the set of roles to only those for which the signed-in user has permissions to assign.",
+      "httpMethod": "GET",
+      "httpPath": "/access-control/roles",
       "flags": [
         {
           "name": "delegatable",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "include-hidden",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "target-org-id",
           "type": "int64",
-          "required": false
+          "required": false,
+          "in": "query"
         }
       ],
       "response": {
@@ -206,16 +239,20 @@
       "action": "list-team-roles",
       "short": "Gets team roles",
       "long": "You need to have a permission with action `teams.roles:read` and scope `teams:id:\u003cteam ID\u003e`.",
+      "httpMethod": "GET",
+      "httpPath": "/access-control/teams/{teamId}/roles",
       "flags": [
         {
           "name": "target-org-id",
           "type": "int64",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "team-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -229,6 +266,8 @@
       "action": "list-teams-roles",
       "short": "Lists roles assigned to multiple teams",
       "long": "Lists the roles that have been directly assigned to the given teams.\n\nYou need to have a permission with action `teams.roles:read` and scope `teams:id:*`.",
+      "httpMethod": "POST",
+      "httpPath": "/access-control/teams/roles/search",
       "flags": [],
       "body": {
         "modelType": "models.RolesSearchQuery"
@@ -244,21 +283,26 @@
       "action": "list-user-roles",
       "short": "Lists roles assigned to a user",
       "long": "Lists the roles that have been directly assigned to a given user. The list does not include built-in roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.\n\nYou need to have a permission with action `users.roles:read` and scope `users:id:\u003cuser ID\u003e`.",
+      "httpMethod": "GET",
+      "httpPath": "/access-control/users/{userId}/roles",
       "flags": [
         {
           "name": "include-hidden",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "target-org-id",
           "type": "int64",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -272,6 +316,8 @@
       "action": "list-users-roles",
       "short": "Lists roles assigned to multiple users",
       "long": "Lists the roles that have been directly assigned to the given users. The list does not include built-in roles (Viewer, Editor, Admin or Grafana Admin), and it does not include roles that have been inherited from a team.\n\nYou need to have a permission with action `users.roles:read` and scope `users:id:*`.",
+      "httpMethod": "POST",
+      "httpPath": "/access-control/users/roles/search",
       "flags": [],
       "body": {
         "modelType": "models.RolesSearchQuery"
@@ -287,16 +333,20 @@
       "action": "remove-team-role",
       "short": "Removes team role",
       "long": "You need to have a permission with action `teams.roles:remove` and scope `permissions:type:delegate`.",
+      "httpMethod": "DELETE",
+      "httpPath": "/access-control/teams/{teamId}/roles/{roleUID}",
       "flags": [
         {
           "name": "role-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "team-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -310,22 +360,27 @@
       "action": "remove-user-role",
       "short": "Removes a user role assignment",
       "long": "Revoke a role from a user. For bulk updates consider Set user role assignments.\n\nYou need to have a permission with action `users.roles:remove` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only unassign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to unassign a role which will allow to do that. This is done to prevent escalation of privileges.",
+      "httpMethod": "DELETE",
+      "httpPath": "/access-control/users/{userId}/roles/{roleUID}",
       "flags": [
         {
           "name": "global",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "A flag indicating if the assignment is global or not. If set to false, the default org ID of the authenticated user will be used from the request to remove assignment."
         },
         {
           "name": "role-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -339,16 +394,20 @@
       "action": "set-resource-permissions",
       "short": "Sets resource permissions",
       "long": "Assigns permissions for a resource by a given type (`:resource`) and `:resourceID` to one or many assignment types. Allowed resources are `datasources`, `teams`, `dashboards`, `folders`, and `serviceaccounts`. Refer to the `/access-control/{resource}/description` endpoint for allowed Permissions.",
+      "httpMethod": "POST",
+      "httpPath": "/access-control/{resource}/{resourceID}",
       "flags": [
         {
           "name": "resource",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "resource-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -365,21 +424,26 @@
       "action": "set-resource-permissions-for-built-in-role",
       "short": "Sets resource permissions for a built in role",
       "long": "Assigns permissions for a resource by a given type (`:resource`) and `:resourceID` to a built-in role. Allowed resources are `datasources`, `teams`, `dashboards`, `folders`, and `serviceaccounts`. Refer to the `/access-control/{resource}/description` endpoint for allowed Permissions.",
+      "httpMethod": "POST",
+      "httpPath": "/access-control/{resource}/{resourceID}/builtInRoles/{builtInRole}",
       "flags": [
         {
           "name": "built-in-role",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "resource",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "resource-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -396,21 +460,26 @@
       "action": "set-resource-permissions-for-team",
       "short": "Sets resource permissions for a team",
       "long": "Assigns permissions for a resource by a given type (`:resource`) and `:resourceID` to a team. Allowed resources are `datasources`, `teams`, `dashboards`, `folders`, and `serviceaccounts`. Refer to the `/access-control/{resource}/description` endpoint for allowed Permissions.",
+      "httpMethod": "POST",
+      "httpPath": "/access-control/{resource}/{resourceID}/teams/{teamID}",
       "flags": [
         {
           "name": "resource",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "resource-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "team-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -427,21 +496,26 @@
       "action": "set-resource-permissions-for-user",
       "short": "Sets resource permissions for a user",
       "long": "Assigns permissions for a resource by a given type (`:resource`) and `:resourceID` to a user or a service account. Allowed resources are `datasources`, `teams`, `dashboards`, `folders`, and `serviceaccounts`. Refer to the `/access-control/{resource}/description` endpoint for allowed Permissions.",
+      "httpMethod": "POST",
+      "httpPath": "/access-control/{resource}/{resourceID}/users/{userID}",
       "flags": [
         {
           "name": "resource",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "resource-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -458,11 +532,14 @@
       "action": "set-role-assignments",
       "short": "Sets role assignments",
       "long": "Set role assignments for the role with the given UID.\n\nYou need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate`, and `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate`.",
+      "httpMethod": "PUT",
+      "httpPath": "/access-control/roles/{roleUID}/assignments",
       "flags": [
         {
           "name": "role-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -479,16 +556,20 @@
       "action": "set-team-roles",
       "short": "Updates team role",
       "long": "You need to have a permission with action `teams.roles:add` and `teams.roles:remove` and scope `permissions:type:delegate` for each.",
+      "httpMethod": "PUT",
+      "httpPath": "/access-control/teams/{teamId}/roles",
       "flags": [
         {
           "name": "target-org-id",
           "type": "int64",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "team-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -505,16 +586,20 @@
       "action": "set-user-roles",
       "short": "Sets user role assignments",
       "long": "Update the user’s role assignments to match the provided set of UIDs. This will remove any assigned roles that aren’t in the request and add roles that are in the set but are not already assigned to the user. Roles mapped through group attribute sync are not impacted. If you want to add or remove a single role, consider using Add a user role assignment or Remove a user role assignment instead.\n\nYou need to have a permission with action `users.roles:add` and `users.roles:remove` and scope `permissions:type:delegate` for each. `permissions:type:delegate`  scope ensures that users can only assign or unassign roles which have same, or a subset of permissions which the user has. For example, if a user does not have required permissions for creating users, they won’t be able to assign or unassign a role which will allow to do that. This is done to prevent escalation of privileges.",
+      "httpMethod": "PUT",
+      "httpPath": "/access-control/users/{userId}/roles",
       "flags": [
         {
           "name": "target-org-id",
           "type": "int64",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -531,11 +616,14 @@
       "action": "update-role",
       "short": "Updates a custom role",
       "long": "You need to have a permission with action `roles:write` and scope `permissions:type:delegate`. `permissions:type:delegate` scope ensures that users can only create custom roles with the same, or a subset of permissions which the user has.",
+      "httpMethod": "PUT",
+      "httpPath": "/access-control/roles/{roleUID}",
       "flags": [
         {
           "name": "role-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -552,6 +640,8 @@
       "action": "admin-get-settings",
       "short": "Fetches settings",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `settings:read` and scopes: `settings:*`, `settings:auth.saml:` and `settings:auth.saml:enabled` (property level).",
+      "httpMethod": "GET",
+      "httpPath": "/admin/settings",
       "flags": [],
       "response": {
         "typeName": "AdminGetSettingsOK",
@@ -564,6 +654,8 @@
       "action": "admin-get-stats",
       "short": "Fetches grafana stats",
       "long": "Only works with Basic Authentication (username and password). See introduction for an explanation. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `server:stats:read`.",
+      "httpMethod": "GET",
+      "httpPath": "/admin/stats",
       "flags": [],
       "response": {
         "typeName": "AdminGetStatsOK",
@@ -576,6 +668,8 @@
       "action": "get-ldap-status",
       "short": "Attempts to connect to all the configured LDAP servers and returns information on whenever they re available or not",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.status:read`.",
+      "httpMethod": "GET",
+      "httpPath": "/admin/ldap/status",
       "flags": [],
       "response": {
         "typeName": "GetLDAPStatusOK",
@@ -588,6 +682,8 @@
       "action": "get-sync-status",
       "short": "Returns the current state of the LDAP background sync integration",
       "long": "You need to have a permission with action `ldap.status:read`.",
+      "httpMethod": "GET",
+      "httpPath": "/admin/ldap-sync-status",
       "flags": [],
       "response": {
         "typeName": "GetSyncStatusOK",
@@ -598,12 +694,16 @@
     "admin-ldap get-user-from-ldap": {
       "service": "admin-ldap",
       "action": "get-user-from-ldap",
+      "short": "Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when",
       "long": "Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when synced\n\nIf you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:read`.",
+      "httpMethod": "GET",
+      "httpPath": "/admin/ldap/{user_name}",
       "flags": [
         {
           "name": "user-name",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -617,11 +717,14 @@
       "action": "post-sync-user-with-ldap",
       "short": "Enables a single grafana user to be synchronized against LDAP",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:sync`.",
+      "httpMethod": "POST",
+      "httpPath": "/admin/ldap/sync/{user_id}",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -635,12 +738,16 @@
       "action": "reload-ldap-cfg",
       "short": "Reloads the LDAP configuration",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.config:reload`.",
+      "httpMethod": "POST",
+      "httpPath": "/admin/ldap/reload",
       "flags": []
     },
     "admin-provisioning admin-provisioning-reload-access-control": {
       "service": "admin-provisioning",
       "action": "admin-provisioning-reload-access-control",
       "short": "Yous need to have a permission with action provisioning reload with scope provisioners accesscontrol",
+      "httpMethod": "POST",
+      "httpPath": "/admin/provisioning/access-control/reload",
       "flags": [],
       "response": {
         "typeName": "AdminProvisioningReloadAccessControlAccepted",
@@ -653,6 +760,8 @@
       "action": "admin-provisioning-reload-dashboards",
       "short": "Reloads dashboard provisioning configurations",
       "long": "Reloads the provisioning config files for dashboards again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:dashboards`.",
+      "httpMethod": "POST",
+      "httpPath": "/admin/provisioning/dashboards/reload",
       "flags": [],
       "response": {
         "typeName": "AdminProvisioningReloadDashboardsOK",
@@ -665,6 +774,8 @@
       "action": "admin-provisioning-reload-datasources",
       "short": "Reloads datasource provisioning configurations",
       "long": "Reloads the provisioning config files for datasources again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:datasources`.",
+      "httpMethod": "POST",
+      "httpPath": "/admin/provisioning/datasources/reload",
       "flags": [],
       "response": {
         "typeName": "AdminProvisioningReloadDatasourcesOK",
@@ -677,6 +788,8 @@
       "action": "admin-provisioning-reload-plugins",
       "short": "Reloads plugin provisioning configurations",
       "long": "Reloads the provisioning config files for plugins again. It won’t return until the new provisioned entities are already stored in the database. In case of dashboards, it will stop polling for changes in dashboard files and then restart it with new configurations after returning. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `provisioning:reload` and scope `provisioners:plugin`.",
+      "httpMethod": "POST",
+      "httpPath": "/admin/provisioning/plugins/reload",
       "flags": [],
       "response": {
         "typeName": "AdminProvisioningReloadPluginsOK",
@@ -689,6 +802,8 @@
       "action": "admin-create-user",
       "short": "Creates new user",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:create`. Note that OrgId is an optional parameter that can be used to assign a new user to a different organization when `auto_assign_org` is set to `true`.",
+      "httpMethod": "POST",
+      "httpPath": "/admin/users",
       "flags": [],
       "body": {
         "modelType": "models.AdminCreateUserForm"
@@ -704,11 +819,14 @@
       "action": "admin-delete-user",
       "short": "Deletes global user",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:delete` and scope `global.users:*`.",
+      "httpMethod": "DELETE",
+      "httpPath": "/admin/users/{user_id}",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -722,11 +840,14 @@
       "action": "admin-disable-user",
       "short": "Disables user",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:disable` and scope `global.users:1` (userIDScope).",
+      "httpMethod": "POST",
+      "httpPath": "/admin/users/{user_id}/disable",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -740,11 +861,14 @@
       "action": "admin-enable-user",
       "short": "Enables user",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:enable` and scope `global.users:1` (userIDScope).",
+      "httpMethod": "POST",
+      "httpPath": "/admin/users/{user_id}/enable",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -758,11 +882,14 @@
       "action": "admin-get-user-auth-tokens",
       "short": "Returns a list of all auth tokens devices that the user currently have logged in from",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.authtoken:list` and scope `global.users:*`.",
+      "httpMethod": "GET",
+      "httpPath": "/admin/users/{user_id}/auth-tokens",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -774,12 +901,16 @@
     "admin-users admin-logout-user": {
       "service": "admin-users",
       "action": "admin-logout-user",
+      "short": "Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged",
       "long": "Logouts user revokes all auth tokens devices for the user user of issued auth tokens devices will no longer be logged in and will be required to authenticate again upon next activity\n\nIf you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.logout` and scope `global.users:*`.",
+      "httpMethod": "POST",
+      "httpPath": "/admin/users/{user_id}/logout",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -793,11 +924,14 @@
       "action": "admin-revoke-user-auth-token",
       "short": "Revokes auth token for user",
       "long": "Revokes the given auth token (device) for the user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.authtoken:update` and scope `global.users:*`.",
+      "httpMethod": "POST",
+      "httpPath": "/admin/users/{user_id}/revoke-auth-token",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -814,11 +948,14 @@
       "action": "admin-update-user-password",
       "short": "Sets password for user",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.password:update` and scope `global.users:*`.",
+      "httpMethod": "PUT",
+      "httpPath": "/admin/users/{user_id}/password",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -835,11 +972,14 @@
       "action": "admin-update-user-permissions",
       "short": "Sets permissions for user",
       "long": "Only works with Basic Authentication (username and password). See introduction for an explanation. If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.permissions:update` and scope `global.users:*`.",
+      "httpMethod": "PUT",
+      "httpPath": "/admin/users/{user_id}/permissions",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -856,11 +996,14 @@
       "action": "get-annotation-tags",
       "short": "Finds annotations tags",
       "long": "Find all the event tags created in the annotations.",
+      "httpMethod": "GET",
+      "httpPath": "/annotations/tags",
       "flags": [
         {
           "name": "limit",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Max limit for results returned.",
           "default": "\"100\""
         },
@@ -868,6 +1011,7 @@
           "name": "tag",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Tag is a string that you can use to filter tags."
         }
       ],
@@ -882,77 +1026,91 @@
       "action": "get-annotations",
       "short": "Finds annotations",
       "long": "Starting in Grafana v6.4 regions annotations are now returned in one entity that now includes the timeEnd property.",
+      "httpMethod": "GET",
+      "httpPath": "/annotations",
       "flags": [
         {
           "name": "alert-id",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Find annotations for a specified alert rule by its ID. deprecated: AlertID is deprecated and will be removed in future versions. Please use AlertUID instead."
         },
         {
           "name": "alert-uid",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Find annotations for a specified alert rule by its UID."
         },
         {
           "name": "dashboard-id",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Find annotations that are scoped to a specific dashboard"
         },
         {
           "name": "dashboard-uid",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Find annotations that are scoped to a specific dashboard"
         },
         {
           "name": "from",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Find annotations created after specific epoch datetime in milliseconds."
         },
         {
           "name": "limit",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Max limit for results returned."
         },
         {
           "name": "match-any",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "Match any or all tags"
         },
         {
           "name": "panel-id",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Find annotations that are scoped to a specific panel"
         },
         {
           "name": "tags",
           "type": "[]string",
           "required": true,
+          "in": "query",
           "doc": "Use this to filter organization annotations. Organization annotations are annotations from an annotation data source that are not connected specifically to a dashboard or panel. You can filter by multiple tags."
         },
         {
           "name": "to",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Find annotations created before specific epoch datetime in milliseconds."
         },
         {
           "name": "type",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Return alerts or user created annotations"
         },
         {
           "name": "user-id",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Limit response to annotations created by specific user."
         }
       ],
@@ -966,6 +1124,8 @@
       "service": "annotations",
       "action": "mass-delete-annotations",
       "short": "Deletes multiple annotations",
+      "httpMethod": "POST",
+      "httpPath": "/annotations/mass-delete",
       "flags": [],
       "body": {
         "modelType": "models.MassDeleteAnnotationsCmd"
@@ -981,11 +1141,14 @@
       "action": "patch-annotation",
       "short": "Patches annotation",
       "long": "Updates one or more properties of an annotation that matches the specified ID. This operation currently supports updating of the `text`, `tags`, `time` and `timeEnd` properties. This is available in Grafana 6.0.0-beta2 and above.",
+      "httpMethod": "PATCH",
+      "httpPath": "/annotations/{annotation_id}",
       "flags": [
         {
           "name": "annotation-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -1002,6 +1165,8 @@
       "action": "post-annotation",
       "short": "Creates annotation",
       "long": "Creates an annotation in the Grafana database. The dashboardId and panelId fields are optional. If they are not specified then an organization annotation is created and can be queried in any dashboard that adds the Grafana annotations data source. When creating a region annotation include the timeEnd property. The format for `time` and `timeEnd` should be epoch numbers in millisecond resolution. The response for this HTTP request is slightly different in versions prior to v6.4. In prior versions you would also get an endId if you where creating a region. But in 6.4 regions are represented using a single event with time and timeEnd properties.",
+      "httpMethod": "POST",
+      "httpPath": "/annotations",
       "flags": [],
       "body": {
         "modelType": "models.PostAnnotationsCmd"
@@ -1017,6 +1182,8 @@
       "action": "post-graphite-annotation",
       "short": "Creates annotation in graphite format",
       "long": "Creates an annotation by using Graphite-compatible event format. The `when` and `data` fields are optional. If `when` is not specified then the current time will be used as annotation’s timestamp. The `tags` field can also be in prior to Graphite `0.10.0` format (string with multiple tags being separated by a space).",
+      "httpMethod": "POST",
+      "httpPath": "/annotations/graphite",
       "flags": [],
       "body": {
         "modelType": "models.PostGraphiteAnnotationsCmd"
@@ -1032,11 +1199,14 @@
       "action": "update-annotation",
       "short": "Updates annotation",
       "long": "Updates all properties of an annotation that matches the specified id. To only update certain property, consider using the Patch Annotation operation.",
+      "httpMethod": "PUT",
+      "httpPath": "/annotations/{annotation_id}",
       "flags": [
         {
           "name": "annotation-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -1052,11 +1222,14 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-cortex-delete-namespace",
       "short": "Deletes all rule groups that were imported from prometheus compatible sources within the specified namespace",
+      "httpMethod": "DELETE",
+      "httpPath": "/convert/api/prom/rules/{NamespaceTitle}",
       "flags": [
         {
           "name": "namespace-title",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1069,16 +1242,20 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-cortex-delete-rule-group",
       "short": "Deletes a specific rule group if it was imported from a prometheus compatible source",
+      "httpMethod": "DELETE",
+      "httpPath": "/convert/api/prom/rules/{NamespaceTitle}/{Group}",
       "flags": [
         {
           "name": "group",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "namespace-title",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1091,11 +1268,14 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-cortex-get-namespace",
       "short": "Gets grafana managed alert rules that were imported from prometheus compatible sources for a specified namespace folder",
+      "httpMethod": "GET",
+      "httpPath": "/convert/api/prom/rules/{NamespaceTitle}",
       "flags": [
         {
           "name": "namespace-title",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1108,16 +1288,20 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-cortex-get-rule-group",
       "short": "Gets a single rule group in prometheus compatible format if it was imported from a prometheus compatible source",
+      "httpMethod": "GET",
+      "httpPath": "/convert/api/prom/rules/{NamespaceTitle}/{Group}",
       "flags": [
         {
           "name": "group",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "namespace-title",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1130,6 +1314,8 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-cortex-get-rules",
       "short": "Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace",
+      "httpMethod": "GET",
+      "httpPath": "/convert/api/prom/rules",
       "flags": [],
       "response": {
         "typeName": "ConvertPrometheusCortexGetRulesOK",
@@ -1142,41 +1328,50 @@
       "action": "convert-prometheus-cortex-post-rule-group",
       "short": "Converts a prometheus rule group into a grafana rule group and creates or updates it within the specified namespace",
       "long": "If the group already exists and was not imported from a Prometheus-compatible source initially, it will not be replaced and an error will be returned.",
+      "httpMethod": "POST",
+      "httpPath": "/convert/api/prom/rules/{NamespaceTitle}",
       "flags": [
         {
           "name": "namespace-title",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "x-grafana-alerting-alert-rules-paused",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "x-grafana-alerting-datasource-uid",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "x-grafana-alerting-folder-uid",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "x-grafana-alerting-notification-settings",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "x-grafana-alerting-recording-rules-paused",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "x-grafana-alerting-target-datasource-uid",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         }
       ],
       "body": {
@@ -1192,6 +1387,8 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-cortex-post-rule-groups",
       "short": "Converts the submitted rule groups into grafana managed rules",
+      "httpMethod": "POST",
+      "httpPath": "/convert/api/prom/rules",
       "flags": [],
       "response": {
         "typeName": "ConvertPrometheusCortexPostRuleGroupsAccepted",
@@ -1203,11 +1400,14 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-delete-namespace",
       "short": "Deletes all rule groups that were imported from prometheus compatible sources within the specified namespace",
+      "httpMethod": "DELETE",
+      "httpPath": "/convert/prometheus/config/v1/rules/{NamespaceTitle}",
       "flags": [
         {
           "name": "namespace-title",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1220,16 +1420,20 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-delete-rule-group",
       "short": "Deletes a specific rule group if it was imported from a prometheus compatible source",
+      "httpMethod": "DELETE",
+      "httpPath": "/convert/prometheus/config/v1/rules/{NamespaceTitle}/{Group}",
       "flags": [
         {
           "name": "group",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "namespace-title",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1242,11 +1446,14 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-get-namespace",
       "short": "Gets grafana managed alert rules that were imported from prometheus compatible sources for a specified namespace folder",
+      "httpMethod": "GET",
+      "httpPath": "/convert/prometheus/config/v1/rules/{NamespaceTitle}",
       "flags": [
         {
           "name": "namespace-title",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1259,16 +1466,20 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-get-rule-group",
       "short": "Gets a single rule group in prometheus compatible format if it was imported from a prometheus compatible source",
+      "httpMethod": "GET",
+      "httpPath": "/convert/prometheus/config/v1/rules/{NamespaceTitle}/{Group}",
       "flags": [
         {
           "name": "group",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "namespace-title",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1281,6 +1492,8 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-get-rules",
       "short": "Gets all grafana managed alert rules that were imported from prometheus compatible sources grouped by namespace",
+      "httpMethod": "GET",
+      "httpPath": "/convert/prometheus/config/v1/rules",
       "flags": [],
       "response": {
         "typeName": "ConvertPrometheusGetRulesOK",
@@ -1293,41 +1506,50 @@
       "action": "convert-prometheus-post-rule-group",
       "short": "Converts a prometheus rule group into a grafana rule group and creates or updates it within the specified namespace",
       "long": "If the group already exists and was not imported from a Prometheus-compatible source initially, it will not be replaced and an error will be returned.",
+      "httpMethod": "POST",
+      "httpPath": "/convert/prometheus/config/v1/rules/{NamespaceTitle}",
       "flags": [
         {
           "name": "namespace-title",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "x-grafana-alerting-alert-rules-paused",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "x-grafana-alerting-datasource-uid",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "x-grafana-alerting-folder-uid",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "x-grafana-alerting-notification-settings",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "x-grafana-alerting-recording-rules-paused",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "x-grafana-alerting-target-datasource-uid",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         }
       ],
       "body": {
@@ -1343,6 +1565,8 @@
       "service": "convert-prometheus",
       "action": "convert-prometheus-post-rule-groups",
       "short": "Converts the submitted rule groups into grafana managed rules",
+      "httpMethod": "POST",
+      "httpPath": "/convert/prometheus/config/v1/rules",
       "flags": [],
       "response": {
         "typeName": "ConvertPrometheusPostRuleGroupsAccepted",
@@ -1353,7 +1577,10 @@
     "dashboards create-dashboard-snapshot": {
       "service": "dashboards",
       "action": "create-dashboard-snapshot",
+      "short": "Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this",
       "long": "Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI\n\nSnapshot public mode should be enabled or authentication is required.",
+      "httpMethod": "POST",
+      "httpPath": "/snapshots",
       "flags": [],
       "body": {
         "modelType": "models.CreateDashboardSnapshotCommand"
@@ -1368,11 +1595,14 @@
       "service": "dashboards",
       "action": "create-public-dashboard",
       "short": "Create public dashboard for a dashboard",
+      "httpMethod": "POST",
+      "httpPath": "/dashboards/uid/{dashboardUid}/public-dashboards",
       "flags": [
         {
           "name": "dashboard-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -1389,11 +1619,14 @@
       "action": "delete-dashboard-by-uid",
       "short": "Deletes dashboard by uid",
       "long": "Will delete the dashboard given the specified unique identifier (uid).\n\nUse: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}",
+      "httpMethod": "DELETE",
+      "httpPath": "/dashboards/uid/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1406,11 +1639,14 @@
       "service": "dashboards",
       "action": "delete-dashboard-snapshot",
       "short": "Deletes snapshot by key",
+      "httpMethod": "DELETE",
+      "httpPath": "/snapshots/{key}",
       "flags": [
         {
           "name": "key",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1424,11 +1660,14 @@
       "action": "delete-dashboard-snapshot-by-delete-key",
       "short": "Deletes snapshot by delete key",
       "long": "Snapshot public mode should be enabled or authentication is required.",
+      "httpMethod": "GET",
+      "httpPath": "/snapshots-delete/{deleteKey}",
       "flags": [
         {
           "name": "delete-key",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1441,16 +1680,20 @@
       "service": "dashboards",
       "action": "delete-public-dashboard",
       "short": "Delete public dashboard for a dashboard",
+      "httpMethod": "DELETE",
+      "httpPath": "/dashboards/uid/{dashboardUid}/public-dashboards/{uid}",
       "flags": [
         {
           "name": "dashboard-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1464,11 +1707,14 @@
       "action": "get-dashboard-by-uid",
       "short": "Gets dashboard by uid",
       "long": "Optional query parameter `apiVersion` selects the Kubernetes API version used to load the dashboard first (for example `v1beta1`). If that request fails, the default version is used instead. When omitted, only the default is used.\n\nWill return the dashboard given the dashboard unique identifier (uid).\n\nUse: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}",
+      "httpMethod": "GET",
+      "httpPath": "/dashboards/uid/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1482,11 +1728,14 @@
       "action": "get-dashboard-permissions-list-by-uid",
       "short": "Gets all existing permissions for the given dashboard",
       "long": "Use: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards/{uid}/access",
+      "httpMethod": "GET",
+      "httpPath": "/dashboards/uid/{uid}/permissions",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1499,11 +1748,14 @@
       "service": "dashboards",
       "action": "get-dashboard-snapshot",
       "short": "Gets snapshot by key",
+      "httpMethod": "GET",
+      "httpPath": "/snapshots/{key}",
       "flags": [
         {
           "name": "key",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ]
     },
@@ -1511,6 +1763,8 @@
       "service": "dashboards",
       "action": "get-dashboard-tags",
       "short": "Gets all dashboards tags of an organization",
+      "httpMethod": "GET",
+      "httpPath": "/dashboards/tags",
       "flags": [],
       "response": {
         "typeName": "GetDashboardTagsOK",
@@ -1522,16 +1776,20 @@
       "service": "dashboards",
       "action": "get-dashboard-version-by-uid",
       "short": "Gets a specific dashboard version using UID",
+      "httpMethod": "GET",
+      "httpPath": "/dashboards/uid/{uid}/versions/{DashboardVersionID}",
       "flags": [
         {
           "name": "dashboard-version-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1544,23 +1802,28 @@
       "service": "dashboards",
       "action": "get-dashboard-versions-by-uid",
       "short": "Gets all existing versions for the dashboard using UID",
+      "httpMethod": "GET",
+      "httpPath": "/dashboards/uid/{uid}/versions",
       "flags": [
         {
           "name": "limit",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Maximum number of results to return"
         },
         {
           "name": "start",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Version to start from when returning queries"
         },
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1572,7 +1835,10 @@
     "dashboards get-home-dashboard": {
       "service": "dashboards",
       "action": "get-home-dashboard",
-      "short": "NOTE: the home dashboard is configured in preferences.  This API will be removed in G13",
+      "short": "NOTE: the home dashboard is configured in preferences.",
+      "long": "This API will be removed in G13",
+      "httpMethod": "GET",
+      "httpPath": "/dashboards/home",
       "flags": [],
       "response": {
         "typeName": "GetHomeDashboardOK",
@@ -1584,11 +1850,14 @@
       "service": "dashboards",
       "action": "get-public-annotations",
       "short": "Get annotations for a public dashboard",
+      "httpMethod": "GET",
+      "httpPath": "/public/dashboards/{accessToken}/annotations",
       "flags": [
         {
           "name": "access-token",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1601,11 +1870,14 @@
       "service": "dashboards",
       "action": "get-public-dashboard",
       "short": "Get public dashboard by dashboardUid",
+      "httpMethod": "GET",
+      "httpPath": "/dashboards/uid/{dashboardUid}/public-dashboards",
       "flags": [
         {
           "name": "dashboard-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1618,6 +1890,8 @@
       "service": "dashboards",
       "action": "import-dashboard",
       "short": "Imports dashboard",
+      "httpMethod": "POST",
+      "httpPath": "/dashboards/import",
       "flags": [],
       "body": {
         "modelType": "models.ImportDashboardRequest"
@@ -1631,7 +1905,10 @@
     "dashboards interpolate-dashboard": {
       "service": "dashboards",
       "action": "interpolate-dashboard",
+      "short": "Interpolates dashboard this is an experimental endpoint under dashboard library or suggested dashboards feature flags",
       "long": "Interpolates dashboard this is an experimental endpoint under dashboard library or suggested dashboards feature flags and is subject to change",
+      "httpMethod": "POST",
+      "httpPath": "/dashboards/interpolate",
       "flags": [],
       "response": {
         "typeName": "InterpolateDashboardOK",
@@ -1643,6 +1920,8 @@
       "service": "dashboards",
       "action": "list-public-dashboards",
       "short": "Get list of public dashboards",
+      "httpMethod": "GET",
+      "httpPath": "/dashboards/public-dashboards",
       "flags": [],
       "response": {
         "typeName": "ListPublicDashboardsOK",
@@ -1655,6 +1934,8 @@
       "action": "post-dashboard",
       "short": "Creates update dashboard",
       "long": "Creates a new dashboard or updates an existing dashboard. Note: This endpoint is not intended for creating folders, use `POST /api/folders` for that.\n\nUse: /apis/dashboards.grafana.app/v1/namespaces/{ns}/dashboards",
+      "httpMethod": "POST",
+      "httpPath": "/dashboards/db",
       "flags": [],
       "body": {
         "modelType": "models.SaveDashboardCommand"
@@ -1669,16 +1950,20 @@
       "service": "dashboards",
       "action": "query-public-dashboard",
       "short": "Get results for a given panel on a public dashboard",
+      "httpMethod": "POST",
+      "httpPath": "/public/dashboards/{accessToken}/panels/{panelId}/query",
       "flags": [
         {
           "name": "access-token",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "panel-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1692,11 +1977,14 @@
       "action": "restore-dashboard-version-by-uid",
       "short": "Restores a dashboard to a given dashboard version using UID",
       "long": "This API will be removed when /apis/dashboards.grafana.app/v1 is released. You can restore a dashboard by reading it from history, then creating it again.",
+      "httpMethod": "POST",
+      "httpPath": "/dashboards/uid/{uid}/restore",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -1712,11 +2000,14 @@
       "service": "dashboards",
       "action": "search-dashboard-snapshots",
       "short": "Lists snapshots",
+      "httpMethod": "GET",
+      "httpPath": "/dashboard/snapshots",
       "flags": [
         {
           "name": "limit",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Limit the number of returned results",
           "default": "1000"
         },
@@ -1724,6 +2015,7 @@
           "name": "query",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Search Query"
         }
       ],
@@ -1738,11 +2030,14 @@
       "action": "update-dashboard-permissions-by-uid",
       "short": "Updates permissions for a dashboard",
       "long": "This operation will remove existing permissions if they’re not included in the request.",
+      "httpMethod": "POST",
+      "httpPath": "/dashboards/uid/{uid}/permissions",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -1758,16 +2053,20 @@
       "service": "dashboards",
       "action": "update-public-dashboard",
       "short": "Update public dashboard for a dashboard",
+      "httpMethod": "PATCH",
+      "httpPath": "/dashboards/uid/{dashboardUid}/public-dashboards/{uid}",
       "flags": [
         {
           "name": "dashboard-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -1783,11 +2082,14 @@
       "service": "dashboards",
       "action": "view-public-dashboard",
       "short": "Get public dashboard for view",
+      "httpMethod": "GET",
+      "httpPath": "/public/dashboards/{accessToken}",
       "flags": [
         {
           "name": "access-token",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1801,6 +2103,8 @@
       "action": "add-datasource",
       "short": "Creates a data source",
       "long": "By defining `password` and `basicAuthPassword` under secureJsonData property Grafana encrypts them securely as an encrypted blob in the database. The response then lists the encrypted fields under secureJsonFields.\n\nIf you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:create`",
+      "httpMethod": "POST",
+      "httpPath": "/datasources",
       "flags": [],
       "body": {
         "modelType": "models.AddDataSourceCommand"
@@ -1815,16 +2119,20 @@
       "service": "datasources",
       "action": "call-datasource-resource",
       "short": "Fetches data source resources",
+      "httpMethod": "GET",
+      "httpPath": "/datasources/uid/{uid}/resources/{datasource_proxy_route}",
       "flags": [
         {
           "name": "datasource-proxy-route",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1837,11 +2145,14 @@
       "service": "datasources",
       "action": "check-datasource-health",
       "short": "Sends a health check request to the plugin datasource identified by the UID",
+      "httpMethod": "GET",
+      "httpPath": "/datasources/uid/{uid}/health",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1854,11 +2165,14 @@
       "service": "datasources",
       "action": "create-correlation",
       "short": "Adds correlation",
+      "httpMethod": "POST",
+      "httpPath": "/datasources/uid/{sourceUID}/correlations",
       "flags": [
         {
           "name": "source-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -1874,16 +2188,20 @@
       "service": "datasources",
       "action": "delete-correlation",
       "short": "Deletes a correlation",
+      "httpMethod": "DELETE",
+      "httpPath": "/datasources/uid/{uid}/correlations/{correlationUID}",
       "flags": [
         {
           "name": "correlation-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1897,11 +2215,14 @@
       "action": "delete-datasource-by-name",
       "short": "Deletes an existing data source by name this function will be removed in the future",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:delete` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
+      "httpMethod": "DELETE",
+      "httpPath": "/datasources/name/{name}",
       "flags": [
         {
           "name": "name",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1915,11 +2236,14 @@
       "action": "delete-datasource-by-uid",
       "short": "Deletes an existing data source by UID",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:delete` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:kLtEtcRGk` (single data source).",
+      "httpMethod": "DELETE",
+      "httpPath": "/datasources/uid/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1932,16 +2256,20 @@
       "service": "datasources",
       "action": "get-correlation",
       "short": "Gets a correlation",
+      "httpMethod": "GET",
+      "httpPath": "/datasources/uid/{sourceUID}/correlations/{correlationUID}",
       "flags": [
         {
           "name": "correlation-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "source-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -1954,11 +2282,14 @@
       "service": "datasources",
       "action": "get-correlations",
       "short": "Gets all correlations",
+      "httpMethod": "GET",
+      "httpPath": "/datasources/correlations",
       "flags": [
         {
           "name": "limit",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Limit the maximum number of correlations to return per page",
           "default": "100"
         },
@@ -1966,6 +2297,7 @@
           "name": "page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Page index for starting fetching correlations",
           "default": "1"
         },
@@ -1973,6 +2305,7 @@
           "name": "source-uid",
           "type": "[]string",
           "required": true,
+          "in": "query",
           "doc": "Source datasource UID filter to be applied to correlations"
         }
       ],
@@ -1986,11 +2319,14 @@
       "service": "datasources",
       "action": "get-correlations-by-source-uid",
       "short": "Gets all correlations originating from the given data source",
+      "httpMethod": "GET",
+      "httpPath": "/datasources/uid/{sourceUID}/correlations",
       "flags": [
         {
           "name": "source-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2004,11 +2340,14 @@
       "action": "get-datasource-by-name",
       "short": "Gets a single data source by name this function will be removed in the future",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
+      "httpMethod": "GET",
+      "httpPath": "/datasources/name/{name}",
       "flags": [
         {
           "name": "name",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2022,11 +2361,14 @@
       "action": "get-datasource-by-uid",
       "short": "Gets a single data source by UID",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:kLtEtcRGk` (single data source).",
+      "httpMethod": "GET",
+      "httpPath": "/datasources/uid/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2040,11 +2382,14 @@
       "action": "get-datasource-id-by-name",
       "short": "Gets data source Id by name this function will be removed in the future",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scopes: `datasources:*`, `datasources:name:*` and `datasources:name:test_datasource` (single data source).",
+      "httpMethod": "GET",
+      "httpPath": "/datasources/id/{name}",
       "flags": [
         {
           "name": "name",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2058,6 +2403,8 @@
       "action": "get-datasources",
       "short": "Gets all data sources",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:read` and scope: `datasources:*`.",
+      "httpMethod": "GET",
+      "httpPath": "/datasources",
       "flags": [],
       "response": {
         "typeName": "GetDataSourcesOK",
@@ -2070,6 +2417,8 @@
       "action": "query-metrics-with-expressions",
       "short": "Data source query metrics with expressions",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:query`.",
+      "httpMethod": "POST",
+      "httpPath": "/ds/query",
       "flags": [],
       "body": {
         "modelType": "models.MetricRequest"
@@ -2084,16 +2433,20 @@
       "service": "datasources",
       "action": "update-correlation",
       "short": "Updates a correlation",
+      "httpMethod": "PATCH",
+      "httpPath": "/datasources/uid/{sourceUID}/correlations/{correlationUID}",
       "flags": [
         {
           "name": "correlation-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "source-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -2110,11 +2463,14 @@
       "action": "update-datasource-by-uid",
       "short": "Updates an existing data source",
       "long": "Similar to creating a data source, `password` and `basicAuthPassword` should be defined under secureJsonData in order to be stored securely as an encrypted blob in the database. Then, the encrypted fields are listed under secureJsonFields section in the response.\n\nIf you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `datasources:write` and scopes: `datasources:*`, `datasources:uid:*` and `datasources:uid:1` (single data source).",
+      "httpMethod": "PUT",
+      "httpPath": "/datasources/uid/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -2130,6 +2486,8 @@
       "service": "devices",
       "action": "list-devices",
       "short": "Lists all devices within the last 30 days",
+      "httpMethod": "GET",
+      "httpPath": "/anonymous/devices",
       "flags": [],
       "response": {
         "typeName": "ListDevicesOK",
@@ -2141,6 +2499,8 @@
       "service": "devices",
       "action": "search-devices",
       "short": "Lists all devices within the last 30 days",
+      "httpMethod": "GET",
+      "httpPath": "/anonymous/search",
       "flags": [],
       "response": {
         "typeName": "SearchDevicesOK",
@@ -2152,11 +2512,14 @@
       "service": "enterprise",
       "action": "clean-datasource-cache",
       "short": "Clean cache for a single data source",
+      "httpMethod": "POST",
+      "httpPath": "/datasources/{dataSourceUID}/cache/clean",
       "flags": [
         {
           "name": "data-source-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2169,16 +2532,20 @@
       "service": "enterprise",
       "action": "disable-datasource-cache",
       "short": "Disable cache for a single data source",
+      "httpMethod": "POST",
+      "httpPath": "/datasources/{dataSourceUID}/cache/disable",
       "flags": [
         {
           "name": "data-source-type",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "data-source-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2191,16 +2558,20 @@
       "service": "enterprise",
       "action": "enable-datasource-cache",
       "short": "Enable cache for a single data source",
+      "httpMethod": "POST",
+      "httpPath": "/datasources/{dataSourceUID}/cache/enable",
       "flags": [
         {
           "name": "data-source-type",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "data-source-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2213,16 +2584,20 @@
       "service": "enterprise",
       "action": "get-datasource-cache-config",
       "short": "Get cache config for a single data source",
+      "httpMethod": "GET",
+      "httpPath": "/datasources/{dataSourceUID}/cache",
       "flags": [
         {
           "name": "data-source-type",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "data-source-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2235,11 +2610,14 @@
       "service": "enterprise",
       "action": "get-team-lbac-rules-api",
       "short": "Retrieves l b a c rules for a team",
+      "httpMethod": "GET",
+      "httpPath": "/datasources/uid/{uid}/lbac/teams",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2252,16 +2630,20 @@
       "service": "enterprise",
       "action": "set-datasource-cache-config",
       "short": "Set cache config for a single data source",
+      "httpMethod": "POST",
+      "httpPath": "/datasources/{dataSourceUID}/cache",
       "flags": [
         {
           "name": "data-source-type",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "data-source-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -2277,11 +2659,14 @@
       "service": "enterprise",
       "action": "update-team-lbac-rules-api",
       "short": "Updates l b a c rules for a team",
+      "httpMethod": "PUT",
+      "httpPath": "/datasources/uid/{uid}/lbac/teams",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -2298,6 +2683,8 @@
       "action": "create-folder",
       "short": "Creates folder",
       "long": "If nested folders are enabled then it additionally expects the parent folder UID.\n\nUse: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
+      "httpMethod": "POST",
+      "httpPath": "/folders",
       "flags": [],
       "body": {
         "modelType": "models.CreateFolderCommand"
@@ -2313,16 +2700,20 @@
       "action": "delete-folder",
       "short": "Deletes folder",
       "long": "Deletes an existing folder identified by UID along with all dashboards (and their alerts) stored in the folder. This operation cannot be reverted. If nested folders are enabled then it also deletes all the subfolders.\n\nUse: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
+      "httpMethod": "DELETE",
+      "httpPath": "/folders/{folder_uid}",
       "flags": [
         {
           "name": "folder-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "force-delete-rules",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "If `true` any Grafana 8 Alerts under this folder will be deleted. Set to `false` so that the request will fail if the folder contains any Grafana 8 Alerts."
         }
       ],
@@ -2337,11 +2728,14 @@
       "action": "get-folder-by-uid",
       "short": "Gets folder by uid",
       "long": "Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
+      "httpMethod": "GET",
+      "httpPath": "/folders/{folder_uid}",
       "flags": [
         {
           "name": "folder-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2355,11 +2749,14 @@
       "action": "get-folder-descendant-counts",
       "short": "Gets the count of each descendant of a folder by kind the folder is identified by UID",
       "long": "Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
+      "httpMethod": "GET",
+      "httpPath": "/folders/{folder_uid}/counts",
       "flags": [
         {
           "name": "folder-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2372,11 +2769,14 @@
       "service": "folders",
       "action": "get-folder-permission-list",
       "short": "Gets all existing permissions for the folder with the given uid",
+      "httpMethod": "GET",
+      "httpPath": "/folders/{folder_uid}/permissions",
       "flags": [
         {
           "name": "folder-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2390,11 +2790,14 @@
       "action": "get-folders",
       "short": "Gets all folders",
       "long": "It returns all folders that the authenticated user has permission to view. If nested folders are enabled, it expects an additional query parameter with the parent folder UID and returns the immediate subfolders that the authenticated user has permission to view. If the parameter is not supplied then it returns immediate subfolders under the root that the authenticated user has permission to view.\n\nUse: /apis/folder.grafana.app/v1/namespaces/{ns}/folders",
+      "httpMethod": "GET",
+      "httpPath": "/folders",
       "flags": [
         {
           "name": "limit",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Limit the maximum number of folders to return",
           "default": "1000"
         },
@@ -2402,6 +2805,7 @@
           "name": "page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Page index for starting fetching folders",
           "default": "1"
         },
@@ -2409,12 +2813,14 @@
           "name": "parent-uid",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "The parent folder UID"
         },
         {
           "name": "permission",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Set to `Edit` to return folders that the user can edit",
           "default": "\"View\""
         }
@@ -2430,11 +2836,14 @@
       "action": "move-folder",
       "short": "Moves folder",
       "long": "Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}, Changing the parent folder annotation",
+      "httpMethod": "POST",
+      "httpPath": "/folders/{folder_uid}/move",
       "flags": [
         {
           "name": "folder-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -2451,11 +2860,14 @@
       "action": "update-folder",
       "short": "Updates folder",
       "long": "Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders/{folder_uid}",
+      "httpMethod": "PUT",
+      "httpPath": "/folders/{folder_uid}",
       "flags": [
         {
           "name": "folder-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -2471,11 +2883,14 @@
       "service": "folders",
       "action": "update-folder-permissions",
       "short": "Updates permissions for a folder this operation will remove existing permissions if they re not included in the request",
+      "httpMethod": "POST",
+      "httpPath": "/folders/{folder_uid}/permissions",
       "flags": [
         {
           "name": "folder-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -2490,12 +2905,16 @@
     "group-attribute-sync create-group-mappings": {
       "service": "group-attribute-sync",
       "action": "create-group-mappings",
+      "short": "Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
       "long": "Creates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
+      "httpMethod": "POST",
+      "httpPath": "/groupsync/groups/{group_id}",
       "flags": [
         {
           "name": "group-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -2510,12 +2929,16 @@
     "group-attribute-sync delete-group-mappings": {
       "service": "group-attribute-sync",
       "action": "delete-group-mappings",
+      "short": "Deletes mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
       "long": "Deletes mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
+      "httpMethod": "DELETE",
+      "httpPath": "/groupsync/groups/{group_id}",
       "flags": [
         {
           "name": "group-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2527,12 +2950,16 @@
     "group-attribute-sync get-group-roles": {
       "service": "group-attribute-sync",
       "action": "get-group-roles",
+      "short": "Gets roles mapped to a group this endpoint is behind the feature flag group attribute sync and is considered",
       "long": "Gets roles mapped to a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
+      "httpMethod": "GET",
+      "httpPath": "/groupsync/groups/{group_id}/roles",
       "flags": [
         {
           "name": "group-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2544,7 +2971,10 @@
     "group-attribute-sync get-mapped-groups": {
       "service": "group-attribute-sync",
       "action": "get-mapped-groups",
+      "short": "Lists groups that have mappings set this endpoint is behind the feature flag group attribute sync and is considered",
       "long": "Lists groups that have mappings set this endpoint is behind the feature flag group attribute sync and is considered experimental",
+      "httpMethod": "GET",
+      "httpPath": "/groupsync/groups",
       "flags": [],
       "response": {
         "typeName": "GetMappedGroupsOK",
@@ -2555,12 +2985,16 @@
     "group-attribute-sync update-group-mappings": {
       "service": "group-attribute-sync",
       "action": "update-group-mappings",
+      "short": "Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered",
       "long": "Updates mappings for a group this endpoint is behind the feature flag group attribute sync and is considered experimental",
+      "httpMethod": "PUT",
+      "httpPath": "/groupsync/groups/{group_id}",
       "flags": [
         {
           "name": "group-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -2575,7 +3009,10 @@
     "health get-health": {
       "service": "health",
       "action": "get-health",
-      "long": "ApiHealthHandler will return ok if Grafana's web server is running and it can access the database. If the database cannot be accessed it will return http status code 503.",
+      "short": "ApiHealthHandler will return ok if Grafana's web server is running and it can access the database.",
+      "long": "If the database cannot be accessed it will return http status code 503.",
+      "httpMethod": "GET",
+      "httpPath": "/health",
       "flags": [],
       "response": {
         "typeName": "GetHealthOK",
@@ -2588,6 +3025,8 @@
       "action": "create-library-element",
       "short": "Creates library element",
       "long": "Creates a new library element.",
+      "httpMethod": "POST",
+      "httpPath": "/library-elements",
       "flags": [],
       "body": {
         "modelType": "models.CreateLibraryElementCommand"
@@ -2603,11 +3042,14 @@
       "action": "delete-library-element-by-uid",
       "short": "Deletes library element",
       "long": "Deletes an existing library element as specified by the UID. This operation cannot be reverted. You cannot delete a library element that is connected. This operation cannot be reverted.",
+      "httpMethod": "DELETE",
+      "httpPath": "/library-elements/{library_element_uid}",
       "flags": [
         {
           "name": "library-element-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2621,11 +3063,14 @@
       "action": "get-library-element-by-name",
       "short": "Gets library element by name",
       "long": "Returns a library element with the given name.",
+      "httpMethod": "GET",
+      "httpPath": "/library-elements/name/{library_element_name}",
       "flags": [
         {
           "name": "library-element-name",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2639,11 +3084,14 @@
       "action": "get-library-element-by-uid",
       "short": "Gets library element by UID",
       "long": "Returns a library element with the given UID.",
+      "httpMethod": "GET",
+      "httpPath": "/library-elements/{library_element_uid}",
       "flags": [
         {
           "name": "library-element-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2657,11 +3105,14 @@
       "action": "get-library-element-connections",
       "short": "Gets library element connections",
       "long": "Returns a list of connections for a library element based on the UID specified.",
+      "httpMethod": "GET",
+      "httpPath": "/library-elements/{library_element_uid}/connections/",
       "flags": [
         {
           "name": "library-element-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -2675,35 +3126,42 @@
       "action": "get-library-elements",
       "short": "Gets all library elements",
       "long": "Returns a list of all library elements the authenticated user has permission to view. Use the `perPage` query parameter to control the maximum number of library elements returned; the default limit is `100`. You can also use the `page` query parameter to fetch library elements from any page other than the first one.",
+      "httpMethod": "GET",
+      "httpPath": "/library-elements",
       "flags": [
         {
           "name": "exclude-uid",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Element UID to exclude from search results."
         },
         {
           "name": "folder-filter",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "A comma separated list of folder ID(s) to filter the elements by. Deprecated: Use FolderFilterUIDs instead."
         },
         {
           "name": "folder-filter-uids",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "A comma separated list of folder UID(s) to filter the elements by."
         },
         {
           "name": "kind",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Kind of element to search for."
         },
         {
           "name": "page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "The page for a set of records, given that only perPage records are returned at a time. Numbering starts at 1.",
           "default": "1"
         },
@@ -2711,6 +3169,7 @@
           "name": "per-page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "The number of results per page.",
           "default": "100"
         },
@@ -2718,18 +3177,21 @@
           "name": "search-string",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Part of the name or description searched for."
         },
         {
           "name": "sort-direction",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Sort order of elements."
         },
         {
           "name": "type-filter",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "A comma separated list of types to filter the elements by"
         }
       ],
@@ -2744,11 +3206,14 @@
       "action": "update-library-element",
       "short": "Updates library element",
       "long": "Updates an existing library element identified by uid.",
+      "httpMethod": "PATCH",
+      "httpPath": "/library-elements/{library_element_uid}",
       "flags": [
         {
           "name": "library-element-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -2765,6 +3230,8 @@
       "action": "delete-license-token",
       "short": "Removes license from database",
       "long": "Removes the license stored in the Grafana database. Available in Grafana Enterprise v7.4+.\n\nYou need to have a permission with action `licensing:delete`.",
+      "httpMethod": "DELETE",
+      "httpPath": "/licensing/token",
       "flags": [],
       "body": {
         "modelType": "models.DeleteTokenCommand"
@@ -2780,6 +3247,8 @@
       "action": "get-custom-permissions-csv",
       "short": "Gets custom permissions report in CSV format",
       "long": "You need to have a permission with action `licensing.reports:read`.",
+      "httpMethod": "GET",
+      "httpPath": "/licensing/custom-permissions-csv",
       "flags": []
     },
     "licensing get-custom-permissions-report": {
@@ -2787,6 +3256,8 @@
       "action": "get-custom-permissions-report",
       "short": "Gets custom permissions report",
       "long": "You need to have a permission with action `licensing.reports:read`.",
+      "httpMethod": "GET",
+      "httpPath": "/licensing/custom-permissions",
       "flags": []
     },
     "licensing get-license-token": {
@@ -2794,6 +3265,8 @@
       "action": "get-license-token",
       "short": "Gets license token",
       "long": "You need to have a permission with action `licensing:read`.",
+      "httpMethod": "GET",
+      "httpPath": "/licensing/token",
       "flags": [],
       "response": {
         "typeName": "GetLicenseTokenOK",
@@ -2805,6 +3278,8 @@
       "service": "licensing",
       "action": "get-status",
       "short": "Checks license availability",
+      "httpMethod": "GET",
+      "httpPath": "/licensing/check",
       "flags": []
     },
     "licensing post-license-token": {
@@ -2812,6 +3287,8 @@
       "action": "post-license-token",
       "short": "Creates license token",
       "long": "You need to have a permission with action `licensing:write`.",
+      "httpMethod": "POST",
+      "httpPath": "/licensing/token",
       "flags": [],
       "body": {
         "modelType": "models.DeleteTokenCommand"
@@ -2827,6 +3304,8 @@
       "action": "post-renew-license-token",
       "short": "Manuallies force license refresh",
       "long": "Manually ask license issuer for a new token. Available in Grafana Enterprise v7.4+.\n\nYou need to have a permission with action `licensing:write`.",
+      "httpMethod": "POST",
+      "httpPath": "/licensing/token/renew",
       "flags": [],
       "body": {
         "modelType": "any"
@@ -2837,6 +3316,8 @@
       "action": "refresh-license-stats",
       "short": "Refreshes license stats",
       "long": "You need to have a permission with action `licensing:read`.",
+      "httpMethod": "GET",
+      "httpPath": "/licensing/refresh-stats",
       "flags": [],
       "response": {
         "typeName": "RefreshLicenseStatsOK",
@@ -2849,17 +3330,21 @@
       "action": "cancel-snapshot",
       "short": "Cancels a snapshot wherever it is in its processing chain",
       "long": "TODO: Implement",
+      "httpMethod": "POST",
+      "httpPath": "/cloudmigration/migration/{uid}/snapshot/{snapshotUid}/cancel",
       "flags": [
         {
           "name": "snapshot-uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "UID of a snapshot"
         },
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Session UID of a session"
         }
       ]
@@ -2868,6 +3353,8 @@
       "service": "migrations",
       "action": "create-cloud-migration-token",
       "short": "Creates gcom access token",
+      "httpMethod": "POST",
+      "httpPath": "/cloudmigration/token",
       "flags": [],
       "response": {
         "typeName": "CreateCloudMigrationTokenOK",
@@ -2879,6 +3366,8 @@
       "service": "migrations",
       "action": "create-session",
       "short": "Creates a migration session",
+      "httpMethod": "POST",
+      "httpPath": "/cloudmigration/migration",
       "flags": [],
       "body": {
         "modelType": "models.CloudMigrationSessionRequestDTO"
@@ -2894,11 +3383,14 @@
       "action": "create-snapshot",
       "short": "Triggers the creation of an instance snapshot associated with the provided session",
       "long": "If the snapshot initialization is successful, the snapshot uid is returned.",
+      "httpMethod": "POST",
+      "httpPath": "/cloudmigration/migration/{uid}/snapshot",
       "flags": [
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "UID of a session"
         }
       ],
@@ -2915,11 +3407,14 @@
       "service": "migrations",
       "action": "delete-cloud-migration-token",
       "short": "Deletes a cloud migration token",
+      "httpMethod": "DELETE",
+      "httpPath": "/cloudmigration/token/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "UID of a cloud migration token"
         }
       ]
@@ -2928,11 +3423,14 @@
       "service": "migrations",
       "action": "delete-session",
       "short": "Deletes a migration session by its uid",
+      "httpMethod": "DELETE",
+      "httpPath": "/cloudmigration/migration/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "UID of a migration session"
         }
       ]
@@ -2941,6 +3439,8 @@
       "service": "migrations",
       "action": "get-cloud-migration-token",
       "short": "Fetches the cloud migration token if it exists",
+      "httpMethod": "GET",
+      "httpPath": "/cloudmigration/token",
       "flags": [],
       "response": {
         "typeName": "GetCloudMigrationTokenOK",
@@ -2952,6 +3452,8 @@
       "service": "migrations",
       "action": "get-resource-dependencies",
       "short": "Gets the resource dependencies graph for the current set of migratable resources",
+      "httpMethod": "GET",
+      "httpPath": "/cloudmigration/resources/dependencies",
       "flags": [],
       "response": {
         "typeName": "GetResourceDependenciesOK",
@@ -2963,11 +3465,14 @@
       "service": "migrations",
       "action": "get-session",
       "short": "Gets a cloud migration session by its uid",
+      "httpMethod": "GET",
+      "httpPath": "/cloudmigration/migration/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "UID of a migration session"
         }
       ],
@@ -2981,6 +3486,8 @@
       "service": "migrations",
       "action": "get-session-list",
       "short": "Gets a list of all cloud migration sessions that have been created",
+      "httpMethod": "GET",
+      "httpPath": "/cloudmigration/migration",
       "flags": [],
       "response": {
         "typeName": "GetSessionListOK",
@@ -2992,11 +3499,14 @@
       "service": "migrations",
       "action": "get-shapshot-list",
       "short": "Gets a list of snapshots for a session",
+      "httpMethod": "GET",
+      "httpPath": "/cloudmigration/migration/{uid}/snapshots",
       "flags": [
         {
           "name": "limit",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Max limit for results returned.",
           "default": "100"
         },
@@ -3004,6 +3514,7 @@
           "name": "page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Page is used for pagination with limit",
           "default": "1"
         },
@@ -3011,12 +3522,14 @@
           "name": "sort",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Sort with value latest to return results sorted in descending order."
         },
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Session UID of a session"
         }
       ],
@@ -3030,17 +3543,21 @@
       "service": "migrations",
       "action": "get-snapshot",
       "short": "Gets metadata about a snapshot including where it is in its processing and final results",
+      "httpMethod": "GET",
+      "httpPath": "/cloudmigration/migration/{uid}/snapshot/{snapshotUid}",
       "flags": [
         {
           "name": "errors-only",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "ErrorsOnly is used to only return resources with error statuses"
         },
         {
           "name": "result-limit",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Max limit for snapshot results returned.",
           "default": "100"
         },
@@ -3048,6 +3565,7 @@
           "name": "result-page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "ResultPage is used for pagination with ResultLimit",
           "default": "1"
         },
@@ -3055,6 +3573,7 @@
           "name": "result-sort-column",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "ResultSortColumn can be used to override the default system sort. Valid values are \"name\", \"resource_type\", and \"status\".",
           "default": "\"default\""
         },
@@ -3062,6 +3581,7 @@
           "name": "result-sort-order",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "ResultSortOrder is used with ResultSortColumn. Valid values are ASC and DESC.",
           "default": "\"ASC\""
         },
@@ -3069,12 +3589,14 @@
           "name": "snapshot-uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "UID of a snapshot"
         },
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Session UID of a session"
         }
       ],
@@ -3088,17 +3610,21 @@
       "service": "migrations",
       "action": "upload-snapshot",
       "short": "Uploads a snapshot to the grafana migration service for processing",
+      "httpMethod": "POST",
+      "httpPath": "/cloudmigration/migration/{uid}/snapshot/{snapshotUid}/upload",
       "flags": [
         {
           "name": "snapshot-uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "UID of a snapshot"
         },
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Session UID of a session"
         }
       ]
@@ -3107,6 +3633,8 @@
       "service": "org",
       "action": "add-org-invite",
       "short": "Adds invite",
+      "httpMethod": "POST",
+      "httpPath": "/org/invites",
       "flags": [],
       "body": {
         "modelType": "models.AddInviteForm"
@@ -3122,6 +3650,8 @@
       "action": "add-org-user-to-current-org",
       "short": "Adds a new user to the current organization",
       "long": "Adds a global user to the current organization.\n\nIf you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.",
+      "httpMethod": "POST",
+      "httpPath": "/org/users",
       "flags": [],
       "body": {
         "modelType": "models.AddOrgUserCommand"
@@ -3136,6 +3666,8 @@
       "service": "org",
       "action": "get-current-org",
       "short": "Gets current organization",
+      "httpMethod": "GET",
+      "httpPath": "/org",
       "flags": [],
       "response": {
         "typeName": "GetCurrentOrgOK",
@@ -3147,6 +3679,8 @@
       "service": "org",
       "action": "get-org-preferences",
       "short": "Gets current org prefs",
+      "httpMethod": "GET",
+      "httpPath": "/org/preferences",
       "flags": [],
       "response": {
         "typeName": "GetOrgPreferencesOK",
@@ -3159,16 +3693,20 @@
       "action": "get-org-users-for-current-org",
       "short": "Gets all users within the current organization",
       "long": "Returns all org users within the current organization. Accessible to users with org admin role. If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:read` with scope `users:*`.",
+      "httpMethod": "GET",
+      "httpPath": "/org/users",
       "flags": [
         {
           "name": "limit",
           "type": "int64",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "query",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         }
       ],
       "response": {
@@ -3182,16 +3720,20 @@
       "action": "get-org-users-for-current-org-lookup",
       "short": "Gets all users within the current organization lookup",
       "long": "Returns all org users within the current organization, but with less detailed information. Accessible to users with org admin role, admin in any folder or admin of any team. Mainly used by Grafana UI for providing list of users when adding team members and when editing folder/dashboard permissions.",
+      "httpMethod": "GET",
+      "httpPath": "/org/users/lookup",
       "flags": [
         {
           "name": "limit",
           "type": "int64",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "query",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         }
       ],
       "response": {
@@ -3204,6 +3746,8 @@
       "service": "org",
       "action": "get-pending-org-invites",
       "short": "Gets pending invites",
+      "httpMethod": "GET",
+      "httpPath": "/org/invites",
       "flags": [],
       "response": {
         "typeName": "GetPendingOrgInvitesOK",
@@ -3215,6 +3759,8 @@
       "service": "org",
       "action": "patch-org-preferences",
       "short": "Patches current org prefs",
+      "httpMethod": "PATCH",
+      "httpPath": "/org/preferences",
       "flags": [],
       "body": {
         "modelType": "models.PatchPrefsCmd"
@@ -3230,11 +3776,14 @@
       "action": "remove-org-user-for-current-org",
       "short": "Deletes user in current organization",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:remove` with scope `users:*`.",
+      "httpMethod": "DELETE",
+      "httpPath": "/org/users/{user_id}",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -3247,11 +3796,14 @@
       "service": "org",
       "action": "revoke-invite",
       "short": "Revokes invite",
+      "httpMethod": "DELETE",
+      "httpPath": "/org/invites/{invitation_code}/revoke",
       "flags": [
         {
           "name": "invitation-code",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -3264,6 +3816,8 @@
       "service": "org",
       "action": "update-current-org",
       "short": "Updates current organization",
+      "httpMethod": "PUT",
+      "httpPath": "/org",
       "flags": [],
       "body": {
         "modelType": "models.UpdateOrgForm"
@@ -3278,6 +3832,8 @@
       "service": "org",
       "action": "update-current-org-address",
       "short": "Updates current organization s address",
+      "httpMethod": "PUT",
+      "httpPath": "/org/address",
       "flags": [],
       "body": {
         "modelType": "models.UpdateOrgAddressForm"
@@ -3292,6 +3848,8 @@
       "service": "org",
       "action": "update-org-preferences",
       "short": "Updates current org prefs",
+      "httpMethod": "PUT",
+      "httpPath": "/org/preferences",
       "flags": [],
       "body": {
         "modelType": "models.UpdatePrefsCmd"
@@ -3307,11 +3865,14 @@
       "action": "update-org-user-for-current-org",
       "short": "Updates the given user",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users.role:update` with scope `users:*`.",
+      "httpMethod": "PATCH",
+      "httpPath": "/org/users/{user_id}",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -3328,11 +3889,14 @@
       "action": "add-org-user",
       "short": "Adds a new user to the current organization",
       "long": "Adds a global user to the current organization.\n\nIf you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:add` with scope `users:*`.",
+      "httpMethod": "POST",
+      "httpPath": "/orgs/{org_id}/users",
       "flags": [
         {
           "name": "org-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -3349,6 +3913,8 @@
       "action": "create-org",
       "short": "Creates organization",
       "long": "Only works if [users.allow_org_create](https://grafana.com/docs/grafana/latest/administration/configuration/#allow_org_create) is set.",
+      "httpMethod": "POST",
+      "httpPath": "/orgs",
       "flags": [],
       "body": {
         "modelType": "models.CreateOrgCommand"
@@ -3363,11 +3929,14 @@
       "service": "orgs",
       "action": "get-org-by-name",
       "short": "Gets organization by name",
+      "httpMethod": "GET",
+      "httpPath": "/orgs/name/{org_name}",
       "flags": [
         {
           "name": "org-name",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -3381,11 +3950,14 @@
       "action": "get-org-users",
       "short": "Gets users in organization",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:read` with scope `users:*`.",
+      "httpMethod": "GET",
+      "httpPath": "/orgs/{org_id}/users",
       "flags": [
         {
           "name": "org-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -3399,16 +3971,20 @@
       "action": "remove-org-user",
       "short": "Deletes user in current organization",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:remove` with scope `users:*`.",
+      "httpMethod": "DELETE",
+      "httpPath": "/orgs/{org_id}/users/{user_id}",
       "flags": [
         {
           "name": "org-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -3422,11 +3998,14 @@
       "action": "search-org-users",
       "short": "Searches users in organization",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users:read` with scope `users:*`.",
+      "httpMethod": "GET",
+      "httpPath": "/orgs/{org_id}/users/search",
       "flags": [
         {
           "name": "org-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -3439,22 +4018,27 @@
       "service": "orgs",
       "action": "search-orgs",
       "short": "Searches all organizations",
+      "httpMethod": "GET",
+      "httpPath": "/orgs",
       "flags": [
         {
           "name": "name",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "default": "1"
         },
         {
           "name": "perpage",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Number of items per page The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams.",
           "default": "1000"
         },
@@ -3462,6 +4046,7 @@
           "name": "query",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded."
         }
       ],
@@ -3475,11 +4060,14 @@
       "service": "orgs",
       "action": "update-org",
       "short": "Updates organization",
+      "httpMethod": "PUT",
+      "httpPath": "/orgs/{org_id}",
       "flags": [
         {
           "name": "org-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -3495,11 +4083,14 @@
       "service": "orgs",
       "action": "update-org-address",
       "short": "Updates organization s address",
+      "httpMethod": "PUT",
+      "httpPath": "/orgs/{org_id}/address",
       "flags": [
         {
           "name": "org-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -3516,16 +4107,20 @@
       "action": "update-org-user",
       "short": "Updates users in organization",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled you need to have a permission with action: `org.users.role:update` with scope `users:*`.",
+      "httpMethod": "PATCH",
+      "httpPath": "/orgs/{org_id}/users/{user_id}",
       "flags": [
         {
           "name": "org-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -3542,6 +4137,8 @@
       "action": "create-playlist",
       "short": "Creates playlist",
       "long": "Please refer to [new API](?api=playlist.grafana.app-v1).",
+      "httpMethod": "POST",
+      "httpPath": "/playlists",
       "flags": [],
       "body": {
         "modelType": "models.CreatePlaylistCommand"
@@ -3557,11 +4154,14 @@
       "action": "delete-playlist",
       "short": "Deletes playlist",
       "long": "Please refer to [new API](?api=playlist.grafana.app-v1).",
+      "httpMethod": "DELETE",
+      "httpPath": "/playlists/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -3575,11 +4175,14 @@
       "action": "get-playlist",
       "short": "Gets playlist",
       "long": "Please refer to [new API](?api=playlist.grafana.app-v1).",
+      "httpMethod": "GET",
+      "httpPath": "/playlists/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -3593,11 +4196,14 @@
       "action": "get-playlist-items",
       "short": "Gets playlist items",
       "long": "Please refer to [new API](?api=playlist.grafana.app-v1) instead (items are included in the playlist spec).",
+      "httpMethod": "GET",
+      "httpPath": "/playlists/{uid}/items",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -3611,17 +4217,21 @@
       "action": "search-playlists",
       "short": "Gets playlists",
       "long": "Please refer to [new API](?api=playlist.grafana.app-v1).",
+      "httpMethod": "GET",
+      "httpPath": "/playlists",
       "flags": [
         {
           "name": "limit",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "in:limit"
         },
         {
           "name": "query",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         }
       ],
       "response": {
@@ -3635,11 +4245,14 @@
       "action": "update-playlist",
       "short": "Updates playlist",
       "long": "Please refer to [new API](?api=playlist.grafana.app-v1).",
+      "httpMethod": "PUT",
+      "httpPath": "/playlists/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -3655,17 +4268,21 @@
       "service": "provisioning",
       "action": "delete-alert-rule",
       "short": "Deletes a specific alert rule by UID",
+      "httpMethod": "DELETE",
+      "httpPath": "/v1/provisioning/alert-rules/{UID}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Alert rule UID"
         },
         {
           "name": "x-disable-provenance",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         }
       ]
     },
@@ -3673,16 +4290,20 @@
       "service": "provisioning",
       "action": "delete-alert-rule-group",
       "short": "Delete rule group",
+      "httpMethod": "DELETE",
+      "httpPath": "/v1/provisioning/folder/{FolderUID}/rule-groups/{Group}",
       "flags": [
         {
           "name": "folder-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "group",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ]
     },
@@ -3690,11 +4311,14 @@
       "service": "provisioning",
       "action": "delete-contactpoints",
       "short": "Deletes a contact point",
+      "httpMethod": "DELETE",
+      "httpPath": "/v1/provisioning/contact-points/{UID}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "UID is the contact point unique identifier"
         }
       ]
@@ -3703,22 +4327,27 @@
       "service": "provisioning",
       "action": "delete-mute-timing",
       "short": "Deletes a mute timing",
+      "httpMethod": "DELETE",
+      "httpPath": "/v1/provisioning/mute-timings/{name}",
       "flags": [
         {
           "name": "x-disable-provenance",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "name",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Mute timing name"
         },
         {
           "name": "version",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Version of mute timing to use for optimistic concurrency. Leave empty to disable validation"
         }
       ]
@@ -3727,17 +4356,21 @@
       "service": "provisioning",
       "action": "delete-template",
       "short": "Deletes a notification template group",
+      "httpMethod": "DELETE",
+      "httpPath": "/v1/provisioning/templates/{name}",
       "flags": [
         {
           "name": "name",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Template group name"
         },
         {
           "name": "version",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Version of template to use for optimistic concurrency. Leave empty to disable validation"
         }
       ]
@@ -3746,17 +4379,21 @@
       "service": "provisioning",
       "action": "export-mute-timing",
       "short": "Exports a mute timing in provisioning format",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/mute-timings/{name}/export",
       "flags": [
         {
           "name": "download",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "Whether to initiate a download of the file or not."
         },
         {
           "name": "format",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
           "default": "\"yaml\""
         },
@@ -3764,6 +4401,7 @@
           "name": "name",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Mute timing name"
         }
       ],
@@ -3777,17 +4415,21 @@
       "service": "provisioning",
       "action": "export-mute-timings",
       "short": "Exports all mute timings in provisioning format",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/mute-timings/export",
       "flags": [
         {
           "name": "download",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "Whether to initiate a download of the file or not."
         },
         {
           "name": "format",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
           "default": "\"yaml\""
         }
@@ -3802,11 +4444,14 @@
       "service": "provisioning",
       "action": "get-alert-rule",
       "short": "Gets a specific alert rule by UID",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/alert-rules/{UID}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Alert rule UID"
         }
       ],
@@ -3820,23 +4465,28 @@
       "service": "provisioning",
       "action": "get-alert-rule-export",
       "short": "Exports an alert rule in provisioning file format",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/alert-rules/{UID}/export",
       "flags": [
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Alert rule UID"
         },
         {
           "name": "download",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "Whether to initiate a download of the file or not."
         },
         {
           "name": "format",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
           "default": "\"yaml\""
         }
@@ -3851,16 +4501,20 @@
       "service": "provisioning",
       "action": "get-alert-rule-group",
       "short": "Gets a rule group",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/folder/{FolderUID}/rule-groups/{Group}",
       "flags": [
         {
           "name": "folder-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "group",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -3873,27 +4527,33 @@
       "service": "provisioning",
       "action": "get-alert-rule-group-export",
       "short": "Exports an alert rule group in provisioning file format",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/folder/{FolderUID}/rule-groups/{Group}/export",
       "flags": [
         {
           "name": "folder-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "group",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "download",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "Whether to initiate a download of the file or not."
         },
         {
           "name": "format",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
           "default": "\"yaml\""
         }
@@ -3908,6 +4568,8 @@
       "service": "provisioning",
       "action": "get-alert-rules",
       "short": "Gets all the alert rules",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/alert-rules",
       "flags": [],
       "response": {
         "typeName": "GetAlertRulesOK",
@@ -3919,23 +4581,28 @@
       "service": "provisioning",
       "action": "get-alert-rules-export",
       "short": "Exports all alert rules in provisioning file format",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/alert-rules/export",
       "flags": [
         {
           "name": "download",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "Whether to initiate a download of the file or not."
         },
         {
           "name": "folder-uid",
           "type": "[]string",
           "required": true,
+          "in": "query",
           "doc": "UIDs of folders from which to export rules"
         },
         {
           "name": "format",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
           "default": "\"yaml\""
         },
@@ -3943,12 +4610,14 @@
           "name": "group",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Name of group of rules to export. Must be specified only together with a single folder UID"
         },
         {
           "name": "rule-uid",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "UID of alert rule to export. If specified, parameters folderUid and group must be empty."
         }
       ],
@@ -3962,11 +4631,14 @@
       "service": "provisioning",
       "action": "get-contactpoints",
       "short": "Gets all the contact points",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/contact-points",
       "flags": [
         {
           "name": "name",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Filter by name"
         }
       ],
@@ -3980,23 +4652,28 @@
       "service": "provisioning",
       "action": "get-contactpoints-export",
       "short": "Exports all contact points in provisioning file format",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/contact-points/export",
       "flags": [
         {
           "name": "decrypt",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "Whether any contained secure settings should be decrypted or left redacted. Redacted settings will contain RedactedValue instead. Currently, only org admin can view decrypted secure settings."
         },
         {
           "name": "download",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "Whether to initiate a download of the file or not."
         },
         {
           "name": "format",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
           "default": "\"yaml\""
         },
@@ -4004,6 +4681,7 @@
           "name": "name",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Filter by name"
         }
       ],
@@ -4017,11 +4695,14 @@
       "service": "provisioning",
       "action": "get-mute-timing",
       "short": "Gets a mute timing",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/mute-timings/{name}",
       "flags": [
         {
           "name": "name",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Mute timing name"
         }
       ],
@@ -4035,6 +4716,8 @@
       "service": "provisioning",
       "action": "get-mute-timings",
       "short": "Gets all the mute timings",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/mute-timings",
       "flags": [],
       "response": {
         "typeName": "GetMuteTimingsOK",
@@ -4046,6 +4729,8 @@
       "service": "provisioning",
       "action": "get-policy-tree",
       "short": "Gets the notification policy tree",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/policies",
       "flags": [],
       "response": {
         "typeName": "GetPolicyTreeOK",
@@ -4057,6 +4742,8 @@
       "service": "provisioning",
       "action": "get-policy-tree-export",
       "short": "Exports the notification policy tree in provisioning file format",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/policies/export",
       "flags": [],
       "response": {
         "typeName": "GetPolicyTreeExportOK",
@@ -4068,11 +4755,14 @@
       "service": "provisioning",
       "action": "get-template",
       "short": "Gets a notification template group",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/templates/{name}",
       "flags": [
         {
           "name": "name",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Template group name"
         }
       ],
@@ -4086,6 +4776,8 @@
       "service": "provisioning",
       "action": "get-templates",
       "short": "Gets all notification template groups",
+      "httpMethod": "GET",
+      "httpPath": "/v1/provisioning/templates",
       "flags": [],
       "response": {
         "typeName": "GetTemplatesOK",
@@ -4097,11 +4789,14 @@
       "service": "provisioning",
       "action": "post-alert-rule",
       "short": "Creates a new alert rule",
+      "httpMethod": "POST",
+      "httpPath": "/v1/provisioning/alert-rules",
       "flags": [
         {
           "name": "x-disable-provenance",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         }
       ],
       "body": {
@@ -4117,11 +4812,14 @@
       "service": "provisioning",
       "action": "post-contactpoints",
       "short": "Creates a contact point",
+      "httpMethod": "POST",
+      "httpPath": "/v1/provisioning/contact-points",
       "flags": [
         {
           "name": "x-disable-provenance",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         }
       ],
       "body": {
@@ -4137,11 +4835,14 @@
       "service": "provisioning",
       "action": "post-mute-timing",
       "short": "Creates a new mute timing",
+      "httpMethod": "POST",
+      "httpPath": "/v1/provisioning/mute-timings",
       "flags": [
         {
           "name": "x-disable-provenance",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         }
       ],
       "body": {
@@ -4157,17 +4858,21 @@
       "service": "provisioning",
       "action": "put-alert-rule",
       "short": "Updates an existing alert rule",
+      "httpMethod": "PUT",
+      "httpPath": "/v1/provisioning/alert-rules/{UID}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Alert rule UID"
         },
         {
           "name": "x-disable-provenance",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         }
       ],
       "body": {
@@ -4183,21 +4888,26 @@
       "service": "provisioning",
       "action": "put-alert-rule-group",
       "short": "Creates or update alert rule group",
+      "httpMethod": "PUT",
+      "httpPath": "/v1/provisioning/folder/{FolderUID}/rule-groups/{Group}",
       "flags": [
         {
           "name": "folder-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "group",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "x-disable-provenance",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         }
       ],
       "body": {
@@ -4213,17 +4923,21 @@
       "service": "provisioning",
       "action": "put-contactpoint",
       "short": "Updates an existing contact point",
+      "httpMethod": "PUT",
+      "httpPath": "/v1/provisioning/contact-points/{UID}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "UID is the contact point unique identifier"
         },
         {
           "name": "x-disable-provenance",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         }
       ],
       "body": {
@@ -4239,16 +4953,20 @@
       "service": "provisioning",
       "action": "put-mute-timing",
       "short": "Replaces an existing mute timing",
+      "httpMethod": "PUT",
+      "httpPath": "/v1/provisioning/mute-timings/{name}",
       "flags": [
         {
           "name": "x-disable-provenance",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "name",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Mute timing name"
         }
       ],
@@ -4265,11 +4983,14 @@
       "service": "provisioning",
       "action": "put-policy-tree",
       "short": "Sets the notification policy tree",
+      "httpMethod": "PUT",
+      "httpPath": "/v1/provisioning/policies",
       "flags": [
         {
           "name": "x-disable-provenance",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         }
       ],
       "body": {
@@ -4285,16 +5006,20 @@
       "service": "provisioning",
       "action": "put-template",
       "short": "Updates an existing notification template group",
+      "httpMethod": "PUT",
+      "httpPath": "/v1/provisioning/templates/{name}",
       "flags": [
         {
           "name": "x-disable-provenance",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "header"
         },
         {
           "name": "name",
           "type": "string",
           "required": true,
+          "in": "path",
           "doc": "Template group name"
         }
       ],
@@ -4311,6 +5036,8 @@
       "service": "provisioning",
       "action": "reset-policy-tree",
       "short": "Clears the notification policy tree",
+      "httpMethod": "DELETE",
+      "httpPath": "/v1/provisioning/policies",
       "flags": [],
       "response": {
         "typeName": "ResetPolicyTreeAccepted",
@@ -4323,6 +5050,8 @@
       "action": "create-query",
       "short": "Adds query to query history",
       "long": "Adds new query to query history.",
+      "httpMethod": "POST",
+      "httpPath": "/query-history",
       "flags": [],
       "body": {
         "modelType": "models.CreateQueryInQueryHistoryCommand"
@@ -4338,11 +5067,14 @@
       "action": "delete-query",
       "short": "Deletes query in query history",
       "long": "Deletes an existing query in query history as specified by the UID. This operation cannot be reverted.",
+      "httpMethod": "DELETE",
+      "httpPath": "/query-history/{query_history_uid}",
       "flags": [
         {
           "name": "query-history-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -4356,11 +5088,14 @@
       "action": "patch-query-comment",
       "short": "Updates comment for query in query history",
       "long": "Updates comment for query in query history as specified by the UID.",
+      "httpMethod": "PATCH",
+      "httpPath": "/query-history/{query_history_uid}",
       "flags": [
         {
           "name": "query-history-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -4377,47 +5112,56 @@
       "action": "search-queries",
       "short": "Queries history search",
       "long": "Returns a list of queries in the query history that matches the search criteria. Query history search supports pagination. Use the `limit` parameter to control the maximum number of queries returned; the default limit is 100. You can also use the `page` query parameter to fetch queries from any page other than the first one.",
+      "httpMethod": "GET",
+      "httpPath": "/query-history",
       "flags": [
         {
           "name": "datasource-uid",
           "type": "[]string",
           "required": true,
+          "in": "query",
           "doc": "List of data source UIDs to search for"
         },
         {
           "name": "from",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "From range for the query history search"
         },
         {
           "name": "limit",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Limit the number of returned results"
         },
         {
           "name": "only-starred",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "Flag indicating if only starred queries should be returned"
         },
         {
           "name": "page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size."
         },
         {
           "name": "search-string",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Text inside query or comments that is searched for"
         },
         {
           "name": "sort",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Sort method",
           "default": "\"time-desc\""
         },
@@ -4425,6 +5169,7 @@
           "name": "to",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "To range for the query history search"
         }
       ],
@@ -4439,11 +5184,14 @@
       "action": "star-query",
       "short": "Adds star to query in query history",
       "long": "Adds star to query in query history as specified by the UID.",
+      "httpMethod": "POST",
+      "httpPath": "/query-history/star/{query_history_uid}",
       "flags": [
         {
           "name": "query-history-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -4457,11 +5205,14 @@
       "action": "unstar-query",
       "short": "Removes star to query in query history",
       "long": "Removes star from query in query history as specified by the UID.",
+      "httpMethod": "DELETE",
+      "httpPath": "/query-history/star/{query_history_uid}",
       "flags": [
         {
           "name": "query-history-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -4475,6 +5226,8 @@
       "action": "get-current-org-quota",
       "short": "Fetches organization quota",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `orgs.quotas:read` and scope `org:id:1` (orgIDScope).",
+      "httpMethod": "GET",
+      "httpPath": "/org/quotas",
       "flags": [],
       "response": {
         "typeName": "GetCurrentOrgQuotaOK",
@@ -4487,11 +5240,14 @@
       "action": "get-org-quota",
       "short": "Fetches organization quota",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `orgs.quotas:read` and scope `org:id:1` (orgIDScope).",
+      "httpMethod": "GET",
+      "httpPath": "/orgs/{org_id}/quotas",
       "flags": [
         {
           "name": "org-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -4505,11 +5261,14 @@
       "action": "get-user-quota",
       "short": "Fetches user quota",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.quotas:list` and scope `global.users:1` (userIDScope).",
+      "httpMethod": "GET",
+      "httpPath": "/admin/users/{user_id}/quotas",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -4522,6 +5281,8 @@
       "service": "quota",
       "action": "get-user-quotas",
       "short": "Fetches user quota",
+      "httpMethod": "GET",
+      "httpPath": "/user/quotas",
       "flags": [],
       "response": {
         "typeName": "GetUserQuotasOK",
@@ -4534,16 +5295,20 @@
       "action": "update-org-quota",
       "short": "Updates user quota",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `orgs.quotas:write` and scope `org:id:1` (orgIDScope).",
+      "httpMethod": "PUT",
+      "httpPath": "/orgs/{org_id}/quotas/{quota_target}",
       "flags": [
         {
           "name": "org-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "quota-target",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -4560,16 +5325,20 @@
       "action": "update-user-quota",
       "short": "Updates user quota",
       "long": "If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.quotas:update` and scope `global.users:1` (userIDScope).",
+      "httpMethod": "PUT",
+      "httpPath": "/admin/users/{user_id}/quotas/{quota_target}",
       "flags": [
         {
           "name": "quota-target",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -4585,6 +5354,8 @@
       "service": "recording-rules",
       "action": "create-recording-rule",
       "short": "Creates a recording rule that is then registered and started",
+      "httpMethod": "POST",
+      "httpPath": "/recording-rules",
       "flags": [],
       "body": {
         "modelType": "models.RecordingRuleJSON"
@@ -4600,6 +5371,8 @@
       "action": "create-recording-rule-write-target",
       "short": "Creates a remote write target",
       "long": "It returns a 422 if there is not an existing prometheus data source configured.",
+      "httpMethod": "POST",
+      "httpPath": "/recording-rules/writer",
       "flags": [],
       "body": {
         "modelType": "models.PrometheusRemoteWriteTargetJSON"
@@ -4614,11 +5387,14 @@
       "service": "recording-rules",
       "action": "delete-recording-rule",
       "short": "Deletes removes the rule from the registry and stops it",
+      "httpMethod": "DELETE",
+      "httpPath": "/recording-rules/{recordingRuleID}",
       "flags": [
         {
           "name": "recording-rule-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -4631,6 +5407,8 @@
       "service": "recording-rules",
       "action": "delete-recording-rule-write-target",
       "short": "Deletes the remote write target",
+      "httpMethod": "DELETE",
+      "httpPath": "/recording-rules/writer",
       "flags": [],
       "response": {
         "typeName": "DeleteRecordingRuleWriteTargetOK",
@@ -4642,6 +5420,8 @@
       "service": "recording-rules",
       "action": "get-recording-rule-write-target",
       "short": "Returns the prometheus remote write target",
+      "httpMethod": "GET",
+      "httpPath": "/recording-rules/writer",
       "flags": [],
       "response": {
         "typeName": "GetRecordingRuleWriteTargetOK",
@@ -4653,6 +5433,8 @@
       "service": "recording-rules",
       "action": "list-recording-rules",
       "short": "Lists all rules in the database active or deleted",
+      "httpMethod": "GET",
+      "httpPath": "/recording-rules",
       "flags": [],
       "response": {
         "typeName": "ListRecordingRulesOK",
@@ -4664,6 +5446,8 @@
       "service": "recording-rules",
       "action": "test-create-recording-rule",
       "short": "Tests a recording rule",
+      "httpMethod": "POST",
+      "httpPath": "/recording-rules/test",
       "flags": [],
       "body": {
         "modelType": "models.RecordingRuleJSON"
@@ -4678,6 +5462,8 @@
       "service": "recording-rules",
       "action": "update-recording-rule",
       "short": "Updates the active status of a rule",
+      "httpMethod": "PUT",
+      "httpPath": "/recording-rules",
       "flags": [],
       "body": {
         "modelType": "models.RecordingRuleJSON"
@@ -4693,6 +5479,8 @@
       "action": "create-report",
       "short": "Creates a report",
       "long": "Available to org admins only and with a valid license.\n\nYou need to have a permission with action `reports.admin:create`.",
+      "httpMethod": "POST",
+      "httpPath": "/reports",
       "flags": [],
       "body": {
         "modelType": "models.CreateOrUpdateReport"
@@ -4708,11 +5496,14 @@
       "action": "delete-report",
       "short": "Deletes a report",
       "long": "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports.delete` with scope `reports:id:\u003creport ID\u003e`.\n\nRequesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
+      "httpMethod": "DELETE",
+      "httpPath": "/reports/{id}",
       "flags": [
         {
           "name": "id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -4726,11 +5517,14 @@
       "action": "get-report",
       "short": "Gets a report",
       "long": "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports:read` with scope `reports:id:\u003creport ID\u003e`.\n\nRequesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
+      "httpMethod": "GET",
+      "httpPath": "/reports/{id}",
       "flags": [
         {
           "name": "id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -4744,6 +5538,8 @@
       "action": "get-report-settings",
       "short": "Gets report settings",
       "long": "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports.settings:read`x.",
+      "httpMethod": "GET",
+      "httpPath": "/reports/settings",
       "flags": [],
       "response": {
         "typeName": "GetReportSettingsOK",
@@ -4756,6 +5552,8 @@
       "action": "get-reports",
       "short": "Lists reports",
       "long": "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports:read` with scope `reports:*`.",
+      "httpMethod": "GET",
+      "httpPath": "/reports",
       "flags": [],
       "response": {
         "typeName": "GetReportsOK",
@@ -4768,11 +5566,14 @@
       "action": "get-reports-by-dashboard-uid",
       "short": "Lists reports by dashboard uid",
       "long": "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports:read` with scope `reports:*`.",
+      "httpMethod": "GET",
+      "httpPath": "/reports/dashboards/{uid}",
       "flags": [
         {
           "name": "uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -4786,6 +5587,8 @@
       "action": "get-settings-image",
       "short": "Gets custom branding report image",
       "long": "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports.settings:read`.",
+      "httpMethod": "GET",
+      "httpPath": "/reports/images/:image",
       "flags": [],
       "response": {
         "typeName": "GetSettingsImageOK",
@@ -4798,16 +5601,20 @@
       "action": "render-report-cs-vs",
       "short": "Downloads a CSV report",
       "long": "Available to all users and with a valid license.",
+      "httpMethod": "GET",
+      "httpPath": "/reports/render/csvs",
       "flags": [
         {
           "name": "dashboards",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "title",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         }
       ],
       "response": {
@@ -4821,36 +5628,44 @@
       "action": "render-report-pd-fs",
       "short": "Renders report for multiple dashboards",
       "long": "Available to all users and with a valid license.",
+      "httpMethod": "GET",
+      "httpPath": "/reports/render/pdfs",
       "flags": [
         {
           "name": "dashboards",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "include-tables",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "layout",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "orientation",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "scale-factor",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "title",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         }
       ],
       "response": {
@@ -4864,6 +5679,8 @@
       "action": "save-report-settings",
       "short": "Saves settings",
       "long": "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports.settings:write`xx.",
+      "httpMethod": "POST",
+      "httpPath": "/reports/settings",
       "flags": [],
       "body": {
         "modelType": "models.ReportSettings"
@@ -4879,6 +5696,8 @@
       "action": "send-report",
       "short": "Sends a report",
       "long": "Generate and send a report. This API waits for the report to be generated before returning. We recommend that you set the client’s timeout to at least 60 seconds. Available to org admins only and with a valid license.\n\nOnly available in Grafana Enterprise v7.0+. This API endpoint is experimental and may be deprecated in a future release. On deprecation, a migration strategy will be provided and the endpoint will remain functional until the next major release of Grafana.\n\nYou need to have a permission with action `reports:send`.",
+      "httpMethod": "POST",
+      "httpPath": "/reports/email",
       "flags": [],
       "body": {
         "modelType": "models.ReportEmail"
@@ -4894,6 +5713,8 @@
       "action": "send-test-email",
       "short": "Sends test report via email",
       "long": "Available to org admins only and with a valid license.\n\nYou need to have a permission with action `reports:send`.",
+      "httpMethod": "POST",
+      "httpPath": "/reports/test-email",
       "flags": [],
       "body": {
         "modelType": "models.CreateOrUpdateReport"
@@ -4909,11 +5730,14 @@
       "action": "update-report",
       "short": "Updates a report",
       "long": "Available to org admins only and with a valid or expired license.\n\nYou need to have a permission with action `reports.admin:write` with scope `reports:id:\u003creport ID\u003e`.\n\nRequesting reports using the internal id will stop workgin in the future Use the reporting apiserver to manage reports.  See: /apis/reporting.grafana.app/",
+      "httpMethod": "PUT",
+      "httpPath": "/reports/{id}",
       "flags": [
         {
           "name": "id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -4929,6 +5753,8 @@
       "service": "saml",
       "action": "get-metadata",
       "short": "Its exposes the s p grafana s metadata for the Id p s consumption",
+      "httpMethod": "GET",
+      "httpPath": "/saml/metadata",
       "flags": [],
       "response": {
         "typeName": "GetMetadataOK",
@@ -4940,6 +5766,8 @@
       "service": "saml",
       "action": "get-saml-logout",
       "short": "Gets logout initiates single logout process",
+      "httpMethod": "GET",
+      "httpPath": "/logout/saml",
       "flags": []
     },
     "saml get-slo": {
@@ -4947,17 +5775,22 @@
       "action": "get-slo",
       "short": "Its performs single logout s l o callback",
       "long": "There might be two possible requests: 1. Logout response (callback) when Grafana initiates single logout and IdP returns response to logout request. 2. Logout request when another SP initiates single logout and IdP sends logout request to the Grafana, or in case of IdP-initiated logout.",
+      "httpMethod": "GET",
+      "httpPath": "/saml/slo",
       "flags": []
     },
     "saml post-acs": {
       "service": "saml",
       "action": "post-acs",
       "short": "Its performs assertion consumer service a c s",
+      "httpMethod": "POST",
+      "httpPath": "/saml/acs",
       "flags": [
         {
           "name": "relay-state",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         }
       ]
     },
@@ -4966,16 +5799,20 @@
       "action": "post-slo",
       "short": "Its performs single logout s l o callback",
       "long": "There might be two possible requests: 1. Logout response (callback) when Grafana initiates single logout and IdP returns response to logout request. 2. Logout request when another SP initiates single logout and IdP sends logout request to the Grafana, or in case of IdP-initiated logout.",
+      "httpMethod": "POST",
+      "httpPath": "/saml/slo",
       "flags": [
         {
           "name": "saml-request",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "saml-response",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         }
       ]
     },
@@ -4983,6 +5820,8 @@
       "service": "search",
       "action": "list-sort-options",
       "short": "Lists search sorting options",
+      "httpMethod": "GET",
+      "httpPath": "/search/sorting",
       "flags": [],
       "response": {
         "typeName": "ListSortOptionsOK",
@@ -4994,53 +5833,63 @@
       "service": "search",
       "action": "search",
       "short": "Search API",
+      "httpMethod": "GET",
+      "httpPath": "/search",
       "flags": [
         {
           "name": "dashboard-ids",
           "type": "[]int64",
           "required": true,
+          "in": "query",
           "doc": "List of dashboard id’s to search for This is deprecated: users should use the `dashboardUIDs` query parameter instead"
         },
         {
           "name": "dashboard-uids",
           "type": "[]string",
           "required": true,
+          "in": "query",
           "doc": "List of dashboard uid’s to search for"
         },
         {
           "name": "deleted",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "Flag indicating if only soft deleted Dashboards should be returned"
         },
         {
           "name": "folder-ids",
           "type": "[]int64",
           "required": true,
+          "in": "query",
           "doc": "List of folder id’s to search in for dashboards If it's `0` then it will query for the top level folders This is deprecated: users should use the `folderUIDs` query parameter instead"
         },
         {
           "name": "folder-uids",
           "type": "[]string",
           "required": true,
+          "in": "query",
           "doc": "List of folder UID’s to search in for dashboards If it's an empty string then it will query for the top level folders"
         },
         {
           "name": "limit",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Limit the number of returned results (max 5000)"
         },
         {
           "name": "page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size. Only available in Grafana v6.2+."
         },
         {
           "name": "permission",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Set to `Edit` to return dashboards/folders that the user can edit",
           "default": "\"View\""
         },
@@ -5048,12 +5897,14 @@
           "name": "query",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Search Query"
         },
         {
           "name": "sort",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Sort method; for listing all the possible sort methods use the search sorting endpoint.",
           "default": "\"alpha-asc\""
         },
@@ -5061,18 +5912,21 @@
           "name": "starred",
           "type": "bool",
           "required": false,
+          "in": "query",
           "doc": "Flag indicating if only starred Dashboards should be returned"
         },
         {
           "name": "tag",
           "type": "[]string",
           "required": true,
+          "in": "query",
           "doc": "List of tags to search for"
         },
         {
           "name": "type",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Type to search for, dash-folder or dash-db"
         }
       ],
@@ -5087,6 +5941,8 @@
       "action": "create-service-account",
       "short": "Creates service account",
       "long": "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:write` scope: `serviceaccounts:*`\n\nRequires basic authentication and that the authenticated user is a Grafana Admin.",
+      "httpMethod": "POST",
+      "httpPath": "/serviceaccounts",
       "flags": [],
       "body": {
         "modelType": "models.CreateServiceAccountForm"
@@ -5102,11 +5958,14 @@
       "action": "create-token",
       "short": "Creates new token adds a token to a service account",
       "long": "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:write` scope: `serviceaccounts:id:1` (single service account)",
+      "httpMethod": "POST",
+      "httpPath": "/serviceaccounts/{serviceAccountId}/tokens",
       "flags": [
         {
           "name": "service-account-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -5123,11 +5982,14 @@
       "action": "delete-service-account",
       "short": "Deletes service account",
       "long": "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:delete` scope: `serviceaccounts:id:1` (single service account)",
+      "httpMethod": "DELETE",
+      "httpPath": "/serviceaccounts/{serviceAccountId}",
       "flags": [
         {
           "name": "service-account-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5141,16 +6003,20 @@
       "action": "delete-token",
       "short": "Deletes token deletes service account tokens",
       "long": "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:write` scope: `serviceaccounts:id:1` (single service account)\n\nRequires basic authentication and that the authenticated user is a Grafana Admin.",
+      "httpMethod": "DELETE",
+      "httpPath": "/serviceaccounts/{serviceAccountId}/tokens/{tokenId}",
       "flags": [
         {
           "name": "service-account-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "token-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5164,11 +6030,14 @@
       "action": "list-tokens",
       "short": "Gets service account tokens",
       "long": "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:read` scope: `global:serviceaccounts:id:1` (single service account)\n\nRequires basic authentication and that the authenticated user is a Grafana Admin.",
+      "httpMethod": "GET",
+      "httpPath": "/serviceaccounts/{serviceAccountId}/tokens",
       "flags": [
         {
           "name": "service-account-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5182,11 +6051,14 @@
       "action": "retrieve-service-account",
       "short": "Gets single serviceaccount by Id",
       "long": "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:read` scope: `serviceaccounts:id:1` (single service account)",
+      "httpMethod": "GET",
+      "httpPath": "/serviceaccounts/{serviceAccountId}",
       "flags": [
         {
           "name": "service-account-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5200,33 +6072,40 @@
       "action": "search-org-service-accounts-with-paging",
       "short": "Searches service accounts with paging",
       "long": "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:read` scope: `serviceaccounts:*`",
+      "httpMethod": "GET",
+      "httpPath": "/serviceaccounts/search",
       "flags": [
         {
           "name": "disabled",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "expired-tokens",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "The default value is 1."
         },
         {
           "name": "perpage",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "The default value is 1000."
         },
         {
           "name": "query",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "It will return results where the query value is contained in one of the name. Query values with spaces need to be URL encoded."
         }
       ],
@@ -5241,11 +6120,14 @@
       "action": "update-service-account",
       "short": "Updates service account",
       "long": "Required permissions (See note in the [introduction](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api) for an explanation): action: `serviceaccounts:write` scope: `serviceaccounts:id:1` (single service account)",
+      "httpMethod": "PATCH",
+      "httpPath": "/serviceaccounts/{serviceAccountId}",
       "flags": [
         {
           "name": "service-account-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -5262,6 +6144,8 @@
       "action": "change-user-password",
       "short": "Changes password",
       "long": "Changes the password for the user.",
+      "httpMethod": "PUT",
+      "httpPath": "/user/password",
       "flags": [],
       "body": {
         "modelType": "models.ChangeUserPasswordCommand"
@@ -5276,6 +6160,8 @@
       "service": "signed-in-user",
       "action": "clear-help-flags",
       "short": "Clears user help flag",
+      "httpMethod": "GET",
+      "httpPath": "/user/helpflags/clear",
       "flags": [],
       "response": {
         "typeName": "ClearHelpFlagsOK",
@@ -5287,6 +6173,8 @@
       "service": "signed-in-user",
       "action": "get-signed-in-user",
       "short": "Get (current authenticated user)",
+      "httpMethod": "GET",
+      "httpPath": "/user",
       "flags": [],
       "response": {
         "typeName": "GetSignedInUserOK",
@@ -5299,6 +6187,8 @@
       "action": "get-signed-in-user-org-list",
       "short": "Organizations of the actual user",
       "long": "Return a list of all organizations of the current user.",
+      "httpMethod": "GET",
+      "httpPath": "/user/orgs",
       "flags": [],
       "response": {
         "typeName": "GetSignedInUserOrgListOK",
@@ -5311,6 +6201,8 @@
       "action": "get-signed-in-user-team-list",
       "short": "Teams that the actual user is member of",
       "long": "Return a list of all teams that the current user is member of.",
+      "httpMethod": "GET",
+      "httpPath": "/user/teams",
       "flags": [],
       "response": {
         "typeName": "GetSignedInUserTeamListOK",
@@ -5323,6 +6215,8 @@
       "action": "get-user-auth-tokens",
       "short": "Auths tokens of the actual user",
       "long": "Return a list of all auth tokens (devices) that the actual user currently have logged in from.",
+      "httpMethod": "GET",
+      "httpPath": "/user/auth-tokens",
       "flags": [],
       "response": {
         "typeName": "GetUserAuthTokensOK",
@@ -5334,6 +6228,8 @@
       "service": "signed-in-user",
       "action": "get-user-preferences",
       "short": "Gets user preferences",
+      "httpMethod": "GET",
+      "httpPath": "/user/preferences",
       "flags": [],
       "response": {
         "typeName": "GetUserPreferencesOK",
@@ -5345,6 +6241,8 @@
       "service": "signed-in-user",
       "action": "patch-user-preferences",
       "short": "Patches user preferences",
+      "httpMethod": "PATCH",
+      "httpPath": "/user/preferences",
       "flags": [],
       "body": {
         "modelType": "models.PatchPrefsCmd"
@@ -5360,6 +6258,8 @@
       "action": "revoke-user-auth-token",
       "short": "Revokes an auth token of the actual user",
       "long": "Revokes the given auth token (device) for the actual user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity.",
+      "httpMethod": "POST",
+      "httpPath": "/user/revoke-auth-token",
       "flags": [],
       "body": {
         "modelType": "models.RevokeAuthTokenCmd"
@@ -5374,11 +6274,14 @@
       "service": "signed-in-user",
       "action": "set-help-flag",
       "short": "Sets user help flag",
+      "httpMethod": "PUT",
+      "httpPath": "/user/helpflags/{flag_id}",
       "flags": [
         {
           "name": "flag-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5392,11 +6295,14 @@
       "action": "star-dashboard-by-uid",
       "short": "Stars a dashboard",
       "long": "Stars the given Dashboard for the actual user.",
+      "httpMethod": "POST",
+      "httpPath": "/user/stars/dashboard/uid/{dashboard_uid}",
       "flags": [
         {
           "name": "dashboard-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5410,11 +6316,14 @@
       "action": "unstar-dashboard-by-uid",
       "short": "Unstars a dashboard",
       "long": "Deletes the starring of the given Dashboard for the actual user.",
+      "httpMethod": "DELETE",
+      "httpPath": "/user/stars/dashboard/uid/{dashboard_uid}",
       "flags": [
         {
           "name": "dashboard-uid",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5427,6 +6336,8 @@
       "service": "signed-in-user",
       "action": "update-signed-in-user",
       "short": "Updates signed in user",
+      "httpMethod": "PUT",
+      "httpPath": "/user",
       "flags": [],
       "body": {
         "modelType": "models.UpdateUserCommand"
@@ -5442,6 +6353,8 @@
       "action": "update-user-preferences",
       "short": "Updates user preferences",
       "long": "Omitting a key (`theme`, `homeDashboardUID`, `timezone`) will cause the current value to be replaced with the system default value.",
+      "httpMethod": "PUT",
+      "httpPath": "/user/preferences",
       "flags": [],
       "body": {
         "modelType": "models.UpdatePrefsCmd"
@@ -5457,11 +6370,14 @@
       "action": "user-set-using-org",
       "short": "Switches user context for signed in user",
       "long": "Switch user context to the given organization.",
+      "httpMethod": "POST",
+      "httpPath": "/user/using/{org_id}",
       "flags": [
         {
           "name": "org-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5475,6 +6391,8 @@
       "action": "retrieve-jwks",
       "short": "Gets JSON web key set j w k s with all the keys that can be used to verify tokens public keys",
       "long": "Required permissions None",
+      "httpMethod": "GET",
+      "httpPath": "/signing-keys/keys",
       "flags": [],
       "response": {
         "typeName": "RetrieveJWKSOK",
@@ -5486,6 +6404,8 @@
       "service": "snapshots",
       "action": "get-sharing-options",
       "short": "Gets snapshot sharing settings",
+      "httpMethod": "GET",
+      "httpPath": "/snapshot/shared-options",
       "flags": [],
       "response": {
         "typeName": "GetSharingOptionsOK",
@@ -5498,11 +6418,14 @@
       "action": "get-provider-settings",
       "short": "Gets an s s o settings entry by key",
       "long": "You need to have a permission with action `settings:read` with scope `settings:auth.\u003cprovider\u003e:*`.",
+      "httpMethod": "GET",
+      "httpPath": "/v1/sso-settings/{key}",
       "flags": [
         {
           "name": "key",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5516,6 +6439,8 @@
       "action": "list-all-providers-settings",
       "short": "Lists all s s o settings entries",
       "long": "You need to have a permission with action `settings:read` with scope `settings:auth.\u003cprovider\u003e:*`.",
+      "httpMethod": "GET",
+      "httpPath": "/v1/sso-settings",
       "flags": [],
       "response": {
         "typeName": "ListAllProvidersSettingsOK",
@@ -5528,11 +6453,14 @@
       "action": "patch-provider-settings",
       "short": "Patches s s o settings",
       "long": "Partially updates the SSO Settings for a provider. Only provided fields are updated.\n\nYou need to have a permission with action `settings:write` and scope `settings:auth.\u003cprovider\u003e:*`.",
+      "httpMethod": "PATCH",
+      "httpPath": "/v1/sso-settings/{key}",
       "flags": [
         {
           "name": "key",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -5549,11 +6477,14 @@
       "action": "remove-provider-settings",
       "short": "Removes s s o settings",
       "long": "Removes the SSO Settings for a provider.\n\nYou need to have a permission with action `settings:write` and scope `settings:auth.\u003cprovider\u003e:*`.",
+      "httpMethod": "DELETE",
+      "httpPath": "/v1/sso-settings/{key}",
       "flags": [
         {
           "name": "key",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5567,11 +6498,14 @@
       "action": "update-provider-settings",
       "short": "Updates s s o settings",
       "long": "Inserts or updates the SSO Settings for a provider.\n\nYou need to have a permission with action `settings:write` and scope `settings:auth.\u003cprovider\u003e:*`.",
+      "httpMethod": "PUT",
+      "httpPath": "/v1/sso-settings/{key}",
       "flags": [
         {
           "name": "key",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -5587,11 +6521,14 @@
       "service": "sync-team-groups",
       "action": "add-team-group-api",
       "short": "Adds external group",
+      "httpMethod": "POST",
+      "httpPath": "/teams/{teamId}/groups",
       "flags": [
         {
           "name": "team-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -5607,11 +6544,14 @@
       "service": "sync-team-groups",
       "action": "get-team-groups-api",
       "short": "Gets external groups",
+      "httpMethod": "GET",
+      "httpPath": "/teams/{teamId}/groups",
       "flags": [
         {
           "name": "team-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5624,16 +6564,20 @@
       "service": "sync-team-groups",
       "action": "remove-team-group-api-query",
       "short": "Removes external group",
+      "httpMethod": "DELETE",
+      "httpPath": "/teams/{teamId}/groups",
       "flags": [
         {
           "name": "group-id",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "team-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5646,23 +6590,28 @@
       "service": "sync-team-groups",
       "action": "search-team-groups",
       "short": "Searches for team groups with optional filtering and pagination",
+      "httpMethod": "GET",
+      "httpPath": "/teams/{teamId}/groups/search",
       "flags": [
         {
           "name": "name",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "Filter by exact name match"
         },
         {
           "name": "page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "default": "1"
         },
         {
           "name": "perpage",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Number of items per page",
           "default": "1000"
         },
@@ -5670,12 +6619,14 @@
           "name": "query",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded."
         },
         {
           "name": "team-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5688,11 +6639,14 @@
       "service": "teams",
       "action": "add-team-member",
       "short": "Adds team member",
+      "httpMethod": "POST",
+      "httpPath": "/teams/{team_id}/members",
       "flags": [
         {
           "name": "team-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -5708,6 +6662,8 @@
       "service": "teams",
       "action": "create-team",
       "short": "Adds team",
+      "httpMethod": "POST",
+      "httpPath": "/teams",
       "flags": [],
       "body": {
         "modelType": "models.CreateTeamCommand"
@@ -5722,11 +6678,14 @@
       "service": "teams",
       "action": "get-team-members",
       "short": "Gets team members",
+      "httpMethod": "GET",
+      "httpPath": "/teams/{team_id}/members",
       "flags": [
         {
           "name": "team-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5739,11 +6698,14 @@
       "service": "teams",
       "action": "get-team-preferences",
       "short": "Gets team preferences",
+      "httpMethod": "GET",
+      "httpPath": "/teams/{team_id}/preferences",
       "flags": [
         {
           "name": "team-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5756,16 +6718,20 @@
       "service": "teams",
       "action": "remove-team-member",
       "short": "Removes member from team",
+      "httpMethod": "DELETE",
+      "httpPath": "/teams/{team_id}/members/{user_id}",
       "flags": [
         {
           "name": "team-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5778,27 +6744,33 @@
       "service": "teams",
       "action": "search-teams",
       "short": "Teams search with paging",
+      "httpMethod": "GET",
+      "httpPath": "/teams/search",
       "flags": [
         {
           "name": "accesscontrol",
           "type": "bool",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "name",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         },
         {
           "name": "page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "default": "1"
         },
         {
           "name": "perpage",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Number of items per page The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams.",
           "default": "1000"
         },
@@ -5806,12 +6778,14 @@
           "name": "query",
           "type": "string",
           "required": false,
+          "in": "query",
           "doc": "If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded."
         },
         {
           "name": "sort",
           "type": "string",
-          "required": false
+          "required": false,
+          "in": "query"
         }
       ],
       "response": {
@@ -5825,11 +6799,14 @@
       "action": "set-team-memberships",
       "short": "Sets team memberships",
       "long": "Takes user emails, and updates team members and admins to the provided lists of users. Any current team members and admins not in the provided lists will be removed.",
+      "httpMethod": "PUT",
+      "httpPath": "/teams/{team_id}/members",
       "flags": [
         {
           "name": "team-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -5845,11 +6822,14 @@
       "service": "teams",
       "action": "update-team",
       "short": "Updates team",
+      "httpMethod": "PUT",
+      "httpPath": "/teams/{team_id}",
       "flags": [
         {
           "name": "team-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -5865,16 +6845,20 @@
       "service": "teams",
       "action": "update-team-member",
       "short": "Updates team member",
+      "httpMethod": "PUT",
+      "httpPath": "/teams/{team_id}/members/{user_id}",
       "flags": [
         {
           "name": "team-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         },
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -5890,11 +6874,14 @@
       "service": "teams",
       "action": "update-team-preferences",
       "short": "Updates team preferences",
+      "httpMethod": "PUT",
+      "httpPath": "/teams/{team_id}/preferences",
       "flags": [
         {
           "name": "team-id",
           "type": "string",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {
@@ -5911,12 +6898,16 @@
       "action": "update-user-email",
       "short": "Updates user email",
       "long": "Update the email of user given a verification code.",
+      "httpMethod": "GET",
+      "httpPath": "/user/email/update",
       "flags": []
     },
     "users get-user-by-login-or-email": {
       "service": "users",
       "action": "get-user-by-login-or-email",
       "short": "Gets user by login or email",
+      "httpMethod": "GET",
+      "httpPath": "/users/lookup",
       "flags": [
         {
           "name": "login-or-email",
@@ -5936,11 +6927,14 @@
       "action": "get-user-org-list",
       "short": "Gets organizations for user",
       "long": "Get organizations for user identified by id.",
+      "httpMethod": "GET",
+      "httpPath": "/users/{user_id}/orgs",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5954,11 +6948,14 @@
       "action": "get-user-teams",
       "short": "Gets teams for user",
       "long": "Get teams for user identified by id.",
+      "httpMethod": "GET",
+      "httpPath": "/users/{user_id}/teams",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "response": {
@@ -5972,11 +6969,14 @@
       "action": "search-users",
       "short": "Gets users",
       "long": "Returns all users that the authenticated user has permission to view, admin permission required.",
+      "httpMethod": "GET",
+      "httpPath": "/users",
       "flags": [
         {
           "name": "page",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Page index for starting fetching users",
           "default": "1"
         },
@@ -5984,6 +6984,7 @@
           "name": "perpage",
           "type": "int64",
           "required": false,
+          "in": "query",
           "doc": "Limit the maximum number of users to return per page",
           "default": "1000"
         }
@@ -5998,6 +6999,8 @@
       "service": "users",
       "action": "search-users-with-paging",
       "short": "Gets users with paging",
+      "httpMethod": "GET",
+      "httpPath": "/users/search",
       "flags": [],
       "response": {
         "typeName": "SearchUsersWithPagingOK",
@@ -6010,11 +7013,14 @@
       "action": "update-user",
       "short": "Updates user",
       "long": "Update the user identified by id.",
+      "httpMethod": "PUT",
+      "httpPath": "/users/{user_id}",
       "flags": [
         {
           "name": "user-id",
           "type": "int64",
-          "required": true
+          "required": true,
+          "in": "path"
         }
       ],
       "body": {

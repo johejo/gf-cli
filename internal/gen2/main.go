@@ -70,6 +70,8 @@ func main() {
 				ParamsTypeName: m.ParamsTypeName,
 				Short:          m.Short,
 				Long:           m.Long,
+				HTTPMethod:     m.HTTPMethod,
+				HTTPPath:       m.HTTPPath,
 				Response: &ResponseInfo{
 					NumReturns: m.NumReturns,
 				},
@@ -130,6 +132,7 @@ func main() {
 						FieldName:  "Body",
 						Type:       "string",
 						IsRequired: true,
+						In:         "body",
 					})
 				} else {
 					// Slice types ignore parsed defaults (defaultValue cannot
@@ -148,6 +151,7 @@ func main() {
 						IsRequired: !pf.IsPtr,
 						Doc:        pf.Doc,
 						Default:    def,
+						In:         pf.In,
 					})
 				}
 			}
@@ -379,20 +383,26 @@ type helpDoc struct {
 }
 
 type helpActionOutput struct {
-	Service  string              `json:"service"`
-	Action   string              `json:"action"`
-	Short    string              `json:"short,omitempty"`
-	Long     string              `json:"long,omitempty"`
-	Flags    []helpFlagOutput    `json:"flags"`
-	Body     *helpBodyOutput     `json:"body,omitempty"`
-	Response *helpResponseOutput `json:"response,omitempty"`
+	Service    string              `json:"service"`
+	Action     string              `json:"action"`
+	Short      string              `json:"short,omitempty"`
+	Long       string              `json:"long,omitempty"`
+	HTTPMethod string              `json:"httpMethod,omitempty"`
+	HTTPPath   string              `json:"httpPath,omitempty"`
+	Flags      []helpFlagOutput    `json:"flags"`
+	Body       *helpBodyOutput     `json:"body,omitempty"`
+	Response   *helpResponseOutput `json:"response,omitempty"`
 }
 
 type helpFlagOutput struct {
 	Name     string `json:"name"`
 	Type     string `json:"type"`
 	Required bool   `json:"required"`
-	Doc      string `json:"doc,omitempty"`
+	// In is the OpenAPI parameter location ("path", "query", "header", "form",
+	// "file"). Body fields are surfaced via the top-level "body" object and
+	// excluded from the per-action Flags, so "body" never appears here.
+	In  string `json:"in,omitempty"`
+	Doc string `json:"doc,omitempty"`
 	// Default is the Go-literal default extracted from the source doc comment.
 	// Strings are JSON-quoted (e.g. "\"View\""), ints/bools/floats are bare
 	// (e.g. "1000", "true"). Empty when the upstream comment had no Default:.
@@ -422,10 +432,12 @@ func buildHelpJSON(services []*Service) (string, error) {
 		for _, act := range svc.Actions {
 			key := svc.CmdName + " " + act.CmdName
 			out := &helpActionOutput{
-				Service: svc.CmdName,
-				Action:  act.CmdName,
-				Short:   act.Short,
-				Long:    act.Long,
+				Service:    svc.CmdName,
+				Action:     act.CmdName,
+				Short:      act.Short,
+				Long:       act.Long,
+				HTTPMethod: act.HTTPMethod,
+				HTTPPath:   act.HTTPPath,
 			}
 			for _, fl := range act.Flags {
 				// The synthetic "body" flag doesn't carry useful doc text for
@@ -437,6 +449,7 @@ func buildHelpJSON(services []*Service) (string, error) {
 					Name:     fl.Name,
 					Type:     fl.Type,
 					Required: fl.IsRequired,
+					In:       fl.In,
 					Doc:      fl.Doc,
 					Default:  fl.Default,
 				})

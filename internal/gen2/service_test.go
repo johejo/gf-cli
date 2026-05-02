@@ -32,16 +32,16 @@ func TestSplitDoc(t *testing.T) {
 				"You need to have a permission with action `users.roles:add` and scope `permissions:type:delegate`.",
 		},
 		{
-			// A multi-line first paragraph means the upstream OpenAPI summary
-			// almost certainly leaked a description into the summary slot. We
-			// suppress Short and promote the paragraph into Long.
-			name: "first paragraph has multiple lines suppresses Short",
+			// Multi-line first paragraphs are joined and used as Short when
+			// the joined text fits inside shortMaxLen. The earlier suppression
+			// rule produced empty Shorts for ten subcommands; this case is
+			// the canonical regression guard for that fix.
+			name: "multi-line first paragraph is joined into Short",
 			in: "CreateDashboardSnapshot whens creating a snapshot using the API\n" +
 				"you have to provide the full dashboard payload\n\n" +
 				"Snapshot public mode should be enabled or authentication is required.",
-			wantShort: "",
-			wantLong: "Whens creating a snapshot using the API you have to provide the full dashboard payload\n\n" +
-				"Snapshot public mode should be enabled or authentication is required.",
+			wantShort: "Whens creating a snapshot using the API you have to provide the full dashboard payload",
+			wantLong:  "Snapshot public mode should be enabled or authentication is required.",
 		},
 		{
 			// Short single-line summaries pass through verbatim even if the
@@ -54,14 +54,50 @@ func TestSplitDoc(t *testing.T) {
 			wantLong:  "Creates a new dashboard or updates an existing dashboard.",
 		},
 		{
-			// A single line that exceeds shortMaxLen is treated like the
-			// multi-line case: suppress Short, promote into Long.
-			name: "very long single-line first paragraph suppresses Short",
-			in: "CreateDashboardSnapshot whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI\n\n" +
-				"Snapshot public mode should be enabled or authentication is required.",
-			wantShort: "",
-			wantLong: "Whens creating a snapshot using the API you have to provide the full dashboard payload including the snapshot data this endpoint is designed for the grafana UI\n\n" +
-				"Snapshot public mode should be enabled or authentication is required.",
+			// When the first paragraph contains multiple sentences and the
+			// first one fits inside shortMaxLen, split there: first sentence
+			// (with trailing period) becomes Short, the rest stays in Long.
+			name: "first sentence within shortMaxLen splits into Short",
+			in: "GetHealth apiHealthHandler will return ok if Grafana's web server is running and it\n" +
+				"can access the database. If the database cannot be accessed it will return\n" +
+				"http status code 503.",
+			wantShort: "ApiHealthHandler will return ok if Grafana's web server is running and it can access the database.",
+			wantLong:  "If the database cannot be accessed it will return http status code 503.",
+		},
+		{
+			// Single-line first paragraphs that exceed shortMaxLen and have
+			// no sentence boundary fall back to word-boundary truncation;
+			// the full paragraph is preserved in Long. The truncation cuts
+			// at the last whitespace within shortMaxLen ("...grafana when ")
+			// and trims the trailing space.
+			name: "long single-line first paragraph truncates into Short",
+			in: "GetUserFromLDAP finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when synced\n\n" +
+				"If you are running Grafana Enterprise and have Fine-grained access control enabled.",
+			wantShort: "Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when",
+			wantLong: "Finds an user based on a username in LDAP this helps illustrate how would the particular user be mapped in grafana when synced\n\n" +
+				"If you are running Grafana Enterprise and have Fine-grained access control enabled.",
+		},
+		{
+			// A first paragraph that is exactly shortMaxLen long fits without
+			// truncation and produces no first-paragraph Long entry.
+			name:      "first paragraph at exactly shortMaxLen passes through",
+			in:        "GetThing " + strings.Repeat("a", shortMaxLen-1),
+			wantShort: "A" + strings.Repeat("a", shortMaxLen-2),
+			wantLong:  "",
+		},
+		{
+			// When ". " is present but the first sentence itself exceeds
+			// shortMaxLen, splitFirstSentence rejects the boundary and we
+			// fall through to word-boundary truncation. Without this case
+			// the "sentence too long" branch in splitFirstSentence is
+			// unexercised. Construction: "A " (2) + "a " * 69 (138) +
+			// "ok. then more text." First sentence is 143 chars; the word
+			// boundary closest to shortMaxLen=120 lands after "A " + 58
+			// reps of "a " + "a", i.e. 119 chars.
+			name:      "sentence boundary exists but first sentence exceeds shortMaxLen",
+			in:        "GetThing " + strings.Repeat("a ", 70) + "ok. then more text.",
+			wantShort: "A " + strings.Repeat("a ", 58) + "a",
+			wantLong:  "A " + strings.Repeat("a ", 69) + "ok. then more text.",
 		},
 		{
 			name:      "empty",
@@ -127,6 +163,55 @@ func (a *Client) NoDoc() error { return nil }
 	}
 	if _, ok := m["NoDoc"]; ok {
 		t.Errorf("NoDoc should have no entry, got %+v", m["NoDoc"])
+	}
+}
+
+func TestExtractOperationInfo(t *testing.T) {
+	t.Parallel()
+
+	src := `package fake
+
+type Client struct{}
+type FakeParams struct{}
+
+func (a *Client) GetUserFromLDAPWithParams(params *FakeParams) error {
+	if params == nil {
+		params = &FakeParams{}
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "getUserFromLDAP",
+		Method:             "GET",
+		PathPattern:        "/admin/ldap/{user_name}",
+		ProducesMediaTypes: []string{"application/json"},
+	}
+	_ = op
+	return nil
+}
+
+func (a *Client) NoOp() error { return nil }
+`
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, "fake.go", src, parser.ParseComments)
+	if err != nil {
+		t.Fatalf("ParseFile: %v", err)
+	}
+
+	method, path := extractOperationInfo(f, "GetUserFromLDAPWithParams")
+	if method != "GET" {
+		t.Errorf("method = %q, want %q", method, "GET")
+	}
+	if path != "/admin/ldap/{user_name}" {
+		t.Errorf("path = %q, want %q", path, "/admin/ldap/{user_name}")
+	}
+
+	method, path = extractOperationInfo(f, "DoesNotExist")
+	if method != "" || path != "" {
+		t.Errorf("missing method should return empty, got (%q, %q)", method, path)
+	}
+
+	method, path = extractOperationInfo(f, "NoOp")
+	if method != "" || path != "" {
+		t.Errorf("body without ClientOperation should return empty, got (%q, %q)", method, path)
 	}
 }
 

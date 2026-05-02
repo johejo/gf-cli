@@ -16,6 +16,8 @@ type Action struct {
 	ParamsTypeName string        // "AddTeamRoleParams"
 	Short          string        // single-line summary from source doc comment
 	Long           string        // detailed help text from source doc comment
+	HTTPMethod     string        // "GET", "POST", ... from the WithParams runtime.ClientOperation; "" if not found
+	HTTPPath       string        // OpenAPI path pattern, e.g. "/admin/ldap/{user_name}"; "" if not found
 	Response       *ResponseInfo // nil if method returns only error
 	BodyField      *BodyFieldInfo
 	Flags          []*Flag
@@ -46,4 +48,5 @@ type Flag struct {
 	IsRequired bool
 	Doc        string // help text from source doc comment
 	Default    string // Go-literal default extracted from the doc comment; empty if absent
+	In         string // OpenAPI parameter location: "path", "query", "header", "body", "form", "file"
 }

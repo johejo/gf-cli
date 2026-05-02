@@ -17,10 +17,13 @@ type ParamField struct {
 	ModelType string // non-empty for body fields, e.g. "models.AddTeamRoleCommand"
 	Doc       string // cleaned doc comment from source, e.g. "Search Query"
 	Default   string // Go-literal default extracted from the doc comment, e.g. `1000` or `"View"`; empty if absent
+	In        string // OpenAPI parameter location: "path", "query", "header", "body", "form", "file"; "" if not derivable
 }
 
 // ParseParams finds the *Params struct by type name within the package directory
-// and extracts its exported fields.
+// and extracts its exported fields. The returned ParamFields carry the
+// parameter location ("path", "query", "header", "body", ...) when it can be
+// derived from the WriteToRequest method on the same struct.
 func ParseParams(baseDir string, pkgName string, paramsTypeName string) ([]*ParamField, error) {
 	files, err := getParsedFiles(baseDir, pkgName, parser.ParseComments)
 	if err != nil {
@@ -32,7 +35,17 @@ func ParseParams(baseDir string, pkgName string, paramsTypeName string) ([]*Para
 		if st == nil {
 			continue
 		}
-		return extractParamFields(st)
+		fields, err := extractParamFields(st)
+		if err != nil {
+			return nil, err
+		}
+		inMap := extractParamIn(f, paramsTypeName)
+		for _, pf := range fields {
+			if v, ok := inMap[pf.FieldName]; ok {
+				pf.In = v
+			}
+		}
+		return fields, nil
 	}
 	return nil, fmt.Errorf("struct %s not found in package %s", paramsTypeName, pkgName)
 }
@@ -176,6 +189,110 @@ func mapBasicType(name string) string {
 	default:
 		return ""
 	}
+}
+
+// extractParamIn locates the WriteToRequest method on *paramsTypeName and
+// returns a map from Go field name to OpenAPI parameter location.
+//
+// go-swagger emits one r.Set{Path,Query,Header,Body,Form,File}Param call per
+// field. Required value-type fields appear directly with `o.<Field>` in the
+// call's args; optional pointer fields are wired through a temp variable
+// inside an enclosing `if o.<Field> != nil { ... }` block. We catch both
+// shapes by collecting `o.<Field>` selectors from (a) the call's own arguments
+// and (b) the conditions of every enclosing IfStmt at the call site.
+//
+// Returns an empty map when WriteToRequest is not found (defensive — every
+// generated Params struct in grafana-openapi-client-go has one).
+func extractParamIn(f *ast.File, paramsTypeName string) map[string]string {
+	out := make(map[string]string)
+	for _, decl := range f.Decls {
+		fd, ok := decl.(*ast.FuncDecl)
+		if !ok || fd.Recv == nil || fd.Name.Name != "WriteToRequest" || fd.Body == nil {
+			continue
+		}
+		if extractTypeName(fd.Recv.List[0].Type) != paramsTypeName {
+			continue
+		}
+		// stack tracks ancestors of the node currently being visited.
+		// ast.Inspect calls f(nil) once per non-nil node it descends into, so
+		// the push-on-non-nil / pop-on-nil pairing stays balanced.
+		var stack []ast.Node
+		ast.Inspect(fd.Body, func(n ast.Node) bool {
+			if n == nil {
+				if len(stack) > 0 {
+					stack = stack[:len(stack)-1]
+				}
+				return false
+			}
+			if call, ok := n.(*ast.CallExpr); ok {
+				if in, ok := setParamIn(call); ok {
+					seen := make(map[string]bool)
+					for _, arg := range call.Args {
+						for _, name := range collectOSelectors(arg) {
+							seen[name] = true
+						}
+					}
+					for _, anc := range stack {
+						if ifs, ok := anc.(*ast.IfStmt); ok && ifs.Cond != nil {
+							for _, name := range collectOSelectors(ifs.Cond) {
+								seen[name] = true
+							}
+						}
+					}
+					for fname := range seen {
+						if _, exists := out[fname]; !exists {
+							out[fname] = in
+						}
+					}
+				}
+			}
+			stack = append(stack, n)
+			return true
+		})
+		return out
+	}
+	return out
+}
+
+// setParamIn matches r.Set{Path,Query,Header,Body,Form,File}Param(...) and
+// returns the lowercase parameter location.
+func setParamIn(call *ast.CallExpr) (string, bool) {
+	sel, ok := call.Fun.(*ast.SelectorExpr)
+	if !ok {
+		return "", false
+	}
+	rest, ok := strings.CutPrefix(sel.Sel.Name, "Set")
+	if !ok {
+		return "", false
+	}
+	rest, ok = strings.CutSuffix(rest, "Param")
+	if !ok {
+		return "", false
+	}
+	switch rest {
+	case "Path", "Query", "Header", "Body", "Form", "File":
+		return strings.ToLower(rest), true
+	}
+	return "", false
+}
+
+// collectOSelectors gathers field names from `o.<Ident>` SelectorExpr nodes
+// inside expr. The receiver is named `o` by go-swagger convention.
+func collectOSelectors(expr ast.Node) []string {
+	var out []string
+	ast.Inspect(expr, func(n ast.Node) bool {
+		sel, ok := n.(*ast.SelectorExpr)
+		if !ok {
+			return true
+		}
+		id, ok := sel.X.(*ast.Ident)
+		if !ok || id.Name != "o" {
+			return true
+		}
+		out = append(out, sel.Sel.Name)
+		return true
+	})
+	return out
 }
 
 // resolveModelType extracts the model type string from a body field type.
