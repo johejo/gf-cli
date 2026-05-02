@@ -114,7 +114,7 @@ gf provisioning get-alert-rule-group-export [flags]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
       --download                       Whether to initiate a download of the file or not.
       --folder-uid string              FolderUID [required]
-      --format string                  Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: "yaml"
+      --format string                  Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. (default "yaml")
       --group string                   Group [required]
   -h, --help                           help for get-alert-rule-group-export
       --raw                            Print the raw HTTP response body instead of the decoded payload

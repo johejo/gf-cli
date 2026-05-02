@@ -132,6 +132,14 @@ func main() {
 						IsRequired: true,
 					})
 				} else {
+					// Slice types ignore parsed defaults (defaultValue cannot
+					// splice an array literal in verbatim), so don't carry one
+					// into Flag.Default either — keeps cobra's actual default
+					// and help.json's advertised default in agreement.
+					def := pf.Default
+					if pf.Type == "[]string" || pf.Type == "[]int64" {
+						def = ""
+					}
 					act.Flags = append(act.Flags, &Flag{
 						Name:       toKebab(pf.FieldName),
 						FieldName:  pf.FieldName,
@@ -139,6 +147,7 @@ func main() {
 						IsPtr:      pf.IsPtr,
 						IsRequired: !pf.IsPtr,
 						Doc:        pf.Doc,
+						Default:    def,
 					})
 				}
 			}
@@ -223,12 +232,28 @@ func flagFunc(typ string, fieldName string) string {
 	}
 }
 
-// defaultValue returns the default value literal for a flag type.
-func defaultValue(typ string, fieldName string) string {
+// defaultValue returns the default value literal for a flag type. When parsed
+// is non-empty, it is the Go-literal default extracted from the source doc
+// comment (e.g. `1000`, `"View"`, `true`) and is preferred over the type-based
+// zero value, so the cobra flag's default matches what the doc advertises.
+//
+// Slice types intentionally ignore parsed: go-swagger does not emit array
+// defaults in the form we can splice in verbatim, so falling back to the empty
+// slice keeps the generated code compilable.
+func defaultValue(typ string, fieldName string, parsed string) string {
 	if fieldName == "Body" {
 		return `""`
 	}
-	if fieldName == "Perpage" {
+	if parsed != "" && typ != "[]string" && typ != "[]int64" {
+		return parsed
+	}
+	// Perpage fallback: at least one upstream parameter
+	// (service_accounts.SearchOrgServiceAccountsWithPagingParams) describes its
+	// default in prose ("The default value is 1000.") instead of emitting a
+	// structured `Default: 1000` line, so the parser cannot recover it. The
+	// Grafana convention for Perpage is 1000, so default to that when no
+	// literal was extracted to avoid regressing those commands to 0.
+	if fieldName == "Perpage" && (typ == "int64" || typ == "int") {
 		return "1000"
 	}
 	switch typ {
@@ -368,6 +393,10 @@ type helpFlagOutput struct {
 	Type     string `json:"type"`
 	Required bool   `json:"required"`
 	Doc      string `json:"doc,omitempty"`
+	// Default is the Go-literal default extracted from the source doc comment.
+	// Strings are JSON-quoted (e.g. "\"View\""), ints/bools/floats are bare
+	// (e.g. "1000", "true"). Empty when the upstream comment had no Default:.
+	Default string `json:"default,omitempty"`
 }
 
 type helpBodyOutput struct {
@@ -409,6 +438,7 @@ func buildHelpJSON(services []*Service) (string, error) {
 					Type:     fl.Type,
 					Required: fl.IsRequired,
 					Doc:      fl.Doc,
+					Default:  fl.Default,
 				})
 			}
 			if out.Flags == nil {

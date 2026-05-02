@@ -45,4 +45,5 @@ type Flag struct {
 	IsPtr      bool
 	IsRequired bool
 	Doc        string // help text from source doc comment
+	Default    string // Go-literal default extracted from the doc comment; empty if absent
 }

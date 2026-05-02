@@ -28,20 +28,20 @@ Use: /apis/folder.grafana.app/v1/namespaces/{ns}/folders
 	help for get-folders
 
 .PP
-\fB--limit\fP=0
-	Limit the maximum number of folders to return Default: 1000
+\fB--limit\fP=1000
+	Limit the maximum number of folders to return
 
 .PP
-\fB--page\fP=0
-	Page index for starting fetching folders Default: 1
+\fB--page\fP=1
+	Page index for starting fetching folders
 
 .PP
 \fB--parent-uid\fP=""
 	The parent folder UID
 
 .PP
-\fB--permission\fP=""
-	Set to \fBEdit\fR to return folders that the user can edit Default: "View"
+\fB--permission\fP="View"
+	Set to \fBEdit\fR to return folders that the user can edit
 
 .PP
 \fB--raw\fP[=false]

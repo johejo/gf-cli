@@ -17,8 +17,8 @@ gf users search-users [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for search-users
-      --page int                       Page index for starting fetching users Default: 1
-      --perpage int                    Limit the maximum number of users to return per page Default: 1000 (default 1000)
+      --page int                       Page index for starting fetching users (default 1)
+      --perpage int                    Limit the maximum number of users to return per page (default 1000)
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

@@ -23,7 +23,7 @@ gf annotations get-annotation-tags [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-annotation-tags
-      --limit string                   Max limit for results returned. Default: "100"
+      --limit string                   Max limit for results returned. (default "100")
       --raw                            Print the raw HTTP response body instead of the decoded payload
       --tag string                     Tag is a string that you can use to filter tags.
 ```

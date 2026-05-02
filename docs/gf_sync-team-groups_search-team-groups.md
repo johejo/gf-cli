@@ -12,8 +12,8 @@ gf sync-team-groups search-team-groups [flags]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for search-team-groups
       --name string                    Filter by exact name match
-      --page int                       Default: 1
-      --perpage int                    Number of items per page Default: 1000 (default 1000)
+      --page int                       Page (default 1)
+      --perpage int                    Number of items per page (default 1000)
       --query string                   If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded.
       --raw                            Print the raw HTTP response body instead of the decoded payload
       --team-id int                    TeamID [required]

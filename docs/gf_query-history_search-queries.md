@@ -38,7 +38,7 @@ gf query-history search-queries [flags]
       --page int                       Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size.
       --raw                            Print the raw HTTP response body instead of the decoded payload
       --search-string string           Text inside query or comments that is searched for
-      --sort string                    Sort method Default: "time-desc"
+      --sort string                    Sort method (default "time-desc")
       --to int                         To range for the query history search
 ```
 

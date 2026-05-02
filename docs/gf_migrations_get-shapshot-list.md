@@ -23,8 +23,8 @@ gf migrations get-shapshot-list [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-shapshot-list
-      --limit int                      Max limit for results returned. Default: 100
-      --page int                       Page is used for pagination with limit Default: 1
+      --limit int                      Max limit for results returned. (default 100)
+      --page int                       Page is used for pagination with limit (default 1)
       --raw                            Print the raw HTTP response body instead of the decoded payload
       --sort string                    Sort with value latest to return results sorted in descending order.
       --uid string                     Session UID of a session [required]

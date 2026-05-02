@@ -11,7 +11,7 @@ gf dashboards search-dashboard-snapshots [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for search-dashboard-snapshots
-      --limit int                      Limit the number of returned results Default: 1000
+      --limit int                      Limit the number of returned results (default 1000)
       --query string                   Search Query
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```

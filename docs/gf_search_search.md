@@ -18,10 +18,10 @@ gf search search [flags]
   -h, --help                           help for search
       --limit int                      Limit the number of returned results (max 5000)
       --page int                       Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size. Only available in Grafana v6.2+.
-      --permission Edit                Set to Edit to return dashboards/folders that the user can edit Default: "View"
+      --permission Edit                Set to Edit to return dashboards/folders that the user can edit (default "View")
       --query string                   Search Query
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --sort string                    Sort method; for listing all the possible sort methods use the search sorting endpoint. Default: "alpha-asc"
+      --sort string                    Sort method; for listing all the possible sort methods use the search sorting endpoint. (default "alpha-asc")
       --starred                        Flag indicating if only starred Dashboards should be returned
       --tag strings                    List of tags to search for [required]
       --type string                    Type to search for, dash-folder or dash-db

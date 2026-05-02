@@ -35,8 +35,8 @@ gf teams search-teams [flags]
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for search-teams
       --name string                    Name
-      --page int                       Default: 1
-      --perpage int                    Number of items per page The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams. Default: 1000 (default 1000)
+      --page int                       Page (default 1)
+      --perpage int                    Number of items per page The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams. (default 1000)
       --query string                   If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded.
       --raw                            Print the raw HTTP response body instead of the decoded payload
       --sort string                    Sort

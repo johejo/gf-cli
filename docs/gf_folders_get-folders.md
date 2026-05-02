@@ -19,10 +19,10 @@ gf folders get-folders [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-folders
-      --limit int                      Limit the maximum number of folders to return Default: 1000
-      --page int                       Page index for starting fetching folders Default: 1
+      --limit int                      Limit the maximum number of folders to return (default 1000)
+      --page int                       Page index for starting fetching folders (default 1)
       --parent-uid string              The parent folder UID
-      --permission Edit                Set to Edit to return folders that the user can edit Default: "View"
+      --permission Edit                Set to Edit to return folders that the user can edit (default "View")
       --raw                            Print the raw HTTP response body instead of the decoded payload
 ```
 

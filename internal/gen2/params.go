@@ -16,6 +16,7 @@ type ParamField struct {
 	IsBody    bool
 	ModelType string // non-empty for body fields, e.g. "models.AddTeamRoleCommand"
 	Doc       string // cleaned doc comment from source, e.g. "Search Query"
+	Default   string // Go-literal default extracted from the doc comment, e.g. `1000` or `"View"`; empty if absent
 }
 
 // ParseParams finds the *Params struct by type name within the package directory
@@ -74,9 +75,11 @@ func extractParamFields(st *ast.StructType) ([]*ParamField, error) {
 			continue
 		}
 
+		doc, def := cleanFieldDocAndDefault(field.Doc)
 		pf := &ParamField{
 			FieldName: name,
-			Doc:       cleanFieldDoc(field.Doc),
+			Doc:       doc,
+			Default:   def,
 		}
 
 		if name == "Body" {
@@ -94,7 +97,8 @@ func extractParamFields(st *ast.StructType) ([]*ParamField, error) {
 	return fields, nil
 }
 
-// cleanFieldDoc extracts a clean help string from a go-swagger field comment.
+// cleanFieldDocAndDefault extracts a clean help string and the literal default
+// value from a go-swagger field comment.
 //
 // Input format (/* block comment */):
 //
@@ -107,18 +111,21 @@ func extractParamFields(st *ast.StructType) ([]*ParamField, error) {
 //	   Format: int64
 //	*/
 //
-// We strip the first line (field name), "Format:" lines, and trim whitespace.
-func cleanFieldDoc(doc *ast.CommentGroup) string {
+// We strip the first line (field name) and "Format:"/"Default:" lines from the
+// returned text, and capture the raw token after "Default: " separately. The
+// returned default literal is already in Go-source form for primitive types
+// (ints bare, strings quoted, bools/floats bare), since go-swagger emits it
+// that way. Empty string means no Default: line was present.
+func cleanFieldDocAndDefault(doc *ast.CommentGroup) (text string, defaultLit string) {
 	if doc == nil {
-		return ""
+		return "", ""
 	}
-	text := doc.Text() // already strips /* */ and // prefixes
-	lines := strings.Split(strings.TrimSpace(text), "\n")
+	src := doc.Text() // already strips /* */ and // prefixes
+	lines := strings.Split(strings.TrimSpace(src), "\n")
 	if len(lines) == 0 {
-		return ""
+		return "", ""
 	}
 
-	// First line is typically "FieldName." — skip it
 	var kept []string
 	for i, line := range lines {
 		line = strings.TrimSpace(line)
@@ -126,15 +133,21 @@ func cleanFieldDoc(doc *ast.CommentGroup) string {
 			// Skip the "FieldName." header line
 			continue
 		}
-		// Skip "Format: xxx" lines (type hint, not useful for CLI help)
 		if strings.HasPrefix(line, "Format:") {
+			// Type hint, not useful for CLI help
+			continue
+		}
+		if rest, ok := strings.CutPrefix(line, "Default:"); ok {
+			// Capture the literal; later occurrences win (matches go-swagger's
+			// "last one wins" if multiple were ever emitted).
+			defaultLit = strings.TrimSpace(rest)
 			continue
 		}
 		if line != "" {
 			kept = append(kept, line)
 		}
 	}
-	return strings.Join(kept, " ")
+	return strings.Join(kept, " "), defaultLit
 }
 
 // resolveFieldType resolves an AST type expression to a Go type string and pointer status.

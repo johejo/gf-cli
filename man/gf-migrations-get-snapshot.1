@@ -52,20 +52,20 @@ Response schema (GetSnapshotOK.Payload):
 	Print the raw HTTP response body instead of the decoded payload
 
 .PP
-\fB--result-limit\fP=0
-	Max limit for snapshot results returned. Default: 100
+\fB--result-limit\fP=100
+	Max limit for snapshot results returned.
 
 .PP
-\fB--result-page\fP=0
-	ResultPage is used for pagination with ResultLimit Default: 1
+\fB--result-page\fP=1
+	ResultPage is used for pagination with ResultLimit
 
 .PP
-\fB--result-sort-column\fP=""
-	ResultSortColumn can be used to override the default system sort. Valid values are "name", "resource_type", and "status". Default: "default"
+\fB--result-sort-column\fP="default"
+	ResultSortColumn can be used to override the default system sort. Valid values are "name", "resource_type", and "status".
 
 .PP
-\fB--result-sort-order\fP=""
-	ResultSortOrder is used with ResultSortColumn. Valid values are ASC and DESC. Default: "ASC"
+\fB--result-sort-order\fP="ASC"
+	ResultSortOrder is used with ResultSortColumn. Valid values are ASC and DESC.
 
 .PP
 \fB--snapshot-uid\fP=""

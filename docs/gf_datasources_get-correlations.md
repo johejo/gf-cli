@@ -11,8 +11,8 @@ gf datasources get-correlations [flags]
 ```
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
   -h, --help                           help for get-correlations
-      --limit int                      Limit the maximum number of correlations to return per page Default: 100
-      --page int                       Page index for starting fetching correlations Default: 1
+      --limit int                      Limit the maximum number of correlations to return per page (default 100)
+      --page int                       Page index for starting fetching correlations (default 1)
       --raw                            Print the raw HTTP response body instead of the decoded payload
       --source-uid strings             Source datasource UID filter to be applied to correlations [required]
 ```

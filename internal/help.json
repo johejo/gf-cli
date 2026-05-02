@@ -861,7 +861,8 @@
           "name": "limit",
           "type": "string",
           "required": false,
-          "doc": "Max limit for results returned. Default: \"100\""
+          "doc": "Max limit for results returned.",
+          "default": "\"100\""
         },
         {
           "name": "tag",
@@ -1716,7 +1717,8 @@
           "name": "limit",
           "type": "int64",
           "required": false,
-          "doc": "Limit the number of returned results Default: 1000"
+          "doc": "Limit the number of returned results",
+          "default": "1000"
         },
         {
           "name": "query",
@@ -1957,13 +1959,15 @@
           "name": "limit",
           "type": "int64",
           "required": false,
-          "doc": "Limit the maximum number of correlations to return per page Default: 100"
+          "doc": "Limit the maximum number of correlations to return per page",
+          "default": "100"
         },
         {
           "name": "page",
           "type": "int64",
           "required": false,
-          "doc": "Page index for starting fetching correlations Default: 1"
+          "doc": "Page index for starting fetching correlations",
+          "default": "1"
         },
         {
           "name": "source-uid",
@@ -2391,13 +2395,15 @@
           "name": "limit",
           "type": "int64",
           "required": false,
-          "doc": "Limit the maximum number of folders to return Default: 1000"
+          "doc": "Limit the maximum number of folders to return",
+          "default": "1000"
         },
         {
           "name": "page",
           "type": "int64",
           "required": false,
-          "doc": "Page index for starting fetching folders Default: 1"
+          "doc": "Page index for starting fetching folders",
+          "default": "1"
         },
         {
           "name": "parent-uid",
@@ -2409,7 +2415,8 @@
           "name": "permission",
           "type": "string",
           "required": false,
-          "doc": "Set to `Edit` to return folders that the user can edit Default: \"View\""
+          "doc": "Set to `Edit` to return folders that the user can edit",
+          "default": "\"View\""
         }
       ],
       "response": {
@@ -2697,13 +2704,15 @@
           "name": "page",
           "type": "int64",
           "required": false,
-          "doc": "The page for a set of records, given that only perPage records are returned at a time. Numbering starts at 1. Default: 1"
+          "doc": "The page for a set of records, given that only perPage records are returned at a time. Numbering starts at 1.",
+          "default": "1"
         },
         {
           "name": "per-page",
           "type": "int64",
           "required": false,
-          "doc": "The number of results per page. Default: 100"
+          "doc": "The number of results per page.",
+          "default": "100"
         },
         {
           "name": "search-string",
@@ -2988,13 +2997,15 @@
           "name": "limit",
           "type": "int64",
           "required": false,
-          "doc": "Max limit for results returned. Default: 100"
+          "doc": "Max limit for results returned.",
+          "default": "100"
         },
         {
           "name": "page",
           "type": "int64",
           "required": false,
-          "doc": "Page is used for pagination with limit Default: 1"
+          "doc": "Page is used for pagination with limit",
+          "default": "1"
         },
         {
           "name": "sort",
@@ -3030,25 +3041,29 @@
           "name": "result-limit",
           "type": "int64",
           "required": false,
-          "doc": "Max limit for snapshot results returned. Default: 100"
+          "doc": "Max limit for snapshot results returned.",
+          "default": "100"
         },
         {
           "name": "result-page",
           "type": "int64",
           "required": false,
-          "doc": "ResultPage is used for pagination with ResultLimit Default: 1"
+          "doc": "ResultPage is used for pagination with ResultLimit",
+          "default": "1"
         },
         {
           "name": "result-sort-column",
           "type": "string",
           "required": false,
-          "doc": "ResultSortColumn can be used to override the default system sort. Valid values are \"name\", \"resource_type\", and \"status\". Default: \"default\""
+          "doc": "ResultSortColumn can be used to override the default system sort. Valid values are \"name\", \"resource_type\", and \"status\".",
+          "default": "\"default\""
         },
         {
           "name": "result-sort-order",
           "type": "string",
           "required": false,
-          "doc": "ResultSortOrder is used with ResultSortColumn. Valid values are ASC and DESC. Default: \"ASC\""
+          "doc": "ResultSortOrder is used with ResultSortColumn. Valid values are ASC and DESC.",
+          "default": "\"ASC\""
         },
         {
           "name": "snapshot-uid",
@@ -3434,13 +3449,14 @@
           "name": "page",
           "type": "int64",
           "required": false,
-          "doc": "Default: 1"
+          "default": "1"
         },
         {
           "name": "perpage",
           "type": "int64",
           "required": false,
-          "doc": "Number of items per page The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams. Default: 1000"
+          "doc": "Number of items per page The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams.",
+          "default": "1000"
         },
         {
           "name": "query",
@@ -3741,7 +3757,8 @@
           "name": "format",
           "type": "string",
           "required": false,
-          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\""
+          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
+          "default": "\"yaml\""
         },
         {
           "name": "name",
@@ -3771,7 +3788,8 @@
           "name": "format",
           "type": "string",
           "required": false,
-          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\""
+          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
+          "default": "\"yaml\""
         }
       ],
       "response": {
@@ -3819,7 +3837,8 @@
           "name": "format",
           "type": "string",
           "required": false,
-          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\""
+          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
+          "default": "\"yaml\""
         }
       ],
       "response": {
@@ -3875,7 +3894,8 @@
           "name": "format",
           "type": "string",
           "required": false,
-          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\""
+          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
+          "default": "\"yaml\""
         }
       ],
       "response": {
@@ -3916,7 +3936,8 @@
           "name": "format",
           "type": "string",
           "required": false,
-          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\""
+          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
+          "default": "\"yaml\""
         },
         {
           "name": "group",
@@ -3976,7 +3997,8 @@
           "name": "format",
           "type": "string",
           "required": false,
-          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence. Default: \"yaml\""
+          "doc": "Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.",
+          "default": "\"yaml\""
         },
         {
           "name": "name",
@@ -4396,7 +4418,8 @@
           "name": "sort",
           "type": "string",
           "required": false,
-          "doc": "Sort method Default: \"time-desc\""
+          "doc": "Sort method",
+          "default": "\"time-desc\""
         },
         {
           "name": "to",
@@ -5018,7 +5041,8 @@
           "name": "permission",
           "type": "string",
           "required": false,
-          "doc": "Set to `Edit` to return dashboards/folders that the user can edit Default: \"View\""
+          "doc": "Set to `Edit` to return dashboards/folders that the user can edit",
+          "default": "\"View\""
         },
         {
           "name": "query",
@@ -5030,7 +5054,8 @@
           "name": "sort",
           "type": "string",
           "required": false,
-          "doc": "Sort method; for listing all the possible sort methods use the search sorting endpoint. Default: \"alpha-asc\""
+          "doc": "Sort method; for listing all the possible sort methods use the search sorting endpoint.",
+          "default": "\"alpha-asc\""
         },
         {
           "name": "starred",
@@ -5632,13 +5657,14 @@
           "name": "page",
           "type": "int64",
           "required": false,
-          "doc": "Default: 1"
+          "default": "1"
         },
         {
           "name": "perpage",
           "type": "int64",
           "required": false,
-          "doc": "Number of items per page Default: 1000"
+          "doc": "Number of items per page",
+          "default": "1000"
         },
         {
           "name": "query",
@@ -5767,13 +5793,14 @@
           "name": "page",
           "type": "int64",
           "required": false,
-          "doc": "Default: 1"
+          "default": "1"
         },
         {
           "name": "perpage",
           "type": "int64",
           "required": false,
-          "doc": "Number of items per page The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams. Default: 1000"
+          "doc": "Number of items per page The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams.",
+          "default": "1000"
         },
         {
           "name": "query",
@@ -5950,13 +5977,15 @@
           "name": "page",
           "type": "int64",
           "required": false,
-          "doc": "Page index for starting fetching users Default: 1"
+          "doc": "Page index for starting fetching users",
+          "default": "1"
         },
         {
           "name": "perpage",
           "type": "int64",
           "required": false,
-          "doc": "Limit the maximum number of users to return per page Default: 1000"
+          "doc": "Limit the maximum number of users to return per page",
+          "default": "1000"
         }
       ],
       "response": {
