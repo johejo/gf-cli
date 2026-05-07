@@ -1170,7 +1170,7 @@
         {
           "name": "tags",
           "type": "[]string",
-          "required": true,
+          "required": false,
           "in": "query",
           "doc": "Use this to filter organization annotations. Organization annotations are annotations from an annotation data source that are not connected specifically to a dashboard or panel. You can filter by multiple tags."
         },
@@ -2455,7 +2455,7 @@
         {
           "name": "source-uid",
           "type": "[]string",
-          "required": true,
+          "required": false,
           "in": "query",
           "doc": "Source datasource UID filter to be applied to correlations"
         }
@@ -4868,7 +4868,7 @@
         {
           "name": "folder-uid",
           "type": "[]string",
-          "required": true,
+          "required": false,
           "in": "query",
           "doc": "UIDs of folders from which to export rules"
         },
@@ -5425,7 +5425,7 @@
         {
           "name": "datasource-uid",
           "type": "[]string",
-          "required": true,
+          "required": false,
           "in": "query",
           "doc": "List of data source UIDs to search for"
         },
@@ -6189,14 +6189,14 @@
         {
           "name": "dashboard-ids",
           "type": "[]int64",
-          "required": true,
+          "required": false,
           "in": "query",
           "doc": "List of dashboard id’s to search for This is deprecated: users should use the `dashboardUIDs` query parameter instead"
         },
         {
           "name": "dashboard-uids",
           "type": "[]string",
-          "required": true,
+          "required": false,
           "in": "query",
           "doc": "List of dashboard uid’s to search for"
         },
@@ -6210,14 +6210,14 @@
         {
           "name": "folder-ids",
           "type": "[]int64",
-          "required": true,
+          "required": false,
           "in": "query",
           "doc": "List of folder id’s to search in for dashboards If it's `0` then it will query for the top level folders This is deprecated: users should use the `folderUIDs` query parameter instead"
         },
         {
           "name": "folder-uids",
           "type": "[]string",
-          "required": true,
+          "required": false,
           "in": "query",
           "doc": "List of folder UID’s to search in for dashboards If it's an empty string then it will query for the top level folders"
         },
@@ -6268,7 +6268,7 @@
         {
           "name": "tag",
           "type": "[]string",
-          "required": true,
+          "required": false,
           "in": "query",
           "doc": "List of tags to search for"
         },

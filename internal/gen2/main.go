@@ -149,7 +149,7 @@ func main() {
 						FieldName:  pf.FieldName,
 						Type:       pf.Type,
 						IsPtr:      pf.IsPtr,
-						IsRequired: !pf.IsPtr,
+						IsRequired: pf.IsRequired,
 						Doc:        pf.Doc,
 						Default:    def,
 						In:         pf.In,

@@ -10,14 +10,15 @@ import (
 )
 
 type ParamField struct {
-	FieldName string // "TeamID"
-	Type      string // "string", "int64", "bool", "[]string", "[]int64"
-	IsPtr     bool
-	IsBody    bool
-	ModelType string // non-empty for body fields, e.g. "models.AddTeamRoleCommand"
-	Doc       string // cleaned doc comment from source, e.g. "Search Query"
-	Default   string // Go-literal default extracted from the doc comment, e.g. `1000` or `"View"`; empty if absent
-	In        string // OpenAPI parameter location: "path", "query", "header", "body", "form", "file"; "" if not derivable
+	FieldName  string // "TeamID"
+	Type       string // "string", "int64", "bool", "[]string", "[]int64"
+	IsPtr      bool
+	IsBody     bool
+	IsRequired bool   // derived from WriteToRequest: true when the Set*Param call is unconditional (no `if o.<Field> != nil` guard)
+	ModelType  string // non-empty for body fields, e.g. "models.AddTeamRoleCommand"
+	Doc        string // cleaned doc comment from source, e.g. "Search Query"
+	Default    string // Go-literal default extracted from the doc comment, e.g. `1000` or `"View"`; empty if absent
+	In         string // OpenAPI parameter location: "path", "query", "header", "body", "form", "file"; "" if not derivable
 }
 
 // ParseParams finds the *Params struct by type name within the package directory
@@ -40,10 +41,12 @@ func ParseParams(baseDir string, pkgName string, paramsTypeName string) ([]*Para
 			return nil, err
 		}
 		inMap := extractParamIn(f, paramsTypeName)
+		optMap := extractOptionalSet(f, paramsTypeName)
 		for _, pf := range fields {
 			if v, ok := inMap[pf.FieldName]; ok {
 				pf.In = v
 			}
+			pf.IsRequired = !optMap[pf.FieldName]
 		}
 		return fields, nil
 	}
@@ -252,6 +255,62 @@ func extractParamIn(f *ast.File, paramsTypeName string) map[string]string {
 		return out
 	}
 	return out
+}
+
+// extractOptionalSet returns the set of field names that appear inside an
+// `if o.<Field> != nil` (or `== nil`) guard anywhere in the WriteToRequest
+// method body. go-swagger wraps every optional parameter — both pointer
+// primitives and slice-typed query params — in such a guard, so the presence
+// of a guard is a more reliable signal of optionality than checking IsPtr
+// alone (which misclassifies optional slice query params as required because
+// slices are emitted as value-type fields).
+func extractOptionalSet(f *ast.File, paramsTypeName string) map[string]bool {
+	out := make(map[string]bool)
+	for _, decl := range f.Decls {
+		fd, ok := decl.(*ast.FuncDecl)
+		if !ok || fd.Recv == nil || fd.Name.Name != "WriteToRequest" || fd.Body == nil {
+			continue
+		}
+		if extractTypeName(fd.Recv.List[0].Type) != paramsTypeName {
+			continue
+		}
+		ast.Inspect(fd.Body, func(n ast.Node) bool {
+			ifs, ok := n.(*ast.IfStmt)
+			if !ok || ifs.Cond == nil {
+				return true
+			}
+			be, ok := ifs.Cond.(*ast.BinaryExpr)
+			if !ok {
+				return true
+			}
+			if be.Op != token.NEQ && be.Op != token.EQL {
+				return true
+			}
+			var sel *ast.SelectorExpr
+			switch {
+			case isNilIdent(be.Y):
+				sel, _ = be.X.(*ast.SelectorExpr)
+			case isNilIdent(be.X):
+				sel, _ = be.Y.(*ast.SelectorExpr)
+			}
+			if sel == nil {
+				return true
+			}
+			id, ok := sel.X.(*ast.Ident)
+			if !ok || id.Name != "o" {
+				return true
+			}
+			out[sel.Sel.Name] = true
+			return true
+		})
+		return out
+	}
+	return out
+}
+
+func isNilIdent(e ast.Expr) bool {
+	id, ok := e.(*ast.Ident)
+	return ok && id.Name == "nil"
 }
 
 // setParamIn matches r.Set{Path,Query,Header,Body,Form,File}Param(...) and

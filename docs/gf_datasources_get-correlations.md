@@ -14,7 +14,7 @@ gf datasources get-correlations [flags]
       --limit int                      Limit the maximum number of correlations to return per page (default 100)
       --page int                       Page index for starting fetching correlations (default 1)
       --raw                            Print the raw HTTP response body instead of the decoded payload
-      --source-uid strings             Source datasource UID filter to be applied to correlations [required]
+      --source-uid strings             Source datasource UID filter to be applied to correlations
 ```
 
 ### Options inherited from parent commands

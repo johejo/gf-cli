@@ -29,7 +29,7 @@ gf query-history search-queries [flags]
 ### Options
 
 ```
-      --datasource-uid strings         List of data source UIDs to search for [required]
+      --datasource-uid strings         List of data source UIDs to search for
       --describe-response-jsonschema   Print the JSON Schema of the response payload and exit without calling the API
       --from int                       From range for the query history search
   -h, --help                           help for search-queries
