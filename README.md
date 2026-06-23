@@ -1,6 +1,28 @@
 # gf-cli
 
-Grafana API Client for command line operations
+Grafana API Client for command line operations.
+
+Auto-generated from [grafana-openapi-client-go](https://github.com/grafana/grafana-openapi-client-go),
+so it mirrors the **entire** Grafana HTTP API — every endpoint gets a typed
+subcommand with flags and JSON in/out.
+
+Originally built as a personal tool for poking at Grafana instances from the shell.
+
+## vs. the official `gcx`
+
+Grafana ships an official CLI, [`gcx`](https://github.com/grafana/gcx). For most
+operational and Grafana Cloud workflows — querying metrics/logs/traces, alerting,
+SLOs, IRM, observability-as-code — use that.
+
+`gf-cli` stays useful where it doesn't overlap:
+
+- **Full, typed API coverage** — including the long-tail admin/org/provisioning/
+  licensing/SSO endpoints that `gcx` leaves to its raw `api` passthrough.
+- **Older & OSS self-hosted Grafana** — no Grafana 12+ requirement.
+- **Machine-readable schemas** — `--help-json` and
+  `--describe-body-jsonschema` / `--describe-response-jsonschema` expose the full
+  command surface and exact request/response JSON Schema, handy for generating
+  agent tool definitions.
 
 ## Install
 
