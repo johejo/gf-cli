@@ -12,6 +12,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	gfclient "github.com/grafana/grafana-openapi-client-go/client"
 	"github.com/grafana/grafana-openapi-client-go/models"
@@ -47,6 +48,7 @@ var (
 		noColor           bool
 		colors            string
 		helpJSON          bool
+		timeout           time.Duration
 	}{}
 )
 
@@ -57,12 +59,13 @@ func RootCmd() *cobra.Command {
 func init() {
 	rootCmd.SetHelpTemplate(helpTemplate)
 	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.host, "host", "localhost:3000", "Grafana server host (env: GF_HOST)")
-	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.basePath, "base-path", "/api", "Base path for server: useful when using sever behind reverse proxy (env: GF_BASE_PATH)")
+	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.basePath, "base-path", "/api", "Base path for server: useful when using server behind reverse proxy (env: GF_BASE_PATH)")
 	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.apiKey, "api-key", "", "API Key to authenticate to grafana server (env: GF_API_KEY)")
-	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.basicAuthUsername, "basic-user-username", "", "Basic authentication username (env: GF_BASIC_AUTH_PASSWORD)")
-	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.basicAuthPassword, "basic-user-password", "", "Basic authentication password (env: GF_BASIC_AUTH_USERNAME)")
+	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.basicAuthUsername, "basic-user-username", "", "Basic authentication username (env: GF_BASIC_AUTH_USERNAME)")
+	rootCmd.PersistentFlags().StringVar(&rootCmdFlag.basicAuthPassword, "basic-user-password", "", "Basic authentication password (env: GF_BASIC_AUTH_PASSWORD)")
 	rootCmd.PersistentFlags().Int64Var(&rootCmdFlag.orgID, "org-id", 0, "Organization ID (env: GF_ORG_ID)")
 	rootCmd.PersistentFlags().BoolVar(&rootCmdFlag.debug, "debug", false, "Enable debug logging (env: GF_DEBUG)")
+	rootCmd.PersistentFlags().DurationVar(&rootCmdFlag.timeout, "timeout", 30*time.Second, "Timeout for the HTTP request to the Grafana server; 0 disables it (env: GF_TIMEOUT)")
 	// --help-json is registered as a root-only flag (not persistent) so it does
 	// not appear on every subcommand's --help. The output is a discovery index
 	// (no JSON Schemas); agents fetch full body/response schemas via the
@@ -128,7 +131,18 @@ func gfClient() (*gfclient.GrafanaHTTPAPI, error) {
 	api := gfclient.NewHTTPClientWithConfig(nil, cfg)
 	api = applyEnvInt64("GF_ORG_ID", rootCmdFlag.orgID, api.WithOrgID)
 	rawResponseBody = nil
-	api = api.WithHTTPClient(&http.Client{Transport: rawCaptureRoundTripper{}})
+	timeout := rootCmdFlag.timeout
+	if v, ok := os.LookupEnv("GF_TIMEOUT"); ok {
+		d, err := time.ParseDuration(v)
+		if err != nil {
+			return nil, fmt.Errorf("invalid GF_TIMEOUT %q: %w", v, err)
+		}
+		timeout = d
+	}
+	api = api.WithHTTPClient(&http.Client{
+		Transport: rawCaptureRoundTripper{},
+		Timeout:   timeout,
+	})
 	return api, nil
 }
 
@@ -237,19 +251,23 @@ func printPayload(p any) error {
 }
 
 func getBodyParam(flg string, dst any) error {
-	b := []byte(flg)
-	if json.Valid(b) {
-		if err := json.Unmarshal(b, dst); err != nil {
-			return err
+	// Decide whether flg is inline JSON or a file path by its first
+	// non-space byte. A leading '{' or '[' means the caller intended JSON, so
+	// any parse failure is reported as a JSON error rather than being silently
+	// retried as a file path (which yields a misleading "no such file" error).
+	trimmed := strings.TrimSpace(flg)
+	if strings.HasPrefix(trimmed, "{") || strings.HasPrefix(trimmed, "[") {
+		if err := json.Unmarshal([]byte(trimmed), dst); err != nil {
+			return fmt.Errorf("--body is not valid JSON: %w", err)
 		}
 		return nil
 	}
 	b, err := os.ReadFile(flg)
 	if err != nil {
-		return err
+		return fmt.Errorf("--body is neither inline JSON (it does not start with '{' or '[') nor a readable file: %w", err)
 	}
 	if err := json.Unmarshal(b, dst); err != nil {
-		return err
+		return fmt.Errorf("--body file %s does not contain valid JSON: %w", flg, err)
 	}
 	return nil
 }
