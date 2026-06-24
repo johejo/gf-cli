@@ -39,7 +39,7 @@ Grafana API Client for command line operations
 
 .PP
 \fB--help-json\fP[=false]
-	Print the CLI schema index (commands, flags, body/response model types) as JSON and exit. Use --describe-body-jsonschema / --describe-response-jsonschema on a subcommand for the full JSON Schema.
+	Print the CLI schema index (commands, flags, body/response model types) as JSON and exit. It covers every command and is large; since it prints to stdout, filter it with jq/grep rather than reading it whole, e.g. gf --help-json | jq '.commands | keys'. Use --describe-body-jsonschema / --describe-response-jsonschema on a subcommand for the full JSON Schema.
 
 .PP
 \fB--host\fP="localhost:3000"

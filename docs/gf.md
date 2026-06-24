@@ -19,7 +19,7 @@ gf [flags]
       --basic-user-username string   Basic authentication username (env: GF_BASIC_AUTH_USERNAME)
       --debug                        Enable debug logging (env: GF_DEBUG)
   -h, --help                         help for gf
-      --help-json                    Print the CLI schema index (commands, flags, body/response model types) as JSON and exit. Use --describe-body-jsonschema / --describe-response-jsonschema on a subcommand for the full JSON Schema.
+      --help-json                    Print the CLI schema index (commands, flags, body/response model types) as JSON and exit. It covers every command and is large; since it prints to stdout, filter it with jq/grep rather than reading it whole, e.g. gf --help-json | jq '.commands | keys'. Use --describe-body-jsonschema / --describe-response-jsonschema on a subcommand for the full JSON Schema.
       --host string                  Grafana server host (env: GF_HOST) (default "localhost:3000")
       --org-id int                   Organization ID (env: GF_ORG_ID)
       --timeout duration             Timeout for the HTTP request to the Grafana server; 0 disables it (env: GF_TIMEOUT) (default 30s)

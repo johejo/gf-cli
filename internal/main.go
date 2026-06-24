@@ -71,7 +71,7 @@ func init() {
 	// (no JSON Schemas); agents fetch full body/response schemas via the
 	// per-subcommand --describe-body-jsonschema / --describe-response-jsonschema
 	// flags.
-	rootCmd.Flags().BoolVar(&rootCmdFlag.helpJSON, "help-json", false, "Print the CLI schema index (commands, flags, body/response model types) as JSON and exit. Use --describe-body-jsonschema / --describe-response-jsonschema on a subcommand for the full JSON Schema.")
+	rootCmd.Flags().BoolVar(&rootCmdFlag.helpJSON, "help-json", false, "Print the CLI schema index (commands, flags, body/response model types) as JSON and exit. It covers every command and is large; since it prints to stdout, filter it with jq/grep rather than reading it whole, e.g. gf --help-json | jq '.commands | keys'. Use --describe-body-jsonschema / --describe-response-jsonschema on a subcommand for the full JSON Schema.")
 }
 
 func runRoot(cmd *cobra.Command, args []string) error {
