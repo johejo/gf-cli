@@ -128,14 +128,20 @@ var (
 				},
 			)
 			if {{ $svc.VarName }}{{ $act.VarName }}Flag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err

@@ -125,14 +125,20 @@ var (
 				},
 			)
 			if accessControlAddTeamRoleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -209,14 +215,20 @@ var (
 				},
 			)
 			if accessControlAddUserRoleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -415,14 +427,20 @@ var (
 				},
 			)
 			if accessControlCreateRoleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -474,14 +492,20 @@ var (
 				},
 			)
 			if accessControlDeleteRoleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -520,14 +544,20 @@ var (
 				&access_control.GetAccessControlStatusParams{},
 			)
 			if accessControlGetAccessControlStatusFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -597,14 +627,20 @@ var (
 				},
 			)
 			if accessControlGetResourceDescriptionFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -697,14 +733,20 @@ var (
 				},
 			)
 			if accessControlGetResourcePermissionsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -833,14 +875,20 @@ var (
 				},
 			)
 			if accessControlGetRoleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -911,14 +959,20 @@ var (
 				},
 			)
 			if accessControlGetRoleAssignmentsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -1033,14 +1087,20 @@ var (
 				},
 			)
 			if accessControlListRolesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -1090,14 +1150,20 @@ var (
 				},
 			)
 			if accessControlListTeamRolesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -1254,14 +1320,20 @@ var (
 				},
 			)
 			if accessControlListTeamsRolesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -1375,14 +1447,20 @@ var (
 				},
 			)
 			if accessControlListUserRolesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -1539,14 +1617,20 @@ var (
 				},
 			)
 			if accessControlListUsersRolesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -1596,14 +1680,20 @@ var (
 				},
 			)
 			if accessControlRemoveTeamRoleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -1655,14 +1745,20 @@ var (
 				},
 			)
 			if accessControlRemoveUserRoleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -1756,14 +1852,20 @@ var (
 				},
 			)
 			if accessControlSetResourcePermissionsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -1837,14 +1939,20 @@ var (
 				},
 			)
 			if accessControlSetResourcePermissionsForBuiltInRoleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -1918,14 +2026,20 @@ var (
 				},
 			)
 			if accessControlSetResourcePermissionsForTeamFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -1999,14 +2113,20 @@ var (
 				},
 			)
 			if accessControlSetResourcePermissionsForUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -2117,14 +2237,20 @@ var (
 				},
 			)
 			if accessControlSetRoleAssignmentsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -2204,14 +2330,20 @@ var (
 				},
 			)
 			if accessControlSetTeamRolesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -2296,14 +2428,20 @@ var (
 				},
 			)
 			if accessControlSetUserRolesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -2504,14 +2642,20 @@ var (
 				},
 			)
 			if accessControlUpdateRoleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -2724,14 +2868,20 @@ var (
 				&admin.AdminGetSettingsParams{},
 			)
 			if adminAdminGetSettingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -2870,14 +3020,20 @@ var (
 				&admin.AdminGetStatsParams{},
 			)
 			if adminAdminGetStatsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -2939,14 +3095,20 @@ var (
 				&admin_ldap.GetLDAPStatusParams{},
 			)
 			if adminLdapGetLDAPStatusFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3046,14 +3208,20 @@ var (
 				&admin_ldap.GetSyncStatusParams{},
 			)
 			if adminLdapGetSyncStatusFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3102,14 +3270,20 @@ var (
 				},
 			)
 			if adminLdapGetUserFromLDAPFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3158,14 +3332,20 @@ var (
 				},
 			)
 			if adminLdapPostSyncUserWithLDAPFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3192,14 +3372,20 @@ var (
 				&admin_ldap.ReloadLDAPCfgParams{},
 			)
 			if adminLdapReloadLDAPCfgFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3287,14 +3473,20 @@ var (
 				&admin_provisioning.AdminProvisioningReloadAccessControlParams{},
 			)
 			if adminProvisioningAdminProvisioningReloadAccessControlFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3341,14 +3533,20 @@ var (
 				&admin_provisioning.AdminProvisioningReloadDashboardsParams{},
 			)
 			if adminProvisioningAdminProvisioningReloadDashboardsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3395,14 +3593,20 @@ var (
 				&admin_provisioning.AdminProvisioningReloadDatasourcesParams{},
 			)
 			if adminProvisioningAdminProvisioningReloadDatasourcesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3449,14 +3653,20 @@ var (
 				&admin_provisioning.AdminProvisioningReloadPluginsParams{},
 			)
 			if adminProvisioningAdminProvisioningReloadPluginsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3574,14 +3784,20 @@ var (
 				},
 			)
 			if adminUsersAdminCreateUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3630,14 +3846,20 @@ var (
 				},
 			)
 			if adminUsersAdminDeleteUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3686,14 +3908,20 @@ var (
 				},
 			)
 			if adminUsersAdminDisableUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3742,14 +3970,20 @@ var (
 				},
 			)
 			if adminUsersAdminEnableUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3836,14 +4070,20 @@ var (
 				},
 			)
 			if adminUsersAdminGetUserAuthTokensFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3892,14 +4132,20 @@ var (
 				},
 			)
 			if adminUsersAdminLogoutUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -3971,14 +4217,20 @@ var (
 				},
 			)
 			if adminUsersAdminRevokeUserAuthTokenFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -4050,14 +4302,20 @@ var (
 				},
 			)
 			if adminUsersAdminUpdateUserPasswordFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -4129,14 +4387,20 @@ var (
 				},
 			)
 			if adminUsersAdminUpdateUserPermissionsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -4264,14 +4528,20 @@ var (
 				},
 			)
 			if annotationsGetAnnotationTagsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -4391,14 +4661,20 @@ var (
 				},
 			)
 			if annotationsGetAnnotationsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -4477,14 +4753,20 @@ var (
 				},
 			)
 			if annotationsMassDeleteAnnotationsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -4579,14 +4861,20 @@ var (
 				},
 			)
 			if annotationsPatchAnnotationFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -4703,14 +4991,20 @@ var (
 				},
 			)
 			if annotationsPostAnnotationFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -4805,14 +5099,20 @@ var (
 				},
 			)
 			if annotationsPostGraphiteAnnotationFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -4907,14 +5207,20 @@ var (
 				},
 			)
 			if annotationsUpdateAnnotationFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -5028,14 +5334,20 @@ var (
 				},
 			)
 			if convertPrometheusConvertPrometheusCortexDeleteNamespaceFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -5089,14 +5401,20 @@ var (
 				},
 			)
 			if convertPrometheusConvertPrometheusCortexDeleteRuleGroupFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -5203,14 +5521,20 @@ var (
 				},
 			)
 			if convertPrometheusConvertPrometheusCortexGetNamespaceFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -5318,14 +5642,20 @@ var (
 				},
 			)
 			if convertPrometheusConvertPrometheusCortexGetRuleGroupFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -5430,14 +5760,20 @@ var (
 				&convert_prometheus.ConvertPrometheusCortexGetRulesParams{},
 			)
 			if convertPrometheusConvertPrometheusCortexGetRulesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -5585,14 +5921,20 @@ var (
 				},
 			)
 			if convertPrometheusConvertPrometheusCortexPostRuleGroupFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -5643,14 +5985,20 @@ var (
 				&convert_prometheus.ConvertPrometheusCortexPostRuleGroupsParams{},
 			)
 			if convertPrometheusConvertPrometheusCortexPostRuleGroupsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -5703,14 +6051,20 @@ var (
 				},
 			)
 			if convertPrometheusConvertPrometheusDeleteNamespaceFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -5764,14 +6118,20 @@ var (
 				},
 			)
 			if convertPrometheusConvertPrometheusDeleteRuleGroupFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -5878,14 +6238,20 @@ var (
 				},
 			)
 			if convertPrometheusConvertPrometheusGetNamespaceFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -5993,14 +6359,20 @@ var (
 				},
 			)
 			if convertPrometheusConvertPrometheusGetRuleGroupFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -6105,14 +6477,20 @@ var (
 				&convert_prometheus.ConvertPrometheusGetRulesParams{},
 			)
 			if convertPrometheusConvertPrometheusGetRulesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -6260,14 +6638,20 @@ var (
 				},
 			)
 			if convertPrometheusConvertPrometheusPostRuleGroupFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -6318,14 +6702,20 @@ var (
 				&convert_prometheus.ConvertPrometheusPostRuleGroupsParams{},
 			)
 			if convertPrometheusConvertPrometheusPostRuleGroupsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -6554,14 +6944,20 @@ var (
 				},
 			)
 			if dashboardsCreateDashboardSnapshotFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -6706,14 +7102,20 @@ var (
 				},
 			)
 			if dashboardsCreatePublicDashboardFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -6782,14 +7184,20 @@ var (
 				},
 			)
 			if dashboardsDeleteDashboardByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -6834,14 +7242,20 @@ var (
 				},
 			)
 			if dashboardsDeleteDashboardSnapshotFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -6890,14 +7304,20 @@ var (
 				},
 			)
 			if dashboardsDeleteDashboardSnapshotByDeleteKeyFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -6943,14 +7363,20 @@ var (
 				},
 			)
 			if dashboardsDeletePublicDashboardFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -7136,14 +7562,20 @@ var (
 				},
 			)
 			if dashboardsGetDashboardByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -7267,14 +7699,20 @@ var (
 				},
 			)
 			if dashboardsGetDashboardPermissionsListByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -7299,14 +7737,20 @@ var (
 				},
 			)
 			if dashboardsGetDashboardSnapshotFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -7352,14 +7796,20 @@ var (
 				&dashboards.GetDashboardTagsParams{},
 			)
 			if dashboardsGetDashboardTagsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -7441,14 +7891,20 @@ var (
 				},
 			)
 			if dashboardsGetDashboardVersionByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -7544,14 +8000,20 @@ var (
 				},
 			)
 			if dashboardsGetDashboardVersionsByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -7737,14 +8199,20 @@ var (
 				&dashboards.GetHomeDashboardParams{},
 			)
 			if dashboardsGetHomeDashboardFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -7904,14 +8372,20 @@ var (
 				},
 			)
 			if dashboardsGetPublicAnnotationsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -8013,14 +8487,20 @@ var (
 				},
 			)
 			if dashboardsGetPublicDashboardFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -8190,14 +8670,20 @@ var (
 				},
 			)
 			if dashboardsImportDashboardFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -8234,14 +8720,20 @@ var (
 				&dashboards.InterpolateDashboardParams{},
 			)
 			if dashboardsInterpolateDashboardFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -8325,14 +8817,20 @@ var (
 				&dashboards.ListPublicDashboardsParams{},
 			)
 			if dashboardsListPublicDashboardsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -8478,14 +8976,20 @@ var (
 				},
 			)
 			if dashboardsPostDashboardFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -9064,14 +9568,20 @@ var (
 				},
 			)
 			if dashboardsQueryPublicDashboardFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -9188,14 +9698,20 @@ var (
 				},
 			)
 			if dashboardsRestoreDashboardVersionByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -9258,14 +9774,20 @@ var (
 				},
 			)
 			if dashboardsSearchDashboardSnapshotsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -9364,14 +9886,20 @@ var (
 				},
 			)
 			if dashboardsUpdateDashboardPermissionsByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -9517,14 +10045,20 @@ var (
 				},
 			)
 			if dashboardsUpdatePublicDashboardFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -9704,14 +10238,20 @@ var (
 				},
 			)
 			if dashboardsViewPublicDashboardFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -10087,14 +10627,20 @@ var (
 				},
 			)
 			if datasourcesAddDatasourceFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -10140,14 +10686,20 @@ var (
 				},
 			)
 			if datasourcesCallDatasourceResourceFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -10192,14 +10744,20 @@ var (
 				},
 			)
 			if datasourcesCheckDatasourceHealthFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -10448,14 +11006,20 @@ var (
 				},
 			)
 			if datasourcesCreateCorrelationFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -10501,14 +11065,20 @@ var (
 				},
 			)
 			if datasourcesDeleteCorrelationFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -10569,14 +11139,20 @@ var (
 				},
 			)
 			if datasourcesDeleteDatasourceByNameFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -10625,14 +11201,20 @@ var (
 				},
 			)
 			if datasourcesDeleteDatasourceByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -10771,14 +11353,20 @@ var (
 				},
 			)
 			if datasourcesGetCorrelationFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -10899,14 +11487,20 @@ var (
 				},
 			)
 			if datasourcesGetCorrelationsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -11025,14 +11619,20 @@ var (
 				},
 			)
 			if datasourcesGetCorrelationsBySourceUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -11159,14 +11759,20 @@ var (
 				},
 			)
 			if datasourcesGetDatasourceByNameFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -11293,14 +11899,20 @@ var (
 				},
 			)
 			if datasourcesGetDatasourceByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -11354,14 +11966,20 @@ var (
 				},
 			)
 			if datasourcesGetDatasourceIDByNameFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -11449,14 +12067,20 @@ var (
 				&datasources.GetDataSourcesParams{},
 			)
 			if datasourcesGetDatasourcesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -12089,14 +12713,20 @@ var (
 				},
 			)
 			if datasourcesQueryMetricsWithExpressionsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -12327,14 +12957,20 @@ var (
 				},
 			)
 			if datasourcesUpdateCorrelationFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -12571,14 +13207,20 @@ var (
 				},
 			)
 			if datasourcesUpdateDatasourceByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -12767,14 +13409,20 @@ var (
 				&devices.SearchDevicesParams{},
 			)
 			if devicesSearchDevicesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -12834,14 +13482,20 @@ var (
 				&devices.ListDevicesParams{},
 			)
 			if devicesListDevicesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -12942,14 +13596,20 @@ var (
 				},
 			)
 			if enterpriseCleanDatasourceCacheFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -13036,14 +13696,20 @@ var (
 				},
 			)
 			if enterpriseDisableDatasourceCacheFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -13130,14 +13796,20 @@ var (
 				},
 			)
 			if enterpriseEnableDatasourceCacheFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -13224,14 +13896,20 @@ var (
 				},
 			)
 			if enterpriseGetDatasourceCacheConfigFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -13296,14 +13974,20 @@ var (
 				},
 			)
 			if enterpriseGetTeamLBACRulesAPIFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -13435,14 +14119,20 @@ var (
 				},
 			)
 			if enterpriseSetDatasourceCacheConfigFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -13566,14 +14256,20 @@ var (
 				},
 			)
 			if enterpriseUpdateTeamLBACRulesAPIFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -13788,14 +14484,20 @@ var (
 				},
 			)
 			if foldersCreateFolderFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -13865,14 +14567,20 @@ var (
 				},
 			)
 			if foldersDeleteFolderFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -14002,14 +14710,20 @@ var (
 				},
 			)
 			if foldersGetFolderByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -14052,14 +14766,20 @@ var (
 				},
 			)
 			if foldersGetFolderDescendantCountsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -14179,14 +14899,20 @@ var (
 				},
 			)
 			if foldersGetFolderPermissionListFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -14250,14 +14976,20 @@ var (
 				},
 			)
 			if foldersGetFoldersFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -14410,14 +15142,20 @@ var (
 				},
 			)
 			if foldersMoveFolderFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -14586,14 +15324,20 @@ var (
 				},
 			)
 			if foldersUpdateFolderFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -14688,14 +15432,20 @@ var (
 				},
 			)
 			if foldersUpdateFolderPermissionsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -14832,14 +15582,20 @@ var (
 				},
 			)
 			if groupAttributeSyncCreateGroupMappingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -14887,14 +15643,20 @@ var (
 				},
 			)
 			if groupAttributeSyncDeleteGroupMappingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -15004,14 +15766,20 @@ var (
 				},
 			)
 			if groupAttributeSyncGetGroupRolesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -15074,14 +15842,20 @@ var (
 				&group_attribute_sync.GetMappedGroupsParams{},
 			)
 			if groupAttributeSyncGetMappedGroupsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -15155,14 +15929,20 @@ var (
 				},
 			)
 			if groupAttributeSyncUpdateGroupMappingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -15260,14 +16040,20 @@ var (
 				&health.GetHealthParams{},
 			)
 			if healthGetHealthFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -15492,14 +16278,20 @@ var (
 				},
 			)
 			if libraryElementsCreateLibraryElementFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -15548,14 +16340,20 @@ var (
 				},
 			)
 			if libraryElementsDeleteLibraryElementByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -15720,14 +16518,20 @@ var (
 				},
 			)
 			if libraryElementsGetLibraryElementByNameFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -15889,14 +16693,20 @@ var (
 				},
 			)
 			if libraryElementsGetLibraryElementByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -15993,14 +16803,20 @@ var (
 				},
 			)
 			if libraryElementsGetLibraryElementConnectionsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -16191,14 +17007,20 @@ var (
 				},
 			)
 			if libraryElementsGetLibraryElementsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -16418,14 +17240,20 @@ var (
 				},
 			)
 			if libraryElementsUpdateLibraryElementFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -16566,14 +17394,20 @@ var (
 				},
 			)
 			if licensingDeleteLicenseTokenFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -16600,14 +17434,20 @@ var (
 				&licensing.GetCustomPermissionsCSVParams{},
 			)
 			if licensingGetCustomPermissionsCSVFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -16635,14 +17475,20 @@ var (
 				&licensing.GetCustomPermissionsReportParams{},
 			)
 			if licensingGetCustomPermissionsReportFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -16785,14 +17631,20 @@ var (
 				&licensing.GetLicenseTokenParams{},
 			)
 			if licensingGetLicenseTokenFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -16815,14 +17667,20 @@ var (
 				&licensing.GetStatusParams{},
 			)
 			if licensingGetStatusFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -16989,14 +17847,20 @@ var (
 				},
 			)
 			if licensingPostLicenseTokenFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17030,14 +17894,20 @@ var (
 				},
 			)
 			if licensingPostRenewLicenseTokenFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17097,14 +17967,20 @@ var (
 				&licensing.RefreshLicenseStatsParams{},
 			)
 			if licensingRefreshLicenseStatsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17174,14 +18050,20 @@ var (
 				},
 			)
 			if migrationsCancelSnapshotFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17225,14 +18107,20 @@ var (
 				&migrations.CreateCloudMigrationTokenParams{},
 			)
 			if migrationsCreateCloudMigrationTokenFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17311,14 +18199,20 @@ var (
 				},
 			)
 			if migrationsCreateSessionFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17393,14 +18287,20 @@ var (
 				},
 			)
 			if migrationsCreateSnapshotFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17425,14 +18325,20 @@ var (
 				},
 			)
 			if migrationsDeleteCloudMigrationTokenFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17458,14 +18364,20 @@ var (
 				},
 			)
 			if migrationsDeleteSessionFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17529,14 +18441,20 @@ var (
 				&migrations.GetCloudMigrationTokenParams{},
 			)
 			if migrationsGetCloudMigrationTokenFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17608,14 +18526,20 @@ var (
 				&migrations.GetResourceDependenciesParams{},
 			)
 			if migrationsGetResourceDependenciesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17672,14 +18596,20 @@ var (
 				},
 			)
 			if migrationsGetSessionFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17743,14 +18673,20 @@ var (
 				&migrations.GetSessionListParams{},
 			)
 			if migrationsGetSessionListFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -17835,14 +18771,20 @@ var (
 				},
 			)
 			if migrationsGetShapshotListFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -18024,14 +18966,20 @@ var (
 				},
 			)
 			if migrationsGetSnapshotFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -18057,14 +19005,20 @@ var (
 				},
 			)
 			if migrationsUploadSnapshotFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -18228,14 +19182,20 @@ var (
 				},
 			)
 			if orgAddOrgInviteFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -18316,14 +19276,20 @@ var (
 				},
 			)
 			if orgAddOrgUserToCurrentOrgFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -18400,14 +19366,20 @@ var (
 				&org.GetCurrentOrgParams{},
 			)
 			if orgGetCurrentOrgFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -18501,14 +19473,20 @@ var (
 				&org.GetOrgPreferencesParams{},
 			)
 			if orgGetOrgPreferencesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -18608,14 +19586,20 @@ var (
 				},
 			)
 			if orgGetOrgUsersForCurrentOrgFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -18673,14 +19657,20 @@ var (
 				},
 			)
 			if orgGetOrgUsersForCurrentOrgLookupFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -18767,14 +19757,20 @@ var (
 				&org.GetPendingOrgInvitesParams{},
 			)
 			if orgGetPendingOrgInvitesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -18894,14 +19890,20 @@ var (
 				},
 			)
 			if orgPatchOrgPreferencesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -18950,14 +19952,20 @@ var (
 				},
 			)
 			if orgRemoveOrgUserForCurrentOrgFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -19002,14 +20010,20 @@ var (
 				},
 			)
 			if orgRevokeInviteFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -19076,14 +20090,20 @@ var (
 				},
 			)
 			if orgUpdateCurrentOrgFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -19170,14 +20190,20 @@ var (
 				},
 			)
 			if orgUpdateCurrentOrgAddressFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -19298,14 +20324,20 @@ var (
 				},
 			)
 			if orgUpdateOrgPreferencesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -19383,14 +20415,20 @@ var (
 				},
 			)
 			if orgUpdateOrgUserForCurrentOrgFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -19556,14 +20594,20 @@ var (
 				},
 			)
 			if orgsAddOrgUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -19646,14 +20690,20 @@ var (
 				},
 			)
 			if orgsCreateOrgFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -19732,14 +20782,20 @@ var (
 				},
 			)
 			if orgsGetOrgByNameFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -19838,14 +20894,20 @@ var (
 				},
 			)
 			if orgsGetOrgUsersFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -19895,14 +20957,20 @@ var (
 				},
 			)
 			if orgsRemoveOrgUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -20038,14 +21106,20 @@ var (
 				},
 			)
 			if orgsSearchOrgUsersFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -20095,14 +21169,20 @@ var (
 				},
 			)
 			if orgsSearchOrgsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -20170,14 +21250,20 @@ var (
 				},
 			)
 			if orgsUpdateOrgFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -20265,14 +21351,20 @@ var (
 				},
 			)
 			if orgsUpdateOrgAddressFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -20351,14 +21443,20 @@ var (
 				},
 			)
 			if orgsUpdateOrgUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -20549,14 +21647,20 @@ var (
 				},
 			)
 			if playlistsCreatePlaylistFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -20605,14 +21709,20 @@ var (
 				},
 			)
 			if playlistsDeletePlaylistFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -20673,14 +21783,20 @@ var (
 				},
 			)
 			if playlistsGetPlaylistFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -20743,14 +21859,20 @@ var (
 				},
 			)
 			if playlistsGetPlaylistItemsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -20808,14 +21930,20 @@ var (
 				},
 			)
 			if playlistsSearchPlaylistsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -20940,14 +22068,20 @@ var (
 				},
 			)
 			if playlistsUpdatePlaylistFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -21014,14 +22148,20 @@ var (
 				},
 			)
 			if provisioningDeleteAlertRuleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -21048,14 +22188,20 @@ var (
 				},
 			)
 			if provisioningDeleteAlertRuleGroupFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -21081,14 +22227,20 @@ var (
 				},
 			)
 			if provisioningDeleteContactpointsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -21116,14 +22268,20 @@ var (
 				},
 			)
 			if provisioningDeleteMuteTimingFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -21150,14 +22308,20 @@ var (
 				},
 			)
 			if provisioningDeleteTemplateFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -21743,14 +22907,20 @@ var (
 				},
 			)
 			if provisioningExportMuteTimingFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -22334,14 +23504,20 @@ var (
 				},
 			)
 			if provisioningExportMuteTimingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -22619,14 +23795,20 @@ var (
 				},
 			)
 			if provisioningGetAlertRuleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -23211,14 +24393,20 @@ var (
 				},
 			)
 			if provisioningGetAlertRuleExportFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -23518,14 +24706,20 @@ var (
 				},
 			)
 			if provisioningGetAlertRuleGroupFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -24111,14 +25305,20 @@ var (
 				},
 			)
 			if provisioningGetAlertRuleGroupExportFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -24336,14 +25536,20 @@ var (
 				&provisioning.GetAlertRulesParams{},
 			)
 			if provisioningGetAlertRulesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -24930,14 +26136,20 @@ var (
 				},
 			)
 			if provisioningGetAlertRulesExportFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -25022,14 +26234,20 @@ var (
 				},
 			)
 			if provisioningGetContactpointsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -25615,14 +26833,20 @@ var (
 				},
 			)
 			if provisioningGetContactpointsExportFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -25725,14 +26949,20 @@ var (
 				},
 			)
 			if provisioningGetMuteTimingFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -25823,14 +27053,20 @@ var (
 				&provisioning.GetMuteTimingsParams{},
 			)
 			if provisioningGetMuteTimingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -25967,14 +27203,20 @@ var (
 				&provisioning.GetPolicyTreeParams{},
 			)
 			if provisioningGetPolicyTreeFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -26555,14 +27797,20 @@ var (
 				&provisioning.GetPolicyTreeExportParams{},
 			)
 			if provisioningGetPolicyTreeExportFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -26619,14 +27867,20 @@ var (
 				},
 			)
 			if provisioningGetTemplateFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -26677,14 +27931,20 @@ var (
 				&provisioning.GetTemplatesParams{},
 			)
 			if provisioningGetTemplatesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -27218,14 +28478,20 @@ var (
 				},
 			)
 			if provisioningPostAlertRuleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -27391,14 +28657,20 @@ var (
 				},
 			)
 			if provisioningPostContactpointsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -27582,14 +28854,20 @@ var (
 				},
 			)
 			if provisioningPostMuteTimingFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -28124,14 +29402,20 @@ var (
 				},
 			)
 			if provisioningPutAlertRuleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -28709,14 +29993,20 @@ var (
 				},
 			)
 			if provisioningPutAlertRuleGroupFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -28827,14 +30117,20 @@ var (
 				},
 			)
 			if provisioningPutContactpointFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -29019,14 +30315,20 @@ var (
 				},
 			)
 			if provisioningPutMuteTimingFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -29181,14 +30483,20 @@ var (
 				},
 			)
 			if provisioningPutPolicyTreeFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -29273,14 +30581,20 @@ var (
 				},
 			)
 			if provisioningPutTemplateFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -29314,14 +30628,20 @@ var (
 				&provisioning.ResetPolicyTreeParams{},
 			)
 			if provisioningResetPolicyTreeFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -29625,14 +30945,20 @@ var (
 				},
 			)
 			if queryHistoryCreateQueryFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -29685,14 +31011,20 @@ var (
 				},
 			)
 			if queryHistoryDeleteQueryFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -29794,14 +31126,20 @@ var (
 				},
 			)
 			if queryHistoryPatchQueryCommentFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -29908,14 +31246,20 @@ var (
 				},
 			)
 			if queryHistorySearchQueriesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -29993,14 +31337,20 @@ var (
 				},
 			)
 			if queryHistoryStarQueryFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -30079,14 +31429,20 @@ var (
 				},
 			)
 			if queryHistoryUnstarQueryFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -30191,14 +31547,20 @@ var (
 				&quota.GetCurrentOrgQuotaParams{},
 			)
 			if quotaGetCurrentOrgQuotaFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -30258,14 +31620,20 @@ var (
 				},
 			)
 			if quotaGetOrgQuotaFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -30325,14 +31693,20 @@ var (
 				},
 			)
 			if quotaGetUserQuotaFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -30386,14 +31760,20 @@ var (
 				&quota.GetUserQuotasParams{},
 			)
 			if quotaGetUserQuotasFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -30470,14 +31850,20 @@ var (
 				},
 			)
 			if quotaUpdateOrgQuotaFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -30554,14 +31940,20 @@ var (
 				},
 			)
 			if quotaUpdateUserQuotaFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -30761,14 +32153,20 @@ var (
 				},
 			)
 			if recordingRulesCreateRecordingRuleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -30855,14 +32253,20 @@ var (
 				},
 			)
 			if recordingRulesCreateRecordingRuleWriteTargetFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -30907,14 +32311,20 @@ var (
 				},
 			)
 			if recordingRulesDeleteRecordingRuleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -30957,14 +32367,20 @@ var (
 				&recording_rules.DeleteRecordingRuleWriteTargetParams{},
 			)
 			if recordingRulesDeleteRecordingRuleWriteTargetFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -31015,14 +32431,20 @@ var (
 				&recording_rules.GetRecordingRuleWriteTargetParams{},
 			)
 			if recordingRulesGetRecordingRuleWriteTargetFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -31100,14 +32522,20 @@ var (
 				&recording_rules.ListRecordingRulesParams{},
 			)
 			if recordingRulesListRecordingRulesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -31220,14 +32648,20 @@ var (
 				},
 			)
 			if recordingRulesTestCreateRecordingRuleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -31386,14 +32820,20 @@ var (
 				},
 			)
 			if recordingRulesUpdateRecordingRuleFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -31679,14 +33119,20 @@ var (
 				},
 			)
 			if reportsCreateReportFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -31737,14 +33183,20 @@ var (
 				},
 			)
 			if reportsDeleteReportFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -31981,14 +33433,20 @@ var (
 				},
 			)
 			if reportsGetReportFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -32127,14 +33585,20 @@ var (
 				&reports.GetReportSettingsParams{},
 			)
 			if reportsGetReportSettingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -32325,14 +33789,20 @@ var (
 				&reports.GetReportsParams{},
 			)
 			if reportsGetReportsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -32525,14 +33995,20 @@ var (
 				},
 			)
 			if reportsGetReportsByDashboardUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -32574,14 +34050,20 @@ var (
 				&reports.GetSettingsImageParams{},
 			)
 			if reportsGetSettingsImageFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -32625,14 +34107,20 @@ var (
 				},
 			)
 			if reportsRenderReportCSVsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -32680,14 +34168,20 @@ var (
 				},
 			)
 			if reportsRenderReportPDFsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -32850,14 +34344,20 @@ var (
 				},
 			)
 			if reportsSaveReportSettingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -32941,14 +34441,20 @@ var (
 				},
 			)
 			if reportsSendReportFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -33182,14 +34688,20 @@ var (
 				},
 			)
 			if reportsSendTestEmailFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -33425,14 +34937,20 @@ var (
 				},
 			)
 			if reportsUpdateReportFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -33550,14 +35068,20 @@ var (
 				&saml.GetMetadataParams{},
 			)
 			if samlGetMetadataFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -33580,14 +35104,20 @@ var (
 				&saml.GetSAMLLogoutParams{},
 			)
 			if samlGetSAMLLogoutFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -33615,14 +35145,20 @@ var (
 				&saml.GetSLOParams{},
 			)
 			if samlGetSLOFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -33648,14 +35184,20 @@ var (
 				},
 			)
 			if samlPostACSFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -33686,14 +35228,20 @@ var (
 				},
 			)
 			if samlPostSLOFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -33775,14 +35323,20 @@ var (
 				&search.ListSortOptionsParams{},
 			)
 			if searchListSortOptionsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -33895,14 +35449,20 @@ var (
 				},
 			)
 			if searchSearchFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -34059,14 +35619,20 @@ var (
 				},
 			)
 			if serviceAccountsCreateServiceAccountFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -34150,14 +35716,20 @@ var (
 				},
 			)
 			if serviceAccountsCreateTokenFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -34206,14 +35778,20 @@ var (
 				},
 			)
 			if serviceAccountsDeleteServiceAccountFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -34264,14 +35842,20 @@ var (
 				},
 			)
 			if serviceAccountsDeleteTokenFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -34341,14 +35925,20 @@ var (
 				},
 			)
 			if serviceAccountsListTokensFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -34440,14 +36030,20 @@ var (
 				},
 			)
 			if serviceAccountsRetrieveServiceAccountFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -34567,14 +36163,20 @@ var (
 				},
 			)
 			if serviceAccountsSearchOrgServiceAccountsWithPagingFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -34744,14 +36346,20 @@ var (
 				},
 			)
 			if serviceAccountsUpdateServiceAccountFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -34883,14 +36491,20 @@ var (
 				},
 			)
 			if signedInUserChangeUserPasswordFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -34937,14 +36551,20 @@ var (
 				&signed_in_user.ClearHelpFlagsParams{},
 			)
 			if signedInUserClearHelpFlagsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -35061,14 +36681,20 @@ var (
 				&signed_in_user.GetSignedInUserParams{},
 			)
 			if signedInUserGetSignedInUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -35126,14 +36752,20 @@ var (
 				&signed_in_user.GetSignedInUserOrgListParams{},
 			)
 			if signedInUserGetSignedInUserOrgListFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -35221,14 +36853,20 @@ var (
 				&signed_in_user.GetSignedInUserTeamListParams{},
 			)
 			if signedInUserGetSignedInUserTeamListFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -35313,14 +36951,20 @@ var (
 				&signed_in_user.GetUserAuthTokensParams{},
 			)
 			if signedInUserGetUserAuthTokensFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -35414,14 +37058,20 @@ var (
 				&signed_in_user.GetUserPreferencesParams{},
 			)
 			if signedInUserGetUserPreferencesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -35541,14 +37191,20 @@ var (
 				},
 			)
 			if signedInUserPatchUserPreferencesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -35619,14 +37275,20 @@ var (
 				},
 			)
 			if signedInUserRevokeUserAuthTokenFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -35675,14 +37337,20 @@ var (
 				},
 			)
 			if signedInUserSetHelpFlagFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -35731,14 +37399,20 @@ var (
 				},
 			)
 			if signedInUserStarDashboardByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -35787,14 +37461,20 @@ var (
 				},
 			)
 			if signedInUserUnstarDashboardByUIDFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -35873,14 +37553,20 @@ var (
 				},
 			)
 			if signedInUserUpdateSignedInUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -36005,14 +37691,20 @@ var (
 				},
 			)
 			if signedInUserUpdateUserPreferencesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -36061,14 +37753,20 @@ var (
 				},
 			)
 			if signedInUserUserSetUsingOrgFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -36889,14 +38587,20 @@ var (
 				&signing_keys.RetrieveJWKSParams{},
 			)
 			if signingKeysRetrieveJWKSFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -36958,14 +38662,20 @@ var (
 				&snapshots.GetSharingOptionsParams{},
 			)
 			if snapshotsGetSharingOptionsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37040,14 +38750,20 @@ var (
 				},
 			)
 			if ssoSettingsGetProviderSettingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37105,14 +38821,20 @@ var (
 				&sso_settings.ListAllProvidersSettingsParams{},
 			)
 			if ssoSettingsListAllProvidersSettingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37188,14 +38910,20 @@ var (
 				},
 			)
 			if ssoSettingsPatchProviderSettingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37245,14 +38973,20 @@ var (
 				},
 			)
 			if ssoSettingsRemoveProviderSettingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37336,14 +39070,20 @@ var (
 				},
 			)
 			if ssoSettingsUpdateProviderSettingsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37446,14 +39186,20 @@ var (
 				},
 			)
 			if syncTeamGroupsAddTeamGroupAPIFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37509,14 +39255,20 @@ var (
 				},
 			)
 			if syncTeamGroupsGetTeamGroupsAPIFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37562,14 +39314,20 @@ var (
 				},
 			)
 			if syncTeamGroupsRemoveTeamGroupAPIQueryFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37646,14 +39404,20 @@ var (
 				},
 			)
 			if syncTeamGroupsSearchTeamGroupsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37758,14 +39522,20 @@ var (
 				},
 			)
 			if teamsAddTeamMemberFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37847,14 +39617,20 @@ var (
 				},
 			)
 			if teamsCreateTeamFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -37937,14 +39713,20 @@ var (
 				},
 			)
 			if teamsGetTeamMembersFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -38040,14 +39822,20 @@ var (
 				},
 			)
 			if teamsGetTeamPreferencesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -38093,14 +39881,20 @@ var (
 				},
 			)
 			if teamsRemoveTeamMemberFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -38224,14 +40018,20 @@ var (
 				},
 			)
 			if teamsSearchTeamsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -38313,14 +40113,20 @@ var (
 				},
 			)
 			if teamsSetTeamMembershipsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -38392,14 +40198,20 @@ var (
 				},
 			)
 			if teamsUpdateTeamFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -38468,14 +40280,20 @@ var (
 				},
 			)
 			if teamsUpdateTeamMemberFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -38597,14 +40415,20 @@ var (
 				},
 			)
 			if teamsUpdateTeamPreferencesFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -38706,14 +40530,20 @@ var (
 				&user.UpdateUserEmailParams{},
 			)
 			if userUpdateUserEmailFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -38843,14 +40673,20 @@ var (
 				},
 			)
 			if usersGetUserByLoginOrEmailFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -38910,14 +40746,20 @@ var (
 				},
 			)
 			if usersGetUserOrgListFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -39007,14 +40849,20 @@ var (
 				},
 			)
 			if usersGetUserTeamsFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -39102,14 +40950,20 @@ var (
 				},
 			)
 			if usersSearchUsersFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -39224,14 +41078,20 @@ var (
 				&users.SearchUsersWithPagingParams{},
 			)
 			if usersSearchUsersWithPagingFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err
@@ -39315,14 +41175,20 @@ var (
 				},
 			)
 			if usersUpdateUserFlag.Raw && hasRawResponse() {
-				if perr := printRawResponse(); perr != nil {
-					return perr
+				if err != nil {
+					if perr := printErrRawResponse(); perr != nil {
+						return perr
+					}
+				} else {
+					if perr := printRawResponse(); perr != nil {
+						return perr
+					}
 				}
 				return err
 			}
 			if err != nil {
 				if pe, ok := err.(getPayloadError); ok {
-					if err := printPayload(pe.GetPayload()); err != nil {
+					if err := printErrPayload(pe.GetPayload()); err != nil {
 						return err
 					}
 					return err

@@ -79,8 +79,8 @@ func runRoot(cmd *cobra.Command, args []string) error {
 		return printHelpJSON()
 	}
 	if len(args) == 0 {
-		cmd.Println("No subcommand specified.")
-		cmd.Print(cmd.UsageString())
+		cmd.PrintErrln("No subcommand specified.")
+		cmd.PrintErr(cmd.UsageString())
 		os.Exit(1)
 	}
 	return nil
@@ -88,8 +88,8 @@ func runRoot(cmd *cobra.Command, args []string) error {
 
 func failIfEmptyArgs(cmd *cobra.Command, args []string) {
 	if len(args) == 0 {
-		cmd.Println("No subcommand specified.")
-		cmd.Print(cmd.UsageString())
+		cmd.PrintErrln("No subcommand specified.")
+		cmd.PrintErr(cmd.UsageString())
 		os.Exit(1)
 	}
 }
@@ -183,7 +183,13 @@ func hasRawResponse() bool {
 	return len(rawResponseBody) > 0
 }
 
-func printRawResponse() error {
+// printRawResponse writes the captured raw body to stdout for a successful
+// request; printErrRawResponse writes it to stderr when the request failed, so
+// stdout only ever carries successful output.
+func printRawResponse() error    { return writeRawResponse(os.Stdout) }
+func printErrRawResponse() error { return writeRawResponse(os.Stderr) }
+
+func writeRawResponse(w io.Writer) error {
 	if len(rawResponseBody) == 0 {
 		return nil
 	}
@@ -192,10 +198,10 @@ func printRawResponse() error {
 	var buf bytes.Buffer
 	if err := json.Indent(&buf, rawResponseBody, "", "  "); err == nil {
 		buf.WriteByte('\n')
-		_, err := os.Stdout.Write(buf.Bytes())
+		_, err := w.Write(buf.Bytes())
 		return err
 	}
-	_, err := os.Stdout.Write(rawResponseBody)
+	_, err := w.Write(rawResponseBody)
 	return err
 }
 
@@ -244,8 +250,15 @@ func applyEnvInt64[T any](key string, flg int64, f func(int64) *T) *T {
 	return applyEnv(key, flg, func(s string) (int64, error) { return strconv.ParseInt(s, 10, 64) }, f)
 }
 
-func printPayload(p any) error {
-	e := json.NewEncoder(os.Stdout)
+// printPayload writes a successful payload to stdout; printErrPayload writes a
+// structured API error body to stderr. Keeping stdout reserved for successful
+// output lets agents rely on "stdout = success JSON, stderr = errors, exit code
+// = success/failure".
+func printPayload(p any) error    { return encodePayload(os.Stdout, p) }
+func printErrPayload(p any) error { return encodePayload(os.Stderr, p) }
+
+func encodePayload(w io.Writer, p any) error {
+	e := json.NewEncoder(w)
 	e.SetIndent("", "  ")
 	return e.Encode(p)
 }

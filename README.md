@@ -55,6 +55,26 @@ $ GF_HOST=play.grafana.org gf search search --limit 1 --tag grafanacloud
 ]
 ```
 
+## Output contract
+
+`gf` follows the usual Unix split so output is easy to consume from scripts and
+coding agents:
+
+- **stdout** carries successful output only — the decoded response payload (or
+  the verbatim body with `--raw`), and the explicit schema/discovery output of
+  `--help`, `--help-json`, and `--describe-body-jsonschema` /
+  `--describe-response-jsonschema`.
+- **stderr** carries everything else — the structured API error body (as
+  pretty-printed JSON), the diagnostic line (HTTP method, path, status), usage
+  on misuse, and `--debug` logs.
+- **exit code** is the authoritative success signal: `0` on success, non-zero on
+  failure (HTTP non-2xx responses are treated as failures, including with
+  `--raw`).
+
+So a caller can parse stdout as the result, surface stderr on error, and branch
+on the exit code without having to inspect the response body to tell success
+from failure.
+
 ## Documentation
 
 [docs](./docs/gf.md)

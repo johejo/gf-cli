@@ -114,10 +114,10 @@ func TestRawMode_PreservesLargeIntegers(t *testing.T) {
 	}
 }
 
-// TestRawMode_PropagatesHTTPError verifies that raw mode still returns an
-// error (non-zero exit) when the server responds with a non-2xx status, even
-// though the body has already been printed. Without this, --raw swallows
-// failures and commands look successful.
+// TestRawMode_PropagatesHTTPError verifies that on a non-2xx response, raw mode
+//  1. returns an error (non-zero exit) rather than swallowing the failure, and
+//  2. writes the server error body to stderr, keeping stdout empty so agents
+//     can treat "stdout = success output" as an invariant.
 func TestRawMode_PropagatesHTTPError(t *testing.T) {
 	canned := `{"message":"unauthorized"}`
 
@@ -129,16 +129,19 @@ func TestRawMode_PropagatesHTTPError(t *testing.T) {
 	t.Cleanup(srv.Close)
 
 	bodyFile := writeTempBody(t, `{"from":"now-5m","to":"now","queries":[{"refId":"A","expr":"up"}]}`)
-	out, execErr := runGFAllowErr(t, srv.URL,
+	stdout, stderr, execErr := runGFCapture(t, srv.URL,
 		"datasources", "query-metrics-with-expressions",
 		"--body", bodyFile,
 		"--raw=true",
 	)
 	if execErr == nil {
-		t.Fatalf("expected non-nil error for 401 response, got nil; output: %s", out)
+		t.Fatalf("expected non-nil error for 401 response, got nil; stderr: %s", stderr)
 	}
-	if !strings.Contains(out, "unauthorized") {
-		t.Fatalf("expected server body in raw output, got: %s", out)
+	if strings.Contains(stdout, "unauthorized") {
+		t.Fatalf("error body must not go to stdout, got stdout: %s", stdout)
+	}
+	if !strings.Contains(stderr, "unauthorized") {
+		t.Fatalf("expected server body on stderr, got: %s", stderr)
 	}
 }
 
@@ -156,35 +159,55 @@ func runGF(t *testing.T, serverURL string, args ...string) string {
 
 func runGFAllowErr(t *testing.T, serverURL string, args ...string) (string, error) {
 	t.Helper()
+	stdout, _, execErr := runGFCapture(t, serverURL, args...)
+	return stdout, execErr
+}
+
+// runGFCapture is like runGFAllowErr but also captures stderr. The CLI writes
+// successful payloads to os.Stdout and error payloads/diagnostics to os.Stderr,
+// so both real OS streams are replaced with pipes here.
+func runGFCapture(t *testing.T, serverURL string, args ...string) (string, string, error) {
+	t.Helper()
 	t.Setenv("GF_HOST", serverURL)
 	t.Setenv("GF_BASE_PATH", "/api")
 	t.Setenv("GF_API_KEY", "")
 	t.Setenv("GF_BASIC_AUTH_USERNAME", "")
 	t.Setenv("GF_BASIC_AUTH_PASSWORD", "")
 
-	oldStdout := os.Stdout
-	r, w, err := os.Pipe()
+	oldStdout, oldStderr := os.Stdout, os.Stderr
+	outR, outW, err := os.Pipe()
 	if err != nil {
 		t.Fatalf("pipe: %v", err)
 	}
-	os.Stdout = w
-	done := make(chan []byte, 1)
-	go func() {
-		var buf bytes.Buffer
-		_, _ = io.Copy(&buf, r)
-		done <- buf.Bytes()
-	}()
+	errR, errW, err := os.Pipe()
+	if err != nil {
+		t.Fatalf("pipe: %v", err)
+	}
+	os.Stdout, os.Stderr = outW, errW
+	capture := func(r *os.File) chan []byte {
+		ch := make(chan []byte, 1)
+		go func() {
+			var buf bytes.Buffer
+			_, _ = io.Copy(&buf, r)
+			ch <- buf.Bytes()
+		}()
+		return ch
+	}
+	outDone, errDone := capture(outR), capture(errR)
 
 	cmd := internal.RootCmd()
 	cmd.SetArgs(args)
-	cmd.SetErr(io.Discard)
+	// Route cobra's own diagnostics to os.Stderr (the captured pipe) so the
+	// test sees the same stream split a real invocation produces.
+	cmd.SetErr(os.Stderr)
 	execErr := cmd.Execute()
 
-	_ = w.Close()
-	os.Stdout = oldStdout
-	out := <-done
+	_ = outW.Close()
+	_ = errW.Close()
+	os.Stdout, os.Stderr = oldStdout, oldStderr
+	stdout, stderr := <-outDone, <-errDone
 
-	return string(out), execErr
+	return string(stdout), string(stderr), execErr
 }
 
 func writeTempBody(t *testing.T, content string) string {
